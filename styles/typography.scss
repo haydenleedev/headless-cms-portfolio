@@ -1,0 +1,113 @@
+/*
+Configure font sizes and how text is rendred.
+Try to use only html element selectors and override with classes when needed. 
+
+TODO: Adjust rem sizing for everything.
+*/
+
+body {
+  font-family: GalanoGrotesque, sans-serif;
+  font-size: 1.2rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+}
+
+h1,
+.heading-1 {
+  font-size: 3rem;
+  @include desktop() {
+    font-size: 4rem;
+  }
+}
+
+h2,
+.heading-2 {
+  font-size: 2.5rem;
+  @include desktop() {
+    font-size: 3.5rem;
+  }
+}
+h3,
+.heading-3 {
+  font-size: 2rem;
+  @include desktop() {
+    font-size: 3rem;
+  }
+}
+h4,
+.heading-4 {
+  font-size: 1.5rem;
+  @include desktop() {
+    font-size: 2.5rem;
+  }
+}
+
+h5,
+.heading-5 {
+  font-size: 1.5rem;
+  @include desktop() {
+    font-size: 2rem;
+  }
+}
+
+h6,
+.heading-6 {
+  font-size: 1.5rem;
+  @include desktop() {
+    font-size: 1.5rem;
+  }
+}
+
+p {
+}
+
+strong {
+}
+
+form input:not([type="checkbox"], [type="submit"]) {
+  background: $color-white;
+  //   border-radius: toRem(4);
+  //   border: toRem(1) solid $color-darkgray;
+  color: $color-black;
+  //   font-size: $size-16px; /* 16px */
+  //   height: toRem(48);
+  //   padding: toRem(20) toRem(15);
+  width: 100%;
+}
+
+label {
+  display: block;
+  color: $color-black;
+  //   font-size: $size-16px;
+  //   margin-bottom: toRem(4);
+  //   line-height: 1.4em;
+}
+
+input[type="checkbox"]:checked ~ span:before {
+  border-color: $color-green;
+}
+input[type="checkbox"]:checked ~ span::after {
+  background-color: transparent;
+  //   left: toRem(6);
+  //   border-width: 0 toRem(2) toRem(2) 0;
+  border-style: solid;
+  border-color: $color-green;
+  transform: translateY(0.1rem) rotate(45deg);
+  //   width: toRem(5);
+  //   height: toRem(10);
+}
+input[type="number"]::-webkit-inner-spin-button {
+  opacity: 1;
+}

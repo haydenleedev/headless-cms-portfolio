@@ -1,0 +1,16 @@
+// Just bulk import all settings
+@import "./settings/__settings";
+@import "layout";
+@import "typography";
+
+/* Try not to set anything on html for best accessibility */
+html {
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main {
+}
+

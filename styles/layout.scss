@@ -1,0 +1,148 @@
+@import "./settings/__settings";
+
+.grid {
+  display: flex;
+  @include desktop() {
+    width: 100%;
+    flex-direction: column;
+    justify-content: stretch;
+  }
+  .row {
+    width: 100%;
+    @include desktop() {
+      display: flex;
+      flex-wrap: wrap;
+      .inner {
+        height: 100%;
+      }
+    }
+  }
+  .align-center {
+    .col {
+      align-items: center;
+      justify-content: center;
+    }
+    .row {
+      justify-content: center;
+    }
+  }
+
+  .col {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    width: 100%;
+    @include desktop() {
+      padding: 8px;
+    }
+    &.col-2 {
+      flex: 0 0 auto;
+      @include desktop() {
+        width: 50%;
+      }
+    }
+    &.col-3 {
+      flex: 0 0 auto;
+      @include desktop() {
+        width: 33.3333333333%;
+      }
+    }
+    &.col-4 {
+      flex: 0 0 auto;
+      width: 100%;
+      @include largeDesktop() {
+        width: 25%;
+      }
+    }
+  }
+}
+.bg-primary {
+  background: $color-navy !important;
+}
+.color-navy {
+  color: $color-navy !important;
+}
+.color-white {
+  color: $color-white !important;
+}
+.color-sky-blue {
+  color: $color-skyblue !important;
+}
+.color-gray {
+  color: $color-gray !important;
+}
+
+.section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  @include desktop() {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.container {
+  @include siteWidth();
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.wrap {
+  @include siteWidth();
+  margin: 0 auto;
+}
+
+.card {
+  padding: 15px 15px;
+  border: 2px solid $color-darkmedium;
+  border-radius: 4px;
+}
+
+.align-center {
+  text-align: center;
+}
+.align-left {
+  text-align: left;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+.border-gray {
+  border: 2px solid $color-gray;
+}
+
+.box-shadow {
+  box-shadow: 0 1px 4px rgb(0, 0, 0, 10%);
+}
+
+.justify-center {
+  justify-content: center;
+}
