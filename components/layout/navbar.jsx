@@ -1,12 +1,23 @@
 import React from "react";
+import logo from "../../assets/ujet-logo.svg";
+import style from "./navbar.module.scss";
 
 const Navbar = ({}) => {
   return (
-    <nav>
-      <div className="container">
-        <p>Navbar</p>
-      </div>
-    </nav>
+    <section className={style.navbar}>
+      <nav className="container" role="navigation" aria-label="Main">
+        <img
+          className={style.logo}
+          src={logo.src}
+          width={logo.width}
+          height={logo.height}
+          alt="Ujet logo"
+        />
+        <div className={style.menu}>
+          <div>Menu | Search</div>
+        </div>
+      </nav>
+    </section>
   );
 };
 
