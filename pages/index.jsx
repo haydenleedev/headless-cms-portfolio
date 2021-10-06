@@ -1,5 +1,6 @@
 // import Head from 'next/head'
 // import Image from 'next/image'
+import Link from "next/link";
 import Layout from "../components/layout/layout";
 
 export default function Home() {
@@ -9,10 +10,12 @@ export default function Home() {
       <section className="section">
         <div className="container">
           <h1>Become Your Customers' Favorite Brand</h1>
-          <p>
-            Deliver simple, elegant CX with the world’s most advanced cloud
-            contact center
-          </p>
+          <p>Deliver simple, elegant CX with the world’s most advanced cloud contact center</p>
+          <Link href="#">
+            <a className="button outlined">
+              Outlined button
+            </a>
+          </Link>
         </div>
       </section>
       <hr></hr>

@@ -1,0 +1,28 @@
+// Semantic naming makes it easier to quickly add buttons
+// Ie. we remember the class name 'white' better than 'primary'
+
+.button {
+  border-radius: 3rem;
+  background: white;
+  color: $color-navy;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  display: inline-block;
+  &.white {
+
+  }
+
+  // Contact form cta
+  &.cyan {
+
+  }
+  
+  &.outlined {
+    border: 0.2rem solid $color-skyblue;
+  }
+
+  &.small {
+    padding: 0.25rem 1.5rem;
+    font-weight: 600;
+  }
+}

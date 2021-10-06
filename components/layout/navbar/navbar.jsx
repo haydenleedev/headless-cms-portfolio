@@ -1,5 +1,4 @@
-import React from "react";
-import logo from "../../assets/ujet-logo.svg";
+import logo from "../../../assets/ujet-logo.svg";
 import style from "./navbar.module.scss";
 
 const Navbar = ({}) => {

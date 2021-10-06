@@ -1,11 +1,13 @@
 // Just bulk import all settings
+// TODO: if the bundle gets too big split to modules
 @import "./settings/__settings";
 @import "layout";
 @import "typography";
+@import "buttons";
 
 /* Try not to set anything on html for best accessibility */
-html {
-}
+// html {
+// }
 
 * {
   box-sizing: border-box;

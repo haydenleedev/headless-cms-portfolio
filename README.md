@@ -1,3 +1,10 @@
+# Developer notes
+
+- Component folder and file naming should be nested ie. navbar/navbar.jsx so you can easily find the files in editors such as VS Code (Ctrl + P). So don't put index.js inside component folders even though it makes importing paths shorter...
+- For components include css modules in the same folder so you can easily copy paste the folder to any other location.
+- For convenience files with React code use .jsx file extension. Files with vanilla js use .js.
+- Try not to set any styles on html for accessibility reasons. Screen readers and assistive technology usually manipulate the root HTML element so we don't want to overwrite any of those settings. Same for any user agent resets, only reset when necessary.
+
 # UJET Website with Next.js
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
