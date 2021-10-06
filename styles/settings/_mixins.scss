@@ -28,11 +28,6 @@
   max-width: 800px;
 }
 
-@function toRem($value) {
-  $remValue: math.div($value, 16) + rem;
-  @return $remValue;
-}
-
 @mixin buttons($bgColor, $borderColor, $fontColor, $fontWeight) {
   background-color: $bgColor;
   border-color: $borderColor;

@@ -5,8 +5,34 @@
   color: white;
   padding: 0.5rem 0 0.5rem 0;
   background: $color-navy;
-}
 
-.messageContainer {
-  display: flex;
+  nav {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    @include desktop() {
+      flex-flow: row;
+      align-items: center;
+    }
+  }
+
+  .contact {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    @include desktop() {
+      margin-left: 2rem;
+      margin-top: 0;
+    }
+  }
+
+  .phone {
+    margin-left: 2rem;
+  }
+
+  .close {
+    position: absolute;
+    padding: inherit;
+    right: 0;
+  }
 }

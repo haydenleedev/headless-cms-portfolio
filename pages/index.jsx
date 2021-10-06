@@ -10,11 +10,12 @@ export default function Home() {
       <section className="section">
         <div className="container">
           <h1>Become Your Customers' Favorite Brand</h1>
-          <p>Deliver simple, elegant CX with the world’s most advanced cloud contact center</p>
+          <p>
+            Deliver simple, elegant CX with the world’s most advanced cloud
+            contact center
+          </p>
           <Link href="#">
-            <a className="button outlined">
-              Outlined button
-            </a>
+            <a className="button outlined mt">Outlined button</a>
           </Link>
         </div>
       </section>

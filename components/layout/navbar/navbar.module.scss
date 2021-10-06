@@ -5,7 +5,8 @@
   box-shadow: 0 0 10px 0px #00000014;
   nav {
     display: flex;
-    flex-flow: column;
+    flex-grow: 1;
+    flex-wrap: wrap;
     @include desktop() {
       flex-flow: row;
       justify-content: space-between;
