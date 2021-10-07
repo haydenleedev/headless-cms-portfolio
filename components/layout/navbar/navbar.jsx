@@ -1,5 +1,92 @@
 import logo from "../../../assets/ujet-logo.svg";
 import style from "./navbar.module.scss";
+import MainNavigation from "./mainNavigation";
+import Link from "next/link";
+
+const mainNavs = [
+  {
+    // Navigation group
+    main_menu: "Why UJET",
+    href: "why-ujet",
+    columns: [
+      [
+        {
+          sub_item: "Why UJET",
+          sub_href: "/why-ujet/",
+          navigationItemChildren: [
+            {
+              dropdown_menu: "Embeddable Experience",
+              dropdown_href: "/embeddable-experience/",
+            },
+          ],
+        },
+      ],
+      [
+        {
+          sub_item: "Why UJET",
+          sub_href: "/why-ujet/",
+          navigationItemChildren: [
+            {
+              dropdown_menu: "Embeddable Experience",
+              dropdown_href: "/embeddable-experience/",
+            },
+          ],
+        },
+        {
+          sub_item: "Why UJET",
+          sub_href: "/why-ujet/",
+          navigationItemChildren: [
+            {
+              dropdown_menu: "Embeddable Experience",
+              dropdown_href: "/embeddable-experience/",
+            },
+          ],
+        },
+      ],
+    ],
+  },
+  {
+    // Navigation group
+    main_menu: "Why UJET",
+    href: "why-ujet",
+    columns: [
+      [
+        {
+          sub_item: "Why UJET",
+          sub_href: "/why-ujet/",
+          navigationItemChildren: [
+            {
+              dropdown_menu: "Embeddable Experience",
+              dropdown_href: "/embeddable-experience/",
+            },
+          ],
+        },
+      ],
+      [
+        {
+          sub_item: "Why UJET",
+          sub_href: "/why-ujet/",
+          navigationItemChildren: [
+            {
+              dropdown_menu: "Embeddable Experience",
+              dropdown_href: "/embeddable-experience/",
+            },
+          ],
+        },
+        {
+          sub_item: "Why UJET",
+          sub_href: "/why-ujet/",
+          navigationItemChildren: [
+            {
+              dropdown_menu: "Embeddable Experience",
+              dropdown_href: "/embeddable-experience/",
+            },
+          ],
+        },
+      ],
+    ],
+  },
+];
 
 const Navbar = ({}) => {
   return (
@@ -12,9 +99,7 @@ const Navbar = ({}) => {
           height={logo.height}
           alt="Ujet logo"
         />
-        <div className={style.menu}>
-          <div>Menu | Search</div>
-        </div>
+        <MainNavigation navigationMenu={mainNavs} />
       </nav>
     </section>
   );

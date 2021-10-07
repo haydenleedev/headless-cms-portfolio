@@ -10,7 +10,9 @@
     position: relative;
     display: flex;
     flex-flow: column;
+    padding-top: 0.5rem;
     @include desktop() {
+      padding-top: 0;
       flex-flow: row;
       align-items: center;
     }

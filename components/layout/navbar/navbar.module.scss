@@ -1,12 +1,25 @@
+@use "sass:math";
 @import "../../../styles/settings/_mixins.scss";
+@import "../../../styles/settings/_colors.scss";
 
 .navbar {
-  padding: 1.5rem 0 1.5rem 0;
   box-shadow: 0 0 10px 0px #00000014;
+  min-height: 5rem;
+  padding-top: 1rem;
+  font-size: 1rem;
+  @include desktop() {
+    padding-top: 0;
+    display: flex;
+  }
   nav {
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
+    flex-flow: column;
+    ul,
+    li {
+      list-style: none;
+    }
     @include desktop() {
       flex-flow: row;
       justify-content: space-between;
@@ -18,7 +31,162 @@
 .logo {
 }
 
-.menu {
-  .menu-item {
+.mainNavigation {
+  padding-left: 0;
+  margin: 0;
+  height: 100%;
+  @include desktop() {
+    padding-left: 3rem;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    // Offset the dropdown menus exponentially because they might overflow to the right
+    $n: 10;
+    @for $i from 1 through $n {
+      & > li:nth-child(#{$i}) {
+        & > ul {
+          left: math.pow($i, 2) * -0.75rem;
+        }
+      }
+    }
+  }
+  & > li {
+    overflow: hidden;
+    @include desktop() {
+      overflow: visible;
+      position: relative;
+    }
+  }
+  a {
+    @include desktop() {
+      display: block;
+    }
+  }
+}
+
+.dropdown {
+  height: 100%;
+  display: flex;
+  padding: 1rem 0;
+  border-bottom: 0.1rem solid $color-mediumgray;
+  flex-flow: column;
+
+  // Set navbar triangle pointer invisbile
+  &::before {
+    visibility: hidden;
+    content: " ";
+    opacity: 0;
+    // transition: opacity 1.25s;
+  }
+  @include desktop() {
+    flex-flow: row;
+    border: none;
+    padding-left: 1.5rem;
+    align-items: center;
+    &:hover {
+      &::before {
+        visibility: visible;
+        opacity: 1;
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+        background: $color-mediumgray;
+        content: "";
+        bottom: 0.5rem;
+        left: 3rem;
+        transform: rotate(45deg);
+      }
+    }
+  }
+  & > a {
+    &:after {
+      font-family: "arrow-down";
+      content: "\e900";
+      color: $color-darkblue;
+      font-size: 0.5rem;
+      padding: 0.5rem;
+      position: absolute;
+      right: 0;
+      @include desktop() {
+        position: relative;
+        color: $color-gray;
+      }
+    }
+  }
+
+  & > ul {
+    padding: 0;
+    padding-top: 0.5rem;
+
+    @include desktop() {
+      top: 3rem;
+      min-width: 25vw;
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      padding: 1.5rem;
+      // transition: opacity 0.33s;
+      left: 0;
+    }
+
+    li {
+      padding: 0.5rem 0;
+    }
+    ul {
+      padding-top: 0.5rem;
+      li {
+        list-style-type: disc;
+      }
+    }
+    // TODO: rework this in dom for z-index
+  }
+  &:hover > ul {
+    display: block;
+    @include desktop() {
+      margin-top: 1rem;
+      visibility: visible;
+      opacity: 1;
+      position: absolute;
+      background: #fff;
+      text-align: left;
+      @include shadow();
+      border: 0.1rem solid $color-mediumgray;
+      z-index: 3;
+    }
+  }
+}
+
+.navigationItem {
+  position: relative;
+  transition: color 0.25s;
+  width: 100%;
+  &:hover {
+    color: $color-lightblue;
+  }
+}
+
+.navigationColumns {
+  // Not sure why but have to override
+  display: flex !important;
+  flex-flow: column;
+  @include desktop() {
+    flex-flow: row;
+  }
+
+  .navigationColumn {
+    padding-right: 2rem;
+  }
+}
+
+.dropdownActive {
+  // color: red;
+}
+
+.dropdownClosed {
+  display: none !important;
+  @include desktop () {
+    display: flex !important;
   }
 }
