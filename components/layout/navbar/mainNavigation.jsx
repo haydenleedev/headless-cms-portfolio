@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import Link from "next/link";
 import style from "./navbar.module.scss";
 
-const MainNavigation = ({ navigationMenu }) => {
+const MainNavigation = ({ active, navigationMenu }) => {
+
   const [activeNavigationItem, setActiveNavigationItem] = useState(null);
 
+  const handleMenuActivation = (item) => {
+    if (item == activeNavigationItem) {
+      setActiveNavigationItem(null);
+      return;
+    }
+    setActiveNavigationItem(item);
+  };
   return (
-    <ul className={`${style.mainNavigation}`}>
+    <ul className={`${style.mainNavigation} ${active ? style.mainNavigationActive : style.mainNavigationHidden}`}>
       {navigationMenu.map((primary_menu, index) => (
         <li
           key={`navigation-group-${index}`}
@@ -15,9 +23,9 @@ const MainNavigation = ({ navigationMenu }) => {
         >
           <Link href="#">
             <a
-              className={`${style.navigationItem}`}
+              className={`${style.navigationLink}`}
               onClick={() => {
-                setActiveNavigationItem(`navigation-group-${index}`);
+                handleMenuActivation(`navigation-group-${index}`);
               }}
             >
               navgrp
@@ -39,26 +47,28 @@ const MainNavigation = ({ navigationMenu }) => {
                 className={style.navigationColumn}
               >
                 {column.map((navigationItem) => (
-                  <>
+                  <div className={style.navigationItem}>
                     <Link href="#">
-                      <a className={`${style.navigationItem}`}>
+                      <a className={`${style.navigationLink}`}>
                         Navigation item
                       </a>
                     </Link>
-                    <ul>
-                      {navigationItem.navigationItemChildren.map(
-                        (third_menu, thirdIndex) => (
-                          <li key={thirdIndex}>
-                            <Link href="#">
-                              <a className={`${style.navigationItem}`}>
-                                Navigation item child
-                              </a>
-                            </Link>
-                          </li>
-                        )
-                      )}
-                    </ul>
-                  </>
+                    {navigationItem.navigationItemChildren && (
+                      <ul>
+                        {navigationItem.navigationItemChildren.map(
+                          (third_menu, thirdIndex) => (
+                            <li key={thirdIndex}>
+                              <Link href="#">
+                                <a className={`${style.navigationLink}`}>
+                                  Navigation item child
+                                </a>
+                              </Link>
+                            </li>
+                          )
+                        )}
+                      </ul>
+                    )}
+                  </div>
                 ))}
               </li>
             ))}

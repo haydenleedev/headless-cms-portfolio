@@ -1,17 +1,24 @@
 @use "sass:math";
 @import "../../../styles/settings/_mixins.scss";
 @import "../../../styles/settings/_colors.scss";
+@import "../../../styles/settings/_variables.scss";
 
 .navbar {
   box-shadow: 0 0 10px 0px #00000014;
-  min-height: 5rem;
-  padding-top: 1rem;
+  height: $navbar-height;
   font-size: 1rem;
+  padding-top: 1.25rem;
+  position: absolute;
+  width: 100%;
+  z-index: 4;
+
   @include desktop() {
+    position: relative;
     padding-top: 0;
     display: flex;
   }
   nav {
+    background: white;
     display: flex;
     flex-grow: 1;
     flex-wrap: wrap;
@@ -21,6 +28,7 @@
       list-style: none;
     }
     @include desktop() {
+      border-bottom: unset;
       flex-flow: row;
       justify-content: space-between;
       align-items: center;
@@ -28,13 +36,32 @@
   }
 }
 
+.navbarToggle {
+  all: unset;
+  position: absolute;
+  right: 0;
+  padding: inherit;
+  cursor: pointer;
+
+  @include desktop {
+    display: none;
+  }
+}
+
 .logo {
+}
+
+.mainNavigationActive {
+}
+.mainNavigationHidden {
+  display: none;
 }
 
 .mainNavigation {
   padding-left: 0;
   margin: 0;
   height: 100%;
+
   @include desktop() {
     padding-left: 3rem;
     position: relative;
@@ -52,6 +79,7 @@
       }
     }
   }
+
   & > li {
     overflow: hidden;
     @include desktop() {
@@ -121,7 +149,6 @@
     padding-top: 0.5rem;
 
     @include desktop() {
-      top: 3rem;
       min-width: 25vw;
       opacity: 0;
       visibility: hidden;
@@ -145,7 +172,7 @@
   &:hover > ul {
     display: block;
     @include desktop() {
-      margin-top: 1rem;
+      top: 4rem;
       visibility: visible;
       opacity: 1;
       position: absolute;
@@ -158,7 +185,7 @@
   }
 }
 
-.navigationItem {
+.navigationLink {
   position: relative;
   transition: color 0.25s;
   width: 100%;
@@ -176,7 +203,24 @@
   }
 
   .navigationColumn {
-    padding-right: 2rem;
+    padding: 0 3rem 0 0;
+
+    .navigationItem {
+      margin-top: 0.75rem;
+      padding: 0.5rem 0;
+
+      & > ul {
+        padding-bottom: 0;
+        & > li {
+        }
+      }
+
+      &:first-child {
+        @include desktop() {
+          margin-top: 0;
+        }
+      }
+    }
   }
 }
 
@@ -186,7 +230,7 @@
 
 .dropdownClosed {
   display: none !important;
-  @include desktop () {
+  @include desktop() {
     display: flex !important;
   }
 }

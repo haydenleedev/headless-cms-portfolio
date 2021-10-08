@@ -14,4 +14,9 @@
 }
 
 main {
+  padding-top: $navbar-height;
+  
+  @include desktop() {
+    padding-top: unset;
+  }
 }
