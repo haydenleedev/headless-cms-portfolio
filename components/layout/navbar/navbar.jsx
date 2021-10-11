@@ -187,13 +187,17 @@ const Navbar = ({}) => {
   return (
     <section className={style.navbar}>
       <nav className="container" role="navigation" aria-label="Main">
-        <img
-          className={style.logo}
-          src={logo.src}
-          width={logo.width}
-          height={logo.height}
-          alt="Ujet logo"
-        />
+        <Link href="/">
+          <a title="Go to home page" aria-label="Go to home page">
+            <img
+              className={style.logo}
+              src={logo.src}
+              width={logo.width}
+              height={logo.height}
+              alt="Ujet logo"
+            />
+          </a>
+        </Link>
         <button
           className={style.navbarToggle}
           onClick={() => {
@@ -202,7 +206,10 @@ const Navbar = ({}) => {
         >
           Menu
         </button>
-        <MainNavigation active={mainNavigationActive} navigationMenu={mainNavs} />
+        <MainNavigation
+          active={mainNavigationActive}
+          navigationMenu={mainNavs}
+        />
       </nav>
     </section>
   );

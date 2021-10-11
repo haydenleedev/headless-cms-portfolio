@@ -1,0 +1,130 @@
+@import "../../../styles/settings/_mixins.scss";
+@import "../../../styles/settings/_colors.scss";
+@import "../../../styles/settings/_variables.scss";
+
+.footer {
+  background: $color-navy;
+  color: white;
+  padding: 12rem 0 3rem 0;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    width: 100%;
+    position: absolute;
+    top: 0;
+    width: 120%;
+    height: 15rem;
+    background: #fff;
+    top: -10rem;
+    border-radius: 50%;
+    left: -10%;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1284px;
+    padding: 0 1rem;
+    margin: 0 auto;
+  }
+
+  .horizontalLine {
+    border-color: $color-mediumblue;
+    margin: 3rem 0;
+  }
+}
+
+.brand {
+  min-width: 20vw;
+  display: flex;
+  flex-flow: column;
+  font-size: 1rem;
+  margin-right: 1rem;
+  .contactLink {
+    margin-top: 1rem;
+  }
+  .socialMedia {
+    display: flex;
+    margin-top: 1.5rem;
+    span {
+      margin-right: 1.5rem;
+      border-radius: 100%;
+      background: white;
+      color: $color-navy;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.awards {
+  margin: 1.5rem 0;
+  .awardsTitle {
+    color: $color-skyblue;
+  }
+
+  .badges {
+    margin-top: 1.5rem;
+    img {
+      margin-right: 1.5rem;
+    }
+  }
+}
+
+.footNote {
+  display: flex;
+  flex-flow: column;
+  @include desktop() {
+    flex-flow: row;
+  }
+  .cookies {
+    display: flex;
+    flex-flow: column;
+    min-width: 20vw;
+  }
+
+  .footNoteLinks {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    @include desktop() {
+      align-items: center;
+      flex-flow: row;
+      justify-content: flex-end;
+    }
+    .footNoteLink {
+      font-size: 1rem;
+      @include desktop() {
+        &:not(:last-child) {
+          &::after {
+            content: "";
+            margin: 0 1.5rem;
+            border-right: 0.1rem solid white;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.footerColumn {
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 2rem;
+
+  .footerColumnTitle {
+    text-transform: uppercase;
+    color: $color-skyblue;
+    margin-bottom: 0.5rem;
+  }
+
+  .footerColumnLink {
+    display: inline-block;
+    padding: 0.5rem 0;
+  }
+}

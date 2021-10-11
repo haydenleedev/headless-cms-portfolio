@@ -164,5 +164,43 @@
 }
 
 .icon {
-  padding: 0.5rem
+  padding: 0.5rem;
+}
+
+.columns {
+  width: 100%;
+  display: grid;
+  grid-gap: 1rem;
+
+  @include desktop() {
+    &.repeat-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    &.repeat-1 {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    &.repeat-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &.repeat-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    &.repeat-5 {
+      grid-template-columns: repeat(5, 1fr);
+    }
+  }
+  .column {
+  }
+}
+
+.row-desktop {
+  display: flex;
+  flex-flow: column;
+
+  @include desktop () {
+    flex-flow: row;
+  }
 }
