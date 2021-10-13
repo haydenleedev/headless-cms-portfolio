@@ -46,8 +46,8 @@ const MainNavigation = ({ active, navigationMenu }) => {
                 key={`navigation-column-${index}`}
                 className={style.navigationColumn}
               >
-                {column.map((navigationItem) => (
-                  <div className={style.navigationItem}>
+                {column.map((navigationItem, index) => (
+                  <div className={style.navigationItem} key={`navigation-item-${index}`}>
                     <Link href="#">
                       <a className={`${style.navigationLink}`}>
                         Navigation item
