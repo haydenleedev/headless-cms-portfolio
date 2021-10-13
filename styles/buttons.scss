@@ -8,17 +8,51 @@
   font-weight: 600;
   padding: 0.75rem 1.5rem;
   display: inline-block;
-  &.white {
+  // TODO: add individual for bg and colors, not all
+  transition: all 150ms;
+  border: 0.2rem solid $color-navy;
+  vertical-align: center;
+  &.small {
+    font-size: 1rem;
+    border-width: 0.1rem;
+  }
+  &:hover {
+    background-color: $color-navy;
+    color: white;
+  }
 
+  &.white {
+    &:hover {
+      background-color: white;
+      border-color: white;
+      color: $color-navy;
+    }
   }
 
   // Contact form cta
   &.cyan {
-
   }
-  
+
+  &.orange {
+    background-color: $color-orange;
+    border-color: $color-orange;
+    color: white;
+
+    &:hover {
+      background-color: $color-navy;
+      border-color: $color-navy;
+      color: white;
+    }
+  }
+
   &.outlined {
-    border: 0.2rem solid $color-skyblue;
+    border-color: $color-skyblue;
+
+    &:hover {
+      color: white;
+      background-color: $color-navy;
+      border-color: $color-navy;
+    }
   }
 
   &.small {

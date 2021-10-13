@@ -14,9 +14,28 @@ export default function Home() {
             Deliver simple, elegant CX with the world’s most advanced cloud
             contact center
           </p>
-          <Link href="#">
-            <a className="button outlined mt">Outlined button</a>
-          </Link>
+          <div>
+            <Link href="#">
+              <a className="button">Normal button</a>
+            </Link>
+            <Link href="#">
+              <a className="button outlined mt">Outlined button</a>
+            </Link>
+            <Link href="#">
+              <a className="button orange mt">Orange button</a>
+            </Link>
+          </div>
+          <div className="mt">
+            <Link href="#">
+              <a className="button small">Normal button</a>
+            </Link>
+            <Link href="#">
+              <a className="button outlined small">Outlined button</a>
+            </Link>
+            <Link href="#">
+              <a className="button orange small">Orange button</a>
+            </Link>
+          </div>
         </div>
       </section>
       <hr></hr>

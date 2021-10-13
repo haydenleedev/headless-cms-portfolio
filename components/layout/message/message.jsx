@@ -11,7 +11,7 @@ const Message = ({}) => {
       <nav className="container" role="navigation" aria-label="Contact UJET">
         <div className={style.demo}>
           <Link href="#">
-            <a className="button small" aria-label="Request a demo from UJET">
+            <a className="button small white" aria-label="Request a demo from UJET">
               Request a demo
             </a>
           </Link>
