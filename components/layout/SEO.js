@@ -5,6 +5,8 @@ const SEO = ({ title, description, keywords, ogImage, metaHTML, url }) => {
   // TODO: probably dangerouslySetInnerHTML...
   return (
     <Head>
+      <meta name="robots" content="noindex,nofollow" />
+
       <title>{title}</title>
       <meta name="generator" content="Agility CMS" />
       <meta name="agility_timestamp" content={new Date().toLocaleString()} />
