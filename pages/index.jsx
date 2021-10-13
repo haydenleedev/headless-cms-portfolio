@@ -9,7 +9,7 @@ export default function Home() {
     <Layout>
       <section className="section">
         <div className="container">
-          <h1>Become Your Customers' Favorite Brand</h1>
+          <h1>Become Your Customers&apos; Favorite Brand</h1>
           <p>
             Deliver simple, elegant CX with the world’s most advanced cloud
             contact center
