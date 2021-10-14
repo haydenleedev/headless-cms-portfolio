@@ -1,4 +1,3 @@
-import React from "react";
 import Head from "next/head";
 const SEO = ({ title, description, keywords, ogImage, metaHTML, url }) => {
   // setup and parse additional header markup

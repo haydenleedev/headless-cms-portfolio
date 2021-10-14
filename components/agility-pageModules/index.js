@@ -1,10 +1,14 @@
 // All of the Agility Page Module Components that are in use in this site need to be imported into this index file.
 // Place Page Modules in allModules array below, passing in a name and the component.
 
+import FirstFold from "./firstFold/firstFold";
 import Placeholder from "./placeholder";
+import RichTextArea from "./richTextArea/richTextArea";
 
 const allModules = [
+  { name: "FirstFold", module: FirstFold },
   { name: "Placeholder", module: Placeholder },
+  { name: "RichTextArea", module: RichTextArea },
 ];
 
 export const getModule = (moduleName) => {

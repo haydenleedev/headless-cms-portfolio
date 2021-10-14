@@ -3,7 +3,7 @@ Becomes a nightmare to manage if they're all named index.jsx... */
 import Footer from "./footer/footer";
 import Navbar from "./navbar/navbar";
 import Message from "./message/message";
-import SEO from "./SEO";
+import SEO from "../SEO";
 import { getPageTemplate } from "../agility-pageTemplates";
 import { handlePreview } from "@agility/nextjs";
 import { useRouter } from "next/router";
