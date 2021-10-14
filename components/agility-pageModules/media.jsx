@@ -2,6 +2,7 @@ import { AgilityImage } from "@agility/nextjs";
 
 const Media = ({ media }) => {
   //  TODO: Handle video rendering
+  if (!media.url) return null;
   return (
     <AgilityImage
       src={media.url}
