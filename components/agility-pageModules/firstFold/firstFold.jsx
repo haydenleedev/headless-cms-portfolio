@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Heading from "../heading";
 import style from "./firstFold.module.scss";
-import Media from "../media"
+import Media from "../media";
 
 const FirstFold = ({ module }) => {
   const { fields } = module;
@@ -40,7 +40,7 @@ const FirstFold = ({ module }) => {
             )}
           </div>
           <div>
-              <Media media={fields.media}></Media>
+            <Media media={fields.media}></Media>
           </div>
         </div>
       </div>
