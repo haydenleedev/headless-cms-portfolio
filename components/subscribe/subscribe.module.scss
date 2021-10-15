@@ -1,0 +1,29 @@
+@import "../../styles/settings/_colors.scss";
+
+.subscribe {
+    background: $color-lightgray;
+    border-radius: 2rem;
+    padding: 1.75rem;
+    position: relative;
+
+    .heading {
+        text-transform: uppercase;
+        color: $color-darkgray;
+        font-size: 1rem;
+    }
+
+    .title {
+        margin-top: 1rem;
+        font-size: 1.5rem;
+        color: $color-darkgray;
+    }
+
+    .label {
+        margin-top: 0.75rem;
+    }
+
+    .subscribeButton {
+        margin-top: 2rem;
+        width: 100%;
+    }
+}

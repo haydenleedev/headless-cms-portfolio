@@ -3,8 +3,8 @@
 
 .button {
   border-radius: 3rem;
-  background: white;
-  color: $color-navy;
+  background: $color-navy;
+  color: white;
   font-weight: 600;
   padding: 0.75rem 1.5rem;
   display: inline-block;
@@ -16,21 +16,36 @@
     font-size: 1rem;
     border-width: 0.1rem;
   }
-  &:hover {
-    background-color: $color-navy;
-    color: white;
-  }
 
-  &.white {
+  &.outlined {
+    border-color: $color-navy;
+
     &:hover {
-      background-color: white;
-      border-color: white;
-      color: $color-navy;
+      color: white;
+      background-color: $color-navy;
+      border-color: $color-navy;
     }
+  }
+  &.white {
+    background-color: white;
+    color: $color-navy;
   }
 
   // Contact form cta
   &.cyan {
+    color: white;
+    background-color: $color-skyblue;
+    border-color: $color-skyblue;
+
+    &.outlined {
+      border-color: $color-skyblue;
+
+      &:hover {
+        color: white;
+        background-color: $color-navy;
+        border-color: $color-navy;
+      }
+    }
   }
 
   &.orange {
@@ -42,16 +57,6 @@
       background-color: $color-navy;
       border-color: $color-navy;
       color: white;
-    }
-  }
-
-  &.outlined {
-    border-color: $color-skyblue;
-
-    &:hover {
-      color: white;
-      background-color: $color-navy;
-      border-color: $color-navy;
     }
   }
 

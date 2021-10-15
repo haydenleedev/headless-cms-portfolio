@@ -5,10 +5,14 @@ import FirstFold from "./firstFold/firstFold";
 import Placeholder from "./placeholder";
 import RichTextArea from "./richTextArea/richTextArea";
 
+// Template renderers
+import BlogPostContent from "./blogPostContent/blogPostContent";
+
 const allModules = [
   { name: "FirstFold", module: FirstFold },
   { name: "Placeholder", module: Placeholder },
   { name: "RichTextArea", module: RichTextArea },
+  { name: "BlogPostContent", module: BlogPostContent },
 ];
 
 export const getModule = (moduleName) => {

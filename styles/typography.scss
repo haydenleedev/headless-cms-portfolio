@@ -90,14 +90,18 @@ form input:not([type="checkbox"], [type="submit"]) {
   //   height: toRem(48);
   //   padding: toRem(20) toRem(15);
   width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  border: 0.1rem solid $color-gray;
 }
 
 label {
   display: block;
   color: $color-black;
-  //   font-size: $size-16px;
-  //   margin-bottom: toRem(4);
-  //   line-height: 1.4em;
+  font-size: 1rem;
+  // TODO: Do we have font weight 500 available? 600 is too bold here.
+  font-weight: 500;
+  padding: 0.5rem 0;
 }
 
 input[type="checkbox"]:checked ~ span:before {

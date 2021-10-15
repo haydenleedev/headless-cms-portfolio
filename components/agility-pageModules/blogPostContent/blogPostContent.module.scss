@@ -1,0 +1,27 @@
+@import "../../../styles/settings/_mixins.scss";
+@import "../../../styles/settings/_colors.scss";
+@import "../../../styles/settings/_variables.scss";
+
+.blogPostContent {
+  position: relative;
+  .container {
+    width: 100%;
+    display: grid;
+    grid-gap: 1rem;
+    position: relative;
+    @include desktop() {
+      padding-left: 4rem;
+      grid-template-columns: 6fr 4fr;
+    }
+  }
+}
+
+// TODO: try to have this sticky
+.share {
+  @include desktop() {
+    position: fixed;
+    left: 0;
+    top: 33vh;
+    margin-left: 3rem;
+  }
+}
