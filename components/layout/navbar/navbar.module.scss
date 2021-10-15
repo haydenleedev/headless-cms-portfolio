@@ -49,6 +49,10 @@
 }
 
 .logo {
+  position: relative;
+  // Slight offset here since the logo's typography causes it to look not aligned center
+  // TODO: Adjust if you adjust the logo size
+  top: 0.3rem;
 }
 
 .mainNavigationActive {
@@ -91,6 +95,16 @@
     @include desktop() {
       display: block;
     }
+  }
+}
+
+.noDropdown {
+  padding: 1rem 0;
+  @include desktop() {
+    flex-flow: row;
+    border: none;
+    padding-left: 1.5rem;
+    align-items: center;
   }
 }
 

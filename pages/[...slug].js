@@ -2,6 +2,7 @@ import { getAgilityPageProps, getAgilityPaths } from "@agility/nextjs/node";
 import { getModule } from "../components/agility-pageModules";
 import Layout from "../components/layout/layout";
 // TODO: import global components
+import Navbar from "../components/layout/navbar/navbar"
 
 // getStaticProps function fetches data for all of your Agility Pages and Next.js will pre-render these pages at build time
 export async function getStaticProps({
@@ -13,7 +14,7 @@ export async function getStaticProps({
 }) {
   // TODO: place all global here
   const globalComponents = {
-
+    navbar: Navbar,
   };
 
   let agilityProps = await getAgilityPageProps({
@@ -29,7 +30,6 @@ export async function getStaticProps({
     // We throw to make sure this fails at build time as this is never expected to happen
     throw new Error(`Page not found`);
   }
-
   return {
     props: agilityProps,
     // Next.js will attempt to re-generate the page when a request comes in, at most once every 10 seconds

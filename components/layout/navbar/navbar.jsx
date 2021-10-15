@@ -180,7 +180,8 @@ const mainNavs = [
   },
 ];
 
-const Navbar = ({}) => {
+const Navbar = ({ globalData }) => {
+  const { navbar } = globalData.navbar;
   // affects only mobile
   const [mainNavigationActive, setMainNavigationActive] = useState(false);
 
@@ -189,13 +190,7 @@ const Navbar = ({}) => {
       <nav className="container" role="navigation" aria-label="Main">
         <Link href="/">
           <a title="Go to home page" aria-label="Go to home page">
-            <img
-              className={style.logo}
-              src={logo.src}
-              width={logo.width}
-              height={logo.height}
-              alt="Ujet logo"
-            />
+            <img className={style.logo} src={logo.src} width={logo.width} height={logo.height} alt="Ujet logo" />
           </a>
         </Link>
         <button
@@ -206,13 +201,36 @@ const Navbar = ({}) => {
         >
           Menu
         </button>
-        <MainNavigation
-          active={mainNavigationActive}
-          navigationMenu={mainNavs}
-        />
+        <MainNavigation active={mainNavigationActive} mainNavigation={navbar.fields.mainNavigation} />
       </nav>
     </section>
   );
+};
+
+Navbar.getCustomInitialProps = async function ({ agility, languageCode, channelName }) {
+  const api = agility;
+  let contentItem = null;
+
+  try {
+    let navbar = await api.getContentList({
+      referenceName: "navbarConfiguration",
+      languageCode: languageCode,
+      take: 1,
+      contentLinkDepth: 4
+    });
+    if (navbar && navbar.items && navbar.items.length > 0) {
+      contentItem = navbar.items[0];
+    } else {
+      return null;
+    }
+  } catch (error) {
+    if (console) console.error("Could not load site navbar configuration.", error);
+    return null;
+  }
+  // return clean object...
+  return {
+    navbar: contentItem,
+  };
 };
 
 export default Navbar;

@@ -13,8 +13,7 @@ const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 const Layout = (props) => {
-  const { page, sitemapNode, dynamicPageItem, notFound, pageTemplateName } =
-    props;
+  const { page, sitemapNode, dynamicPageItem, notFound, pageTemplateName } = props;
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   const router = useRouter();
@@ -45,12 +44,12 @@ const Layout = (props) => {
       {isPreview && <p>Loading preview mode...</p>}
       {!isPreview && (
         <>
-          <Message></Message>
-          <Navbar></Navbar>
+          <Message {...props}></Message>
+          <Navbar {...props}></Navbar>
           <main>
             <AgilityPageTemplate {...props} />
           </main>
-          <Footer></Footer>
+          <Footer {...props}></Footer>
         </>
       )}
     </>

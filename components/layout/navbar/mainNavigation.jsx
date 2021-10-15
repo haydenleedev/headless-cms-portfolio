@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import style from "./navbar.module.scss";
 
-const MainNavigation = ({ active, navigationMenu }) => {
-
+const MainNavigation = ({ active, mainNavigation }) => {
   const [activeNavigationItem, setActiveNavigationItem] = useState(null);
 
   const handleMenuActivation = (item) => {
@@ -15,64 +14,67 @@ const MainNavigation = ({ active, navigationMenu }) => {
   };
   return (
     <ul className={`${style.mainNavigation} ${active ? style.mainNavigationActive : style.mainNavigationHidden}`}>
-      {navigationMenu.map((primary_menu, index) => (
+      {mainNavigation?.map((navigationGroup, index) => (
         <li
           key={`navigation-group-${index}`}
-          className={`${style.dropdown}`}
+          // If no columns, just render a link without dropdown effects
+          className={`${!navigationGroup.fields.navigationColumns ? style.noDropdown : style.dropdown}`}
           aria-label="Dropdown menu"
         >
           <Link href="#">
             <a
               className={`${style.navigationLink}`}
+              aria-label={"Navigate to page " + navigationGroup.fields.link.text}
+              label={"Navigate to page " + navigationGroup.fields.link.text}
               onClick={() => {
                 handleMenuActivation(`navigation-group-${index}`);
               }}
             >
-              navgrp
+              {navigationGroup.fields.link.text}
             </a>
           </Link>
-          {/* TODO: Prototyping nav columns */}
-          <ul
-            className={`${style.navigationColumns}
-              ${
-                activeNavigationItem == `navigation-group-${index}`
-                  ? style.dropdownActive
-                  : style.dropdownClosed
-              }
+          {navigationGroup.fields.navigationColumns && (
+            <ul
+              className={`${style.navigationColumns}
+              ${activeNavigationItem == `navigation-group-${index}` ? style.dropdownActive : style.dropdownClosed}
             `}
-          >
-            {primary_menu.columns.map((column, index) => (
-              <li
-                key={`navigation-column-${index}`}
-                className={style.navigationColumn}
-              >
-                {column.map((navigationItem, index) => (
-                  <div className={style.navigationItem} key={`navigation-item-${index}`}>
-                    <Link href="#">
-                      <a className={`${style.navigationLink}`}>
-                        Navigation item
-                      </a>
-                    </Link>
-                    {navigationItem.navigationItemChildren && (
-                      <ul>
-                        {navigationItem.navigationItemChildren.map(
-                          (third_menu, thirdIndex) => (
-                            <li key={thirdIndex}>
+            >
+              {navigationGroup.fields.navigationColumns?.map((navigationColumn, index) => (
+                <li key={`navigation-column-${index}`} className={style.navigationColumn}>
+                  {navigationColumn.fields.navigationItems?.map((navigationItem, index) => (
+                    <div className={style.navigationItem} key={`navigation-item-${index}`}>
+                      <Link href="#">
+                        <a
+                          className={`${style.navigationLink}`}
+                          aria-label={"Navigate to page " + navigationItem.fields.link.text}
+                          label={"Navigate to page " + navigationItem.fields.link.text}
+                        >
+                          {navigationItem.fields.link.text}
+                        </a>
+                      </Link>
+                      {navigationItem.fields.navigationItemChildren && (
+                        <ul>
+                          {navigationItem.fields.navigationItemChildren.map((navigationItemChild, index) => (
+                            <li key={`navigation-item-child-${index}`}>
                               <Link href="#">
-                                <a className={`${style.navigationLink}`}>
-                                  Navigation item child
+                                <a
+                                  className={`${style.navigationLink}`}
+                                  aria-label={"Navigate to page " + navigationItemChild.fields.link.text}
+                                  label={"Navigate to page " + navigationItemChild.fields.link.text}
+                                >
+                                  {navigationItemChild.fields.link.text}
                                 </a>
                               </Link>
                             </li>
-                          )
-                        )}
-                      </ul>
-                    )}
-                  </div>
-                ))}
-              </li>
-            ))}
-          </ul>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  ))}
+                </li>
+              ))}
+            </ul>
+          )}
         </li>
       ))}
     </ul>

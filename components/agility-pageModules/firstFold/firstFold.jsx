@@ -5,7 +5,6 @@ import Media from "../media";
 
 const FirstFold = ({ module }) => {
   const { fields } = module;
-  console.log(fields);
   return (
     <section className={`section ${style.firstFold}`}>
       <div className="container">
