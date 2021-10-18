@@ -39,6 +39,8 @@
 
     &.outlined {
       border-color: $color-skyblue;
+      background-color: white;
+      color: $color-navy;
 
       &:hover {
         color: white;

@@ -40,7 +40,7 @@ const Subscribe = ({}) => {
           required
           aria-required
         ></input>
-        <button type="submit" className={`button ${style.subscribeButton}`}>Subscribe</button>
+        <button type="submit" className={`button ${style.subscribeButton}`}>Subscribe to UJET Blog</button>
       </form>
     </div>
   );

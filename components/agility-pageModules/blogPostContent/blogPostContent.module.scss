@@ -10,18 +10,49 @@
     grid-gap: 1rem;
     position: relative;
     @include desktop() {
-      padding-left: 4rem;
       grid-template-columns: 6fr 4fr;
     }
   }
+
+  .meta {
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  .content {
+    margin-top: 2rem;
+  }
 }
 
-// TODO: try to have this sticky
 .share {
   @include desktop() {
-    position: fixed;
-    left: 0;
-    top: 33vh;
-    margin-left: 3rem;
+    top: 50%;
+    left: -7rem;
+    padding-top: 4rem;
+    position: absolute;
   }
+
+  span {
+    margin-right: 1.5rem;
+    border-radius: 100%;
+    color: white;
+    background-color: $color-navy;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}
+
+.requestDemo {
+  width: 80%;
+  text-align: center;
+  margin: 1.5rem auto;
+  display: block;
+}
+
+.blogPostList {
+  background-color: $color-lightgray;
 }

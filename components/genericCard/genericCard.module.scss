@@ -1,0 +1,23 @@
+@import "../../styles/settings/_colors.scss";
+@import "../../styles/settings/_mixins.scss";
+
+.card {
+    border-radius: 1rem;
+    border: 0.1rem solid $color-lightgray;
+    @include shadow();
+}
+
+.image {
+    // TODO: max height
+}
+
+.title {
+    padding: 1rem 1.5rem 0 1.5rem;
+}
+
+.link {
+    padding: 0.5rem 1.5rem 3rem 1.5rem;
+    display: block;
+    font-weight: 600;
+    font-size: 1rem;
+}

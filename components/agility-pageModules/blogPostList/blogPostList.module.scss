@@ -1,0 +1,12 @@
+@import "../../../styles/settings/_mixins.scss";
+
+.cards {
+  width: 100%;
+  display: grid;
+  grid-gap: 2rem;
+  position: relative;
+  margin-top: 4rem;
+  @include desktop() {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
