@@ -62,4 +62,5 @@ var HeadingField = function () {
   };
 };
 
+// register the custom field in Agility
 ContentManager.Global.CustomInputFormFields.push(new HeadingField());
