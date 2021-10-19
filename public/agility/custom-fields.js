@@ -38,8 +38,7 @@ var HeadingField = function () {
               options.fieldBinding() == null ||
               options.fieldBinding() == ""
             ) {
-              var copy = self.defaultBinding;
-              self.fieldBinding(copy); //init defaults
+              self.fieldBinding({ ...self.defaultBinding }); //init defaults
             } else {
               // set observables on the existing binding properties
               var existingBinding = ko.mapping.fromJSON(options.fieldBinding());
