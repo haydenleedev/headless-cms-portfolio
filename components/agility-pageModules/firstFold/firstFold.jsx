@@ -5,13 +5,14 @@ import Media from "../media";
 
 const FirstFold = ({ module }) => {
   const { fields } = module;
+  const heading = JSON.parse(fields.heading);
   return (
     <section className={`section ${style.firstFold}`}>
       <div className="container">
         {/* TODO: allow reverse column order for desktop as a conditional toggle from Agility*/}
         <div className="columns repeat-2">
           <div className={style.textContent}>
-            <Heading {...fields}></Heading>
+            <Heading {...heading}></Heading>
             {fields.text && (
               <div dangerouslySetInnerHTML={{ __html: fields.text }}></div>
             )}
