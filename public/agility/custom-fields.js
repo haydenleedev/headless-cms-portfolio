@@ -1,4 +1,6 @@
 var baseUrl = "https://ujet-main.vercel.app/agility/";
+var agilityDefaultCustomFieldsBaseUrl =
+  "https://agility.github.io/CustomFields/";
 
 var HeadingField = function () {
   var self = this;
@@ -78,7 +80,9 @@ var FriendlyURLFormField = function () {
   };
 
   /// <field name="Template" type="String">The partial HTML template that represents your custom field. Your ViewModel will be automatically bound to this template.</field>
-  self.Template = baseUrl + "friendly-url/html/friendly-url-template.html";
+  self.Template =
+    agilityDefaultCustomFieldsBaseUrl +
+    "friendly-url/html/friendly-url-template.html";
 
   /// <field name="DepenenciesJS"> type="Array">The Javscript dependencies that must be loaded before your ViewModel is bound. They will be loaded in the order you specify.</field>
   self.DependenciesJS = [];
@@ -206,7 +210,9 @@ var ColorPickerFormField = function () {
   self.DependenciesJS = [
     {
       id: "colorpicker",
-      src: baseUrl + "colorpicker/js/colorpicker-plugin.js",
+      src:
+        agilityDefaultCustomFieldsBaseUrl +
+        "colorpicker/js/colorpicker-plugin.js",
     },
   ];
 
@@ -282,7 +288,8 @@ var SelectListFromAPICustomField = function () {
 
   /// <field name="Template" type="String">The partial HTML template that represents your custom field. It can be an absolute path to a URL or a reference name to an inline code file in Agility CMS. Your ViewModel will be automatically bound to this template.</field>
   self.Template =
-    baseUrl + "selectlist-from-api/html/selectlist-from-api-template.html";
+    agilityDefaultCustomFieldsBaseUrl +
+    "selectlist-from-api/html/selectlist-from-api-template.html";
 
   /// <field name="Render" type="Function">This function runs every time the field is rendered</field>
   self.Render = function (options) {
@@ -419,7 +426,8 @@ var VimeoVideoFormField = function () {
 
     if ($pnl.size() == 0) {
       //pull down the html template and load it into the element
-      $.get(baseUrl + "vimeo/vimeo-field.html",
+      $.get(
+        agilityDefaultCustomFieldsBaseUrl + "vimeo/vimeo-field.html",
         function (htmlContent) {
           options.$elem.append(htmlContent);
 
