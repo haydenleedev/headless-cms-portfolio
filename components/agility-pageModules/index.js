@@ -11,6 +11,7 @@ import BlogPostContent from "./blogPostContent/blogPostContent";
 const allModules = [
   { name: "FirstFold", module: FirstFold },
   { name: "Placeholder", module: Placeholder },
+  { name: "ClientLogosList", module: Placeholder },
   { name: "RichTextArea", module: RichTextArea },
   { name: "BlogPostContent", module: BlogPostContent },
 ];
