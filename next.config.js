@@ -2,8 +2,9 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/test',
-        destination: '/blog', // Matched parameters can be used in the destination
+        source: '/integrations',
+        destination: '/resources',
+        // TODO: is this permanent?
         permanent: true,
       },
       {
