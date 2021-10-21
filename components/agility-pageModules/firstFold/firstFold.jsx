@@ -11,7 +11,7 @@ const FirstFold = ({ module }) => {
         {/* TODO: allow reverse column order for desktop as a conditional toggle from Agility*/}
         <div className="columns repeat-2">
           <div className={style.textContent}>
-            <Heading {...fields}></Heading>
+            {/* <Heading {...fields}></Heading> */}
             {fields.text && (
               <div dangerouslySetInnerHTML={{ __html: fields.text }}></div>
             )}
