@@ -10,6 +10,7 @@ const ResourceContent = ({ dynamicPageItem }) => {
       <Script
         id="marketo-js"
         src="//info.ujet.co/js/forms2/js/forms2.min.js"
+        strategy="lazyOnload"
         onLoad={() => {
           window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1638);
         }}
