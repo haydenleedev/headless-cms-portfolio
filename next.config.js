@@ -14,6 +14,9 @@ module.exports = {
       },
     ]
   },
+  images: {
+    domains: ['assets.ujet.cx'],
+  },
   reactStrictMode: true,
   i18n: {
     locales: ["en-US"],

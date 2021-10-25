@@ -121,9 +121,26 @@ input[type="number"]::-webkit-inner-spin-button {
   opacity: 1;
 }
 
+ol,
+ul {
+  margin: 2rem 0 2rem 2rem;
+}
+
+ol {
+  li {
+    margin-top: 1.5rem;
+  }
+}
+ul {
+  li {
+    margin-top: 1rem;
+  }
+}
+
 /* This class is a wrapper that applies a standard typography for pure html content in 
 blog posts or anywhere where html is rendered */
 .content {
+
   h1,
   h2,
   h3,
@@ -140,5 +157,29 @@ blog posts or anywhere where html is rendered */
   a {
     color: $color-lightblue;
     text-decoration: underline;
+  }
+
+  // TODO: Might want to make these specific to blog, but keep here for now since posts might share the css...
+  .alignright {
+    display: block;
+    margin: 2rem 0;
+
+    @include desktop() {
+      display: inline;
+      float: right;
+      margin: 0 0 1.5rem 1.5rem;
+    }
+  }
+  img {
+  }
+
+  .text-graphic {
+    border: 0.1rem solid $color-gray;
+    padding: 1rem;
+    font-size: 1rem;
+    span {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
   }
 }

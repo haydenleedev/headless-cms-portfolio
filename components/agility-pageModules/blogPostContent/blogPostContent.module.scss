@@ -7,7 +7,7 @@
   .container {
     width: 100%;
     display: grid;
-    grid-gap: 1rem;
+    grid-gap: 2rem;
     position: relative;
     @include desktop() {
       grid-template-columns: 6fr 3fr;

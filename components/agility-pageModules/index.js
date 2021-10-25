@@ -22,6 +22,8 @@ const allModules = [
   { name: "TextGrid", module: Placeholder },
   { name: "ClientTestimonial", module: Placeholder },
   { name: "ResourceList", module: Placeholder },
+  { name: "TextGridWithMedia", module: Placeholder },
+  
 ];
 
 export const getModule = (moduleName) => {

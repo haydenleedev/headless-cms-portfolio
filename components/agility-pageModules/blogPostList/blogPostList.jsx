@@ -1,7 +1,7 @@
 import GenericCard from "../../genericCard/genericCard";
 import style from "./blogPostList.module.scss";
 
-const BlogPostList = ({ module, overrideClass }) => {
+const BlogPostList = ({ module, overrideClass, blogPosts }) => {
   const { fields } = module;
   return (
     <section
@@ -12,9 +12,9 @@ const BlogPostList = ({ module, overrideClass }) => {
         <h6>{fields.title}</h6>
 
         <div className={style.cards}>
-          <GenericCard title="Insert title here"></GenericCard>
-          <GenericCard title="Insert title here"></GenericCard>
-          <GenericCard title="Insert title here"></GenericCard>
+          {blogPosts.map((blogPost) => (
+            <GenericCard title={blogPost.fields.title} link={blogPost.url} image={blogPost.fields.image}></GenericCard>
+          ))}
         </div>
       </div>
     </section>
