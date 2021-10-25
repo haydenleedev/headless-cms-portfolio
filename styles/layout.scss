@@ -1,5 +1,8 @@
 @import "./settings/__settings";
 
+/*
+  <<<<<<<<<<<<<<<<FLEX LAYOUT CLASSES>>>>>>>>>>>>>>>>>
+*/
 .grid {
   display: flex;
   @include desktop() {
@@ -58,105 +61,50 @@
   }
 }
 
-.section {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+.row-desktop {
+  display: flex;
+  flex-flow: column;
+
   @include desktop() {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    flex-flow: row;
   }
 }
 
-.container {
-  @include siteWidth();
-  margin: 0 auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  overflow-wrap: break-word;
+.flex-direction-row-reverse {
+  flex-direction: row-reverse;
 }
 
-.d-flex {
-  display: flex;
+.flex-direction-column {
+  flex-direction: column;
 }
 
-.d-inline-block {
-  display: inline-block;
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-flex-start {
+  justify-content: flex-start;
+}
+
+.justify-content-flex-end {
+  justify-content: flex-end;
+}
+
+.align-items-flex-start {
+  align-items: flex-start;
+}
+
+.align-items-flex-end {
+  align-items: flex-end;
 }
 
 .align-items-center {
   align-items: center;
 }
 
-.bold {
-  font-weight: bold;
-}
-
-.wrap {
-  @include siteWidth();
-  margin: 0 auto;
-}
-
-.card {
-  padding: 15px 15px;
-  border: 2px solid $color-darkmedium;
-  border-radius: 4px;
-}
-
-.align-center {
-  text-align: center;
-}
-.align-left {
-  text-align: left;
-}
-
-.w-100 {
-  width: 100%;
-}
-
-.display-block {
-  display: block;
-}
-
-.display-none {
-  display: none;
-}
-
-.border-gray {
-  border: 2px solid $color-gray;
-}
-
-.box-shadow {
-  box-shadow: 0 1px 4px rgb(0, 0, 0, 10%);
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.ml {
-  margin-left: 2rem;
-}
-
-.mr {
-  margin-right: 2rem;
-}
-
-.mt {
-  margin-top: 2rem;
-}
-
-.mb {
-  margin-bottom: 2rem;
-}
-
-.icon {
-  padding: 0.5rem;
-}
-
-.padding-unset {
-  padding: unset;
-}
-
+/*
+  <<<<<<<<<<<<<<<<GRID LAYOUT CLASSES>>>>>>>>>>>>>>>>>
+*/
 .columns {
   width: 100%;
   display: grid;
@@ -185,14 +133,8 @@
       grid-template-columns: repeat(6, 1fr);
     }
   }
-  .column {
-  }
 }
 
-/*
-  .grid-columns: use for displaying small tiles in a grid (for example icons)
-  &.is-[2-5]: define how many columns there should be before collapsing to a new row.
-*/
 .grid-columns {
   display: grid;
   width: 100%;
@@ -237,8 +179,102 @@
 }
 
 /*
-  classes for setting max-width values
+  <<<<<<<<<<<<<<<<GENERIC HELPER CLASSES>>>>>>>>>>>>>>>>>
 */
+.bold {
+  font-weight: bold;
+}
+
+.wrap {
+  @include siteWidth();
+  margin: 0 auto;
+}
+
+.card {
+  padding: 15px 15px;
+  border: 2px solid $color-darkmedium;
+  border-radius: 4px;
+}
+
+.align-center {
+  text-align: center;
+}
+.align-left {
+  text-align: left;
+}
+
+.border-gray {
+  border: 2px solid $color-gray;
+}
+
+.box-shadow {
+  box-shadow: 0 1px 4px rgb(0, 0, 0, 10%);
+}
+
+/*
+  <<<<<<<<<<<<<<<<DISPLAY HELPER CLASSES>>>>>>>>>>>>>>>>>
+*/
+.d-flex {
+  display: flex;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+/*
+  <<<<<<<<<<<<<<<<SPACING HELPER CLASSES>>>>>>>>>>>>>>>>>
+*/
+.section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  @include desktop() {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+.container {
+  @include siteWidth();
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  overflow-wrap: break-word;
+}
+.ml {
+  margin-left: 2rem;
+}
+
+.mr {
+  margin-right: 2rem;
+}
+
+.mt {
+  margin-top: 2rem;
+}
+
+.mb {
+  margin-bottom: 2rem;
+}
+
+.padding-unset {
+  padding: unset;
+}
+
+/*
+  <<<<<<<<<<<<<<<<WIDTH HELPER CLASSES>>>>>>>>>>>>>>>>>
+*/
+.w-100 {
+  width: 100%;
+}
 
 .max-width-narrow {
   max-width: $narrow;
@@ -250,13 +286,4 @@
 
 .max-width-wide {
   max-width: $wide;
-}
-
-.row-desktop {
-  display: flex;
-  flex-flow: column;
-
-  @include desktop() {
-    flex-flow: row;
-  }
 }

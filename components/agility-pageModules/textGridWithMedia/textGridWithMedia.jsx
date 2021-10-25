@@ -16,6 +16,7 @@ const TextGridWithMedia = ({ module }) => {
         {heading.text && (
           <div className={style.heading}>
             <Heading {...heading} />
+            {fields.subtitle && <p>{fields.subtitle}</p>}
           </div>
         )}
         <div className={style.content}>

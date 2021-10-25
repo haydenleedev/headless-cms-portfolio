@@ -5,7 +5,7 @@
 @import "./settings/__settings";
 @import "layout";
 @import "typography";
-@import "buttons";
+@import "./components/_components-dir";
 
 /* Try not to set anything on html for best accessibility */
 // html {
@@ -17,7 +17,7 @@
 
 main {
   padding-top: $navbar-height;
-  
+
   @include desktop() {
     padding-top: unset;
   }

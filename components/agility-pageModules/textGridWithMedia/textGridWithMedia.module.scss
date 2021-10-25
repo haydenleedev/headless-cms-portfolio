@@ -2,8 +2,18 @@
   .heading {
     display: flex;
     justify-content: center;
+    align-items: center;
     text-align: center;
+    flex-direction: column;
     margin: 1rem 0;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-bottom: 1rem;
+    }
   }
   .content {
     display: flex;

@@ -6,7 +6,6 @@ import style from "./textWithMedia.module.scss";
 const TextWithMedia = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
-  // TODO: allow changing row direction based on agilitycms input
   return (
     <section
       className={`section ${style.textWithMedia} ${
@@ -14,8 +13,18 @@ const TextWithMedia = ({ module }) => {
       }`}
     >
       <div className="container">
-        <div className={`columns repeat-2 ${style.content}`}>
-          <div className={style.textContent}>
+        <div
+          className={`${style.content} ${
+            fields.mediaLeft == "true" ? "flex-direction-row-reverse " : ""
+          }`}
+        >
+          <div
+            className={`${style.textContent} ${
+              fields.mediaLeft == "true"
+                ? "justify-content-flex-end"
+                : "justify-content-flex-start"
+            }`}
+          >
             <div className={style.heading}>
               {heading.text && <Heading {...heading} />}
             </div>
@@ -32,8 +41,13 @@ const TextWithMedia = ({ module }) => {
               </Link>
             )}
           </div>
-
-          {fields.media && <Media media={fields.media} />}
+          <div
+            className={`${style.media} ${
+              fields.mediaLeft == "true" ? "mr" : "ml"
+            }`}
+          >
+            {fields.media && <Media media={fields.media} />}
+          </div>
         </div>
       </div>
     </section>

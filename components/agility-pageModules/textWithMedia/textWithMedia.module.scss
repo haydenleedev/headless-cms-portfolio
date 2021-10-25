@@ -5,10 +5,26 @@
   .heading {
     margin-bottom: 2rem;
   }
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex-direction: column-reverse;
+    & > * {
+      flex-basis: 100%;
+    }
+    @include desktop() {
+      flex-direction: row;
+    }
+  }
   .textContent {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     justify-content: center;
+    align-items: flex-start;
+  }
+  .media {
+    @include touch() {
+      margin: unset;
+    }
   }
 }

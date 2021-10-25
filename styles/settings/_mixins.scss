@@ -1,3 +1,4 @@
+@use "variables" as var;
 @use "sass:math";
 
 @mixin largeDesktop() {
@@ -6,14 +7,20 @@
   }
 }
 
+@mixin touch() {
+  @media (max-width: var.$touch) {
+    @content;
+  }
+}
+
 @mixin desktop() {
-  @media (min-width: 890px) {
+  @media (min-width: var.$desktop) {
     @content;
   }
 }
 
 @mixin tablet() {
-  @media (min-width: 768px) {
+  @media (min-width: var.$tablet) {
     @content;
   }
 }
