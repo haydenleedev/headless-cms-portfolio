@@ -8,11 +8,13 @@ const FirstFold = ({ module }) => {
   const heading = JSON.parse(fields.heading);
   return (
     <section className={`section ${style.firstFold}`}>
-      <div className="container">
+      <div className="container max-width-medium">
         {/* TODO: allow reverse column order for desktop as a conditional toggle from Agility*/}
         <div className="columns repeat-2">
           <div className={style.textContent}>
-            <Heading {...heading}></Heading>
+            <div className={style.heading}>
+              <Heading {...heading}></Heading>
+            </div>
             {fields.text && (
               <div dangerouslySetInnerHTML={{ __html: fields.text }}></div>
             )}

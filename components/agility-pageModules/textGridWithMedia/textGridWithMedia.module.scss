@@ -1,0 +1,23 @@
+.textGridWithMedia {
+  .heading {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 1rem 0;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .textItem {
+    padding: 2rem 2rem 0 2rem;
+  }
+  .textItemHtml {
+    padding-bottom: 2rem;
+  }
+  .textItemHeading {
+    margin-bottom: 1.5rem;
+  }
+}

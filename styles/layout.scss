@@ -153,6 +153,10 @@
   padding: 0.5rem;
 }
 
+.padding-unset {
+  padding: unset;
+}
+
 .columns {
   width: 100%;
   display: grid;
@@ -185,6 +189,10 @@
   }
 }
 
+/*
+  .grid-columns: use for displaying small tiles in a grid (for example icons)
+  &.is-[2-5]: define how many columns there should be before collapsing to a new row.
+*/
 .grid-columns {
   display: grid;
   width: 100%;
@@ -226,6 +234,22 @@
       }
     }
   }
+}
+
+/*
+  classes for setting max-width values
+*/
+
+.max-width-narrow {
+  max-width: $narrow;
+}
+
+.max-width-medium {
+  max-width: $medium;
+}
+
+.max-width-wide {
+  max-width: $wide;
 }
 
 .row-desktop {
