@@ -5,6 +5,8 @@ import FirstFold from "./firstFold/firstFold";
 import ClientLogosList from "./clientLogosList/clientLogosList";
 import Placeholder from "./placeholder";
 import RichTextArea from "./richTextArea/richTextArea";
+import TextGridWithMedia from "./textGridWithMedia/textGridWithMedia";
+import TextWithMedia from "./textWithMedia/textWithMedia";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -18,8 +20,8 @@ const allModules = [
   { name: "BlogPostContent", module: BlogPostContent },
   { name: "ResourceContent", module: ResourceContent },
   { name: "OverrideSEO", module: Placeholder },
-  { name: "TextWithMedia", module: Placeholder },
-  { name: "TextGrid", module: Placeholder },
+  { name: "TextWithMedia", module: TextWithMedia },
+  { name: "TextGridWithMedia", module: TextGridWithMedia },
   { name: "ClientTestimonial", module: Placeholder },
   { name: "ResourceList", module: Placeholder },
   { name: "TextGridWithMedia", module: Placeholder },

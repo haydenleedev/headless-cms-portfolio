@@ -2,7 +2,10 @@
 @import "../../../styles/settings/colors";
 
 .clientLogosList {
+  padding: 2rem 0;
   .heading {
+    display: flex;
+    justify-content: center;
     text-align: center;
     padding-bottom: 4rem;
   }

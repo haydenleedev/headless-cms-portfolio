@@ -1,0 +1,14 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
+.textWithMedia {
+  .heading {
+    margin-bottom: 2rem;
+  }
+  .textContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
