@@ -1,0 +1,32 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
+.clientLogosList {
+  .heading {
+    text-align: center;
+    padding-bottom: 4rem;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    @include desktop() {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .link {
+    border: unset;
+    text-align: center;
+    margin-top: 1rem;
+    @include desktop() {
+      margin-top: unset;
+      white-space: nowrap;
+    }
+  }
+}

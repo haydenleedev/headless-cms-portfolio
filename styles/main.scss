@@ -22,3 +22,8 @@ main {
     padding-top: unset;
   }
 }
+
+// This has to be important to override marketo
+.mktoForm {
+  width: unset !important;
+}
