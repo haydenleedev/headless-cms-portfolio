@@ -10,7 +10,7 @@
     grid-gap: 1rem;
     position: relative;
     @include desktop() {
-      grid-template-columns: 6fr 4fr;
+      grid-template-columns: 6fr 3fr;
     }
   }
 

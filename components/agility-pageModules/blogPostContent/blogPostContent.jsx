@@ -30,16 +30,19 @@ const BlogPostContent = ({ dynamicPageItem }) => {
             </div>
             <h1 className="heading-3">{blogPost.title}</h1>
             <small className={style.meta}>
-              by {"Author"} | <time dateTime="2011-11-11">Date here</time>
+              {/* TODO: format date */}
+              by {blogPost.author.fields.name} | <time dateTime={blogPost.date}>{blogPost.date}</time>
             </small>
             <AgilityImage
               src={blogPost.image.url}
               alt={blogPost.image.label}
               width={blogPost.image.pixelWidth}
               height={blogPost.image.pixelHeight}
+              objectFit="cover"
             />
+            {/* TODO: Sanitize HTML */}
             <div
-              className={style.content}
+              className={`content ${style.content}`}
               dangerouslySetInnerHTML={renderHTML(blogPost.content)}
             />
           </div>

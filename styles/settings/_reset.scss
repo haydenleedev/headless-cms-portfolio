@@ -1,4 +1,15 @@
 // Only reset what needs to be reset (override bad user agent stylesheet)
+// Reset here, not in typography
+
 body, p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }

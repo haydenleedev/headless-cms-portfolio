@@ -8,13 +8,20 @@ import RichTextArea from "./richTextArea/richTextArea";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
+import ResourceContent from "./resourceContent/resourceContent";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
   { name: "Placeholder", module: Placeholder },
+  { name: "ClientLogosList", module: Placeholder },
   { name: "RichTextArea", module: RichTextArea },
   { name: "BlogPostContent", module: BlogPostContent },
-  { name: "ClientLogosList", module: ClientLogosList },
+  { name: "ResourceContent", module: ResourceContent },
+  { name: "OverrideSEO", module: Placeholder },
+  { name: "TextWithMedia", module: Placeholder },
+  { name: "TextGrid", module: Placeholder },
+  { name: "ClientTestimonial", module: Placeholder },
+  { name: "ResourceList", module: Placeholder },
 ];
 
 export const getModule = (moduleName) => {
