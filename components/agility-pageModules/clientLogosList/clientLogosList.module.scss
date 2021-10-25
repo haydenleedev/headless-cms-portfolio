@@ -2,6 +2,10 @@
 @import "../../../styles/settings/colors";
 
 .clientLogosList {
+  .heading {
+    text-align: center;
+    padding-bottom: 4rem;
+  }
   .content {
     display: flex;
     flex-direction: column;

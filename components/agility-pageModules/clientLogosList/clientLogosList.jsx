@@ -1,9 +1,11 @@
 import Link from "next/link";
+import Heading from "../heading";
 import style from "./clientLogosList.module.scss";
 
 const ClientLogosList = ({ module }) => {
   const { fields } = module;
-  console.log(fields);
+  const heading = JSON.parse(fields.heading);
+
   return (
     <section
       className={`section ${style.clientLogosList} ${
@@ -11,14 +13,19 @@ const ClientLogosList = ({ module }) => {
       }`}
     >
       <div className="container">
+        {heading.text && (
+          <div className={style.heading}>
+            <Heading {...heading} />
+          </div>
+        )}
         <div className={style.content}>
           <div
-            className={`mr flex-columns ${
+            className={`mr grid-columns ${
               fields.columns ? `is-${fields.columns}` : ""
             }`}
           >
             {fields?.logos?.media?.map((logo) => (
-              <div className={style.logo} key={logo.mediaID}>
+              <div className={`grid-column ${style.logo}`} key={logo.mediaID}>
                 <img
                   src={logo.url}
                   alt={

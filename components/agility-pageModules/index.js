@@ -13,7 +13,7 @@ import ResourceContent from "./resourceContent/resourceContent";
 const allModules = [
   { name: "FirstFold", module: FirstFold },
   { name: "Placeholder", module: Placeholder },
-  { name: "ClientLogosList", module: Placeholder },
+  { name: "ClientLogosList", module: ClientLogosList },
   { name: "RichTextArea", module: RichTextArea },
   { name: "BlogPostContent", module: BlogPostContent },
   { name: "ResourceContent", module: ResourceContent },
