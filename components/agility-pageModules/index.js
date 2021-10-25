@@ -2,6 +2,7 @@
 // Place Page Modules in allModules array below, passing in a name and the component.
 
 import FirstFold from "./firstFold/firstFold";
+import ClientLogosList from "./clientLogosList/clientLogosList";
 import Placeholder from "./placeholder";
 import RichTextArea from "./richTextArea/richTextArea";
 
@@ -13,6 +14,7 @@ const allModules = [
   { name: "Placeholder", module: Placeholder },
   { name: "RichTextArea", module: RichTextArea },
   { name: "BlogPostContent", module: BlogPostContent },
+  { name: "ClientLogosList", module: ClientLogosList },
 ];
 
 export const getModule = (moduleName) => {
