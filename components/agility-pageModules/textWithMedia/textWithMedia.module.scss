@@ -7,20 +7,18 @@
   }
   .content {
     display: flex;
-    flex-direction: column;
-    flex-direction: column-reverse;
     & > * {
       flex-basis: 100%;
     }
-    @include desktop() {
-      flex-direction: row;
+    @include touch() {
+      flex-direction: column;
+      flex-direction: column-reverse;
     }
   }
   .textContent {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
   }
   .media {
     @include touch() {

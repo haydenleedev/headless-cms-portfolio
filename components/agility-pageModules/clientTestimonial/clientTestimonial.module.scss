@@ -1,0 +1,59 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
+.clientTestimonial {
+  padding: 5rem 0;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .slim {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      .quote {
+        font-weight: 400;
+        font-size: 1.5rem;
+        padding: 0.75rem 0 2rem 0;
+      }
+      .client {
+        font-size: 1rem;
+        line-height: 1.2;
+      }
+    }
+    .normal {
+      max-width: 920px;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      .quote {
+        font-weight: 600;
+        font-size: 1.85rem;
+        line-height: 1.2;
+        padding: 0.75rem 0 2rem 0;
+      }
+      .client {
+        font-size: 1.85rem;
+        line-height: 1.2;
+        .jobTitle {
+          font-style: italic;
+        }
+      }
+    }
+  }
+  .logo {
+    margin-top: 2rem;
+  }
+  .link {
+    border: unset;
+    text-align: center;
+    padding: 0.45rem 2rem;
+    margin: 3rem 0 1rem;
+    font-size: 0.9rem;
+  }
+}

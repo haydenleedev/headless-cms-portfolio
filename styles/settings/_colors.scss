@@ -75,3 +75,12 @@ $color-mediumpurple: #6e0bdc;
 .bg-mediumpurple {
   background-color: $color-mediumpurple;
 }
+.bg-gradient-blue {
+  background: linear-gradient(90deg, $color-skyblue, $color-mediumblue);
+}
+.text-white {
+  color: $color-white;
+}
+.text-navy {
+  color: $color-navy;
+}
