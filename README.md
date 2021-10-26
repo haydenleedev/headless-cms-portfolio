@@ -4,6 +4,7 @@
 - For components include css modules in the same folder so you can easily copy paste the folder to any other location.
 - For convenience files with React code use .jsx file extension. Files with vanilla js use .js.
 - Try not to set any styles on html for accessibility reasons. Screen readers and assistive technology usually manipulate the root HTML element so we don't want to overwrite any of those settings. Same for any user agent resets, only reset when necessary.
+- Try to use Semantic naming for Agility CMS modules and React components.
 
 # UJET Website with Next.js
 
