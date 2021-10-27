@@ -8,6 +8,6 @@ export const boolean = (input) => {
     case "true":
       return true;
     default:
-      return input;
+      return Boolean(input);
   }
 };

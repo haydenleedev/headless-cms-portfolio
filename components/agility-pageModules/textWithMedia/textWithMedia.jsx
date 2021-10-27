@@ -29,12 +29,16 @@ const TextWithMedia = ({ module }) => {
             }`}
           >
             {heading.text && (
-              <div className={boolean(fields.columnLayout) ? "heading" : style.heading}>
+              <div
+                className={
+                  boolean(fields.columnLayout) ? "heading" : style.heading
+                }
+              >
                 <Heading {...heading} />
               </div>
             )}
             <div
-              className={style.html}
+              className={`${style.html} content`}
               dangerouslySetInnerHTML={{ __html: fields.text }}
             ></div>
             {fields.link && (
@@ -51,7 +55,11 @@ const TextWithMedia = ({ module }) => {
               </Link>
             )}
           </div>
-          <div className={`${style.media} ${boolean(fields.mediaLeft) ? "mr" : "ml"}`}>
+          <div
+            className={`${style.media} ${
+              boolean(fields.mediaLeft) ? "mr" : "ml"
+            }`}
+          >
             {fields.media && <Media media={fields.media} />}
           </div>
         </div>
