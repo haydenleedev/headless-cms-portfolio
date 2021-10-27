@@ -126,6 +126,8 @@ BlogPostContent.getCustomInitialProps = async ({
           url,
         };
       });
+
+    // TODO: Try to move this below to a helper file without breaking the bundle.
     const sanitizeHtml = (await import("sanitize-html")).default;
     // A helper function that checks whether a href is ujet.cx or an external one. Used for sanitizing HTML.
     function hrefSelf(href) {
@@ -156,7 +158,7 @@ BlogPostContent.getCustomInitialProps = async ({
 
     return {
       relatedBlogPosts,
-      sanitizedHtml
+      sanitizedHtml,
     };
   } catch (error) {
     if (console) console.error(error);
