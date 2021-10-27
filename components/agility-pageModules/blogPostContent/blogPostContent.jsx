@@ -5,6 +5,7 @@ import style from "./blogPostContent.module.scss";
 import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
+import sanitizeHtml from "sanitize-html";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const { relatedBlogPosts } = customData;
@@ -15,6 +16,32 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
     month: "long",
     day: "numeric",
   });
+
+  function hrefSelf(href) {
+    console.log(href, /^(www\.|assets\.|http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(ujet)\.cx?(\/.*)?$/.test(
+      href
+    ))
+    return /^(www\.|assets\.|http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(ujet)\.cx?(\/.*)?$/.test(
+      href
+    );
+  }
+  const sanitizedContent = sanitizeHtml(blogPost.content, {
+    allowedAttributes: {
+      "*": ["href", "target", "alt", "rel", "class"],
+    },
+    transformTags: {
+      a: function (tagName, attribs) {
+        if (!hrefSelf(attribs.href)) {
+          attribs.rel = "noindex noreferrer nofollow";
+        }
+        return {
+          tagName: "a",
+          attribs,
+        };
+      },
+    },
+  });
+
   //   const ogImageUrl = post.image.url + "?q=50&w=1200&format=auto";
   return (
     <>
@@ -24,32 +51,35 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
       </Head> */}
       <section className={`section ${style.blogPostContent}`}>
         <div className={`container ${style.container}`}>
-          <div>
+          <div className={style.body}>
             {/* TODO: populate this once we have the icon assets */}
+
+            <div>
+              <h1 className="heading-3">{blogPost.title}</h1>
+              <small className={style.meta}>
+                {/* TODO: format date */}
+                by {blogPost.author?.fields.name || "UJET Team"} | 
+                <time dateTime={blogPost.date}>{dateStr}</time>
+              </small>
+              <AgilityImage
+                src={blogPost.image.url}
+                alt={blogPost.image.label || null}
+                width={blogPost.image.pixelWidth}
+                height={blogPost.image.pixelHeight}
+                objectFit="cover"
+              />
+              {/* TODO: Sanitize HTML */}
+              <div
+                className={`content ${style.content}`}
+                dangerouslySetInnerHTML={renderHTML(sanitizedContent)}
+              />
+            </div>
             <div className={style.share}>
               <span></span>
               <span></span>
               <span></span>
               <span></span>
             </div>
-            <h1 className="heading-3">{blogPost.title}</h1>
-            <small className={style.meta}>
-              {/* TODO: format date */}
-              by {blogPost.author?.fields.name || "UJET Team"} | 
-              <time dateTime={blogPost.date}>{dateStr}</time>
-            </small>
-            <AgilityImage
-              src={blogPost.image.url}
-              alt={blogPost.image.label || null}
-              width={blogPost.image.pixelWidth}
-              height={blogPost.image.pixelHeight}
-              objectFit="cover"
-            />
-            {/* TODO: Sanitize HTML */}
-            <div
-              className={`content ${style.content}`}
-              dangerouslySetInnerHTML={renderHTML(blogPost.content)}
-            />
           </div>
           <div>
             <Subscribe></Subscribe>
@@ -103,7 +133,6 @@ BlogPostContent.getCustomInitialProps = async ({
       depth: 2,
       take: 50,
     });
-
 
     const dynamicUrls = resolveAgilityUrls(sitemap, raw.items);
     const relatedBlogPosts = raw.items

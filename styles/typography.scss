@@ -144,21 +144,21 @@ blog posts or anywhere where html is rendered */
     text-decoration: underline;
   }
 
-  // ol,
-  // ul {
-  //   margin: 2rem 0 2rem 2rem;
-  // }
+  ol,
+  ul {
+    margin: 2rem 0 2rem 2rem;
+  }
 
-  // ol {
-  //   li {
-  //     margin-top: 1.5rem;
-  //   }
-  // }
-  // ul {
-  //   li {
-  //     margin-top: 1rem;
-  //   }
-  // }
+  ol {
+    li {
+      margin-top: 1.5rem;
+    }
+  }
+  ul {
+    li {
+      margin-top: 1rem;
+    }
+  }
 
   // TODO: Might want to make these specific to blog, but keep here for now since posts might share the css...
   .alignright {

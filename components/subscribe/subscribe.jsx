@@ -11,6 +11,16 @@ const Subscribe = ({}) => {
     var observer = new MutationObserver(function (mutations) {
       mutations[0].target.removeAttribute("class");
       mutations[0].target.removeAttribute("style");
+
+      // TODO: Add hidden input for the following, add to head or data-layer
+      // {{GA User ID}}
+      // {{GA Cookie User ID}}
+      // {{GA EM User ID}}
+      // {{GA Page}}
+      // {{GA Page}}
+      // {{GA Date}}
+      // {{GA Cookie Date}}
+      // {{GA User ID - User}}
     });
     var form = document.getElementById("mktoForm_1024");
     observer.observe(form, {

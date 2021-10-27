@@ -10,6 +10,7 @@
   min-height: 512px;
   @include desktop() {
     max-width: 25vw;
+    min-width: 100%;
   }
   .heading {
     text-transform: uppercase;

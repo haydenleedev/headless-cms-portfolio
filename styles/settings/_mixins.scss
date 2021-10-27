@@ -1,6 +1,12 @@
 @use "variables" as var;
 @use "sass:math";
 
+@mixin ultraLargeDesktop() {
+  @media (min-width: 1362px) {
+    @content;
+  }
+}
+
 @mixin largeDesktop() {
   @media (min-width: 1008px) {
     @content;
