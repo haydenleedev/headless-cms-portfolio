@@ -5,7 +5,7 @@ import style from "./blogPostContent.module.scss";
 import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
-import sanitizeHtml from "sanitize-html";
+import { cleanHtml } from "../../../utils/validation";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const { relatedBlogPosts } = customData;
@@ -17,30 +17,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
     day: "numeric",
   });
 
-  function hrefSelf(href) {
-    console.log(href, /^(www\.|assets\.|http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(ujet)\.cx?(\/.*)?$/.test(
-      href
-    ))
-    return /^(www\.|assets\.|http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(ujet)\.cx?(\/.*)?$/.test(
-      href
-    );
-  }
-  const sanitizedContent = sanitizeHtml(blogPost.content, {
-    allowedAttributes: {
-      "*": ["href", "target", "alt", "rel", "class"],
-    },
-    transformTags: {
-      a: function (tagName, attribs) {
-        if (!hrefSelf(attribs.href)) {
-          attribs.rel = "noindex noreferrer nofollow";
-        }
-        return {
-          tagName: "a",
-          attribs,
-        };
-      },
-    },
-  });
+
 
   //   const ogImageUrl = post.image.url + "?q=50&w=1200&format=auto";
   return (
@@ -71,7 +48,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
               {/* TODO: Sanitize HTML */}
               <div
                 className={`content ${style.content}`}
-                dangerouslySetInnerHTML={renderHTML(sanitizedContent)}
+                dangerouslySetInnerHTML={renderHTML(cleanHtml(blogPost.content))}
               />
             </div>
             <div className={style.share}>
