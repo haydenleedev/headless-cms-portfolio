@@ -9,6 +9,7 @@ import TextGridWithMedia from "./textGridWithMedia/textGridWithMedia";
 import TextWithMedia from "./textWithMedia/textWithMedia";
 import ClientTestimonial from "./clientTestimonial/clientTestimonial";
 import Spacer from "./spacer/spacer";
+import ResourceList from "./resourceList/resourceList";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -25,7 +26,7 @@ const allModules = [
   { name: "TextWithMedia", module: TextWithMedia },
   { name: "TextGridWithMedia", module: TextGridWithMedia },
   { name: "ClientTestimonial", module: ClientTestimonial },
-  { name: "ResourceList", module: Placeholder },
+  { name: "ResourceList", module: ResourceList },
   { name: "TextGridWithMedia", module: Placeholder },
   { name: "Spacer", module: Spacer },
 ];

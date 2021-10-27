@@ -7,11 +7,7 @@ const TextWithMedia = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   return (
-    <section
-      className={`section ${style.textWithMedia} ${
-        fields.classes ? fields.classes : ""
-      }`}
-    >
+    <section className={`section ${style.textWithMedia}`}>
       <div className="container">
         <div
           className={`${style.content} ${
@@ -31,10 +27,15 @@ const TextWithMedia = ({ module }) => {
                 : "justify-content-flex-start align-items-flex-start"
             }`}
           >
-            <div className={style.heading}>
-              {heading.text && <Heading {...heading} />}
-            </div>
-            <div dangerouslySetInnerHTML={{ __html: fields.text }}></div>
+            {heading.text && (
+              <div className={fields.columnLayout ? "heading" : style.heading}>
+                <Heading {...heading} />
+              </div>
+            )}
+            <div
+              className={style.html}
+              dangerouslySetInnerHTML={{ __html: fields.text }}
+            ></div>
             {fields.link && (
               <Link href={fields.link.href}>
                 <a

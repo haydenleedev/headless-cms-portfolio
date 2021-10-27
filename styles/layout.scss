@@ -145,7 +145,7 @@
     }
   }
   &.is-2 {
-    grid-template-columns: repeat(auto-fill, minmax(max(100px, 100% / 2), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(max(150px, 100% / 2), 1fr));
     .grid-column {
       > * {
         max-width: 150px;
@@ -153,7 +153,7 @@
     }
   }
   &.is-3 {
-    grid-template-columns: repeat(auto-fill, minmax(max(100px, 100% / 3), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(max(140px, 100% / 3), 1fr));
     .grid-column {
       > * {
         max-width: 140px;
@@ -161,7 +161,7 @@
     }
   }
   &.is-4 {
-    grid-template-columns: repeat(auto-fill, minmax(max(100px, 100% / 4), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(max(130px, 100% / 4), 1fr));
     .grid-column {
       > * {
         max-width: 130px;
@@ -169,7 +169,7 @@
     }
   }
   &.is-5 {
-    grid-template-columns: repeat(auto-fill, minmax(max(100px, 100% / 5), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(max(120px, 100% / 5), 1fr));
     .grid-column {
       > * {
         max-width: 120px;

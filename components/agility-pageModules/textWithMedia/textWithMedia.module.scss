@@ -19,6 +19,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    .html {
+      margin-bottom: 2rem;
+    }
+    .link {
+      margin-top: unset;
+    }
   }
   .media {
     @include touch() {
