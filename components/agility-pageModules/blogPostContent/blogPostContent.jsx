@@ -55,7 +55,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
             <Subscribe></Subscribe>
             <Link href="#">
               <a className={`button outlined cyan ${style.requestDemo}`}>
-                Requst a DEMO
+                Request a DEMO
               </a>
             </Link>
           </div>

@@ -1,30 +1,35 @@
 @import "../../styles/settings/_colors.scss";
+@import "../../styles/settings/_mixins.scss";
 
 .subscribe {
-    background: $color-lightgray;
-    border-radius: 2rem;
-    padding: 1.75rem;
-    position: relative;
+  background: $color-lightgray;
+  border-radius: 2rem;
+  padding: 1.75rem;
+  position: relative;
+  // Eliminate CLS because we load marketo on idle
+  min-height: 512px;
+  @include desktop() {
+    max-width: 25vw;
+  }
+  .heading {
+    text-transform: uppercase;
+    color: $color-darkgray;
+    font-size: 1rem;
+  }
 
-    .heading {
-        text-transform: uppercase;
-        color: $color-darkgray;
-        font-size: 1rem;
-    }
+  .title {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: $color-darkgray;
+  }
 
-    .title {
-        margin-top: 1rem;
-        font-size: 1.5rem;
-        color: $color-darkgray;
-    }
+  .label {
+    margin-top: 0.75rem;
+  }
 
-    .label {
-        margin-top: 0.75rem;
-    }
-
-    .subscribeButton {
-        margin-top: 2rem;
-        width: 100%;
-        text-transform: uppercase;
-    }
+  .subscribeButton {
+    margin-top: 2rem;
+    width: 100%;
+    text-transform: uppercase;
+  }
 }

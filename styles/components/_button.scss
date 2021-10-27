@@ -1,7 +1,8 @@
 // Semantic naming makes it easier to quickly add buttons
 // Ie. we remember the class name 'white' better than 'primary'
 
-.button {
+.button,
+.mktoButton {
   border-radius: 3rem;
   background: $color-navy;
   color: white;
@@ -13,7 +14,7 @@
   transition: all 150ms;
   border: 0.2rem solid $color-navy;
   vertical-align: center;
-  &.small {
+  &.small, .mktoButton {
     font-size: 1rem;
     border-width: 0.1rem;
   }

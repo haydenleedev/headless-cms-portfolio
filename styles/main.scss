@@ -5,6 +5,7 @@
 @import "./settings/__settings";
 @import "layout";
 @import "typography";
+@import "marketo";
 @import "./components/_components-dir";
 
 /* Try not to set anything on html for best accessibility */
@@ -21,9 +22,4 @@ main {
   @include desktop() {
     padding-top: unset;
   }
-}
-
-// This has to be important to override marketo
-.mktoForm, .mktoFormRow, .mktoFieldDescriptor, .mktoFormCol, .mktoField, .mktoLabel, .mktoHasWidth {
-  width: 100% !important;
 }

@@ -1,7 +1,8 @@
-// Only reset what needs to be reset (override bad user agent stylesheet)
+// Only reset what needs to be reset (override bad user agent stylesheet or 3rd party injected markup)
 // Reset here, not in typography
 
-body, p {
+body,
+p {
   margin: 0;
 }
 
