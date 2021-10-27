@@ -1,7 +1,22 @@
 import style from "./subscribe.module.scss";
 import Script from "next/script";
+import { useEffect } from "react";
 
 const Subscribe = ({}) => {
+  /*  Since we load the script lazyOnLoad we need to observe
+    attribute changes in the form element in order to delete the styles that marketo loads after marketo injects them.
+    Now we can override all marketo form styles easily.
+   */
+  useEffect(() => {
+    var observer = new MutationObserver(function (mutations) {
+      mutations[0].target.removeAttribute("class");
+      mutations[0].target.removeAttribute("style");
+    });
+    var form = document.getElementById("mktoForm_1024");
+    observer.observe(form, {
+      attributes: true,
+    });
+  }, []);
 
   return (
     <>
@@ -18,55 +33,7 @@ const Subscribe = ({}) => {
         <p className={style.title}>
           The best customer experience content delivered right to your inbox.
         </p>
-        <form id="mktoForm_1024"></form>
-
-        {/* <form>
-          <label htmlFor="email" className={style.label}>
-            <span aria-hidden className="color-red">
-              *{" "}
-            </span>
-            Business email:
-          </label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            placeholder="Please enter your business email"
-            required
-            aria-required
-          ></input>
-          <label htmlFor="country" className={style.label}>
-            <span aria-hidden className="color-red">
-              *{" "}
-            </span>
-            Country (Corp HQ)
-          </label>
-          <input
-            id="country"
-            name="country"
-            type="text"
-            placeholder="Please enter your company's country"
-            required
-            aria-required
-          ></input>
-          <label htmlFor="state" className={style.label}>
-            <span aria-hidden className="color-red">
-              *{" "}
-            </span>
-            Country (Corp HQ)
-          </label>
-          <input
-            id="state"
-            name="state"
-            type="text"
-            placeholder="Please enter your company's state"
-            required
-            aria-required
-          ></input>
-          <button type="submit" className={`button ${style.subscribeButton}`}>
-            Subscribe to UJET Blog
-          </button>
-        </form> */}
+        <form id="mktoForm_1024" className="marketo-subscribe"></form>
       </div>
     </>
   );
