@@ -16,7 +16,10 @@ const FirstFold = ({ module }) => {
               <Heading {...heading}></Heading>
             </div>
             {fields.text && (
-              <div dangerouslySetInnerHTML={{ __html: fields.text }}></div>
+              <div
+                className="content"
+                dangerouslySetInnerHTML={{ __html: fields.text }}
+              ></div>
             )}
             {fields.primaryLink.href && (
               <Link href="#">

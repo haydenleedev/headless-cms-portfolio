@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { boolean } from "../../../utils/validation";
 import Heading from "../heading";
 import style from "./clientTestimonial.module.scss";
 
@@ -13,7 +14,7 @@ const ClientTestimonial = ({ module }) => {
     >
       <div className="container">
         <div className={style.content}>
-          {fields.slim ? (
+          {boolean(fields.slim) ? (
             <div className={style.slim}>
               {fields.testimonial.fields?.text && (
                 <>

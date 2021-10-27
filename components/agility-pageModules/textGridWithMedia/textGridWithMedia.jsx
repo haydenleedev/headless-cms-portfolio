@@ -29,7 +29,7 @@ const TextGridWithMedia = ({ module }) => {
                     </div>
                   )}
                   <div
-                    className={style.textItemHtml}
+                    className={`${style.textItemHtml} content`}
                     dangerouslySetInnerHTML={{ __html: fields.text }}
                   ></div>
                 </div>
