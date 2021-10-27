@@ -26,8 +26,13 @@ const Subscribe = ({}) => {
     observer.observe(form, {
       attributes: true,
     });
-  }, []);
 
+    // Loads the form on page change
+
+  }, []);
+  // if (typeof MktoForms2 != "undefined") {
+  //   window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1024);
+  // }
   return (
     <>
       <Script

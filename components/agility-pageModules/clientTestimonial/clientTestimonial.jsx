@@ -5,7 +5,6 @@ import style from "./clientTestimonial.module.scss";
 
 const ClientTestimonial = ({ module }) => {
   const { fields } = module;
-  console.log(fields);
   return (
     <section
       className={`section ${style.clientTestimonial} ${

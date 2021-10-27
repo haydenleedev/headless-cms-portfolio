@@ -5,19 +5,16 @@ import style from "./blogPostContent.module.scss";
 import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
-import { cleanHtml } from "../../../utils/validation";
+import dynamic from "next/dynamic";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
-  const { relatedBlogPosts } = customData;
-  console.log(relatedBlogPosts);
+  const { relatedBlogPosts, sanitizedHtml } = customData;
   const blogPost = dynamicPageItem.fields;
   const dateStr = new Date(blogPost.date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
-
-
 
   //   const ogImageUrl = post.image.url + "?q=50&w=1200&format=auto";
   return (
@@ -48,7 +45,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
               {/* TODO: Sanitize HTML */}
               <div
                 className={`content ${style.content}`}
-                dangerouslySetInnerHTML={renderHTML(cleanHtml(blogPost.content))}
+                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
               />
             </div>
             <div className={style.share}>
@@ -129,8 +126,37 @@ BlogPostContent.getCustomInitialProps = async ({
           url,
         };
       });
+    const sanitizeHtml = (await import("sanitize-html")).default;
+    // A helper function that checks whether a href is ujet.cx or an external one. Used for sanitizing HTML.
+    function hrefSelf(href) {
+      return /^(www\.|assets\.|http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(ujet)\.cx?(\/.*)?$/.test(
+        href
+      );
+    }
+
+    // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
+    const cleanHtml = (html) =>
+      sanitizeHtml(html, {
+        allowedAttributes: {
+          "*": ["href", "target", "alt", "rel", "class"],
+        },
+        transformTags: {
+          a: function (tagName, attribs) {
+            if (!hrefSelf(attribs.href)) {
+              attribs.rel = "noindex noreferrer nofollow";
+            }
+            return {
+              tagName: "a",
+              attribs,
+            };
+          },
+        },
+      });
+    const sanitizedHtml = cleanHtml(dynamicPageItem.fields.content);
+
     return {
       relatedBlogPosts,
+      sanitizedHtml
     };
   } catch (error) {
     if (console) console.error(error);

@@ -4,7 +4,6 @@ import style from "./resourceList.module.scss";
 
 const ResourceList = ({ module }) => {
   const { fields } = module;
-  console.log(fields);
   const heading = JSON.parse(fields.heading);
   return (
     <section className={`section ${style.resourceList}`}>
