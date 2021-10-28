@@ -1,13 +1,89 @@
-
 @import "../../../styles/settings/_colors.scss";
-
+@import "../../../styles/settings/mixins";
 
 .content {
 }
 
 .form {
-    background: $color-mediumpurple;
-    padding: 1rem;
-    min-height: 1000px;
-    border-radius: 1rem;
+  background: $color-purple;
+  padding: 1rem;
+  min-height: 1000px;
+  border-radius: 1rem;
+  @include desktop() {
+    padding: 3rem;
+  }
+
+  .formTitle {
+    color: $color-white;
+    font-weight: 400;
+    margin-bottom: 2rem;
+  }
+}
+
+.alternateFormTitle {
+  margin-bottom: 3rem;
+}
+
+.alternateHeader {
+  position: relative;
+  .alternateHeaderContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .alternateHeaderColumns {
+    width: 100%;
+    display: grid;
+    @include desktop() {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contentColumn {
+      min-height: 17.5rem;
+      background: $color-navy;
+      @include desktop() {
+        min-height: 25rem;
+      }
+    }
+
+    .imageColumn {
+      min-height: 25rem;
+      div {
+        height: 100%;
+      }
+    }
+  }
+
+  .category {
+    color: $color-white;
+  }
+
+  .title {
+    font-weight: 200;
+    color: $color-white;
+  }
+
+  .hr {
+    background: $color-skyblue;
+    display: inline-block;
+    width: 4rem;
+    height: 0.1rem;
+    margin: 1.5rem 0;
+  }
+}
+
+.alternateContent {
+  @include shadow();
+  padding: 1rem;
+  top: -8rem;
+  position: relative;
+  border-radius: 1rem;
+  @include desktop() {
+    margin: auto;
+    padding: 4rem;
+  }
+}
+
+.alternateLink {
+  text-align: center;
 }

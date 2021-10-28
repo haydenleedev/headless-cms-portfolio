@@ -125,6 +125,11 @@ input[type="number"]::-webkit-inner-spin-button {
   opacity: 1;
 }
 
+.link {
+  color: $color-lightblue;
+  text-decoration: underline;
+}
+
 /* This class is a wrapper that applies a standard typography for pure html content in 
 blog posts or anywhere where html is rendered */
 .content {

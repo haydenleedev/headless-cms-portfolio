@@ -4,14 +4,10 @@ import Layout from "../components/layout/layout";
 // TODO: import global components
 import Navbar from "../components/layout/navbar/navbar";
 import { cleanHtml } from "../utils/validation";
+import Script from "next/script";
+
 // getStaticProps function fetches data for all of your Agility Pages and Next.js will pre-render these pages at build time
-export async function getStaticProps({
-  preview,
-  params,
-  locale,
-  defaultLocale,
-  locales,
-}) {
+export async function getStaticProps({ preview, params, locale, defaultLocale, locales }) {
   // TODO: place all global here
   const globalComponents = {
     navbar: Navbar,
@@ -25,19 +21,6 @@ export async function getStaticProps({
     defaultLocale,
     globalComponents,
   });
-
-  //  IGNORE BELOW
-  // for (const [key, value] of Object.entries(agilityProps)) {
-  //   if(key === "page") {
-  //     switch(value.name) {
-  //       case "blog-posts":
-  //         console.log(value.zones.MainContentZone[0].item);
-  //         break;
-  //       default:
-  //         console.log("default")
-  //     }
-  //   }
-  // }
 
   if (!agilityProps) {
     // We throw to make sure this fails at build time as this is never expected to happen
@@ -67,7 +50,11 @@ export async function getStaticPaths({ locales, defaultLocale }) {
 }
 
 const AgilityPage = (props) => {
-  return <Layout {...props} />;
+  return (
+    <>
+      <Layout {...props} />;
+    </>
+  );
 };
 
 export default AgilityPage;

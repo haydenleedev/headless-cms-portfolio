@@ -11,6 +11,31 @@
 
 .mktoError {
   font-size: 0.75rem;
+  margin-top: 0.25rem !important;
+  left: 0;
+  bottom: 0;
+  position: relative;
+}
+
+.mktoErrorMsg {
+  z-index: 124124;
+  position: absolute;
+  background: $color-lightblue;
+  color: $color-white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  display: inline-table;
+  &::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-bottom: 0 solid transparent;
+    border-top: 0.5rem solid transparent;
+    border-left: 1rem solid $color-lightblue;
+    position: absolute;
+    left: 0;
+    top: -0.25rem;
+  }
 }
 
 .mktoButtonWrap,
@@ -18,10 +43,44 @@
   margin: 0 !important;
 }
 
+// TODO: might have to change this to a class selector, if the IDs chage.
 #mktoForm_1024 {
   margin-top: 1.5rem;
   .mktoButton {
     margin-top: 1.5rem;
     width: 100% !important;
+    cursor: pointer;
+  }
+}
+
+// TODO: might have to change this to a class selector, if the IDs chage.
+// Basic resource form
+#mktoForm_1638 {
+  .mktoLabel {
+    display: none;
+  }
+  .mktoError {
+    color: $color-white;
+  }
+  .mktoInstruction {
+    display: none;
+  }
+  button {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-top: 1.5rem;
+    color: $color-white;
+    border-color: $color-skyblue !important;
+    background-color: $color-skyblue !important;
+    cursor: pointer;
+  }
+
+  input,
+  select {
+    font-size: 1rem;
+    &::placeholder {
+      color: $color-navy;
+      font-size: 1rem;
+    }
   }
 }

@@ -4,189 +4,13 @@ import MainNavigation from "./mainNavigation";
 import Link from "next/link";
 import { useState } from "react";
 
-const mainNavs = [
-  {
-    // Navigation group
-    main_menu: "Why UJET",
-    href: "why-ujet",
-    columns: [
-      [
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-      ],
-      [
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-      ],
-    ],
-  },
-  {
-    // Navigation group
-    main_menu: "nav",
-    href: "why-ujet",
-    columns: [
-      [
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-        },
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-        },
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-        },
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-        },
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-        },
-      ],
-      [
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-      ],
-      [
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-      ],
-    ],
-  },
-  {
-    // Navigation group
-    main_menu: "Why UJET",
-    href: "why-ujet",
-    columns: [
-      [
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-      ],
-      [
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-        {
-          sub_item: "Why UJET",
-          sub_href: "/why-ujet/",
-          navigationItemChildren: [
-            {
-              dropdown_menu: "Embeddable Experience",
-              dropdown_href: "/embeddable-experience/",
-            },
-          ],
-        },
-      ],
-    ],
-  },
-];
-
 const Navbar = ({ globalData }) => {
   const { navbar } = globalData.navbar;
   // affects only mobile
   const [mainNavigationActive, setMainNavigationActive] = useState(false);
 
   return (
-    <section className={style.navbar}>
+    <navbar className={style.navbar}>
       <nav className="container" role="navigation" aria-label="Main">
         <Link href="/">
           <a title="Go to home page" aria-label="Go to home page">
@@ -203,7 +27,7 @@ const Navbar = ({ globalData }) => {
         </button>
         <MainNavigation active={mainNavigationActive} mainNavigation={navbar.fields.mainNavigation} />
       </nav>
-    </section>
+    </navbar>
   );
 };
 
