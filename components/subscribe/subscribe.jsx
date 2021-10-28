@@ -1,8 +1,12 @@
 import style from "./subscribe.module.scss";
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import Loader from "../layout/loader/loader";
 
 const Subscribe = ({}) => {
+  const [marketoLoaded, setMarketoLoaded] = useState(false);
+  const router = useRouter();
   /*  Since we load the script lazyOnLoad we need to observe
     attribute changes in the form element in order to delete the styles that marketo loads after marketo injects them.
     Now we can override all marketo form styles easily.
@@ -11,7 +15,6 @@ const Subscribe = ({}) => {
     var observer = new MutationObserver(function (mutations) {
       mutations[0].target.removeAttribute("class");
       mutations[0].target.removeAttribute("style");
-
       // TODO: Add hidden input for the following, add to head or data-layer
       // {{GA User ID}}
       // {{GA Cookie User ID}}
@@ -26,13 +29,13 @@ const Subscribe = ({}) => {
     observer.observe(form, {
       attributes: true,
     });
-
-    // Loads the form on page change
+    setMarketoLoaded(true);
+    return () => {
+      window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1024);
+    };
 
   }, []);
-  // if (typeof MktoForms2 != "undefined") {
-  //   window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1024);
-  // }
+
   return (
     <>
       <Script
@@ -40,15 +43,15 @@ const Subscribe = ({}) => {
         src="//info.ujet.co/js/forms2/js/forms2.min.js"
         strategy="lazyOnload"
         onLoad={() => {
+          setMarketoLoaded(true);
           window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1024);
         }}
       />
       <div className={style.subscribe}>
         <span className={style.heading}>Subscribe</span>
-        <p className={style.title}>
-          The best customer experience content delivered right to your inbox.
-        </p>
-        <form id="mktoForm_1024" className="marketo-subscribe"></form>
+        <p className={style.title}>The best customer experience content delivered right to your inbox.</p>
+        {!marketoLoaded && <Loader></Loader>}
+        <form id="mktoForm_1024"></form>
       </div>
     </>
   );

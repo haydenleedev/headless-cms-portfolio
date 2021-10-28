@@ -5,7 +5,6 @@ import style from "./blogPostContent.module.scss";
 import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
-import dynamic from "next/dynamic";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const { relatedBlogPosts, sanitizedHtml } = customData;
@@ -23,7 +22,9 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
         <meta property="og:image" content={ogImageUrl} />
         <meta property="twitter:image" content={ogImageUrl} />
       </Head> */}
+
       <section className={`section ${style.blogPostContent}`}>
+        
         <div className={`container ${style.container}`}>
           <div className={style.body}>
             {/* TODO: populate this once we have the icon assets */}
