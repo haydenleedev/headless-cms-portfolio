@@ -15,6 +15,15 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
     day: "numeric",
   });
 
+  // TODO: create a helper function something similar to this to reduce the instrinct pixel size from Agility so
+  // we never fetch absurdly large images such as width 3200px etc...
+
+  // if(blogPost.image.pixelWidth > 1080) {
+  //   blogPost.image.pixelWidth = blogPost.image.pixelWidth / 2
+  //   blogPost.image.pixelHeight = blogPost.image.pixelHeight / 2
+  // }
+  
+  
   //   const ogImageUrl = post.image.url + "?q=50&w=1200&format=auto";
   return (
     <>

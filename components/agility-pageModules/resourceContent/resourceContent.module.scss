@@ -1,13 +1,23 @@
 
 @import "../../../styles/settings/_colors.scss";
+@import "../../../styles/settings/mixins";
 
 
 .content {
 }
 
 .form {
-    background: $color-mediumpurple;
+    background: $color-purple;
     padding: 1rem;
     min-height: 1000px;
     border-radius: 1rem;
+    @include desktop() {
+        padding: 3rem;
+    }
+
+    .formTitle {
+        color: $color-white;
+        font-weight: 400;
+        margin-bottom: 2rem;
+    }
 }
