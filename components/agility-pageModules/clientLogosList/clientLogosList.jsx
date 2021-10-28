@@ -12,7 +12,7 @@ const ClientLogosList = ({ module }) => {
         fields.classes ? fields.classes : ""
       }`}
     >
-      <div className="container">
+      <div className="container padding-unset">
         {heading.text && (
           <div className={style.heading}>
             <Heading {...heading} />

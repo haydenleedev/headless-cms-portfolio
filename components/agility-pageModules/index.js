@@ -15,6 +15,7 @@ import HeroImage from "./heroImage/heroImage";
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
 import ResourceContent from "./resourceContent/resourceContent";
+import CallToAction from "./callToAction/callToAction";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -31,6 +32,7 @@ const allModules = [
   { name: "TextGridWithMedia", module: Placeholder },
   { name: "Spacer", module: Spacer },
   { name: "HeroImage", module: HeroImage },
+  { name: "CallToAction", module: CallToAction },
 ];
 
 export const getModule = (moduleName) => {

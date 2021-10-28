@@ -11,8 +11,51 @@
       flex-basis: 100%;
     }
     @include touch() {
-      flex-direction: column;
       flex-direction: column-reverse;
+    }
+  }
+  .fullPageWidthContent {
+    @include touch() {
+      flex-direction: column;
+    }
+    .fullPageWidthTextContent {
+      padding: 3rem 1rem;
+      * {
+        width: 100%;
+      }
+      @include desktop() {
+        padding: 6rem 0;
+        * {
+          width: initial;
+        }
+        & > * {
+          max-width: 460px;
+          margin: 0 auto;
+        }
+      }
+    }
+    .fullPageWidthMedia {
+      display: flex;
+      @include desktop() {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        margin: 0;
+        height: 626px;
+        & > * {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          min-height: 100%;
+          min-width: 100%;
+          transform: translate(-50%, -50%);
+          img {
+            object-fit: cover;
+            margin-block: unset;
+          }
+        }
+      }
     }
   }
   .textContent {

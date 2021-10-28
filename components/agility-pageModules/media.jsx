@@ -15,7 +15,7 @@ const Media = ({ media }) => {
           <AgilityImage
             src={media.url}
             alt={media.label}
-            width={media.pixelWidth}
+            width={media.pixelWidth != "0" ? media.pixelWidth : "360"}
             height={media.pixelHeight}
           ></AgilityImage>
         );

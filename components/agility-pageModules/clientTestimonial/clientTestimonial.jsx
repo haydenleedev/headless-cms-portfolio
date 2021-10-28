@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { boolean } from "../../../utils/validation";
 import Heading from "../heading";
+import Media from "../media";
 import style from "./clientTestimonial.module.scss";
 
 const ClientTestimonial = ({ module }) => {
@@ -14,16 +15,34 @@ const ClientTestimonial = ({ module }) => {
       <div className="container">
         <div className={style.content}>
           {boolean(fields.slim) ? (
-            <div className={style.slim}>
+            <div className={fields.award ? style.slimWithAward : style.slim}>
+              {fields?.award?.fields?.image && (
+                // TODO: make award image display correctly
+                <div classes={style.award}>
+                  <Media media={fields.award.fields.image} />
+                </div>
+              )}
               {fields.testimonial.fields?.text && (
-                <>
+                <div className={style.textContent}>
                   <p
                     className={style.quote}
                   >{`“${fields.testimonial.fields.text}”`}</p>
                   <div className={style.client}>
-                    <p>{`${fields.testimonial.fields.name}, ${fields.testimonial.fields.jobTitle}, ${fields.testimonial.fields.companyName}`}</p>
+                    <p>
+                      <span>{fields.testimonial.fields.name}</span>
+                      <span>
+                        {fields.testimonial.fields.jobTitle
+                          ? `, ${fields.testimonial.fields.jobTitle}`
+                          : ""}
+                      </span>
+                      <span>
+                        {fields.testimonial.fields.companyName
+                          ? `, ${fields.testimonial.fields.companyName}`
+                          : ""}
+                      </span>
+                    </p>
                   </div>
-                </>
+                </div>
               )}
             </div>
           ) : (

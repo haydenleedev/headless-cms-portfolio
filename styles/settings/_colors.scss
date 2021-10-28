@@ -78,9 +78,55 @@ $color-mediumpurple: #6e0bdc;
 .bg-gradient-blue {
   background: linear-gradient(90deg, $color-skyblue, $color-mediumblue);
 }
+.bg-radial-gradient-top {
+  position: relative;
+  margin-top: 1.35rem;
+  &::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    height: 1.35rem;
+    transform: translateY(-100%);
+    background: radial-gradient(
+      ellipse farthest-side at bottom center,
+      rgba(0, 0, 0, 0.08),
+      transparent
+    );
+  }
+}
+.bg-radial-gradient {
+  height: 1.35rem;
+  background: radial-gradient(
+    ellipse farthest-side at bottom center,
+    rgba(0, 0, 0, 0.08),
+    transparent
+  );
+  position: relative;
+  margin-bottom: 1.35rem;
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 1.35rem;
+    transform: translateY(100%);
+    background: radial-gradient(
+      ellipse farthest-side at top center,
+      rgba(0, 0, 0, 0.08),
+      transparent
+    );
+  }
+}
+
 .text-white {
   color: $color-white;
 }
 .text-navy {
   color: $color-navy;
+}
+.text-lightblue {
+  color: $color-lightblue;
 }

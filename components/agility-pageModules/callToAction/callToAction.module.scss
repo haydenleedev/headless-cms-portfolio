@@ -1,0 +1,16 @@
+@import "../../../styles/settings/mixins";
+
+.callToAction {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .heading {
+    text-align: center;
+  }
+  .link {
+    padding: 0.5em 2em;
+    border-radius: 3em;
+    border-width: 0.15em;
+  }
+}

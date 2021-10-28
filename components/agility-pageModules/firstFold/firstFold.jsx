@@ -8,7 +8,7 @@ const FirstFold = ({ module }) => {
   const heading = JSON.parse(fields.heading);
   return (
     <section className={`section ${style.firstFold}`}>
-      <div className="container max-width-medium">
+      <div className="container">
         {/* TODO: allow reverse column order for desktop as a conditional toggle from Agility*/}
         <div className="columns repeat-2">
           <div className={style.textContent}>
@@ -21,10 +21,10 @@ const FirstFold = ({ module }) => {
                 dangerouslySetInnerHTML={{ __html: fields.text }}
               ></div>
             )}
-            {fields.primaryLink.href && (
+            {fields.primaryLink && (
               <Link href="#">
                 <a
-                  className={`button ${style.primaryLink}`}
+                  className={`button cyan outlined ${style.primaryLink}`}
                   aria-label={`Navigate to page ` + fields.primaryLink.href}
                   title={`Navigate to page ` + fields.primaryLink.href}
                 >
@@ -32,7 +32,7 @@ const FirstFold = ({ module }) => {
                 </a>
               </Link>
             )}
-            {fields.secondaryLink.href && (
+            {fields.secondaryLink && (
               <Link href="#" className="button outlined">
                 <a
                   className={`button ${style.secondaryLink}`}

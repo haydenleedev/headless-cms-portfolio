@@ -1,3 +1,4 @@
+@use "./settings/fonts" as fonts;
 /*
 Configure font sizes and how text is rendred.
 Try to use only html element selectors and override with classes when needed. 
@@ -86,7 +87,8 @@ em {
   font-style: italic;
 }
 
-form input:not([type="checkbox"], [type="submit"]), select {
+form input:not([type="checkbox"], [type="submit"]),
+select {
   background: $color-white;
   //   border-radius: toRem(4);
   //   border: toRem(1) solid $color-darkgray;
@@ -190,4 +192,62 @@ blog posts or anywhere where html is rendered */
   padding: 2rem 0;
   margin: 3rem 0 1rem 0;
   text-align: center;
+}
+
+/*
+  <<<<<<<<<<<<<<<<TYPOGRAPHY HELPER CLASSES>>>>>>>>>>>>>>>>>
+*/
+.is-size-50px {
+  font-size: fonts.$size-50px;
+}
+.is-size-40px {
+  font-size: fonts.$size-40px;
+}
+.is-size-38px {
+  font-size: fonts.$size-38px;
+}
+.is-size-36px {
+  font-size: fonts.$size-36px;
+}
+.is-size-32px {
+  font-size: fonts.$size-32px;
+}
+.is-size-30px {
+  font-size: fonts.$size-30px;
+}
+.is-size-28px {
+  font-size: fonts.$size-28px;
+}
+.is-size-26px {
+  font-size: fonts.$size-26px;
+}
+.is-size-22px {
+  font-size: fonts.$size-22px;
+}
+.is-size-20px {
+  font-size: fonts.$size-20px;
+}
+.is-size-18px {
+  font-size: fonts.$size-18px;
+}
+.is-size-16px {
+  font-size: fonts.$size-16px;
+}
+.is-size-15px {
+  font-size: fonts.$size-15px;
+}
+.is-size-14px {
+  font-size: fonts.$size-14px;
+}
+.is-size-13px {
+  font-size: fonts.$size-13px;
+}
+.is-size-12px {
+  font-size: fonts.$size-12px;
+}
+.is-size-10px {
+  font-size: fonts.$size-10px;
+}
+.is-size-8px {
+  font-size: fonts.$size-8px;
 }
