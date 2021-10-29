@@ -2,6 +2,7 @@ import Link from "next/link";
 import { boolean } from "../../../utils/validation";
 import Heading from "../heading";
 import Media from "../media";
+import starSVG from "../../../assets/full-star-red.svg";
 import style from "./clientTestimonial.module.scss";
 
 const ClientTestimonial = ({ module }) => {
@@ -15,15 +16,27 @@ const ClientTestimonial = ({ module }) => {
       <div className="container">
         <div className={style.content}>
           {boolean(fields.slim) ? (
-            <div className={fields.award ? style.slimWithAward : style.slim}>
+            <div className={style.slim}>
               {fields?.award?.fields?.image && (
-                // TODO: make award image display correctly
-                <div classes={style.award}>
+                <div className={style.awardImage}>
                   <Media media={fields.award.fields.image} />
                 </div>
               )}
               {fields.testimonial.fields?.text && (
                 <div className={style.textContent}>
+                  {boolean(fields.displayRating) && (
+                    <div className={style.rating}>
+                      {[...Array(5).keys()].map((star) => (
+                        <img
+                          src={starSVG}
+                          key={star}
+                          alt=""
+                          width="25"
+                          height="25"
+                        />
+                      ))}
+                    </div>
+                  )}
                   <p
                     className={style.quote}
                   >{`“${fields.testimonial.fields.text}”`}</p>
@@ -47,8 +60,26 @@ const ClientTestimonial = ({ module }) => {
             </div>
           ) : (
             <div className={style.normal}>
+              {fields?.award?.fields?.image && (
+                <div className={style.awardImage}>
+                  <Media media={fields.award.fields.image} />
+                </div>
+              )}
               {fields.testimonial.fields?.text && (
-                <>
+                <div className={style.textContent}>
+                  {boolean(fields.displayRating) && (
+                    <div className={style.rating}>
+                      {[...Array(5).keys()].map((star) => (
+                        <img
+                          src={starSVG}
+                          key={star}
+                          alt=""
+                          width="25"
+                          height="25"
+                        />
+                      ))}
+                    </div>
+                  )}
                   <p
                     className={style.quote}
                   >{`“${fields.testimonial.fields.text}”`}</p>
@@ -57,7 +88,7 @@ const ClientTestimonial = ({ module }) => {
                     <p className={style.jobTitle}>
                       {fields.testimonial.fields.jobTitle}
                     </p>
-                    {fields.testimonial.fields.logo.url && (
+                    {fields.testimonial.fields.logo && (
                       <img
                         className={style.logo}
                         src={fields.testimonial.fields.logo.url}
@@ -71,7 +102,7 @@ const ClientTestimonial = ({ module }) => {
                       />
                     )}
                   </div>
-                </>
+                </div>
               )}
             </div>
           )}
