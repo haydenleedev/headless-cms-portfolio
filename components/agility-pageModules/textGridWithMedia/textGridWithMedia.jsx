@@ -7,7 +7,11 @@ const TextGridWithMedia = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   return (
-    <section className={`section ${style.textGridWithMedia}`}>
+    <section
+      className={`section ${style.textGridWithMedia} ${
+        fields.classes ? fields.classes : ""
+      }`}
+    >
       <div className="container">
         {heading.text && (
           <div className={style.heading}>
@@ -23,6 +27,11 @@ const TextGridWithMedia = ({ module }) => {
               const heading = JSON.parse(fields.heading);
               return (
                 <div className={style.textItem} key={textItem.contentID}>
+                  {fields.media && (
+                    <div className={style.textItemMedia}>
+                      <Media media={fields.media} />
+                    </div>
+                  )}
                   {heading.text && (
                     <div className={style.textItemHeading}>
                       <Heading {...heading} />

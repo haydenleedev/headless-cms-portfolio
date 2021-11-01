@@ -25,6 +25,13 @@
   }
   .textItem {
     padding: 2rem 2rem 0 2rem;
+    .textItemMedia {
+      max-width: 120px;
+      img {
+        height: unset !important;
+        position: unset !important;
+      }
+    }
   }
   .textItemHtml {
     padding-bottom: 2rem;

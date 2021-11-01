@@ -28,7 +28,7 @@ const ClientTestimonial = ({ module }) => {
                     <div className={style.rating}>
                       {[...Array(5).keys()].map((star) => (
                         <img
-                          src={starSVG}
+                          src={starSVG.src}
                           key={star}
                           alt=""
                           width="25"
@@ -71,7 +71,7 @@ const ClientTestimonial = ({ module }) => {
                     <div className={style.rating}>
                       {[...Array(5).keys()].map((star) => (
                         <img
-                          src={starSVG}
+                          src={starSVG.src}
                           key={star}
                           alt=""
                           width="25"
