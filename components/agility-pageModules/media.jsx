@@ -14,14 +14,16 @@ const Media = ({ media }) => {
         return (
           <AgilityImage
             src={media.url}
-            alt={media.label}
+            alt={media.label || ""}
             width={media.pixelWidth != "0" ? media.pixelWidth : "360"}
             height={media.pixelHeight}
+            layout="responsive"
           ></AgilityImage>
         );
       default:
         return (
           <video className="video" autoPlay muted loop>
+            <title></title>
             <source src={media.url} type={`video/${mediaType}`} />
             Your browser does not support the video tag.
           </video>
