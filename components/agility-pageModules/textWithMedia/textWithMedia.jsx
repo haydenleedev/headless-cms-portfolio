@@ -39,8 +39,8 @@ const TextWithMedia = ({ module }) => {
                 boolean(fields.columnLayout)
                   ? "justify-content-center align-items-center"
                   : boolean(fields.mediaLeft)
-                  ? "ml justify-content-flex-end align-items-flex-start"
-                  : "mr justify-content-flex-start align-items-flex-start"
+                  ? "ml-4 justify-content-flex-end align-items-flex-start"
+                  : "mr-4 justify-content-flex-start align-items-flex-start"
               }`}
             >
               {heading.text && (
@@ -59,7 +59,7 @@ const TextWithMedia = ({ module }) => {
               {fields.link && (
                 <Link href={fields.link.href}>
                   <a
-                    className={`mt button ${
+                    className={`mt-4 button ${
                       !boolean(fields.columnLayout) ? "small" : ""
                     } cyan outlined ${style.link}`}
                     aria-label={`Navigate to page ` + fields.link.href}
@@ -73,7 +73,7 @@ const TextWithMedia = ({ module }) => {
           </div>
           <div
             className={`${style.media} ${
-              boolean(fields.mediaLeft) ? "mr" : "ml"
+              boolean(fields.mediaLeft) ? "mr-4" : "ml-4"
             } ${
               boolean(fields.fullPageWidth) ? style.fullPageWidthMedia : ""
             } ${

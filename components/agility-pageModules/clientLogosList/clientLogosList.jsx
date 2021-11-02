@@ -20,7 +20,7 @@ const ClientLogosList = ({ module }) => {
         )}
         <div className={style.content}>
           <div
-            className={`mr grid-columns ${
+            className={`mr-4 grid-columns ${
               fields.columns ? `is-${fields.columns}` : ""
             }`}
           >

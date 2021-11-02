@@ -21,7 +21,7 @@ const TextGridWithMedia = ({ module }) => {
         )}
         <div className={style.content}>
           {fields.media && <Media media={fields.media} />}
-          <div className={`columns mt repeat-${fields.columns}`}>
+          <div className={`columns mt-4 repeat-${fields.columns}`}>
             {fields?.textItems?.map((textItem) => {
               const { fields } = textItem;
               const heading = JSON.parse(fields.heading);

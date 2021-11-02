@@ -41,7 +41,7 @@ const ResourceContent = ({ dynamicPageItem }) => {
           <div className={style.content}>
             <h1 className="heading-5">{resource.title}</h1>
             <div
-              className="content mt"
+              className="content mt-4"
               dangerouslySetInnerHTML={renderHTML(resource.text)}
             />
           </div>
@@ -109,7 +109,7 @@ const ResourceContent = ({ dynamicPageItem }) => {
             <p className={style.alternateLink}>
               Want to learn more about UJET?
               <Link href={resource.link.href}>
-                <a className="link ml">{resource.link.text}</a>
+                <a className="link ml-4">{resource.link.text}</a>
               </Link>
             </p>
           </div>

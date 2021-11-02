@@ -7,7 +7,7 @@ const BlogPostList = ({ module, overrideClass, blogPosts }) => {
     <section
       className={`section ${overrideClass || null /** style.className */}`}
     >
-      <div className="container mt">
+      <div className="container mt-4">
         {/* TODO: Render according to custom heading field definition */}
         <h6>{fields.title}</h6>
 
