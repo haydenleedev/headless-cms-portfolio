@@ -5,6 +5,7 @@ import Layout from "../components/layout/layout";
 import Navbar from "../components/layout/navbar/navbar";
 import Footer from "../components/layout/footer/footer";
 import GlobalMessage from "../components/layout/globalMessage/globalMessage";
+import GlobalSettings from "../components/layout/globalSettings";
 import { cleanHtml } from "../utils/validation";
 import Script from "next/script";
 
@@ -20,6 +21,8 @@ export async function getStaticProps({
   const globalComponents = {
     navbar: Navbar,
     globalMessage: GlobalMessage,
+    footer: Footer,
+    globalSettings: GlobalSettings
   };
 
   let agilityProps = await getAgilityPageProps({

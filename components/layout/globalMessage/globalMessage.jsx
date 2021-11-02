@@ -7,7 +7,6 @@ import { getCookie } from "../../../utils/cookies";
 
 const GlobalMessage = ({ globalData }) => {
   const { globalMessage } = globalData.globalMessage;
-  console.log(globalMessage);
 
   const [open, setOpen] = useState(true);
 
@@ -97,7 +96,7 @@ GlobalMessage.getCustomInitialProps = async function ({
     }
   } catch (error) {
     if (console)
-      console.error("Could not load site navbar configuration.", error);
+      console.error("Could not load site global message configuration.", error);
     return null;
   }
   // return clean object...
