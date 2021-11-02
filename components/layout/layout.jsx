@@ -2,7 +2,7 @@
 Becomes a nightmare to manage if they're all named index.jsx... */
 import Footer from "./footer/footer";
 import Navbar from "./navbar/navbar";
-import Message from "./message/message";
+import GlobalMessage from "./globalMessage/globalMessage";
 import SEO from "../SEO";
 import { getPageTemplate } from "../agility-pageTemplates";
 import { handlePreview } from "@agility/nextjs";
@@ -13,7 +13,8 @@ const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 const Layout = (props) => {
-  const { page, sitemapNode, dynamicPageItem, notFound, pageTemplateName } = props;
+  const { page, sitemapNode, dynamicPageItem, notFound, pageTemplateName } =
+    props;
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   const router = useRouter();
@@ -44,7 +45,7 @@ const Layout = (props) => {
       {isPreview && <p>Loading preview mode...</p>}
       {!isPreview && (
         <>
-          <Message {...props}></Message>
+          <GlobalMessage {...props}></GlobalMessage>
           <Navbar {...props}></Navbar>
           <main>
             <AgilityPageTemplate {...props} />
