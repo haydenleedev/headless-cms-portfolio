@@ -1,6 +1,3 @@
-// utility functions for checking input validity and sanitizing them where needed
-// import sanitizeHtml from "sanitize-html";
-
 // use for checking true/false values coming from Agility.
 export const boolean = (input) => {
   switch (input?.toLowerCase()) {
@@ -13,3 +10,8 @@ export const boolean = (input) => {
   }
 };
 
+export const hrefSelf = (href) => {
+  return /^(www\.|assets\.|http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(ujet)\.cx?(\/.*)?$/.test(
+    href
+  );
+};

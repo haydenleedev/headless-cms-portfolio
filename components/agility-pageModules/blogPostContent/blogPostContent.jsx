@@ -5,6 +5,7 @@ import style from "./blogPostContent.module.scss";
 import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
+import { hrefSelf } from "../../../utils/validation";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const { relatedBlogPosts, sanitizedHtml } = customData;
@@ -22,8 +23,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
   //   blogPost.image.pixelWidth = blogPost.image.pixelWidth / 2
   //   blogPost.image.pixelHeight = blogPost.image.pixelHeight / 2
   // }
-  
-  
+
   //   const ogImageUrl = post.image.url + "?q=50&w=1200&format=auto";
   return (
     <>
@@ -33,7 +33,6 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
       </Head> */}
 
       <section className={`section ${style.blogPostContent}`}>
-        
         <div className={`container ${style.container}`}>
           <div className={style.body}>
             {/* TODO: populate this once we have the icon assets */}
@@ -137,14 +136,7 @@ BlogPostContent.getCustomInitialProps = async ({
         };
       });
 
-    // TODO: Try to move this below to a helper file without breaking the bundle.
     const sanitizeHtml = (await import("sanitize-html")).default;
-    // A helper function that checks whether a href is ujet.cx or an external one. Used for sanitizing HTML.
-    function hrefSelf(href) {
-      return /^(www\.|assets\.|http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(ujet)\.cx?(\/.*)?$/.test(
-        href
-      );
-    }
 
     // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
     const cleanHtml = (html) =>
@@ -164,6 +156,7 @@ BlogPostContent.getCustomInitialProps = async ({
           },
         },
       });
+
     const sanitizedHtml = cleanHtml(dynamicPageItem.fields.content);
 
     return {

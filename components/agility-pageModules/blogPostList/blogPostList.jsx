@@ -10,7 +10,6 @@ const BlogPostList = ({ module, overrideClass, blogPosts }) => {
       <div className="container mt-4">
         {/* TODO: Render according to custom heading field definition */}
         <h6>{fields.title}</h6>
-
         <div className={style.cards}>
           {blogPosts.map((blogPost) => (
             <GenericCard

@@ -3,14 +3,26 @@ import { getModule } from "../components/agility-pageModules";
 import Layout from "../components/layout/layout";
 // TODO: import global components
 import Navbar from "../components/layout/navbar/navbar";
+import Footer from "../components/layout/footer/footer";
+import GlobalMessage from "../components/layout/globalMessage/globalMessage";
+import GlobalSettings from "../components/layout/globalSettings";
 import { cleanHtml } from "../utils/validation";
 import Script from "next/script";
 
 // getStaticProps function fetches data for all of your Agility Pages and Next.js will pre-render these pages at build time
-export async function getStaticProps({ preview, params, locale, defaultLocale, locales }) {
+export async function getStaticProps({
+  preview,
+  params,
+  locale,
+  defaultLocale,
+  locales,
+}) {
   // TODO: place all global here
   const globalComponents = {
     navbar: Navbar,
+    globalMessage: GlobalMessage,
+    footer: Footer,
+    globalSettings: GlobalSettings
   };
 
   let agilityProps = await getAgilityPageProps({
