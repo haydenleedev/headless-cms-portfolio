@@ -1,7 +1,4 @@
-@import "../../styles/settings/colors";
-@import "../../styles/settings/mixins";
-
-.card {
+.genericCard {
   height: 40vh;
   min-height: 400px;
   border-radius: 1rem;
@@ -14,7 +11,7 @@
     }
   }
 
-  .image {
+  &__image {
     background: $color-gray;
     flex: 1;
     max-height: 200px;
@@ -23,17 +20,20 @@
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
   }
-  .textContent {
+  &__textContent {
     flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 
-    .date {
+    &--date {
       text-transform: uppercase;
       color: $color-black;
       font-size: 1rem;
       padding: 1rem 1.5rem 0 1.5rem;
     }
 
-    .category {
+    &--category {
       text-transform: capitalize;
       color: $color-black;
       font-size: 1rem;
@@ -41,15 +41,15 @@
       padding: 1rem 1.5rem 0 1.5rem;
     }
 
-    .title {
+    &--title {
       padding: 1rem 1.5rem 0 1.5rem;
     }
 
-    .description {
+    &--description {
       padding: 1rem 1.5rem 0 1.5rem;
     }
 
-    .link {
+    &--link {
       padding: 0.5rem 1.5rem 3rem 1.5rem;
       display: block;
       font-weight: 600;

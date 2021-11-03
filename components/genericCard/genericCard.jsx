@@ -1,16 +1,19 @@
 import { AgilityImage } from "@agility/nextjs";
-import style from "./genericCard.module.scss";
 import Link from "next/link";
+import { toDate } from "../../utils/convert";
+import { hrefSelf } from "../../utils/validation";
 
 // A multi-purpose generic card component which can be as a card for many other componenents
 // such as blog lists, resources lists, news lists etc.
-const GenericCard = ({ category, title, image, link }) => {
+const GenericCard = ({ date, category, title, description, image, link }) => {
+  const isInnerLink = hrefSelf(link.href);
+  console.log(link);
   return (
-    <Link href={link}>
+    <Link href={isInnerLink ? link : link.href}>
       <a aria-label={"Navigate to blog post: " + title} title={title}>
-        <div className={style.card}>
-          <div className={style.image}>
-            {image && (
+        <div className="genericCard">
+          {image && (
+            <div className="genericCard__image">
               <AgilityImage
                 src={image.url}
                 alt={image.label || null}
@@ -18,12 +21,24 @@ const GenericCard = ({ category, title, image, link }) => {
                 height={image.pixelHeight}
                 objectFit="cover"
               />
+            </div>
+          )}
+          <div className="genericCard__textContent">
+            {date && (
+              <p className="genericCard__textContent--date">{toDate(date)}</p>
             )}
-          </div>
-          <div className={style.textContent}>
-            {category && <p className={style.category}>{category}</p>}
-            <p className={style.title}>{title}</p>
-            <span className={style.link}>Read more</span>
+            {category && (
+              <p className="genericCard__textContent--category">{category}</p>
+            )}
+            <p className="genericCard__textContent--title">{title}</p>
+            {description && (
+              <p className="genericCard__textContent--description">
+                {description}
+              </p>
+            )}
+            <p className="genericCard__textContent--link">
+              <span>Read more</span>
+            </p>
           </div>
         </div>
       </a>

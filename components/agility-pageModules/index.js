@@ -11,11 +11,14 @@ import ClientTestimonial from "./clientTestimonial/clientTestimonial";
 import Spacer from "./spacer/spacer";
 import ResourceList from "./resourceList/resourceList";
 import HeroImage from "./heroImage/heroImage";
+import CallToAction from "./callToAction/callToAction";
+import NewsList from "./newsList/newsList";
+import PressReleaseList from "./pressReleaseList/pressReleaseList";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
 import ResourceContent from "./resourceContent/resourceContent";
-import CallToAction from "./callToAction/callToAction";
+import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -24,6 +27,7 @@ const allModules = [
   { name: "RichTextArea", module: RichTextArea },
   { name: "BlogPostContent", module: BlogPostContent },
   { name: "ResourceContent", module: ResourceContent },
+  { name: "PressReleaseContent", module: PressReleaseContent },
   { name: "OverrideSEO", module: Placeholder },
   { name: "TextWithMedia", module: TextWithMedia },
   { name: "TextGridWithMedia", module: TextGridWithMedia },
@@ -33,6 +37,8 @@ const allModules = [
   { name: "Spacer", module: Spacer },
   { name: "HeroImage", module: HeroImage },
   { name: "CallToAction", module: CallToAction },
+  { name: "NewsList", module: NewsList },
+  { name: "PressReleaseList", module: PressReleaseList },
 ];
 
 export const getModule = (moduleName) => {

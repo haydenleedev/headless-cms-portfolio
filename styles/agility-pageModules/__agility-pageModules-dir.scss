@@ -1,0 +1,7 @@
+/*
+If a page module needs to override something from child components' styling, 
+we need to define both the page module's styling and the child component's styling globally.
+css modules don't allow this.
+*/
+
+@import "newsList";
