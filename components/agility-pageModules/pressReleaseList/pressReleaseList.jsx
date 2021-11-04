@@ -10,8 +10,7 @@ const PressReleaseList = ({ module }) => {
   const limit = parseInt(fields.count);
   const articles = fields.highlightedPressReleaseArticles
     ? fields.highlightedPressReleaseArticles
-    : fields.pressReleaseArticles.slice(0, limit);
-  console.log(fields.pressReleaseArticles);
+    : fields?.pressReleaseArticles?.slice(0, limit);
   return (
     <section
       className={`section newsList ${fields.classes ? fields.classes : ""}`}
@@ -23,7 +22,7 @@ const PressReleaseList = ({ module }) => {
           </div>
         )}
         <div className="newsList__articles">
-          {articles.map((pressReleaseArticle) => (
+          {articles?.map((pressReleaseArticle) => (
             <div
               className="newsList__articles__article"
               key={pressReleaseArticle.contentID}
@@ -39,7 +38,7 @@ const PressReleaseList = ({ module }) => {
             </div>
           ))}
         </div>
-        <Link href="/resources?type=press-releases">
+        <Link href="/archives?type=press-releases">
           <a
             className="button cyan outlined newsList--link"
             aria-label="Navigate to page /resources?type=press-releases"

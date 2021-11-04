@@ -39,6 +39,8 @@ const allModules = [
   { name: "CallToAction", module: CallToAction },
   { name: "NewsList", module: NewsList },
   { name: "PressReleaseList", module: PressReleaseList },
+  { name: "BlogHomePageContent", module: Placeholder },
+  { name: "ArchivesPageContent", module: Placeholder },
 ];
 
 export const getModule = (moduleName) => {

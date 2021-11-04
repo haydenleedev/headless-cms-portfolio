@@ -11,13 +11,15 @@ const PressReleaseContent = ({ dynamicPageItem }) => {
     <article className={style.pressReleaseContent}>
       <section className={`section ${style.firstFold}`}>
         <div className={style.backgroundImage}>
-          <AgilityImage
-            src={resource.image.url}
-            alt={resource.image.label || null}
-            width={resource.image.pixelWidth}
-            height={resource.image.pixelHeight}
-            objectFit="cover"
-          />
+          {resource.image && (
+            <AgilityImage
+              src={resource.image.url}
+              alt={resource.image.label || null}
+              width={resource.image.pixelWidth}
+              height={resource.image.pixelHeight}
+              objectFit="cover"
+            />
+          )}
         </div>
         <div className={style.backgroundFilter}></div>
         <div className={`container ${style.title}`}>

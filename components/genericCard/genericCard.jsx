@@ -10,7 +10,11 @@ const GenericCard = ({ date, category, title, description, image, link }) => {
   console.log(link);
   return (
     <Link href={isInnerLink ? link : link.href}>
-      <a aria-label={"Navigate to blog post: " + title} title={title}>
+      <a
+        aria-label={"Navigate to blog post: " + title}
+        title={title}
+        target={link?.target}
+      >
         <div className="genericCard">
           {image && (
             <div className="genericCard__image">

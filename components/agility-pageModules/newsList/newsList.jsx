@@ -36,7 +36,7 @@ const NewsList = ({ module }) => {
             </div>
           ))}
         </div>
-        <Link href="/resources?type=news">
+        <Link href="/archives?type=news">
           <a
             className="button cyan outlined newsList--link"
             aria-label="Navigate to page /resources?type=news"
