@@ -1,3 +1,4 @@
+import Link from "next/link";
 import GenericCard from "../../genericCard/genericCard";
 import Heading from "../heading";
 
@@ -12,7 +13,9 @@ const PressReleaseList = ({ module }) => {
     : fields.pressReleaseArticles.slice(0, limit);
   console.log(fields.pressReleaseArticles);
   return (
-    <section className="section newsList">
+    <section
+      className={`section newsList ${fields.classes ? fields.classes : ""}`}
+    >
       <div className="container newsList__container">
         {heading.text && (
           <div className="heading">
@@ -36,6 +39,15 @@ const PressReleaseList = ({ module }) => {
             </div>
           ))}
         </div>
+        <Link href="/resources?type=press-releases">
+          <a
+            className="button cyan outlined newsList--link"
+            aria-label="Navigate to page /resources?type=press-releases"
+            title="Navigate to page /resources?type=press-releases"
+          >
+            Read More
+          </a>
+        </Link>
       </div>
     </section>
   );
