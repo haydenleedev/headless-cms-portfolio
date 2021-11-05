@@ -15,7 +15,7 @@ const NewsList = ({ module }) => {
     <section
       className={`section newsList ${fields.classes ? fields.classes : ""}`}
     >
-      <div className="container newsList__container">
+      <nav className="container newsList__container" aria-label="news list">
         {heading.text && (
           <div className="heading">
             <Heading {...heading} />
@@ -45,7 +45,7 @@ const NewsList = ({ module }) => {
             Read More
           </a>
         </Link>
-      </div>
+      </nav>
     </section>
   );
 };

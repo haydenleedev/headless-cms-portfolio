@@ -7,7 +7,7 @@ const ResourceList = ({ module }) => {
   const heading = JSON.parse(fields.heading);
   return (
     <section className={`section ${style.resourceList}`}>
-      <div className="container">
+      <nav className="container" aria-label="resource list">
         {heading.text && (
           <div className="heading">
             <Heading {...heading} />
@@ -24,7 +24,7 @@ const ResourceList = ({ module }) => {
             </div>
           ))}
         </div>
-      </div>
+      </nav>
     </section>
   );
 };

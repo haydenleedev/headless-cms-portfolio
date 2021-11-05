@@ -14,7 +14,8 @@
   transition: all 150ms;
   border: 0.2rem solid $color-navy;
   vertical-align: center;
-  &.small, .mktoButton {
+  &.small,
+  .mktoButton {
     font-size: 1rem;
     border-width: 0.1rem;
   }
@@ -67,5 +68,39 @@
   &.small {
     padding: 0.25rem 1.5rem;
     font-weight: 600;
+  }
+}
+
+// reset button styling
+.reset-button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  text-align: inherit;
+  background: transparent;
+
+  color: inherit;
+  font: inherit;
+
+  line-height: normal;
+
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  -webkit-appearance: none;
+
+  &:focus {
+    outline: 2px dotted $color-navy;
+    &:not(:focus-visible) {
+      outline: none;
+    }
+    &:not(:-moz-focusring) {
+      outline: none;
+    }
+  }
+  &:hover {
+    cursor: pointer;
   }
 }

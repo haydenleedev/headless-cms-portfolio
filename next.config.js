@@ -24,4 +24,9 @@ module.exports = {
     locales: ["en-US"],
     defaultLocale: "en-US",
   },
+  env: {
+    AGILITY_API_PREVIEW_KEY: process.env.AGILITY_API_PREVIEW_KEY,
+    AGILITY_API_FETCH_KEY: process.env.AGILITY_API_FETCH_KEY,
+    AGILITY_GUID: process.env.AGILITY_GUID,
+  },
 };

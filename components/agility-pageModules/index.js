@@ -19,6 +19,7 @@ import PressReleaseList from "./pressReleaseList/pressReleaseList";
 import BlogPostContent from "./blogPostContent/blogPostContent";
 import ResourceContent from "./resourceContent/resourceContent";
 import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
+import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -40,7 +41,7 @@ const allModules = [
   { name: "NewsList", module: NewsList },
   { name: "PressReleaseList", module: PressReleaseList },
   { name: "BlogHomePageContent", module: Placeholder },
-  { name: "ArchivesPageContent", module: Placeholder },
+  { name: "ArchivesPageContent", module: ArchivesPageContent },
 ];
 
 export const getModule = (moduleName) => {

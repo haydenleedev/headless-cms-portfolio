@@ -7,7 +7,7 @@ const BlogPostList = ({ module, overrideClass, blogPosts }) => {
     <section
       className={`section ${overrideClass || null /** style.className */}`}
     >
-      <div className="container mt-4">
+      <nav className="container mt-4" aria-label="blog post list">
         {/* TODO: Render according to custom heading field definition */}
         <h6>{fields.title}</h6>
         <div className={style.cards}>
@@ -20,7 +20,7 @@ const BlogPostList = ({ module, overrideClass, blogPosts }) => {
             ></GenericCard>
           ))}
         </div>
-      </div>
+      </nav>
     </section>
   );
 };

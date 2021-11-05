@@ -11,11 +11,15 @@ const PressReleaseList = ({ module }) => {
   const articles = fields.highlightedPressReleaseArticles
     ? fields.highlightedPressReleaseArticles
     : fields?.pressReleaseArticles?.slice(0, limit);
+
   return (
     <section
       className={`section newsList ${fields.classes ? fields.classes : ""}`}
     >
-      <div className="container newsList__container">
+      <nav
+        className="container newsList__container"
+        aria-label="press release list"
+      >
         {heading.text && (
           <div className="heading">
             <Heading {...heading} />
@@ -47,7 +51,7 @@ const PressReleaseList = ({ module }) => {
             Read More
           </a>
         </Link>
-      </div>
+      </nav>
     </section>
   );
 };
