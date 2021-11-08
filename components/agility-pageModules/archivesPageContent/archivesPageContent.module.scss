@@ -25,13 +25,36 @@
     }
     .filterPanel {
       grid-area: side;
-      & > label {
+      & > label,
+      fieldset {
         display: flex;
         flex-direction: column;
         font-weight: 600;
         font-size: 1.25rem;
+        padding-left: unset;
+        padding-right: unset;
+        border: unset;
         select {
           margin-top: 0.5rem;
+        }
+      }
+      & > label {
+        padding-top: 0;
+      }
+      & > fieldset {
+        margin-top: 1rem;
+        label {
+          display: flex;
+          align-items: center;
+          &:hover {
+            cursor: pointer;
+            color: $color-darkblue;
+          }
+          input[type="radio"] {
+            margin-block: unset;
+            margin-left: unset;
+            margin-right: 0.5rem;
+          }
         }
       }
     }
@@ -61,6 +84,9 @@
           border-color: $color-black;
           transform: rotate(45deg);
         }
+        &:disabled {
+          visibility: hidden;
+        }
       }
       .nextPageButton {
         position: relative;
@@ -76,6 +102,9 @@
           border-width: 0.1rem;
           border-color: $color-black;
           transform: rotate(45deg);
+        }
+        &:disabled {
+          visibility: hidden;
         }
       }
       .pageButton {
