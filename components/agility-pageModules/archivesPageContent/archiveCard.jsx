@@ -14,13 +14,13 @@ const ArchiveCard = ({ title, image, link }) => {
         target={link?.target}
       >
         <div className={style.archiveCard}>
-          {image && (
+          {image && image.pixelWidth && (
             <div className={style.image}>
               <AgilityImage
                 src={image.url}
                 alt={image.label || null}
-                width={image.pixelWidth}
-                height={image.pixelHeight}
+                width="250"
+                height="162"
                 objectFit="cover"
               />
             </div>

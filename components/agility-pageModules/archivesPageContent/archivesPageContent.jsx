@@ -52,7 +52,9 @@ const ArchivesPageContent = ({ customData }) => {
     setCurrentOffset(0);
     if (activeCategory) {
       setTotalPagesCount(
-        Math.ceil(activeContentList.content.length / PER_PAGE)
+        Math.ceil(
+          activeContentList.categories[activeCategory].content.length / PER_PAGE
+        )
       );
       setPage(
         activeContentList.categories[activeCategory].content.slice(
