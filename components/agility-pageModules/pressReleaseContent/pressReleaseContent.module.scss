@@ -6,7 +6,7 @@
     width: 100vw;
     padding: unset;
     height: 100%;
-    min-height: 500px;
+    min-height: 400px;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -23,20 +23,18 @@
     .backgroundImage {
       & > * {
         display: block !important;
+        height: 100%;
       }
       position: absolute !important;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      object-fit: fill;
-      width: 100%;
-      height: 100%;
       img {
         object-fit: cover;
         max-height: unset !important;
         min-height: unset !important;
-        height: unset !important;
+        height: 100% !important;
       }
     }
     .title {
@@ -45,11 +43,42 @@
       color: $color-white;
       * {
         font-weight: 400 !important;
-        font-size: 2.5rem;
+        font-size: 2rem;
+      }
+    }
+    @include desktop() {
+      min-height: 500px;
+      .backgroundImage {
+        & > * {
+          display: block !important;
+          height: 100%;
+        }
+      }
+      .title {
+        position: absolute;
+        text-align: center;
+        color: $color-white;
+        * {
+          font-weight: 400 !important;
+          font-size: 2.5rem;
+        }
       }
     }
   }
-
   .textContent {
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 400;
+      font-style: italic;
+      margin-top: unset;
+    }
+    @include desktop() {
+      h2 {
+        font-size: 2rem;
+        font-weight: 400;
+        font-style: italic;
+        margin-top: unset;
+      }
+    }
   }
 }

@@ -1,28 +1,44 @@
 import style from "./archivesPageContent.module.scss";
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import Loader from "../../layout/loader/loader";
 import ArchiveCard from "./archiveCard";
 
 const ArchivesPageContent = ({ customData }) => {
-  const { contentListTypes } = customData;
-  const [mounted, setMounted] = useState(false);
-  const [activePageNumber, setActivePageNumber] = useState(0);
-  const [totalPagesCount, setTotalPagesCount] = useState(null);
-  const [currentOffset, setCurrentOffset] = useState(0);
-  const [page, setPage] = useState(null);
-  const [activeContentList, setActiveContentList] = useState(null);
-  const [activeCategory, setActiveCategory] = useState(null); // currently selected category
+  const { query } = useRouter();
+  const { contentListTypes } = customData; // the 3 different content types: news, press releases and resources.
+  const [activePageNumber, setActivePageNumber] = useState(0); // number of the current page.
+  const [totalPagesCount, setTotalPagesCount] = useState(null); // total count of pages.
+  const [currentOffset, setCurrentOffset] = useState(0); // current offset in the active content list.
+  const [page, setPage] = useState(null); // the contents of current page.
+  const [activeContentList, setActiveContentList] = useState(null); // these are their own states because it makes handing multiple categories easier.
+  const [activeContentType, setActiveContentType] = useState(null); // these are their own states because it makes handing multiple categories easier.
+  const [contentCategories, setContentCategories] = useState(null); // these are their own states because it makes handing multiple categories easier.
+  const [activeCategories, setActiveCategories] = useState([]); // currently selected categories.
 
   const categoryRefs = useRef([]);
 
   const PER_PAGE = 9; // how many cards are shown per page
 
-  console.log(contentListTypes);
-
+  // initial load: check if query params are provided in the url, set active content type and categories accordingly
   useEffect(() => {
-    if (!mounted) setMounted(true);
-    else {
-      setActiveContentList(contentListTypes[0]);
+    if (query.type) {
+      let queriedType = contentListTypes.find((type) => type.id === query.type);
+      const categories = query?.categories?.split(",");
+      setActiveContentType(queriedType.id);
+      setActiveContentList(queriedType.content);
+      setContentCategories(queriedType.categories);
+      setPage(
+        queriedType.content.slice(currentOffset, currentOffset + PER_PAGE)
+      );
+      setTotalPagesCount(Math.ceil(queriedType.content.length / PER_PAGE));
+      if (categories) {
+        setActiveCategories(categories);
+      }
+    } else {
+      setActiveContentType(contentListTypes[0].id);
+      setActiveContentList(contentListTypes[0].content);
+      setContentCategories(contentListTypes[0].categories);
       setPage(
         contentListTypes[0].content.slice(
           currentOffset,
@@ -33,75 +49,95 @@ const ArchivesPageContent = ({ customData }) => {
         Math.ceil(contentListTypes[0].content.length / PER_PAGE)
       );
     }
-  }, [mounted]);
+  }, []);
 
   useEffect(() => {
     setCurrentOffset(0);
-    setActiveCategory(null);
     if (activeContentList) {
-      setTotalPagesCount(
-        Math.ceil(activeContentList.content.length / PER_PAGE)
-      );
-      setPage(
-        activeContentList.content.slice(currentOffset, currentOffset + PER_PAGE)
-      );
+      setTotalPagesCount(Math.ceil(activeContentList.length / PER_PAGE));
+      setPage(activeContentList.slice(currentOffset, currentOffset + PER_PAGE));
     }
   }, [activeContentList]);
 
   useEffect(() => {
     setCurrentOffset(0);
-    if (activeCategory) {
-      setTotalPagesCount(
-        Math.ceil(
-          activeContentList.categories[activeCategory].content.length / PER_PAGE
-        )
-      );
-      setPage(
-        activeContentList.categories[activeCategory].content.slice(
-          currentOffset,
-          currentOffset + PER_PAGE
-        )
-      );
-    } else if (activeContentList) {
-      setTotalPagesCount(
-        Math.ceil(activeContentList.content.length / PER_PAGE)
-      );
-      setPage(
-        activeContentList.content.slice(currentOffset, currentOffset + PER_PAGE)
-      );
-    }
-  }, [activeCategory]);
+  }, [activeContentType]);
 
   useEffect(() => {
-    if (activeCategory)
-      setPage(
-        activeContentList.categories[activeCategory].content.slice(
-          currentOffset,
-          currentOffset + PER_PAGE
-        )
-      );
+    console.log(activeCategories);
+    if (activeCategories.length > 0) {
+      setCurrentOffset(0);
+      let newContentList = getSortedContentByActiveCategories();
+      console.log(newContentList);
+      setTotalPagesCount(Math.ceil(newContentList.length / PER_PAGE));
+      setPage(newContentList.slice(currentOffset, currentOffset + PER_PAGE));
+    } else if (activeContentType) {
+      setCurrentOffset(0);
+      let list = contentListTypes.find(
+        (type) => type.id === activeContentType
+      ).content;
+      if (list.length !== activeContentList) {
+        setActiveContentList(list);
+        setTotalPagesCount(Math.ceil(list.length / PER_PAGE));
+        setPage(list.slice(currentOffset, currentOffset + PER_PAGE));
+      }
+    }
+  }, [activeCategories]);
+
+  useEffect(() => {
+    if (activeCategories && activeContentList)
+      setPage(activeContentList.slice(currentOffset, currentOffset + PER_PAGE));
     else if (activeContentList)
-      setPage(
-        activeContentList.content.slice(currentOffset, currentOffset + PER_PAGE)
-      );
+      setPage(activeContentList.slice(currentOffset, currentOffset + PER_PAGE));
   }, [currentOffset]);
 
+  const getSortedContentByActiveCategories = () => {
+    let newContentList = [];
+    if (activeCategories) {
+      activeCategories.forEach((category) => {
+        newContentList = [
+          ...newContentList,
+          ...contentCategories[category].content,
+        ];
+      });
+      return newContentList.sort((a, b) => {
+        if (
+          new Date(a.fields.date).getMilliseconds() <
+          new Date(b.fields.date).getMilliseconds()
+        )
+          return -1;
+        if (
+          new Date(a.fields.date).getMilliseconds() >
+          new Date(b.fields.date).getMilliseconds()
+        )
+          return 1;
+
+        return 0;
+      });
+    } else {
+      return activeContentList;
+    }
+  };
   // reset page data when content list type changes
   const handleContentListTypeChange = (id) => {
     if (id.length === 0) return;
     setPage(null);
     const newType = contentListTypes.find((type) => type.id === id);
-    setActiveContentList(newType);
+    setActiveContentType(newType.id);
+    setContentCategories(newType.categories);
+    setActiveContentList(newType.content);
   };
 
   const handleCategoryChange = (event, category) => {
-    if (!event.target.checked) setActiveCategory(null);
-    else setActiveCategory(category);
-    categoryRefs.current.map((input) => {
-      if (input.id !== event.target.id) {
-        input.checked = false;
-      }
-    });
+    if (!event.target.checked) {
+      let newCategories = activeCategories.filter(
+        (active) => active !== category
+      );
+      setActiveCategories(newCategories);
+    } else {
+      let newCategories = [...activeCategories, category];
+      setActiveCategories(newCategories);
+    }
   };
 
   // the different content types use different fields for the card title
@@ -151,6 +187,7 @@ const ArchivesPageContent = ({ customData }) => {
             <select
               id="select-content-type"
               className={style.contentTypeSelect}
+              value={activeContentType}
               onChange={(event) =>
                 handleContentListTypeChange(event.target.value)
               }
@@ -166,22 +203,23 @@ const ArchivesPageContent = ({ customData }) => {
               )}
             </select>
           </label>
-          {activeContentList && activeContentList.categories && (
+          {contentCategories && (
             <fieldset>
               <legend>Category</legend>
-              {Object.entries(activeContentList.categories).map(
-                ([key, category], i) => (
-                  <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
-                    <input
-                      type="checkbox"
-                      ref={(el) => (categoryRefs.current[i] = el)}
-                      id={key + "Checkbox"}
-                      onChange={(event) => handleCategoryChange(event, key)}
-                    />
-                    {category.title}
-                  </label>
-                )
-              )}
+              {Object.entries(contentCategories).map(([key, category], i) => (
+                <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
+                  <input
+                    type="checkbox"
+                    ref={(el) => (categoryRefs.current[i] = el)}
+                    id={key + "Checkbox"}
+                    checked={activeCategories.find(
+                      (category) => category === key
+                    )}
+                    onChange={(event) => handleCategoryChange(event, key)}
+                  />
+                  {category.title}
+                </label>
+              ))}
             </fieldset>
           )}
         </aside>
@@ -193,14 +231,16 @@ const ArchivesPageContent = ({ customData }) => {
                 <div key={item.contentID}>
                   <ArchiveCard
                     image={item.fields?.image}
-                    title={resolveTitle(activeContentList.id, item.fields)}
-                    link={resolveLink(activeContentList.id, item.fields)}
+                    title={resolveTitle(activeContentType, item.fields)}
+                    link={resolveLink(activeContentType, item.fields)}
+                    date={item.fields.date}
                   />
                 </div>
               ))}
             </div>
           )) || <Loader />}
         </div>
+        {/* Display the page numbers. truncate if there's a lot of pages*/}
         <footer className={style.pagination}>
           <div className="d-flex">
             <button
@@ -437,7 +477,6 @@ ArchivesPageContent.getCustomInitialProps = async function ({
   let whitePapers = await getContentList("whitepapers");
 
   contentListTypes[2].content = [
-    ...contentListTypes[2].content,
     ...ebooks,
     ...guides,
     ...integrations,

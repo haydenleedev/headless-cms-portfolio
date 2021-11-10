@@ -29,7 +29,7 @@ const PressReleaseContent = ({ dynamicPageItem }) => {
       <section className="section">
         <div className="container">
           <div
-            className="content"
+            className={`content ${style.textContent}`}
             dangerouslySetInnerHTML={renderHTML(resource.text)}
           ></div>
         </div>
