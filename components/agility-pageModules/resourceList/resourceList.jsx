@@ -8,7 +8,7 @@ const ResourceList = ({ module, customData }) => {
   const { mappedResourceListCategory } = customData;
   const heading = JSON.parse(fields.heading);
   const resources =
-    mappedResourceListCategory[fields.resourceListCategory].content;
+    mappedResourceListCategory[fields.resourceListCategory]?.content;
   return (
     <section className={`section ${style.resourceList}`}>
       <nav className="container" aria-label="resource list">
@@ -40,32 +40,34 @@ const ResourceList = ({ module, customData }) => {
                 </div>
               ))}
         </div>
-        <div className={style.link}>
-          <Link
-            href={`/archives?type=resources&categories=${mappedResourceListCategory[
-              fields.resourceListCategory
-            ].types.map((type, i) => {
-              if (
-                i <
-                mappedResourceListCategory[fields.resourceListCategory].types
-                  .length -
-                  1
-              )
-                return `${type},`;
-              return `${type}`;
-            })}`
-              .split(" ")
-              .join("")}
-          >
-            <a
-              className="button cyan outlined"
-              aria-label="Navigate to page resource archives page"
-              title="Navigate to page resource resources page"
+        {fields.resourceListCategory && (
+          <div className={style.link}>
+            <Link
+              href={`/archives?type=resources&categories=${mappedResourceListCategory[
+                fields.resourceListCategory
+              ].types.map((type, i) => {
+                if (
+                  i <
+                  mappedResourceListCategory[fields.resourceListCategory].types
+                    .length -
+                    1
+                )
+                  return `${type},`;
+                return `${type}`;
+              })}`
+                .split(" ")
+                .join("")}
             >
-              Read More
-            </a>
-          </Link>
-        </div>
+              <a
+                className="button cyan outlined"
+                aria-label="Navigate to page resource archives page"
+                title="Navigate to page resource resources page"
+              >
+                Read More
+              </a>
+            </Link>
+          </div>
+        )}
       </nav>
     </section>
   );

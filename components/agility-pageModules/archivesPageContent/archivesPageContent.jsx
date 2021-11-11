@@ -3,10 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Loader from "../../layout/loader/loader";
 import ArchiveCard from "./archiveCard";
+import { sortContentListByDate } from "../../../utils/convert";
 
 const ArchivesPageContent = ({ customData }) => {
   const { query } = useRouter();
   const { contentListTypes } = customData; // the 3 different content types: news, press releases and resources.
+  const [mounted, setMounted] = useState(false);
   const [activePageNumber, setActivePageNumber] = useState(0); // number of the current page.
   const [totalPagesCount, setTotalPagesCount] = useState(null); // total count of pages.
   const [currentOffset, setCurrentOffset] = useState(0); // current offset in the active content list.
@@ -15,8 +17,6 @@ const ArchivesPageContent = ({ customData }) => {
   const [activeContentType, setActiveContentType] = useState(null); // these are their own states because it makes handing multiple categories easier.
   const [contentCategories, setContentCategories] = useState(null); // these are their own states because it makes handing multiple categories easier.
   const [activeCategories, setActiveCategories] = useState([]); // currently selected categories.
-
-  const categoryRefs = useRef([]);
 
   const PER_PAGE = 9; // how many cards are shown per page
 
@@ -28,10 +28,6 @@ const ArchivesPageContent = ({ customData }) => {
       setActiveContentType(queriedType.id);
       setActiveContentList(queriedType.content);
       setContentCategories(queriedType.categories);
-      setPage(
-        queriedType.content.slice(currentOffset, currentOffset + PER_PAGE)
-      );
-      setTotalPagesCount(Math.ceil(queriedType.content.length / PER_PAGE));
       if (categories) {
         setActiveCategories(categories);
       }
@@ -39,38 +35,32 @@ const ArchivesPageContent = ({ customData }) => {
       setActiveContentType(contentListTypes[0].id);
       setActiveContentList(contentListTypes[0].content);
       setContentCategories(contentListTypes[0].categories);
-      setPage(
-        contentListTypes[0].content.slice(
-          currentOffset,
-          currentOffset + PER_PAGE
-        )
-      );
-      setTotalPagesCount(
-        Math.ceil(contentListTypes[0].content.length / PER_PAGE)
-      );
     }
   }, []);
 
+  // reset offset and when active content list changes, update total pages count and set the content of the current page if the list is not null.
   useEffect(() => {
     setCurrentOffset(0);
+    setActivePageNumber(0);
     if (activeContentList) {
       setTotalPagesCount(Math.ceil(activeContentList.length / PER_PAGE));
       setPage(activeContentList.slice(currentOffset, currentOffset + PER_PAGE));
     }
   }, [activeContentList]);
 
+  // reset offset and when active content type changes (eg. from resources to news)
   useEffect(() => {
     setCurrentOffset(0);
+    setActivePageNumber(0);
   }, [activeContentType]);
 
+  // if active categories changes and there are at least one category on the list, reset offset and update the active content list based on the selected categories.
   useEffect(() => {
-    console.log(activeCategories);
     if (activeCategories.length > 0) {
       setCurrentOffset(0);
       let newContentList = getSortedContentByActiveCategories();
-      console.log(newContentList);
-      setTotalPagesCount(Math.ceil(newContentList.length / PER_PAGE));
-      setPage(newContentList.slice(currentOffset, currentOffset + PER_PAGE));
+      setActiveContentList(newContentList);
+      // if there are no selected categories, just set the content list to include all categories (the default content for selected content type).
     } else if (activeContentType) {
       setCurrentOffset(0);
       let list = contentListTypes.find(
@@ -78,12 +68,11 @@ const ArchivesPageContent = ({ customData }) => {
       ).content;
       if (list.length !== activeContentList) {
         setActiveContentList(list);
-        setTotalPagesCount(Math.ceil(list.length / PER_PAGE));
-        setPage(list.slice(currentOffset, currentOffset + PER_PAGE));
       }
     }
   }, [activeCategories]);
 
+  // update the page content when current offset changes.
   useEffect(() => {
     if (activeCategories && activeContentList)
       setPage(activeContentList.slice(currentOffset, currentOffset + PER_PAGE));
@@ -91,6 +80,7 @@ const ArchivesPageContent = ({ customData }) => {
       setPage(activeContentList.slice(currentOffset, currentOffset + PER_PAGE));
   }, [currentOffset]);
 
+  // returns a sorted content list with the contents of selected categories.
   const getSortedContentByActiveCategories = () => {
     let newContentList = [];
     if (activeCategories) {
@@ -100,20 +90,7 @@ const ArchivesPageContent = ({ customData }) => {
           ...contentCategories[category].content,
         ];
       });
-      return newContentList.sort((a, b) => {
-        if (
-          new Date(a.fields.date).getMilliseconds() <
-          new Date(b.fields.date).getMilliseconds()
-        )
-          return -1;
-        if (
-          new Date(a.fields.date).getMilliseconds() >
-          new Date(b.fields.date).getMilliseconds()
-        )
-          return 1;
-
-        return 0;
-      });
+      return sortContentListByDate(newContentList);
     } else {
       return activeContentList;
     }
@@ -128,6 +105,7 @@ const ArchivesPageContent = ({ customData }) => {
     setActiveContentList(newType.content);
   };
 
+  // when some category is selected update the active categories list accordingly.
   const handleCategoryChange = (event, category) => {
     if (!event.target.checked) {
       let newCategories = activeCategories.filter(
@@ -160,6 +138,30 @@ const ArchivesPageContent = ({ customData }) => {
     }
   };
 
+  // the different content types use different fields for the card link
+  const resolveCategory = (referenceName) => {
+    switch (referenceName) {
+      case "newsArticle":
+        return "News";
+      case "pressReleaseArticle":
+        return "Press Release";
+      case "ebooks":
+        return "e-Book";
+      case "guides":
+        return "Guide";
+      case "webinars":
+        return "Webinar";
+      case "whitepapers":
+        return "White Paper";
+      case "integrations":
+        return "Product Datasheet";
+      case "reports":
+        return "Report";
+      default:
+        return referenceName;
+    }
+  };
+
   const previousPage = () => {
     let newPageNumber = activePageNumber - 1;
     if (newPageNumber >= 0) {
@@ -175,6 +177,7 @@ const ArchivesPageContent = ({ customData }) => {
       setActivePageNumber(newPageNumber);
     }
   };
+
   return (
     <section className={`section ${style.archivesPageContent}`}>
       <nav
@@ -210,7 +213,6 @@ const ArchivesPageContent = ({ customData }) => {
                 <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
                   <input
                     type="checkbox"
-                    ref={(el) => (categoryRefs.current[i] = el)}
                     id={key + "Checkbox"}
                     checked={activeCategories.find(
                       (category) => category === key
@@ -234,6 +236,7 @@ const ArchivesPageContent = ({ customData }) => {
                     title={resolveTitle(activeContentType, item.fields)}
                     link={resolveLink(activeContentType, item.fields)}
                     date={item.fields.date}
+                    category={resolveCategory(item.properties.referenceName)}
                   />
                 </div>
               ))}
@@ -418,10 +421,10 @@ ArchivesPageContent.getCustomInitialProps = async function ({
       categories: {
         ebooks: { title: "e-Books", content: [] },
         guides: { title: "Guides", content: [] },
-        integrations: { title: "Integrations", content: [] },
+        integrations: { title: "Product Datasheets", content: [] },
         reports: { title: "Reports", content: [] },
         webinars: { title: "Webinars", content: [] },
-        whitePapers: { title: "White Papers", content: [] },
+        whitepapers: { title: "White Papers", content: [] },
       },
     },
   ];
@@ -474,36 +477,23 @@ ArchivesPageContent.getCustomInitialProps = async function ({
   let integrations = await getContentList("integrations");
   let reports = await getContentList("reports");
   let webinars = await getContentList("webinars");
-  let whitePapers = await getContentList("whitepapers");
+  let whitepapers = await getContentList("whitepapers");
 
-  contentListTypes[2].content = [
+  contentListTypes[2].content = sortContentListByDate([
     ...ebooks,
     ...guides,
     ...integrations,
     ...reports,
     ...webinars,
-    ...whitePapers,
-  ].sort((a, b) => {
-    if (
-      new Date(a.fields.date).getMilliseconds() <
-      new Date(b.fields.date).getMilliseconds()
-    )
-      return -1;
-    if (
-      new Date(a.fields.date).getMilliseconds() >
-      new Date(b.fields.date).getMilliseconds()
-    )
-      return 1;
-
-    return 0;
-  });
+    ...whitepapers,
+  ]);
 
   contentListTypes[2].categories.ebooks.content = [...ebooks];
   contentListTypes[2].categories.guides.content = [...guides];
   contentListTypes[2].categories.integrations.content = [...integrations];
   contentListTypes[2].categories.reports.content = [...reports];
   contentListTypes[2].categories.webinars.content = [...webinars];
-  contentListTypes[2].categories.whitePapers.content = [...whitePapers];
+  contentListTypes[2].categories.whitepapers.content = [...whitepapers];
 
   return {
     contentListTypes,

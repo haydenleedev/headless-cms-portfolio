@@ -4,7 +4,7 @@ import { toDate } from "../../../utils/convert";
 import { hrefSelf } from "../../../utils/validation";
 import style from "./archiveCard.module.scss";
 
-const ArchiveCard = ({ title, image, link, date }) => {
+const ArchiveCard = ({ title, image, link, date, category }) => {
   const isInnerLink = hrefSelf(link.href);
   return (
     <Link href={isInnerLink ? link : link.href}>
@@ -27,6 +27,7 @@ const ArchiveCard = ({ title, image, link, date }) => {
           )}
           <div className={style.textContent}>
             {date && <p className={style.date}>{toDate(date)}</p>}
+            {category && <p className={style.category}>{category}</p>}
             <p className={style.title}>{title}</p>
             <p className={style.link}>
               <span>Read more</span>
