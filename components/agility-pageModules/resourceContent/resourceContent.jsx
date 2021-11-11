@@ -9,7 +9,6 @@ import { boolean } from "../../../utils/validation";
 
 const ResourceContent = ({ dynamicPageItem }) => {
   const resource = dynamicPageItem.fields;
-  console.log(resource);
 
   useEffect(() => {
     var observer = new MutationObserver(function (mutations) {

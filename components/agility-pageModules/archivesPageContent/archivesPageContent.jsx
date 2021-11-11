@@ -256,6 +256,7 @@ const ArchivesPageContent = ({ customData }) => {
                 {totalPagesCount < 8 ? (
                   [...Array(totalPagesCount).keys()].map((pageNumber) => (
                     <div
+                      key={`pageButton${pageNumber}`}
                       className={pageNumber === activePageNumber ? "w-600" : ""}
                     >
                       <button
@@ -290,6 +291,7 @@ const ArchivesPageContent = ({ customData }) => {
                           .slice(1, 4)
                           .map((pageNumber) => (
                             <div
+                              key={`pageButton${pageNumber}`}
                               className={
                                 pageNumber === activePageNumber ? "w-600" : ""
                               }
@@ -317,6 +319,7 @@ const ArchivesPageContent = ({ customData }) => {
                             .slice(activePageNumber - 1, activePageNumber + 2)
                             .map((pageNumber) => (
                               <div
+                                key={`pageButton${pageNumber}`}
                                 className={
                                   pageNumber === activePageNumber ? "w-600" : ""
                                 }
@@ -343,6 +346,7 @@ const ArchivesPageContent = ({ customData }) => {
                           .slice(totalPagesCount - 4, totalPagesCount - 1)
                           .map((pageNumber) => (
                             <div
+                              key={`pageButton${pageNumber}`}
                               className={
                                 pageNumber === activePageNumber ? "w-600" : ""
                               }

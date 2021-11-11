@@ -7,7 +7,6 @@ import { hrefSelf } from "../../utils/validation";
 // such as blog lists, resources lists, news lists etc.
 const GenericCard = ({ date, category, title, description, image, link }) => {
   const isInnerLink = hrefSelf(link.href);
-  console.log(link);
   return (
     <Link href={isInnerLink ? link : link.href}>
       <a

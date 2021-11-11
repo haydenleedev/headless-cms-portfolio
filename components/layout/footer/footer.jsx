@@ -4,10 +4,8 @@ import Link from "next/link";
 import { AgilityImage } from "@agility/nextjs";
 
 const Footer = ({ globalData }) => {
-  console.log(globalData);
   const { data } = globalData.footer;
   const global = globalData.globalSettings.data;
-  console.log(global);
   return (
     <footer className={style.footer}>
       {/* Footer has a special case for container, it's a bit wider than the standard one */}
@@ -48,6 +46,7 @@ const Footer = ({ globalData }) => {
                   href={contactLink.fields.link.href}
                   aria-label={contactLink.fields.link.text}
                   className={style.contactLink}
+                  key={contactLink.contentID}
                 >
                   {contactLink.fields.link.text}
                 </a>
@@ -59,6 +58,7 @@ const Footer = ({ globalData }) => {
                     href={item.fields.link.href}
                     aria-label={item.fields.link.text}
                     title={item.fields.link.text}
+                    key={item.contentID}
                   >
                     <img
                       src={item.fields.image.url}
@@ -78,6 +78,7 @@ const Footer = ({ globalData }) => {
                       href={award.fields.link.href}
                       aria-label={award.fields.link.text}
                       title={award.fields.link.text}
+                      key={award.contentID}
                     >
                       <AgilityImage
                         src={award.fields.image.url}

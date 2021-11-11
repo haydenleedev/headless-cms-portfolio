@@ -15,7 +15,7 @@ const BlogPostList = ({ module, overrideClass, blogPosts }) => {
             <GenericCard
               key={blogPost.contentID}
               title={blogPost.fields.title}
-              link={blogPost.url}
+              link={{ href: blogPost.url }}
               image={blogPost.fields.image}
             ></GenericCard>
           ))}
