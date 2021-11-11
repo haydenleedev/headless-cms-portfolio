@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Loader from "../../layout/loader/loader";
 import ArchiveCard from "./archiveCard";
 import { sortContentListByDate } from "../../../utils/convert";
+import ArchivesLoader from "./archivesLoader";
 
 const ArchivesPageContent = ({ customData }) => {
   const { query } = useRouter();
@@ -141,9 +142,9 @@ const ArchivesPageContent = ({ customData }) => {
   // the different content types use different fields for the card link
   const resolveCategory = (referenceName) => {
     switch (referenceName) {
-      case "newsArticle":
+      case "newsarticle":
         return "News";
-      case "pressReleaseArticle":
+      case "pressreleasearticle":
         return "Press Release";
       case "ebooks":
         return "e-Book";
@@ -241,7 +242,7 @@ const ArchivesPageContent = ({ customData }) => {
                 </div>
               ))}
             </div>
-          )) || <Loader />}
+          )) || <ArchivesLoader />}
         </div>
         {/* Display the page numbers. truncate if there's a lot of pages*/}
         <footer className={style.pagination}>

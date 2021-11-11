@@ -2,6 +2,7 @@ import { AgilityImage } from "@agility/nextjs";
 import Link from "next/link";
 import { toDate } from "../../../utils/convert";
 import { hrefSelf } from "../../../utils/validation";
+import Loader from "../../layout/loader/loader";
 import style from "./archiveCard.module.scss";
 
 const ArchiveCard = ({ title, image, link, date, category }) => {
