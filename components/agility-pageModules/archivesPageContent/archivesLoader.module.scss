@@ -12,6 +12,7 @@
     flex-direction: column;
     justify-content: flex-end;
     @include touch() {
+      width: 100%;
       .loadingImageField {
         max-height: 360px;
       }
