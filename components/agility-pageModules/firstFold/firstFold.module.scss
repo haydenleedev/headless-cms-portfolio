@@ -1,4 +1,5 @@
 @import "../../../styles/settings/colors";
+@import "../../../styles/settings/variables";
 @import "../../../styles/settings/mixins";
 
 .firstFold {
@@ -31,7 +32,6 @@
   padding: unset;
   height: 100%;
   min-height: 300px;
-  overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
@@ -51,6 +51,34 @@
       max-height: unset !important;
       min-height: unset !important;
       height: 100% !important;
+    }
+  }
+  .customerStoryTextContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 15%);
+    padding: 2.5rem 2rem 3rem 2rem;
+    box-shadow: 4px 4px 20px hsla(0, 0%, 49.8%, 0.15);
+    background-color: $color-white;
+    text-align: center;
+    z-index: 1;
+    .heading {
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: $size-3;
+        font-weight: 400;
+        color: $color-skyblue;
+      }
+    }
+    .text {
+      font-size: $size-4;
+      max-width: $tablet;
+      margin: 0 auto;
     }
   }
   .textContent {

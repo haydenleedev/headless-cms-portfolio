@@ -1,3 +1,5 @@
+@import "../../../styles/settings/mixins";
+
 .textGridWithMedia {
   .heading {
     display: flex;
@@ -30,6 +32,23 @@
       img {
         height: unset !important;
         position: unset !important;
+      }
+    }
+  }
+  .textItemFlex {
+    padding: 2rem 2rem 0 2rem;
+    .textItemMedia {
+      max-width: 120px;
+      img {
+        height: unset !important;
+        position: unset !important;
+      }
+    }
+    @include desktop() {
+      display: flex;
+      .textItemMedia {
+        min-width: 120px;
+        margin-right: 2.5rem;
       }
     }
   }

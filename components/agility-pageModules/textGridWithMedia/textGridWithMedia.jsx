@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Heading from "../heading";
 import Media from "../media";
+import { boolean } from "../../../utils/validation";
 import style from "./textGridWithMedia.module.scss";
 
 const TextGridWithMedia = ({ module }) => {
@@ -26,21 +27,30 @@ const TextGridWithMedia = ({ module }) => {
               const { fields } = textItem;
               const heading = JSON.parse(fields.heading);
               return (
-                <div className={style.textItem} key={textItem.contentID}>
+                <div
+                  className={
+                    boolean(fields.mediaLeft)
+                      ? style.textItemFlex
+                      : style.textItem
+                  }
+                  key={textItem.contentID}
+                >
                   {fields.media && (
                     <div className={style.textItemMedia}>
                       <Media media={fields.media} />
                     </div>
                   )}
-                  {heading.text && (
-                    <div className={style.textItemHeading}>
-                      <Heading {...heading} />
-                    </div>
-                  )}
-                  <div
-                    className={`${style.textItemHtml} content`}
-                    dangerouslySetInnerHTML={{ __html: fields.text }}
-                  ></div>
+                  <div>
+                    {heading.text && (
+                      <div className={style.textItemHeading}>
+                        <Heading {...heading} />
+                      </div>
+                    )}
+                    <div
+                      className={`${style.textItemHtml} content`}
+                      dangerouslySetInnerHTML={{ __html: fields.text }}
+                    ></div>
+                  </div>
                 </div>
               );
             })}

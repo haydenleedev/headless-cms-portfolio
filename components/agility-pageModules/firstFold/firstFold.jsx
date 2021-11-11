@@ -8,12 +8,23 @@ const FirstFold = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   const alternateLayout = boolean(fields.alternateLayout);
-  return alternateLayout ? (
-    <section className={`section ${style.firstFoldAlternate}`}>
-      <div className={style.backgroundImage}>
-        <Media media={fields.media}></Media>
-      </div>
-      <div className={`container ${style.textContent}`}>
+  const customerStory = boolean(fields.customerStory);
+  return alternateLayout || customerStory ? (
+    <section
+      className={`section ${style.firstFoldAlternate} ${
+        customerStory ? "mb-6" : ""
+      }`}
+    >
+      {fields.media && (
+        <div className={style.backgroundImage}>
+          <Media media={fields.media}></Media>
+        </div>
+      )}
+      <div
+        className={`container ${
+          customerStory ? style.customerStoryTextContent : style.textContent
+        }`}
+      >
         <div className={style.heading}>
           <Heading {...heading}></Heading>
         </div>
@@ -85,9 +96,7 @@ const FirstFold = ({ module }) => {
               </Link>
             )}
           </div>
-          <div>
-            <Media media={fields.media}></Media>
-          </div>
+          {fields.media && <Media media={fields.media}></Media>}
         </div>
       </div>
     </section>
