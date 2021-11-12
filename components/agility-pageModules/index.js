@@ -14,6 +14,9 @@ import HeroImage from "./heroImage/heroImage";
 import CallToAction from "./callToAction/callToAction";
 import NewsList from "./newsList/newsList";
 import PressReleaseList from "./pressReleaseList/pressReleaseList";
+import Infographic from "./infographic/infographic";
+import CaseStudyDownloadPrompt from "./caseStudyDownloadPrompt/caseStudyDownloadPrompt";
+import LatestCustomerStories from "./latestCustomerStories/latestCustomerStories";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -42,6 +45,9 @@ const allModules = [
   { name: "PressReleaseList", module: PressReleaseList },
   { name: "BlogHomePageContent", module: Placeholder },
   { name: "ArchivesPageContent", module: ArchivesPageContent },
+  { name: "Infographic", module: Infographic },
+  { name: "CaseStudyDownloadPrompt", module: CaseStudyDownloadPrompt },
+  { name: "LatestCustomerStories", module: LatestCustomerStories },
 ];
 
 export const getModule = (moduleName) => {

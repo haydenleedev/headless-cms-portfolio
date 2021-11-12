@@ -1,16 +1,46 @@
 @import "../../../styles/settings/mixins";
-@import "../../../styles/settings/mixins";
 
 .richTextArea {
   p {
     margin-top: 0.5rem;
     padding-bottom: 1rem;
   }
+  .fullContainerWidthContent {
+    > * {
+      @include siteWidth();
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
   .content {
     > * {
       @include narrowWidth();
       margin-left: auto;
       margin-right: auto;
+    }
+  }
+
+  @include touch() {
+    .fullContainerWidthContent,
+    .content {
+      > * {
+        img {
+          max-width: 320px;
+          height: unset;
+          margin: 1rem auto;
+          float: unset;
+        }
+      }
+    }
+  }
+  @include mobile() {
+    .fullContainerWidthContent,
+    .content {
+      > * {
+        img {
+          float: unset;
+        }
+      }
     }
   }
 }
