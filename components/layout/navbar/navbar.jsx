@@ -13,25 +13,48 @@ const Navbar = ({ globalData }) => {
     <navbar className={style.navbar}>
       <nav className="container" role="navigation" aria-label="Main">
         <Link href="/">
-          <a title="Go to home page" aria-label="Go to home page">
-            <img className={style.logo} src={logo.src} width={logo.width} height={logo.height} alt="Ujet logo" />
+          <a
+            title="Navigate  to home page"
+            aria-label="Navigate to home page"
+            className={style.brand}
+          >
+            <img
+              className={style.logo}
+              src={logo.src}
+              width={logo.width}
+              height={logo.height}
+              alt="Ujet logo"
+            />
           </a>
         </Link>
         <button
-          className={style.navbarToggle}
+          aria-label="Toggle main navigation menu"
+          title="Toggle main navigation menu"
+          className={`${style.navbarToggle} ${
+            mainNavigationActive ? style.active : style.closed
+          }`}
           onClick={() => {
             setMainNavigationActive(!mainNavigationActive);
           }}
         >
-          Menu
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-        <MainNavigation active={mainNavigationActive} mainNavigation={navbar.fields.mainNavigation} />
+        <MainNavigation
+          active={mainNavigationActive}
+          mainNavigation={navbar.fields.mainNavigation}
+        />
       </nav>
     </navbar>
   );
 };
 
-Navbar.getCustomInitialProps = async function ({ agility, languageCode, channelName }) {
+Navbar.getCustomInitialProps = async function ({
+  agility,
+  languageCode,
+  channelName,
+}) {
   const api = agility;
   let contentItem = null;
 
@@ -40,7 +63,7 @@ Navbar.getCustomInitialProps = async function ({ agility, languageCode, channelN
       referenceName: "navbarConfiguration",
       languageCode: languageCode,
       take: 1,
-      contentLinkDepth: 4
+      contentLinkDepth: 4,
     });
     if (navbar && navbar.items && navbar.items.length > 0) {
       contentItem = navbar.items[0];
@@ -48,7 +71,8 @@ Navbar.getCustomInitialProps = async function ({ agility, languageCode, channelN
       return null;
     }
   } catch (error) {
-    if (console) console.error("Could not load site navbar configuration.", error);
+    if (console)
+      console.error("Could not load site navbar configuration.", error);
     return null;
   }
   // return clean object...
