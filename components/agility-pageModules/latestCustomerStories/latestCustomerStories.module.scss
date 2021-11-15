@@ -1,2 +1,146 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
 .latestCustomerStories {
+  .content {
+    padding-top: 1.5rem;
+    // style for stories listed on a customer story page
+    .story {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 2rem;
+      .storyImage {
+        max-height: 237px;
+        overflow: hidden;
+      }
+      .storyLink {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $color-gray;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        &::before {
+          content: "";
+          position: absolute;
+          display: block;
+          height: 0.125rem;
+          width: 0.75rem;
+          right: 0;
+          transform: translateX(150%);
+          background-color: $color-gray;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          display: block;
+          padding: 0.25rem;
+          border-top: 0.125rem solid $color-gray;
+          border-right: 0.125rem solid $color-gray;
+          right: 0;
+          transform: translateX(190%) rotate(45deg);
+        }
+        &:hover {
+          cursor: pointer;
+          color: $color-darkgray;
+          &::before {
+            background-color: $color-darkgray;
+          }
+          &::after {
+            border-color: $color-darkgray;
+          }
+        }
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: $color-skyblue;
+        margin: 2rem 0 1rem 0;
+      }
+    }
+    // story for stories listed on /customerstories page
+    .storyCard {
+      display: flex;
+      @include shadow();
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 2rem;
+      border-radius: 1rem;
+      .storyImage {
+        max-height: 354px;
+        overflow: hidden;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+      }
+      .storyTitle,
+      .storyDescription {
+        padding: 0 1.5rem;
+      }
+      .storyLink {
+        font-size: 1rem;
+        font-weight: 600;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-bottom: 1rem;
+        padding-left: 1.5rem;
+        margin-top: 1rem;
+        &::after {
+          content: "";
+          position: absolute;
+          display: block;
+          padding: 0.25rem;
+          border-top: 0.125rem solid $color-navy;
+          border-right: 0.125rem solid $color-navy;
+          right: 0;
+          transform: translateX(125%) rotate(45deg);
+        }
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-size: 1.5rem;
+        margin: 2rem 0 1rem 0;
+      }
+    }
+  }
+  @include desktop() {
+    .content {
+      gap: 2.5rem;
+      .story {
+        min-height: 515px;
+        padding-bottom: unset;
+        .storyTitle,
+        .storyDescription {
+          padding: 0 2rem 0 1rem;
+        }
+        .storyLink {
+          margin-top: unset;
+          padding-left: 1rem;
+        }
+      }
+      .storyCard {
+        min-height: 650px;
+        padding-bottom: unset;
+      }
+    }
+  }
+  @include touch() {
+    .heading {
+      margin: unset;
+    }
+  }
 }

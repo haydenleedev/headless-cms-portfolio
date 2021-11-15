@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Media from "../media";
 import Heading from "../heading";
 import { boolean } from "../../../utils/validation";
@@ -10,35 +11,63 @@ const LatestCustomerStories = ({ module, customData }) => {
   const { customerStories } = customData;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const cardStyle = boolean(fields.cardStyle);
-  const count = parseInt(fields.count);
+  const count = fields.count ? parseInt(fields?.count) : undefined;
+
+  // we don't want to recommend the same article that is currently being viewed
   const stories =
     router.query?.slug.length === 2 &&
     router.query?.slug[0] === "customerstories"
       ? customerStories
-          .filter((story) => story.fields.link.text !== router.query.slug[1])
+          .filter(
+            (story) =>
+              story.fields.link.href !== "/" + router.query.slug.join("/")
+          )
           .slice(0, count)
       : customerStories.slice(0, count);
+
   return (
     <section className={`section ${style.latestCustomerStories}`}>
       <div className="container">
         {heading && (
-          <div className={style.heading}>
+          <div
+            className={`${style.heading} ${
+              cardStyle ? "align-center mb-5" : ""
+            }`}
+          >
             <Heading {...heading} />
           </div>
         )}
-        <nav className={style.content} aria-label="customer stories navigation">
-          {stories.map((story) => (
-            <div className={style.story}>
-              <div className={style.storyImage}>
-                <Media media={story.fields.image} />
-              </div>
-              <h3 className={style.storyTitle}>{story.fields.customer}</h3>
-              <p className={style.storyDescription}>
-                {story.fields.description}
-              </p>
-              <p>{story.fields.link.text}</p>
-            </div>
-          ))}
+        <nav
+          className={`columns repeat-3 ${style.content}`}
+          aria-label="customer stories navigation"
+        >
+          {stories.map((story) => {
+            const heading = JSON.parse(story.fields.heading);
+            return (
+              <Link href={story.fields.link.href}>
+                <a>
+                  <div className={cardStyle ? style.storyCard : style.story}>
+                    <div>
+                      <div className={style.storyImage}>
+                        <Media media={story.fields.image} />
+                      </div>
+                      <div className={style.storyTitle}>
+                        <Heading {...heading} />
+                      </div>
+                      <p className={style.storyDescription}>
+                        {story.fields.description}
+                      </p>
+                    </div>
+                    <div className="d-flex align-items-center justify-content-flex-start">
+                      <p className={style.storyLink}>
+                        {story.fields.link.text}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </section>
@@ -67,6 +96,7 @@ LatestCustomerStories.getCustomInitialProps = async function ({
         languageCode,
         take: 50, // 50 is max value for take parameter
         skip,
+        sort: "properties.itemOrder",
       });
       skip += 50;
       return pagePromise;

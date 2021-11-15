@@ -37,9 +37,9 @@ const ClientTestimonial = ({ module }) => {
                       ))}
                     </div>
                   )}
-                  <p
-                    className={style.quote}
-                  >{`“${fields.testimonial.fields.text}”`}</p>
+                  <p className={style.quote}>
+                    {fields.testimonial.fields.text}
+                  </p>
                   <div className={style.client}>
                     <p>
                       <span>{fields.testimonial.fields.name}</span>
