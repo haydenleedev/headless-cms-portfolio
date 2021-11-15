@@ -44,7 +44,7 @@ const LatestCustomerStories = ({ module, customData }) => {
           {stories.map((story) => {
             const heading = JSON.parse(story.fields.heading);
             return (
-              <Link href={story.fields.link.href}>
+              <Link href={story.fields.link.href} key={story.contentID}>
                 <a>
                   <div className={cardStyle ? style.storyCard : style.story}>
                     <div>
