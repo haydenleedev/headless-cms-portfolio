@@ -9,15 +9,18 @@
   height: $navbar-height;
   font-size: 1rem;
   padding-top: 1.25rem;
-  position: absolute;
   width: 100%;
   z-index: 4;
+  position: fixed;
+  top: 0;
+  background: white;
 
   @include desktop() {
     position: relative;
     padding-top: 0;
     display: flex;
   }
+
   nav {
     background: white;
     display: flex;
@@ -28,58 +31,112 @@
     li {
       list-style: none;
     }
+    border-bottom: 0.1rem solid $color-mediumgray;
+    padding-bottom: 1rem;
     @include desktop() {
-      border-bottom: unset;
+      padding: 0;
+      box-shadow: none;
+      border-bottom: none;
       flex-flow: row;
       justify-content: space-between;
       align-items: center;
+      position: relative;
     }
+  }
+}
+
+.brand {
+  @include touch() {
+    width: 50%;
+  }
+  .logo {
+    position: relative;
+    // Slight offset here since the logo's typography causes it to look not aligned center
+    // TODO: Adjust if you adjust the logo size
+    top: 0.3rem;
   }
 }
 
 .navbarToggle {
   all: unset;
   position: absolute;
-  right: 0;
+  right: 1rem;
   padding: inherit;
   cursor: pointer;
+  padding: 1rem;
+  top: 2rem;
 
+  span {
+    position: absolute;
+    content: "";
+    background: $color-navy;
+    height: 0.1rem;
+    width: 100%;
+    left: 0;
+    &:nth-child(1) {
+      top: 0;
+    }
+    &:nth-child(2) {
+      top: 0.5rem;
+    }
+    &:nth-child(3) {
+      top: 1rem;
+    }
+  }
+
+  &.active {
+    span {
+      &:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      &:nth-child(2) {
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+    }
+  }
+
+  // Don't display mobile menu toggle on desktop, doesn't affect accessibility
   @include desktop {
     display: none;
   }
 }
 
-.logo {
-  position: relative;
-  // Slight offset here since the logo's typography causes it to look not aligned center
-  // TODO: Adjust if you adjust the logo size
-  top: 0.3rem;
-}
-
+// Mobile toggle menu states
 .mainNavigationActive {
+  @include touch() {
+    padding-top: 1rem;
+  }
 }
 .mainNavigationHidden {
-  display: none;
+  @include touch() {
+    height: 0;
+    top: -2147483647px;
+    padding: 0;
+    position: absolute;
+  }
 }
 
 .mainNavigation {
   padding-left: 0;
   margin: 0;
   height: 100%;
-
   @include desktop() {
     padding-left: 3rem;
-    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+    // TODO: adjust when nav items added to Agility
     // Offset the dropdown menus exponentially because they might overflow to the right
     $n: 10;
     @for $i from 1 through $n {
       & > li:nth-child(#{$i}) {
         & > ul {
-          left: math.pow($i, 2) * -0.75rem;
+          // left: math.pow($i, 2) * -0.75rem;
+          // right: -1rem;
         }
       }
     }
@@ -89,7 +146,7 @@
     overflow: hidden;
     @include desktop() {
       overflow: visible;
-      position: relative;
+      // position: relative;
     }
   }
   a {
@@ -109,39 +166,42 @@
   }
 }
 
-.dropdown {
+// Renamed hasDropdown since the dropdown is actually a child ul
+.hasDropdown {
   height: 100%;
   display: flex;
   padding: 1rem 0;
   border-bottom: 0.1rem solid $color-mediumgray;
   flex-flow: column;
 
-  // Set navbar triangle pointer invisbile
+  // Set navbar triangle pointer invisbile for mobile, doesn't affect accessibility
   &::before {
     visibility: hidden;
     content: " ";
     opacity: 0;
-    // transition: opacity 1.25s;
   }
   @include desktop() {
     flex-flow: row;
     border: none;
     padding-left: 1.5rem;
     align-items: center;
-    &:hover {
-      &::before {
-        visibility: visible;
-        opacity: 1;
-        position: absolute;
-        width: 1rem;
-        height: 1rem;
-        background: $color-mediumgray;
-        content: "";
-        bottom: 0.5rem;
-        left: 3rem;
-        transform: rotate(45deg);
-      }
-    }
+
+    // TODO: add correct position styling once nav items added to Agility
+    // triangle pointer
+    // &:hover {
+    //   &::before {
+    //     visibility: visible;
+    //     opacity: 1;
+    //     position: absolute;
+    //     width: 1rem;
+    //     height: 1rem;
+    //     background: $color-mediumgray;
+    //     content: "";
+    //     bottom: 0.5rem;
+    //     left: 3rem;
+    //     transform: rotate(45deg);
+    //   }
+    // }
   }
   & > a {
     &:after {
@@ -159,18 +219,31 @@
     }
   }
 
+  // Mobile toggleable styles
+  .dropdownActive {
+    top: 0;
+    position: relative;
+  }
+
+  .dropdownClosed {
+    top: -2147483647px;
+
+    @include desktop() {
+      display: flex;
+    }
+  }
+
+  // The actual dropdown container
   & > ul {
     padding: 0;
     padding-top: 0.5rem;
+    position: absolute;
+    top: -2147483647px;
 
     @include desktop() {
-      min-width: 25vw;
-      opacity: 0;
-      visibility: hidden;
       position: absolute;
       padding: 1.5rem;
-      // transition: opacity 0.33s;
-      left: 0;
+      top: -2147483647px;
     }
 
     li {
@@ -183,11 +256,13 @@
       }
     }
   }
+  // Trigger on hover
   &:hover > ul {
     display: block;
     @include desktop() {
       top: 4rem;
-      visibility: visible;
+      right: 1rem;
+      // visibility: visible;
       opacity: 1;
       position: absolute;
       background: #fff;
@@ -210,6 +285,7 @@
 
 .navigationColumns {
   // Not sure why but have to override
+  // TODO: remove important when nav items added to Agility
   display: flex !important;
   flex-flow: column;
   @include desktop() {
@@ -235,16 +311,5 @@
         }
       }
     }
-  }
-}
-
-.dropdownActive {
-  // color: red;
-}
-
-.dropdownClosed {
-  display: none !important;
-  @include desktop() {
-    display: flex !important;
   }
 }
