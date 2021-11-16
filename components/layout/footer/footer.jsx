@@ -101,14 +101,17 @@ const Footer = ({ globalData }) => {
             aria-label="Footer main navigation"
             className={`reset columns repeat-4 ${style.mainNavigation}`}
           >
-            {data.fields.mainNavigation.length > 0 &&
+            {data.fields.mainNavigation?.length > 0 &&
               data.fields.mainNavigation.map((item) => (
-                <div className={`column ${style.footerColumn}`}>
+                <div
+                  className={`column ${style.footerColumn}`}
+                  key={item.contentID}
+                >
                   <p className={style.footerColumnTitle}>
                     {item.fields.heading}
                   </p>
                   <ul>
-                    {item.fields.links.length > 0 &&
+                    {item.fields.links?.length > 0 &&
                       item.fields.links.map((link, index) => (
                         <li key={"footer-main-" + index}>
                           <Link
@@ -136,9 +139,9 @@ const Footer = ({ globalData }) => {
           </div>
           <div className={`${style.footNoteLinks}`}>
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>
-            {data.fields.bottomNavigation.length > 0 &&
+            {data.fields.bottomNavigation?.length > 0 &&
               data.fields.bottomNavigation.map((item) => (
-                <Link href={item.fields.link.href}>
+                <Link href={item.fields.link.href} key={item.contentID}>
                   <a
                     className={style.footNoteLink}
                     target={item.fields.link.target}
@@ -170,7 +173,7 @@ Footer.getCustomInitialProps = async function ({
       contentLinkDepth: 4,
     });
 
-    if (data && data.items && data.items.length > 0) {
+    if (data && data.items && data.items?.length > 0) {
       contentItem = data.items[0];
     } else {
       return null;
