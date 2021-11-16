@@ -10,13 +10,17 @@
     }
     .form {
       margin-top: 1rem;
-      input,
-      select {
-        background-color: $color-lightgray;
-        padding: 0.75rem 1rem;
-        margin: 0.25rem 0;
-        box-sizing: border-box;
-        border: unset;
+      form {
+        max-width: 420px;
+        margin: 0 auto;
+        input,
+        select {
+          background-color: $color-lightgray;
+          padding: 0.75rem 1rem;
+          margin: 0.25rem 0;
+          box-sizing: border-box;
+          border: unset;
+        }
       }
     }
   }
@@ -26,7 +30,6 @@
       flex-direction: row;
       .form {
         margin-top: unset;
-        padding: 0 2.5rem;
       }
     }
   }

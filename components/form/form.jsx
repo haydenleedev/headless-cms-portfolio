@@ -4,7 +4,6 @@ const Form = ({ submitButtonText, formLoaded }) => {
   const formRef = useRef(null);
 
   useEffect(() => {
-    console.log(formLoaded);
     // override form's submit button text if provided
     if (formLoaded) {
       const submit = formRef.current.querySelector("button[type=submit");
@@ -12,6 +11,7 @@ const Form = ({ submitButtonText, formLoaded }) => {
     }
   }, [formLoaded]);
 
+  // TODO: render a loader when formLoaded = false
   return <form id="mktoForm_1638" ref={formRef}></form>;
 };
 

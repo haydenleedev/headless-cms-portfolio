@@ -13,7 +13,7 @@ const FirstFold = ({ module }) => {
     <section
       className={`section ${style.firstFoldAlternate} ${
         customerStory ? "mb-6" : ""
-      }`}
+      } ${fields.classes ? fields.classes : ""}`}
     >
       {fields.media && (
         <div className={style.backgroundImage}>
@@ -59,7 +59,11 @@ const FirstFold = ({ module }) => {
       </div>
     </section>
   ) : (
-    <section className={`section ${style.firstFold}`}>
+    <section
+      className={`section ${style.firstFold} ${
+        fields.classes ? fields.classes : ""
+      }`}
+    >
       <div className="container">
         {/* TODO: allow reverse column order for desktop as a conditional toggle from Agility*/}
         <div className="columns repeat-2">

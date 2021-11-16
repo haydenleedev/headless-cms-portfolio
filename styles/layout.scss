@@ -126,7 +126,6 @@
   }
 
   @include desktop() {
-
     &.repeat-3 {
       grid-template-columns: repeat(3, 1fr);
     }
