@@ -1,11 +1,10 @@
 import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
-import Head from "next/head";
-import Script from "next/script";
 import style from "./resourceContent.module.scss";
 import { useEffect } from "react";
 import Link from "next/link";
 import { boolean } from "../../../utils/validation";
+import { Form, FormWrapper } from "../../form";
 
 const ResourceContent = ({ dynamicPageItem }) => {
   const resource = dynamicPageItem.fields;
@@ -49,7 +48,7 @@ const ResourceContent = ({ dynamicPageItem }) => {
               {resource.formTitle ||
                 "Fill out the form to download the the resource today!"}
             </h2>
-            <form id="mktoForm_1638"></form>
+            <Form />
             {resource.link.text && resource.link.href && (
               <p>
                 Want to learn more about UJET?
@@ -99,7 +98,7 @@ const ResourceContent = ({ dynamicPageItem }) => {
                 {resource.formTitle ||
                   "Fill out the form to download the the resource today!"}
               </h2>
-              <form id="mktoForm_1638"></form>
+              <Form />
             </div>
           </div>
         </div>
@@ -118,21 +117,13 @@ const ResourceContent = ({ dynamicPageItem }) => {
   );
 
   return (
-    <>
-      <Script
-        id="marketo-js"
-        src="//info.ujet.co/js/forms2/js/forms2.min.js"
-        strategy="lazyOnload"
-        onLoad={() => {
-          window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1638);
-        }}
-      />
+    <FormWrapper>
       {boolean(resource.alternateLayout) ? (
         <AlternateLayout resource={resource}></AlternateLayout>
       ) : (
         <BasicLayout resource={resource}></BasicLayout>
       )}
-    </>
+    </FormWrapper>
   );
 };
 

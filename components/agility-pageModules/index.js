@@ -18,6 +18,7 @@ import Infographic from "./infographic/infographic";
 import CaseStudyDownloadPrompt from "./caseStudyDownloadPrompt/caseStudyDownloadPrompt";
 import LatestCustomerStories from "./latestCustomerStories/latestCustomerStories";
 import TestimonialList from "./testimonialList/testimonialList";
+import TextWithForm from "./textWithForm/textWithForm";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -50,6 +51,7 @@ const allModules = [
   { name: "CaseStudyDownloadPrompt", module: CaseStudyDownloadPrompt },
   { name: "LatestCustomerStories", module: LatestCustomerStories },
   { name: "TestimonialList", module: TestimonialList },
+  { name: "TextWithForm", module: TextWithForm },
 ];
 
 export const getModule = (moduleName) => {

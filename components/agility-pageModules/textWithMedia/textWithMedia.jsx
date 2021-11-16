@@ -60,8 +60,12 @@ const TextWithMedia = ({ module }) => {
                 <Link href={fields.link.href}>
                   <a
                     className={`mt-4 button ${
-                      !boolean(fields.columnLayout) ? "small" : ""
-                    } cyan outlined ${style.link}`}
+                      !boolean(fields.columnLayout) && !fields.linkClasses
+                        ? "small"
+                        : ""
+                    } cyan outlined ${style.link} ${
+                      fields.linkClasses ? fields.linkClasses : ""
+                    }`}
                     aria-label={`Navigate to page ` + fields.link.href}
                     title={`Navigate to page ` + fields.link.href}
                   >
