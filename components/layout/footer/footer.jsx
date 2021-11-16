@@ -6,6 +6,7 @@ import { AgilityImage } from "@agility/nextjs";
 const Footer = ({ globalData }) => {
   const { data } = globalData.footer;
   const global = globalData.globalSettings.data;
+  console.log(data);
   return (
     <footer className={style.footer}>
       {/* Footer has a special case for container, it's a bit wider than the standard one */}
@@ -71,8 +72,8 @@ const Footer = ({ globalData }) => {
             )}
             {data.fields.awards?.length > 0 && (
               <div className={style.awards}>
-                <p className={style.awardsTitle}>Awards and recognition</p>
-                <div className={style.badges}>
+                <p className={style.awardsTitle}>{data.fields.awardsTitle}</p>
+                <div className={`${style.badges}`}>
                   {data.fields.awards.map((award) => (
                     <a
                       href={award.fields.link.href}
@@ -83,8 +84,8 @@ const Footer = ({ globalData }) => {
                       <AgilityImage
                         src={award.fields.image.url}
                         layout="responsive"
-                        width="32"
-                        height="32"
+                        width="4"
+                        height="5"
                         objectFit="contain"
                       ></AgilityImage>
                     </a>
@@ -93,32 +94,39 @@ const Footer = ({ globalData }) => {
               </div>
             )}
           </div>
-          <div className="columns repeat-4">
-            <div className={`column ${style.footerColumn}`}>
-              <p className={style.footerColumnTitle}>Title</p>
-              <Link href="#">
-                <a className={style.footerColumnLink}>Link</a>
-              </Link>
-              <Link href="#">
-                <a className={style.footerColumnLink}>Link</a>
-              </Link>
-              <Link href="#">
-                <a className={style.footerColumnLink}>Link</a>
-              </Link>
-            </div>
-            <div className={`column ${style.footerColumn}`}>
-              <p className={style.footerColumnTitle}>Title</p>
-              <Link href="#">
-                <a className={style.footerColumnLink}>Link</a>
-              </Link>
-              <Link href="#">
-                <a className={style.footerColumnLink}>Link</a>
-              </Link>
-              <Link href="#">
-                <a className={style.footerColumnLink}>Link</a>
-              </Link>
-            </div>
-          </div>
+
+          {/* Main Navigation */}
+          <nav
+            role="navigation"
+            aria-label="Footer main navigation"
+            className={`reset columns repeat-4 ${style.mainNavigation}`}
+          >
+            {data.fields.mainNavigation.length > 0 &&
+              data.fields.mainNavigation.map((item) => (
+                <div className={`column ${style.footerColumn}`}>
+                  <p className={style.footerColumnTitle}>
+                    {item.fields.heading}
+                  </p>
+                  <ul>
+                    {item.fields.links.length > 0 &&
+                      item.fields.links.map((link, index) => (
+                        <li key={"footer-main-" + index}>
+                          <Link
+                            title={"Navigate to " + link.fields.link.text}
+                            aria-label={"Navigate to " + link.fields.link.text}
+                            href={link.fields.link.href}
+                            target={link.fields.link.target}
+                          >
+                            <a className={style.footerColumnLink}>
+                              {link.fields.link.text}
+                            </a>
+                          </Link>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              ))}
+          </nav>
         </div>
         <hr className={style.horizontalLine}></hr>
         <div className={` repeat-5 ${style.footNote}`}>
@@ -127,18 +135,18 @@ const Footer = ({ globalData }) => {
             <img alt="Trust Arc here"></img>
           </div>
           <div className={`${style.footNoteLinks}`}>
-            <Link href="#">
-              <a className={style.footNoteLink}>Render links here</a>
-            </Link>{" "}
-            <Link href="#">
-              <a className={style.footNoteLink}>Render links here</a>
-            </Link>{" "}
-            <Link href="#">
-              <a className={style.footNoteLink}>Render links here</a>
-            </Link>{" "}
-            <Link href="#">
-              <a className={style.footNoteLink}>Render links here</a>
-            </Link>{" "}
+            <p className={style.footNoteLink}>{data.fields.copyrightText}</p>
+            {data.fields.bottomNavigation.length > 0 &&
+              data.fields.bottomNavigation.map((item) => (
+                <Link href={item.fields.link.href}>
+                  <a
+                    className={style.footNoteLink}
+                    target={item.fields.link.target}
+                  >
+                    {item.fields.link.text}
+                  </a>
+                </Link>
+              ))}
           </div>
         </div>
       </div>
@@ -172,7 +180,7 @@ Footer.getCustomInitialProps = async function ({
       console.error("Could not load site footer configuration.", error);
     return null;
   }
-  // return clean object...
+  // return a clean object...
   return {
     data: contentItem,
   };

@@ -120,8 +120,13 @@
   width: 100%;
   display: grid;
   grid-gap: 1rem;
+  &.auto {
+    // Auto fit to container if no repet has been specified
+    grid-template-columns: auto auto auto auto;
+  }
 
   @include desktop() {
+
     &.repeat-3 {
       grid-template-columns: repeat(3, 1fr);
     }

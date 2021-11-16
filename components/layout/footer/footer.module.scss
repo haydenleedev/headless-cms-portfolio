@@ -41,6 +41,12 @@
   flex-flow: column;
   font-size: 1rem;
   margin-right: 1rem;
+  align-items: center;
+
+  @include desktop() {
+    align-items: unset;
+  }
+
   .contactLink {
     margin-top: 1rem;
   }
@@ -48,7 +54,6 @@
     display: flex;
     margin-top: 1.5rem;
     img {
-      margin-right: 1.5rem;
       border-radius: 100%;
       background: white;
       color: $color-navy;
@@ -57,18 +62,35 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 1rem;
+
+      @include desktop() {
+        margin-right: 1.5rem;
+        margin-left: 0;
+      }
     }
   }
 }
 
 .awards {
-  margin: 1.5rem 0;
+  margin: 1.5rem 0 2.5rem 0;
+  width: 100%;
+  text-align: center;
+  @include desktop() {
+    text-align: left;
+  }
+
   .awardsTitle {
     color: $color-skyblue;
   }
 
   .badges {
+    width: 100%;
+    display: grid;
+    grid-gap: 1rem;
     margin-top: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+
     img {
       margin-right: 1.5rem;
     }
@@ -78,26 +100,42 @@
 .footNote {
   display: flex;
   flex-flow: column;
+
   @include desktop() {
     flex-flow: row;
   }
+
   .cookies {
     display: flex;
     flex-flow: column;
     min-width: 20vw;
+    align-items: center;
+    @include desktop() {
+      align-items: unset;
+    }
   }
 
   .footNoteLinks {
     display: flex;
-    flex-flow: column;
     width: 100%;
+    margin: 2rem 0;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
     @include desktop() {
+      margin: 0;
       align-items: center;
-      flex-flow: row;
       justify-content: flex-end;
     }
     .footNoteLink {
-      font-size: 1rem;
+      font-size: 0.8rem;
+      &:not(:last-child) {
+        &::after {
+          content: " - ";
+          margin: 0 0.5rem;
+        }
+      }
       @include desktop() {
         &:not(:last-child) {
           &::after {
@@ -112,19 +150,31 @@
   }
 }
 
-.footerColumn {
-  display: flex;
-  flex-flow: column;
-  margin-bottom: 2rem;
+.mainNavigation {
 
-  .footerColumnTitle {
-    text-transform: uppercase;
-    color: $color-skyblue;
-    margin-bottom: 0.5rem;
+  ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  .footerColumn {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 2rem;
+
+    .footerColumnTitle {
+      text-transform: uppercase;
+      color: $color-skyblue;
+      margin-bottom: 0.5rem;
+    }
+
+    .footerColumnLink {
+      display: inline-block;
+      padding: 0.5rem 0;
+    }
   }
 
-  .footerColumnLink {
-    display: inline-block;
-    padding: 0.5rem 0;
+  @include desktop() {
+    margin-left: 2rem;
   }
 }
