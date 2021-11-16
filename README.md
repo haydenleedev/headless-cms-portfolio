@@ -5,6 +5,8 @@
 - For convenience files with React code use .jsx file extension. Files with vanilla js use .js.
 - Try not to set any styles on html for accessibility reasons. Screen readers and assistive technology usually manipulate the root HTML element so we don't want to overwrite any of those settings. Same for any user agent resets, only reset when necessary.
 - Try to use Semantic naming for Agility CMS modules and React components.
+- Accessibility: don't use "display: none", "opacity: 0", or "visibility: hidden" for elements that are hidden but should be available for screen readers. These include but are not limited to: navigation dropdowns, toggleable dropdowns or accordions (such as faq sliders), or any element that should be visible to screen readers. Instead, use "position: absolute" and "top: -2147483647px;" to hide elements but leave them visible for screen readers.
+
 
 # UJET Website with Next.js
 
