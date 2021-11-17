@@ -31,7 +31,10 @@
 
   .horizontalLine {
     border-color: $color-mediumblue;
-    margin: 3rem 0;
+    margin-bottom: 3rem;
+    @include desktop() {
+      margin: 3rem 0;
+    }
   }
 }
 
@@ -151,8 +154,8 @@
 }
 
 .mainNavigation {
-
-  ul, li {
+  ul,
+  li {
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -161,16 +164,63 @@
     display: flex;
     flex-flow: column;
     margin-bottom: 2rem;
+    padding-right: 0.5rem;
+
+    @include touch() {
+      &:not(:last-child) {
+        &::after {
+          content: "";
+          width: 100%;
+          height: 0.1rem;
+          background: transparentize($color-skyblue, 0.85);
+          margin-top: 1rem;
+        }
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
 
     .footerColumnTitle {
+      all: unset;
       text-transform: uppercase;
       color: $color-skyblue;
       margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+
+      @include desktop() {
+        cursor: default;
+      }
+      .toggleIcon {
+        font-size: 2.5rem;
+        color: $color-white;
+        font-weight: 100;
+        @include desktop() {
+          display: none;
+        }
+      }
     }
 
     .footerColumnLink {
       display: inline-block;
-      padding: 0.5rem 0;
+      margin: 0.75rem 0;
+      line-height: 1.33;
+    }
+
+    .footerColumnActive {
+      height: 100%;
+    }
+    .footerColumnClosed {
+      position: absolute;
+      top: -2147483647px;
+      @include desktop() {
+        position: relative;
+        top: 0;
+      }
     }
   }
 

@@ -12,6 +12,7 @@ module.exports = {
         destination: "https://assets.ujet.cx/:slug", // Matched parameters can be used in the destination
         permanent: true,
       },
+      // TODO: add asset redirects for src/theme folder
     ];
   },
   images: {

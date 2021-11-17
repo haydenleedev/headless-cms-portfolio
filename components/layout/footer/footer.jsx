@@ -2,11 +2,24 @@ import style from "./footer.module.scss";
 import logo from "../../../assets/ujet-logo.svg";
 import Link from "next/link";
 import { AgilityImage } from "@agility/nextjs";
+import { isMobile } from "../../../utils/responsivity";
+import { useState } from "react";
 
 const Footer = ({ globalData }) => {
   const { data } = globalData.footer;
   const global = globalData.globalSettings.data;
-  console.log(data);
+  const [activeFooterColumn, setActiveFooterColumn] = useState(null);
+
+  function toggleFooterColumn(item) {
+    if (isMobile()) {
+      if (item == activeFooterColumn) {
+        setActiveFooterColumn(null);
+        return;
+      }
+      setActiveFooterColumn(item);
+    }
+  }
+
   return (
     <footer className={style.footer}>
       {/* Footer has a special case for container, it's a bit wider than the standard one */}
@@ -103,14 +116,38 @@ const Footer = ({ globalData }) => {
           >
             {data.fields.mainNavigation?.length > 0 &&
               data.fields.mainNavigation.map((item) => (
+                // Footer column
                 <div
                   className={`column ${style.footerColumn}`}
                   key={item.contentID}
                 >
-                  <p className={style.footerColumnTitle}>
-                    {item.fields.heading}
-                  </p>
-                  <ul>
+                  <button
+                    className={`${style.footerColumnTitle}`}
+                    onClick={() => {
+                      toggleFooterColumn(item.contentID);
+                    }}
+                    aria-controls={item.contentID}
+                    aria-expanded={
+                      (!isMobile() &&
+                        true) ||
+                      activeFooterColumn == item.contentID
+                        ? true
+                        : false
+                    }
+                  >
+                    <span>{item.fields.heading}</span>
+                    <span className={style.toggleIcon}>
+                      {activeFooterColumn == item.contentID ? "-" : "+"}
+                    </span>
+                  </button>
+                  <ul
+                    id={item.contentID}
+                    className={`${
+                      activeFooterColumn == item.contentID
+                        ? style.footerColumnActive
+                        : style.footerColumnClosed
+                    }`}
+                  >
                     {item.fields.links?.length > 0 &&
                       item.fields.links.map((link, index) => (
                         <li key={"footer-main-" + index}>
