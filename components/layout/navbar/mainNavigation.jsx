@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import Link from "next/link";
 import style from "./navbar.module.scss";
 import { useRouter } from "next/router";
+import { isMobile } from "../../../utils/responsivity";
 
 const MainNavigation = ({ active, mainNavigation }) => {
   const [activeNavigationItem, setActiveNavigationItem] = useState(null);
-  const router = useRouter()
+  const router = useRouter();
   const handleNavigationGroupClick = (href, item) => {
     /** Have to match this to scss mixing touch breakpoint, since there's no other way to
     disable dropdown navigation with css in mobile without creating duplicate DOM elements...
     */
-    if (window.innerWidth < 768) {
+    if (isMobile()) {
       if (item == activeNavigationItem) {
         setActiveNavigationItem(null);
         return;
@@ -44,7 +45,10 @@ const MainNavigation = ({ active, mainNavigation }) => {
             label={"Navigate to " + navigationGroup.fields.link.text}
             onClick={(e) => {
               e.preventDefault();
-              handleNavigationGroupClick(navigationGroup.fields.link.href, `navigation-group-${index}`);
+              handleNavigationGroupClick(
+                navigationGroup.fields.link.href,
+                `navigation-group-${index}`
+              );
             }}
           >
             {navigationGroup.fields.link.text}
