@@ -6,6 +6,7 @@ import { useState } from "react";
 
 const Navbar = ({ globalData }) => {
   const { navbar } = globalData.navbar;
+  console.log(globalData);
   // affects only mobile
   const [mainNavigationActive, setMainNavigationActive] = useState(false);
 
@@ -62,9 +63,10 @@ Navbar.getCustomInitialProps = async function ({
     let navbar = await api.getContentList({
       referenceName: "navbarConfiguration",
       languageCode: languageCode,
-      take: 1,
-      contentLinkDepth: 4,
+      contentLinkDepth: 5,
+      expandAllContentLinks: true,
     });
+
     if (navbar && navbar.items && navbar.items.length > 0) {
       contentItem = navbar.items[0];
     } else {
