@@ -34,17 +34,14 @@ const MainNavigation = ({ active, mainNavigation }) => {
               ? style.noDropdown
               : style.hasDropdown
           }`}
-          aria-label="Dropdown menu"
+          aria-label="Toggle dropdown menu"
+          aria-controls={navigationGroup.contentID}
         >
           {/* Group Main Link */}
           <a
             className={`${style.navigationLink}`}
-            aria-label={
-              "Navigate to " + navigationGroup.fields.mainLink.fields.link.text
-            }
-            label={
-              "Navigate to " + navigationGroup.fields.mainLink.fields.link.text
-            }
+            aria-label={navigationGroup.fields.mainLink.fields.link.text}
+            label={navigationGroup.fields.mainLink.fields.link.text}
             onClick={(e) => {
               e.preventDefault();
               handleNavigationGroupClick(
@@ -53,13 +50,13 @@ const MainNavigation = ({ active, mainNavigation }) => {
               );
             }}
           >
-            {navigationGroup.fields.mainLink.fields.link.text}
+            {navigationGroup.fields.mainLink.fields.internalTitle}
           </a>
           {navigationGroup.fields.columns && (
             // Dropdown
             <>
-              <span aria-disabled className={style.dropdownPointer}></span>
               <ul
+                id={navigationGroup.contentID}
                 className={`${style.navigationColumns} ${
                   activeNavigationItem == `navigation-group-${index}`
                     ? style.dropdownActive
@@ -85,19 +82,17 @@ const MainNavigation = ({ active, mainNavigation }) => {
                               <a
                                 className={`${style.navigationLink}`}
                                 aria-label={
-                                  "Navigate to page " +
                                   navigationItem.fields.mainLink.fields.link
                                     .text
                                 }
                                 label={
-                                  "Navigate to page " +
                                   navigationItem.fields.mainLink.fields.link
                                     .text
                                 }
                               >
                                 {
-                                  navigationItem.fields.mainLink.fields.link
-                                    .text
+                                  navigationItem.fields.mainLink.fields
+                                    .internalTitle
                                 }
                               </a>
                             </Link>
@@ -114,15 +109,16 @@ const MainNavigation = ({ active, mainNavigation }) => {
                                         <a
                                           className={`${style.navigationLink}`}
                                           aria-label={
-                                            "Navigate to page " +
                                             navigationItemChild.fields.link.text
                                           }
                                           label={
-                                            "Navigate to page " +
                                             navigationItemChild.fields.link.text
                                           }
                                         >
-                                          {navigationItemChild.fields.link.text}
+                                          {
+                                            navigationItemChild.fields
+                                              .internalTitle
+                                          }
                                         </a>
                                       </Link>
                                     </li>

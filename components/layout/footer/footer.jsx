@@ -128,8 +128,7 @@ const Footer = ({ globalData }) => {
                     }}
                     aria-controls={item.contentID}
                     aria-expanded={
-                      (!isMobile() &&
-                        true) ||
+                      (!isMobile() && true) ||
                       activeFooterColumn == item.contentID
                         ? true
                         : false

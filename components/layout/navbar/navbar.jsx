@@ -2,16 +2,31 @@ import logo from "../../../assets/ujet-logo.svg";
 import style from "./navbar.module.scss";
 import MainNavigation from "./mainNavigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Navbar = ({ globalData }) => {
   const { navbar } = globalData.navbar;
-  console.log(globalData);
   // affects only mobile
   const [mainNavigationActive, setMainNavigationActive] = useState(false);
+  const [pageScrolled, setPageScrolled] = useState(false);
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    if (position > 10) {
+      setPageScrolled(true);
+    } else {
+      setPageScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <navbar className={style.navbar}>
+    <navbar className={`${style.navbar} ${pageScrolled && style.scrolled}`}>
       <nav className="container" role="navigation" aria-label="Main">
         <Link href="/">
           <a

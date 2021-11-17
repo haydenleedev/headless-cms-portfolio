@@ -3,9 +3,13 @@
 @import "../../../styles/settings/_colors.scss";
 @import "../../../styles/settings/_variables.scss";
 
-// TODO: replace display none with absolute off-screen positioning for better screen reader compatibility
+.scrolled {
+  box-shadow: 0 0 0.5rem 0 #0000005b !important;
+}
+
 .navbar {
-  box-shadow: 0 0 10px 0px #00000014;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 0 0.5rem 0px #00000014;
   height: $navbar-height;
   font-size: 1rem;
   padding-top: 1.25rem;
@@ -16,12 +20,14 @@
   background: white;
 
   @include desktop() {
-    position: relative;
     padding-top: 0;
     display: flex;
+    position: sticky;
+    top: 0;
   }
 
   nav {
+    overflow-x: clip;
     background: white;
     display: flex;
     flex-grow: 1;
@@ -34,7 +40,8 @@
     border-bottom: 0.1rem solid $color-mediumgray;
     padding-bottom: 1rem;
     @include desktop() {
-      padding: 0;
+      padding-top: 0;
+      padding-bottom: 0;
       box-shadow: none;
       border-bottom: none;
       flex-flow: row;
@@ -166,8 +173,17 @@
   height: 100%;
   display: flex;
   padding: 1rem 0;
-  border-bottom: 0.1rem solid $color-mediumgray;
   flex-flow: column;
+
+  @include touch {
+    &:not(:last-child) {
+      border-bottom: 0.1rem solid $color-mediumgray;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
 
   @include desktop() {
     flex-flow: row;
@@ -208,15 +224,20 @@
 
   // The actual dropdown container
   & > ul {
-    padding: 0;
-    padding-top: 0.5rem;
     position: absolute;
-    top: -2147483647px;
+    padding: 0;
+
 
     @include desktop() {
-      position: absolute;
-      padding: 1.5rem;
       top: -2147483647px;
+      padding: 1rem 2rem 1rem 2rem;
+      right: 0;
+      position: absolute;
+      background: #fff;
+      text-align: left;
+      @include shadow();
+      border: 0.1rem solid $color-mediumgray;
+      z-index: 3;
     }
 
     li {
@@ -229,35 +250,26 @@
       }
     }
   }
+
+  // Triangle
+  &:hover {
+    @include desktop() {
+      &::before {
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+        background: $color-mediumgray;
+        content: "";
+        transform: rotate(45deg);
+        top: 3.5rem;
+      }
+    }
+  }
+
   // Dropdown trigger on hover
   &:hover > ul {
-    // Triangle
-    // @include desktop() {
-    //   &:hover {
-    //     &::before {
-    //       position: absolute;
-    //       width: 1rem;
-    //       height: 1rem;
-    //       background: $color-mediumgray;
-    //       content: "";
-    //       bottom: -1rem;
-    //       right: 50%;
-    //       transform: rotate(45deg);
-    //     }
-    //   }
-    // }
-
     @include desktop() {
-      padding: 0.5rem 1.25rem 0.5rem 1.25rem;
       top: 4rem;
-      right: 0;
-      opacity: 1;
-      position: absolute;
-      background: #fff;
-      text-align: left;
-      @include shadow();
-      border: 0.1rem solid $color-mediumgray;
-      z-index: 3;
     }
   }
 }
@@ -273,7 +285,6 @@
     color: $color-lightblue;
   }
 }
-
 
 .navigationColumns {
   // Not sure why but have to override
