@@ -3,12 +3,15 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Loader from "../../layout/loader/loader";
 import BlogCard from "./blogCard";
-import { sortContentListByDate } from "../../../utils/convert";
+import {
+  sortContentListByDate,
+  removeDuplicatePosts,
+} from "../../../utils/convert";
 import BlogLoader from "./blogLoader";
 
 const BlogPageContent = ({ customData }) => {
   const { query } = useRouter();
-  const { contentListTypes } = customData; // the 3 different content types: news, press releases and resources.
+  const { contentListTypes } = customData; // includes only blog posts
   const [mounted, setMounted] = useState(false);
   const [activePageNumber, setActivePageNumber] = useState(0); // number of the current page.
   const [totalPagesCount, setTotalPagesCount] = useState(null); // total count of pages.
@@ -49,7 +52,7 @@ const BlogPageContent = ({ customData }) => {
     }
   }, [activeContentList]);
 
-  // reset offset and when active content type changes (eg. from resources to news)
+  // reset offset and when active content type changes
   useEffect(() => {
     setCurrentOffset(0);
     setActivePageNumber(0);
@@ -91,7 +94,7 @@ const BlogPageContent = ({ customData }) => {
           ...contentCategories[category].content,
         ];
       });
-      return sortContentListByDate(newContentList);
+      return sortContentListByDate(removeDuplicatePosts(newContentList));
     } else {
       return activeContentList;
     }
@@ -119,50 +122,6 @@ const BlogPageContent = ({ customData }) => {
     }
   };
 
-  // the different content types use different fields for the card title
-  const resolveTitle = (id, fields) => {
-    switch (id) {
-      case "news":
-        return fields.articleTitle;
-      default:
-        return fields.title;
-    }
-  };
-
-  // the different content types use different fields for the card link
-  const resolveLink = (id, fields) => {
-    switch (id) {
-      case "news":
-        return fields.link;
-      default:
-        return { href: fields.slug };
-    }
-  };
-
-  // the different content types use different fields for the card link
-  const resolveCategory = (referenceName) => {
-    switch (referenceName) {
-      case "newsarticle":
-        return "News";
-      case "pressreleasearticle":
-        return "Press Release";
-      case "ebooks":
-        return "e-Book";
-      case "guides":
-        return "Guide";
-      case "webinars":
-        return "Webinar";
-      case "whitepapers":
-        return "White Paper";
-      case "integrations":
-        return "Product Datasheet";
-      case "reports":
-        return "Report";
-      default:
-        return referenceName;
-    }
-  };
-
   const previousPage = () => {
     let newPageNumber = activePageNumber - 1;
     if (newPageNumber >= 0) {
@@ -183,7 +142,7 @@ const BlogPageContent = ({ customData }) => {
     <section className={`section ${style.blogPageContent}`}>
       <nav
         className={`container ${style.navigationMenu}`}
-        aria-label="news, press releases and resources navigation"
+        aria-label="blog posts navigation"
       >
         <aside className={style.filterPanel}>
           <label htmlFor="select-content-type">
@@ -229,19 +188,23 @@ const BlogPageContent = ({ customData }) => {
 
         <div className={style.contentList}>
           {(page && (
-            <div className="columns repeat-3">
-              {page.map((item) => (
-                <div key={item.contentID}>
-                  <BlogCard
-                    image={item.fields?.image}
-                    title={resolveTitle(activeContentType, item.fields)}
-                    link={resolveLink(activeContentType, item.fields)}
-                    date={item.fields.date}
-                    category={resolveCategory(item.properties.referenceName)}
-                  />
+            <>
+              {(page.length > 0 && (
+                <div className="columns repeat-3">
+                  {page.map((item) => (
+                    <div key={item.contentID}>
+                      <BlogCard
+                        image={item.fields?.image}
+                        title={item.fields.title}
+                        link={{ href: item.fields.slug }}
+                        date={item.fields.date}
+                        category="Blog"
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              )) || <p>Nothing here...</p>}
+            </>
           )) || <BlogLoader />}
         </div>
         {/* Display the page numbers. truncate if there's a lot of pages*/}
@@ -453,11 +416,29 @@ BlogPageContent.getCustomInitialProps = async function ({
     return contentList;
   }
 
+  function categoryNameSimple(title) {
+    return title.toLowerCase().split(" ").join("_").split("-").join("_");
+  }
   // get blog pots
   const blogPosts = await getContentList("blogPosts");
   const categories = await getContentList("categories");
-  console.log(categories);
+  let blogCategories = {};
+  categories.forEach((category) => {
+    blogCategories[categoryNameSimple(category.fields.title)] = {
+      title: category.fields.title,
+      content: [],
+    };
+  });
+  Object.values(blogCategories).forEach((values) => {
+    const relatedPosts = blogPosts.filter((post) =>
+      post.fields?.categories?.some(
+        (category) => category.fields.title === values.title
+      )
+    );
+    values.content = relatedPosts;
+  });
   contentListTypes[0].content = [...contentListTypes[0].content, ...blogPosts];
+  contentListTypes[0].categories = blogCategories;
 
   return {
     contentListTypes,

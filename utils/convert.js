@@ -17,3 +17,11 @@ export const sortContentListByDate = (list) => {
   });
   return sorted;
 };
+
+// needed for handling category selections in the blog menu on /blog
+export const removeDuplicatePosts = (list) => {
+  return list.filter(
+    (item, index, self) =>
+      index === self.findIndex((post) => post.fields.slug === item.fields.slug)
+  );
+};
