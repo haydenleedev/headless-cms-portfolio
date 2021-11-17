@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import FormLoader from "./formLoader";
 
 const Form = ({ submitButtonText, formLoaded }) => {
   const formRef = useRef(null);
@@ -11,8 +12,12 @@ const Form = ({ submitButtonText, formLoaded }) => {
     }
   }, [formLoaded]);
 
-  // TODO: render a loader when formLoaded = false
-  return <form id="mktoForm_1638" ref={formRef}></form>;
+  return (
+    <>
+      <form id="mktoForm_1638" ref={formRef}></form>
+      {!formLoaded && <FormLoader />}
+    </>
+  );
 };
 
 export default Form;

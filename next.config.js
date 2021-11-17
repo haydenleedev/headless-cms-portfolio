@@ -12,6 +12,16 @@ module.exports = {
         destination: "https://assets.ujet.cx/:slug", // Matched parameters can be used in the destination
         permanent: true,
       },
+      {
+        source: "/customerstories/the-farmers-dog",
+        destination: "/customerstories",
+        permanent: true,
+      },
+      {
+        source: "/digital-voice-channels",
+        destination: "/channels",
+        permanent: true,
+      },
     ];
   },
   images: {

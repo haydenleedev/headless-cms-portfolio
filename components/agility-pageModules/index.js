@@ -14,6 +14,7 @@ import HeroImage from "./heroImage/heroImage";
 import CallToAction from "./callToAction/callToAction";
 import NewsList from "./newsList/newsList";
 import PressReleaseList from "./pressReleaseList/pressReleaseList";
+import BlogPostList from "./blogPostList/blogPostList";
 import Infographic from "./infographic/infographic";
 import CaseStudyDownloadPrompt from "./caseStudyDownloadPrompt/caseStudyDownloadPrompt";
 import LatestCustomerStories from "./latestCustomerStories/latestCustomerStories";
@@ -45,6 +46,7 @@ const allModules = [
   { name: "CallToAction", module: CallToAction },
   { name: "NewsList", module: NewsList },
   { name: "PressReleaseList", module: PressReleaseList },
+  { name: "BlogPostList", module: BlogPostList },
   { name: "BlogHomePageContent", module: Placeholder },
   { name: "ArchivesPageContent", module: ArchivesPageContent },
   { name: "Infographic", module: Infographic },
