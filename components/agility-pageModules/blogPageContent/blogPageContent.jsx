@@ -376,14 +376,6 @@ BlogPageContent.getCustomInitialProps = async function ({
       content: [],
       categories: null,
     },
-    /*       categories: {
-        ebooks: { title: "e-Books", content: [] },
-        guides: { title: "Guides", content: [] },
-        integrations: { title: "Product Datasheets", content: [] },
-        reports: { title: "Reports", content: [] },
-        webinars: { title: "Webinars", content: [] },
-        whitepapers: { title: "White Papers", content: [] },
-      }, */
   ];
 
   async function getContentList(referenceName) {
