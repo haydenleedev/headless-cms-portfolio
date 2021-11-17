@@ -1,0 +1,85 @@
+@import "../../../styles/settings/colors";
+@import "../../../styles/settings/mixins";
+
+.blogLoader {
+  .loadingCard {
+    height: 25vh;
+    min-height: 250px;
+    width: 250px;
+    border-radius: 1rem;
+    @include shadow();
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    @include touch() {
+      width: 100%;
+      .loadingImageField {
+        max-height: 360px;
+      }
+    }
+
+    .loadingImageField {
+      background: $color-gray;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      min-height: 50%;
+      max-height: 50%;
+      height: 50%;
+      background-image: linear-gradient(
+        65deg,
+        $color-lightgray 0%,
+        $color-mediumgray 50%,
+        $color-lightgray 100%
+      );
+      background-size: 600%;
+      animation: bg-animation 1.5s infinite;
+    }
+    .loadingTextContent {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 50%;
+      max-height: 50%;
+      .loadingTextFieldWide {
+        height: 1rem;
+        width: 80%;
+        border-radius: 1rem;
+        margin: 0.25rem 1.5rem;
+        background-image: linear-gradient(
+          65deg,
+          $color-lightgray 0%,
+          $color-mediumgray 50%,
+          $color-lightgray 100%
+        );
+        background-size: 600%;
+        animation: bg-animation 1.5s infinite;
+      }
+      .loadingTextFieldNarrow {
+        height: 1rem;
+        width: 40%;
+        border-radius: 1rem;
+        margin: 0.5rem 1.5rem;
+        background-image: linear-gradient(
+          65deg,
+          $color-lightgray 0%,
+          $color-mediumgray 50%,
+          $color-lightgray 100%
+        );
+        background-size: 600%;
+        animation: bg-animation 1.5s infinite;
+      }
+    }
+  }
+  @keyframes bg-animation {
+    0% {
+      background-position: left;
+    }
+    50% {
+      background-position: right;
+    }
+    100% {
+      background-position: left;
+    }
+  }
+}
