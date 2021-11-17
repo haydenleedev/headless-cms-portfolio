@@ -26,6 +26,7 @@ import BlogPostContent from "./blogPostContent/blogPostContent";
 import ResourceContent from "./resourceContent/resourceContent";
 import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
 import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
+import BlogPageContent from "./blogPageContent/blogPageContent";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -54,6 +55,7 @@ const allModules = [
   { name: "LatestCustomerStories", module: LatestCustomerStories },
   { name: "TestimonialList", module: TestimonialList },
   { name: "TextWithForm", module: TextWithForm },
+  { name: "BlogPageContent", module: BlogPageContent },
 ];
 
 export const getModule = (moduleName) => {
