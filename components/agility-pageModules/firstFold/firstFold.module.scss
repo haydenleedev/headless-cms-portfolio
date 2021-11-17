@@ -72,13 +72,13 @@
       h4,
       h5,
       h6 {
-        font-size: $size-3;
+        font-size: $size-2;
         font-weight: 400;
         color: $color-skyblue;
       }
     }
     .text {
-      font-size: $size-4;
+      font-size: $size-3;
       max-width: $tablet;
       margin: 0 auto;
     }
@@ -88,6 +88,19 @@
       left: 50%;
       transform: translate(-50%, 15%);
       padding: 2.5rem 2rem 3rem 2rem;
+      .heading {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          font-size: $size-3;
+        }
+      }
+      .text {
+        font-size: $size-3;
+      }
     }
   }
   .textContent {

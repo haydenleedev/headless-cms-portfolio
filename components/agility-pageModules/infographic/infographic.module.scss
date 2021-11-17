@@ -9,7 +9,7 @@
     &.is2 {
       grid-template-columns: repeat(
         auto-fill,
-        minmax(max(200px, 100% / 2), 1fr)
+        minmax(max(250px, 100% / 2), 1fr)
       );
       .item {
         &:first-child {
@@ -62,7 +62,6 @@
     .item {
       position: relative;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
       padding: 0 5%;
 
       &.itemColumnLayout {
@@ -72,7 +71,7 @@
         .itemMedia {
           display: flex;
           justify-content: center;
-          & > * {
+          & > div {
             min-width: 96px;
           }
           padding-bottom: 1rem;
@@ -90,32 +89,32 @@
           "image text"
           "image text"
           "image text";
-        .itemTitle {
-          font-size: 3.5rem;
+        .itemTextContent {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          .itemTitle {
+            font-size: 3.5rem;
+          }
         }
         .itemMedia {
-          position: relative;
-          & > * {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            max-width: 200px;
-          }
+          /*           & > div {
+            max-width: 64px;
+          } */
         }
       }
       &.itemRowReverseLayout {
         margin: 0 1rem;
-        grid-template-columns: repeat(4, 1fr);
         grid-template-areas:
-          "text text text image"
-          "text text text image"
-          "text text text image"
-          "text text text image";
+          "text image"
+          "text image"
+          "text image"
+          "text image";
         .itemTitle {
           font-size: 2.25rem;
         }
         .itemMedia {
-          & > * {
+          & > div {
             max-width: 96px;
           }
         }
@@ -134,8 +133,17 @@
       }
 
       .itemMedia {
-        min-width: 64px;
         grid-area: image;
+        & > div {
+          min-width: 150px;
+          max-height: 150px;
+          img {
+            width: 100% !important;
+            object-fit: contain;
+            height: unset !important;
+            min-height: unset !important;
+          }
+        }
       }
       .itemTitle {
         font-size: 2rem;
