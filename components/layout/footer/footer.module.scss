@@ -39,14 +39,14 @@
 }
 
 .brand {
-  min-width: 20vw;
+  min-width: 15vw;
   display: flex;
   flex-flow: column;
   font-size: 1rem;
-  margin-right: 1rem;
   align-items: center;
 
   @include desktop() {
+    margin-right: 2rem;
     align-items: unset;
   }
 
@@ -163,9 +163,11 @@
   .footerColumn {
     display: flex;
     flex-flow: column;
-    margin-bottom: 2rem;
-    padding-right: 0.5rem;
 
+    @include desktop() {
+      padding-right: 0.5rem;
+      margin-bottom: 2rem;
+    }
     @include touch() {
       &:not(:last-child) {
         &::after {

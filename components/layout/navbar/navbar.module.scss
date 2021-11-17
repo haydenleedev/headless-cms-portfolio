@@ -129,19 +129,14 @@
     justify-content: space-between;
     align-items: center;
 
-    // TODO: adjust when nav items added to Agility
-    // Offset the dropdown menus exponentially because they might overflow to the right
-    $n: 10;
-    @for $i from 1 through $n {
-      & > li:nth-child(#{$i}) {
-        & > ul {
-          // left: math.pow($i, 2) * -0.75rem;
-          // right: -1rem;
-        }
+    & > li:last-child {
+      & > ul {
+        right: 0;
       }
     }
   }
 
+  // Nav group item
   & > li {
     overflow: hidden;
     @include desktop() {
@@ -174,42 +169,20 @@
   border-bottom: 0.1rem solid $color-mediumgray;
   flex-flow: column;
 
-  // Set navbar triangle pointer invisbile for mobile, doesn't affect accessibility
-  &::before {
-    visibility: hidden;
-    content: " ";
-    opacity: 0;
-  }
   @include desktop() {
     flex-flow: row;
     border: none;
     padding-left: 1.5rem;
     align-items: center;
-
-    // TODO: add correct position styling once nav items added to Agility
-    // triangle pointer
-    // &:hover {
-    //   &::before {
-    //     visibility: visible;
-    //     opacity: 1;
-    //     position: absolute;
-    //     width: 1rem;
-    //     height: 1rem;
-    //     background: $color-mediumgray;
-    //     content: "";
-    //     bottom: 0.5rem;
-    //     left: 3rem;
-    //     transform: rotate(45deg);
-    //   }
-    // }
   }
+
   & > a {
     &:after {
       font-family: "arrow-down";
       content: "\e900";
       color: $color-darkblue;
       font-size: 0.5rem;
-      padding: 0.5rem;
+      padding: 0.5rem 0 0.5rem 0.5rem;
       position: absolute;
       right: 0;
       @include desktop() {
@@ -256,13 +229,28 @@
       }
     }
   }
-  // Trigger on hover
+  // Dropdown trigger on hover
   &:hover > ul {
-    display: block;
+    // Triangle
+    // @include desktop() {
+    //   &:hover {
+    //     &::before {
+    //       position: absolute;
+    //       width: 1rem;
+    //       height: 1rem;
+    //       background: $color-mediumgray;
+    //       content: "";
+    //       bottom: -1rem;
+    //       right: 50%;
+    //       transform: rotate(45deg);
+    //     }
+    //   }
+    // }
+
     @include desktop() {
+      padding: 0.5rem 1.25rem 0.5rem 1.25rem;
       top: 4rem;
-      right: 1rem;
-      // visibility: visible;
+      right: 0;
       opacity: 1;
       position: absolute;
       background: #fff;
@@ -278,18 +266,23 @@
   position: relative;
   transition: color 0.25s;
   width: 100%;
+  padding: 0.5rem 0;
+  display: inline-block;
+
   &:hover {
     color: $color-lightblue;
   }
 }
 
+
 .navigationColumns {
   // Not sure why but have to override
   // TODO: remove important when nav items added to Agility
-  display: flex !important;
+  display: flex;
   flex-flow: column;
   @include desktop() {
     flex-flow: row;
+    display: flex;
   }
 
   .navigationColumn {
