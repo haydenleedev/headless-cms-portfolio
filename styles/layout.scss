@@ -150,28 +150,35 @@
   }
 }
 
+// use for tile layouts i.e. logosList
 .grid-columns {
-  display: grid;
+  display: flex;
   width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(max(100px, 100% / 6), 1fr));
+  flex-wrap: wrap;
+  justify-content: center;
+
   .grid-column {
     position: relative;
-    padding: 0 10%;
+    padding: 0.75rem;
+    flex: 0 0 20vh;
     > * {
       width: 100%;
     }
-  }
-  &.is-2 {
-    grid-template-columns: repeat(auto-fill, minmax(max(150px, 100% / 2), 1fr));
-  }
-  &.is-3 {
-    grid-template-columns: repeat(auto-fill, minmax(max(140px, 100% / 3), 1fr));
-  }
-  &.is-4 {
-    grid-template-columns: repeat(auto-fill, minmax(max(130px, 100% / 4), 1fr));
-  }
-  &.is-5 {
-    grid-template-columns: repeat(auto-fill, minmax(max(120px, 100% / 5), 1fr));
+    @include tablet() {
+      flex: 0 0 calc(16.6667% - 1rem);
+      &.is-2 {
+        flex: 0 0 calc(50% - 1rem);
+      }
+      &.is-3 {
+        flex: 0 0 calc(33.3333% - 1rem);
+      }
+      &.is-4 {
+        flex: 0 0 calc(25% - 1rem);
+      }
+      &.is-5 {
+        flex: 0 0 calc(20% - 1rem);
+      }
+    }
   }
 }
 

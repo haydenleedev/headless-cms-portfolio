@@ -20,6 +20,7 @@ import CaseStudyDownloadPrompt from "./caseStudyDownloadPrompt/caseStudyDownload
 import LatestCustomerStories from "./latestCustomerStories/latestCustomerStories";
 import TestimonialList from "./testimonialList/testimonialList";
 import TextWithForm from "./textWithForm/textWithForm";
+import EmbedVideo from "./embedVideo/embedVideo";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -56,6 +57,7 @@ const allModules = [
   { name: "TestimonialList", module: TestimonialList },
   { name: "TextWithForm", module: TextWithForm },
   { name: "BlogPageContent", module: BlogPageContent },
+  { name: "EmbedVideo", module: EmbedVideo },
 ];
 
 export const getModule = (moduleName) => {

@@ -73,6 +73,11 @@
     }
   }
   .media {
+    & > div {
+      &:only-child {
+        width: 100%;
+      }
+    }
     @include touch() {
       margin: unset;
     }

@@ -1,6 +1,6 @@
 import { AgilityImage } from "@agility/nextjs";
 import Link from "next/link";
-import { toDate } from "../../utils/convert";
+import { toDate, resolveCategory } from "../../utils/convert";
 import { hrefSelf } from "../../utils/validation";
 
 // A multi-purpose generic card component which can be as a card for many other componenents
@@ -31,7 +31,9 @@ const GenericCard = ({ date, category, title, description, image, link }) => {
               <p className="genericCard__textContent--date">{toDate(date)}</p>
             )}
             {category && (
-              <p className="genericCard__textContent--category">{category}</p>
+              <p className="genericCard__textContent--category">
+                {resolveCategory(category)}
+              </p>
             )}
             <p className="genericCard__textContent--title">{title}</p>
             {description && (

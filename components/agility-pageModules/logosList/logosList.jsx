@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Heading from "../heading";
+import Media from "../media";
 import style from "./logosList.module.scss";
 
 const LogosList = ({ module }) => {
@@ -19,19 +20,21 @@ const LogosList = ({ module }) => {
           </div>
         )}
         <div className={style.content}>
-          <div
-            className={`mr-4 grid-columns ${
-              fields.columns ? `is-${fields.columns}` : ""
-            }`}
-          >
-            {fields?.logos?.media?.map((logo) => (
-              <div className={`grid-column ${style.logo}`} key={logo.mediaID}>
-                <img
-                  src={logo.url}
-                  alt={
-                    logo.metaData?.Description ? logo.metaData?.Description : ""
-                  }
-                />
+          <div className="mr-4 grid-columns">
+            {fields?.items?.map((logo) => (
+              <div
+                className={`grid-column ${
+                  fields.columns ? `is-${fields.columns}` : ""
+                } ${style.logo}`}
+                key={logo.contentID}
+              >
+                {(logo.fields.link && (
+                  <Link href={logo.fields.link.href}>
+                    <a>
+                      <Media media={logo.fields.logo} />
+                    </a>
+                  </Link>
+                )) || <Media media={logo.fields.logo} />}
               </div>
             ))}
           </div>
