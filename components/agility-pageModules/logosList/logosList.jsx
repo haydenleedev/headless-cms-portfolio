@@ -1,14 +1,14 @@
 import Link from "next/link";
 import Heading from "../heading";
-import style from "./clientLogosList.module.scss";
+import style from "./logosList.module.scss";
 
-const ClientLogosList = ({ module }) => {
+const LogosList = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
 
   return (
     <section
-      className={`section ${style.clientLogosList} ${
+      className={`section ${style.logosList} ${
         fields.classes ? fields.classes : ""
       }`}
     >
@@ -52,4 +52,4 @@ const ClientLogosList = ({ module }) => {
   );
 };
 
-export default ClientLogosList;
+export default LogosList;
