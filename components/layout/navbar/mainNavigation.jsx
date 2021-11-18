@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import style from "./navbar.module.scss";
 import { useRouter } from "next/router";
@@ -6,7 +6,21 @@ import { isMobile } from "../../../utils/responsivity";
 
 const MainNavigation = ({ active, mainNavigation }) => {
   const [activeNavigationItem, setActiveNavigationItem] = useState(null);
+  const [searchToggled, setSearchToggled] = useState(false);
   const router = useRouter();
+  const searchInput = useRef(null);
+  const onFocus = () => {};
+  const onBlur = () => {
+    setSearchToggled(false);
+  };
+
+  // useEffect(() => {}, [searchToggled]);
+
+  function handleToggleSearch() {
+    setSearchToggled(true);
+    searchInput.current.focus();
+  }
+
   const handleNavigationGroupClick = (href, item) => {
     if (isMobile()) {
       if (item == activeNavigationItem) {
@@ -33,7 +47,9 @@ const MainNavigation = ({ active, mainNavigation }) => {
             !navigationGroup.fields.columns
               ? style.noDropdown
               : style.hasDropdown
-          }`}
+          }
+          ${searchToggled && style.disabled}
+          `}
           aria-label="Toggle dropdown menu"
           aria-controls={navigationGroup.contentID}
         >
@@ -61,7 +77,8 @@ const MainNavigation = ({ active, mainNavigation }) => {
                   activeNavigationItem == `navigation-group-${index}`
                     ? style.dropdownActive
                     : style.dropdownClosed
-                }`}
+                } 
+                `}
               >
                 {navigationGroup.fields.columns?.map(
                   (navigationColumn, index) => (
@@ -137,6 +154,33 @@ const MainNavigation = ({ active, mainNavigation }) => {
           )}
         </li>
       ))}
+      <div className={style.searchContainer}>
+        <li className={style.search}>
+          <input
+            ref={searchInput}
+            id="site-search"
+            placeholder="Search..."
+            className={`${style.searchInput} ${searchToggled && style.active}`}
+            onFocus={() => {
+              onFocus();
+            }}
+            onBlur={() => {
+              onBlur();
+            }}
+          ></input>
+          <button
+            aria-controls="site-search"
+            className={style.searchButton}
+            onClick={() => {
+              handleToggleSearch();
+            }}
+          >
+            <span className={style.magnifyingGlass}></span>
+          </button>
+          {/* {searchToggled && <button className={style.closeInput}>
+          </button>} */}
+        </li>
+      </div>
     </ul>
   );
 };

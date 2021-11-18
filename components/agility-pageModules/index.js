@@ -56,6 +56,7 @@ const allModules = [
   { name: "TestimonialList", module: TestimonialList },
   { name: "TextWithForm", module: TextWithForm },
   { name: "BlogPageContent", module: BlogPageContent },
+  { name: "LogosList", module: Placeholder },
 ];
 
 export const getModule = (moduleName) => {
