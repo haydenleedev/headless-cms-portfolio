@@ -157,6 +157,10 @@ const MainNavigation = ({ active, mainNavigation }) => {
       <div className={style.searchContainer}>
         <li className={style.search}>
           <input
+            type="text"
+            aria-label="Search query"
+            title="Search query"
+            aria-expanded={searchToggled}
             ref={searchInput}
             id="site-search"
             placeholder="Search..."

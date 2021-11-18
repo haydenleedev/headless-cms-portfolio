@@ -1,0 +1,22 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
+.embedVideo {
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .embed {
+      margin-top: 2rem;
+      width: 100%;
+      padding: 1rem;
+      @include shadow();
+      iframe {
+        width: 100%;
+        aspect-ratio: 16/9;
+      }
+    }
+  }
+}

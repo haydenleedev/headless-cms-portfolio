@@ -80,26 +80,27 @@ const ClientTestimonial = ({ module }) => {
                       ))}
                     </div>
                   )}
-                  <p
-                    className={style.quote}
-                  >{`“${fields.testimonial.fields.text}”`}</p>
+                  <p className={style.quote}>
+                    {fields.testimonial.fields.text}
+                  </p>
                   <div className={style.client}>
-                    <p>{fields.testimonial.fields.name}</p>
-                    <p className={style.jobTitle}>
-                      {fields.testimonial.fields.jobTitle}
-                    </p>
+                    {fields.testimonial.fields.name && (
+                      <p>{fields.testimonial.fields.name}</p>
+                    )}
+                    {fields.testimonial.fields.jobTitle && (
+                      <p className={style.jobTitle}>
+                        {fields.testimonial.fields.jobTitle}
+                      </p>
+                    )}
+                    {fields.testimonial.fields.companyName && (
+                      <p className={style.companyName}>
+                        {fields.testimonial.fields.companyName}
+                      </p>
+                    )}
                     {fields.testimonial.fields.logo && (
-                      <img
-                        className={style.logo}
-                        src={fields.testimonial.fields.logo.url}
-                        alt={
-                          fields.testimonial.fields.logo.label
-                            ? fields.testimonial.fields.logo.label
-                            : ""
-                        }
-                        width={fields.testimonial.fields.logo.pixedWidth}
-                        height={fields.testimonial.fields.logo.pixelHeight}
-                      />
+                      <div className={style.logo}>
+                        <Media media={fields.testimonial.fields.logo} />
+                      </div>
                     )}
                   </div>
                 </div>

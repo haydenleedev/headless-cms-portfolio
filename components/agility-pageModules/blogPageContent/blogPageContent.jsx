@@ -196,7 +196,7 @@ const BlogPageContent = ({ customData }) => {
                       <BlogCard
                         image={item.fields?.image}
                         title={item.fields.title}
-                        link={{ href: item.fields.slug }}
+                        link={{ href: `blog/${item.fields.slug}` }}
                         date={item.fields.date}
                         category="Blog"
                       />

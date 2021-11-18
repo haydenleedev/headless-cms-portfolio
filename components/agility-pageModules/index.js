@@ -2,7 +2,7 @@
 // Place Page Modules in allModules array below, passing in a name and the component.
 
 import FirstFold from "./firstFold/firstFold";
-import ClientLogosList from "./clientLogosList/clientLogosList";
+import LogosList from "./logosList/logosList";
 import Placeholder from "./placeholder";
 import RichTextArea from "./richTextArea/richTextArea";
 import TextGridWithMedia from "./textGridWithMedia/textGridWithMedia";
@@ -20,6 +20,7 @@ import CaseStudyDownloadPrompt from "./caseStudyDownloadPrompt/caseStudyDownload
 import LatestCustomerStories from "./latestCustomerStories/latestCustomerStories";
 import TestimonialList from "./testimonialList/testimonialList";
 import TextWithForm from "./textWithForm/textWithForm";
+import EmbedVideo from "./embedVideo/embedVideo";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -31,7 +32,7 @@ import BlogPageContent from "./blogPageContent/blogPageContent";
 const allModules = [
   { name: "FirstFold", module: FirstFold },
   { name: "Placeholder", module: Placeholder },
-  { name: "ClientLogosList", module: ClientLogosList },
+  { name: "LogosList", module: LogosList },
   { name: "RichTextArea", module: RichTextArea },
   { name: "BlogPostContent", module: BlogPostContent },
   { name: "ResourceContent", module: ResourceContent },
@@ -56,7 +57,7 @@ const allModules = [
   { name: "TestimonialList", module: TestimonialList },
   { name: "TextWithForm", module: TextWithForm },
   { name: "BlogPageContent", module: BlogPageContent },
-  { name: "LogosList", module: Placeholder },
+  { name: "EmbedVideo", module: EmbedVideo },
 ];
 
 export const getModule = (moduleName) => {

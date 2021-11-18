@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Loader from "../../layout/loader/loader";
 import ArchiveCard from "./archiveCard";
-import { sortContentListByDate } from "../../../utils/convert";
+import { sortContentListByDate, resolveCategory } from "../../../utils/convert";
 import ArchivesLoader from "./archivesLoader";
 
 const ArchivesPageContent = ({ customData }) => {
@@ -136,30 +136,6 @@ const ArchivesPageContent = ({ customData }) => {
         return fields.link;
       default:
         return { href: fields.slug };
-    }
-  };
-
-  // the different content types use different fields for the card link
-  const resolveCategory = (referenceName) => {
-    switch (referenceName) {
-      case "newsarticle":
-        return "News";
-      case "pressreleasearticle":
-        return "Press Release";
-      case "ebooks":
-        return "e-Book";
-      case "guides":
-        return "Guide";
-      case "webinars":
-        return "Webinar";
-      case "whitepapers":
-        return "White Paper";
-      case "integrations":
-        return "Product Datasheet";
-      case "reports":
-        return "Report";
-      default:
-        return referenceName;
     }
   };
 

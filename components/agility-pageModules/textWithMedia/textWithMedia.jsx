@@ -7,6 +7,8 @@ import style from "./textWithMedia.module.scss";
 const TextWithMedia = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
+  const narrowContainer = boolean(fields?.narrowContainer);
+
   return (
     <section
       className={`section ${style.textWithMedia} ${
@@ -14,7 +16,7 @@ const TextWithMedia = ({ module }) => {
       }`}
     >
       <div
-        className={`container ${
+        className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
           boolean(fields.fullPageWidth) ? "max-width-unset padding-unset" : ""
         }`}
       >

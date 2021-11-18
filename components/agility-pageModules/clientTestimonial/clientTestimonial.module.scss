@@ -58,6 +58,7 @@
           font-weight: 400;
           font-size: 1.5rem;
           padding: 0.75rem 0 2rem 0;
+          white-space: pre-line;
         }
         .client {
           font-size: 1rem;
@@ -111,19 +112,25 @@
           font-size: 1.85rem;
           line-height: 1.2;
           padding: 0.75rem 0 2rem 0;
+          white-space: pre-line;
         }
         .client {
-          font-size: 1.85rem;
+          font-size: 1.5rem;
           line-height: 1.2;
           .jobTitle {
             font-style: italic;
+          }
+          .companyName {
+            margin-top: 0.25rem;
+            font-size: 1.25rem;
           }
         }
       }
     }
   }
   .logo {
-    margin-top: 2rem;
+    margin: 2rem auto 0 auto;
+    max-width: 180px;
   }
   .link {
     border: unset;

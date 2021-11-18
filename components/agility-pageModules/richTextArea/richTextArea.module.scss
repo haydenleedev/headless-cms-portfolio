@@ -17,28 +17,29 @@
       @include narrowWidth();
       margin-left: auto;
       margin-right: auto;
-    }
-  }
-
-  @include touch() {
-    .fullContainerWidthContent,
-    .content {
-      > * {
-        img {
-          max-width: 320px;
-          height: unset;
-          margin: 1rem auto;
-          float: unset;
-        }
+      img {
+        max-width: 95vw;
       }
     }
   }
-  @include mobile() {
-    .fullContainerWidthContent,
-    .content {
-      > * {
-        img {
+
+  .fullContainerWidthContent,
+  .content {
+    & > * {
+      img {
+        max-width: 50vw;
+        height: unset;
+        @include touch() {
+          max-width: 70vw;
+          display: block;
           float: unset;
+          width: 100%;
+          height: unset;
+          margin: 0 auto;
+        }
+        @include mobile() {
+          margin: unset;
+          max-width: unset;
         }
       }
     }
