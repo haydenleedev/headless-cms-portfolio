@@ -7,13 +7,15 @@ import style from "./textGridWithMedia.module.scss";
 const TextGridWithMedia = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
+  const narrowContainer = boolean(fields?.narrowContainer);
+
   return (
     <section
       className={`section ${style.textGridWithMedia} ${
         fields.classes ? fields.classes : ""
       }`}
     >
-      <div className="container">
+      <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
         {heading.text && (
           <div className={style.heading}>
             <Heading {...heading} />

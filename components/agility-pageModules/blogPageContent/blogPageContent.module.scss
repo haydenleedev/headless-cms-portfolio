@@ -45,8 +45,9 @@
         margin-top: 1rem;
         max-height: 400px;
         overflow-y: scroll;
-        border: 0.1rem solid $color-lightgray;
-        padding: 1rem;
+        legend {
+          margin-bottom: 1rem;
+        }
         label {
           display: flex;
           align-items: center;

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import style from "./textWithForm.module.scss";
 import { Form, FormWrapper } from "../../form";
+import { boolean } from "../../../utils/validation";
 
 const TextWithForm = ({ module }) => {
   const [formLoaded, setFormLoaded] = useState(false);
   const { fields } = module;
+  const narrowContainer = boolean(fields?.narrowContainer);
 
   const handleSetFormLoaded = () => {
     setFormLoaded(true);
@@ -17,7 +19,9 @@ const TextWithForm = ({ module }) => {
           fields.classes ? fields.classes : ""
         }`}
       >
-        <div className="container">
+        <div
+          className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
+        >
           <div className={style.content}>
             <aside
               className={`content ${style.textContent}`}

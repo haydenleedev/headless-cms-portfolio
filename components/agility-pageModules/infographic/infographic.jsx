@@ -6,6 +6,7 @@ const Infographic = ({ module }) => {
   const { fields } = module;
   const itemLayout = fields?.alternateItemLayout;
   const boxStyle = boolean(fields?.boxStyle);
+  const narrowContainer = boolean(fields?.narrowContainer);
 
   const columnsClass = (columns) => {
     switch (columns) {
@@ -31,7 +32,7 @@ const Infographic = ({ module }) => {
   };
   return (
     <section className={`section ${style.infographic}`}>
-      <div className="container">
+      <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
         <div
           className={`${style.content} ${
             fields.columns ? `${columnsClass(fields.columns)}` : ""

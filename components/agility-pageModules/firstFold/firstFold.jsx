@@ -8,7 +8,10 @@ const FirstFold = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   const alternateLayout = boolean(fields.alternateLayout);
+  const noImageLayout = boolean(fields.noImageLayout);
   const customerStory = boolean(fields.customerStory);
+  const narrowContainer = boolean(fields?.narrowContainer);
+
   return alternateLayout || customerStory ? (
     <section
       className={`section ${style.firstFoldAlternate} ${
@@ -23,7 +26,7 @@ const FirstFold = ({ module }) => {
       <div
         className={`container ${
           customerStory ? style.customerStoryTextContent : style.textContent
-        }`}
+        } ${narrowContainer ? "max-width-narrow" : ""}`}
       >
         <div className={style.heading}>
           <Heading {...heading}></Heading>
@@ -64,9 +67,11 @@ const FirstFold = ({ module }) => {
         fields.classes ? fields.classes : ""
       }`}
     >
-      <div className="container">
+      <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
         {/* TODO: allow reverse column order for desktop as a conditional toggle from Agility*/}
-        <div className="columns repeat-2">
+        <div
+          className={noImageLayout ? style.noImageLayout : "columns repeat-2"}
+        >
           <div className={style.textContent}>
             <div className={style.heading}>
               <Heading {...heading}></Heading>
@@ -100,7 +105,9 @@ const FirstFold = ({ module }) => {
               </Link>
             )}
           </div>
-          {fields.media && <Media media={fields.media}></Media>}
+          {fields.media && !noImageLayout && (
+            <Media media={fields.media}></Media>
+          )}
         </div>
       </div>
     </section>

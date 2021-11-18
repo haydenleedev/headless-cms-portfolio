@@ -19,6 +19,11 @@
     overflow: hidden;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
+    & > div {
+      &:only-child {
+        height: 100%;
+      }
+    }
   }
   &__textContent {
     flex: 2;

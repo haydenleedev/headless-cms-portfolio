@@ -391,7 +391,7 @@
 }
 
 .max-width-narrow {
-  max-width: $narrow;
+  @include narrowWidth();
 }
 
 .max-width-tablet {

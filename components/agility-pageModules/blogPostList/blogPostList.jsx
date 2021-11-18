@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { boolean } from "../../../utils/validation";
 import GenericCard from "../../genericCard/genericCard";
 import Heading from "../heading";
 
@@ -6,8 +7,9 @@ import Heading from "../heading";
 
 const BlogPostList = ({ module }) => {
   const { fields } = module;
-  const heading = JSON.parse(fields.heading);
+  const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const limit = parseInt(fields.count);
+  const hideMainLink = boolean(fields.hideMainLink);
   const articles = fields.highlightedBlogPosts
     ? fields.highlightedBlogPosts
     : fields?.blogPosts?.slice(0, limit);
@@ -20,7 +22,7 @@ const BlogPostList = ({ module }) => {
         className="container newsList__container"
         aria-label="press release list"
       >
-        {heading.text && (
+        {heading && (
           <div className="heading">
             <Heading {...heading} />
           </div>
@@ -43,15 +45,17 @@ const BlogPostList = ({ module }) => {
             </div>
           ))}
         </div>
-        <Link href="/blog">
-          <a
-            className="button cyan outlined newsList--link"
-            aria-label="Navigate to page /blog"
-            title="Navigate to page /blog"
-          >
-            Read More
-          </a>
-        </Link>
+        {!hideMainLink && (
+          <Link href="/blog">
+            <a
+              className="button cyan outlined newsList--link"
+              aria-label="Navigate to page /blog"
+              title="Navigate to page /blog"
+            >
+              Read More
+            </a>
+          </Link>
+        )}
       </nav>
     </section>
   );
