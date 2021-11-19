@@ -22,7 +22,7 @@ const EventsPageContent = ({ customData }) => {
         <nav className={style.eventsPageContent} aria-label="events navigation">
           {events &&
             events.map((event) => (
-              <div className={style.event}>
+              <div className={style.event} key={event.contentID}>
                 <p className={style.eventType}>{event.fields.eventType}</p>
                 <p className={style.eventTitle}>{event.fields.title}</p>
                 <p className={style.eventDescription}>
