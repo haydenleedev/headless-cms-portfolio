@@ -21,6 +21,7 @@ import LatestCustomerStories from "./latestCustomerStories/latestCustomerStories
 import TestimonialList from "./testimonialList/testimonialList";
 import TextWithForm from "./textWithForm/textWithForm";
 import EmbedVideo from "./embedVideo/embedVideo";
+import ContentList from "./contentList/contentList";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -28,6 +29,7 @@ import ResourceContent from "./resourceContent/resourceContent";
 import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
 import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
 import BlogPageContent from "./blogPageContent/blogPageContent";
+import EventsPageContent from "./eventsPageContent/eventsPageContent";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -58,6 +60,8 @@ const allModules = [
   { name: "TextWithForm", module: TextWithForm },
   { name: "BlogPageContent", module: BlogPageContent },
   { name: "EmbedVideo", module: EmbedVideo },
+  { name: "ContentList", module: ContentList },
+  { name: "EventsPageContent", module: EventsPageContent },
 ];
 
 export const getModule = (moduleName) => {

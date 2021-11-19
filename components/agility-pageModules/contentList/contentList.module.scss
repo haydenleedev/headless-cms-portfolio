@@ -1,0 +1,36 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
+.contentList {
+  .heading {
+    padding: 2rem 0;
+    text-align: center;
+  }
+  .items {
+    display: grid;
+    gap: 2rem;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    .contentItem {
+      > * {
+        max-width: calc(33% - 30px);
+      }
+    }
+    @include touch() {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .contentItem {
+        width: calc(33% - 30px);
+        min-width: 340px;
+      }
+    }
+    @include mobile() {
+      .contentItem {
+        width: 90vw;
+        min-width: unset;
+      }
+    }
+  }
+}

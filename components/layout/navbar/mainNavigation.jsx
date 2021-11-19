@@ -56,17 +56,17 @@ const MainNavigation = ({ active, mainNavigation }) => {
           {/* Group Main Link */}
           <a
             className={`${style.navigationLink}`}
-            aria-label={navigationGroup.fields.mainLink.fields.link.text}
-            label={navigationGroup.fields.mainLink.fields.link.text}
+            aria-label={navigationGroup.fields.mainLink?.fields?.link.text}
+            label={navigationGroup.fields.mainLink?.fields?.link.text}
             onClick={(e) => {
               e.preventDefault();
               handleNavigationGroupClick(
-                navigationGroup.fields.mainLink.fields.link.href,
+                navigationGroup.fields.mainLink?.fields?.link.href,
                 `navigation-group-${index}`
               );
             }}
           >
-            {navigationGroup.fields.mainLink.fields.internalTitle}
+            {navigationGroup.fields.mainLink?.fields?.internalTitle}
           </a>
           {navigationGroup.fields.columns && (
             // Dropdown

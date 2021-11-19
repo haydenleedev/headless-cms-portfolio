@@ -8,6 +8,27 @@ export const toDate = (date) => {
   });
 };
 
+export const toPacificDateTime = (date) => {
+  return new Date(date).toLocaleString("en-US", {
+    weekday: "short",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "America/Los_Angeles",
+    timeZoneName: "short",
+  });
+};
+
+// convert given Date object to pacific time
+// returns ms
+export const toPacificTimeMilliseconds = (date) => {
+  // Pacific Time time zone offset (GMT-08)
+  const pacificTimeOffset = -8;
+  return date.getTime() + pacificTimeOffset * 3600 * 1000;
+};
+
 export const sortContentListByDate = (list) => {
   const sorted = list.sort((a, b) => {
     if (Date.parse(a.fields.date) > Date.parse(b.fields.date)) return -1;
@@ -45,6 +66,8 @@ export const resolveCategory = (referenceName) => {
       return "Product Datasheet";
     case "reports":
       return "Report";
+    case "blogposts":
+      return "Blog";
     default:
       return referenceName;
   }
