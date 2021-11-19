@@ -15,7 +15,8 @@ const Form = ({ submitButtonText, formLoaded }) => {
   return (
     <>
       <form id="mktoForm_1638" ref={formRef}></form>
-      {!formLoaded && <FormLoader />}
+      {/* TODO: Not triggering correctly on resource pages */}
+      {/* {!formLoaded && <FormLoader />} */}
     </>
   );
 };

@@ -8,30 +8,7 @@ import { Form, FormWrapper } from "../../form";
 
 const ResourceContent = ({ dynamicPageItem }) => {
   const resource = dynamicPageItem.fields;
-
-  useEffect(() => {
-    var observer = new MutationObserver(function (mutations) {
-      mutations[0].target.removeAttribute("class");
-      mutations[0].target.removeAttribute("style");
-      // TODO: Add hidden input for the following, add to head or data-layer
-      // {{GA User ID}}
-      // {{GA Cookie User ID}}
-      // {{GA EM User ID}}
-      // {{GA Page}}
-      // {{GA Page}}
-      // {{GA Date}}
-      // {{GA Cookie Date}}
-      // {{GA User ID - User}}
-    });
-    var form = document.getElementById("mktoForm_1638");
-    observer.observe(form, {
-      attributes: true,
-    });
-    return () => {
-      window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1024);
-    };
-  }, []);
-
+  
   const BasicLayout = ({ resource }) => (
     <section className="section">
       <div className="container">
@@ -51,7 +28,6 @@ const ResourceContent = ({ dynamicPageItem }) => {
             <Form />
             {resource.link.text && resource.link.href && (
               <p>
-                Want to learn more about UJET?
                 <Link href={resource.link.href}>
                   <a>{resource.link.title}</a>
                 </Link>
@@ -105,7 +81,6 @@ const ResourceContent = ({ dynamicPageItem }) => {
         {resource.link.text && resource.link.href && (
           <div className="container">
             <p className={style.alternateLink}>
-              Want to learn more about UJET?
               <Link href={resource.link.href}>
                 <a className="link ml-4">{resource.link.text}</a>
               </Link>

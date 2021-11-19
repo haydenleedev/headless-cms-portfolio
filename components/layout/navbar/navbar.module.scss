@@ -142,7 +142,6 @@
       & > ul {
         right: 0;
         margin-left: unset;
-
       }
     }
   }
@@ -232,7 +231,7 @@
   & > ul {
     position: absolute;
     padding: 0;
-    
+
     @include desktop() {
       top: 4rem;
       left: -2147483647px;
