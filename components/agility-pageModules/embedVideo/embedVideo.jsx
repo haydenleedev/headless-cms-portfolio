@@ -26,7 +26,7 @@ const EmbedVideo = ({ module }) => {
             <iframe
               type="text/html"
               src={youtubeVideoLinkToEmbed(fields.videoURL.href)}
-              frameborder="0"
+              frameBorder="0"
               allow="fullscreen;"
             />
           </div>

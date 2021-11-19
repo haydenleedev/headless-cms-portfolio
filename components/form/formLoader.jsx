@@ -4,7 +4,7 @@ const FormLoader = () => {
   return (
     <div className={style.formLoader}>
       {[...Array(9).keys()].map((key) => (
-        <div></div>
+        <div key={key}></div>
       ))}
     </div>
   );
