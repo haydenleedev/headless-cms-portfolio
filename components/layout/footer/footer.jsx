@@ -93,6 +93,9 @@ const Footer = ({ globalData }) => {
                       aria-label={award.fields.link.text}
                       title={award.fields.link.text}
                       key={award.contentID}
+                      // TODO: link meta att resolver if hrefSelf
+                      target="_blank"
+                      rel="noindex noreferrer noopener"
                     >
                       <AgilityImage
                         src={award.fields.image.url}
@@ -168,7 +171,7 @@ const Footer = ({ globalData }) => {
           </nav>
         </div>
         <hr className={style.horizontalLine}></hr>
-        <div className={` repeat-5 ${style.footNote}`}>
+        <div className={`${style.footNote}`}>
           <div className={` ${style.cookies}`}>
             <img alt="Cookie modal here"></img>
             <img alt="Trust Arc here"></img>

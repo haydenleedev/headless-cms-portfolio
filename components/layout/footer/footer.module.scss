@@ -105,7 +105,6 @@
   flex-flow: column;
 
   @include desktop() {
-    flex-flow: row;
   }
 
   .cookies {

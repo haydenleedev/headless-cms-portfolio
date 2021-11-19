@@ -139,6 +139,8 @@
     & > li:last-child {
       & > ul {
         right: 0;
+        margin-left: unset;
+
       }
     }
   }
@@ -223,6 +225,7 @@
   }
 
   // The actual dropdown container
+
   & > ul {
     position: absolute;
     padding: 0;
@@ -230,13 +233,14 @@
     @include desktop() {
       top: -2147483647px;
       padding: 1rem 2rem 1rem 2rem;
-      right: 0;
+      // right: 0;
       position: absolute;
       background: #fff;
       text-align: left;
       @include shadow();
       border: 0.1rem solid $color-mediumgray;
       z-index: 3;
+      margin-left: -2rem;
     }
 
     li {
