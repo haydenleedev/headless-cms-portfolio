@@ -9,10 +9,12 @@
     align-items: center;
 
     .embed {
-      margin-top: 2rem;
+      margin-top: 3rem;
       width: 100%;
       padding: 1rem;
-      @include shadow();
+      box-shadow: -1px 0 0.75rem 0.5rem rgb(0 0 0 / 15%);
+      background-color: $color-white;
+      border-radius: 0.85rem;
       iframe {
         width: 100%;
         aspect-ratio: 16/9;

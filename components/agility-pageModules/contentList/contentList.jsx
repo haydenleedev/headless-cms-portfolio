@@ -1,0 +1,92 @@
+import { resolveCategory } from "../../../utils/convert";
+import GenericCard from "../../genericCard/genericCard";
+import Heading from "../heading";
+import style from "./contentList.module.scss";
+
+const ContentList = ({ module }) => {
+  const { fields } = module;
+  const heading = JSON.parse(fields.heading);
+  const count = parseInt(fields.count);
+
+  const resolveItems = () => {
+    const blogPosts = fields?.blogPosts;
+    const news = fields?.news;
+    const pressReleases = fields?.pressReleases;
+    const resources = fields?.resources;
+    const externalLinks = fields?.externalLinks;
+
+    let items = [];
+    [blogPosts, news, pressReleases, resources, externalLinks].forEach(
+      (list) => {
+        // non-existing lists are undefined, spread list content to items if list exists
+        if (list) items = [...items, ...list];
+      }
+    );
+    return items;
+  };
+
+  const items = resolveItems().slice(0, count);
+
+  // the different content types use different fields for the card title
+  const resolveTitle = (referenceName, fields) => {
+    switch (referenceName) {
+      case "news":
+        return fields.articleTitle;
+      case "externalcontent":
+        return fields.articleTitle;
+      default:
+        return fields.title;
+    }
+  };
+
+  // the different content types use different fields for the card link
+  const resolveLink = (id, fields) => {
+    switch (id) {
+      case "news":
+        return fields.link;
+      case "externalcontent":
+        return fields.link;
+      default:
+        return { href: fields.slug };
+    }
+  };
+  return (
+    <section
+      className={`section ${style.contentList} ${
+        fields.classes ? fields.classes : ""
+      }`}
+    >
+      <nav className="container" aria-label="content list">
+        {heading.text && (
+          <div className={style.heading}>
+            <Heading {...heading} />
+          </div>
+        )}
+        <div className={style.items}>
+          {items &&
+            items.map((contentItem) => (
+              <div className={style.contentItem} key={contentItem.contentID}>
+                <GenericCard
+                  link={resolveLink(
+                    contentItem.properties.referenceName,
+                    contentItem.fields
+                  )}
+                  category={
+                    contentItem.fields?.referenceName ||
+                    resolveCategory(contentItem.properties.referenceName)
+                  }
+                  title={resolveTitle(
+                    contentItem.properties.referenceName,
+                    contentItem.fields
+                  )}
+                  image={contentItem.fields.image}
+                />
+              </div>
+            ))}
+        </div>
+      </nav>
+    </section>
+  );
+};
+
+export default ContentList;

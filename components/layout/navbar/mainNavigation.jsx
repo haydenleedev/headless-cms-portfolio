@@ -66,8 +66,8 @@ const MainNavigation = ({ active, mainNavigation }) => {
               );
             }}
           >
-            {navigationGroup.fields.mainLink?.fields.internalTitle || 
-            navigationGroup.fields.internalTitle}
+            {navigationGroup.fields.mainLink?.fields.internalTitle ||
+              navigationGroup.fields.internalTitle}
           </a>
           {navigationGroup.fields.columns && (
             // Dropdown
