@@ -217,8 +217,9 @@
     }
     .footerColumnClosed {
       position: absolute;
-      top: -2147483647px;
+      left: -2147483647px;
       @include desktop() {
+        left: unset;
         position: relative;
         top: 0;
       }

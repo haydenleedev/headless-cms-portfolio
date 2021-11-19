@@ -118,9 +118,11 @@
   }
 }
 .mainNavigationHidden {
+  // Safari needs this
+  left: unset;
   @include touch() {
     height: 0;
-    top: -2147483647px;
+    left: -2147483647px;
     padding: 0;
     position: absolute;
   }
@@ -212,14 +214,15 @@
 
   // Mobile toggleable styles
   .dropdownActive {
-    top: 0;
+    left: unset;
     position: relative;
   }
 
   .dropdownClosed {
-    top: -2147483647px;
+    left: -2147483647px;
 
     @include desktop() {
+      // Safari fix
       display: flex;
     }
   }
@@ -229,11 +232,11 @@
   & > ul {
     position: absolute;
     padding: 0;
-
+    
     @include desktop() {
-      top: -2147483647px;
+      top: 4rem;
+      left: -2147483647px;
       padding: 1rem 2rem 1rem 2rem;
-      // right: 0;
       position: absolute;
       background: #fff;
       text-align: left;
@@ -275,7 +278,7 @@
   &:not(.disabled) {
     &:hover > ul {
       @include desktop() {
-        top: 4rem;
+        left: unset;
       }
     }
   }
@@ -349,7 +352,7 @@
 
       @include desktop() {
         opacity: 0.1;
-        top: -2147483647px;
+        left: -2147483647px;
         height: 100%;
         right: 2rem;
         padding: 1rem;
