@@ -5,13 +5,13 @@ import { hrefSelf } from "../../utils/validation";
 
 // A multi-purpose generic card component which can be as a card for many other componenents
 // such as blog lists, resources lists, news lists etc.
-const GenericCard = ({ date, category, title, description, image, link }) => {
+const GenericCard = ({ date, category, title, description, image, link, ariaTitle }) => {
   const isInnerLink = hrefSelf(link.href);
   return (
     <Link href={isInnerLink ? link : link.href}>
       <a
-        aria-label={"Navigate to blog post: " + title}
-        title={title}
+        aria-label={"Navigate to blog post: " + ariaTitle}
+        title={ariaTitle}
         target={link?.target}
       >
         <div className="genericCard">
@@ -37,7 +37,7 @@ const GenericCard = ({ date, category, title, description, image, link }) => {
             )}
             <p className="genericCard__textContent--title">{title}</p>
             {description && (
-              <p className="genericCard__textContent--description">
+              <p className="genericCard__textContent--description line-clamp">
                 {description}
               </p>
             )}

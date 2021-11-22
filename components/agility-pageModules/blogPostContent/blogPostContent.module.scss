@@ -34,6 +34,21 @@
   position: relative;
   top: 0;
   left: 0;
+
+  .shareIcon {
+    svg {
+      color: white;
+      fill: white;
+      width: 1.33rem;
+      height: 1.33rem;
+
+      path {
+        color: white;
+        fill: white;
+      }
+    }
+  }
+
   @include ultraLargeDesktop() {
     flex-flow: column;
     top: 50%;
