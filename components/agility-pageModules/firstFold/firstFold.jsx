@@ -38,7 +38,7 @@ const FirstFold = ({ module }) => {
           ></div>
         )}
         {fields.primaryLink && (
-          <Link href="#">
+          <Link href={fields.primaryLink.href}>
             <a
               className={`button cyan outlined ${style.primaryLink} ${
                 fields.linkClasses ? fields.linkClasses : ""
@@ -51,7 +51,7 @@ const FirstFold = ({ module }) => {
           </Link>
         )}
         {fields.secondaryLink && (
-          <Link href="#" className="button outlined">
+          <Link href={fields.secondaryLink.href} className="button outlined">
             <a
               className={`button ${style.secondaryLink} ${
                 fields.linkClasses ? fields.linkClasses : ""
@@ -87,7 +87,7 @@ const FirstFold = ({ module }) => {
               ></div>
             )}
             {fields.primaryLink && (
-              <Link href="#">
+              <Link href={fields.primaryLink.href}>
                 <a
                   className={`button cyan outlined ${style.primaryLink} ${
                     fields.linkClasses ? fields.linkClasses : ""
@@ -100,7 +100,10 @@ const FirstFold = ({ module }) => {
               </Link>
             )}
             {fields.secondaryLink && (
-              <Link href="#" className="button outlined">
+              <Link
+                href={fields.secondaryLink.href}
+                className="button outlined"
+              >
                 <a
                   className={`button ${style.secondaryLink} ${
                     fields.linkClasses ? fields.linkClasses : ""

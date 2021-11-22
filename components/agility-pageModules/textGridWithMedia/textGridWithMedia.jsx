@@ -8,7 +8,7 @@ const TextGridWithMedia = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   const narrowContainer = boolean(fields?.narrowContainer);
-
+  console.log(module);
   return (
     <section
       className={`section ${style.textGridWithMedia} ${
@@ -23,7 +23,11 @@ const TextGridWithMedia = ({ module }) => {
           </div>
         )}
         <div className={style.content}>
-          {fields.media && <Media media={fields.media} />}
+          {fields.media && (
+            // <div className={style.mediaContainer}>
+              <Media media={fields.media} />
+            // </div>
+          )}
           <div className={`columns mt-4 repeat-${fields.columns}`}>
             {fields?.textItems?.map((textItem) => {
               const { fields } = textItem;

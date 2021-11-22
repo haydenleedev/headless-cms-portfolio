@@ -150,7 +150,7 @@ blog posts or anywhere where html is rendered */
 
   ol,
   ul {
-    margin: 2rem 0 2rem 2rem;
+    margin: 2rem 0 2rem 0;
   }
 
   ol {
@@ -279,4 +279,11 @@ table {
 
 .text-decoration-unset {
   text-decoration: unset !important;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

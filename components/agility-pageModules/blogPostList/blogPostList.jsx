@@ -6,6 +6,7 @@ import Heading from "../heading";
 // styling for this page module is defined globally because we need to override inner styles from the GenericCard component.
 
 const BlogPostList = ({ module }) => {
+  console.log(module)
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const limit = parseInt(fields.count);
@@ -36,10 +37,11 @@ const BlogPostList = ({ module }) => {
               {
                 <GenericCard
                   date={blogPost.fields.date}
-                  link={{ href: blogPost.fields.slug }}
+                  link={{ href: "/blog/" + blogPost.fields.slug }}
                   description={blogPost.fields.title}
                   image={blogPost.fields.image}
                   title="Blog"
+                  ariaTitle={blogPost.fields.title}
                 />
               }
             </div>
@@ -49,8 +51,8 @@ const BlogPostList = ({ module }) => {
           <Link href="/blog">
             <a
               className="button cyan outlined newsList--link"
-              aria-label="Navigate to page /blog"
-              title="Navigate to page /blog"
+              aria-label="Navigate to the blog page"
+              title="Navigate to the blog page"
             >
               Read More
             </a>
