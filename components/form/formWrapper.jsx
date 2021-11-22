@@ -61,17 +61,26 @@ const FormWrapper = ({ handleSetFormLoaded, children }) => {
     meta.content = getCookie("mkto-gaCookieDate7");
     meta.id = "ga-cookie-date";
     head.appendChild(meta);
-    
-    // Flag done so we don't run it again 
+
+    // Flag done so we don't run it again
     metaAdded.current = true;
   }
 
   useEffect(() => {
+    // check if script has already been loaded => load form
+    if (window.MktoForms2) {
+      const data = window.MktoForms2.loadForm(
+        "//info.ujet.co",
+        "205-VHT-559",
+        1638
+      );
+      data.whenReady(handleSetFormLoaded);
+    }
     var observer = new MutationObserver(function (mutations) {
       mutations[0].target.removeAttribute("class");
       mutations[0].target.removeAttribute("style");
       var emailInput = mutations[0].target.elements["Email"];
-      emailInput.addEventListener("input", (evt) => {
+      emailInput?.addEventListener?.("input", (evt) => {
         addMetaToHead(evt.data);
       });
     });
@@ -80,7 +89,13 @@ const FormWrapper = ({ handleSetFormLoaded, children }) => {
       attributes: true,
     });
     return () => {
-      window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1024);
+      document
+        .querySelectorAll(".mktoForm")
+        .forEach((element) => element.remove());
+      document
+        .querySelectorAll("#mktoStyleLoaded")
+        .forEach((element) => element.remove());
+      /* window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1024); */
     };
   }, []);
 

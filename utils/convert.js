@@ -52,6 +52,8 @@ export const resolveCategory = (referenceName) => {
   switch (referenceName) {
     case "newsarticle":
       return "News";
+    case "externalContent":
+      return fields.link;
     case "pressreleasearticle":
       return "Press Release";
     case "ebooks":
@@ -70,6 +72,22 @@ export const resolveCategory = (referenceName) => {
       return "Blog";
     default:
       return referenceName;
+  }
+};
+
+// the different content types use different fields for navigation
+export const resolveLink = (referenceName, fields) => {
+  switch (referenceName) {
+    case "newsArticle":
+      return fields.link;
+    case "pressRelease":
+      return { href: fields.slug };
+    case "integrations":
+      return { href: `/integrations/${fields.slug}` };
+    case "whitepapers":
+      return { href: `/resources/white-papers/${fields.slug}` };
+    default:
+      return { href: `/resources/${referenceName}/${fields.slug}` };
   }
 };
 

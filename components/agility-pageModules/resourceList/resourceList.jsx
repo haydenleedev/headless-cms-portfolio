@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { resolveLink } from "../../../utils/convert";
 import GenericCard from "../../genericCard/genericCard";
 import Heading from "../heading";
 import style from "./resourceList.module.scss";
@@ -22,7 +23,10 @@ const ResourceList = ({ module, customData }) => {
             ? fields.highlightedResources.map((resource) => (
                 <div className={style.resource} key={resource.contentID}>
                   <GenericCard
-                    link={resource.fields.link}
+                    link={resolveLink(
+                      resource.properties.referenceName,
+                      resource.fields
+                    )}
                     category={resource.properties.referenceName}
                     title={resource.fields.title}
                     image={resource.fields.image}
@@ -32,7 +36,10 @@ const ResourceList = ({ module, customData }) => {
             : resources.map((resource) => (
                 <div className={style.resource} key={resource.contentID}>
                   <GenericCard
-                    link={resource.fields.link}
+                    link={resolveLink(
+                      resource.properties.referenceName,
+                      resource.fields
+                    )}
                     category={resource.properties.referenceName}
                     title={resource.fields.title}
                     image={resource.fields.image}

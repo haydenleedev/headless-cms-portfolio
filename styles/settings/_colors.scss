@@ -140,6 +140,10 @@ $color-mediumpurple: #6e0bdc;
   }
 }
 
+.filter-gray {
+  filter: grayscale(0.25) opacity(0.5);
+}
+
 .text-white {
   color: $color-white;
 }

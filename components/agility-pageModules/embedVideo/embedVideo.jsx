@@ -6,7 +6,6 @@ const EmbedVideo = ({ module }) => {
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields.narrowContainer);
-  console.log(fields.videoURL);
   return (
     <section className={`section ${style.embedVideo}`}>
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>

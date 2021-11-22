@@ -3,7 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Loader from "../../layout/loader/loader";
 import ArchiveCard from "./archiveCard";
-import { sortContentListByDate, resolveCategory } from "../../../utils/convert";
+import {
+  sortContentListByDate,
+  resolveCategory,
+  resolveLink,
+} from "../../../utils/convert";
 import ArchivesLoader from "./archivesLoader";
 
 const ArchivesPageContent = ({ customData }) => {
@@ -129,16 +133,6 @@ const ArchivesPageContent = ({ customData }) => {
     }
   };
 
-  // the different content types use different fields for the card link
-  const resolveLink = (id, fields) => {
-    switch (id) {
-      case "news":
-        return fields.link;
-      default:
-        return { href: fields.slug };
-    }
-  };
-
   const previousPage = () => {
     let newPageNumber = activePageNumber - 1;
     if (newPageNumber >= 0) {
@@ -211,7 +205,10 @@ const ArchivesPageContent = ({ customData }) => {
                   <ArchiveCard
                     image={item.fields?.image}
                     title={resolveTitle(activeContentType, item.fields)}
-                    link={resolveLink(activeContentType, item.fields)}
+                    link={resolveLink(
+                      item.properties.referenceName,
+                      item.fields
+                    )}
                     date={item.fields.date}
                     category={resolveCategory(item.properties.referenceName)}
                   />

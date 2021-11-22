@@ -1,4 +1,4 @@
-import { resolveCategory } from "../../../utils/convert";
+import { resolveCategory, resolveLink } from "../../../utils/convert";
 import GenericCard from "../../genericCard/genericCard";
 import Heading from "../heading";
 import style from "./contentList.module.scss";
@@ -39,17 +39,6 @@ const ContentList = ({ module }) => {
     }
   };
 
-  // the different content types use different fields for the card link
-  const resolveLink = (id, fields) => {
-    switch (id) {
-      case "news":
-        return fields.link;
-      case "externalcontent":
-        return fields.link;
-      default:
-        return { href: fields.slug };
-    }
-  };
   return (
     <section
       className={`section ${style.contentList} ${

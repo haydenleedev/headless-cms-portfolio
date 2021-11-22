@@ -40,7 +40,9 @@ const FirstFold = ({ module }) => {
         {fields.primaryLink && (
           <Link href="#">
             <a
-              className={`button cyan outlined ${style.primaryLink}`}
+              className={`button cyan outlined ${style.primaryLink} ${
+                fields.linkClasses ? fields.linkClasses : ""
+              }`}
               aria-label={`Navigate to page ` + fields.primaryLink.href}
               title={`Navigate to page ` + fields.primaryLink.href}
             >
@@ -51,7 +53,9 @@ const FirstFold = ({ module }) => {
         {fields.secondaryLink && (
           <Link href="#" className="button outlined">
             <a
-              className={`button ${style.secondaryLink}`}
+              className={`button ${style.secondaryLink} ${
+                fields.linkClasses ? fields.linkClasses : ""
+              }`}
               aria-label={`Navigate to page ` + fields.secondaryLink.href}
               title={`Navigate to page ` + fields.secondaryLink.href}
             >
@@ -85,7 +89,9 @@ const FirstFold = ({ module }) => {
             {fields.primaryLink && (
               <Link href="#">
                 <a
-                  className={`button cyan outlined ${style.primaryLink}`}
+                  className={`button cyan outlined ${style.primaryLink} ${
+                    fields.linkClasses ? fields.linkClasses : ""
+                  }`}
                   aria-label={`Navigate to page ` + fields.primaryLink.href}
                   title={`Navigate to page ` + fields.primaryLink.href}
                 >
@@ -96,7 +102,9 @@ const FirstFold = ({ module }) => {
             {fields.secondaryLink && (
               <Link href="#" className="button outlined">
                 <a
-                  className={`button ${style.secondaryLink}`}
+                  className={`button ${style.secondaryLink} ${
+                    fields.linkClasses ? fields.linkClasses : ""
+                  }`}
                   aria-label={`Navigate to page ` + fields.secondaryLink.href}
                   title={`Navigate to page ` + fields.secondaryLink.href}
                 >

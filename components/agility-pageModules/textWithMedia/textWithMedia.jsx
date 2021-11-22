@@ -79,7 +79,11 @@ const TextWithMedia = ({ module }) => {
           </div>
           <div
             className={`${style.media} ${
-              boolean(fields.mediaLeft) ? "mr-4" : "ml-4"
+              boolean(fields.columnLayout)
+                ? ""
+                : boolean(fields.mediaLeft)
+                ? "mr-4"
+                : "ml-4"
             } ${
               boolean(fields.fullPageWidth) ? style.fullPageWidthMedia : ""
             } ${

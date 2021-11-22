@@ -165,18 +165,22 @@
       width: 100%;
     }
     @include tablet() {
-      flex: 0 0 calc(16.6667% - 1rem);
+      // default is six columns
+      flex: 0 0 calc(16.6667% - 0.5rem);
       &.is-2 {
-        flex: 0 0 calc(50% - 1rem);
+        flex: 0 0 calc(50% - 0.5rem);
       }
       &.is-3 {
-        flex: 0 0 calc(33.3333% - 1rem);
+        flex: 0 0 calc(33.3333% - 0.5rem);
       }
       &.is-4 {
-        flex: 0 0 calc(25% - 1rem);
+        flex: 0 0 calc(25% - 0.5rem);
       }
       &.is-5 {
-        flex: 0 0 calc(20% - 1rem);
+        flex: 0 0 calc(20% - 0.5rem);
+      }
+      &.is-7 {
+        flex: 0 0 calc(14.2857% - 0.5rem);
       }
     }
   }
@@ -228,6 +232,11 @@
   clear: left;
 }
 
+.is-hidden {
+  visibility: hidden;
+  height: 0;
+}
+
 /*
   <<<<<<<<<<<<<<<<DISPLAY HELPER CLASSES>>>>>>>>>>>>>>>>>
 */
@@ -267,6 +276,9 @@
   overflow-wrap: break-word;
 }
 
+.mt-0 {
+  margin-top: 0 !important;
+}
 .mt-1 {
   margin-top: $size-1;
 }
@@ -305,6 +317,9 @@
   margin-bottom: $size-6;
 }
 
+.ml-05 {
+  margin-left: $size-05;
+}
 .ml-1 {
   margin-left: $size-1;
 }
@@ -324,6 +339,9 @@
   margin-left: $size-6;
 }
 
+.mr-05 {
+  margin-right: $size-05;
+}
 .mr-1 {
   margin-right: $size-1;
 }
@@ -365,6 +383,12 @@
 
 .margin-unset {
   margin: unset !important;
+}
+.pb-0 {
+  padding-bottom: 0;
+}
+.pb-3 {
+  padding-bottom: $size-3;
 }
 // padding-block: selects both padding-top and padding-bottom
 .padding-block-1 {

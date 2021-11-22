@@ -6,17 +6,20 @@ const Form = ({ submitButtonText, formLoaded }) => {
 
   useEffect(() => {
     // override form's submit button text if provided
-    if (formLoaded) {
-      const submit = formRef.current.querySelector("button[type=submit");
+    if (formLoaded && submitButtonText) {
+      const submit = formRef.current.querySelector("button[type=submit]");
       if (submit) submit.innerText = submitButtonText;
     }
   }, [formLoaded]);
 
   return (
     <>
-      <form id="mktoForm_1638" ref={formRef}></form>
-      {/* TODO: Not triggering correctly on resource pages */}
-      {/* {!formLoaded && <FormLoader />} */}
+      <form
+        id="mktoForm_1638"
+        ref={formRef}
+        className={formLoaded ? "is-hidden" : ""}
+      ></form>
+      {!formLoaded && <FormLoader />}
     </>
   );
 };

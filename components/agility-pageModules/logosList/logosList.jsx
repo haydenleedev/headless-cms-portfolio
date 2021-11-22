@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { boolean } from "../../../utils/validation";
 import Heading from "../heading";
 import Media from "../media";
 import style from "./logosList.module.scss";
@@ -6,7 +7,7 @@ import style from "./logosList.module.scss";
 const LogosList = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
-
+  const grayFilter = boolean(fields.grayFilter);
   return (
     <section
       className={`section ${style.logosList} ${
@@ -20,12 +21,12 @@ const LogosList = ({ module }) => {
           </div>
         )}
         <div className={style.content}>
-          <div className="mr-4 grid-columns">
+          <div className={`grid-columns ${fields.link ? "mr-4" : ""}`}>
             {fields?.items?.map((logo) => (
               <div
                 className={`grid-column ${
                   fields.columns ? `is-${fields.columns}` : ""
-                } ${style.logo}`}
+                } ${style.logo} ${grayFilter ? "filter-gray" : ""}`}
                 key={logo.contentID}
               >
                 {(logo.fields.link && (
