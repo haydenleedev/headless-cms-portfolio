@@ -139,6 +139,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                 width={blogPost.image.pixelWidth}
                 height={blogPost.image.pixelHeight}
                 objectFit="cover"
+                layout="responsive"
               />
               <div
                 className={`content ${style.content}`}

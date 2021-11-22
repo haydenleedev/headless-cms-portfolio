@@ -17,7 +17,8 @@ const Media = ({ media }) => {
             alt={media.label || ""}
             width={media.pixelWidth != "0" ? media.pixelWidth : "360"}
             height={media.pixelHeight}
-            layout="responsive"
+            // Does not work well...
+            // layout="responsive"
           ></AgilityImage>
         );
       default:

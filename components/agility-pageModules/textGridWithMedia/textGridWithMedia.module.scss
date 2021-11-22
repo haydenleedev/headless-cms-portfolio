@@ -24,6 +24,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    .mediaContainer {
+        width: 100%;
+    }
   }
   .textItem {
     padding: 2rem 2rem 0 2rem;
