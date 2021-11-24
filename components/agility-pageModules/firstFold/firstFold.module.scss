@@ -43,7 +43,7 @@
     border-width: 0.15em;
   }
   .secondaryLink {
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding: 0.5em 2em;
     border-radius: 3em;
     border-width: 0.15em;
@@ -53,6 +53,10 @@
     .textContent {
       text-align: unset;
       align-items: flex-start;
+    }
+    .primaryLink,
+    .secondaryLink {
+      margin-top: unset;
     }
   }
 }

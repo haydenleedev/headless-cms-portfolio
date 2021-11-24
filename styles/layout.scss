@@ -293,3 +293,179 @@
   padding-right: 1rem;
   overflow-wrap: break-word;
 }
+
+// !important used here because these classes are meant for overriding default values
+// without !important these would not apply the changes every time
+.mt-0 {
+  margin-top: 0 !important;
+}
+.mt-1 {
+  margin-top: $size-1 !important;
+}
+.mt-2 {
+  margin-top: $size-2 !important;
+}
+.mt-3 {
+  margin-top: $size-3 !important;
+}
+.mt-4 {
+  margin-top: $size-4 !important;
+}
+.mt-5 {
+  margin-top: $size-5 !important;
+}
+.mt-6 {
+  margin-top: $size-6 !important;
+}
+
+.mb-1 {
+  margin-bottom: $size-1 !important;
+}
+.mb-2 {
+  margin-bottom: $size-2 !important;
+}
+.mb-3 {
+  margin-bottom: $size-3 !important;
+}
+.mb-4 {
+  margin-bottom: $size-4 !important;
+}
+.mb-5 {
+  margin-bottom: $size-5 !important;
+}
+.mb-6 {
+  margin-bottom: $size-6 !important;
+}
+
+.ml-05 {
+  margin-left: $size-05 !important;
+}
+.ml-1 {
+  margin-left: $size-1 !important;
+}
+.ml-2 {
+  margin-left: $size-2 !important;
+}
+.ml-3 {
+  margin-left: $size-3 !important;
+}
+.ml-4 {
+  margin-left: $size-4 !important;
+}
+.ml-5 {
+  margin-left: $size-5 !important;
+}
+.ml-6 {
+  margin-left: $size-6 !important;
+}
+
+.mr-05 {
+  margin-right: $size-05 !important;
+}
+.mr-1 {
+  margin-right: $size-1 !important;
+}
+.mr-2 {
+  margin-right: $size-2 !important;
+}
+.mr-3 {
+  margin-right: $size-3 !important;
+}
+.mr-4 {
+  margin-right: $size-4 !important;
+}
+.mr-5 {
+  margin-right: $size-5 !important;
+}
+.mr-6 {
+  margin-right: $size-6 !important;
+}
+
+// margin-block: selects both margin-top and margin-bottom
+.margin-block-1 {
+  margin-block: $size-1 !important;
+}
+.margin-block-2 {
+  margin-block: $size-2 !important;
+}
+.margin-block-3 {
+  margin-block: $size-3 !important;
+}
+.margin-block-4 {
+  margin-block: $size-4 !important;
+}
+.margin-block-5 {
+  margin-block: $size-5 !important;
+}
+.margin-block-6 {
+  margin-block: $size-6 !important;
+}
+
+.margin-center-horizontal {
+  margin: 0 auto !important;
+}
+
+.margin-unset {
+  margin: unset !important;
+}
+
+.pt-0 {
+  padding-top: 0 !important;
+}
+
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+.pb-3 {
+  padding-bottom: $size-3 !important;
+}
+// padding-block: selects both padding-top and padding-bottom
+.padding-block-1 {
+  padding-block: $size-1 !important;
+}
+.padding-block-2 {
+  padding-block: $size-2 !important;
+}
+.padding-block-3 {
+  padding-block: $size-3 !important;
+}
+.padding-block-4 {
+  padding-block: $size-4 !important;
+}
+.padding-block-5 {
+  padding-block: $size-5 !important;
+}
+.padding-block-6 {
+  padding-block: $size-6 !important;
+}
+
+.padding-unset {
+  padding: unset !important;
+}
+
+/*
+  <<<<<<<<<<<<<<<<WIDTH HELPER CLASSES>>>>>>>>>>>>>>>>>
+*/
+.width-100 {
+  width: 100%;
+}
+
+.max-width-narrow {
+  @include narrowWidth();
+}
+
+.max-width-tablet {
+  max-width: $tablet;
+}
+
+.max-width-medium {
+  max-width: $medium;
+}
+
+.max-width-wide {
+  max-width: $wide;
+}
+
+.max-width-unset {
+  max-width: unset;
+}
