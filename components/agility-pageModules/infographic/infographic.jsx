@@ -1,4 +1,5 @@
 import { boolean } from "../../../utils/validation";
+import Heading from "../heading";
 import Media from "../media";
 import style from "./infographic.module.scss";
 
@@ -7,6 +8,7 @@ const Infographic = ({ module }) => {
   const itemLayout = fields?.alternateItemLayout;
   const boxStyle = boolean(fields?.boxStyle);
   const narrowContainer = boolean(fields?.narrowContainer);
+  const heading = fields.heading ? JSON.parse(fields.heading) : null;
 
   const columnsClass = (columns) => {
     switch (columns) {
@@ -24,6 +26,8 @@ const Infographic = ({ module }) => {
     switch (itemLayout) {
       case "column":
         return style.itemColumnLayout;
+      case "column-title-large":
+        return style.itemColumnLargeTitleLayout;
       case "row":
         return style.itemRowLayout;
       case "row-reverse":
@@ -33,6 +37,11 @@ const Infographic = ({ module }) => {
   return (
     <section className={`section ${style.infographic}`}>
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
+        {heading && (
+          <div className="heading">
+            <Heading {...heading} />
+          </div>
+        )}
         <div
           className={`${style.content} ${
             fields.columns ? `${columnsClass(fields.columns)}` : ""
@@ -43,13 +52,14 @@ const Infographic = ({ module }) => {
               className={`${style.item} ${itemLayoutClass(itemLayout)}`}
               key={item.contentID}
             >
-              <div className={style.itemMedia}>
-                {item.fields.image && <Media media={item.fields.image} />}
-                {itemLayout === "column" && item.fields.title && (
-                  <p className={style.itemTitle}>{item.fields.title}</p>
-                )}
-              </div>
-
+              {item.fields.image && (
+                <div className={style.itemMedia}>
+                  <Media media={item.fields.image} />
+                  {itemLayout === "column" && item.fields.title && (
+                    <p className={style.itemTitle}>{item.fields.title}</p>
+                  )}
+                </div>
+              )}
               <div className={style.itemTextContent}>
                 {itemLayout !== "column" && item.fields.title && (
                   <p className={style.itemTitle}>{item.fields.title}</p>

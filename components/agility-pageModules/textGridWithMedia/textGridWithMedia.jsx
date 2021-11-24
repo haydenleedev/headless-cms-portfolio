@@ -6,9 +6,15 @@ import style from "./textGridWithMedia.module.scss";
 
 const TextGridWithMedia = ({ module }) => {
   const { fields } = module;
-  const heading = JSON.parse(fields.heading);
+  const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields?.narrowContainer);
-  console.log(module);
+  const itemShadow = boolean(fields?.itemShadow);
+  const itemSmallImage = boolean(fields?.itemSmallImage);
+  const itemImageLeft = boolean(fields?.itemImageLeft);
+  const itemImageCentered = boolean(fields?.itemImageCentered);
+  const centerItemsHorizontally = boolean(fields?.centerItemsHorizontally);
+  const roundCorners = boolean(fields?.roundCorners);
+
   return (
     <section
       className={`section ${style.textGridWithMedia} ${
@@ -25,25 +31,36 @@ const TextGridWithMedia = ({ module }) => {
         <div className={style.content}>
           {fields.media && (
             // <div className={style.mediaContainer}>
-              <Media media={fields.media} />
+            <Media media={fields.media} />
             // </div>
           )}
-          <div className={`columns mt-4 repeat-${fields.columns}`}>
+          <div
+            className={
+              centerItemsHorizontally
+                ? "grid-columns"
+                : `columns mt-4 repeat-${fields.columns}`
+            }
+          >
             {fields?.textItems?.map((textItem) => {
-              const { fields } = textItem;
-              const heading = JSON.parse(fields.heading);
+              const heading = JSON.parse(textItem.fields.heading);
               return (
                 <div
-                  className={
-                    boolean(fields.mediaLeft)
-                      ? style.textItemFlex
-                      : style.textItem
-                  }
+                  className={`${
+                    centerItemsHorizontally
+                      ? `grid-column is-${fields.columns} ${style.horizontallyCenteredTextItem}`
+                      : ""
+                  } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
+                    itemShadow ? "card-shadow" : ""
+                  } ${roundCorners ? "border-radius-1" : ""}`}
                   key={textItem.contentID}
                 >
-                  {fields.media && (
-                    <div className={style.textItemMedia}>
-                      <Media media={fields.media} />
+                  {textItem.fields.media && (
+                    <div
+                      className={`${style.textItemMedia} ${
+                        itemSmallImage ? style.textItemMediaSmall : ""
+                      } ${itemImageCentered ? "margin-center-horizontal" : ""}`}
+                    >
+                      <Media media={textItem.fields.media} />
                     </div>
                   )}
                   <div>
@@ -54,7 +71,7 @@ const TextGridWithMedia = ({ module }) => {
                     )}
                     <div
                       className={`${style.textItemHtml} content`}
-                      dangerouslySetInnerHTML={{ __html: fields.text }}
+                      dangerouslySetInnerHTML={{ __html: textItem.fields.text }}
                     ></div>
                   </div>
                 </div>

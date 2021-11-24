@@ -1,13 +1,14 @@
 // Just bulk import all settings
 // TODO: if the bundle gets too big split to modules
-// TODO: remove all !important decl. 
+// TODO: remove all !important decl.
 
 @import "./settings/__settings";
-@import "layout";
 @import "typography";
 @import "marketo";
-@import "./components/_components-dir";
-@import "./agility-pageModules/_agility-pageModules-dir";
+@import "layout";
+@import "./components/__components-dir";
+@import "./agility-pageModules/__agility-pageModules-dir";
+@import "./settings/reset";
 
 /* Try not to set anything on html for best accessibility */
 // html {

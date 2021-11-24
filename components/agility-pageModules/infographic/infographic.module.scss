@@ -1,5 +1,6 @@
 @import "../../../styles/settings/colors";
 @import "../../../styles/settings/mixins";
+@import "../../../styles/settings/variables";
 
 .infographic {
   .content {
@@ -83,6 +84,44 @@
           justify-content: flex-start;
         }
       }
+      &.itemColumnLargeTitleLayout {
+        grid-template-areas:
+          "image image"
+          "text text";
+        @include tablet() {
+          border-right: 0.1rem solid $color-gray;
+          &:last-child {
+            border-right: unset;
+          }
+        }
+        .itemMedia {
+          display: flex;
+          justify-content: center;
+          & > div {
+            min-width: 96px;
+          }
+          padding-bottom: 1rem;
+        }
+        .itemTextContent {
+          justify-content: flex-start;
+          .itemTitle {
+            font-size: 3.75rem;
+            margin-bottom: 1rem;
+            text-align: center;
+          }
+          .itemTitle,
+          .itemDefinition,
+          .itemDescription {
+            font-weight: 400;
+          }
+          .itemDescription {
+            color: $color-black;
+          }
+          .itemDefinition {
+            color: $color-gray;
+          }
+        }
+      }
       &.itemRowLayout {
         grid-template-areas:
           "image text"
@@ -97,11 +136,11 @@
             font-size: 3.5rem;
           }
         }
-        .itemMedia {
-          /*           & > div {
+        /*         .itemMedia {
+          & > div {
             max-width: 64px;
-          } */
-        }
+          }
+        } */
       }
       &.itemRowReverseLayout {
         margin: 0 1rem;

@@ -5,12 +5,49 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  .heading {
-    text-align: center;
+  position: relative;
+  &.bannerLayout {
+    padding: 5rem 0;
+    margin: 2rem 0;
+    .content {
+      max-width: 50%;
+      margin-right: auto;
+      @include mobile() {
+        max-width: 80%;
+      }
+      .heading {
+        text-align: unset;
+      }
+    }
   }
-  .link {
-    padding: 0.5em 2em;
-    border-radius: 3em;
-    border-width: 0.15em;
+  .backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    & > div {
+      display: block !important;
+      &:only-child {
+        height: 100%;
+        img {
+          object-fit: cover;
+          height: unset;
+          width: unset;
+        }
+      }
+    }
+  }
+  .content {
+    z-index: 1;
+    text-align: center;
+    .heading {
+      text-align: center;
+    }
+    .link {
+      padding: 0.5em 2em;
+      border-radius: 3em;
+      border-width: 0.15em;
+    }
   }
 }

@@ -2,12 +2,13 @@ import { useState } from "react";
 import style from "./textWithForm.module.scss";
 import { Form, FormWrapper } from "../../form";
 import { boolean } from "../../../utils/validation";
-import starSVG from "../../../assets/full-star-red.svg";
 import Media from "../media";
+import StarRating from "../../starRating/starRating";
 const TextWithForm = ({ module }) => {
   const [formLoaded, setFormLoaded] = useState(false);
   const { fields } = module;
   const narrowContainer = boolean(fields?.narrowContainer);
+  const columnLayout = boolean(fields?.columnLayout);
 
   const handleSetFormLoaded = () => {
     setFormLoaded(true);
@@ -23,7 +24,9 @@ const TextWithForm = ({ module }) => {
         <div
           className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
         >
-          <div className={style.content}>
+          <div
+            className={columnLayout ? style.columnLayoutContent : style.content}
+          >
             <aside className={style.textContent}>
               <div
                 className="content"
@@ -37,17 +40,10 @@ const TextWithForm = ({ module }) => {
                       key={testimonial.contentID}
                       className={style.testimonial}
                     >
-                      <div className={style.testimonialRating}>
-                        {[...Array(5).keys()].map((star) => (
-                          <img
-                            src={starSVG.src}
-                            key={star}
-                            alt=""
-                            width="25"
-                            height="25"
-                          />
-                        ))}
-                      </div>
+                      <StarRating
+                        starCount={testimonial.fields?.starCount}
+                        starWidth="25"
+                      />
                       <p>{testimonial.fields.text}</p>
                       <small>–{testimonial.fields.name}</small>
                     </div>

@@ -204,6 +204,10 @@
   border-radius: 4px;
 }
 
+.border-radius-1 {
+  border-radius: 1rem;
+}
+
 .align-center {
   text-align: center;
 }
@@ -221,6 +225,10 @@
   box-shadow: 0 1px 4px rgb(0, 0, 0, 10%);
 }
 
+.card-shadow {
+  @include shadow();
+}
+
 .float-left {
   float: left;
 }
@@ -235,6 +243,16 @@
 .is-hidden {
   visibility: hidden;
   height: 0;
+}
+
+.transparentized-navbar-transform {
+  padding: 2rem 0 0 0 !important;
+  @include desktop() {
+    padding: unset !important;
+    position: relative;
+    padding-top: $navbar-height !important;
+    top: -$navbar-height;
+  }
 }
 
 /*
@@ -274,169 +292,4 @@
   padding-left: 1rem;
   padding-right: 1rem;
   overflow-wrap: break-word;
-}
-
-.mt-0 {
-  margin-top: 0 !important;
-}
-.mt-1 {
-  margin-top: $size-1;
-}
-.mt-2 {
-  margin-top: $size-2;
-}
-.mt-3 {
-  margin-top: $size-3;
-}
-.mt-4 {
-  margin-top: $size-4;
-}
-.mt-5 {
-  margin-top: $size-5;
-}
-.mt-6 {
-  margin-top: $size-6;
-}
-
-.mb-1 {
-  margin-bottom: $size-1;
-}
-.mb-2 {
-  margin-bottom: $size-2;
-}
-.mb-3 {
-  margin-bottom: $size-3;
-}
-.mb-4 {
-  margin-bottom: $size-4;
-}
-.mb-5 {
-  margin-bottom: $size-5;
-}
-.mb-6 {
-  margin-bottom: $size-6;
-}
-
-.ml-05 {
-  margin-left: $size-05;
-}
-.ml-1 {
-  margin-left: $size-1;
-}
-.ml-2 {
-  margin-left: $size-2;
-}
-.ml-3 {
-  margin-left: $size-3;
-}
-.ml-4 {
-  margin-left: $size-4;
-}
-.ml-5 {
-  margin-left: $size-5;
-}
-.ml-6 {
-  margin-left: $size-6;
-}
-
-.mr-05 {
-  margin-right: $size-05;
-}
-.mr-1 {
-  margin-right: $size-1;
-}
-.mr-2 {
-  margin-right: $size-2;
-}
-.mr-3 {
-  margin-right: $size-3;
-}
-.mr-4 {
-  margin-right: $size-4;
-}
-.mr-5 {
-  margin-right: $size-5;
-}
-.mr-6 {
-  margin-right: $size-6;
-}
-
-// margin-block: selects both margin-top and margin-bottom
-.margin-block-1 {
-  margin-block: $size-1;
-}
-.margin-block-2 {
-  margin-block: $size-2;
-}
-.margin-block-3 {
-  margin-block: $size-3;
-}
-.margin-block-4 {
-  margin-block: $size-4;
-}
-.margin-block-5 {
-  margin-block: $size-5;
-}
-.margin-block-6 {
-  margin-block: $size-6;
-}
-
-.margin-unset {
-  margin: unset !important;
-}
-.pb-0 {
-  padding-bottom: 0;
-}
-.pb-3 {
-  padding-bottom: $size-3;
-}
-// padding-block: selects both padding-top and padding-bottom
-.padding-block-1 {
-  padding-block: $size-1;
-}
-.padding-block-2 {
-  padding-block: $size-2;
-}
-.padding-block-3 {
-  padding-block: $size-3;
-}
-.padding-block-4 {
-  padding-block: $size-4;
-}
-.padding-block-5 {
-  padding-block: $size-5;
-}
-.padding-block-6 {
-  padding-block: $size-6;
-}
-
-.padding-unset {
-  padding: unset !important;
-}
-
-/*
-  <<<<<<<<<<<<<<<<WIDTH HELPER CLASSES>>>>>>>>>>>>>>>>>
-*/
-.width-100 {
-  width: 100%;
-}
-
-.max-width-narrow {
-  @include narrowWidth();
-}
-
-.max-width-tablet {
-  max-width: $tablet;
-}
-
-.max-width-medium {
-  max-width: $medium;
-}
-
-.max-width-wide {
-  max-width: $wide;
-}
-
-.max-width-unset {
-  max-width: unset;
 }

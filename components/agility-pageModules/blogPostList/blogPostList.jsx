@@ -6,7 +6,6 @@ import Heading from "../heading";
 // styling for this page module is defined globally because we need to override inner styles from the GenericCard component.
 
 const BlogPostList = ({ module }) => {
-  console.log(module)
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const limit = parseInt(fields.count);

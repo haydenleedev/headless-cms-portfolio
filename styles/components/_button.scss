@@ -29,6 +29,9 @@
       border-color: $color-navy;
     }
   }
+  &.no-outline {
+    border: unset;
+  }
   &.white {
     background-color: white;
     color: $color-navy;

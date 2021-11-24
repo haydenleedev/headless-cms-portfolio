@@ -93,7 +93,7 @@ select {
   //   font-size: $size-16px; /* 16px */
   //   height: toRem(48);
   //   padding: toRem(20) toRem(15);
-  width: 100% !important;
+  width: 100%;
   padding: 0.5rem;
   border-radius: 0.2rem;
   border: 0.1rem solid $color-gray;
@@ -230,60 +230,4 @@ table {
       text-align: left;
     }
   }
-}
-
-/*
-  <<<<<<<<<<<<<<<<TYPOGRAPHY HELPER CLASSES>>>>>>>>>>>>>>>>>
-*/
-
-.is-size-1 {
-  font-size: var.$size-1 !important;
-}
-.is-size-2 {
-  font-size: var.$size-2 !important;
-}
-.is-size-3 {
-  font-size: var.$size-3 !important;
-}
-.is-size-4 {
-  font-size: var.$size-4 !important;
-}
-.is-size-5 {
-  font-size: var.$size-5 !important;
-}
-.is-size-6 {
-  font-size: var.$size-6 !important;
-}
-
-.w-100 {
-  font-weight: 100 !important;
-}
-.w-200 {
-  font-weight: 200 !important;
-}
-.w-300 {
-  font-weight: 300 !important;
-}
-.w-400 {
-  font-weight: 400 !important;
-}
-.w-500 {
-  font-weight: 500 !important;
-}
-.w-600 {
-  font-weight: 600 !important;
-}
-.w-700 {
-  font-weight: 700 !important;
-}
-
-.text-decoration-unset {
-  text-decoration: unset !important;
-}
-
-.line-clamp {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }

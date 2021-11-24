@@ -2,7 +2,7 @@ import Link from "next/link";
 import { boolean } from "../../../utils/validation";
 import Heading from "../heading";
 import Media from "../media";
-import starSVG from "../../../assets/full-star-red.svg";
+import StarRating from "../../starRating/starRating";
 import style from "./clientTestimonial.module.scss";
 
 const ClientTestimonial = ({ module }) => {
@@ -31,17 +31,10 @@ const ClientTestimonial = ({ module }) => {
                 {fields.testimonial.fields?.text && (
                   <div className={style.textContent}>
                     {boolean(fields.displayRating) && (
-                      <div className={style.rating}>
-                        {[...Array(5).keys()].map((star) => (
-                          <img
-                            src={starSVG.src}
-                            key={star}
-                            alt=""
-                            width="25"
-                            height="25"
-                          />
-                        ))}
-                      </div>
+                      <StarRating
+                        starCount={fields.testimonial?.starCount}
+                        starWidth="25"
+                      />
                     )}
                     <p className={style.quote}>
                       {fields.testimonial.fields.text}
@@ -74,17 +67,10 @@ const ClientTestimonial = ({ module }) => {
                 {fields.testimonial.fields?.text && (
                   <div className={style.textContent}>
                     {boolean(fields.displayRating) && (
-                      <div className={style.rating}>
-                        {[...Array(5).keys()].map((star) => (
-                          <img
-                            src={starSVG.src}
-                            key={star}
-                            alt=""
-                            width="25"
-                            height="25"
-                          />
-                        ))}
-                      </div>
+                      <StarRating
+                        starCount={fields.testimonial?.starCount}
+                        starWidth="25"
+                      />
                     )}
                     <p className={style.quote}>
                       {fields.testimonial.fields.text}

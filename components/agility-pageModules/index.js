@@ -22,6 +22,7 @@ import TestimonialList from "./testimonialList/testimonialList";
 import TextWithForm from "./textWithForm/textWithForm";
 import EmbedVideo from "./embedVideo/embedVideo";
 import ContentList from "./contentList/contentList";
+import AwardsBanner from "./awardsBanner/awardsBanner";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -30,6 +31,7 @@ import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
 import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
 import BlogPageContent from "./blogPageContent/blogPageContent";
 import EventsPageContent from "./eventsPageContent/eventsPageContent";
+import TransparentizeNavbar from "./transparentizeNavbar/transparentizeNavbar";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -62,6 +64,8 @@ const allModules = [
   { name: "EmbedVideo", module: EmbedVideo },
   { name: "ContentList", module: ContentList },
   { name: "EventsPageContent", module: EventsPageContent },
+  { name: "AwardsBanner", module: AwardsBanner },
+  { name: "TransparentizeNavbar", module: TransparentizeNavbar },
 ];
 
 export const getModule = (moduleName) => {

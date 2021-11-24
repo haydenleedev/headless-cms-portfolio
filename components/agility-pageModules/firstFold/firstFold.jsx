@@ -12,6 +12,7 @@ const FirstFold = ({ module }) => {
   const customerStory = boolean(fields.customerStory);
   const narrowContainer = boolean(fields?.narrowContainer);
 
+  // different layout when alternateLayout or customerStory is toggled on
   return alternateLayout || customerStory ? (
     <section
       className={`section ${style.firstFoldAlternate} ${
@@ -66,6 +67,7 @@ const FirstFold = ({ module }) => {
       </div>
     </section>
   ) : (
+    // default firstFold layout
     <section
       className={`section ${style.firstFold} ${
         fields.classes ? fields.classes : ""
@@ -117,7 +119,9 @@ const FirstFold = ({ module }) => {
             )}
           </div>
           {fields.media && !noImageLayout && (
-            <Media media={fields.media}></Media>
+            <div className={style.image}>
+              <Media media={fields.media}></Media>
+            </div>
           )}
         </div>
       </div>

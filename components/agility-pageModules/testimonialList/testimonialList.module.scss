@@ -28,6 +28,72 @@
       }
     }
 
+    .staticImageLayoutTextContent {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin: 1rem 0 1.5rem 0;
+      }
+      p {
+        font-size: 1rem;
+      }
+      small {
+        margin-top: 1rem;
+        font-size: 1rem;
+        font-style: italic;
+      }
+    }
+
+    .staticImageLayoutControls {
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      max-width: 125px;
+      .dots {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        button {
+          width: 0.75rem;
+          height: 0.75rem;
+          margin: 0 0.25rem;
+          border: solid 0.185rem $color-navy;
+          border-radius: 50%;
+          &.activeDot {
+            background-color: $color-navy;
+          }
+        }
+      }
+      .button {
+        position: relative;
+        padding: 1rem;
+        background-color: $color-darkmedium;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &::after {
+          content: "";
+          position: absolute;
+          display: block;
+          padding: 0.35rem;
+          border-top: 0.2rem solid $color-white;
+          border-right: 0.2rem solid $color-white;
+          transform: translateX(-0.15rem) rotate(45deg);
+        }
+      }
+    }
+
     .textContent {
       display: flex;
       flex-direction: column;
@@ -91,7 +157,7 @@
     .mediaWrapper {
       .media {
         top: -6rem;
-        min-width: unset !important;
+        min-width: unset;
         border: 0.65rem solid $color-skyblue;
         div {
           &:only-child {
@@ -105,11 +171,24 @@
       & > * {
         flex-basis: 100%;
       }
+      .mediaWrapper {
+        .media {
+          top: -6rem;
+          min-width: unset;
+          border: 0.65rem solid $color-skyblue;
+          div {
+            &:only-child {
+              border: 0.65rem solid $color-white;
+            }
+          }
+        }
+      }
 
-      .textContent {
+      .textContent,
+      .staticImageLayoutTextContent {
         margin: 3rem 0 auto 2rem;
-        min-height: 350px;
-        max-height: 350px;
+        min-height: 400px;
+        max-height: 400px;
         align-items: flex-start;
         text-align: left;
         p {
@@ -120,6 +199,10 @@
       }
       .controls {
         margin: unset;
+      }
+      .staticImageLayoutControls {
+        margin: 3rem 0 auto 2rem;
+        align-items: flex-start;
       }
     }
   }

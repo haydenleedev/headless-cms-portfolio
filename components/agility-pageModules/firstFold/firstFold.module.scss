@@ -2,17 +2,18 @@
 @import "../../../styles/settings/variables";
 @import "../../../styles/settings/mixins";
 
+// default firstFold styling
 .firstFold {
+  // styling configuration for the optionally toggled no image layout field
   .noImageLayout {
     padding: 2.5rem 0;
     .heading {
+      max-width: unset;
       margin-bottom: unset;
     }
     .textContent {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       text-align: center;
+      align-items: center;
     }
   }
   .heading {
@@ -20,12 +21,23 @@
     max-width: 600px;
   }
   .textContent {
-    margin: auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .image {
+    display: flex;
+    justify-content: center;
+    & > div {
+      height: 100%;
+    }
   }
 
   .primaryLink {
-    margin-top: 2rem;
-    margin-right: 1rem;
+    margin-top: 1rem;
     padding: 0.5em 2em;
     border-radius: 3em;
     border-width: 0.15em;
@@ -35,6 +47,13 @@
     padding: 0.5em 2em;
     border-radius: 3em;
     border-width: 0.15em;
+  }
+  // resets for large screen sizes
+  @include desktop() {
+    .textContent {
+      text-align: unset;
+      align-items: flex-start;
+    }
   }
 }
 
@@ -65,6 +84,7 @@
       height: 100% !important;
     }
   }
+  // unique styling to customer story first folds (toggled on in agility)
   .customerStoryTextContent {
     position: relative;
     top: 50%;
@@ -94,6 +114,7 @@
       max-width: $tablet;
       margin: 0 auto;
     }
+    // resets for large screen sizes
     @include desktop() {
       position: absolute;
       top: 50%;
@@ -119,6 +140,9 @@
     position: absolute;
     text-align: center;
     color: $color-white;
+    .heading {
+      text-align: center;
+    }
     .text {
       font-size: 1.25rem;
     }
@@ -129,6 +153,8 @@
       border: unset;
     }
   }
+
+  // resets for large screen sizes
   @include desktop() {
     min-height: 375px;
     .backgroundImage {
@@ -141,6 +167,10 @@
       .text {
         font-size: 1.5rem;
       }
+    }
+    .primaryLink {
+      margin-top: 2rem;
+      margin-right: 1rem;
     }
   }
 }

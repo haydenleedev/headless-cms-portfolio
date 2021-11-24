@@ -79,6 +79,12 @@ $color-mediumpurple: #6e0bdc;
 .bg-gradient-blue {
   background: linear-gradient(90deg, $color-skyblue, $color-mediumblue);
 }
+.bg-gradient-blue-light {
+  background-color: #e2eeff;
+  @media (min-width: 890px) {
+    background: linear-gradient(90deg, #e2eeff, #fff 25%, #e2eeff 50%, #e2eeff);
+  }
+}
 .bg-radial-gradient-top {
   position: relative;
   margin-top: 1.35rem;
@@ -141,7 +147,7 @@ $color-mediumpurple: #6e0bdc;
 }
 
 .filter-gray {
-  filter: grayscale(0.25) opacity(0.5);
+  filter: grayscale(1) opacity(0.5);
 }
 
 .text-white {
