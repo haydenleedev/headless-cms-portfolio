@@ -7,7 +7,7 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    padding: 2rem 0;
+    padding: 1rem;
     margin: 3rem 0 1rem 0;
     text-align: center;
   }
@@ -18,7 +18,20 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      .columnsLayout {
+        display: flex;
+        gap: 1.5rem;
+        .list {
+          flex-basis: 45%;
+        }
+      }
     }
+  }
+  .textContent {
+    flex-basis: 55%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-wrap: break-word;
   }
   .logo {
     display: flex;
@@ -33,6 +46,11 @@
           width: unset;
           object-fit: contain;
         }
+      }
+    }
+    a {
+      &:hover {
+        outline: 0.15rem solid $color-darkblue;
       }
     }
   }

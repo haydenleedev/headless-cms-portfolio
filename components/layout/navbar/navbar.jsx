@@ -12,6 +12,7 @@ const Navbar = ({ globalData }) => {
   const [mainNavigationActive, setMainNavigationActive] = useState(false);
   const [pageScrolled, setPageScrolled] = useState(false);
   const [transparentBackground, setTransparentBackground] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     const handleTransparency = () => {
@@ -21,6 +22,10 @@ const Navbar = ({ globalData }) => {
         const firstSection = document
           .getElementById("__next")
           .querySelector("main").firstChild;
+        console.log(firstSection);
+        if (firstSection.getAttribute("data-navbar-hidden")) {
+          setHidden(true);
+        }
         if (
           // transparency is dismissed with touch screen sizes.
           firstSection.getAttribute("data-transparent-navbar") &&
@@ -71,7 +76,7 @@ const Navbar = ({ globalData }) => {
     <section
       className={`${style.navbar} ${pageScrolled ? style.scrolled : ""} ${
         transparentBackground ? style.transparent : ""
-      }`}
+      } ${hidden ? "display-none" : ""}`}
     >
       <nav className="container" role="navigation" aria-label="Main">
         <Link href="/">

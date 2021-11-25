@@ -13,7 +13,7 @@ const TransparentizeNavbar = () => {
       nextSiblingModule.classList.add("transparentized-navbar-transform");
     }
   }, [moduleRef.current]);
-  return <section data-transparent-navbar={true} ref={moduleRef}></section>;
+  return <section data-transparent-navbar="true" ref={moduleRef}></section>;
 };
 
 export default TransparentizeNavbar;

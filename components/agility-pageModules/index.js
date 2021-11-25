@@ -32,6 +32,8 @@ import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
 import BlogPageContent from "./blogPageContent/blogPageContent";
 import EventsPageContent from "./eventsPageContent/eventsPageContent";
 import TransparentizeNavbar from "./transparentizeNavbar/transparentizeNavbar";
+import BondFirstFold from "./bondFirstFold/bondFirstFold";
+import HideNavbar from "./hideNavbar/hideNavbar";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -66,6 +68,8 @@ const allModules = [
   { name: "EventsPageContent", module: EventsPageContent },
   { name: "AwardsBanner", module: AwardsBanner },
   { name: "TransparentizeNavbar", module: TransparentizeNavbar },
+  { name: "HideNavbar", module: HideNavbar },
+  { name: "BondFirstFold", module: BondFirstFold },
 ];
 
 export const getModule = (moduleName) => {

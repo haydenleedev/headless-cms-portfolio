@@ -1,0 +1,84 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+@import "../../../styles/settings/variables";
+
+.bondFirstFold {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 485px;
+  min-height: 485px;
+  height: 100%;
+  background: radial-gradient(circle, #6262e5 0, #151552 67%);
+  overflow: hidden;
+  padding: 1rem 0;
+  .backgroundImage {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    min-width: $desktop;
+    max-height: 100%;
+    img {
+      position: absolute;
+      object-fit: cover;
+      height: unset;
+      width: unset;
+    }
+  }
+  .cornerLogo {
+    position: relative;
+    z-index: 1;
+  }
+  .content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    .circleWrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+      background: radial-gradient(circle, #14012b 52%, rgba(20, 1, 43, 0) 66%);
+      border-radius: 50%;
+      width: 400px;
+      height: 400px;
+      transition: transform 0.25s ease-out;
+      .circleInner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 320px;
+        height: 320px;
+        background-color: $color-white;
+        border-radius: 50%;
+        font-weight: 600;
+
+        p {
+          font-size: 1.5rem;
+          margin: 2rem 0 1rem 0;
+        }
+        a {
+          font-size: 1rem;
+          padding: 0.5rem 1rem;
+          border: unset;
+          transition: background-color 0.25s ease-out;
+        }
+      }
+      &:hover {
+        transform: scale(1.1);
+        .circleInner {
+          a {
+            background-color: $color-mediumblue;
+          }
+        }
+      }
+    }
+  }
+}

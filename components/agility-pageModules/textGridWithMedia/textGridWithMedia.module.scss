@@ -1,4 +1,5 @@
 @import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
 
 .textGridWithMedia {
   .heading {
@@ -24,14 +25,27 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    .grid {
+      gap: 1rem;
+      p {
+        padding-bottom: 1rem;
+      }
+      a {
+        font-weight: 600;
+        color: $color-darkblue;
+        margin-bottom: 1rem;
+      }
+      .textItem,
+      .textItemFlex {
+        padding: 2rem 1.5rem;
+      }
+    }
 
     .mediaContainer {
       width: 100%;
     }
   }
   .textItem {
-    padding: 2rem 1.5rem 0 1.5rem;
-    margin: 0 0.25rem;
     min-width: 225px;
     .textItemMedia {
       max-width: 120px;
@@ -64,7 +78,6 @@
     margin: 0.25rem;
   }
   .textItemFlex {
-    padding: 2rem 2rem 0 2rem;
     .textItemMedia {
       max-width: 120px;
       &.textItemMediaSmall {
@@ -82,9 +95,6 @@
         margin-right: 2.5rem;
       }
     }
-  }
-  .textItemHtml {
-    padding-bottom: 2rem;
   }
   .textItemHeading {
     margin-bottom: 1.5rem;

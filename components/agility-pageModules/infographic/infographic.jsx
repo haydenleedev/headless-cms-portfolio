@@ -8,6 +8,8 @@ const Infographic = ({ module }) => {
   const itemLayout = fields?.alternateItemLayout;
   const boxStyle = boolean(fields?.boxStyle);
   const narrowContainer = boolean(fields?.narrowContainer);
+  const itemRoundedCorners = boolean(fields?.itemRoundedCorners);
+  const itemShadow = boolean(fields?.itemShadow);
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
 
   const columnsClass = (columns) => {
@@ -35,9 +37,13 @@ const Infographic = ({ module }) => {
     }
   };
   return (
-    <section className={`section ${style.infographic}`}>
+    <section
+      className={`section ${style.infographic} ${
+        fields.classes ? fields.classes : ""
+      }`}
+    >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
-        {heading && (
+        {heading.text && (
           <div className="heading">
             <Heading {...heading} />
           </div>
@@ -49,17 +55,19 @@ const Infographic = ({ module }) => {
         >
           {fields.items.map((item) => (
             <div
-              className={`${style.item} ${itemLayoutClass(itemLayout)}`}
+              className={`${style.item} ${itemLayoutClass(itemLayout)} ${
+                itemShadow
+                  ? "card-shadow padding-block-4 pl-4 pr-4 ml-1 mr-1"
+                  : ""
+              } ${itemRoundedCorners ? "border-radius-1" : ""}`}
               key={item.contentID}
             >
-              {item.fields.image && (
-                <div className={style.itemMedia}>
-                  <Media media={item.fields.image} />
-                  {itemLayout === "column" && item.fields.title && (
-                    <p className={style.itemTitle}>{item.fields.title}</p>
-                  )}
-                </div>
-              )}
+              <div className={style.itemMedia}>
+                {item.fields.image && <Media media={item.fields.image} />}
+                {itemLayout === "column" && item.fields.title && (
+                  <p className={style.itemTitle}>{item.fields.title}</p>
+                )}
+              </div>
               <div className={style.itemTextContent}>
                 {itemLayout !== "column" && item.fields.title && (
                   <p className={style.itemTitle}>{item.fields.title}</p>

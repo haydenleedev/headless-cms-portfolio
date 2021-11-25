@@ -35,11 +35,11 @@ const TextGridWithMedia = ({ module }) => {
             // </div>
           )}
           <div
-            className={
+            className={`${
               centerItemsHorizontally
                 ? "grid-columns"
                 : `columns mt-4 repeat-${fields.columns}`
-            }
+            } ${style.grid}`}
           >
             {fields?.textItems?.map((textItem) => {
               const heading = JSON.parse(textItem.fields.heading);
@@ -74,6 +74,11 @@ const TextGridWithMedia = ({ module }) => {
                       dangerouslySetInnerHTML={{ __html: textItem.fields.text }}
                     ></div>
                   </div>
+                  {textItem.fields.link && (
+                    <Link href={textItem.fields.link.href}>
+                      <a>{textItem.fields.link.text}</a>
+                    </Link>
+                  )}
                 </div>
               );
             })}

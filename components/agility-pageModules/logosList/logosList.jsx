@@ -7,7 +7,10 @@ import style from "./logosList.module.scss";
 const LogosList = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
-  const grayFilter = boolean(fields.grayFilter);
+  const grayFilter = boolean(fields?.grayFilter);
+  const columnsLayout = boolean(fields?.columnsLayout);
+  const logosLeft = boolean(fields?.logosLeft);
+
   return (
     <section
       className={`section ${style.logosList} ${
@@ -21,23 +24,39 @@ const LogosList = ({ module }) => {
           </div>
         )}
         <div className={style.content}>
-          <div className={`grid-columns ${fields.link ? "mr-4" : ""}`}>
-            {fields?.items?.map((logo) => (
+          <div
+            className={`${columnsLayout ? style.columnsLayout : ""} ${
+              logosLeft ? "flex-direction-row-reverse" : ""
+            }`}
+          >
+            {fields.text && (
               <div
-                className={`grid-column ${
-                  fields.columns ? `is-${fields.columns}` : ""
-                } ${style.logo} ${grayFilter ? "filter-gray" : ""}`}
-                key={logo.contentID}
-              >
-                {(logo.fields.link && (
-                  <Link href={logo.fields.link.href}>
-                    <a>
-                      <Media media={logo.fields.logo} />
-                    </a>
-                  </Link>
-                )) || <Media media={logo.fields.logo} />}
-              </div>
-            ))}
+                className={`content ${style.textContent}`}
+                dangerouslySetInnerHTML={{ __html: fields.text }}
+              ></div>
+            )}
+            <div
+              className={`grid-columns ${style.list} ${
+                fields.link ? "mr-4" : ""
+              }`}
+            >
+              {fields?.items?.map((logo) => (
+                <div
+                  className={`grid-column ${
+                    fields.columns ? `is-${fields.columns}` : ""
+                  } ${style.logo} ${grayFilter ? "filter-gray" : ""}`}
+                  key={logo.contentID}
+                >
+                  {(logo.fields.link && (
+                    <Link href={logo.fields.link.href}>
+                      <a>
+                        <Media media={logo.fields.logo} />
+                      </a>
+                    </Link>
+                  )) || <Media media={logo.fields.logo} />}
+                </div>
+              ))}
+            </div>
           </div>
           {fields.link && (
             <Link href={fields.link.href}>

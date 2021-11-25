@@ -271,7 +271,7 @@
 }
 
 .display-none {
-  display: none;
+  display: none !important;
 }
 
 /*
@@ -412,13 +412,19 @@
 .pt-0 {
   padding-top: 0 !important;
 }
-
 .pb-0 {
   padding-bottom: 0 !important;
 }
 .pb-3 {
   padding-bottom: $size-3 !important;
 }
+.pr-4 {
+  padding-right: $size-4 !important;
+}
+.pl-4 {
+  padding-left: $size-4 !important;
+}
+
 // padding-block: selects both padding-top and padding-bottom
 .padding-block-1 {
   padding-block: $size-1 !important;
@@ -444,28 +450,57 @@
 }
 
 /*
-  <<<<<<<<<<<<<<<<WIDTH HELPER CLASSES>>>>>>>>>>>>>>>>>
+  <<<<<<<<<<<<<<<<TYPOGRAPHY HELPER CLASSES>>>>>>>>>>>>>>>>>
 */
-.width-100 {
-  width: 100%;
+
+.is-size-1 {
+  font-size: $size-1 !important;
+}
+.is-size-2 {
+  font-size: $size-2 !important;
+}
+.is-size-3 {
+  font-size: $size-3 !important;
+}
+.is-size-4 {
+  font-size: $size-4 !important;
+}
+.is-size-5 {
+  font-size: $size-5 !important;
+}
+.is-size-6 {
+  font-size: $size-6 !important;
 }
 
-.max-width-narrow {
-  @include narrowWidth();
+.w-100 {
+  font-weight: 100 !important;
+}
+.w-200 {
+  font-weight: 200 !important;
+}
+.w-300 {
+  font-weight: 300 !important;
+}
+.w-400 {
+  font-weight: 400 !important;
+}
+.w-500 {
+  font-weight: 500 !important;
+}
+.w-600 {
+  font-weight: 600 !important;
+}
+.w-700 {
+  font-weight: 700 !important;
 }
 
-.max-width-tablet {
-  max-width: $tablet;
+.text-decoration-unset {
+  text-decoration: unset !important;
 }
 
-.max-width-medium {
-  max-width: $medium;
-}
-
-.max-width-wide {
-  max-width: $wide;
-}
-
-.max-width-unset {
-  max-width: unset;
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

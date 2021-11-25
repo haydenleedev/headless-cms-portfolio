@@ -3,6 +3,7 @@ import Heading from "../heading";
 import style from "./firstFold.module.scss";
 import Media from "../media";
 import { boolean } from "../../../utils/validation";
+import GoogleCloudAnimation from "./googleCloudAnimation";
 
 const FirstFold = ({ module }) => {
   const { fields } = module;
@@ -11,6 +12,7 @@ const FirstFold = ({ module }) => {
   const noImageLayout = boolean(fields.noImageLayout);
   const customerStory = boolean(fields.customerStory);
   const narrowContainer = boolean(fields?.narrowContainer);
+  const googleCloudAnimation = boolean(fields?.googleCloudAnimation);
 
   // different layout when alternateLayout or customerStory is toggled on
   return alternateLayout || customerStory ? (
@@ -118,11 +120,12 @@ const FirstFold = ({ module }) => {
               </Link>
             )}
           </div>
-          {fields.media && !noImageLayout && (
+          {fields.media && !noImageLayout && !googleCloudAnimation && (
             <div className={style.image}>
               <Media media={fields.media}></Media>
             </div>
           )}
+          {googleCloudAnimation && !noImageLayout && <GoogleCloudAnimation />}
         </div>
       </div>
     </section>
