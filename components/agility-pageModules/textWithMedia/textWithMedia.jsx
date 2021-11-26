@@ -8,7 +8,13 @@ const TextWithMedia = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   const narrowContainer = boolean(fields?.narrowContainer);
+  const alignTop = boolean(fields?.alignTop);
 
+  // helper function to determine which testimonial module class should be used.
+  const testimonialStyle = (value) => {
+    if (value === "quote") return style.testimonialQuote;
+    return style.testimonialComment;
+  };
   return (
     <section
       className={`section ${style.textWithMedia} ${
@@ -34,7 +40,7 @@ const TextWithMedia = ({ module }) => {
               boolean(fields.fullPageWidth)
                 ? style.fullPageWidthTextContent
                 : ""
-            }`}
+            } ${alignTop ? "justify-content-flex-start" : ""}`}
           >
             <div
               className={`${
@@ -92,7 +98,83 @@ const TextWithMedia = ({ module }) => {
                 : ""
             }`}
           >
-            {fields.media && <Media media={fields.media} />}
+            {fields.media && !fields.testimonial && (
+              <Media media={fields.media} />
+            )}
+            {fields.testimonial && (
+              <div
+                className={`${style.testimonial} ${testimonialStyle(
+                  fields.testimonialStyle
+                )}`}
+              >
+                {fields.testimonialStyle === "comment" ? (
+                  <div className={style.testimonialIcon}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 47 47"
+                      width="100"
+                      height="100"
+                    >
+                      <g
+                        stroke="#FFF"
+                        stroke-width="2"
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M22 37c-1.656 0-3-1.344-3-3V19c0-1.656 1.344-3 3-3h21c1.656 0 3 1.344 3 3v15c0 1.656-1.344 3-3 3h-3v9l-9-9h-9z"></path>
+                        <path d="M13 25l-6 6v-9H4c-1.656 0-3-1.344-3-3V4c0-1.656 1.344-3 3-3h21c1.656 0 3 1.344 3 3v6"></path>
+                      </g>
+                    </svg>
+                  </div>
+                ) : (
+                  <div className={style.testimonialIcon}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="36.5"
+                      height="28.4"
+                      viewBox="0 0 36.5 28.4"
+                      class="bounce is-inView"
+                    >
+                      <defs>
+                        <style>{`.p{fill:#3398dc;}`}</style>
+                      </defs>
+                      <path
+                        class="p"
+                        d="M13.1.2C4.7,3.8,0,10.1,0,17.8S3.4,28.4,8.8,28.4s7.3-2.8,7.3-6.9-2.8-6.4-6.9-6.4H7.9c.6-4.1,3.3-7.2,8.2-9.5l.5-.3L13.5,0Z"
+                      ></path>
+                      <path
+                        class="p"
+                        d="M36,5.7l.5-.3L33.4,0,33,.2c-8.5,3.6-13.1,9.9-13.1,17.6s3.4,10.6,8.8,10.6S36,25.6,36,21.5s-2.8-6.4-6.9-6.4H27.8C28.4,11.1,31.1,8,36,5.7Z"
+                      ></path>
+                    </svg>
+                  </div>
+                )}
+                <p>{fields.testimonial.fields.text}</p>
+                <div className={style.testimonialDetails}>
+                  <div>
+                    {fields.testimonial.fields.companyName && (
+                      <p>{fields.testimonial.fields.companyName}</p>
+                    )}
+                    {fields.testimonial.fields.name && (
+                      <p>{fields.testimonial.fields.name}</p>
+                    )}
+                    {fields.testimonial.fields.jobTitle && (
+                      <p>{fields.testimonial.fields.jobTitle}</p>
+                    )}
+                  </div>
+                  {fields.testimonial.fields.image && (
+                    <div className={style.testimonialImage}>
+                      <Media media={fields.testimonial.fields.image} />
+                    </div>
+                  )}
+                </div>
+                {fields.testimonial.fields.logo && (
+                  <Media media={fields.testimonial.fields.logo} />
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

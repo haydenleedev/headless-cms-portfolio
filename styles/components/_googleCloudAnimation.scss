@@ -1,5 +1,8 @@
 .googleCloudAnimation {
   margin: 2rem 0;
+  @include mobile() {
+    max-width: 280px;
+  }
   #cloudWrapper {
     #a {
       fill: #fff;
