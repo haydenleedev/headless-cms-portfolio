@@ -23,7 +23,7 @@ const Media = ({ media }) => {
         );
       default:
         return (
-          <video className="video" autoPlay muted loop>
+          <video className="video" autoPlay muted loop controls>
             <title></title>
             <source src={media.url} type={`video/${mediaType}`} />
             Your browser does not support the video tag.

@@ -413,11 +413,17 @@
 .pt-0 {
   padding-top: 0 !important;
 }
+.pt-2 {
+  padding-top: $size-2 !important;
+}
 .pb-0 {
   padding-bottom: 0 !important;
 }
 .pb-3 {
   padding-bottom: $size-3 !important;
+}
+.pb-6 {
+  padding-bottom: $size-6 !important;
 }
 .pr-4 {
   padding-right: $size-4 !important;
@@ -451,57 +457,23 @@
 }
 
 /*
-  <<<<<<<<<<<<<<<<TYPOGRAPHY HELPER CLASSES>>>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<WIDTH HELPER CLASSES>>>>>>>>>>>>>>>>>
 */
-
-.is-size-1 {
-  font-size: $size-1 !important;
+.width-100 {
+  width: 100%;
 }
-.is-size-2 {
-  font-size: $size-2 !important;
+.max-width-narrow {
+  @include narrowWidth();
 }
-.is-size-3 {
-  font-size: $size-3 !important;
+.qmax-width-tablet {
+  max-width: $tablet;
 }
-.is-size-4 {
-  font-size: $size-4 !important;
+.max-width-medium {
+  max-width: $medium;
 }
-.is-size-5 {
-  font-size: $size-5 !important;
+.max-width-wide {
+  max-width: $wide;
 }
-.is-size-6 {
-  font-size: $size-6 !important;
-}
-
-.w-100 {
-  font-weight: 100 !important;
-}
-.w-200 {
-  font-weight: 200 !important;
-}
-.w-300 {
-  font-weight: 300 !important;
-}
-.w-400 {
-  font-weight: 400 !important;
-}
-.w-500 {
-  font-weight: 500 !important;
-}
-.w-600 {
-  font-weight: 600 !important;
-}
-.w-700 {
-  font-weight: 700 !important;
-}
-
-.text-decoration-unset {
-  text-decoration: unset !important;
-}
-
-.line-clamp {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.max-width-unset {
+  max-width: unset;
 }

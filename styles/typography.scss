@@ -231,27 +231,70 @@ table {
     }
   }
 }
+
 /*
   <<<<<<<<<<<<<<<<TYPOGRAPHY HELPER CLASSES>>>>>>>>>>>>>>>>>
 */
 .is-size-05 {
-  font-size: $size-05;
+  font-size: $size-05 !important;
 }
 .is-size-1 {
-  font-size: $size-1;
+  font-size: $size-1 !important;
 }
 .is-size-2 {
-  font-size: $size-2;
+  font-size: $size-2 !important;
 }
 .is-size-3 {
-  font-size: $size-3;
+  font-size: $size-3 !important;
 }
 .is-size-4 {
-  font-size: $size-4;
+  font-size: $size-4 !important;
 }
 .is-size-5 {
-  font-size: $size-5;
+  font-size: $size-5 !important;
 }
 .is-size-6 {
-  font-size: $size-6;
+  font-size: $size-6 !important;
+}
+.is-huge {
+  font-size: 4rem !important;
+  @include desktop() {
+    font-size: 6.25rem !important;
+  }
+}
+
+.w-100 {
+  font-weight: 100 !important;
+}
+.w-200 {
+  font-weight: 200 !important;
+}
+.w-300 {
+  font-weight: 300 !important;
+}
+.w-400 {
+  font-weight: 400 !important;
+}
+.w-500 {
+  font-weight: 500 !important;
+}
+.w-600 {
+  font-weight: 600 !important;
+}
+.w-700 {
+  font-weight: 700 !important;
+}
+
+.text-decoration-unset {
+  text-decoration: unset !important;
+}
+
+.line-height-1 {
+  line-height: 1 !important;
+}
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

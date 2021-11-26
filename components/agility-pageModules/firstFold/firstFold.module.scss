@@ -35,6 +35,7 @@
     align-items: flex-end;
     div {
       width: 100%;
+      height: 100%;
       img {
         object-fit: contain;
       }
@@ -195,7 +196,7 @@
   flex-direction: column;
   align-items: flex-start;
   @include desktop() {
-    padding: 2rem;
+    padding: 1.5rem 2rem;
   }
   &.testimonialComment {
     .testimonialIcon {
