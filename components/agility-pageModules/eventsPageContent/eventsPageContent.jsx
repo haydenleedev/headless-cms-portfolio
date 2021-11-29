@@ -1,9 +1,9 @@
 import style from "./eventsPageContent.module.scss";
-import Link from "next/link";
 import {
   toPacificDateTime,
   toPacificTimeMilliseconds,
 } from "../../../utils/convert";
+import AgilityLink from "../../agilityLink";
 
 const EventsPageContent = ({ customData }) => {
   const { allEvents } = customData;
@@ -50,11 +50,12 @@ const EventsPageContent = ({ customData }) => {
                 </p>
 
                 <div className={style.eventLink}>
-                  <Link href={event.fields.link.href}>
-                    <a className="button">
-                      <span>{event.fields.link.text}</span>
-                    </a>
-                  </Link>
+                  <AgilityLink
+                    agilityLink={event.fields.link}
+                    className="button"
+                  >
+                    <span>{event.fields.link.text}</span>
+                  </AgilityLink>
                 </div>
               </div>
             ))}

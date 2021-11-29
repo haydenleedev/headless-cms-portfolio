@@ -1,9 +1,10 @@
 import style from "./globalMessage.module.scss";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { boolean } from "../../../utils/validation";
 import { renderHTML } from "@agility/nextjs";
 import { getCookie } from "../../../utils/cookies";
+import AgilityLink from "../../agilityLink";
+import { sanitizeHtmlConfig } from "../../../utils/convert";
 
 const GlobalMessage = ({ globalData }) => {
   const { globalMessage } = globalData.globalMessage;
@@ -17,8 +18,7 @@ const GlobalMessage = ({ globalData }) => {
     }
   }, []);
 
-  if (boolean(globalMessage.fields.disabled) || !open)
-    return null;
+  if (boolean(globalMessage.fields.disabled) || !open) return null;
 
   function dismissMessage() {
     document.cookie = "globalMessage=dismissed; max-age=172800";
@@ -30,15 +30,14 @@ const GlobalMessage = ({ globalData }) => {
         {globalMessage.fields.primaryLink.href &&
           !globalMessage.fields.content && (
             <div className={style.demo}>
-              <Link href={globalMessage.fields.primaryLink.href}>
-                <a
-                  className="button small white"
-                  aria-label={globalMessage.fields.primaryLink.text}
-                  title={globalMessage.fields.primaryLink.text}
-                >
-                  {globalMessage.fields.primaryLink.text || "Request a demo"}
-                </a>
-              </Link>
+              <AgilityLink
+                agilityLink={globalMessage.fields.primaryLink}
+                className="button small white"
+                ariaLabel={globalMessage.fields.primaryLink.text}
+                title={globalMessage.fields.primaryLink.text}
+              >
+                {globalMessage.fields.primaryLink.text || "Request a demo"}
+              </AgilityLink>
             </div>
           )}
         {boolean(globalMessage.fields.showContactInfo) &&
@@ -70,11 +69,8 @@ const GlobalMessage = ({ globalData }) => {
   );
 };
 
-GlobalMessage.getCustomInitialProps = async function ({
-  agility,
-  languageCode,
-  channelName,
-}) {
+GlobalMessage.getCustomInitialProps = async function (props) {
+  const { agility, languageCode, channelName } = props;
   const api = agility;
   let contentItem = null;
 
@@ -91,6 +87,12 @@ GlobalMessage.getCustomInitialProps = async function ({
       globalMessage.items.length > 0
     ) {
       contentItem = globalMessage.items[0];
+
+      const sanitizeHtml = (await import("sanitize-html")).default;
+      // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
+      const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
+
+      contentItem.content = cleanHtml(contentItem.content);
     } else {
       return null;
     }

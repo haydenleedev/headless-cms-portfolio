@@ -1,10 +1,13 @@
-import Link from "next/link";
+import { renderHTML } from "@agility/nextjs";
+import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { boolean } from "../../../utils/validation";
+import AgilityLink from "../../agilityLink";
 import Heading from "../heading";
 import Media from "../media";
 import style from "./textWithMedia.module.scss";
 
-const TextWithMedia = ({ module }) => {
+const TextWithMedia = ({ module, customData }) => {
+  const { sanitizedHtml } = customData;
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   const narrowContainer = boolean(fields?.narrowContainer);
@@ -62,24 +65,23 @@ const TextWithMedia = ({ module }) => {
               )}
               <div
                 className={`${style.html} content`}
-                dangerouslySetInnerHTML={{ __html: fields.text }}
+                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
               ></div>
               {fields.link && (
-                <Link href={fields.link.href}>
-                  <a
-                    className={`mt-4 button ${
-                      !boolean(fields.columnLayout) && !fields.linkClasses
-                        ? "small"
-                        : ""
-                    } cyan outlined ${style.link} ${
-                      fields.linkClasses ? fields.linkClasses : ""
-                    }`}
-                    aria-label={`Navigate to page ` + fields.link.href}
-                    title={`Navigate to page ` + fields.link.href}
-                  >
-                    {fields.link.text}
-                  </a>
-                </Link>
+                <AgilityLink
+                  agilityLink={fields.link}
+                  className={`mt-4 button ${
+                    !boolean(fields.columnLayout) && !fields.linkClasses
+                      ? "small"
+                      : ""
+                  } cyan outlined ${style.link} ${
+                    fields.linkClasses ? fields.linkClasses : ""
+                  }`}
+                  ariaLabel={`Navigate to page ` + fields.link.href}
+                  title={`Navigate to page ` + fields.link.href}
+                >
+                  {fields.link.text}
+                </AgilityLink>
               )}
             </div>
           </div>
@@ -180,6 +182,19 @@ const TextWithMedia = ({ module }) => {
       </div>
     </section>
   );
+};
+
+TextWithMedia.getCustomInitialProps = async function ({ item }) {
+  const sanitizeHtml = (await import("sanitize-html")).default;
+  // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
+
+  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
+
+  const sanitizedHtml = item.fields.text ? cleanHtml(item.fields.text) : null;
+
+  return {
+    sanitizedHtml,
+  };
 };
 
 export default TextWithMedia;

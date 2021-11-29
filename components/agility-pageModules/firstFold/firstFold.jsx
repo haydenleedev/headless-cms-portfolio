@@ -1,11 +1,14 @@
-import Link from "next/link";
 import Heading from "../heading";
 import style from "./firstFold.module.scss";
 import Media from "../media";
 import { boolean } from "../../../utils/validation";
 import GoogleCloudAnimation from "./googleCloudAnimation";
+import AgilityLink from "../../agilityLink";
+import { renderHTML } from "@agility/nextjs";
+import { sanitizeHtmlConfig } from "../../../utils/convert";
 
-const FirstFold = ({ module }) => {
+const FirstFold = ({ module, customData }) => {
+  const { sanitizedHtml } = customData;
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   const alternateLayout = boolean(fields.alternateLayout);
@@ -43,34 +46,32 @@ const FirstFold = ({ module }) => {
         {fields.text && (
           <div
             className={`content ${style.text}`}
-            dangerouslySetInnerHTML={{ __html: fields.text }}
+            dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
           ></div>
         )}
         {fields.primaryLink && (
-          <Link href={fields.primaryLink.href}>
-            <a
-              className={`button cyan outlined ${style.primaryLink} ${
-                fields.linkClasses ? fields.linkClasses : ""
-              }`}
-              aria-label={`Navigate to page ` + fields.primaryLink.href}
-              title={`Navigate to page ` + fields.primaryLink.href}
-            >
-              {fields.primaryLink.text}
-            </a>
-          </Link>
+          <AgilityLink
+            agilityLink={fields.primaryLink}
+            className={`button cyan outlined ${style.primaryLink} ${
+              fields.linkClasses ? fields.linkClasses : ""
+            }`}
+            ariaLabel={`Navigate to page ` + fields.primaryLink.href}
+            title={`Navigate to page ` + fields.primaryLink.href}
+          >
+            {fields.primaryLink.text}
+          </AgilityLink>
         )}
         {fields.secondaryLink && (
-          <Link href={fields.secondaryLink.href} className="button outlined">
-            <a
-              className={`button ${style.secondaryLink} ${
-                fields.linkClasses ? fields.linkClasses : ""
-              }`}
-              aria-label={`Navigate to page ` + fields.secondaryLink.href}
-              title={`Navigate to page ` + fields.secondaryLink.href}
-            >
-              {fields.secondaryLink.text}
-            </a>
-          </Link>
+          <AgilityLink
+            agilityLink={fields.secondaryLink}
+            className={`button ${style.secondaryLink} ${
+              fields.linkClasses ? fields.linkClasses : ""
+            }`}
+            ariaLabel={`Navigate to page ` + fields.secondaryLink.href}
+            title={`Navigate to page ` + fields.secondaryLink.href}
+          >
+            {fields.secondaryLink.text}
+          </AgilityLink>
         )}
       </div>
     </section>
@@ -93,7 +94,7 @@ const FirstFold = ({ module }) => {
             {fields.text && (
               <div
                 className="content"
-                dangerouslySetInnerHTML={{ __html: fields.text }}
+                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
               ></div>
             )}
             {fields.logos && (
@@ -181,7 +182,7 @@ const FirstFold = ({ module }) => {
             )}
             <div className={style.links}>
               {fields.primaryLink && (
-                <Link href={fields.primaryLink.href}>
+                <AgilityLink agilityLink={fields.primaryLink}>
                   <a
                     className={`button cyan outlined ${style.primaryLink} ${
                       fields.linkClasses ? fields.linkClasses : ""
@@ -191,11 +192,11 @@ const FirstFold = ({ module }) => {
                   >
                     {fields.primaryLink.text}
                   </a>
-                </Link>
+                </AgilityLink>
               )}
               {fields.secondaryLink && (
-                <Link
-                  href={fields.secondaryLink.href}
+                <AgilityLink
+                  agilityLink={fields.secondaryLink}
                   className="button outlined"
                 >
                   <a
@@ -207,7 +208,7 @@ const FirstFold = ({ module }) => {
                   >
                     {fields.secondaryLink.text}
                   </a>
-                </Link>
+                </AgilityLink>
               )}
             </div>
           </div>
@@ -221,6 +222,19 @@ const FirstFold = ({ module }) => {
       </div>
     </section>
   );
+};
+
+FirstFold.getCustomInitialProps = async function ({ item }) {
+  const sanitizeHtml = (await import("sanitize-html")).default;
+  // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
+
+  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
+
+  const sanitizedHtml = item.fields.text ? cleanHtml(item.fields.text) : null;
+
+  return {
+    sanitizedHtml,
+  };
 };
 
 export default FirstFold;

@@ -1,5 +1,7 @@
 // anything related to converting input to other format. E.g. convert date string from agility to different format.
 
+import { hrefSelf } from "./validation";
+
 export const toDate = (date) => {
   return new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
@@ -78,9 +80,9 @@ export const resolveCategory = (referenceName) => {
 // the different content types use different fields for navigation
 export const resolveLink = (referenceName, fields) => {
   switch (referenceName) {
-    case "newsArticle":
+    case "newsarticle":
       return fields.link;
-    case "pressRelease":
+    case "pressreleasearticle":
       return { href: fields.slug };
     case "integrations":
       return { href: `/integrations/${fields.slug}` };
@@ -127,4 +129,34 @@ export const youtubeVideoLinkToEmbed = (link) => {
     }
   });
   return embedLink;
+};
+
+// use same config for all sanitizeHtml calls
+export const sanitizeHtmlConfig = {
+  allowedTags: false,
+  allowedAttributes: {
+    "*": [
+      "href",
+      "target",
+      "alt",
+      "rel",
+      "class",
+      "id",
+      "src",
+      "width",
+      "height",
+    ],
+  },
+  transformTags: {
+    a: function (tagName, attribs) {
+      if (!hrefSelf(attribs.href)) {
+        attribs.rel = "noindex noreferrer nofollow";
+        attribs.target = "_blank";
+      } else attribs.target = "_self";
+      return {
+        tagName: "a",
+        attribs,
+      };
+    },
+  },
 };

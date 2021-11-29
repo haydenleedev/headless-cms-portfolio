@@ -23,6 +23,9 @@ import TextWithForm from "./textWithForm/textWithForm";
 import EmbedVideo from "./embedVideo/embedVideo";
 import ContentList from "./contentList/contentList";
 import AwardsBanner from "./awardsBanner/awardsBanner";
+import TransparentizeNavbar from "./transparentizeNavbar/transparentizeNavbar";
+import BondFirstFold from "./bondFirstFold/bondFirstFold";
+import HideNavbar from "./hideNavbar/hideNavbar";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -31,9 +34,7 @@ import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
 import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
 import BlogPageContent from "./blogPageContent/blogPageContent";
 import EventsPageContent from "./eventsPageContent/eventsPageContent";
-import TransparentizeNavbar from "./transparentizeNavbar/transparentizeNavbar";
-import BondFirstFold from "./bondFirstFold/bondFirstFold";
-import HideNavbar from "./hideNavbar/hideNavbar";
+import AwardsPageContent from "./awardsPageContent/awardsPageContent";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -70,6 +71,7 @@ const allModules = [
   { name: "TransparentizeNavbar", module: TransparentizeNavbar },
   { name: "HideNavbar", module: HideNavbar },
   { name: "BondFirstFold", module: BondFirstFold },
+  { name: "AwardsPageContent", module: AwardsPageContent },
 ];
 
 export const getModule = (moduleName) => {

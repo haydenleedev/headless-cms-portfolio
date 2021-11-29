@@ -63,8 +63,10 @@
     .title {
       font-size: 1.15rem;
       padding: 0 1.5rem;
-      text-overflow: ellipsis;
       overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
       width: 100%;
     }
 

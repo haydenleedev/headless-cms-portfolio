@@ -1,7 +1,7 @@
-import Link from "next/link";
 import Media from "../media";
 import Heading from "../heading";
 import style from "./caseStudyDownloadPrompt.module.scss";
+import AgilityLink from "../../agilityLink";
 
 const CaseStudyDownloadPrompt = ({ module }) => {
   const { fields } = module;
@@ -16,32 +16,30 @@ const CaseStudyDownloadPrompt = ({ module }) => {
             <div className={style.heading}>
               <Heading {...ctaTitle} />
             </div>
-            <Link href={fields.ctaLink.href}>
-              <a
-                className={`button is-outlined ${style.ctaLink}`}
-                aria-label={`Navigate to page ${fields.ctaLink.href}`}
-                title={`Navigate to page ${fields.ctaLink.href}`}
-              >
-                {fields.ctaLink.text}
-              </a>
-            </Link>
+            <AgilityLink
+              agilityLink={fields.ctaLink}
+              className={`button is-outlined ${style.ctaLink}`}
+              ariaLabel={`Navigate to page ${fields.ctaLink.href}`}
+              title={`Navigate to page ${fields.ctaLink.href}`}
+            >
+              {fields.ctaLink.text}
+            </AgilityLink>
           </div>
         )}
         <div className={style.column}>
           <div className={style.heading}>
             <Heading {...downloadTitle} />
           </div>
-          <Link href={fields.downloadLink.href}>
-            <a
-              className={style.ctaLink}
-              aria-label={`Navigate to ${fields.downloadLink.href}`}
-              title={`Navigate to ${fields.downloadLink.href}`}
-            >
-              <div className={style.media}>
-                <Media media={fields.linkImage} />
-              </div>
-            </a>
-          </Link>
+          <AgilityLink
+            agilityLink={fields.downloadLink}
+            className={style.ctaLink}
+            ariaLabel={`Navigate to ${fields.downloadLink.href}`}
+            title={`Navigate to ${fields.downloadLink.href}`}
+          >
+            <div className={style.media}>
+              <Media media={fields.linkImage} />
+            </div>
+          </AgilityLink>
         </div>
       </div>
     </section>

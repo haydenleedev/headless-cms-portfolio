@@ -4,9 +4,12 @@ import { Form, FormWrapper } from "../../form";
 import { boolean } from "../../../utils/validation";
 import Media from "../media";
 import StarRating from "../../starRating/starRating";
-const TextWithForm = ({ module }) => {
-  const [formLoaded, setFormLoaded] = useState(false);
+import { renderHTML } from "@agility/nextjs";
+import { sanitizeHtmlConfig } from "../../../utils/convert";
+const TextWithForm = ({ module, customData }) => {
+  const { sanitizedHtml } = customData;
   const { fields } = module;
+  const [formLoaded, setFormLoaded] = useState(false);
   const narrowContainer = boolean(fields?.narrowContainer);
   const columnLayout = boolean(fields?.columnLayout);
 
@@ -30,7 +33,7 @@ const TextWithForm = ({ module }) => {
             <aside className={style.textContent}>
               <div
                 className="content"
-                dangerouslySetInnerHTML={{ __html: fields.text }}
+                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
               ></div>
 
               {fields.testimonials && (
@@ -74,6 +77,19 @@ const TextWithForm = ({ module }) => {
       </section>
     </FormWrapper>
   );
+};
+
+TextWithForm.getCustomInitialProps = async function ({ item }) {
+  const sanitizeHtml = (await import("sanitize-html")).default;
+  // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
+
+  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
+
+  const sanitizedHtml = item.fields.text ? cleanHtml(item.fields.text) : null;
+
+  return {
+    sanitizedHtml,
+  };
 };
 
 export default TextWithForm;

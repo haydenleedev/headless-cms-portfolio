@@ -43,7 +43,7 @@ const Infographic = ({ module }) => {
       }`}
     >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
-        {heading.text && (
+        {heading?.text && (
           <div className="heading">
             <Heading {...heading} />
           </div>

@@ -1,10 +1,13 @@
-import Link from "next/link";
 import Heading from "../heading";
 import Media from "../media";
 import { boolean } from "../../../utils/validation";
 import style from "./textGridWithMedia.module.scss";
+import AgilityLink from "../../agilityLink";
+import { renderHTML } from "@agility/nextjs";
+import { sanitizeHtmlConfig } from "../../../utils/convert";
 
-const TextGridWithMedia = ({ module }) => {
+const TextGridWithMedia = ({ module, customData }) => {
+  const { itemsWithSanitizedHTML } = customData;
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields?.narrowContainer);
@@ -41,7 +44,7 @@ const TextGridWithMedia = ({ module }) => {
                 : `columns mt-4 repeat-${fields.columns}`
             } ${style.grid}`}
           >
-            {fields?.textItems?.map((textItem) => {
+            {itemsWithSanitizedHTML?.map((textItem) => {
               const heading = JSON.parse(textItem.fields.heading);
               return (
                 <div
@@ -71,13 +74,13 @@ const TextGridWithMedia = ({ module }) => {
                     )}
                     <div
                       className={`${style.textItemHtml} content`}
-                      dangerouslySetInnerHTML={{ __html: textItem.fields.text }}
+                      dangerouslySetInnerHTML={renderHTML(textItem.fields.text)}
                     ></div>
                   </div>
                   {textItem.fields.link && (
-                    <Link href={textItem.fields.link.href}>
-                      <a>{textItem.fields.link.text}</a>
-                    </Link>
+                    <AgilityLink agilityLink={textItem.fields.link}>
+                      {textItem.fields.link.text}
+                    </AgilityLink>
                   )}
                 </div>
               );
@@ -87,6 +90,21 @@ const TextGridWithMedia = ({ module }) => {
       </div>
     </section>
   );
+};
+
+TextGridWithMedia.getCustomInitialProps = async function ({ item }) {
+  const sanitizeHtml = (await import("sanitize-html")).default;
+  // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
+  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
+
+  const itemsWithSanitizedHTML = item.fields.textItems.map((item) => {
+    item.text = cleanHtml(item.text);
+    return item;
+  });
+
+  return {
+    itemsWithSanitizedHTML,
+  };
 };
 
 export default TextGridWithMedia;

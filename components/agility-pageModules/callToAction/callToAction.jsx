@@ -1,10 +1,13 @@
 import Heading from "../heading";
-import Link from "next/link";
 import style from "./callToAction.module.scss";
 import { boolean } from "../../../utils/validation";
 import Media from "../media";
+import AgilityLink from "../../agilityLink";
+import { renderHTML } from "@agility/nextjs";
+import { sanitizeHtmlConfig } from "../../../utils/convert";
 
-const CallToAction = ({ module }) => {
+const CallToAction = ({ module, customData }) => {
+  const { sanitizedHtml } = customData;
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   const narrowContainer = boolean(fields?.narrowContainer);
@@ -34,24 +37,37 @@ const CallToAction = ({ module }) => {
           {fields.textContent && (
             <div
               className="content"
-              dangerouslySetInnerHTML={{ __html: fields.textContent }}
+              dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
             ></div>
           )}
-          <Link href={fields.link.href}>
-            <a
-              className={`button cyan outlined ${style.link} ${
-                fields.linkClasses ? fields.linkClasses : ""
-              }`}
-              aria-label={`Navigate to page ` + fields.link.href}
-              title={`Navigate to page ` + fields.link.href}
-            >
-              {fields.link.text}
-            </a>
-          </Link>
+          <AgilityLink
+            agilityLink={fields.link}
+            className={`button cyan outlined ${style.link} ${
+              fields.linkClasses ? fields.linkClasses : ""
+            }`}
+            ariaLabel={`Navigate to page ` + fields.link.href}
+            title={`Navigate to page ` + fields.link.href}
+          >
+            {fields.link.text}
+          </AgilityLink>
         </div>
       </div>
     </section>
   );
+};
+
+CallToAction.getCustomInitialProps = async function ({ item }) {
+  const sanitizeHtml = (await import("sanitize-html")).default;
+  // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
+  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
+
+  const sanitizedHtml = item.fields.textContent
+    ? cleanHtml(item.fields.textContent)
+    : null;
+
+  return {
+    sanitizedHtml,
+  };
 };
 
 export default CallToAction;

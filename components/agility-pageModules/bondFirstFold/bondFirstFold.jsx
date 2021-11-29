@@ -1,5 +1,5 @@
 import style from "./bondFirstFold.module.scss";
-import Link from "next/link";
+import AgilityLink from "../../agilityLink";
 
 const BondFirstFold = ({ module }) => {
   const { fields } = module;
@@ -16,21 +16,19 @@ const BondFirstFold = ({ module }) => {
           <img src="https://assets.ujet.cx/ujet-logo-white.svg" alt="" />
         </div>
         <div className={style.content}>
-          <Link href={fields.formLink.href}>
-            <a>
-              <div className={style.circleWrapper}>
-                <div className={style.circleInner}>
-                  <img
-                    src="https://assets.ujet.cx/ujet-cx-logo-01.svg"
-                    width="168"
-                    alt=""
-                  />
-                  <p>{fields.title}</p>
-                  <a className="button">{fields.formLink.text}</a>
-                </div>
+          <AgilityLink agilityLink={fields.formLink}>
+            <div className={style.circleWrapper}>
+              <div className={style.circleInner}>
+                <img
+                  src="https://assets.ujet.cx/ujet-cx-logo-01.svg"
+                  width="168"
+                  alt=""
+                />
+                <p>{fields.title}</p>
+                <a className="button">{fields.formLink.text}</a>
               </div>
-            </a>
-          </Link>
+            </div>
+          </AgilityLink>
         </div>
       </div>
     </section>

@@ -1,8 +1,14 @@
 import style from "./embedVideo.module.scss";
 import Heading from "../heading";
 import { boolean } from "../../../utils/validation";
-import { youtubeVideoLinkToEmbed } from "../../../utils/convert";
-const EmbedVideo = ({ module }) => {
+import {
+  sanitizeHtmlConfig,
+  youtubeVideoLinkToEmbed,
+} from "../../../utils/convert";
+import { renderHTML } from "@agility/nextjs";
+
+const EmbedVideo = ({ module, customData }) => {
+  const { sanitizedHtml } = customData;
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields.narrowContainer);
@@ -18,7 +24,7 @@ const EmbedVideo = ({ module }) => {
           {fields.text && (
             <div
               style={style.text}
-              dangerouslySetInnerHTML={{ __html: fields.text }}
+              dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
             ></div>
           )}
           <div className={style.embed}>
@@ -33,6 +39,18 @@ const EmbedVideo = ({ module }) => {
       </div>
     </section>
   );
+};
+
+EmbedVideo.getCustomInitialProps = async function ({ item }) {
+  const sanitizeHtml = (await import("sanitize-html")).default;
+  // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
+  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
+
+  const sanitizedHtml = item.fields.text ? cleanHtml(item.fields.text) : null;
+
+  return {
+    sanitizedHtml,
+  };
 };
 
 export default EmbedVideo;

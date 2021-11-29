@@ -21,8 +21,7 @@ const Navbar = ({ globalData }) => {
         // promise is resolved to true if the module is detected. Otherwise resolves to false
         const firstSection = document
           .getElementById("__next")
-          .querySelector("main").firstChild;
-        console.log(firstSection);
+          ?.querySelector?.("main").firstChild;
         if (firstSection.getAttribute("data-navbar-hidden")) {
           setHidden(true);
         }

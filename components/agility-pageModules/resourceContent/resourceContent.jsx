@@ -1,12 +1,14 @@
 import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
 import style from "./resourceContent.module.scss";
-import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useState } from "react";
 import { boolean } from "../../../utils/validation";
 import { Form, FormWrapper } from "../../form";
+import AgilityLink from "../../agilityLink";
+import { sanitizeHtmlConfig } from "../../../utils/convert";
 
-const ResourceContent = ({ dynamicPageItem }) => {
+const ResourceContent = ({ dynamicPageItem, customData }) => {
+  const { sanitizedHtml } = customData;
   const [formLoaded, setFormLoaded] = useState(false);
   const resource = dynamicPageItem.fields;
 
@@ -44,7 +46,7 @@ const ResourceContent = ({ dynamicPageItem }) => {
               <div className="columns repeat-2">
                 <div
                   className="content"
-                  dangerouslySetInnerHTML={renderHTML(resource.text)}
+                  dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                 />
                 <div className={`marketo-resource`}>
                   <h2 className={`${style.alternateFormTitle} heading-6`}>
@@ -58,9 +60,12 @@ const ResourceContent = ({ dynamicPageItem }) => {
             {resource.link.text && resource.link.href && (
               <div className="container">
                 <p className={style.alternateLink}>
-                  <Link href={resource.link.href}>
-                    <a className="link ml-4">{resource.link.text}</a>
-                  </Link>
+                  <AgilityLink
+                    agilityLink={resource.link}
+                    className="link ml-4"
+                  >
+                    {resource.link.text}
+                  </AgilityLink>
                 </p>
               </div>
             )}
@@ -74,7 +79,7 @@ const ResourceContent = ({ dynamicPageItem }) => {
                 <h1 className="heading-5">{resource.title}</h1>
                 <div
                   className="content mt-4"
-                  dangerouslySetInnerHTML={renderHTML(resource.text)}
+                  dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                 />
               </div>
               <div className={`${style.form} marketo-resource`}>
@@ -85,9 +90,9 @@ const ResourceContent = ({ dynamicPageItem }) => {
                 <Form formLoaded={formLoaded} />
                 {resource.link.text && resource.link.href && (
                   <p>
-                    <Link href={resource.link.href}>
-                      <a>{resource.link.title}</a>
-                    </Link>
+                    <AgilityLink agilityLink={resource.link}>
+                      {resource.link.title}
+                    </AgilityLink>
                   </p>
                 )}
               </div>
@@ -97,6 +102,21 @@ const ResourceContent = ({ dynamicPageItem }) => {
       )}
     </FormWrapper>
   );
+};
+
+ResourceContent.getCustomInitialProps = async function ({ dynamicPageItem }) {
+  const sanitizeHtml = (await import("sanitize-html")).default;
+  // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
+
+  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
+
+  const sanitizedHtml = dynamicPageItem.fields.text
+    ? cleanHtml(dynamicPageItem.fields.text)
+    : null;
+
+  return {
+    sanitizedHtml,
+  };
 };
 
 export default ResourceContent;

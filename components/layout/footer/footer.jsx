@@ -1,9 +1,9 @@
 import style from "./footer.module.scss";
-import logo from "../../../assets/ujet-logo.svg";
 import Link from "next/link";
 import { AgilityImage } from "@agility/nextjs";
 import { isMobile } from "../../../utils/responsivity";
 import { useState } from "react";
+import AgilityLink from "../../agilityLink";
 
 const Footer = ({ globalData }) => {
   const { data } = globalData.footer;
@@ -153,16 +153,14 @@ const Footer = ({ globalData }) => {
                     {item.fields.links?.length > 0 &&
                       item.fields.links.map((link, index) => (
                         <li key={"footer-main-" + index}>
-                          <Link
+                          <AgilityLink
+                            agilityLink={link.fields.link}
                             title={"Navigate to " + link.fields.link.text}
-                            aria-label={"Navigate to " + link.fields.link.text}
-                            href={link.fields.link.href}
-                            target={link.fields.link.target}
+                            ariaLabel={"Navigate to " + link.fields.link.text}
+                            className={style.footerColumnLink}
                           >
-                            <a className={style.footerColumnLink}>
-                              {link.fields.link.text}
-                            </a>
-                          </Link>
+                            {link.fields.link.text}
+                          </AgilityLink>
                         </li>
                       ))}
                   </ul>
@@ -180,14 +178,13 @@ const Footer = ({ globalData }) => {
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>
             {data.fields.bottomNavigation?.length > 0 &&
               data.fields.bottomNavigation.map((item) => (
-                <Link href={item.fields.link.href} key={item.contentID}>
-                  <a
-                    className={style.footNoteLink}
-                    target={item.fields.link.target}
-                  >
-                    {item.fields.link.text}
-                  </a>
-                </Link>
+                <AgilityLink
+                  agilityLink={item.fields.link}
+                  key={item.contentID}
+                  className={style.footNoteLink}
+                >
+                  {item.fields.link.text}
+                </AgilityLink>
               ))}
           </div>
         </div>

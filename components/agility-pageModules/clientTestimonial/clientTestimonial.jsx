@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { boolean } from "../../../utils/validation";
-import Heading from "../heading";
 import Media from "../media";
 import StarRating from "../../starRating/starRating";
 import style from "./clientTestimonial.module.scss";
+import AgilityLink from "../../agilityLink";
 
 const ClientTestimonial = ({ module }) => {
   const { fields } = module;
@@ -100,15 +99,14 @@ const ClientTestimonial = ({ module }) => {
               </div>
             )}
             {fields.link && (
-              <Link href={fields.link.href}>
-                <a
-                  className={`button white small ${style.link}`}
-                  aria-label={`Navigate to page ` + fields.link.href}
-                  title={`Navigate to page ` + fields.link.href}
-                >
-                  {fields.link.text}
-                </a>
-              </Link>
+              <AgilityLink
+                agilityLink={fields.link}
+                className={`button white small ${style.link}`}
+                ariaLabel={`Navigate to page ` + fields.link.href}
+                title={`Navigate to page ` + fields.link.href}
+              >
+                {fields.link.text}
+              </AgilityLink>
             )}
           </div>
         )}

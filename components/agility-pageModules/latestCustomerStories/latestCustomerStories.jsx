@@ -1,9 +1,9 @@
-import Link from "next/link";
 import Media from "../media";
 import Heading from "../heading";
 import { boolean } from "../../../utils/validation";
 import style from "./latestCustomerStories.module.scss";
 import { useRouter } from "next/router";
+import AgilityLink from "../../agilityLink";
 
 const LatestCustomerStories = ({ module, customData }) => {
   const router = useRouter();
@@ -44,28 +44,27 @@ const LatestCustomerStories = ({ module, customData }) => {
           {stories.map((story) => {
             const heading = JSON.parse(story.fields.heading);
             return (
-              <Link href={story.fields.link.href} key={story.contentID}>
-                <a>
-                  <div className={cardStyle ? style.storyCard : style.story}>
-                    <div>
-                      <div className={style.storyImage}>
-                        <Media media={story.fields.image} />
-                      </div>
-                      <div className={style.storyTitle}>
-                        <Heading {...heading} />
-                      </div>
-                      <p className={style.storyDescription}>
-                        {story.fields.description}
-                      </p>
+              <AgilityLink
+                agilityLink={story.fields.link}
+                key={story.contentID}
+              >
+                <div className={cardStyle ? style.storyCard : style.story}>
+                  <div>
+                    <div className={style.storyImage}>
+                      <Media media={story.fields.image} />
                     </div>
-                    <div className="d-flex align-items-center justify-content-flex-start">
-                      <p className={style.storyLink}>
-                        {story.fields.link.text}
-                      </p>
+                    <div className={style.storyTitle}>
+                      <Heading {...heading} />
                     </div>
+                    <p className={style.storyDescription}>
+                      {story.fields.description}
+                    </p>
                   </div>
-                </a>
-              </Link>
+                  <div className="d-flex align-items-center justify-content-flex-start">
+                    <p className={style.storyLink}>{story.fields.link.text}</p>
+                  </div>
+                </div>
+              </AgilityLink>
             );
           })}
         </nav>

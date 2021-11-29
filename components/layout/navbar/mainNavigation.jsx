@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import style from "./navbar.module.scss";
 import { useRouter } from "next/router";
 import { isMobile } from "../../../utils/responsivity";
+import AgilityLink from "../../agilityLink";
 
 const MainNavigation = ({ active, mainNavigation }) => {
   const [activeNavigationItem, setActiveNavigationItem] = useState(null);
@@ -90,55 +90,46 @@ const MainNavigation = ({ active, mainNavigation }) => {
                       {navigationColumn.fields.items?.map(
                         (navigationItem, index) => (
                           <>
-                            <Link
-                              href={
-                                navigationItem.fields.mainLink.fields.link.href
+                            <AgilityLink
+                              agilityLink={
+                                navigationItem.fields.mainLink.fields.link
                               }
-                              className={style.navigationItem}
                               key={`navigation-item-${index}`}
+                              className={`${style.navigationItem} ${style.navigationLink}`}
+                              ariaLabel={
+                                navigationItem.fields.mainLink.fields.link.text
+                              }
+                              title={
+                                navigationItem.fields.mainLink.fields.link.text
+                              }
                             >
-                              <a
-                                className={`${style.navigationLink}`}
-                                aria-label={
-                                  navigationItem.fields.mainLink.fields.link
-                                    .text
-                                }
-                                label={
-                                  navigationItem.fields.mainLink.fields.link
-                                    .text
-                                }
-                              >
-                                {
-                                  navigationItem.fields.mainLink.fields
-                                    .internalTitle
-                                }
-                              </a>
-                            </Link>
+                              {
+                                navigationItem.fields.mainLink.fields
+                                  .internalTitle
+                              }
+                            </AgilityLink>
                             {navigationItem.fields.navigationItemChildren && (
                               <ul>
                                 {navigationItem.fields.navigationItemChildren.map(
                                   (navigationItemChild, index) => (
                                     <li key={`navigation-item-child-${index}`}>
-                                      <Link
-                                        href={
-                                          navigationItemChild.fields.link.href
+                                      <AgilityLink
+                                        agilityLink={
+                                          navigationItemChild.fields.link
+                                        }
+                                        className={`${style.navigationLink}`}
+                                        ariaLabel={
+                                          navigationItemChild.fields.link.text
+                                        }
+                                        title={
+                                          navigationItemChild.fields.link.text
                                         }
                                       >
-                                        <a
-                                          className={`${style.navigationLink}`}
-                                          aria-label={
-                                            navigationItemChild.fields.link.text
-                                          }
-                                          label={
-                                            navigationItemChild.fields.link.text
-                                          }
-                                        >
-                                          {
-                                            navigationItemChild.fields
-                                              .internalTitle
-                                          }
-                                        </a>
-                                      </Link>
+                                        {
+                                          navigationItemChild.fields
+                                            .internalTitle
+                                        }
+                                      </AgilityLink>
                                     </li>
                                   )
                                 )}

@@ -1,9 +1,6 @@
-import Link from "next/link";
-import { boolean } from "../../../utils/validation";
 import Heading from "../heading";
 import Media from "../media";
 import style from "./awardsBanner.module.scss";
-import StarRating from "../../starRating/starRating";
 
 const AwardsBanner = ({ module }) => {
   const { fields } = module;

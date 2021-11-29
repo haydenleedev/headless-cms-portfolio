@@ -6,8 +6,6 @@ import Navbar from "../components/layout/navbar/navbar";
 import Footer from "../components/layout/footer/footer";
 import GlobalMessage from "../components/layout/globalMessage/globalMessage";
 import GlobalSettings from "../components/layout/globalSettings";
-import { cleanHtml } from "../utils/validation";
-import Script from "next/script";
 
 // getStaticProps function fetches data for all of your Agility Pages and Next.js will pre-render these pages at build time
 export async function getStaticProps({
@@ -22,7 +20,7 @@ export async function getStaticProps({
     navbar: Navbar,
     globalMessage: GlobalMessage,
     footer: Footer,
-    globalSettings: GlobalSettings
+    globalSettings: GlobalSettings,
   };
 
   let agilityProps = await getAgilityPageProps({

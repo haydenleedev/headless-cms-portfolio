@@ -11,7 +11,11 @@ export const boolean = (input) => {
 };
 
 export const hrefSelf = (href) => {
-  return /^(www\.|assets\.|http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(ujet)\.cx?(\/.*)?$/.test(
-    href
+  // test if passed href is an url address (e.g. https://www.ujet.cx) or an inner path (e.g. /home)
+  // return true if either of the two tests is true
+  return (
+    /^(www\.|assets\.|http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(ujet)\.cx?(\/.*)?$/.test(
+      href
+    ) || /^\/[^\W_][\w-]*$/.test(href)
   );
 };

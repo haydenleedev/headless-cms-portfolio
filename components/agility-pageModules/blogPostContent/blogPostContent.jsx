@@ -6,10 +6,10 @@ import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
 import { hrefSelf } from "../../../utils/validation";
+import { sanitizeHtmlConfig } from "../../../utils/convert";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const { relatedBlogPosts, sanitizedHtml } = customData;
-  console.log(relatedBlogPosts);
   const blogPost = dynamicPageItem.fields;
   const url = process.env.NEXT_PUBLIC_SITE_URL + "/" + blogPost.slug;
   const dateStr = new Date(blogPost.date).toLocaleDateString("en-US", {
@@ -231,23 +231,7 @@ BlogPostContent.getCustomInitialProps = async ({
     const sanitizeHtml = (await import("sanitize-html")).default;
 
     // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
-    const cleanHtml = (html) =>
-      sanitizeHtml(html, {
-        allowedAttributes: {
-          "*": ["href", "target", "alt", "rel", "class"],
-        },
-        transformTags: {
-          a: function (tagName, attribs) {
-            if (!hrefSelf(attribs.href)) {
-              attribs.rel = "noindex noreferrer nofollow";
-            }
-            return {
-              tagName: "a",
-              attribs,
-            };
-          },
-        },
-      });
+    const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
     const sanitizedHtml = cleanHtml(dynamicPageItem.fields.content);
 
