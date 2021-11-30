@@ -10,7 +10,7 @@ const AwardsPageContent = ({ customData }) => {
       <div className="container">
         <nav className={style.awardsPageContent} aria-label="awards navigation">
           {allAwards.map((award) => (
-            <div className={style.award}>
+            <div className={style.award} key={award.contentID}>
               <div className={style.awardImage}>
                 <Media media={award.fields.image} />
               </div>

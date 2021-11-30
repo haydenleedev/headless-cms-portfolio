@@ -18,7 +18,6 @@
     }
   }
   .heading {
-    margin-bottom: 2rem;
     max-width: 600px;
   }
   .textContent {
@@ -27,6 +26,9 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+  }
+  .text {
+    margin-bottom: 1rem;
   }
 
   .image {

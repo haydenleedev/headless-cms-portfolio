@@ -1,0 +1,70 @@
+.bio {
+  background-color: $color-white;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  & > * {
+    flex-basis: 100%;
+    &:first-child {
+      flex-basis: 30%;
+    }
+  }
+  &--image {
+    & > div {
+      &:only-child {
+        border-radius: 50%;
+        img {
+          max-width: 200px !important;
+          min-width: unset !important;
+          width: unset !important;
+          height: unset !important;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+  &--name {
+    font-weight: 600;
+    font-size: $size-3;
+    margin-bottom: 0.5rem;
+  }
+  &--description {
+    font-size: $size-2;
+  }
+  &--information {
+    margin: 1rem 0;
+  }
+  &__social-medias {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    &--media {
+      max-width: 36px;
+      img {
+        width: unset !important;
+        height: unset !important;
+        position: unset !important;
+      }
+    }
+  }
+
+  @include desktop() {
+    flex-direction: row;
+    justify-content: unset;
+    align-items: unset;
+    text-align: unset;
+    padding: 4rem 3rem;
+    &--name,
+    &--description,
+    &--information,
+    &__social-medias {
+      padding-left: 3rem;
+    }
+    &__social-medias {
+      justify-content: flex-start;
+    }
+  }
+}

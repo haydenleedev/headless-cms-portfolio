@@ -35,6 +35,7 @@ import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
 import BlogPageContent from "./blogPageContent/blogPageContent";
 import EventsPageContent from "./eventsPageContent/eventsPageContent";
 import AwardsPageContent from "./awardsPageContent/awardsPageContent";
+import LeadershipPageContent from "./leadershipPageContent/leadershipPageContent";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -72,6 +73,7 @@ const allModules = [
   { name: "HideNavbar", module: HideNavbar },
   { name: "BondFirstFold", module: BondFirstFold },
   { name: "AwardsPageContent", module: AwardsPageContent },
+  { name: "LeadershipPageContent", module: LeadershipPageContent },
 ];
 
 export const getModule = (moduleName) => {

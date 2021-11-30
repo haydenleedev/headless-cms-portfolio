@@ -298,3 +298,21 @@ table {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.chevron-after {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: $color-darkblue;
+  &::after {
+    content: "";
+    display: block;
+    padding: 0.3rem;
+    border-right: solid;
+    border-top: solid;
+    margin-left: 0.2rem;
+    border-width: 0.1rem;
+    border-color: $color-darkblue;
+    transform: rotate(45deg);
+  }
+}

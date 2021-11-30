@@ -93,7 +93,7 @@ const FirstFold = ({ module, customData }) => {
             </div>
             {fields.text && (
               <div
-                className="content"
+                className={`content ${style.text}`}
                 dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
               ></div>
             )}
