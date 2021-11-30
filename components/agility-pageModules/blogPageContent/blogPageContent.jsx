@@ -1,18 +1,18 @@
 import style from "./blogPageContent.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Loader from "../../layout/loader/loader";
+import Link from "next/link";
 import BlogCard from "./blogCard";
 import {
   sortContentListByDate,
   removeDuplicatePosts,
 } from "../../../utils/convert";
 import BlogLoader from "./blogLoader";
+import Media from "../media";
 
 const BlogPageContent = ({ customData }) => {
   const { query } = useRouter();
-  const { contentListTypes } = customData; // includes only blog posts
-  const [mounted, setMounted] = useState(false);
+  const { contentListTypes, highlightedPost } = customData; // includes only blog posts
   const [activePageNumber, setActivePageNumber] = useState(0); // number of the current page.
   const [totalPagesCount, setTotalPagesCount] = useState(null); // total count of pages.
   const [currentOffset, setCurrentOffset] = useState(0); // current offset in the active content list.
@@ -139,148 +139,136 @@ const BlogPageContent = ({ customData }) => {
   };
 
   return (
-    <section className={`section ${style.blogPageContent}`}>
-      <nav
-        className={`container ${style.navigationMenu}`}
-        aria-label="blog posts navigation"
-      >
-        <aside className={style.filterPanel}>
-          <label htmlFor="select-content-type">
-            Content type
-            <select
-              id="select-content-type"
-              className={style.contentTypeSelect}
-              value={activeContentType}
-              onChange={(event) =>
-                handleContentListTypeChange(event.target.value)
-              }
-            >
-              {activeContentList && (
-                <>
-                  {contentListTypes.map((type) => (
-                    <option key={type.id} value={type.id}>
-                      {type.title}
-                    </option>
-                  ))}
-                </>
-              )}
-            </select>
-          </label>
-          {contentCategories && (
-            <fieldset>
-              <legend>Category</legend>
-              {Object.entries(contentCategories).map(([key, category], i) => (
-                <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
-                  <input
-                    type="checkbox"
-                    id={key + "Checkbox"}
-                    checked={activeCategories.find(
-                      (category) => category === key
-                    )}
-                    onChange={(event) => handleCategoryChange(event, key)}
-                  />
-                  {category.title}
-                </label>
-              ))}
-            </fieldset>
-          )}
-        </aside>
-
-        <div className={style.contentList}>
-          {(page && (
-            <>
-              {(page.length > 0 && (
-                <div className="columns repeat-3">
-                  {page.map((item) => (
-                    <div key={item.contentID}>
-                      <BlogCard
-                        image={item.fields?.image}
-                        title={item.fields.title}
-                        link={{ href: `blog/${item.fields.slug}` }}
-                        date={item.fields.date}
-                        category="Blog"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )) || <p>Nothing here...</p>}
-            </>
-          )) || <BlogLoader />}
+    <>
+      <section className={`section ${style.highlightedPost}`}>
+        <div className={style.highlightedPostBackgroundImage}>
+          <Media media={highlightedPost.fields?.image} />
         </div>
-        {/* Display the page numbers. truncate if there's a lot of pages*/}
-        <footer className={style.pagination}>
-          <div className="d-flex">
-            <button
-              className={`reset-button ${style.previousPageButton}`}
-              onClick={previousPage}
-              disabled={activePageNumber === 0}
-            ></button>
-            {totalPagesCount && (
-              <>
-                {totalPagesCount < 8 ? (
-                  [...Array(totalPagesCount).keys()].map((pageNumber) => (
-                    <div
-                      key={`pageButton${pageNumber}`}
-                      className={pageNumber === activePageNumber ? "w-600" : ""}
-                    >
-                      <button
-                        className={`reset-button ${style.pageButton}`}
-                        onClick={() => {
-                          setCurrentOffset(pageNumber * PER_PAGE);
-                          setActivePageNumber(pageNumber);
-                        }}
-                        key={pageNumber}
-                      >
-                        {pageNumber + 1}
-                      </button>
-                    </div>
-                  ))
-                ) : (
+        <div className={style.backgroundFilter}></div>
+        <div className={`container ${style.highlightedPostContent}`}>
+          <h1 className="heading-6 w-400">BLOG</h1>
+          <p className="is-size-4 w-600">{highlightedPost.fields.title}</p>
+          <Link href={`blog/${highlightedPost.fields.slug}`}>
+            <a className="button mediumblue no-outline">READ</a>
+          </Link>
+        </div>
+      </section>
+      <section className={`section ${style.blogPageContent}`}>
+        <nav
+          className={`container ${style.navigationMenu}`}
+          aria-label="blog posts navigation"
+        >
+          <aside className={style.filterPanel}>
+            {/*             <label htmlFor="select-content-type">
+              Content type
+              <select
+                id="select-content-type"
+                className={style.contentTypeSelect}
+                value={activeContentType}
+                onChange={(event) =>
+                  handleContentListTypeChange(event.target.value)
+                }
+              >
+                {activeContentList && (
                   <>
-                    <div className={activePageNumber === 0 ? "w-600" : ""}>
-                      <button
-                        className={`reset-button ${style.pageButton}`}
-                        onClick={() => {
-                          setCurrentOffset(0);
-                          setActivePageNumber(0);
-                        }}
-                        key={1}
+                    {contentListTypes.map((type) => (
+                      <option key={type.id} value={type.id}>
+                        {type.title}
+                      </option>
+                    ))}
+                  </>
+                )}
+              </select>
+            </label> */}
+            {contentCategories && (
+              <fieldset>
+                <legend>Category</legend>
+                {Object.entries(contentCategories).map(([key, category], i) => (
+                  <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
+                    <input
+                      type="checkbox"
+                      id={key + "Checkbox"}
+                      checked={activeCategories.find(
+                        (category) => category === key
+                      )}
+                      onChange={(event) => handleCategoryChange(event, key)}
+                    />
+                    {category.title}
+                  </label>
+                ))}
+              </fieldset>
+            )}
+          </aside>
+
+          <div className={style.contentList}>
+            {(page && (
+              <>
+                {(page.length > 0 && (
+                  <div className="columns repeat-3">
+                    {page.map((item) => (
+                      <div key={item.contentID}>
+                        <BlogCard
+                          image={item.fields?.image}
+                          title={item.fields.title}
+                          link={{ href: `blog/${item.fields.slug}` }}
+                          date={item.fields.date}
+                          category="Blog"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )) || <p>Nothing here...</p>}
+              </>
+            )) || <BlogLoader />}
+          </div>
+          {/* Display the page numbers. truncate if there's a lot of pages*/}
+          <footer className={style.pagination}>
+            <div className="d-flex">
+              <button
+                className={`reset-button ${style.previousPageButton}`}
+                onClick={previousPage}
+                disabled={activePageNumber === 0}
+              ></button>
+              {totalPagesCount && (
+                <>
+                  {totalPagesCount < 8 ? (
+                    [...Array(totalPagesCount).keys()].map((pageNumber) => (
+                      <div
+                        key={`pageButton${pageNumber}`}
+                        className={
+                          pageNumber === activePageNumber ? "w-600" : ""
+                        }
                       >
-                        1
-                      </button>
-                    </div>
-                    {activePageNumber < 4 && (
-                      <>
-                        {[...Array(totalPagesCount).keys()]
-                          .slice(1, 4)
-                          .map((pageNumber) => (
-                            <div
-                              key={`pageButton${pageNumber}`}
-                              className={
-                                pageNumber === activePageNumber ? "w-600" : ""
-                              }
-                            >
-                              <button
-                                className={`reset-button ${style.pageButton}`}
-                                onClick={() => {
-                                  setCurrentOffset(pageNumber * PER_PAGE);
-                                  setActivePageNumber(pageNumber);
-                                }}
-                                key={pageNumber}
-                              >
-                                {pageNumber + 1}
-                              </button>
-                            </div>
-                          ))}
-                        ...
-                      </>
-                    )}
-                    {activePageNumber > 3 &&
-                      activePageNumber < totalPagesCount - 3 && (
+                        <button
+                          className={`reset-button ${style.pageButton}`}
+                          onClick={() => {
+                            setCurrentOffset(pageNumber * PER_PAGE);
+                            setActivePageNumber(pageNumber);
+                          }}
+                          key={pageNumber}
+                        >
+                          {pageNumber + 1}
+                        </button>
+                      </div>
+                    ))
+                  ) : (
+                    <>
+                      <div className={activePageNumber === 0 ? "w-600" : ""}>
+                        <button
+                          className={`reset-button ${style.pageButton}`}
+                          onClick={() => {
+                            setCurrentOffset(0);
+                            setActivePageNumber(0);
+                          }}
+                          key={1}
+                        >
+                          1
+                        </button>
+                      </div>
+                      {activePageNumber < 4 && (
                         <>
-                          ...
                           {[...Array(totalPagesCount).keys()]
-                            .slice(activePageNumber - 1, activePageNumber + 2)
+                            .slice(1, 4)
                             .map((pageNumber) => (
                               <div
                                 key={`pageButton${pageNumber}`}
@@ -303,64 +291,97 @@ const BlogPageContent = ({ customData }) => {
                           ...
                         </>
                       )}
-                    {activePageNumber > totalPagesCount - 4 && (
-                      <>
-                        ...
-                        {[...Array(totalPagesCount).keys()]
-                          .slice(totalPagesCount - 4, totalPagesCount - 1)
-                          .map((pageNumber) => (
-                            <div
-                              key={`pageButton${pageNumber}`}
-                              className={
-                                pageNumber === activePageNumber ? "w-600" : ""
-                              }
-                            >
-                              <button
-                                className={`reset-button ${style.pageButton}`}
-                                onClick={() => {
-                                  setCurrentOffset(pageNumber * PER_PAGE);
-                                  setActivePageNumber(pageNumber);
-                                }}
-                                key={pageNumber}
+                      {activePageNumber > 3 &&
+                        activePageNumber < totalPagesCount - 3 && (
+                          <>
+                            ...
+                            {[...Array(totalPagesCount).keys()]
+                              .slice(activePageNumber - 1, activePageNumber + 2)
+                              .map((pageNumber) => (
+                                <div
+                                  key={`pageButton${pageNumber}`}
+                                  className={
+                                    pageNumber === activePageNumber
+                                      ? "w-600"
+                                      : ""
+                                  }
+                                >
+                                  <button
+                                    className={`reset-button ${style.pageButton}`}
+                                    onClick={() => {
+                                      setCurrentOffset(pageNumber * PER_PAGE);
+                                      setActivePageNumber(pageNumber);
+                                    }}
+                                    key={pageNumber}
+                                  >
+                                    {pageNumber + 1}
+                                  </button>
+                                </div>
+                              ))}
+                            ...
+                          </>
+                        )}
+                      {activePageNumber > totalPagesCount - 4 && (
+                        <>
+                          ...
+                          {[...Array(totalPagesCount).keys()]
+                            .slice(totalPagesCount - 4, totalPagesCount - 1)
+                            .map((pageNumber) => (
+                              <div
+                                key={`pageButton${pageNumber}`}
+                                className={
+                                  pageNumber === activePageNumber ? "w-600" : ""
+                                }
                               >
-                                {pageNumber + 1}
-                              </button>
-                            </div>
-                          ))}
-                      </>
-                    )}
-                    <div
-                      className={
-                        activePageNumber === totalPagesCount - 1 ? "w-600" : ""
-                      }
-                    >
-                      <button
-                        className={`reset-button ${style.pageButton}`}
-                        onClick={() => {
-                          setCurrentOffset(totalPagesCount - 1 * PER_PAGE);
-                          setActivePageNumber(totalPagesCount - 1);
-                        }}
-                        key={totalPagesCount - 1}
+                                <button
+                                  className={`reset-button ${style.pageButton}`}
+                                  onClick={() => {
+                                    setCurrentOffset(pageNumber * PER_PAGE);
+                                    setActivePageNumber(pageNumber);
+                                  }}
+                                  key={pageNumber}
+                                >
+                                  {pageNumber + 1}
+                                </button>
+                              </div>
+                            ))}
+                        </>
+                      )}
+                      <div
+                        className={
+                          activePageNumber === totalPagesCount - 1
+                            ? "w-600"
+                            : ""
+                        }
                       >
-                        {totalPagesCount}
-                      </button>
-                    </div>
-                  </>
-                )}
-              </>
-            )}
-            <button
-              className={`reset-button ${style.nextPageButton}`}
-              onClick={nextPage}
-              disabled={activePageNumber + 1 === totalPagesCount}
-            ></button>
-          </div>
-          <p>
-            Showing {activePageNumber + 1} of {totalPagesCount}
-          </p>
-        </footer>
-      </nav>
-    </section>
+                        <button
+                          className={`reset-button ${style.pageButton}`}
+                          onClick={() => {
+                            setCurrentOffset(totalPagesCount - 1 * PER_PAGE);
+                            setActivePageNumber(totalPagesCount - 1);
+                          }}
+                          key={totalPagesCount - 1}
+                        >
+                          {totalPagesCount}
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </>
+              )}
+              <button
+                className={`reset-button ${style.nextPageButton}`}
+                onClick={nextPage}
+                disabled={activePageNumber + 1 === totalPagesCount}
+              ></button>
+            </div>
+            <p>
+              Showing {activePageNumber + 1} of {totalPagesCount}
+            </p>
+          </footer>
+        </nav>
+      </section>
+    </>
   );
 };
 
@@ -380,7 +401,8 @@ BlogPageContent.getCustomInitialProps = async function ({
 
   async function getContentList(referenceName) {
     // get total count of  to determine how many calls we need to get all pages
-    let initial = await api.getContentList({
+    // pass this entry as the highlighted blog post because it's the latest.
+    const initial = await api.getContentList({
       referenceName,
       languageCode,
       take: 1,
@@ -408,10 +430,18 @@ BlogPageContent.getCustomInitialProps = async function ({
     return contentList;
   }
 
+  // returns the category names in a simple format eg "Case Study => case_study etc."
   function categoryNameSimple(title) {
     return title.toLowerCase().split(" ").join("_").split("-").join("_");
   }
   // get blog pots
+  const highlightedPost = await api.getContentList({
+    referenceName: "blogPosts",
+    languageCode,
+    sort: "fields.date",
+    direction: "desc",
+    take: 1,
+  });
   const blogPosts = await getContentList("blogPosts");
   const categories = await getContentList("categories");
   let blogCategories = {};
@@ -434,6 +464,7 @@ BlogPageContent.getCustomInitialProps = async function ({
 
   return {
     contentListTypes,
+    highlightedPost: highlightedPost.items[0],
   };
 };
 

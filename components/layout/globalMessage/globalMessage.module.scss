@@ -5,7 +5,7 @@
   color: white;
   padding: 0.5rem 0 0.5rem 0;
   background: $color-navy;
-
+  position: relative;
   nav {
     position: relative;
     display: flex;
@@ -36,6 +36,8 @@
     position: absolute;
     padding: inherit;
     right: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
     a {
       padding: 1rem;
       &:before {

@@ -68,6 +68,11 @@
     }
   }
 
+  &.mediumblue {
+    background-color: $color-mediumblue;
+    color: white;
+  }
+
   &.small {
     padding: 0.25rem 1.5rem;
     font-weight: 600;

@@ -11,7 +11,7 @@
   padding-top: 1.25rem;
   width: 100%;
   z-index: 4;
-  position: fixed;
+  position: sticky;
   top: 0;
   background: white;
   &.scrolled {

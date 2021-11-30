@@ -1,6 +1,53 @@
 @import "../../../styles/settings/mixins";
 @import "../../../styles/settings/colors";
 
+.highlightedPost {
+  position: relative;
+  .highlightedPostBackgroundImage {
+    & > * {
+      display: block !important;
+      height: 100%;
+    }
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    img {
+      object-fit: cover;
+      max-height: unset !important;
+      min-height: unset !important;
+      height: 100% !important;
+    }
+  }
+  .backgroundFilter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparentize($color: #000, $amount: 0.35);
+  }
+  .highlightedPostContent {
+    position: relative;
+    color: $color-white;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    p {
+      margin: 1rem 0 2rem 0;
+    }
+    a {
+      padding: 0.75rem 3.5rem;
+    }
+  }
+  // resets for large screen sizes
+  @include desktop() {
+    min-height: 375px;
+  }
+}
 .blogPageContent {
   .navigationMenu {
     display: grid;
@@ -42,7 +89,6 @@
         padding-top: 0;
       }
       & > fieldset {
-        margin-top: 1rem;
         max-height: 400px;
         overflow-y: scroll;
         legend {

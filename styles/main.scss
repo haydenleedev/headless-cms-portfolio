@@ -17,11 +17,3 @@
 * {
   box-sizing: border-box;
 }
-
-main {
-  padding-top: $navbar-height;
-
-  @include desktop() {
-    padding-top: unset;
-  }
-}
