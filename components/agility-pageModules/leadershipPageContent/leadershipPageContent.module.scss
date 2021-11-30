@@ -53,6 +53,7 @@
         &::after {
           content: "Read Bio";
           position: absolute;
+          font-weight: 600;
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
@@ -67,7 +68,7 @@
         .leaderImageFilter {
           background-color: transparentize(
             $color: $color-darkpurple,
-            $amount: 0.35
+            $amount: 0.25
           );
         }
       }

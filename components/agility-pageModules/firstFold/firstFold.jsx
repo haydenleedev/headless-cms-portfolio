@@ -122,11 +122,11 @@ const FirstFold = ({ module, customData }) => {
                     >
                       <g
                         stroke="#FFF"
-                        stroke-width="2"
+                        strokeWidth="2"
                         fill="none"
-                        fill-rule="evenodd"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        fillRule="evenodd"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       >
                         <path d="M22 37c-1.656 0-3-1.344-3-3V19c0-1.656 1.344-3 3-3h21c1.656 0 3 1.344 3 3v15c0 1.656-1.344 3-3 3h-3v9l-9-9h-9z"></path>
                         <path d="M13 25l-6 6v-9H4c-1.656 0-3-1.344-3-3V4c0-1.656 1.344-3 3-3h21c1.656 0 3 1.344 3 3v6"></path>
@@ -140,17 +140,17 @@ const FirstFold = ({ module, customData }) => {
                       width="36.5"
                       height="28.4"
                       viewBox="0 0 36.5 28.4"
-                      class="bounce is-inView"
+                      className="bounce is-inView"
                     >
                       <defs>
                         <style>{`.p{fill:#3398dc;}`}</style>
                       </defs>
                       <path
-                        class="p"
+                        className="p"
                         d="M13.1.2C4.7,3.8,0,10.1,0,17.8S3.4,28.4,8.8,28.4s7.3-2.8,7.3-6.9-2.8-6.4-6.9-6.4H7.9c.6-4.1,3.3-7.2,8.2-9.5l.5-.3L13.5,0Z"
                       ></path>
                       <path
-                        class="p"
+                        className="p"
                         d="M36,5.7l.5-.3L33.4,0,33,.2c-8.5,3.6-13.1,9.9-13.1,17.6s3.4,10.6,8.8,10.6S36,25.6,36,21.5s-2.8-6.4-6.9-6.4H27.8C28.4,11.1,31.1,8,36,5.7Z"
                       ></path>
                     </svg>

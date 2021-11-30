@@ -74,6 +74,7 @@ const allModules = [
   { name: "BondFirstFold", module: BondFirstFold },
   { name: "AwardsPageContent", module: AwardsPageContent },
   { name: "LeadershipPageContent", module: LeadershipPageContent },
+  { name: "SpeakerList", module: Placeholder },
 ];
 
 export const getModule = (moduleName) => {
