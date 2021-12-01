@@ -95,7 +95,6 @@ const FormWrapper = ({ handleSetFormLoaded, children }) => {
       document
         .querySelectorAll("#mktoStyleLoaded")
         .forEach((element) => element.remove());
-      /* window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1024); */
     };
   }, []);
 

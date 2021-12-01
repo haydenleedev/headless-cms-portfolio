@@ -1,0 +1,49 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+@import "../../../styles/settings/variables";
+
+.speakerList {
+  .heading {
+    text-align: center;
+  }
+  .content {
+    gap: 3rem;
+    margin-top: 5rem;
+    .speaker {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      & > * {
+        flex-basis: 50%;
+      }
+
+      p {
+        font-size: $size-2;
+        &:first-child {
+          font-size: $size-3;
+          font-weight: 600;
+        }
+      }
+
+      .speakerImage {
+        position: relative;
+        display: flex;
+        margin-bottom: 1rem;
+        & > div {
+          &:first-child {
+            border-radius: 50%;
+            img {
+              max-width: 263px !important;
+              min-width: unset !important;
+              width: unset !important;
+              height: unset !important;
+              object-fit: cover;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -13,7 +13,11 @@ const EmbedVideo = ({ module, customData }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields.narrowContainer);
   return (
-    <section className={`section ${style.embedVideo}`}>
+    <section
+      className={`section ${style.embedVideo} ${
+        fields.classes ? fields.classes : ""
+      }`}
+    >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
         <div className={style.content}>
           {heading && (

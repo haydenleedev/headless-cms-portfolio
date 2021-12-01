@@ -26,6 +26,7 @@ import AwardsBanner from "./awardsBanner/awardsBanner";
 import TransparentizeNavbar from "./transparentizeNavbar/transparentizeNavbar";
 import BondFirstFold from "./bondFirstFold/bondFirstFold";
 import HideNavbar from "./hideNavbar/hideNavbar";
+import SpeakerList from "./speakerList/speakerList";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -74,7 +75,7 @@ const allModules = [
   { name: "BondFirstFold", module: BondFirstFold },
   { name: "AwardsPageContent", module: AwardsPageContent },
   { name: "LeadershipPageContent", module: LeadershipPageContent },
-  { name: "SpeakerList", module: Placeholder },
+  { name: "SpeakerList", module: SpeakerList },
 ];
 
 export const getModule = (moduleName) => {
