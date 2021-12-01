@@ -159,30 +159,9 @@ const BlogPageContent = ({ customData }) => {
           aria-label="blog posts navigation"
         >
           <aside className={style.filterPanel}>
-            {/*             <label htmlFor="select-content-type">
-              Content type
-              <select
-                id="select-content-type"
-                className={style.contentTypeSelect}
-                value={activeContentType}
-                onChange={(event) =>
-                  handleContentListTypeChange(event.target.value)
-                }
-              >
-                {activeContentList && (
-                  <>
-                    {contentListTypes.map((type) => (
-                      <option key={type.id} value={type.id}>
-                        {type.title}
-                      </option>
-                    ))}
-                  </>
-                )}
-              </select>
-            </label> */}
             {contentCategories && (
               <fieldset>
-                <legend>Category</legend>
+                <legend>Categories</legend>
                 {Object.entries(contentCategories).map(([key, category], i) => (
                   <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
                     <input

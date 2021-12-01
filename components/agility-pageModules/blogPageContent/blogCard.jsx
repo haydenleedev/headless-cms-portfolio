@@ -3,6 +3,7 @@ import { toDate } from "../../../utils/convert";
 import { hrefSelf } from "../../../utils/validation";
 import AgilityLink from "../../agilityLink";
 import style from "./blogCard.module.scss";
+import ujetLogo from "../../../assets/ujet-logo.svg";
 
 const BlogCard = ({ title, image, link, date, category }) => {
   const isInnerLink = hrefSelf(link.href);
@@ -14,7 +15,7 @@ const BlogCard = ({ title, image, link, date, category }) => {
       target={link?.target}
     >
       <div className={style.blogCard}>
-        {image && image.pixelWidth && (
+        {(image && image.pixelWidth && (
           <div className={style.image}>
             <AgilityImage
               src={image.url}
@@ -24,10 +25,20 @@ const BlogCard = ({ title, image, link, date, category }) => {
               objectFit="cover"
             />
           </div>
+        )) || (
+          <div className={style.image}>
+            <AgilityImage
+              src={ujetLogo}
+              alt=""
+              width="250"
+              height="162"
+              objectFit="contain"
+            />
+          </div>
         )}
         <div className={style.textContent}>
-          {date && <p className={style.date}>{toDate(date)}</p>}
-          {category && <p className={style.category}>{category}</p>}
+          {/*           {date && <p className={style.date}>{toDate(date)}</p>}
+          {category && <p className={style.category}>{category}</p>} */}
           <p className={style.title}>{title}</p>
           <p className={style.link}>
             <span>Read more</span>

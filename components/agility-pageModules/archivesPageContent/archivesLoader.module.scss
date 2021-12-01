@@ -3,11 +3,11 @@
 
 .archivesLoader {
   .loadingCard {
-    height: 25vh;
-    min-height: 250px;
-    width: 250px;
+    height: 22.5vh;
+    min-height: 300px;
     border-radius: 1rem;
-    @include shadow();
+    box-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
+    background-color: $color-white;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;

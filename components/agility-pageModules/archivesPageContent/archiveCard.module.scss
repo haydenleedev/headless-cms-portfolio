@@ -2,10 +2,11 @@
 @import "../../../styles/settings/mixins";
 
 .archiveCard {
-  height: 25vh;
-  min-height: 250px;
+  height: 22.5vh;
+  min-height: 300px;
   border-radius: 1rem;
-  @include shadow();
+  box-shadow: 0 0 0.45rem 0.15rem rgb(0 0 0 / 12%);
+  background-color: $color-white;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -16,7 +17,6 @@
   }
 
   .image {
-    background: $color-gray;
     min-height: 50%;
     max-height: 50%;
     height: 50%;
@@ -32,7 +32,6 @@
       width: 100%;
       height: 100%;
       img {
-        object-fit: cover;
         max-height: unset !important;
         min-height: unset !important;
         height: 100% !important;
@@ -54,27 +53,46 @@
     }
 
     .category {
-      padding: 0 1.5rem;
+      padding: 0.5rem 1.5rem;
       display: block;
       font-weight: 600;
       font-size: 1rem;
     }
 
     .title {
-      font-size: 1.15rem;
-      padding: 0 1.5rem;
+      font-size: 1.075rem;
+      line-height: 1.2;
+      padding: 0 1.5rem 0.5rem 1.5rem;
       overflow: hidden;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       width: 100%;
+      height: 100%;
     }
 
     .link {
-      padding: 0.5rem 1.5rem 1rem 1.5rem;
+      padding: 0.75rem 1.5rem;
       display: block;
       font-weight: 600;
       font-size: 1rem;
+      span {
+        position: relative;
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        &::after {
+          content: "";
+          display: block;
+          padding: 0.1rem;
+          border-right: solid;
+          border-top: solid;
+          margin-left: 0.2rem;
+          border-width: 0.2rem;
+          border-color: $color-navy;
+          transform: rotate(45deg);
+        }
+      }
     }
   }
 }

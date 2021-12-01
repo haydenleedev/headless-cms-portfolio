@@ -179,7 +179,7 @@ const ArchivesPageContent = ({ customData }) => {
           </label>
           {contentCategories && (
             <fieldset>
-              <legend>Category</legend>
+              <legend>Categories</legend>
               {Object.entries(contentCategories).map(([key, category], i) => (
                 <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
                   <input
