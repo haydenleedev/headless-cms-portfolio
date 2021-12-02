@@ -73,6 +73,9 @@
     }
   }
   .media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     & > div {
       &:only-child {
         width: 100%;

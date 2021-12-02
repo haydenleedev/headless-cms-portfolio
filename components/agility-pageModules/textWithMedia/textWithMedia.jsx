@@ -94,11 +94,7 @@ const TextWithMedia = ({ module, customData }) => {
                 : "ml-4"
             } ${
               boolean(fields.fullPageWidth) ? style.fullPageWidthMedia : ""
-            } ${
-              boolean(fields.centerVertical)
-                ? "d-flex align-items-center justify-content-center"
-                : ""
-            }`}
+            } ${alignTop ? "justify-content-flex-start" : ""}`}
           >
             {fields.media && !fields.testimonial && (
               <Media media={fields.media} />

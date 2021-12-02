@@ -12,6 +12,7 @@ const TextWithForm = ({ module, customData }) => {
   const [formLoaded, setFormLoaded] = useState(false);
   const narrowContainer = boolean(fields?.narrowContainer);
   const columnLayout = boolean(fields?.columnLayout);
+  const formLeft = boolean(fields?.formLeft);
 
   const handleSetFormLoaded = () => {
     setFormLoaded(true);
@@ -31,7 +32,15 @@ const TextWithForm = ({ module, customData }) => {
           className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
         >
           <div
-            className={columnLayout ? style.columnLayoutContent : style.content}
+            className={
+              columnLayout
+                ? style.columnLayoutContent
+                : `${style.content} ${
+                    formLeft
+                      ? "flex-direction-row-reverse"
+                      : "flex-direction-row"
+                  }`
+            }
           >
             <aside className={style.textContent}>
               <div

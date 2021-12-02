@@ -106,6 +106,13 @@
           max-width: unset !important;
           padding: 0 0.5rem !important;
           width: 100%;
+          input,
+          select {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            font-size: 1.25rem;
+            border-radius: 0.5rem !important;
+          }
           &:last-of-type {
             min-height: 100px;
             position: unset !important;

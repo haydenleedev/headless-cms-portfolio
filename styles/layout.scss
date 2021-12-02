@@ -69,19 +69,19 @@
     flex-flow: row;
   }
 }
-
+// !important needs to be used to make sure that the helper class applies.
 .flex-direction-row-reverse {
-  flex-direction: row-reverse;
+  flex-direction: row-reverse !important;
 }
 
 .flex-direction-column {
-  flex-direction: column;
+  flex-direction: column !important;
 }
 
 // only apply on touch screen widths.
 .flex-direction-column-touch {
   @include touch() {
-    flex-direction: column;
+    flex-direction: column !important;
   }
 }
 
