@@ -18,7 +18,10 @@ const TextWithForm = ({ module, customData }) => {
   };
 
   return (
-    <FormWrapper handleSetFormLoaded={handleSetFormLoaded}>
+    <FormWrapper
+      handleSetFormLoaded={handleSetFormLoaded}
+      formID={fields.marketoFormID}
+    >
       <section
         className={`section ${style.textWithForm} ${
           fields.classes ? fields.classes : ""
@@ -70,6 +73,7 @@ const TextWithForm = ({ module, customData }) => {
               <Form
                 submitButtonText={fields.formSubmitText}
                 formLoaded={formLoaded}
+                formID={fields.marketoFormID}
               />
             </aside>
           </div>

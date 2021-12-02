@@ -187,6 +187,56 @@
   }
 }
 
+// alternate layout: image as a background image, text content centered
+.softwareIntegration {
+  width: 100vw;
+  padding: unset;
+  height: 100%;
+  padding: 2rem 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-mediumblue;
+  .softwareIntegrationContent {
+    position: relative;
+    flex-direction: column;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    text-align: center;
+    display: flex;
+    background-color: $color-white;
+    // image column
+    & > * {
+      &:first-child {
+        border-bottom: unset;
+      }
+      flex-basis: 100%;
+      padding-bottom: 2rem;
+      border-bottom: 0.1rem solid $color-gray;
+    }
+  }
+
+  // resets for large screen sizes
+  @include desktop() {
+    padding: 2rem 0 0 0;
+    .softwareIntegrationContent {
+      flex-direction: row;
+      padding: 2rem 3rem 0 3rem;
+      text-align: left;
+      & > * {
+        &:first-child {
+          flex-basis: 30%;
+          padding-right: 2rem;
+          border-bottom: 0.1rem solid $color-gray;
+        }
+        flex-basis: 100%;
+        padding-bottom: 2rem;
+        border-bottom: 0.1rem solid $color-gray;
+      }
+    }
+  }
+}
+
 .testimonial {
   @include shadow();
   position: relative;

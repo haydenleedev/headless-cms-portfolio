@@ -101,18 +101,19 @@
         display: grid;
         width: 100%;
         grid-template-columns: repeat(2, 1fr);
+        position: relative;
         & > div {
           max-width: unset !important;
           padding: 0 0.5rem !important;
           width: 100%;
           &:last-of-type {
-            position: relative;
             min-height: 100px;
+            position: unset !important;
             span {
               position: absolute;
-              left: 0;
+              left: 50%;
               width: 100%;
-              transform: translateX(50%);
+              transform: translateX(-50%);
               button {
                 background-color: $color-orange !important;
                 border: unset;

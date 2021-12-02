@@ -4,7 +4,10 @@ import { generateUUID } from "../../utils/generic";
 import Head from "next/head";
 import { getCookie } from "../../utils/cookies";
 
-const FormWrapper = ({ handleSetFormLoaded, children }) => {
+const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
+  // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"
+  const splitID = formID.split("_");
+  const marketoFormID = formID ? parseInt(splitID[splitID.length - 1]) : null;
   // Have to use Ref instead of state since we trigger it inside an event listener
   const metaAdded = useRef(false);
 
@@ -68,11 +71,11 @@ const FormWrapper = ({ handleSetFormLoaded, children }) => {
 
   useEffect(() => {
     // check if script has already been loaded => load form
-    if (window.MktoForms2) {
+    if (window.MktoForms2 && marketoFormID) {
       const data = window.MktoForms2.loadForm(
         "//info.ujet.co",
         "205-VHT-559",
-        1638
+        marketoFormID
       );
       data.whenReady(handleSetFormLoaded);
     }
@@ -84,10 +87,14 @@ const FormWrapper = ({ handleSetFormLoaded, children }) => {
         addMetaToHead(evt.data);
       });
     });
-    var form = document.getElementById("mktoForm_1638");
-    observer.observe(form, {
-      attributes: true,
-    });
+    if (marketoFormID) {
+      var form = document.getElementById(`mktoForm_${marketoFormID}`);
+      console.log(form);
+      if (form)
+        observer.observe(form, {
+          attributes: true,
+        });
+    }
     return () => {
       document
         .querySelectorAll(".mktoForm")
@@ -100,12 +107,14 @@ const FormWrapper = ({ handleSetFormLoaded, children }) => {
 
   const onScriptLoad = () => {
     return new Promise((resolve) => {
-      const data = window.MktoForms2.loadForm(
-        "//info.ujet.co",
-        "205-VHT-559",
-        1638
-      );
-      data.whenReady(resolve);
+      if (marketoFormID) {
+        const data = window.MktoForms2.loadForm(
+          "//info.ujet.co",
+          "205-VHT-559",
+          marketoFormID
+        );
+        data.whenReady(resolve);
+      } else resolve();
     });
   };
   return (

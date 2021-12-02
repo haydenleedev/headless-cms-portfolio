@@ -43,19 +43,8 @@
   margin: 0 !important;
 }
 
-// TODO: might have to change this to a class selector, if the IDs chage.
-#mktoForm_1024 {
-  margin-top: 1.5rem;
-  .mktoButton {
-    margin-top: 1.5rem;
-    width: 100% !important;
-    cursor: pointer;
-  }
-}
-
-// TODO: might have to change this to a class selector, if the IDs chage.
 // Basic resource form
-#mktoForm_1638 {
+[id^="mktoForm_"] {
   .mktoLabel {
     display: none;
   }
@@ -79,14 +68,17 @@
   & > * {
     max-width: 420px;
     margin: 0 auto;
-    input,
-    select {
-      font-size: 1rem;
-      background-color: $color-lightgray;
-      padding: 0.75rem 1rem;
-      margin: 0.25rem 0;
-      box-sizing: border-box;
-      border: unset;
-    }
+  }
+  input,
+  select {
+    font-size: 1rem;
+    background-color: $color-lightgray;
+    width: 100%;
+    min-height: 2.6875rem;
+    padding: 0.75rem 1rem;
+    margin: 0.25rem 0;
+    box-sizing: border-box;
+    border: unset !important;
+    border-radius: 0.2rem !important;
   }
 }

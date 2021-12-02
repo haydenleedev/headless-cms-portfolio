@@ -17,7 +17,10 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   };
 
   return (
-    <FormWrapper handleSetFormLoaded={handleSetFormLoaded}>
+    <FormWrapper
+      handleSetFormLoaded={handleSetFormLoaded}
+      formID={resource.marketoFormID}
+    >
       {boolean(resource.alternateLayout) ? (
         <>
           <section className={style.alternateHeader}>
@@ -53,7 +56,10 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     {resource.formTitle ||
                       "Fill out the form to download the the resource today!"}
                   </h2>
-                  <Form formLoaded={formLoaded} />
+                  <Form
+                    formLoaded={formLoaded}
+                    formID={resource.marketoFormID}
+                  />
                 </div>
               </div>
             </div>
@@ -87,7 +93,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                   {resource.formTitle ||
                     "Fill out the form to download the the resource today!"}
                 </h2>
-                <Form formLoaded={formLoaded} />
+                <Form formLoaded={formLoaded} formID={resource.marketoFormID} />
                 {resource.link.text && resource.link.href && (
                   <p>
                     <AgilityLink agilityLink={resource.link}>
