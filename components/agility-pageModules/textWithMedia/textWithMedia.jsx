@@ -23,6 +23,7 @@ const TextWithMedia = ({ module, customData }) => {
       className={`section ${style.textWithMedia} ${
         fields.classes ? fields.classes : ""
       }`}
+      id={fields.id ? fields.id : null}
     >
       <div
         className={`container ${narrowContainer ? "max-width-narrow" : ""} ${

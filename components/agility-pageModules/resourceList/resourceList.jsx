@@ -11,7 +11,10 @@ const ResourceList = ({ module, customData }) => {
   const resources =
     mappedResourceListCategory[fields.resourceListCategory]?.content;
   return (
-    <section className={`section ${style.resourceList}`}>
+    <section
+      className={`section ${style.resourceList}`}
+      id={fields.id ? fields.id : null}
+    >
       <nav className="container" aria-label="resource list">
         {heading.text && (
           <div className="heading">

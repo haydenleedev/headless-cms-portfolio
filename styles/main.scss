@@ -17,3 +17,8 @@
 * {
   box-sizing: border-box;
 }
+#__next {
+  @include touch() {
+    overflow-x: clip;
+  }
+}

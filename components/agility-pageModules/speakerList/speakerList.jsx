@@ -11,6 +11,7 @@ const SpeakerList = ({ module }) => {
       className={`section ${style.speakerList} ${
         fields.classes ? fields.classes : ""
       }`}
+      id={fields.id ? fields.id : null}
     >
       <div className="container">
         <div className={style.heading}>

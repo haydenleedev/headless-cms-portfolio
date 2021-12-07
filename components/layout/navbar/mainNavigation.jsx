@@ -4,7 +4,11 @@ import { useRouter } from "next/router";
 import { isMobile } from "../../../utils/responsivity";
 import AgilityLink from "../../agilityLink";
 
-const MainNavigation = ({ active, mainNavigation }) => {
+const MainNavigation = ({
+  active,
+  mainNavigation,
+  handleSetMainNavigationActive,
+}) => {
   const [activeNavigationItem, setActiveNavigationItem] = useState(null);
   const [searchToggled, setSearchToggled] = useState(false);
   const router = useRouter();
@@ -89,12 +93,15 @@ const MainNavigation = ({ active, mainNavigation }) => {
                     >
                       {navigationColumn.fields.items?.map(
                         (navigationItem, index) => (
-                          <>
+                          <button
+                            className="reset-button display-block"
+                            key={`navigation-item-${index}`}
+                            onClick={() => handleSetMainNavigationActive?.()}
+                          >
                             <AgilityLink
                               agilityLink={
                                 navigationItem.fields.mainLink.fields.link
                               }
-                              key={`navigation-item-${index}`}
                               className={`${style.navigationItem} ${style.navigationLink}`}
                               ariaLabel={
                                 navigationItem.fields.mainLink.fields.link.text
@@ -135,7 +142,7 @@ const MainNavigation = ({ active, mainNavigation }) => {
                                 )}
                               </ul>
                             )}
-                          </>
+                          </button>
                         )
                       )}
                     </li>

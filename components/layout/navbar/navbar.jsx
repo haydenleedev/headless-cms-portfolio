@@ -71,6 +71,10 @@ const Navbar = ({ globalData }) => {
     };
   }, []);
 
+  const handleSetMainNavigationActive = () => {
+    setMainNavigationActive(!mainNavigationActive);
+  };
+
   return (
     <section
       className={`${style.navbar} ${pageScrolled ? style.scrolled : ""} ${
@@ -99,9 +103,7 @@ const Navbar = ({ globalData }) => {
           className={`${style.navbarToggle} ${
             mainNavigationActive ? style.active : style.closed
           }`}
-          onClick={() => {
-            setMainNavigationActive(!mainNavigationActive);
-          }}
+          onClick={() => handleSetMainNavigationActive()}
         >
           <span></span>
           <span></span>
@@ -110,6 +112,7 @@ const Navbar = ({ globalData }) => {
         <MainNavigation
           active={mainNavigationActive}
           mainNavigation={navbar.fields.mainNavigation}
+          handleSetMainNavigationActive={handleSetMainNavigationActive}
         />
       </nav>
     </section>

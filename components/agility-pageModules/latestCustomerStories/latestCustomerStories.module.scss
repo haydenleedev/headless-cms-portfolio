@@ -17,6 +17,7 @@
       .storyLink {
         font-size: 1rem;
         font-weight: 600;
+        margin-top: 1rem;
         color: $color-gray;
         position: relative;
         display: flex;
@@ -79,6 +80,16 @@
         overflow: hidden;
         border-top-left-radius: 1rem;
         border-top-right-radius: 1rem;
+        & > div {
+          &:only-child {
+            display: block !important;
+            img {
+              object-fit: cover;
+              height: unset;
+              width: unset;
+            }
+          }
+        }
       }
       .storyTitle,
       .storyDescription {

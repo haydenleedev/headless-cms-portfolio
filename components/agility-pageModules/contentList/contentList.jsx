@@ -44,6 +44,7 @@ const ContentList = ({ module }) => {
       className={`section ${style.contentList} ${
         fields.classes ? fields.classes : ""
       }`}
+      id={fields.id ? fields.id : null}
     >
       <nav className="container" aria-label="content list">
         {heading.text && (

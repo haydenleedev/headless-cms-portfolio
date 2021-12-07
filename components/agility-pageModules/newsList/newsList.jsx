@@ -14,6 +14,7 @@ const NewsList = ({ module }) => {
   return (
     <section
       className={`section newsList ${fields.classes ? fields.classes : ""}`}
+      id={fields.id ? fields.id : null}
     >
       <nav className="container newsList__container" aria-label="news list">
         {heading.text && (

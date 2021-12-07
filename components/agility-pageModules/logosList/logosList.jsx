@@ -19,6 +19,7 @@ const LogosList = ({ module, customData }) => {
       className={`section ${style.logosList} ${
         fields.classes ? fields.classes : ""
       }`}
+      id={fields.id ? fields.id : null}
     >
       <div className="container padding-unset">
         {heading.text && (
@@ -29,7 +30,7 @@ const LogosList = ({ module, customData }) => {
         <div className={style.content}>
           <div
             className={`${columnsLayout ? style.columnsLayout : ""} ${
-              logosLeft ? "flex-direction-row-reverse" : ""
+              logosLeft ? "flex-direction-row-reverse" : "flex-direction-row"
             }`}
           >
             {fields.text && (

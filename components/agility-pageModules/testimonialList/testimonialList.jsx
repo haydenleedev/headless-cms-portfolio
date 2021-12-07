@@ -42,6 +42,7 @@ const TestimonialList = ({ module }) => {
       className={`section ${style.testimonialList} ${
         fields.classes ? fields.classes : ""
       }`}
+      id={fields.id ? fields.id : null}
     >
       <div className="container">
         {staticImageLayout ? (

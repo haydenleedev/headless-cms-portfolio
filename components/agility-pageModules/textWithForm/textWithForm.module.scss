@@ -5,7 +5,6 @@
   // default layout
   .content {
     display: flex;
-    flex-direction: column;
     & > * {
       flex-basis: 100%;
     }
@@ -53,6 +52,9 @@
           border: unset;
         }
       }
+    }
+    @include touch() {
+      flex-direction: column;
     }
   }
   // column layout
@@ -143,7 +145,6 @@
   @include desktop() {
     .content {
       padding-top: 3rem;
-      flex-direction: row;
       .form {
         margin-top: unset;
       }

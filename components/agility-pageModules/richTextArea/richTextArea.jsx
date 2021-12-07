@@ -14,6 +14,7 @@ const RichTextArea = ({ module, customData }) => {
       className={`section ${style.richTextArea} ${
         fields.classes ? fields.classes : ""
       }`}
+      id={fields.id ? fields.id : null}
     >
       <div
         className={`container content ${

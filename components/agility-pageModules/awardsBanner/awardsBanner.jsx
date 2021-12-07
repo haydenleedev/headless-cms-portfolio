@@ -10,6 +10,7 @@ const AwardsBanner = ({ module }) => {
       className={`section ${style.awardsBanner} ${
         fields.classes ? fields.classes : ""
       }`}
+      id={fields.id ? fields.id : null}
     >
       {fields.backgroundImage && (
         <div className={style.backgroundImage}>

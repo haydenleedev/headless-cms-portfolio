@@ -12,6 +12,7 @@ const FirstFold = ({ module, customData }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   const alternateLayout = boolean(fields.alternateLayout);
+  const imageLeft = boolean(fields.imageLeft);
   const noImageLayout = boolean(fields.noImageLayout);
   const customerStory = boolean(fields.customerStory);
   const softwareIntegration = boolean(fields.softwareIntegration);
@@ -31,6 +32,7 @@ const FirstFold = ({ module, customData }) => {
         className={`section ${style.firstFoldAlternate} ${
           customerStory ? "mb-6" : ""
         } ${fields.classes ? fields.classes : ""}`}
+        id={fields.id ? fields.id : null}
       >
         {fields.media && (
           <div className={style.backgroundImage}>
@@ -80,7 +82,10 @@ const FirstFold = ({ module, customData }) => {
     );
   } else if (softwareIntegration) {
     return (
-      <section className={`section ${style.softwareIntegration}`}>
+      <section
+        className={`section ${style.softwareIntegration}`}
+        id={fields.id ? fields.id : null}
+      >
         <div
           className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
         >
@@ -134,13 +139,22 @@ const FirstFold = ({ module, customData }) => {
         className={`section ${style.firstFold} ${
           fields.classes ? fields.classes : ""
         }`}
+        id={fields.id ? fields.id : null}
       >
         <div
           className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
         >
           {/* TODO: allow reverse column order for desktop as a conditional toggle from Agility*/}
           <div
-            className={noImageLayout ? style.noImageLayout : "columns repeat-2"}
+            className={
+              noImageLayout
+                ? style.noImageLayout
+                : `${style.defaultLayout} ${
+                    imageLeft
+                      ? "flex-direction-row-reverse"
+                      : "flex-direction-row"
+                  }`
+            }
           >
             <div className={style.textContent}>
               <div className={style.heading}>

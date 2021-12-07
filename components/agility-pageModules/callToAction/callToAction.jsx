@@ -17,6 +17,7 @@ const CallToAction = ({ module, customData }) => {
       className={`section ${style.callToAction} ${
         bannerLayout ? style.bannerLayout : ""
       } ${fields.classes ? fields.classes : ""}`}
+      id={fields.id ? fields.id : null}
     >
       {fields.backgroundImage && (
         <div className={style.backgroundImage}>

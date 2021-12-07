@@ -26,7 +26,10 @@ const LatestCustomerStories = ({ module, customData }) => {
       : customerStories.slice(0, count);
 
   return (
-    <section className={`section ${style.latestCustomerStories}`}>
+    <section
+      className={`section ${style.latestCustomerStories}`}
+      id={fields.id ? fields.id : null}
+    >
       <div className="container">
         {heading && (
           <div

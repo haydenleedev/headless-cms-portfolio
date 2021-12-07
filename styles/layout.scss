@@ -69,25 +69,24 @@
     flex-flow: row;
   }
 }
-// !important needs to be used to make sure that the helper class applies.
 .flex-direction-row-reverse {
-  flex-direction: row-reverse !important;
+  flex-direction: row-reverse;
 }
 
 .flex-direction-column {
-  flex-direction: column !important;
+  flex-direction: column;
 }
 
 // only apply on touch screen widths.
 .flex-direction-column-touch {
   @include touch() {
-    flex-direction: column !important;
+    flex-direction: column;
   }
 }
 
 // !important needs to be used to make sure that the helper class applies.
 .flex-direction-column-reverse {
-  flex-direction: column-reverse !important;
+  flex-direction: column-reverse;
 }
 
 .justify-content-center {

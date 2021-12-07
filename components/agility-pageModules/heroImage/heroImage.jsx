@@ -12,6 +12,7 @@ const HeroImage = ({ module }) => {
       className={`section ${style.heroImage} ${
         containerWidth ? "container" : ""
       } ${narrowContainer ? "max-width-narrow" : ""}`}
+      id={fields.id ? fields.id : null}
     >
       {fields.image && <Media media={fields.image} />}
     </section>

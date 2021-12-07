@@ -41,6 +41,7 @@ const Infographic = ({ module }) => {
       className={`section ${style.infographic} ${
         fields.classes ? fields.classes : ""
       }`}
+      id={fields.id ? fields.id : null}
     >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
         {heading?.text && (

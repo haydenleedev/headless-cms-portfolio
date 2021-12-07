@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Fade from "../fade/fade";
 import style from "./modal.module.scss";
 
 const Modal = ({ trigger, closeCallback, children }) => {
@@ -49,22 +50,24 @@ const Modal = ({ trigger, closeCallback, children }) => {
   }, [active, modalRef.current]);
 
   return active ? (
-    <div className={style.modal}>
-      <div className={style.wrapper}>
-        <div className={style.background}></div>
-        <div className={`container ${style.content}`}>
-          <div className={style.contentWrapper} ref={modalRef}>
-            {children}
-            <button
-              className={`reset-button ${style.closeButton}`}
-              onClick={() => setActive(false)}
-            >
-              <span></span>
-            </button>
+    <Fade duration={250}>
+      <div className={style.modal}>
+        <div className={style.wrapper}>
+          <div className={style.background}></div>
+          <div className={`container ${style.content}`}>
+            <div className={style.contentWrapper} ref={modalRef}>
+              {children}
+              <button
+                className={`reset-button ${style.closeButton}`}
+                onClick={() => setActive(false)}
+              >
+                <span></span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Fade>
   ) : null;
 };
 

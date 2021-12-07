@@ -7,6 +7,7 @@ const BondFirstFold = ({ module }) => {
     <section
       className={`section ${style.bondFirstFold}`}
       data-navbar-hidden="true"
+      id={fields.id ? fields.id : null}
     >
       <div className={style.backgroundImage}>
         <img src="https://assets.ujet.cx/barrel-purple.svg" alt="" />

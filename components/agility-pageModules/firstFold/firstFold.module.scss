@@ -5,6 +5,17 @@
 // default firstFold styling
 .firstFold {
   position: relative;
+  // default firstFold layout
+  .defaultLayout {
+    display: flex;
+    align-items: center;
+    & > * {
+      flex-basis: 100%;
+    }
+    @include touch() {
+      flex-direction: column;
+    }
+  }
   // styling configuration for the optionally toggled no image layout field
   .noImageLayout {
     padding: 2.5rem 0;

@@ -51,6 +51,9 @@
   .mktoError {
     color: $color-white;
   }
+  .mktoErrorMsg {
+    z-index: unset;
+  }
   .mktoInstruction {
     display: none;
   }

@@ -17,6 +17,7 @@ const EmbedVideo = ({ module, customData }) => {
       className={`section ${style.embedVideo} ${
         fields.classes ? fields.classes : ""
       }`}
+      id={fields.id ? fields.id : null}
     >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
         <div className={style.content}>

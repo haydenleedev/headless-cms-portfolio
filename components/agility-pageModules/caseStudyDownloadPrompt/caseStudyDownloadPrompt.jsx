@@ -9,7 +9,10 @@ const CaseStudyDownloadPrompt = ({ module }) => {
   const ctaTitle = fields.ctaTitle ? JSON.parse(fields.ctaTitle) : null;
 
   return (
-    <section className={`section ${style.caseStudyDownloadPrompt}`}>
+    <section
+      className={`section ${style.caseStudyDownloadPrompt}`}
+      id={fields.id ? fields.id : null}
+    >
       <div className={`container ${style.content}`}>
         {fields.ctaLink && (
           <div className={style.column}>
