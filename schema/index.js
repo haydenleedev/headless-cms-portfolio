@@ -29,9 +29,7 @@ export const webSite = `
 
 export const blogPosting = ({
   headline,
-  alternativeHeadline,
   image,
-  genre,
   keywords,
   wordcount,
   url,
@@ -45,14 +43,12 @@ export const blogPosting = ({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     headline,
-    alternativeHeadline,
-    image: image,
-    genre,
+    image,
     keywords,
     wordcount,
     url,
     datePublished,
-    dateCreated: dateCreated,
+    dateCreated,
     description,
     articleBody,
     publisher: {
@@ -69,25 +65,21 @@ export const blogPosting = ({
 
 export const article = ({
   headline,
-  alternativeHeadline,
   image,
-  genre,
   keywords,
   wordcount,
   url,
   datePublished,
   dateCreated,
+  dateModified,
   description,
   articleBody,
-  authorName,
 }) => {
   let data = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline,
-    alternativeHeadline,
     image,
-    genre,
     keywords,
     wordcount,
     url,
@@ -99,17 +91,40 @@ export const article = ({
     publisher: {
       "@id": "https://ujet.cx/#organization",
     },
-    author: {
-      "@type": "Person",
-      name: authorName,
-    },
   };
 
   return JSON.stringify(data);
 };
 
-// TODO: add breadcrumbs logic
+// returns the breadCrumbList schema type in json+ld format
 export const breadcrumbs = (url) => {
-  const data = null;
+  const urlObject = new URL(url);
+  let items = urlObject.pathname.split("/").slice(1);
+
+  function crumbName(slug) {
+    let name = slug.replace(/-/g, " ");
+    name = name.replace(/_/g, " ");
+    name = name.split(" ").map((word) => {
+      return word.length > 3
+        ? word.charAt(0).toUpperCase() + word.slice(1)
+        : word;
+    });
+    return name.join(" ");
+  }
+
+  let data = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@id": [urlObject.origin, ...items.slice(0, index + 1)].join("/"),
+          name: crumbName(item),
+        },
+      })),
+    ],
+  };
   return JSON.stringify(data);
 };

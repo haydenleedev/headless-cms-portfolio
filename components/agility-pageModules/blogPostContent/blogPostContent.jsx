@@ -1,12 +1,12 @@
 import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
-import Head from "next/head";
 import style from "./blogPostContent.module.scss";
 import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
-import { hrefSelf } from "../../../utils/validation";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
+import OverrideSEO from "../overrideSEO/overrideSEO";
+import { article, blogPosting } from "../../../schema";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const { relatedBlogPosts, sanitizedHtml } = customData;
@@ -17,6 +17,21 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
     month: "long",
     day: "numeric",
   });
+
+  const articleText = sanitizedHtml.replace(/<[^>]+>/g, "");
+
+  // trick for getting non-duplicate keywords out from blog post categories
+  const keywords = Array.from(
+    new Set(
+      [
+        ...blogPost.categories.map((category) => {
+          return category.fields.title.toLowerCase();
+        }),
+      ]
+        .join(" ")
+        .split(" ")
+    )
+  ).join(" ");
 
   const ShareTwitter = () => (
     <a
@@ -115,15 +130,38 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
     </a>
   );
 
-  const ogImageUrl = blogPost.oGImageURL + "?q=50&w=1200&height=630format=auto";
   return (
     <>
-      {/* TODO: renderer for this */}
-      <Head>
-        <meta property="og:image" content={ogImageUrl} />
-        <meta property="twitter:image" content={ogImageUrl} />
-      </Head>
-
+      <OverrideSEO
+        module={dynamicPageItem}
+        additionalSchemas={[
+          article({
+            headline: blogPost.title,
+            image: blogPost.image.url,
+            keywords,
+            wordcount: articleText.split(" ").length,
+            url,
+            datePublished: blogPost.date,
+            dateModified: dynamicPageItem.properties.modified,
+            dateCreated: blogPost.date,
+            description: blogPost.metaDescription,
+            articleBody: articleText,
+          }),
+          blogPosting({
+            headline: blogPost.title,
+            image: blogPost.image.url,
+            keywords,
+            wordcount: articleText.split(" ").length,
+            url,
+            datePublished: blogPost.date,
+            dateModified: dynamicPageItem.properties.modified,
+            dateCreated: blogPost.date,
+            description: blogPost.metaDescription,
+            articleBody: articleText,
+            authorName: blogPost.author.fields.name || "UJET Team",
+          }),
+        ]}
+      />
       <section className={`section ${style.blogPostContent}`}>
         <div className={`container ${style.container}`}>
           <div className={style.body}>
@@ -141,7 +179,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                 objectFit="cover"
                 layout="responsive"
               />
-              <div
+              <article
                 className={`content ${style.content}`}
                 dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
               />

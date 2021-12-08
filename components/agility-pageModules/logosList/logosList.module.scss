@@ -12,6 +12,7 @@
     @include desktop() {
       justify-content: space-between;
       align-items: center;
+      flex-direction: row;
       .columnsLayout {
         display: flex;
         gap: 1.5rem;

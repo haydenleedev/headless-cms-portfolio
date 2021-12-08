@@ -27,6 +27,7 @@ import TransparentizeNavbar from "./transparentizeNavbar/transparentizeNavbar";
 import BondFirstFold from "./bondFirstFold/bondFirstFold";
 import HideNavbar from "./hideNavbar/hideNavbar";
 import SpeakerList from "./speakerList/speakerList";
+import OverrideSEO from "./overrideSEO/overrideSEO";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -46,7 +47,7 @@ const allModules = [
   { name: "BlogPostContent", module: BlogPostContent },
   { name: "ResourceContent", module: ResourceContent },
   { name: "PressReleaseContent", module: PressReleaseContent },
-  { name: "OverrideSEO", module: Placeholder },
+  { name: "OverrideSEO", module: OverrideSEO },
   { name: "TextWithMedia", module: TextWithMedia },
   { name: "TextGridWithMedia", module: TextGridWithMedia },
   { name: "ClientTestimonial", module: ClientTestimonial },
