@@ -22,6 +22,10 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
     twitterCard,
   } = fields;
 
+  // might be input either one depending on the context...
+  // renaming agility api names of fields for existing data doesnt seem to work so need this workaround
+  const og_image = ogImage?.url || ogImageURL;
+
   return (
     <Head>
       {metaTitle && <title key="title">{metaTitle}</title>}
@@ -38,16 +42,13 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
           key="ogdescription"
         />
       )}
-      {ogImage ||
-        (ogImageURL && (
-          <meta
-            property="og:image"
-            content={`${
-              ogImage || ogImageURL
-            }${"?q=50&w=1200&height=630format=auto"}`}
-            key="ogimage"
-          />
-        ))}
+      {og_image && (
+        <meta
+          property="og:image"
+          content={`${og_image}${"?q=50&w=1200&height=630format=auto"}`}
+          key="ogimage"
+        />
+      )}
       {metaTitle && (
         <meta property="og:image:alt" content={metaTitle} key="ogimagealt" />
       )}
