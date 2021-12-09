@@ -137,7 +137,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
         additionalSchemas={[
           article({
             headline: blogPost.title,
-            image: blogPost.image.url,
+            image: blogPost?.image?.url,
             keywords,
             wordcount: articleText.split(" ").length,
             url,
@@ -149,7 +149,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
           }),
           blogPosting({
             headline: blogPost.title,
-            image: blogPost.image.url,
+            image: blogPost?.image?.url,
             keywords,
             wordcount: articleText.split(" ").length,
             url,

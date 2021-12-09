@@ -9,11 +9,9 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     ? parseInt(formID.split("_")[formID.split("_").length - 1])
     : null;
 
-  console.log(formID);
-
   useEffect(() => {
     // override form's submit button text if provided
-    if (formLoaded && submitButtonText) {
+    if (formLoaded && submitButtonText && formRef.current) {
       const submit = formRef.current.querySelector("button[type=submit]");
       if (submit) submit.innerText = submitButtonText;
     }

@@ -6,7 +6,7 @@ import { getCookie } from "../../utils/cookies";
 
 const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
   // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"
-  const splitID = formID.split("_");
+  const splitID = formID?.split("_");
   const marketoFormID = formID ? parseInt(splitID[splitID.length - 1]) : null;
   // Have to use Ref instead of state since we trigger it inside an event listener
   const metaAdded = useRef(false);

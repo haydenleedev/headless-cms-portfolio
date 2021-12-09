@@ -27,7 +27,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
         additionalSchemas={[
           article({
             headline: resource.title,
-            image: resource.image.url,
+            image: resource?.image?.url,
             keywords: dynamicPageItem.properties.referenceName,
             wordcount: articleText.split(" ").length,
             url: resource.oGUrl,
