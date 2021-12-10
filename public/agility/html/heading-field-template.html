@@ -18,6 +18,7 @@
       }
       #heading-type,
       #heading-value,
+      #heading-color,
       #heading-classes {
         margin-top: 0.5rem;
       }
@@ -34,6 +35,7 @@
           <option value="h4">Heading 4</option>
           <option value="h5">Heading 5</option>
           <option value="h6">Heading 6</option>
+          <option value="p">Paragraph</option>
         </select>
       </label>
       <label for="heading-value">
@@ -43,6 +45,31 @@
           class="form-control"
           data-bind="textInput: fieldBinding().text"
         ></textarea>
+      </label>
+      <label for="heading-color">
+        <b>Color</b>
+        <select id="heading-color" data-bind="value: fieldBinding().color">
+          <option value="text-navy">Navy</option>
+          <option value="text-paleblue">Pale Blue</option>
+          <option value="text-lightblue">Light Blue</option>
+          <option value="text-mediumblue">Medium Blue</option>
+          <option value="text-skyblue">Sky Blue</option>
+          <option value="text-darkblue">Dark Blue</option>
+          <option value="text-orange">Orange</option>
+          <option value="text-black">Black</option>
+          <option value="text-white">White</option>
+          <option value="text-gray">Gray</option>
+          <option value="text-darkgray">Dark Gray</option>
+          <option value="text-darkmedium">Dark Medium</option>
+          <option value="text-mediumgray">Medium Gray</option>
+          <option value="text-lightgray">Light Gray</option>
+          <option value="text-red">Red</option>
+          <option value="text-green">Green</option>
+          <option value="text-purple">Purple</option>
+          <option value="text-darkpurple">Dark Purple</option>
+          <option value="text-lightpurple">Light Purple</option>
+          <option value="text-mediumpurple">Medium Purple</option>
+        </select>
       </label>
       <label for="heading-classes">
         <b>CSS classes (Optional)</b>

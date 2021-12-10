@@ -150,14 +150,8 @@ $color-mediumpurple: #6e0bdc;
   filter: grayscale(1) opacity(0.5);
 }
 
-.text-white {
-  color: $color-white;
-}
-.text-black {
-  color: $color-black;
-}
-.text-navy {
-  color: $color-navy;
+.text-paleblue {
+  color: $color-paleblue;
 }
 .text-lightblue {
   color: $color-lightblue;
@@ -165,6 +159,54 @@ $color-mediumpurple: #6e0bdc;
 .text-mediumblue {
   color: $color-mediumblue;
 }
+.text-skyblue {
+  color: $color-skyblue;
+}
 .text-darkblue {
   color: $color-darkblue;
+}
+.text-navy {
+  color: $color-navy;
+}
+.text-orange {
+  color: $color-orange;
+}
+.text-black {
+  color: $color-black;
+}
+.text-white {
+  color: $color-white;
+}
+.text-gray {
+  color: $color-gray;
+}
+.text-darkgray {
+  color: $color-darkgray;
+}
+.text-darkmedium {
+  color: $color-darkmedium;
+}
+.text-mediumgray {
+  color: $color-mediumgray;
+}
+.text-lightgray {
+  color: $color-lightgray;
+}
+.text-red {
+  color: $color-red;
+}
+.text-green {
+  color: $color-green;
+}
+.text-purple {
+  color: $color-purple;
+}
+.text-darkpurple {
+  color: $color-darkpurple;
+}
+.text-lightpurple {
+  color: $color-lightpurple;
+}
+.text-mediumpurple {
+  color: $color-mediumpurple;
 }
