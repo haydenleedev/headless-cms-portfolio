@@ -29,7 +29,7 @@ var HeadingField = function () {
             // set the default bindings. These values are updated from the html template
             self.defaultBinding = {
               type: ko.observable(null),
-              color: ko.observable(null),
+              /* color: ko.observable(null), */
               text: ko.observable(null),
               classes: ko.observable(null),
             };
