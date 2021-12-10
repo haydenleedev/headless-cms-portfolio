@@ -50,7 +50,11 @@ const MainNavigation = ({
           className={`${
             !navigationGroup.fields.columns
               ? style.noDropdown
-              : style.hasDropdown
+              : `${style.hasDropdown} ${
+                  activeNavigationItem === `navigation-group-${index}`
+                    ? style.hasDropdownIsActive
+                    : ""
+                }`
           }
           ${searchToggled && style.disabled}
           `}
@@ -64,10 +68,11 @@ const MainNavigation = ({
             label={navigationGroup.fields.mainLink?.fields.link.text}
             onClick={(e) => {
               e.preventDefault();
-              handleNavigationGroupClick(
-                navigationGroup.fields.mainLink?.fields.link.href,
-                `navigation-group-${index}`
-              );
+              if (navigationGroup.fields.mainLink)
+                handleNavigationGroupClick(
+                  navigationGroup.fields.mainLink.fields.link.href,
+                  `navigation-group-${index}`
+                );
             }}
           >
             {navigationGroup.fields.mainLink?.fields.internalTitle ||

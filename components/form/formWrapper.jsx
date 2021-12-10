@@ -89,7 +89,6 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
     });
     if (marketoFormID) {
       var form = document.getElementById(`mktoForm_${marketoFormID}`);
-      console.log(form);
       if (form)
         observer.observe(form, {
           attributes: true,

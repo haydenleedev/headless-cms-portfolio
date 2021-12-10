@@ -217,6 +217,13 @@
       }
     }
   }
+  &.hasDropdownIsActive {
+    & > a {
+      &:after {
+        transform: rotateX(180deg);
+      }
+    }
+  }
 
   // Mobile toggleable styles
   .dropdownActive {

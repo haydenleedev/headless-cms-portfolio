@@ -1,6 +1,7 @@
 import logo from "../../../assets/ujet-logo.svg";
 import style from "./navbar.module.scss";
 import MainNavigation from "./mainNavigation";
+import { sleep } from "../../../utils/generic";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -22,12 +23,12 @@ const Navbar = ({ globalData }) => {
         const firstSection = document
           .getElementById("__next")
           ?.querySelector?.("main").firstChild;
-        if (firstSection.getAttribute("data-navbar-hidden")) {
+        if (firstSection?.getAttribute("data-navbar-hidden")) {
           setHidden(true);
         }
         if (
           // transparency is dismissed with touch screen sizes.
-          firstSection.getAttribute("data-transparent-navbar") &&
+          firstSection?.getAttribute("data-transparent-navbar") &&
           window.innerWidth >= 890
         ) {
           resolve(true);
@@ -37,28 +38,32 @@ const Navbar = ({ globalData }) => {
       });
     };
     // this function is triggered every time the route changes, because navbar transparency needs to be checked per page.
+    // run after slight delay to prevent weird issues with the intersection api not correctly registering the observable on the new page.
     const handleRouteChange = () => {
-      handleTransparency().then((shouldBeTransparent) => {
-        const options = {
-          rootMargin: "0px 0px 0px 0px",
-          threshold: 1,
-        };
-        const firstSection = document
-          .getElementById("__next")
-          .querySelector("main").firstChild;
-        const observer = new IntersectionObserver(([entry]) => {
-          // transparency is dismissed with touch screen sizes.
-          if (window.innerWidth < 890) setTransparentBackground(false);
-          if (entry.isIntersecting) {
-            setPageScrolled(false);
-            if (shouldBeTransparent) setTransparentBackground(true);
-          } else {
-            setPageScrolled(true);
-            setTransparentBackground(false);
-          }
-        }, options);
-        // observe intersections with the first page section.
-        observer.observe(firstSection);
+      sleep(50).then(() => {
+        handleTransparency().then((shouldBeTransparent) => {
+          const options = {
+            threshold: 1.0,
+          };
+          const firstSection = document
+            .getElementById("__next")
+            .querySelector("main").firstChild;
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              // transparency is dismissed with touch screen sizes.
+              if (window.innerWidth < 890) setTransparentBackground(false);
+              if (entry.intersectionRatio === 1) {
+                setPageScrolled(false);
+                if (shouldBeTransparent) setTransparentBackground(true);
+              } else {
+                setPageScrolled(true);
+                setTransparentBackground(false);
+              }
+            });
+          }, options);
+          // observe intersections with the first page section.
+          if (firstSection) observer.observe(firstSection);
+        });
       });
     };
     // run route change handler also on initial page load

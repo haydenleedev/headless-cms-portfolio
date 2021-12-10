@@ -30,7 +30,6 @@ const Modal = ({ trigger, closeCallback, children }) => {
           ],
         ];
         const mousePos = [event.clientX, event.clientY];
-        console.log(mousePos);
         if (
           mousePos[0] < modalBounds[0][0] ||
           mousePos[0] > modalBounds[1][0] ||
