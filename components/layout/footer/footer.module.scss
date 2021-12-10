@@ -51,7 +51,8 @@
   }
 
   .contactLink {
-    margin-top: 1rem;
+    margin: 0.25rem 0;
+    padding: 0.25rem 0;
   }
   .socialMedia {
     display: flex;
@@ -208,8 +209,9 @@
 
     .footerColumnLink {
       display: inline-block;
-      margin: 0.75rem 0;
+      padding: 0.75rem 0;
       line-height: 1.33;
+      width: 100%;
     }
 
     .footerColumnActive {
