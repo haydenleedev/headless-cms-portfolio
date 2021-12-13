@@ -7,8 +7,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 485px;
-  min-height: 485px;
+  max-height: 30.3125rem;
+  min-height: 30.3125rem;
   height: 100%;
   background: radial-gradient(circle, #6262e5 0, #151552 67%);
   overflow: hidden;
@@ -46,26 +46,26 @@
       z-index: 1;
       background: radial-gradient(circle, #14012b 52%, rgba(20, 1, 43, 0) 66%);
       border-radius: 50%;
-      width: 400px;
-      height: 400px;
+      width: 25rem;
+      height: 25rem;
       transition: transform 0.25s ease-out;
       .circleInner {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width: 320px;
-        height: 320px;
+        width: 20rem;
+        height: 20rem;
         background-color: $color-white;
         border-radius: 50%;
         font-weight: 600;
 
         p {
-          font-size: 1.5rem;
+          font-size: 1.5em;
           margin: 2rem 0 1rem 0;
         }
-        a {
-          font-size: 1rem;
+        div {
+          font-size: 1em;
           padding: 0.5rem 1rem;
           border: unset;
           transition: background-color 0.25s ease-out;

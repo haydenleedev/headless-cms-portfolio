@@ -38,8 +38,8 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
       href={"https://twitter.com/intent/tweet?url=" + url}
       target="_blank"
       rel="noindex noreferrer nofollow"
-      aria-label="Share in Linkedin"
-      title="Share in Linkedin"
+      aria-label="Share in Twitter"
+      title="Share in Twitter"
     >
       <span className={style.shareIcon}>
         <svg viewBox="0 0 24 24" aria-hidden>
@@ -194,7 +194,10 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
           <div>
             <Subscribe></Subscribe>
             <Link href="/request-a-demo">
-              <a className={`button outlined cyan ${style.requestDemo}`}>
+              <a
+                className={`button outlined cyan ${style.requestDemo}`}
+                aria-label="Navigate to 'Request a Demo' page"
+              >
                 Request a DEMO
               </a>
             </Link>

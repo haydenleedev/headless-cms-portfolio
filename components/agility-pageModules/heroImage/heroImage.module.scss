@@ -18,7 +18,7 @@
   }
   @include desktop() {
     height: 100%;
-    min-height: 340px;
+    min-height: 21.25rem;
     overflow: hidden;
     position: relative;
     & > * {

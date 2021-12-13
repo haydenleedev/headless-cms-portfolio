@@ -40,8 +40,8 @@ const NewsList = ({ module }) => {
         <Link href="/archives?type=news">
           <a
             className="button cyan outlined newsList--link"
-            aria-label="Navigate to page /resources?type=news"
-            title="Navigate to page /resources?type=news"
+            aria-label="Navigate to page /archives?type=news"
+            title="Navigate to page /archives?type=news"
           >
             Read More
           </a>

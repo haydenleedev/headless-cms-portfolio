@@ -48,11 +48,29 @@ export async function getStaticProps({
 // Next.js will statically pre-render all the paths from Agility CMS
 export async function getStaticPaths({ locales, defaultLocale }) {
   //get the paths configured in agility
-  let agilityPaths = await getAgilityPaths({
+  const agilityPaths = await getAgilityPaths({
     preview: false,
     locales,
     defaultLocale,
   });
+
+  // TODO: figure a way to do this
+  // need to edit paths for press release pages: they need to be relative to root url, not /press-releases/slug
+  /* 
+  const otherPaths = agilityPaths.filter(
+    (path) => !path.split("/").some((item) => item === "press-releases")
+  );
+
+  let pressReleasePaths = agilityPaths
+    .filter((path) => path.split("/").some((item) => item === "press-releases"))
+    .map((pressReleasePath) => {
+      const pathArray = pressReleasePath.split("/");
+      const pressReleaseIndex = pathArray.findIndex(
+        (item) => item === "press-releases"
+      );
+      pathArray.splice(pressReleaseIndex, 1);
+      return pathArray.join("/");
+    }); */
 
   return {
     paths: agilityPaths,
@@ -63,7 +81,7 @@ export async function getStaticPaths({ locales, defaultLocale }) {
 const AgilityPage = (props) => {
   return (
     <GlobalContextWrapper>
-      <Layout {...props} />;
+      <Layout {...props} />
     </GlobalContextWrapper>
   );
 };

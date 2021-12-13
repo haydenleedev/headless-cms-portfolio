@@ -56,13 +56,14 @@ const GlobalMessage = ({ globalData }) => {
           />
         )}
         <div className={style.close}>
-          <a
+          <button
+            className="reset-button"
             aria-label="Close global message"
             title="Close global message"
             onClick={() => {
               dismissMessage();
             }}
-          ></a>
+          ></button>
         </div>
       </nav>
     </section>

@@ -39,12 +39,12 @@
 
 @mixin siteWidth() {
   width: 100%;
-  max-width: 1084px;
+  max-width: 67.75rem; // use rem unit because it allows people with assistive technologies to change the document's font size without messing up the page's layout
 }
 
 @mixin narrowWidth() {
   width: 100%;
-  max-width: 800px;
+  max-width: 50rem; // use rem unit because it allows people with assistive technologies to change the document's font size without messing up the page's layout
 }
 
 @function toRem($value) {

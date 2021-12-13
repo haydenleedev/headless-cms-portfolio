@@ -58,7 +58,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      max-width: 125px;
+      max-width: 7.8125rem;
       .dots {
         display: flex;
         align-items: center;
@@ -99,7 +99,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      min-height: 450px;
+      min-height: 28.125rem;
       p {
         &:first-child {
           color: $color-black;
@@ -116,7 +116,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      max-width: 125px;
+      max-width: 7.8125rem;
       margin: 1rem auto;
       .button {
         position: relative;
@@ -178,6 +178,7 @@
           border: 0.65rem solid $color-skyblue;
           div {
             &:only-child {
+              display: block !important;
               border: 0.65rem solid $color-white;
             }
           }
@@ -187,8 +188,8 @@
       .textContent,
       .staticImageLayoutTextContent {
         margin: 3rem 0 auto 2rem;
-        min-height: 400px;
-        max-height: 400px;
+        min-height: 25rem;
+        max-height: 25rem;
         align-items: flex-start;
         text-align: left;
         p {

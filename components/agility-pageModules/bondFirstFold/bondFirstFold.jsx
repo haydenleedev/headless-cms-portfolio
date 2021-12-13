@@ -17,7 +17,10 @@ const BondFirstFold = ({ module }) => {
           <img src="https://assets.ujet.cx/ujet-logo-white.svg" alt="" />
         </div>
         <div className={style.content}>
-          <AgilityLink agilityLink={fields.formLink}>
+          <AgilityLink
+            agilityLink={fields.formLink}
+            ariaLabel={`Navigate to ${fields.formLink}`}
+          >
             <div className={style.circleWrapper}>
               <div className={style.circleInner}>
                 <img
@@ -26,7 +29,7 @@ const BondFirstFold = ({ module }) => {
                   alt=""
                 />
                 <p>{fields.title}</p>
-                <a className="button">{fields.formLink.text}</a>
+                <div className="button">{fields.formLink.text}</div>
               </div>
             </div>
           </AgilityLink>

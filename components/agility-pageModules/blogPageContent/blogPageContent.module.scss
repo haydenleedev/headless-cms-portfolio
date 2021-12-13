@@ -46,7 +46,7 @@
   }
   // resets for large screen sizes
   @include desktop() {
-    min-height: 375px;
+    min-height: 23.4375rem;
   }
 }
 .blogPageContent {
@@ -78,7 +78,7 @@
         display: flex;
         flex-direction: column;
         font-weight: 600;
-        font-size: 1.25rem;
+        font-size: 1.25em;
         padding-left: unset;
         padding-right: unset;
         border: unset;
@@ -90,7 +90,7 @@
         padding-top: 0;
       }
       & > fieldset {
-        max-height: 400px;
+        max-height: 25rem;
         overflow-y: scroll;
         legend {
           margin-bottom: 1rem;

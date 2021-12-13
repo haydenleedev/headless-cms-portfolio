@@ -23,6 +23,7 @@ const AgilityLink = ({
   className,
   title,
   ariaLabel,
+  onFocus,
   // props passed to next/link below
   as,
   replace,
@@ -59,6 +60,7 @@ const AgilityLink = ({
         aria-label={ariaLabel}
         rel={rel}
         target={target}
+        onFocus={onFocus}
       >
         {children}
       </a>

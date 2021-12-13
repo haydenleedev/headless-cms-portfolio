@@ -17,6 +17,14 @@ a {
   text-decoration: none;
 }
 
+a,
+button,
+li {
+  &:focus {
+    outline: dashed 0.2rem $color-mediumblue;
+  }
+}
+
 h1,
 h2,
 h3,

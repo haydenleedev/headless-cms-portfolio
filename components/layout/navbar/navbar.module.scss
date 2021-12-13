@@ -311,7 +311,6 @@
 
 .navigationColumns {
   // Not sure why but have to override
-  // TODO: remove important when nav items added to Agility
   display: flex;
   flex-flow: column;
   @include desktop() {

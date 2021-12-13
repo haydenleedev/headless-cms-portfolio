@@ -100,7 +100,7 @@
   -webkit-appearance: none;
 
   &:focus {
-    outline: 2px dotted $color-navy;
+    outline: 0.2rem dashed $color-mediumblue;
     &:not(:focus-visible) {
       outline: none;
     }

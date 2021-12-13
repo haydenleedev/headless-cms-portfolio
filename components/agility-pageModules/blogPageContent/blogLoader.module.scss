@@ -4,7 +4,7 @@
 .blogLoader {
   .loadingCard {
     height: 22.5vh;
-    min-height: 300px;
+    min-height: 18.75rem;
     border-radius: 1rem;
     box-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
     background-color: $color-white;
@@ -14,7 +14,7 @@
     @include touch() {
       width: 100%;
       .loadingImageField {
-        max-height: 360px;
+        max-height: 22.5rem;
       }
     }
 

@@ -71,7 +71,7 @@ const ResourceList = ({ module, customData }) => {
               <a
                 className="button cyan outlined"
                 aria-label="Navigate to page resource archives page"
-                title="Navigate to page resource resources page"
+                title="Navigate to page resource archives page"
               >
                 Read More
               </a>

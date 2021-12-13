@@ -36,7 +36,7 @@
       align-items: center;
       text-align: center;
       .awardImage {
-        max-width: 200px;
+        max-width: 12.5rem;
         margin-right: 3.5rem;
         img {
           width: unset !important;
@@ -47,11 +47,11 @@
       .textContent {
         &:nth-child(2) {
           color: $color-black;
-          max-width: 516px;
+          max-width: 32.25rem;
           text-align: left;
           .quote {
             font-weight: 400;
-            font-size: 1.25rem;
+            font-size: 1.25em;
             padding: 0.75rem 0 2rem 0;
           }
           .client {
@@ -83,12 +83,12 @@
     }
     .normal {
       display: flex;
-      max-width: 920px;
+      max-width: 57.5rem;
       justify-content: center;
       align-items: center;
       text-align: center;
       .awardImage {
-        max-width: 250px;
+        max-width: 15.625rem;
         margin-right: 3.5rem;
         img {
           height: unset !important;
@@ -98,7 +98,7 @@
       .textContent {
         &:nth-child(2) {
           color: $color-black;
-          max-width: 516px;
+          max-width: 32.25rem;
           text-align: left;
           .quote {
             padding: 0.75rem 0 2rem 0;
@@ -140,7 +140,7 @@
   }
   .logo {
     margin: 2rem auto 0 auto;
-    max-width: 180px;
+    max-width: 11.25rem;
     & > div {
       &:only-child {
         * {

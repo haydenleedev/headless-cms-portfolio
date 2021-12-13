@@ -98,10 +98,11 @@ const MainNavigation = ({
                     >
                       {navigationColumn.fields.items?.map(
                         (navigationItem, index) => (
-                          <button
-                            className="reset-button display-block"
+                          <div
+                            className="display-block"
                             key={`navigation-item-${index}`}
                             onClick={() => handleSetMainNavigationActive?.()}
+                            role="button"
                           >
                             <AgilityLink
                               agilityLink={
@@ -147,7 +148,7 @@ const MainNavigation = ({
                                 )}
                               </ul>
                             )}
-                          </button>
+                          </div>
                         )
                       )}
                     </li>
@@ -169,12 +170,8 @@ const MainNavigation = ({
             id="site-search"
             placeholder="Search..."
             className={`${style.searchInput} ${searchToggled && style.active}`}
-            onFocus={() => {
-              onFocus();
-            }}
-            onBlur={() => {
-              onBlur();
-            }}
+            onFocus={onFocus}
+            onBlur={onBlur}
           ></input>
           <button
             aria-controls="site-search"

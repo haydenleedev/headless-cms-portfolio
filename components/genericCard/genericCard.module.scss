@@ -10,7 +10,7 @@
   flex-direction: column;
   @include touch() {
     .image {
-      max-height: 360px;
+      max-height: 22.5rem;
     }
   }
 
