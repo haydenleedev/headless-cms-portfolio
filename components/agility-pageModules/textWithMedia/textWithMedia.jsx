@@ -1,5 +1,6 @@
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
+import { useIntersectionObserver } from "../../../utils/hooks";
 import { boolean } from "../../../utils/validation";
 import AgilityLink from "../../agilityLink";
 import Heading from "../heading";
@@ -13,10 +14,27 @@ const TextWithMedia = ({ module, customData }) => {
   const narrowContainer = boolean(fields?.narrowContainer);
   const alignTop = boolean(fields?.alignTop);
 
+  const intersectionRef = fields.animationStyle
+    ? useIntersectionObserver(
+        {
+          threshold: 0.25,
+          rootMargin: "0px 40% 0px 40%",
+        },
+        0.0,
+        () => {
+          intersectionRef.current
+            .querySelectorAll('*[data-animate="true"]')
+            .forEach((elem) => {
+              elem.classList.add(fields.animationStyle);
+            });
+        }
+      )
+    : null;
+
   // helper function to determine which testimonial module class should be used.
   const testimonialStyle = (value) => {
-    if (value === "quote") return style.testimonialQuote;
-    return style.testimonialComment;
+    if (value !== "quote") return style.testimonialComment;
+    return "";
   };
   return (
     <section
@@ -24,6 +42,7 @@ const TextWithMedia = ({ module, customData }) => {
         fields.classes ? fields.classes : ""
       }`}
       id={fields.id ? fields.id : null}
+      ref={intersectionRef}
     >
       <div
         className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
@@ -97,17 +116,22 @@ const TextWithMedia = ({ module, customData }) => {
               boolean(fields.fullPageWidth) ? style.fullPageWidthMedia : ""
             } ${alignTop ? "justify-content-flex-start" : ""}`}
           >
-            {fields.media && !fields.testimonial && (
-              <Media media={fields.media} />
-            )}
+            <div data-animate="true">
+              {fields.media && !fields.testimonial && (
+                <Media media={fields.media} />
+              )}
+            </div>
             {fields.testimonial && (
               <div
                 className={`${style.testimonial} ${testimonialStyle(
                   fields.testimonialStyle
                 )}`}
+                data-animate={
+                  fields.testimonialStyle === "quote" ? true : false
+                }
               >
                 {fields.testimonialStyle === "comment" ? (
-                  <div className={style.testimonialIcon}>
+                  <div className={style.testimonialIcon} data-animate="true">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 47 47"
@@ -128,7 +152,7 @@ const TextWithMedia = ({ module, customData }) => {
                     </svg>
                   </div>
                 ) : (
-                  <div className={style.testimonialIcon}>
+                  <div className={style.testimonialIcon} data-animate="true">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="36.5"

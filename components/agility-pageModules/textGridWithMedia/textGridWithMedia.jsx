@@ -5,6 +5,7 @@ import style from "./textGridWithMedia.module.scss";
 import AgilityLink from "../../agilityLink";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
+import { useIntersectionObserver } from "../../../utils/hooks";
 
 const TextGridWithMedia = ({ module, customData }) => {
   const { itemsWithSanitizedHTML } = customData;
@@ -17,6 +18,22 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemImageCentered = boolean(fields?.itemImageCentered);
   const centerItemsHorizontally = boolean(fields?.centerItemsHorizontally);
   const roundCorners = boolean(fields?.roundCorners);
+  const intersectionRef = fields.animationStyle
+    ? useIntersectionObserver(
+        {
+          threshold: 0.25,
+          rootMargin: "0px 40% 0px 4%",
+        },
+        0.0,
+        () => {
+          intersectionRef.current
+            .querySelectorAll('*[data-animate="true"]')
+            .forEach((elem) => {
+              elem.classList.add(fields.animationStyle);
+            });
+        }
+      )
+    : null;
 
   return (
     <section
@@ -24,6 +41,7 @@ const TextGridWithMedia = ({ module, customData }) => {
         fields.classes ? fields.classes : ""
       }`}
       id={fields.id ? fields.id : null}
+      ref={intersectionRef}
     >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
         {heading.text && (
@@ -57,6 +75,7 @@ const TextGridWithMedia = ({ module, customData }) => {
                     itemShadow ? "card-shadow" : ""
                   } ${roundCorners ? "border-radius-1" : ""}`}
                   key={textItem.contentID}
+                  data-animate="true"
                 >
                   {textItem.fields.media && (
                     <div

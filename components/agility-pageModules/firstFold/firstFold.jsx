@@ -2,10 +2,11 @@ import Heading from "../heading";
 import style from "./firstFold.module.scss";
 import Media from "../media";
 import { boolean } from "../../../utils/validation";
-import GoogleCloudAnimation from "./googleCloudAnimation";
 import AgilityLink from "../../agilityLink";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
+import CustomSVG from "../../customSVG/customSVG";
+import { useIntersectionObserver } from "../../../utils/hooks";
 
 const FirstFold = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
@@ -13,16 +14,34 @@ const FirstFold = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
   const alternateLayout = boolean(fields.alternateLayout);
   const imageLeft = boolean(fields.imageLeft);
+  const uncenteredVertically = boolean(fields.uncenteredVertically);
+
   const noImageLayout = boolean(fields.noImageLayout);
   const customerStory = boolean(fields.customerStory);
   const softwareIntegration = boolean(fields.softwareIntegration);
   const narrowContainer = boolean(fields?.narrowContainer);
-  const googleCloudAnimation = boolean(fields?.googleCloudAnimation);
+
+  const intersectionRef = fields.animationStyle
+    ? useIntersectionObserver(
+        {
+          threshold: 0.25,
+          rootMargin: "0px 40% 0px 40%",
+        },
+        0.0,
+        () => {
+          intersectionRef.current
+            .querySelectorAll('*[data-animate="true"]')
+            .forEach((elem) => {
+              elem.classList.add(fields.animationStyle);
+            });
+        }
+      )
+    : null;
 
   // helper function to determine which testimonial module class should be used.
   const testimonialStyle = (value) => {
-    if (value === "quote") return style.testimonialQuote;
-    return style.testimonialComment;
+    if (value !== "quote") return style.testimonialComment;
+    return "";
   };
 
   // different layout when alternateLayout or customerStory is toggled on
@@ -140,6 +159,7 @@ const FirstFold = ({ module, customData }) => {
           fields.classes ? fields.classes : ""
         }`}
         id={fields.id ? fields.id : null}
+        ref={intersectionRef}
       >
         <div
           className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
@@ -153,7 +173,7 @@ const FirstFold = ({ module, customData }) => {
                     imageLeft
                       ? "flex-direction-row-reverse"
                       : "flex-direction-row"
-                  }`
+                  } ${uncenteredVertically ? "align-items-unset" : ""}`
             }
           >
             <div className={style.textContent}>
@@ -169,7 +189,11 @@ const FirstFold = ({ module, customData }) => {
               {fields.logos && (
                 <div className="grid-columns">
                   {fields.logos.map((logo) => (
-                    <div key={logo.contentID} className="grid-column is-6">
+                    <div
+                      key={logo.contentID}
+                      className="grid-column is-6"
+                      data-animate="true"
+                    >
                       <Media media={logo.fields.logo} />
                     </div>
                   ))}
@@ -180,6 +204,9 @@ const FirstFold = ({ module, customData }) => {
                   className={`${style.testimonial} ${testimonialStyle(
                     fields.testimonialStyle
                   )}`}
+                  data-animate={
+                    fields.testimonialStyle === "quote" ? true : false
+                  }
                 >
                   {fields.testimonialStyle === "comment" ? (
                     <div className={style.testimonialIcon}>
@@ -209,7 +236,6 @@ const FirstFold = ({ module, customData }) => {
                         width="36.5"
                         height="28.4"
                         viewBox="0 0 36.5 28.4"
-                        className="bounce is-inView"
                       >
                         <defs>
                           <style>{`.p{fill:#3398dc;}`}</style>
@@ -251,44 +277,43 @@ const FirstFold = ({ module, customData }) => {
               )}
               <div className={style.links}>
                 {fields.primaryLink && (
-                  <AgilityLink agilityLink={fields.primaryLink}>
-                    <a
-                      className={`button cyan outlined ${style.primaryLink} ${
-                        fields.linkClasses ? fields.linkClasses : ""
-                      }`}
-                      aria-label={`Navigate to page ` + fields.primaryLink.href}
-                      title={`Navigate to page ` + fields.primaryLink.href}
-                    >
-                      {fields.primaryLink.text}
-                    </a>
+                  <AgilityLink
+                    agilityLink={fields.primaryLink}
+                    className={`button cyan outlined ${style.primaryLink} ${
+                      fields.linkClasses ? fields.linkClasses : ""
+                    }`}
+                    ariaLabel={`Navigate to page ` + fields.primaryLink.href}
+                    title={`Navigate to page ` + fields.primaryLink.href}
+                  >
+                    {fields.primaryLink.text}
                   </AgilityLink>
                 )}
                 {fields.secondaryLink && (
                   <AgilityLink
                     agilityLink={fields.secondaryLink}
                     className="button outlined"
+                    className={`button ${style.secondaryLink} ${
+                      fields.linkClasses ? fields.linkClasses : ""
+                    }`}
+                    ariaLabel={`Navigate to page ` + fields.secondaryLink.href}
+                    title={`Navigate to page ` + fields.secondaryLink.href}
                   >
-                    <a
-                      className={`button ${style.secondaryLink} ${
-                        fields.linkClasses ? fields.linkClasses : ""
-                      }`}
-                      aria-label={
-                        `Navigate to page ` + fields.secondaryLink.href
-                      }
-                      title={`Navigate to page ` + fields.secondaryLink.href}
-                    >
-                      {fields.secondaryLink.text}
-                    </a>
+                    {fields.secondaryLink.text}
                   </AgilityLink>
                 )}
               </div>
             </div>
-            {fields.media && !noImageLayout && !googleCloudAnimation && (
+            {fields.media && !noImageLayout && !fields.customSVG && (
               <div className={style.image}>
                 <Media media={fields.media}></Media>
               </div>
             )}
-            {googleCloudAnimation && !noImageLayout && <GoogleCloudAnimation />}
+            {fields.customSVG && !noImageLayout && (
+              <CustomSVG
+                svgInput={fields.customSVG}
+                svgClasses={fields.customSVGClasses}
+              />
+            )}
           </div>
         </div>
       </section>

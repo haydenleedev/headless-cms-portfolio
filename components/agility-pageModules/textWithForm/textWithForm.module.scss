@@ -100,10 +100,14 @@
       margin-top: 1rem;
       & > * {
         margin: 0 auto;
+        max-width: 100vw;
         display: grid;
         width: 100%;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         position: relative;
+        @include desktop() {
+          grid-template-columns: repeat(2, 1fr);
+        }
         & > div {
           max-width: unset !important;
           padding: 0 0.5rem !important;

@@ -1,29 +1,82 @@
 .googleCloudAnimation {
   margin: 2rem 0;
-  @include mobile() {
-    max-width: 280px;
+  & > * {
+    &:only-child {
+      position: relative;
+      min-height: 25rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      svg {
+        position: absolute;
+        max-width: 90vw;
+      }
+      @include mobile() {
+        min-height: 15rem;
+      }
+    }
   }
-  #cloudWrapper {
-    #a {
-      fill: #fff;
+  &--main {
+    z-index: 1;
+  }
+  &--bg {
+    z-index: 0;
+  }
+  &--main,
+  &--bg {
+    animation-delay: 0.1s;
+  }
+  @keyframes translateY-up {
+    from {
+      opacity: 0;
+      transform: translateY(25%);
     }
-    #b {
-      fill: #ea4335;
+    to {
+      opacity: 1;
+      transform: translateY(0%);
     }
-    #c {
-      fill: #4285f4;
+  }
+  @keyframes translateY-down {
+    from {
+      opacity: 0;
+      transform: translateY(-25%);
     }
-    #d {
-      fill: #34a853;
+    to {
+      opacity: 1;
+      transform: translateY(0%);
     }
-    #e {
-      fill: #fbbc05;
+  }
+  @keyframes scaleCloudIn {
+    from {
+      transform: scale(12);
     }
-    #f {
-      fill: #5f6368;
+    to {
+      transform: scale(1);
     }
-    #g {
-      fill: #109fff;
+  }
+  @include desktop() {
+    & > * {
+      &:only-child {
+        min-width: 25rem;
+        svg {
+          max-width: 25rem;
+        }
+      }
+    }
+    &--main {
+      path:not(.g) {
+        opacity: 0;
+        animation: 0.5s translateY-down forwards;
+      }
+      .g {
+        opacity: 0;
+        animation: 0.5s translateY-up forwards;
+        animation-delay: 0.2s;
+      }
+    }
+    &--bg {
+      transform: scale(12);
+      animation: 1.3s scaleCloudIn forwards;
     }
   }
 }

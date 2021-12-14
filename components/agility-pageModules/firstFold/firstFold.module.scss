@@ -5,6 +5,7 @@
 // default firstFold styling
 .firstFold {
   position: relative;
+  overflow: clip;
   // default firstFold layout
   .defaultLayout {
     display: flex;
@@ -37,6 +38,8 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    position: relative;
+    z-index: 1;
   }
   .text {
     margin-bottom: 1rem;
@@ -52,6 +55,16 @@
       img {
         object-fit: contain;
       }
+    }
+  }
+
+  .links {
+    flex-direction: column;
+    display: flex;
+    gap: 0.5rem;
+    @include desktop() {
+      gap: 1.5rem;
+      flex-direction: row;
     }
   }
 
