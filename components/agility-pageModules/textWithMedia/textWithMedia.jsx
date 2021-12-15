@@ -17,8 +17,7 @@ const TextWithMedia = ({ module, customData }) => {
   const intersectionRef = fields.animationStyle
     ? useIntersectionObserver(
         {
-          threshold: 0.25,
-          rootMargin: "0px 40% 0px 40%",
+          threshold: 0.0,
         },
         0.0,
         () => {

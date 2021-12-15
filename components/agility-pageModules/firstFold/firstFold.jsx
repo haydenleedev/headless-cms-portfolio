@@ -24,8 +24,7 @@ const FirstFold = ({ module, customData }) => {
   const intersectionRef = fields.animationStyle
     ? useIntersectionObserver(
         {
-          threshold: 0.25,
-          rootMargin: "0px 40% 0px 40%",
+          threshold: 0.0,
         },
         0.0,
         () => {
@@ -304,7 +303,7 @@ const FirstFold = ({ module, customData }) => {
               </div>
             </div>
             {fields.media && !noImageLayout && !fields.customSVG && (
-              <div className={style.image}>
+              <div className={style.image} data-animate="true">
                 <Media media={fields.media}></Media>
               </div>
             )}
