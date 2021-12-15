@@ -18,7 +18,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 80%;
     min-width: $desktop;
     max-height: 100%;
     img {
@@ -26,7 +26,27 @@
       object-fit: cover;
       height: unset;
       width: unset;
+      transform: rotate(1deg);
+      transition: all 8s ease-in-out;
+      &.barrelSpinIn {
+        transform: rotate(1turn);
+      }
+      &.barrelSpinOut {
+        transform: rotate(1deg);
+      }
     }
+  }
+  .backgroundGradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(98, 98, 229, 0.25) 0%,
+      rgba(21, 21, 82, 1) 60%
+    );
   }
   .cornerLogo {
     position: relative;
