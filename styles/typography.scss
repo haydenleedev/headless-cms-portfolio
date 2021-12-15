@@ -21,7 +21,7 @@ a,
 button,
 li {
   &:focus {
-    outline: dashed 0.2rem $color-mediumblue;
+    outline: dotted 0.15rem $color-mediumblue;
   }
 }
 

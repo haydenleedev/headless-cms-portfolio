@@ -57,9 +57,7 @@ const Infographic = ({ module }) => {
           {fields.items.map((item) => (
             <div
               className={`${style.item} ${itemLayoutClass(itemLayout)} ${
-                itemShadow
-                  ? "card-shadow padding-block-4 pl-4 pr-4 ml-1 mr-1"
-                  : ""
+                itemShadow ? style.itemShadow : ""
               } ${itemRoundedCorners ? "border-radius-1" : ""}`}
               key={item.contentID}
             >

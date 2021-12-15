@@ -7,6 +7,12 @@
     display: grid;
     width: 100%;
     grid-template-columns: repeat(auto-fill, minmax(max(100px, 100% / 6), 1fr));
+    @include touch() {
+      gap: 1rem;
+      .item {
+        margin: unset !important;
+      }
+    }
     &.is2 {
       grid-template-columns: repeat(
         auto-fill,
@@ -22,19 +28,19 @@
     &.is3 {
       grid-template-columns: repeat(
         auto-fill,
-        minmax(max(185px, 100% / 3), 1fr)
+        minmax(max(225px, 100% / 3), 1fr)
       );
     }
     &.is4 {
       grid-template-columns: repeat(
         auto-fill,
-        minmax(max(165px, 100% / 4), 1fr)
+        minmax(max(200px, 100% / 4), 1fr)
       );
     }
     &.is5 {
       grid-template-columns: repeat(
         auto-fill,
-        minmax(max(170px, 100% / 5), 1fr)
+        minmax(max(175px, 100% / 5), 1fr)
       );
     }
 
@@ -59,7 +65,6 @@
         }
       }
     }
-
     .item {
       position: relative;
       display: grid;
@@ -157,6 +162,11 @@
             color: $color-navy;
           }
         }
+      }
+      &.itemShadow {
+        @include shadow();
+        padding: 2rem;
+        margin: 0 0.5rem;
       }
 
       > * {
