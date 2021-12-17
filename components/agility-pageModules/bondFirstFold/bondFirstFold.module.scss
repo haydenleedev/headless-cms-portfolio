@@ -68,7 +68,7 @@
       border-radius: 50%;
       width: 25rem;
       height: 25rem;
-      transition: transform 0.25s ease-out;
+      transition: transform 0.25s ease-in-out;
       .circleInner {
         display: flex;
         flex-direction: column;
@@ -88,7 +88,7 @@
           font-size: 1em;
           padding: 0.5rem 1rem;
           border: unset;
-          transition: background-color 0.25s ease-out;
+          transition: background-color 0.25s ease-in-out;
         }
       }
       &:hover {

@@ -1,0 +1,240 @@
+@use "sass:math";
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+@import "../../../styles/settings/variables";
+
+.searchContainer {
+  padding-bottom: 1rem;
+  @include desktop() {
+    padding: unset;
+  }
+
+  .search {
+    position: relative;
+    padding-top: 1rem;
+    @include desktop() {
+      padding-top: unset;
+    }
+
+    .searchInputWrapper {
+      width: 0;
+      position: absolute;
+      right: 0;
+      transition: opacity 0.25s;
+      @include desktop() {
+        opacity: 0.1;
+        left: -2147483647px;
+        height: 100%;
+        right: 2rem;
+        // Only active on desktop
+        &.searchActive {
+          opacity: 1;
+          left: 100%;
+          .searchInput,
+          .autocomplete {
+            transform: translateX(-100%);
+          }
+        }
+        .searchInput {
+          max-width: 100vw;
+          border: 0.125rem solid $color-darkgray;
+          border-radius: 0.2rem;
+          position: relative;
+          padding: 0 0.5rem;
+          input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: unset;
+            padding-right: 3.75rem;
+          }
+          & > * {
+            padding: 1rem;
+          }
+          @include desktop() {
+            min-width: 20rem;
+          }
+        }
+      }
+
+      .searchInput {
+        position: relative;
+        width: max-content;
+        display: grid;
+        grid-template-columns: 80% 10% 10%;
+        box-shadow: 0 0 0.5rem 0 rgb(0 0 0 / 35%);
+
+        .clearInput {
+          position: relative;
+          height: 100%;
+          width: 1.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &::after {
+            content: "";
+            position: absolute;
+            width: 0.125rem;
+            height: 1rem;
+            transform: rotate(45deg);
+            background-color: $color-gray;
+            font-size: $size-3;
+          }
+          &::before {
+            content: "";
+            position: absolute;
+            width: 0.125rem;
+            height: 1rem;
+            transform: rotate(-45deg);
+            background-color: $color-gray;
+            font-size: $size-3;
+          }
+          &:hover {
+            &::after,
+            &::before {
+              background-color: $color-darkgray;
+            }
+          }
+        }
+        .searchSubmit {
+          position: relative;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          @include desktop() {
+            padding: 1rem;
+          }
+
+          .magnifyingGlass {
+            @include touch() {
+              display: none;
+            }
+            position: relative;
+            display: inline-block;
+            background: #fff;
+            border-radius: 10rem;
+            height: 1rem;
+            min-width: 1rem;
+            border: 0.2rem solid $color-darkgray;
+
+            &:after {
+              content: "";
+              height: 0.2rem;
+              width: 0.75rem;
+              background: $color-darkgray;
+              position: absolute;
+              top: 0.75rem;
+              left: 0.5rem;
+              transform: rotate(45deg);
+            }
+          }
+          &.searchButtonHidden {
+            visibility: hidden;
+          }
+        }
+        .clearInput {
+          &:hover {
+            &::after,
+            &::before {
+              background-color: $color-black;
+            }
+          }
+        }
+        .searchSubmit {
+          .magnifyingGlass {
+            &:hover {
+              border-color: $color-black;
+
+              &::after {
+                background-color: $color-black;
+              }
+            }
+          }
+        }
+      }
+      .autocomplete {
+        position: relative;
+        box-shadow: 0 0 0.5rem 0 rgb(0 0 0 / 35%);
+        background-color: $color-white;
+        width: 30rem;
+        padding: 0.75rem;
+        .autocompleteSource {
+          margin-bottom: 1rem;
+          .autocompleteSourceTitle {
+            font-weight: 600;
+            padding: 0.5rem;
+            position: relative;
+            color: $color-navy;
+            p {
+              border-bottom: 0.0625rem solid $color-gray;
+            }
+          }
+          ul {
+            padding-left: unset !important;
+          }
+          .autocompleteEntry {
+            font-size: 1rem;
+            padding: 0.5rem 1.5rem;
+            border-bottom: 0.125rem solid $color-mediumgray;
+            transition: background-color 0.25s ease-in-out;
+            &:hover {
+              background-color: $color-lightgray;
+            }
+            a {
+              display: flex;
+              flex-direction: column;
+              gap: 0.25rem;
+              .autocompleteEntryTitle {
+                font-weight: 600;
+                color: $color-black;
+              }
+            }
+            mark {
+              background-color: transparentize(
+                $color: $color-mediumblue,
+                $amount: 0.5
+              );
+            }
+          }
+        }
+      }
+    }
+    .searchButton {
+      position: relative;
+      cursor: pointer;
+
+      @include desktop() {
+        padding: 1rem;
+      }
+
+      .magnifyingGlass {
+        @include touch() {
+          display: none;
+        }
+        position: relative;
+        display: inline-block;
+        background: #fff;
+        border-radius: 10rem;
+        height: 1rem;
+        width: 1rem;
+        border: 0.2rem solid $color-darkgray;
+
+        &:after {
+          content: "";
+          height: 0.2rem;
+          width: 0.75rem;
+          background: $color-darkgray;
+          position: absolute;
+          top: 0.75rem;
+          left: 0.5rem;
+          transform: rotate(45deg);
+        }
+      }
+      &.searchButtonHidden {
+        visibility: hidden;
+      }
+    }
+  }
+}

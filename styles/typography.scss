@@ -95,12 +95,7 @@ em {
 form input:not([type="checkbox"], [type="submit"]),
 select {
   background: $color-white;
-  //   border-radius: toRem(4);
-  //   border: toRem(1) solid $color-darkgray;
   color: $color-black;
-  //   font-size: $size-16px; /* 16px */
-  //   height: toRem(48);
-  //   padding: toRem(20) toRem(15);
   width: 100%;
   padding: 0.5rem;
   border-radius: 0.2rem;

@@ -15,25 +15,13 @@ const Modal = ({ trigger, closeCallback, children }) => {
     if (active) {
       // close modal if outside area is clicked
       const handleOutsideModalClick = (event) => {
-        const modalOffsetLeft = modalRef?.current?.offsetParent?.offsetLeft;
-        const modalOffsetTop = modalRef?.current?.offsetParent?.offsetTop;
-        const modalOffsetParentWidth =
-          modalRef?.current?.offsetParent?.offsetWidth;
-        const modalOffsetParentHeight =
-          modalRef?.current?.offsetParent?.offsetHeight;
-        const modalBounds = [
-          [modalOffsetLeft, modalOffsetTop],
-          [
-            modalOffsetLeft + modalOffsetParentWidth,
-            modalOffsetTop + modalOffsetParentHeight,
-          ],
-        ];
+        const modalBounds = modalRef.current.getBoundingClientRect();
         const mousePos = [event.clientX, event.clientY];
         if (
-          mousePos[0] < modalBounds[0][0] ||
-          mousePos[0] > modalBounds[1][0] ||
-          mousePos[1] < modalBounds[0][1] ||
-          mousePos[1] > modalBounds[1][1]
+          mousePos[0] < modalBounds.left ||
+          mousePos[0] > modalBounds.right ||
+          mousePos[1] < modalBounds.top ||
+          mousePos[1] > modalBounds.bottom
         ) {
           setActive(false);
           closeCallback?.();

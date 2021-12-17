@@ -3,7 +3,7 @@
 
 .card {
   height: 40vh;
-  min-height: 400px;
+  min-height: 25rem;
   border-radius: 1rem;
   @include shadow();
   display: flex;
@@ -17,8 +17,8 @@
   .image {
     background: $color-gray;
     flex: 1;
-    max-height: 200px;
-    min-height: 170px;
+    max-height: 12.5rem;
+    min-height: 10.625rem;
     overflow: hidden;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;

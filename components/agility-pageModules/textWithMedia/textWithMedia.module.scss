@@ -29,7 +29,7 @@
           width: initial;
         }
         & > * {
-          max-width: 460px;
+          max-width: 28.75rem;
           margin: 0 auto;
         }
       }
@@ -41,7 +41,7 @@
         display: inline-block;
         overflow: hidden;
         margin: 0;
-        height: 626px;
+        height: 39.125rem;
         & > * {
           display: block;
           position: absolute;
@@ -112,8 +112,8 @@
     .testimonialIcon {
       position: absolute;
       padding: 1rem;
-      max-width: 80px;
-      max-height: 80px;
+      max-width: 5rem;
+      max-height: 5rem;
       background-color: $color-darkblue;
       border-radius: 50%;
       top: -2rem;
@@ -139,8 +139,8 @@
     }
     .testimonialImage {
       padding: 1rem;
-      max-width: 125px;
-      max-height: 125px;
+      max-width: 7.8125rem;
+      max-height: 7.8125rem;
       overflow: hidden;
       & > div {
         &:only-child {

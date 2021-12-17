@@ -31,7 +31,7 @@
         .awardImage {
           padding: unset;
           margin: 0 0.25rem;
-          max-width: 90px;
+          max-width: 5.625rem;
           img {
             margin: unset;
           }
@@ -41,7 +41,7 @@
     .form {
       margin-top: 1rem;
       & > * {
-        max-width: 420px;
+        max-width: 26.25rem;
         margin: 0 auto;
         input,
         select {
@@ -88,7 +88,7 @@
         .awardImage {
           padding: unset;
           margin: 0 0.25rem;
-          max-width: 90px;
+          max-width: 5.625rem;
           img {
             margin: unset;
           }
@@ -120,7 +120,7 @@
             border-radius: 0.5rem !important;
           }
           &:last-of-type {
-            min-height: 100px;
+            min-height: 6.25rem;
             position: unset !important;
             span {
               position: absolute;

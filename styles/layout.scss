@@ -34,10 +34,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 10px 0;
+    padding: 0.625rem 0;
     width: 100%;
     @include desktop() {
-      padding: 8px;
+      padding: 0.5rem;
     }
     &.col-2 {
       flex: 0 0 auto;
@@ -202,9 +202,9 @@
 }
 
 .card {
-  padding: 15px 15px;
-  border: 2px solid $color-darkmedium;
-  border-radius: 4px;
+  padding: 0.9375rem 0.9375rem;
+  border: 0.125rem solid $color-darkmedium;
+  border-radius: 0.25rem;
 }
 
 .border-radius-1 {
@@ -221,11 +221,11 @@
   text-align: right;
 }
 .border-gray {
-  border: 2px solid $color-gray;
+  border: 0.125rem solid $color-gray;
 }
 
 .box-shadow {
-  box-shadow: 0 1px 4px rgb(0, 0, 0, 10%);
+  box-shadow: 0 0.0625rem 0.25rem rgb(0, 0, 0, 10%);
 }
 
 .card-shadow {

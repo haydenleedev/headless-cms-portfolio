@@ -53,7 +53,7 @@
           .featuredImage {
             & > div {
               &:only-child {
-                min-height: 100px;
+                min-height: 6.25rem;
                 img {
                   object-fit: contain;
                   height: unset !important;

@@ -2,13 +2,13 @@
 @use "sass:math";
 
 @mixin ultraLargeDesktop() {
-  @media (min-width: 1362px) {
+  @media (min-width: 85.125rem) {
     @content;
   }
 }
 
 @mixin largeDesktop() {
-  @media (min-width: 1008px) {
+  @media (min-width: 63rem) {
     @content;
   }
 }
@@ -81,23 +81,23 @@
 
 @mixin section-headline($bgColor, $fontColor) {
   background-color: $bgColor;
-  font-size: $size-18px;
+  font-size: 1.125rem;
   color: $fontColor;
   font-weight: 600;
-  border-radius: 12px;
-  padding: 10px 20px;
-  margin: 30px 0;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  margin: 1.875rem 0;
 }
 
 @mixin card() {
-  border: 3px solid $color-white;
+  border: 0.1875rem solid $color-white;
   box-sizing: border-box;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   @include shadow();
 }
 
 @mixin shadow() {
-  -webkit-box-shadow: 0 0 30px 2px rgb(0 0 0 / 12%);
-  box-shadow: 0 0 30px 2px rgb(0 0 0 / 12%);
+  -webkit-box-shadow: 0 0 1.875rem 0.125rem rgb(0 0 0 / 12%);
+  box-shadow: 0 0 1.875rem 0.125rem rgb(0 0 0 / 12%);
   background-color: $color-white;
 }

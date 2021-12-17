@@ -3,6 +3,7 @@ import style from "./navbar.module.scss";
 import { useRouter } from "next/router";
 import { isMobile } from "../../../utils/responsivity";
 import AgilityLink from "../../agilityLink";
+import Search from "./search";
 
 const MainNavigation = ({
   active,
@@ -12,19 +13,10 @@ const MainNavigation = ({
   const [activeNavigationItem, setActiveNavigationItem] = useState(null);
   const [searchToggled, setSearchToggled] = useState(false);
   const router = useRouter();
-  const searchInput = useRef(null);
-  const onFocus = () => {};
-  const onBlur = () => {
-    setSearchToggled(false);
+
+  const handleSetSearchToggled = (boolean) => {
+    setSearchToggled(boolean);
   };
-
-  // useEffect(() => {}, [searchToggled]);
-
-  function handleToggleSearch() {
-    setSearchToggled(true);
-    searchInput.current.focus();
-  }
-
   const handleNavigationGroupClick = (href, item) => {
     if (isMobile()) {
       if (item == activeNavigationItem) {
@@ -159,33 +151,10 @@ const MainNavigation = ({
           )}
         </li>
       ))}
-      <div className={style.searchContainer}>
-        <li className={style.search}>
-          <input
-            type="text"
-            aria-label="Search query"
-            title="Search query"
-            aria-expanded={searchToggled}
-            ref={searchInput}
-            id="site-search"
-            placeholder="Search..."
-            className={`${style.searchInput} ${searchToggled && style.active}`}
-            onFocus={onFocus}
-            onBlur={onBlur}
-          ></input>
-          <button
-            aria-controls="site-search"
-            className={style.searchButton}
-            onClick={() => {
-              handleToggleSearch();
-            }}
-          >
-            <span className={style.magnifyingGlass}></span>
-          </button>
-          {/* {searchToggled && <button className={style.closeInput}>
-          </button>} */}
-        </li>
-      </div>
+      <Search
+        searchToggled={searchToggled}
+        handleSetSearchToggled={handleSetSearchToggled}
+      />
     </ul>
   );
 };

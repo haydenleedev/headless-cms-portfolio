@@ -13,7 +13,7 @@
     grid-template-columns: repeat(3, 1fr);
     .contentItem {
       > * {
-        max-width: calc(33% - 30px);
+        max-width: calc(33% - 1.875rem);
       }
     }
     @include touch() {
@@ -22,7 +22,7 @@
       justify-content: center;
       align-items: center;
       .contentItem {
-        width: calc(33% - 30px);
+        width: calc(33% - 1.875rem);
         min-width: 21.25rem;
       }
     }

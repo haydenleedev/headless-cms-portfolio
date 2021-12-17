@@ -81,7 +81,7 @@ $color-mediumpurple: #6e0bdc;
 }
 .bg-gradient-blue-light {
   background-color: #e2eeff;
-  @media (min-width: 890px) {
+  @media (min-width: 55.625rem) {
     background: linear-gradient(90deg, #e2eeff, #fff 25%, #e2eeff 50%, #e2eeff);
   }
 }

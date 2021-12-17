@@ -101,13 +101,13 @@
   &.active {
     span {
       &:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+        transform: translateY(0.5rem) rotate(45deg);
       }
       &:nth-child(2) {
         opacity: 0;
       }
       &:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
+        transform: translateY(-0.5rem) rotate(-45deg);
       }
     }
   }
@@ -333,88 +333,6 @@
       &:first-child {
         @include desktop() {
           margin-top: 0;
-        }
-      }
-    }
-  }
-}
-
-.searchContainer {
-  padding-bottom: 1rem;
-  @include desktop() {
-    padding: unset;
-  }
-
-  .search {
-    position: relative;
-    padding-top: 1rem;
-    @include desktop() {
-      padding-top: unset;
-    }
-
-    .searchInput {
-      width: 0;
-      position: absolute;
-      right: 0;
-      transition: all 0.5s;
-      font-size: 1.1rem;
-      padding: 0.5rem;
-      width: 100%;
-
-      @include desktop() {
-        opacity: 0.1;
-        left: -2147483647px;
-        height: 100%;
-        right: 2rem;
-        padding: 1rem;
-        // Only active on desktop
-        &.active {
-          opacity: 1;
-          top: unset;
-          width: 90%;
-          width: 20rem;
-        }
-      }
-    }
-
-    .closeInput {
-      position: absolute;
-      left: 0;
-      height: 100%;
-      width: 1rem;
-    }
-
-    .searchButton {
-      all: unset;
-      position: relative;
-      cursor: pointer;
-
-      @include desktop() {
-        right: -1rem;
-        padding: 1rem 1rem 1rem 1rem;
-      }
-
-      .magnifyingGlass {
-        @include touch() {
-          display: none;
-        }
-        position: relative;
-        display: inline-block;
-        background: #fff;
-        border-radius: 10rem;
-        height: 1rem;
-        width: 1rem;
-        border: 0.2rem solid $color-darkgray;
-
-        &:after {
-          content: "";
-          height: 0.2rem;
-          width: 0.75rem;
-          background: $color-darkgray;
-          position: absolute;
-          top: 0.75rem;
-          left: 0.5rem;
-          transform: rotate(45deg);
         }
       }
     }

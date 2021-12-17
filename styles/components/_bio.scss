@@ -17,7 +17,7 @@
       &:only-child {
         border-radius: 50%;
         img {
-          max-width: 200px !important;
+          max-width: 12.5rem !important;
           min-width: unset !important;
           width: unset !important;
           height: unset !important;
@@ -42,7 +42,7 @@
     justify-content: center;
     gap: 1rem;
     &--media {
-      max-width: 36px;
+      max-width: 2.25rem;
       img {
         width: unset !important;
         height: unset !important;

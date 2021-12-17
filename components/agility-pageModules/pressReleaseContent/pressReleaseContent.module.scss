@@ -6,7 +6,7 @@
     width: 100vw;
     padding: unset;
     height: 100%;
-    min-height: 400px;
+    min-height: 25rem;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -47,7 +47,7 @@
       }
     }
     @include desktop() {
-      min-height: 500px;
+      min-height: 31.25rem;
       .backgroundImage {
         & > * {
           display: block !important;

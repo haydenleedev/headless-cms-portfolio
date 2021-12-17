@@ -46,7 +46,7 @@
         height: 100%;
         border-radius: 50%;
         background-color: unset;
-        transition: background-color 0.25s ease-in;
+        transition: background-color 0.25s ease-in-out;
       }
     }
     &:hover {
@@ -64,7 +64,7 @@
           border: 0.2rem solid $color-white;
           color: $color-white;
           border-radius: 3rem;
-          animation: fadeIn 0.25s ease-in;
+          animation: fadeIn 0.25s ease-in-out;
         }
         .leaderImageFilter {
           background-color: transparentize(

@@ -11,7 +11,7 @@
       justify-content: space-between;
       padding-bottom: 2rem;
       .storyImage {
-        max-height: 237px;
+        max-height: 14.8125rem;
         overflow: hidden;
       }
       .storyLink {
@@ -76,7 +76,7 @@
       padding-bottom: 2rem;
       border-radius: 1rem;
       .storyImage {
-        max-height: 354px;
+        max-height: 22.125rem;
         overflow: hidden;
         border-top-left-radius: 1rem;
         border-top-right-radius: 1rem;
@@ -132,7 +132,7 @@
     .content {
       gap: 2.5rem;
       .story {
-        min-height: 515px;
+        min-height: 32.1875rem;
         padding-bottom: unset;
         .storyTitle,
         .storyDescription {
@@ -144,7 +144,7 @@
         }
       }
       .storyCard {
-        min-height: 650px;
+        min-height: 40.625rem;
         padding-bottom: unset;
       }
     }

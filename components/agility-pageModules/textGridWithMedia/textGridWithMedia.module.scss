@@ -46,24 +46,24 @@
     }
   }
   .textItem {
-    min-width: 225px;
+    min-width: 14.0625rem;
     .textItemMedia {
-      max-width: 120px;
-      min-height: 120px;
+      max-width: 7.5rem;
+      min-height: 7.5rem;
       &.textItemMediaSmall {
-        max-width: 90px;
-        max-height: 90px;
+        max-width: 5.625rem;
+        max-height: 5.625rem;
         & > div {
           &:only-child {
-            min-width: 90px;
-            min-height: 90px;
+            min-width: 5.625rem;
+            min-height: 5.625rem;
           }
         }
       }
       & > div {
         &:only-child {
-          min-width: 120px;
-          min-height: 120px;
+          min-width: 7.5rem;
+          min-height: 7.5rem;
           img {
             width: 100% !important;
             object-fit: contain;
@@ -79,9 +79,9 @@
   }
   .textItemFlex {
     .textItemMedia {
-      max-width: 120px;
+      max-width: 7.5rem;
       &.textItemMediaSmall {
-        max-width: 90px;
+        max-width: 5.625rem;
       }
       img {
         height: unset !important;
@@ -91,7 +91,7 @@
     @include desktop() {
       display: flex;
       .textItemMedia {
-        min-width: 120px;
+        min-width: 7.5rem;
         margin-right: 2.5rem;
       }
     }

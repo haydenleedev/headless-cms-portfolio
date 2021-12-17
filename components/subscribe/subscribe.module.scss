@@ -7,7 +7,7 @@
   padding: 1.75rem;
   position: relative;
   // Eliminate CLS because we load marketo on idle
-  min-height: 512px;
+  min-height: 32rem;
   @include desktop() {
     max-width: 25vw;
     min-width: 100%;
