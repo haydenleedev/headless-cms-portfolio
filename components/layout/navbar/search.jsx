@@ -6,6 +6,7 @@ import { renderHTML } from "@agility/nextjs";
 import style from "./search.module.scss";
 import AgilityLink from "../../agilityLink";
 import { useRouter } from "next/router";
+import { getAlgoliaHighestResultFormatted } from "../../../utils/convert";
 
 const Search = ({ searchToggled, handleSetSearchToggled }) => {
   const inputRef = useRef(null);
@@ -38,42 +39,10 @@ const Search = ({ searchToggled, handleSetSearchToggled }) => {
                   searchClient,
                   queries: [
                     {
-                      indexName: "pages",
+                      indexName: "main-index",
                       query,
                       params: {
-                        hitsPerPage: 4,
-                        highlightPreTag: "<mark>",
-                        highlightPostTag: "</mark>",
-                        attributesToHighlight: [
-                          "title",
-                          "description",
-                          "headings",
-                        ],
-                        attributesToSnippet: ["description:15", "headings:15"],
-                        snippetEllipsisText: "...",
-                      },
-                    },
-                  ],
-                });
-              },
-              getItemUrl({ item }) {
-                return item.url;
-              },
-            },
-            {
-              sourceId: "blog",
-              getItemInputValue({ item }) {
-                return item.query;
-              },
-              getItems({ query }) {
-                return getAlgoliaResults({
-                  searchClient,
-                  queries: [
-                    {
-                      indexName: "blog",
-                      query,
-                      params: {
-                        hitsPerPage: 4,
+                        hitsPerPage: 5,
                         highlightPreTag: "<mark>",
                         highlightPostTag: "</mark>",
                         attributesToHighlight: [
@@ -135,25 +104,6 @@ const Search = ({ searchToggled, handleSetSearchToggled }) => {
 
   const submitSearch = () => {
     router.push(`/search?q=${inputRef.current.value}`);
-  };
-
-  const getAlgoliaHighestResultFormatted = (result) => {
-    let snippet;
-    const headingMatch = result.headings
-      ? result.headings.find(
-          (heading) =>
-            heading.matchLevel === "full" || heading.matchLevel === "partial"
-        )
-      : null;
-    if (
-      result.description.matchLevel === "full" ||
-      result.description.matchLevel === "partial"
-    )
-      snippet = result.description.value;
-    else if (headingMatch) snippet = headingMatch.value;
-    else return "Read more...";
-
-    return snippet;
   };
 
   return (

@@ -13,11 +13,7 @@ export default function handler(req, res) {
     process.env.ALGOLIA_APP_ID,
     process.env.ALGOLIA_ADMIN_API_KEY
   );
-  const staticPageIndex = algoliaClient.initIndex("pages");
-  const resourceIndex = algoliaClient.initIndex("resource");
-  const blogIndex = algoliaClient.initIndex("blog");
-  const newsroomIndex = algoliaClient.initIndex("newsroom");
-
+  const index = algoliaClient.initIndex("main-index");
   const api = agility.getApi({
     guid: process.env.AGILITY_GUID,
     apiKey: process.env.AGILITY_API_FETCH_KEY,
@@ -76,12 +72,13 @@ export default function handler(req, res) {
       return headings;
     }
     const normalized = {
-      objectID: page.pageID,
+      objectID: page.pageID + "p", // p for preventing duplicates with contentIDs
       title: page.title,
       description:
         overrideSEOData?.item.fields?.metaDescription ||
         page.seo.metaDescription,
       headings: getHeadings(page.zones.MainContentZone),
+      _tags: ["UJET"],
       path,
     };
     return normalized;
@@ -107,6 +104,61 @@ export default function handler(req, res) {
       title: post.fields.title,
       description: post.fields.metaDescription || post.fields.ogDescription,
       headings: getHeadings(),
+      _tags: ["Blog"],
+      path,
+    };
+    return normalized;
+  }
+
+  function normalizePressReleaseArticle(content, path) {
+    function getHeadings() {
+      let headings = [];
+      const foundHeadings = content.fields.text.match(headingRegex);
+      if (foundHeadings) {
+        foundHeadings.forEach((foundHeading) => {
+          headings.push(
+            foundHeading
+              .split(/<h[1-6][\w\s\d"'-=]*>/)[1]
+              .split(/<\/h[1-6][\w\s\d"'-=]*>/)[0]
+          );
+        });
+      }
+      return headings;
+    }
+    const normalized = {
+      objectID: content.contentID,
+      title: content.fields.title,
+      description:
+        content.fields.metaDescription || content.fields.ogDescription,
+      headings: getHeadings(),
+      _tags: ["Newsroom"],
+      path,
+    };
+    return normalized;
+  }
+
+  function normalizeResource(content, path) {
+    function getHeadings() {
+      let headings = [];
+      const foundHeadings = content.fields.text.match(headingRegex);
+      if (foundHeadings) {
+        foundHeadings.forEach((foundHeading) => {
+          headings.push(
+            foundHeading
+              .split(/<h[1-6][\w\s\d"'-=]*>/)[1]
+              .split(/<\/h[1-6][\w\s\d"'-=]*>/)[0]
+          );
+        });
+      }
+      return headings;
+    }
+    const normalized = {
+      objectID: content.contentID,
+      title: content.fields.title,
+      description:
+        content.fields.metaDescription || content.fields.ogDescription,
+      headings: getHeadings(),
+      _tags: ["Resources"],
       path,
     };
     return normalized;
@@ -116,7 +168,7 @@ export default function handler(req, res) {
   async function pageUpdate(pageID, state) {
     // if page has been deleted or unpublished, remove it from algolia index
     if (state === "Deleted") {
-      await staticPageIndex.deleteObject(pageID);
+      await index.deleteObject(pageID);
       return;
     }
     const pageData = await api.getPage({
@@ -135,13 +187,13 @@ export default function handler(req, res) {
       pageData,
       sitemap[sitemapObjectKey].path
     );
-    await staticPageIndex.saveObject(normalizePageObject);
+    await index.saveObject(normalizePageObject);
   }
 
   async function blogPostUpdate(contentID, state) {
     // if page has been deleted or unpublished, remove it from algolia index
     if (state === "Deleted") {
-      await blogIndex.deleteObject(contentID);
+      await index.deleteObject(contentID);
       return;
     }
     const postData = await api.getContentItem({
@@ -154,18 +206,16 @@ export default function handler(req, res) {
       preview: false,
     });
     const normalizeBlogPostObject = normalizeBlogPost(postData, path);
-    await blogIndex.saveObject(normalizeBlogPostObject);
+    await index.saveObject(normalizeBlogPostObject);
   }
 
-  // TODO: add update logic for press releases and resources
-
-  /*   async function pressReleaseUpdate(contentID, state) {
+  async function pressReleaseUpdate(contentID, state) {
     // if page has been deleted or unpublished, remove it from algolia index
     if (state === "Deleted") {
-      await newsroomIndex.deleteObject(contentID);
+      await index.deleteObject(contentID);
       return;
     }
-    const postData = await api.getContentItem({
+    const articleData = await api.getContentItem({
       contentID: parseInt(contentID),
       languageCode: "en-us",
       expandAllContentLinks: true,
@@ -174,9 +224,31 @@ export default function handler(req, res) {
       contentID: parseInt(contentID),
       preview: false,
     });
-    const normalizeBlogPostObject = normalizeBlogPost(postData, path);
-    await newsroomIndex.saveObject(normalizeBlogPostObject);
-  } */
+    const normalizePressReleaseObject = normalizePressReleaseArticle(
+      articleData,
+      path
+    );
+    await index.saveObject(normalizePressReleaseObject);
+  }
+
+  async function resourceUpdate(contentID, state) {
+    // if page has been deleted or unpublished, remove it from algolia index
+    if (state === "Deleted") {
+      await index.deleteObject(contentID);
+      return;
+    }
+    const resourceData = await api.getContentItem({
+      contentID: parseInt(contentID),
+      languageCode: "en-us",
+      expandAllContentLinks: true,
+    });
+    const path = await getDynamicPageURL({
+      contentID: parseInt(contentID),
+      preview: false,
+    });
+    const normalizeResourceObject = normalizeResource(resourceData, path);
+    await index.saveObject(normalizeResourceObject);
+  }
 
   switch (type) {
     case "pageID": {
@@ -190,28 +262,28 @@ export default function handler(req, res) {
           blogPostUpdate(req.body.contentID, req.body.state);
           break;
         }
-        case "pressrelease": {
-          pressReleaseUpdate(req.body.referenceName);
+        case "pressreleasearticle": {
+          pressReleaseUpdate(req.body.contentID, req.body.state);
           break;
         }
         case "ebooks": {
-          resourceUpdate(req.body.referenceName);
+          resourceUpdate(req.body.contentID, req.body.state);
           break;
         }
         case "guides": {
-          resourceUpdate(req.body.referenceName);
+          resourceUpdate(req.body.contentID, req.body.state);
           break;
         }
         case "integrations": {
-          resourceUpdate(req.body.referenceName);
+          resourceUpdate(req.body.contentID, req.body.state);
           break;
         }
         case "webinars": {
-          resourceUpdate(req.body.referenceName);
+          resourceUpdate(req.body.contentID, req.body.state);
           break;
         }
         case "whitepapers": {
-          resourceUpdate(req.body.referenceName);
+          resourceUpdate(req.body.contentID, req.body.state);
           break;
         }
         default: {

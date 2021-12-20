@@ -38,7 +38,7 @@ import BlogPageContent from "./blogPageContent/blogPageContent";
 import EventsPageContent from "./eventsPageContent/eventsPageContent";
 import AwardsPageContent from "./awardsPageContent/awardsPageContent";
 import LeadershipPageContent from "./leadershipPageContent/leadershipPageContent";
-
+import SearchPageContent from "./searchPageContent/searchPageContent";
 const allModules = [
   { name: "FirstFold", module: FirstFold },
   { name: "Placeholder", module: Placeholder },
@@ -77,6 +77,7 @@ const allModules = [
   { name: "AwardsPageContent", module: AwardsPageContent },
   { name: "LeadershipPageContent", module: LeadershipPageContent },
   { name: "SpeakerList", module: SpeakerList },
+  { name: "SearchPageContent", module: SearchPageContent },
 ];
 
 export const getModule = (moduleName) => {

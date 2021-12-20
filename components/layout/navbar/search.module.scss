@@ -160,6 +160,8 @@
         background-color: $color-white;
         width: 30rem;
         padding: 0.75rem;
+        max-height: 80vh;
+        overflow-y: scroll;
         .autocompleteSource {
           margin-bottom: 1rem;
           .autocompleteSourceTitle {
@@ -190,12 +192,6 @@
                 font-weight: 600;
                 color: $color-black;
               }
-            }
-            mark {
-              background-color: transparentize(
-                $color: $color-mediumblue,
-                $amount: 0.5
-              );
             }
           }
         }

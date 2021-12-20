@@ -319,3 +319,7 @@ table {
     transform: rotate(45deg);
   }
 }
+
+mark {
+  background-color: transparentize($color: $color-mediumblue, $amount: 0.5);
+}

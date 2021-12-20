@@ -1,3 +1,7 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+@import "../../../styles/settings/variables";
+
 .searchPageContent {
   display: grid;
   width: 100%;
@@ -38,8 +42,6 @@
       padding-top: 0;
     }
     & > fieldset {
-      max-height: 25rem;
-      overflow-y: scroll;
       legend {
         margin-bottom: 1rem;
       }
@@ -60,12 +62,28 @@
   }
   .contentList {
     grid-area: main;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    gap: 1rem;
+    grid-template-rows: repeat(5, 1fr);
     & > div {
-      &:only-child {
-        gap: 2rem;
+      border: 0.0625rem solid $color-gray;
+      border-radius: 1rem;
+      max-height: 12rem;
+      a {
+        padding: 0.75rem 1.25rem;
+        display: block;
+        border-radius: 1rem;
+        height: 100%;
+        transition: background-color 0.25s ease-in-out;
+        p {
+          margin-top: unset;
+        }
+        .resultTitle {
+          color: $color-darkblue;
+        }
+        &:hover {
+          background-color: $color-lightgray;
+        }
       }
     }
   }
