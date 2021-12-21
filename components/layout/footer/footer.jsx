@@ -172,10 +172,11 @@ const Footer = ({ globalData }) => {
         <hr className={style.horizontalLine}></hr>
         <div className={style.footNote}>
           <div className={style.cookies}>
-            {/*  <Script
+            <Script
               src="consent.trustarc.com/notice?domain=ujet.co&c=teconsent&js=nj&noticeType=bb&gtm=1"
               async={true}
-            /> */}
+              strategy="lazyOnload"
+            />
             <div id="teconsent"></div>
             <div className={style.trusteLinks}>
               <a
