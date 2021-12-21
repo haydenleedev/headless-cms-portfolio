@@ -181,6 +181,7 @@ const Footer = ({ globalData }) => {
               <a
                 href="//privacy.truste.com/privacy-seal/validation?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
                 target="_ blank"
+                rel="noreferrer"
               >
                 <img
                   src="//privacy-policy.truste.com/privacy-seal/seal?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
@@ -190,6 +191,7 @@ const Footer = ({ globalData }) => {
               <a
                 href="https://submit-irm.trustarc.com/services/validation/bac0a2d7-003d-4c6d-8171-d3fd1756d56d"
                 target="_blank"
+                rel="noreferrer"
               >
                 <img
                   src="https://submit-irm.trustarc.com/services/validation/bac0a2d7-003d-4c6d-8171-d3fd1756d56d/image"
