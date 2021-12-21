@@ -121,7 +121,8 @@
 // Mobile toggle menu states
 .mainNavigationActive {
   @include touch() {
-    padding-top: 1rem;
+    position: relative;
+    padding-top: 3rem;
   }
 }
 .mainNavigationHidden {

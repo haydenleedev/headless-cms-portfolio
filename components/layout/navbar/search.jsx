@@ -8,7 +8,11 @@ import AgilityLink from "../../agilityLink";
 import { useRouter } from "next/router";
 import { getAlgoliaHighestResultFormatted } from "../../../utils/convert";
 
-const Search = ({ searchToggled, handleSetSearchToggled }) => {
+const Search = ({
+  searchToggled,
+  handleSetSearchToggled,
+  handleSetMainNavigationActive,
+}) => {
   const inputRef = useRef(null);
   const searchRef = useRef(null);
   const [autocompleteState, setAutocompleteState] = useState({});
@@ -63,7 +67,7 @@ const Search = ({ searchToggled, handleSetSearchToggled }) => {
             },
           ];
         },
-        debug: true, // disable on prod!!
+        debug: false, // disable on prod!!
         placeholder: "Search UJET...",
 
         onSubmit() {
@@ -135,23 +139,20 @@ const Search = ({ searchToggled, handleSetSearchToggled }) => {
               placeholder="Search..."
               {...autocomplete.getInputProps({})}
             />
-            {searchToggled && (
-              <>
-                <div></div>
-                <button
-                  className={`reset-button ${style.clearInput}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleSetSearchToggled(false);
-                    autocomplete.setQuery("");
-                    autocomplete.setIsOpen(false);
-                  }}
-                ></button>
-                <button className={`reset-button ${style.searchSubmit}`}>
-                  <span className={style.magnifyingGlass}></span>
-                </button>
-              </>
-            )}
+
+            <div></div>
+            <button
+              className={`reset-button ${style.clearInput}`}
+              onClick={(e) => {
+                e.preventDefault();
+                handleSetSearchToggled(false);
+                autocomplete.setQuery("");
+                autocomplete.setIsOpen(false);
+              }}
+            ></button>
+            <button className={`reset-button ${style.searchSubmit}`}>
+              <span className={style.magnifyingGlass}></span>
+            </button>
           </form>
           {autocompleteState.isOpen && (
             <div
@@ -203,6 +204,8 @@ const Search = ({ searchToggled, handleSetSearchToggled }) => {
                                 item,
                                 source,
                               })}
+                              onClick={() => handleSetMainNavigationActive?.()}
+                              role="button"
                             >
                               <AgilityLink agilityLink={{ href: item.path }}>
                                 <p

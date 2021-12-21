@@ -9,6 +9,7 @@
     display: grid;
     grid-gap: 2rem;
     position: relative;
+    grid-template-columns: 1fr;
     @include desktop() {
       grid-template-columns: 6fr 3fr;
     }
@@ -26,6 +27,9 @@
 
   .content {
     margin-top: 2rem;
+    iframe {
+      width: 100%;
+    }
   }
 }
 

@@ -154,6 +154,7 @@ const MainNavigation = ({
       <Search
         searchToggled={searchToggled}
         handleSetSearchToggled={handleSetSearchToggled}
+        handleSetMainNavigationActive={handleSetMainNavigationActive}
       />
     </ul>
   );
