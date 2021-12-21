@@ -18,7 +18,7 @@ export const useIntersectionObserver = (
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.intersectionRatio > intersectionRatioThreshold) callback();
+        if (entry.intersectionRatio > intersectionRatioThreshold) callback?.();
       });
     }, options);
 

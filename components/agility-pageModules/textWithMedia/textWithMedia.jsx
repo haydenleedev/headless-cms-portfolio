@@ -14,21 +14,21 @@ const TextWithMedia = ({ module, customData }) => {
   const narrowContainer = boolean(fields?.narrowContainer);
   const alignTop = boolean(fields?.alignTop);
 
-  const intersectionRef = fields.animationStyle
-    ? useIntersectionObserver(
-        {
-          threshold: 0.0,
-        },
-        0.0,
-        () => {
+  const intersectionRef = useIntersectionObserver(
+    {
+      threshold: 0.0,
+    },
+    0.0,
+    fields.animationStyle
+      ? () => {
           intersectionRef.current
             .querySelectorAll('*[data-animate="true"]')
             .forEach((elem) => {
               elem.classList.add(fields.animationStyle);
             });
         }
-      )
-    : null;
+      : null
+  );
 
   // helper function to determine which testimonial module class should be used.
   const testimonialStyle = (value) => {

@@ -18,22 +18,21 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemImageCentered = boolean(fields?.itemImageCentered);
   const centerItemsHorizontally = boolean(fields?.centerItemsHorizontally);
   const roundCorners = boolean(fields?.roundCorners);
-  const intersectionRef = fields.animationStyle
-    ? useIntersectionObserver(
-        {
-          threshold: 0.0,
-        },
-        0.0,
-        () => {
+  const intersectionRef = useIntersectionObserver(
+    {
+      threshold: 0.0,
+    },
+    0.0,
+    fields.animationStyle
+      ? () => {
           intersectionRef.current
             .querySelectorAll('*[data-animate="true"]')
             .forEach((elem) => {
               elem.classList.add(fields.animationStyle);
             });
         }
-      )
-    : null;
-
+      : null
+  );
   return (
     <section
       className={`section ${style.textGridWithMedia} ${
