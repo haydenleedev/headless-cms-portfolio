@@ -1,5 +1,6 @@
 import style from "./footer.module.scss";
 import Link from "next/link";
+import Script from "next/script";
 import { AgilityImage } from "@agility/nextjs";
 import { isMobile } from "../../../utils/responsivity";
 import { useState } from "react";
@@ -169,10 +170,33 @@ const Footer = ({ globalData }) => {
           </nav>
         </div>
         <hr className={style.horizontalLine}></hr>
-        <div className={`${style.footNote}`}>
-          <div className={` ${style.cookies}`}>
-            <img alt="Cookie modal here"></img>
-            <img alt="Trust Arc here"></img>
+        <div className={style.footNote}>
+          <div className={style.cookies}>
+            <Script
+              src="consent.trustarc.com/notice?domain=client.com&c=teconsent&js=nj&noticeType=bb&gtm=1"
+              async={true}
+            />
+            <div id="teconsent"></div>
+            <div className={style.trusteLinks}>
+              <a
+                href="//privacy.truste.com/privacy-seal/validation?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
+                target="_ blank"
+              >
+                <img
+                  src="//privacy-policy.truste.com/privacy-seal/seal?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
+                  alt="TRUSTe"
+                />
+              </a>
+              <a
+                href="https://submit-irm.trustarc.com/services/validation/bac0a2d7-003d-4c6d-8171-d3fd1756d56d"
+                target="_blank"
+              >
+                <img
+                  src="https://submit-irm.trustarc.com/services/validation/bac0a2d7-003d-4c6d-8171-d3fd1756d56d/image"
+                  alt="TrustArc"
+                />
+              </a>
+            </div>
           </div>
           <div className={`${style.footNoteLinks}`}>
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>
@@ -189,6 +213,7 @@ const Footer = ({ globalData }) => {
           </div>
         </div>
       </div>
+      <div id="consent_blackbar"></div>
     </footer>
   );
 };

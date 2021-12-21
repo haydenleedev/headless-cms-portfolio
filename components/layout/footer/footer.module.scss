@@ -103,16 +103,29 @@
 
 .footNote {
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
 
   @include desktop() {
+    flex-direction: row;
+    .cookies {
+      flex-basis: 20%;
+    }
+    .footNoteLinks {
+      flex-basis: 80%;
+    }
   }
 
   .cookies {
     display: flex;
     flex-flow: column;
-    min-width: 20vw;
     align-items: center;
+    .trusteLinks {
+      display: flex;
+      gap: 0.25rem;
+      img {
+        max-width: 6.625rem;
+      }
+    }
     @include desktop() {
       align-items: unset;
     }
