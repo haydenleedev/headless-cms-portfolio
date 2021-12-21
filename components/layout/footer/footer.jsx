@@ -173,7 +173,7 @@ const Footer = ({ globalData }) => {
         <div className={style.footNote}>
           <div className={style.cookies}>
             <Script
-              src="consent.trustarc.com/notice?domain=ujet.co&c=teconsent&js=nj&noticeType=bb&gtm=1"
+              src="//consent.trustarc.com/notice?domain=client.com&c=teconsent&js=nj&noticeType=bb​​&gtm=1"
               async={true}
               strategy="lazyOnload"
             />
