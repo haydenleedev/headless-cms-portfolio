@@ -2,7 +2,7 @@ import { boolean } from "../../../utils/validation";
 import Media from "../media";
 import style from "./heroImage.module.scss";
 
-const HeroImage = ({ module }) => {
+const HeroImage = ({ module, narrowHeight }) => {
   const { fields } = module;
   const containerWidth = boolean(fields.containerWidth);
   const narrowContainer = boolean(fields?.narrowContainer);
@@ -10,8 +10,10 @@ const HeroImage = ({ module }) => {
   return (
     <section
       className={`section ${style.heroImage} ${
-        containerWidth ? "container" : ""
-      } ${narrowContainer ? "max-width-narrow" : ""}`}
+        narrowHeight ? style.heroImageNarrowHeight : ""
+      } ${containerWidth ? "container" : ""} ${
+        narrowContainer ? "max-width-narrow" : ""
+      }`}
       id={fields.id ? fields.id : null}
     >
       {fields.image && <Media media={fields.image} />}

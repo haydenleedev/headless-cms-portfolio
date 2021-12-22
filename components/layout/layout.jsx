@@ -13,8 +13,15 @@ const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 const Layout = (props) => {
-  const { page, sitemapNode, dynamicPageItem, notFound, pageTemplateName } =
-    props;
+  console.log(props);
+  const {
+    page,
+    sitemapNode,
+    dynamicPageItem,
+    notFound,
+    pageTemplateName,
+    children, // for pages created manually in the next.js pages folder
+  } = props;
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   const router = useRouter();
@@ -35,20 +42,22 @@ const Layout = (props) => {
 
   return (
     <>
-      <SEO
-        title={sitemapNode?.title}
-        description={page.seo.metaDescription}
-        keywords={page.seo.metaKeywords}
-        metaHTML={page.seo.metaHTML}
-        url={siteUrl + sitemapNode.path}
-      />
+      {page && sitemapNode && (
+        <SEO
+          title={sitemapNode?.title}
+          description={page.seo.metaDescription}
+          keywords={page.seo.metaKeywords}
+          metaHTML={page.seo.metaHTML}
+          url={siteUrl + sitemapNode.path}
+        />
+      )}
       {isPreview && <p>Loading preview mode...</p>}
       {!isPreview && (
         <>
           <GlobalMessage {...props}></GlobalMessage>
           <Navbar {...props}></Navbar>
           <main>
-            <AgilityPageTemplate {...props} />
+            {children ? children : <AgilityPageTemplate {...props} />}
           </main>
           <Footer {...props}></Footer>
         </>

@@ -34,5 +34,8 @@
         height: unset !important;
       }
     }
+    &.heroImageNarrowHeight {
+      min-height: 12.5rem;
+    }
   }
 }
