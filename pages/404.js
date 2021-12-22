@@ -3,7 +3,6 @@ import Layout from "../components/layout/layout";
 import agility from "@agility/content-fetch";
 
 const NotFoundPage = ({ globalData }) => {
-  console.log(globalData);
   return (
     <Layout globalData={globalData}>
       <div className="notFoundPage">
@@ -33,6 +32,7 @@ const NotFoundPage = ({ globalData }) => {
   );
 };
 
+// because this page is created in the pages folder (not in agility), we need to fetch the global data from agility for the layout component on build time
 export const getStaticProps = async () => {
   const api = agility.getApi({
     guid: process.env.AGILITY_GUID,
@@ -63,7 +63,7 @@ export const getStaticProps = async () => {
     expandAllContentLinks: true,
     contentLinkDepth: 6,
   });
-  console.log(navbarConfig.items);
+
   return {
     props: {
       globalData: {

@@ -13,7 +13,6 @@ const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 const Layout = (props) => {
-  console.log(props);
   const {
     page,
     sitemapNode,
