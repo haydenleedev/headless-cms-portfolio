@@ -33,7 +33,7 @@
     border-color: $color-mediumblue;
     margin-bottom: 3rem;
     @include desktop() {
-      margin: 3rem 0;
+      margin: 3rem 0 1rem 0;
     }
   }
 }
@@ -119,6 +119,9 @@
     display: flex;
     flex-flow: column;
     align-items: center;
+    img {
+      max-width: 10rem;
+    }
     .trusteLinks {
       display: flex;
       gap: 0.25rem;
