@@ -1,7 +1,6 @@
 import { getAgilityPageProps, getAgilityPaths } from "@agility/nextjs/node";
 import { getModule } from "../components/agility-pageModules";
 import Layout from "../components/layout/layout";
-// TODO: import global components
 import Navbar from "../components/layout/navbar/navbar";
 import Footer from "../components/layout/footer/footer";
 import GlobalMessage from "../components/layout/globalMessage/globalMessage";
@@ -16,7 +15,6 @@ export async function getStaticProps({
   defaultLocale,
   locales,
 }) {
-  // TODO: place all global here
   const globalComponents = {
     navbar: Navbar,
     globalMessage: GlobalMessage,
@@ -53,24 +51,6 @@ export async function getStaticPaths({ locales, defaultLocale }) {
     locales,
     defaultLocale,
   });
-
-  // TODO: figure a way to do this
-  // need to edit paths for press release pages: they need to be relative to root url, not /press-releases/slug
-  /* 
-  const otherPaths = agilityPaths.filter(
-    (path) => !path.split("/").some((item) => item === "press-releases")
-  );
-
-  let pressReleasePaths = agilityPaths
-    .filter((path) => path.split("/").some((item) => item === "press-releases"))
-    .map((pressReleasePath) => {
-      const pathArray = pressReleasePath.split("/");
-      const pressReleaseIndex = pathArray.findIndex(
-        (item) => item === "press-releases"
-      );
-      pathArray.splice(pressReleaseIndex, 1);
-      return pathArray.join("/");
-    }); */
 
   return {
     paths: agilityPaths,
