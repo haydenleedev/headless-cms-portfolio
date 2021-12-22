@@ -83,7 +83,7 @@ export const resolveLink = (referenceName, fields) => {
     case "newsarticle":
       return fields.link;
     case "pressreleasearticle":
-      return { href: fields.slug };
+      return { href: `/press-releases/${fields.slug}` };
     case "integrations":
       return { href: `/integrations/${fields.slug}` };
     case "whitepapers":

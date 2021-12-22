@@ -25,12 +25,37 @@ export default function handler(req, res) {
 
   const headingRegex = /<\/?h[1-6][\s\S]*<\/h[1-6]>/g;
 
+  // resolve the category for a content type by it's referencename
+  const resolveCategory = (referenceName) => {
+    switch (referenceName) {
+      case "pressreleasearticle":
+        return "Press Release";
+      case "ebooks":
+        return "e-Book";
+      case "guides":
+        return "Guide";
+      case "webinars":
+        return "Webinar";
+      case "whitepapers":
+        return "White Paper";
+      case "integrations":
+        return "Product Datasheet";
+      case "reports":
+        return "Report";
+      case "blogposts":
+        return "Blog";
+      default:
+        return referenceName;
+    }
+  };
+
   /* 
   |
   | normalizers for normalizing agility data for algolia indexing
   |
   */
   function normalizePage(page, path) {
+    const metaKeywords = page.seo.metaKeywords.split(" ");
     const overrideSEOData = page.zones.MainContentZone.find(
       (module) => module.item.properties.definitionName === "OverrideSEO"
     );
@@ -78,13 +103,16 @@ export default function handler(req, res) {
         overrideSEOData?.item.fields?.metaDescription ||
         page.seo.metaDescription,
       headings: getHeadings(page.zones.MainContentZone),
-      _tags: ["UJET"],
+      _tags: ["UJET", ...metaKeywords],
       path,
     };
     return normalized;
   }
 
   function normalizeBlogPost(post, path) {
+    const categories = post.categories.map((categoryObject) => {
+      return categoryObject.title;
+    });
     function getHeadings() {
       let headings = [];
       const foundHeadings = post.fields.content.match(headingRegex);
@@ -104,7 +132,7 @@ export default function handler(req, res) {
       title: post.fields.title,
       description: post.fields.metaDescription || post.fields.ogDescription,
       headings: getHeadings(),
-      _tags: ["Blog"],
+      _tags: [resolveCategory(post.properties.referenceName), ...categories],
       path,
     };
     return normalized;
@@ -131,7 +159,7 @@ export default function handler(req, res) {
       description:
         content.fields.metaDescription || content.fields.ogDescription,
       headings: getHeadings(),
-      _tags: ["Newsroom"],
+      _tags: [resolveCategory(content.properties.referenceName)],
       path,
     };
     return normalized;
@@ -158,7 +186,7 @@ export default function handler(req, res) {
       description:
         content.fields.metaDescription || content.fields.ogDescription,
       headings: getHeadings(),
-      _tags: ["Resources"],
+      _tags: ["Resources", resolveCategory(content.properties.referenceName)],
       path,
     };
     return normalized;
