@@ -301,11 +301,31 @@ const FirstFold = ({ module, customData }) => {
                 )}
               </div>
             </div>
-            {fields.media && !noImageLayout && !fields.customSVG && (
-              <div className={style.image} data-animate="true">
-                <Media media={fields.media}></Media>
-              </div>
-            )}
+            {fields.media &&
+              !noImageLayout &&
+              !fields.customSVG &&
+              !fields.imageLink && (
+                <div className={style.image} data-animate="true">
+                  <Media media={fields.media}></Media>
+                </div>
+              )}
+            {fields.media &&
+              !noImageLayout &&
+              !fields.customSVG &&
+              fields.imageLink && (
+                <AgilityLink
+                  agilityLink={fields.imageLink}
+                  className={`${style.imageLink} ${
+                    fields.linkClasses ? fields.linkClasses : ""
+                  }`}
+                  ariaLabel={`Navigate to page ` + fields.imageLink.href}
+                  title={`Navigate to page ` + fields.imageLink.href}
+                >
+                  <div className={style.image} data-animate="true">
+                    <Media media={fields.media}></Media>
+                  </div>
+                </AgilityLink>
+              )}
             {fields.customSVG && !noImageLayout && (
               <CustomSVG
                 svgInput={fields.customSVG}
