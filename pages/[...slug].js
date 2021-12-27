@@ -31,10 +31,10 @@ export async function getStaticProps({
     globalComponents,
   });
 
-  //if (!agilityProps) {
-  //  // We throw to make sure this fails at build time as this is never expected to happen
-  //  throw new Error(`Page not found`);
-  //}
+  if (!agilityProps) {
+    // We throw to make sure this fails at build time as this is never expected to happen
+    throw new Error(`Page not found`);
+  }
   return {
     props: agilityProps,
     // Next.js will attempt to re-generate the page when a request comes in, at most once every 10 seconds
@@ -54,7 +54,7 @@ export async function getStaticPaths({ locales, defaultLocale }) {
 
   return {
     paths: agilityPaths,
-    fallback: true,
+    fallback: false,
   };
 }
 
