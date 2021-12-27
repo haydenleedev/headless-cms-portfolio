@@ -387,6 +387,21 @@
   margin-right: $size-6 !important;
 }
 
+// reset these on mobile screen sizes
+* {
+  & [class*="ml-"] {
+    @include mobile() {
+      margin-left: unset !important;
+    }
+  }
+
+  & [class*="mr-"] {
+    @include mobile() {
+      margin-right: unset !important;
+    }
+  }
+}
+
 // margin-block: selects both margin-top and margin-bottom
 .margin-block-1 {
   margin-block: $size-1 !important;

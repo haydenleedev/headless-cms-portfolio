@@ -1,0 +1,44 @@
+.subscribe-blog {
+  background: $color-lightgray;
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+  position: relative;
+  // Eliminate CLS because we load marketo on idle
+  min-height: 32rem;
+  @include desktop() {
+    max-width: 25vw;
+    min-width: 100%;
+  }
+  &--heading {
+    text-transform: uppercase;
+    color: $color-darkgray;
+    font-size: 1rem;
+  }
+
+  &--title {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    color: $color-black;
+  }
+
+  form {
+    .mktoFormRow {
+      label {
+        display: flex !important;
+      }
+      input,
+      select {
+        border: 0.0625rem solid $color-gray !important;
+        border-radius: unset !important;
+        background-color: $color-white !important;
+      }
+    }
+    .mktoButton {
+      background-color: $color-navy;
+      border: unset;
+      font-size: $size-2;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+    }
+  }
+}
