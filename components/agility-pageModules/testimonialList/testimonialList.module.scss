@@ -15,11 +15,12 @@
       .media {
         position: relative;
         width: 100%;
-        min-width: 85vw;
+        max-width: 18.75rem;
         border-radius: 50%;
         border: 0.25rem solid $color-skyblue;
         div {
           &:only-child {
+            display: block;
             border-radius: 50%;
             overflow: hidden;
             border: 0.25rem solid $color-white;

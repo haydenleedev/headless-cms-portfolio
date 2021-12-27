@@ -17,6 +17,16 @@
   position: relative;
 }
 
+.mktoFormRow {
+  input {
+    &:not(:focus) {
+      & + .mktoError {
+        display: none !important;
+      }
+    }
+  }
+}
+
 .mktoErrorMsg {
   z-index: 124124;
   position: absolute;

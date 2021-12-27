@@ -21,10 +21,12 @@
         auto-fill,
         minmax(max(15.625rem, 100% / 2), 1fr)
       );
-      .item {
-        &:first-child {
-          border-right: 0.1rem solid $color-gray;
-          padding-right: 1rem;
+      @include desktop() {
+        .item {
+          &:first-child {
+            border-right: 0.1rem solid $color-gray;
+            padding-right: 1rem;
+          }
         }
       }
     }
@@ -72,6 +74,11 @@
       position: relative;
       display: grid;
       padding: 0 5%;
+      @include mobile() {
+        grid-template-areas:
+          "text text"
+          "image image" !important;
+      }
 
       &.itemColumnLayout {
         grid-template-areas:
@@ -181,6 +188,8 @@
 
       .itemMedia {
         grid-area: image;
+        display: flex;
+        justify-content: flex-end;
         & > div {
           min-width: 9.375rem;
           max-height: 9.375rem;

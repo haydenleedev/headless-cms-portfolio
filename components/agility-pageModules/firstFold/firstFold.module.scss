@@ -49,6 +49,9 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    @include touch() {
+      margin-top: 1rem;
+    }
     div {
       width: 100%;
       height: 100%;

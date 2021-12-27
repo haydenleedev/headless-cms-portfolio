@@ -5,12 +5,12 @@
 .blogPostContent {
   position: relative;
   .container {
-    width: 100%;
     display: grid;
     grid-gap: 2rem;
     position: relative;
     grid-template-columns: 1fr;
     @include desktop() {
+      width: 100%;
       grid-template-columns: 6fr 3fr;
     }
   }
@@ -22,7 +22,7 @@
 
   .meta {
     display: block;
-    margin-bottom: 2rem;
+    margin: 0.5rem 0 2rem 0;
   }
 
   .content {

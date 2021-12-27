@@ -17,15 +17,21 @@ const MainNavigation = ({
   const handleSetSearchToggled = (boolean) => {
     setSearchToggled(boolean);
   };
-  const handleNavigationGroupClick = (href, item) => {
+  const handleNavigationGroupClick = (fields, item) => {
     if (isMobile()) {
+      console.log(fields.mainLink);
       if (item == activeNavigationItem) {
         setActiveNavigationItem(null);
         return;
       }
-      setActiveNavigationItem(item);
-    } else {
-      router.push(href);
+      if (fields.columns) {
+        setActiveNavigationItem(item);
+      } else if (fields.mainLink) {
+        handleSetMainNavigationActive?.();
+        router.push(fields.mainLink.fields.link.href);
+      }
+    } else if (fields.mainLink) {
+      router.push(fields.mainLink.fields.link.href);
     }
   };
 
@@ -60,11 +66,11 @@ const MainNavigation = ({
             label={navigationGroup.fields.mainLink?.fields.link.text}
             onClick={(e) => {
               e.preventDefault();
-              if (navigationGroup.fields.mainLink)
-                handleNavigationGroupClick(
-                  navigationGroup.fields.mainLink.fields.link.href,
-                  `navigation-group-${index}`
-                );
+
+              handleNavigationGroupClick(
+                navigationGroup.fields,
+                `navigation-group-${index}`
+              );
             }}
           >
             {navigationGroup.fields.mainLink?.fields.internalTitle ||
