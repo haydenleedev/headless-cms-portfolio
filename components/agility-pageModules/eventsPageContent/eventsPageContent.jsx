@@ -20,7 +20,8 @@ const EventsPageContent = ({ customData }) => {
       <h1 className=""></h1>
       <div className="container">
         <nav className={style.eventsPageContent} aria-label="events navigation">
-          {events &&
+          {(events &&
+            events.length > 0 &&
             events.map((event) => (
               <div className={style.event} key={event.contentID}>
                 <p className={style.eventType}>{event.fields.eventType}</p>
@@ -58,7 +59,7 @@ const EventsPageContent = ({ customData }) => {
                   </AgilityLink>
                 </div>
               </div>
-            ))}
+            ))) || <p className="align-center">Nothing here.</p>}
         </nav>
       </div>
     </section>
