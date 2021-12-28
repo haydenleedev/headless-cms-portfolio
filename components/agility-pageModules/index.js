@@ -28,7 +28,7 @@ import BondFirstFold from "./bondFirstFold/bondFirstFold";
 import HideNavbar from "./hideNavbar/hideNavbar";
 import SpeakerList from "./speakerList/speakerList";
 import OverrideSEO from "./overrideSEO/overrideSEO";
-import Modal from "./Modal/modal";
+import Modal from "./modal/modal";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -40,6 +40,7 @@ import EventsPageContent from "./eventsPageContent/eventsPageContent";
 import AwardsPageContent from "./awardsPageContent/awardsPageContent";
 import LeadershipPageContent from "./leadershipPageContent/leadershipPageContent";
 import SearchPageContent from "./searchPageContent/searchPageContent";
+
 const allModules = [
   { name: "FirstFold", module: FirstFold },
   { name: "Placeholder", module: Placeholder },
