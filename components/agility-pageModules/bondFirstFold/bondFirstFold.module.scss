@@ -27,12 +27,21 @@
       height: unset;
       width: unset;
       transform: rotate(1deg);
+      animation: spin 8s ease-in-out 1;
       transition: all 8s ease-in-out;
       &.barrelSpinIn {
         transform: rotate(1turn);
       }
       &.barrelSpinOut {
         transform: rotate(1deg);
+      }
+      @keyframes spin {
+        from {
+          transform: rotate(1deg);
+        }
+        to {
+          transform: rotate(1turn);
+        }
       }
     }
   }

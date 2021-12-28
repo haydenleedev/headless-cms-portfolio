@@ -75,7 +75,9 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     className="content"
                     dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                   />
-                  <div className={`marketo-resource`}>
+                  <div
+                    className={`${resource.formBackgroundColor} marketo-resource`}
+                  >
                     <h2 className={`${style.alternateFormTitle} heading-6`}>
                       {resource.formTitle ||
                         "Fill out the form to download the the resource today!"}
@@ -104,7 +106,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
         ) : (
           <section className="section">
             <div className="container">
-              <div className="columns repeat-2">
+              <div className={style.columns}>
                 <div className={style.content}>
                   <h1 className="heading-5">{resource.title}</h1>
                   <div
@@ -112,7 +114,9 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                   />
                 </div>
-                <div className={`${style.form} marketo-resource`}>
+                <div
+                  className={`${resource.formBackgroundColor} ${style.form} marketo-resource`}
+                >
                   <h2 className={`${style.formTitle} heading-6`}>
                     {resource.formTitle ||
                       "Fill out the form to download the the resource today!"}
@@ -121,12 +125,16 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     formLoaded={formLoaded}
                     formID={resource.marketoFormID}
                   />
-                  {resource.link.text && resource.link.href && (
-                    <p>
-                      <AgilityLink agilityLink={resource.link}>
-                        {resource.link.title}
+                  {resource.link.href && (
+                    <div className="mt-4 text-white">
+                      <p> Want to learn more about UJET?</p>
+                      <AgilityLink
+                        className="text-decoration-underline"
+                        agilityLink={resource.link}
+                      >
+                        {resource.link.text}
                       </AgilityLink>
-                    </p>
+                    </div>
                   )}
                 </div>
               </div>

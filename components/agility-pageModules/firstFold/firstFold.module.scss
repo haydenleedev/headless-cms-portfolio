@@ -9,12 +9,16 @@
   // default firstFold layout
   .defaultLayout {
     display: flex;
+    gap: 1rem;
     align-items: center;
     & > * {
       flex-basis: 100%;
     }
     @include touch() {
       flex-direction: column;
+    }
+    &.defaultLayoutFixedHeight {
+      max-height: 25rem;
     }
   }
   // styling configuration for the optionally toggled no image layout field
@@ -49,12 +53,15 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    position: relative;
+    max-height: inherit;
     @include touch() {
       margin-top: 1rem;
     }
     div {
       width: 100%;
       height: 100%;
+      position: unset !important;
       img {
         object-fit: contain;
       }

@@ -16,6 +16,6 @@ export const hrefSelf = (href) => {
   return (
     /^(www\.|assets\.|http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(ujet)\.cx?(\/.*)?$/.test(
       href
-    ) || /^\/[^\W_][\w-/#?&=]*$/.test(href)
+    ) || /^~?\/[\w-/#?&=]*$/.test(href)
   );
 };

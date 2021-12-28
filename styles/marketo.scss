@@ -71,16 +71,23 @@
     font-size: 1.2rem;
     font-weight: 400;
     margin-top: 1.5rem;
+    padding: 0.5rem 1.5rem;
     color: $color-white;
-    border-color: $color-skyblue;
-    background-color: $color-skyblue;
+    border-color: $color-orange;
+    background-color: $color-orange;
+    transition: background-color 0.25s ease-in-out;
     cursor: pointer;
+    &:hover {
+      background-color: $color-darkpurple;
+    }
   }
 
   margin-top: 1rem;
   & > * {
-    max-width: 26.25rem;
-    margin: 0 auto;
+    @include desktop() {
+      max-width: 26.25rem;
+      margin: 0 auto;
+    }
   }
   input,
   select {

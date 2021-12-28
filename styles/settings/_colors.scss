@@ -20,64 +20,68 @@ $color-lightpurple: #9b58ea;
 $color-mediumpurple: #6e0bdc;
 
 .bg-paleblue {
-  background-color: #f0f6ff; // $color-paleblue: not pale enough...;
+  background-color: #f0f6ff !important; // $color-paleblue: not pale enough...;
 }
 .bg-lightblue {
-  background-color: $color-lightblue;
+  background-color: $color-lightblue !important;
 }
 .bg-mediumblue {
-  background-color: $color-mediumblue;
+  background-color: $color-mediumblue !important;
 }
 .bg-skyblue {
-  background-color: $color-skyblue;
+  background-color: $color-skyblue !important;
 }
 .bg-darkblue {
-  background-color: $color-darkblue;
+  background-color: $color-darkblue !important;
 }
 .bg-navy {
-  background-color: $color-navy;
+  background-color: $color-navy !important;
 }
 .bg-orange {
-  background-color: $color-orange;
+  background-color: $color-orange !important;
 }
 .bg-black {
-  background-color: $color-black;
+  background-color: $color-black !important;
 }
 .bg-white {
-  background-color: $color-white;
+  background-color: $color-white !important;
 }
 .bg-gray {
-  background-color: $color-gray;
+  background-color: $color-gray !important;
 }
 .bg-darkgray {
-  background-color: $color-darkgray;
+  background-color: $color-darkgray !important;
 }
 .bg-darkmedium {
-  background-color: $color-darkmedium;
+  background-color: $color-darkmedium !important;
 }
 .bg-mediumgray {
-  background-color: $color-mediumgray;
+  background-color: $color-mediumgray !important;
 }
 .bg-lightgray {
-  background-color: $color-lightgray;
+  background-color: $color-lightgray !important;
 }
 .bg-red {
-  background-color: $color-red;
+  background-color: $color-red !important;
 }
 .bg-green {
-  background-color: $color-green;
+  background-color: $color-green !important;
 }
 .bg-darkpurple {
-  background-color: $color-darkpurple;
+  background-color: $color-darkpurple !important;
 }
 .bg-lightpurple {
-  background-color: $color-lightpurple;
+  background-color: $color-lightpurple !important;
 }
 .bg-mediumpurple {
-  background-color: $color-mediumpurple;
+  background-color: $color-mediumpurple !important;
 }
 .bg-gradient-blue {
-  background: linear-gradient(90deg, $color-skyblue, $color-mediumblue);
+  background: linear-gradient(
+    90deg,
+    $color-skyblue,
+    $color-mediumblue
+  ) !important;
 }
 .bg-gradient-blue-light {
   background-color: #e2eeff;

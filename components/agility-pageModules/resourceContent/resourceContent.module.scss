@@ -1,17 +1,26 @@
 @import "../../../styles/settings/colors";
 @import "../../../styles/settings/mixins";
 
+.columns {
+  display: grid;
+  grid-template-columns: 100%;
+  gap: 2rem;
+  @include desktop() {
+    grid-template-columns: 50% 50%;
+  }
+}
+
 .content {
+  img {
+    max-width: 100%;
+  }
 }
 
 .form {
   background: $color-purple;
-  padding: 1.5rem;
-  min-height: 37.5rem;
+  padding: 3rem;
+  height: min-content;
   border-radius: 1rem;
-  @include desktop() {
-    padding: 3rem;
-  }
 
   .formTitle {
     color: $color-white;

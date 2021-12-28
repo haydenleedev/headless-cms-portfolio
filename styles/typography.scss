@@ -323,3 +323,7 @@ table {
 mark {
   background-color: transparentize($color: $color-mediumblue, $amount: 0.5);
 }
+
+.text-decoration-underline {
+  text-decoration: underline;
+}

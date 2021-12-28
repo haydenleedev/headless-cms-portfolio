@@ -38,6 +38,11 @@
       flex-direction: column;
       .awardImage {
         max-width: 12.5rem;
+        div {
+          &:not(:only-child) {
+            display: none !important;
+          }
+        }
         img {
           width: unset !important;
           height: unset !important;

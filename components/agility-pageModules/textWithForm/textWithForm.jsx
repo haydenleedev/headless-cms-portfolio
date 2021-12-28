@@ -26,7 +26,7 @@ const TextWithForm = ({ module, customData }) => {
       <section
         className={`section ${style.textWithForm} ${
           fields.classes ? fields.classes : ""
-        }`}
+        } ${columnLayout ? "padding-block-2" : ""}`}
         id={fields.id ? fields.id : null}
       >
         <div

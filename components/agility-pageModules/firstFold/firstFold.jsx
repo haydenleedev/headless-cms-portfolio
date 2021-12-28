@@ -20,6 +20,7 @@ const FirstFold = ({ module, customData }) => {
   const customerStory = boolean(fields.customerStory);
   const softwareIntegration = boolean(fields.softwareIntegration);
   const narrowContainer = boolean(fields?.narrowContainer);
+  const fixedHeight = boolean(fields?.fixedHeight);
 
   const intersectionRef = useIntersectionObserver(
     {
@@ -172,7 +173,9 @@ const FirstFold = ({ module, customData }) => {
                     imageLeft
                       ? "flex-direction-row-reverse"
                       : "flex-direction-row"
-                  } ${uncenteredVertically ? "align-items-unset" : ""}`
+                  } ${uncenteredVertically ? "align-items-unset" : ""} ${
+                    fixedHeight ? style.defaultLayoutFixedHeight : ""
+                  }`
             }
           >
             <div className={style.textContent}>
