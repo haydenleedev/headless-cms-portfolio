@@ -9,11 +9,27 @@
   &.bannerLayout {
     padding: 5rem 0;
     margin: 2rem 0;
+    &.alignRight {
+      .content {
+        margin-left: 0;
+        @include desktop() {
+          margin-left: auto;
+        }
+      }
+    }
+    &.alignLeft {
+      .content {
+        margin-right: 0;
+        @include desktop() {
+          margin-right: auto;
+        }
+      }
+    }
     .content {
-      max-width: 50%;
-      margin-right: auto;
-      @include mobile() {
-        max-width: 80%;
+      max-width: 80%;
+
+      @include desktop() {
+        max-width: 50%;
       }
       .heading {
         text-align: unset;
@@ -40,10 +56,19 @@
   }
   .content {
     z-index: 1;
-    text-align: center;
-    .heading {
+    &.textCenter {
       text-align: center;
+      .heading {
+        text-align: center;
+      }
     }
+    &.textLeft {
+      text-align: left;
+      .heading {
+        text-align: left;
+      }
+    }
+
     .link {
       padding: 0.5em 2em;
       border-radius: 3em;

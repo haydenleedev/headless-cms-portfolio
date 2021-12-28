@@ -12,11 +12,17 @@ const CallToAction = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
   const narrowContainer = boolean(fields?.narrowContainer);
   const bannerLayout = boolean(fields?.bannerLayout);
+
+  const itemContentRight = boolean(fields?.itemContentRight);
+  const textCenterJustification = boolean(fields?.textCenterJustification);
+
   return (
     <section
       className={`section ${style.callToAction} ${
         bannerLayout ? style.bannerLayout : ""
-      } ${fields.classes ? fields.classes : ""}`}
+      } ${fields.classes ? fields.classes : ""} ${
+        itemContentRight ? style.alignRight : style.alignLeft
+      }`}
       id={fields.id ? fields.id : null}
     >
       {fields.backgroundImage && (
@@ -29,7 +35,11 @@ const CallToAction = ({ module, customData }) => {
           narrowContainer ? "max-width-narrow" : ""
         }`}
       >
-        <div className={style.content}>
+        <div
+          className={`${style.content} ${
+            textCenterJustification ? style.textCenter : style.textLeft
+          }`}
+        >
           {heading.text && (
             <div className={style.heading}>
               <Heading {...heading} />
