@@ -69,8 +69,8 @@ const TextWithMedia = ({ module, customData }) => {
                 boolean(fields.columnLayout)
                   ? "justify-content-center align-items-center"
                   : boolean(fields.mediaLeft)
-                  ? "ml-4 justify-content-flex-end align-items-flex-start"
-                  : "mr-4 justify-content-flex-start align-items-flex-start"
+                  ? "justify-content-flex-end align-items-flex-start"
+                  : "justify-content-flex-start align-items-flex-start"
               }`}
             >
               {heading.text && (
@@ -106,12 +106,6 @@ const TextWithMedia = ({ module, customData }) => {
           </div>
           <div
             className={`${style.media} ${
-              boolean(fields.columnLayout)
-                ? ""
-                : boolean(fields.mediaLeft)
-                ? "mr-4"
-                : "ml-4"
-            } ${
               boolean(fields.fullPageWidth) ? style.fullPageWidthMedia : ""
             } ${alignTop ? "justify-content-flex-start" : ""}`}
           >

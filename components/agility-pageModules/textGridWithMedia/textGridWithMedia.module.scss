@@ -26,7 +26,7 @@
     align-items: center;
     justify-content: center;
     .grid {
-      gap: 1rem;
+      gap: 0.5rem;
       p {
         padding-bottom: 1rem;
       }
@@ -75,7 +75,7 @@
     }
   }
   .horizontallyCenteredTextItem {
-    margin: 0.25rem;
+    margin: 0.5rem 0;
   }
   .textItemFlex {
     .textItemMedia {
