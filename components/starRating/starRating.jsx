@@ -8,7 +8,7 @@ const StarRating = ({ starCount, starWidth }) => {
     <div className={style.starRating}>
       {[...Array(fullStarCount).keys()].map((star) => (
         <img
-          src="https://assets.ujet.cx/full-star-red.svg"
+          src="https://assets.ujet.cx/full-star.svg"
           key={star}
           alt=""
           width={starWidth}
@@ -17,7 +17,7 @@ const StarRating = ({ starCount, starWidth }) => {
       ))}
       {halfStar && (
         <img
-          src="https://assets.ujet.cx/half-star-red.svg"
+          src="https://assets.ujet.cx/half-star.svg"
           alt=""
           width={starWidth}
           height={starWidth}
