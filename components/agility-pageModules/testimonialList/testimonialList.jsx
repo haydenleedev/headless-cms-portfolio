@@ -40,7 +40,7 @@ const TestimonialList = ({ module }) => {
   return (
     <section
       className={`section ${style.testimonialList} ${
-        fields.classes ? fields.classes : "bg-lightgray"
+        !!fields.classes ? fields.classes : "bg-lightgray"
       }`}
       id={fields.id ? fields.id : null}
     >
