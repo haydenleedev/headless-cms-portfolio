@@ -60,8 +60,9 @@
 }
 
 .brand {
-  @include touch() {
-    width: 50%;
+  width: 50%;
+  @include desktop() {
+    width: initial;
   }
   .logo {
     position: relative;
@@ -120,19 +121,24 @@
 
 // Mobile toggle menu states
 .mainNavigationActive {
-  @include touch() {
-    position: relative;
-    padding-top: 3rem;
+  position: relative;
+  padding-top: 3rem;
+  @include desktop() {
+    position: initial;
+    padding-top: initial;
   }
 }
 .mainNavigationHidden {
   // Safari needs this
-  left: unset;
-  @include touch() {
-    height: 0;
-    left: -2147483647px;
-    padding: 0;
-    position: absolute;
+  height: 0;
+  left: -2147483647px;
+  padding: 0;
+  position: absolute;
+  @include desktop() {
+    height: initial;
+    left: unset;
+    padding: initial;
+    position: initial;
   }
 }
 

@@ -166,19 +166,21 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
         <div className={`container ${style.container}`}>
           <div className={style.body}>
             <div>
-              <h1 className="heading-3">{blogPost.title}</h1>
+              <h1 className="heading-4">{blogPost.title}</h1>
               <small className={style.meta}>
                 by {blogPost.author?.fields.name || "UJET Team"} | 
                 <time dateTime={blogPost.date}>{dateStr}</time>
               </small>
-              <AgilityImage
-                src={blogPost.image.url}
-                alt={blogPost.image.label || null}
-                width={blogPost.image.pixelWidth}
-                height={blogPost.image.pixelHeight}
-                objectFit="cover"
-                layout="responsive"
-              />
+              <div className={style.blogPostImage}>
+                <AgilityImage
+                  src={blogPost.image.url}
+                  alt={blogPost.image.label || null}
+                  width={blogPost.image.pixelWidth}
+                  height={blogPost.image.pixelHeight}
+                  objectFit="cover"
+                  layout="responsive"
+                />
+              </div>
               <article
                 className={`content ${style.content}`}
                 dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}

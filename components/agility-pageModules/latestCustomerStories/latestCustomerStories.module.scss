@@ -2,6 +2,9 @@
 @import "../../../styles/settings/colors";
 
 .latestCustomerStories {
+  .heading {
+    margin: unset;
+  }
   .content {
     padding-top: 1.5rem;
     // style for stories listed on a customer story page
@@ -129,6 +132,9 @@
     }
   }
   @include desktop() {
+    .heading {
+      margin: initial;
+    }
     .content {
       gap: 2.5rem;
       .story {
@@ -147,11 +153,6 @@
         min-height: 40.625rem;
         padding-bottom: unset;
       }
-    }
-  }
-  @include touch() {
-    .heading {
-      margin: unset;
     }
   }
 }

@@ -25,8 +25,23 @@
     margin: 0.5rem 0 2rem 0;
   }
 
+  .blogPostImage {
+    max-height: 15rem;
+    overflow: hidden;
+    img {
+      transform: scale(1.5);
+    }
+  }
+
   .content {
     margin-top: 2rem;
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: 2rem;
+    }
     iframe {
       width: 100%;
     }

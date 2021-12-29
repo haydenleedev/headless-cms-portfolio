@@ -7,29 +7,29 @@
     text-align: center;
   }
   .items {
-    display: grid;
-    gap: 2rem;
-    width: 100%;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
     .contentItem {
+      width: 90vw;
+      min-width: unset;
+      max-width: 25rem;
       > * {
         max-width: calc(33% - 1.875rem);
       }
     }
-    @include touch() {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    @include desktop() {
+      display: grid;
+      gap: 2rem;
+      width: 100%;
+      grid-template-columns: repeat(3, 1fr);
       .contentItem {
-        width: calc(33% - 1.875rem);
-        min-width: 21.25rem;
-      }
-    }
-    @include mobile() {
-      .contentItem {
-        width: 90vw;
-        min-width: unset;
+        width: initial;
+        > * {
+          max-width: calc(33% - 1.875rem);
+        }
       }
     }
   }

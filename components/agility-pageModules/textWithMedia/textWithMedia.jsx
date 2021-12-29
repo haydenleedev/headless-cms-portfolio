@@ -75,7 +75,9 @@ const TextWithMedia = ({ module, customData }) => {
             >
               {heading.text && (
                 <div
-                  className={boolean(fields.columnLayout) ? "" : style.heading}
+                  className={
+                    boolean(fields.columnLayout) ? "heading" : style.heading
+                  }
                 >
                   <Heading {...heading} />
                 </div>

@@ -5,9 +5,12 @@
   @include shadow();
   display: flex;
   flex-direction: column;
-  @include touch() {
+  .image {
+    max-height: 22.5rem;
+  }
+  @include desktop() {
     .image {
-      max-height: 22.5rem;
+      max-height: initial;
     }
   }
 
