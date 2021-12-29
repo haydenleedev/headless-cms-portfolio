@@ -1,6 +1,7 @@
 .genericCard {
-  height: 40vh;
-  min-height: 25rem;
+  height: 100%;
+  @import "../settings/_mixins";
+
   border-radius: 1rem;
   @include shadow();
   display: flex;
@@ -13,9 +14,7 @@
 
   &__image {
     background: $color-gray;
-    flex: 1;
-    max-height: 12.5rem;
-    min-height: 10.625rem;
+    height: toRem(170);
     overflow: hidden;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
@@ -26,7 +25,6 @@
     }
   }
   &__textContent {
-    flex: 2;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -55,7 +53,7 @@
     }
 
     &--link {
-      padding: 0.5rem 1.5rem 3rem 1.5rem;
+      padding: 0.5rem 1.5rem 1.3rem 1.5rem;
       display: block;
       font-weight: 600;
       font-size: 1rem;
