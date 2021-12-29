@@ -10,14 +10,10 @@
       auto-fill,
       minmax(max(6.25rem, 100% / 6), 1fr)
     );
-    gap: 1rem;
-    .item {
-      margin: unset !important;
-    }
-    @include desktop() {
-      gap: initial;
+    @include touch() {
+      gap: 1rem;
       .item {
-        margin: initial;
+        margin: unset !important;
       }
     }
     &.is2 {

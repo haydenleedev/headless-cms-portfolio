@@ -5,7 +5,7 @@ import { useState } from "react";
 import { boolean } from "../../../utils/validation";
 import { Form, FormWrapper } from "../../form";
 import AgilityLink from "../../agilityLink";
-import { sanitizeHtmlConfig } from "../../../utils/convert";
+import { resolveCategory, sanitizeHtmlConfig } from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
 
@@ -46,25 +46,27 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
         {boolean(resource.alternateLayout) ? (
           <>
             <section className={style.alternateHeader}>
-              <div className={style.alternateHeaderColumns}>
-                <div className={style.contentColumn} aria-hidden></div>
-                <div className={style.imageColumn}>
-                  <AgilityImage
-                    src={resource.image.url}
-                    alt={resource.image.label || null}
-                    width={resource.image.pixelWidth}
-                    height={resource.image.pixelHeight}
-                    objectFit="cover"
-                  />
-                </div>
-                <div
-                  className={`section container ${style.alternateHeaderContainer}`}
-                >
-                  <p className={style.category}>Render category here</p>
+              <div className={style.alternateHeaderContainer}>
+                <div className={`container ${style.alternateHeaderTitle}`}>
+                  <p className={style.category}>
+                    {resolveCategory(dynamicPageItem.properties.referenceName)}
+                  </p>
                   <span className={style.hr}></span>
                   <h1 className={`${style.title} heading-5`}>
                     {resource.title}
                   </h1>
+                </div>
+                <div className={style.alternateHeaderColumns}>
+                  <div className={style.sideColumn}></div>
+                  <div className={style.imageColumn}>
+                    <AgilityImage
+                      src={resource.image.url}
+                      alt={resource.image.label || null}
+                      width={resource.image.pixelWidth}
+                      height={resource.image.pixelHeight}
+                      objectFit="cover"
+                    />
+                  </div>
                 </div>
               </div>
             </section>

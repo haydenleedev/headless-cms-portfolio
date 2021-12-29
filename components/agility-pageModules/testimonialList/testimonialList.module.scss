@@ -2,8 +2,6 @@
 @import "../../../styles/settings/colors";
 
 .testimonialList {
-  margin-top: 5rem;
-  padding-bottom: 0;
   .content {
     display: flex;
     flex-direction: column;
@@ -20,11 +18,14 @@
         border: 0.25rem solid $color-skyblue;
         div {
           &:only-child {
-            display: block;
+            display: block !important;
             border-radius: 50%;
             overflow: hidden;
             border: 0.25rem solid $color-white;
           }
+        }
+        @include desktop() {
+          max-width: unset;
         }
       }
     }
@@ -54,7 +55,7 @@
     }
 
     .staticImageLayoutControls {
-      margin: 0 auto;
+      margin: 1rem auto 0 auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -100,7 +101,6 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      min-height: 28.125rem;
       p {
         &:first-child {
           color: $color-black;
@@ -189,8 +189,6 @@
       .textContent,
       .staticImageLayoutTextContent {
         margin: 3rem 0 auto 2rem;
-        min-height: 25rem;
-        max-height: 25rem;
         align-items: flex-start;
         text-align: left;
         p {
@@ -199,8 +197,12 @@
           }
         }
       }
+      .staticImageLayoutTextContent {
+        min-height: 25rem;
+        max-height: 25rem;
+      }
       .controls {
-        margin: unset;
+        margin: 3rem 0 auto 2rem;
       }
       .staticImageLayoutControls {
         margin: 3rem 0 auto 2rem;
