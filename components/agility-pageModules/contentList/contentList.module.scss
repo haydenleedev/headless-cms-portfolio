@@ -7,21 +7,14 @@
     text-align: center;
   }
   .items {
-<<<<<<< HEAD
-    display: grid;
-    gap: 2rem;
-    width: 100%;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: stretch;
-=======
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1rem;
->>>>>>> 31c7860147e06e2d9009db44e2bb11449e78bca2
     .contentItem {
       width: 90vw;
+      height: 100%;
       min-width: unset;
       max-width: 25rem;
       > * {
