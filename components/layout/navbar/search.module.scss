@@ -201,11 +201,11 @@
       }
 
       .magnifyingGlass {
-        @include touch() {
-          display: none;
+        display: none;
+        @include desktop() {
+          display: inline-block;
         }
         position: relative;
-        display: inline-block;
         background: #fff;
         border-radius: 10rem;
         height: 1rem;

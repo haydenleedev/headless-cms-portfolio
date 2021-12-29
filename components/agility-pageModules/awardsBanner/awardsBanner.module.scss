@@ -2,7 +2,6 @@
 @import "../../../styles/settings/colors";
 
 .awardsBanner {
-  margin: 2rem 0;
   padding: 2rem 0;
   position: relative;
   .backgroundImage {
@@ -28,6 +27,7 @@
     display: flex;
     flex-wrap: wrap;
     z-index: 1;
+    gap: 2rem;
     aside {
       flex-basis: 100%;
     }
@@ -36,24 +36,15 @@
       & > div {
         &:only-child {
           min-height: 100%;
-          background-color: $color-darkpurple;
           padding: 4rem;
           .heading {
             margin-bottom: 1.5rem;
-            h1,
-            h2,
-            h3,
-            h4,
-            h5,
-            h6 {
-              font-size: 1.75rem;
-              font-weight: 400;
-            }
           }
           .featuredImage {
             & > div {
               &:only-child {
                 min-height: 6.25rem;
+                width: 100%;
                 img {
                   object-fit: contain;
                   height: unset !important;
@@ -62,24 +53,31 @@
               }
             }
           }
-          .description {
-            white-space: pre-line;
+        }
+      }
+      &.columnLayoutTextContent {
+        & > div {
+          &:only-child {
+            padding: unset;
           }
         }
       }
     }
     .awards {
+      align-items: center;
       .awardImage {
-        padding: unset;
+        padding: unset !important;
         display: flex;
         justify-content: center;
+        width: 100%;
         & > div {
           &:only-child {
             height: 100%;
+            width: 100%;
             img {
               object-fit: contain;
-              height: unset !important;
-              width: unset !important;
+              height: 100% !important;
+              width: 100% !important;
             }
           }
         }
@@ -88,7 +86,7 @@
     @include desktop() {
       flex-wrap: unset;
       .textContent {
-        padding-right: 3.5rem;
+        //padding-right: 3.5rem;
       }
       .awards {
         .awardImage {

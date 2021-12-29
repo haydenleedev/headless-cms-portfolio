@@ -3,16 +3,16 @@
   & > * {
     &:only-child {
       position: relative;
-      min-height: 25rem;
       display: flex;
       justify-content: center;
       align-items: center;
+      min-height: 15rem;
       svg {
         position: absolute;
         max-width: 90vw;
       }
-      @include mobile() {
-        min-height: 15rem;
+      @include tablet() {
+        min-height: 25rem;
       }
     }
   }

@@ -166,6 +166,8 @@
     flex: 0 0 20vh;
     > * {
       width: 100%;
+      display: flex;
+      justify-content: center;
     }
     @include tablet() {
       // default is six columns
@@ -380,6 +382,9 @@
 .ml-6 {
   margin-left: $size-6 !important;
 }
+.ml-auto {
+  margin-left: auto !important;
+}
 
 .mr-05 {
   margin-right: $size-05 !important;
@@ -401,6 +406,9 @@
 }
 .mr-6 {
   margin-right: $size-6 !important;
+}
+.mr-auto {
+  margin-right: auto !important;
 }
 
 // reset these on mobile screen sizes

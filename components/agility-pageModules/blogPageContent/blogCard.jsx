@@ -1,12 +1,9 @@
 import { AgilityImage } from "@agility/nextjs";
-import { toDate } from "../../../utils/convert";
-import { hrefSelf } from "../../../utils/validation";
 import AgilityLink from "../../agilityLink";
 import style from "./blogCard.module.scss";
 import ujetLogo from "../../../assets/ujet-logo.svg";
 
 const BlogCard = ({ title, image, link, date, category }) => {
-  const isInnerLink = hrefSelf(link.href);
   return (
     <AgilityLink
       agilityLink={link}

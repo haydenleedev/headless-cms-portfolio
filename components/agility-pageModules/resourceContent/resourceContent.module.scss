@@ -34,20 +34,36 @@
 }
 
 .alternateHeader {
-  position: relative;
   .alternateHeaderContainer {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    position: relative;
+    min-height: 28.75rem;
+    display: flex;
+    @include desktop() {
+      align-items: center;
+    }
+  }
+  .alternateHeaderTitle {
+    z-index: 1;
+    padding: 4rem 3rem 0 3rem;
+    @include desktop() {
+      padding: 1rem;
+      & > * {
+        max-width: 50%;
+      }
+    }
   }
   .alternateHeaderColumns {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     display: grid;
     @include desktop() {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    .contentColumn {
+    .sideColumn {
       min-height: 17.5rem;
       background: $color-navy;
       @include desktop() {
@@ -59,6 +75,7 @@
       min-height: 25rem;
       div {
         height: 100%;
+        width: 100%;
       }
     }
   }
@@ -84,12 +101,22 @@
 .alternateContent {
   @include shadow();
   padding: 1rem;
-  top: -8rem;
   position: relative;
   border-radius: 1rem;
   @include desktop() {
     margin: auto;
+    top: -8rem;
     padding: 4rem;
+  }
+  form {
+    input,
+    select {
+      border: 0.0625rem solid $color-skyblue !important;
+      background-color: $color-white;
+      &::placeholder {
+        color: $color-gray !important;
+      }
+    }
   }
 }
 

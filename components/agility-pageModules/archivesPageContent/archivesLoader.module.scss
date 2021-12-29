@@ -11,10 +11,14 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    @include touch() {
-      width: 100%;
+    width: 100%;
+    .loadingImageField {
+      max-height: 22.5rem;
+    }
+    @include desktop() {
+      width: initial;
       .loadingImageField {
-        max-height: 22.5rem;
+        max-height: initial;
       }
     }
 

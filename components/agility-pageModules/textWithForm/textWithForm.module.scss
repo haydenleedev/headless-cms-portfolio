@@ -5,6 +5,7 @@
   // default layout
   .content {
     display: flex;
+    flex-direction: column;
     & > * {
       flex-basis: 100%;
     }
@@ -53,8 +54,8 @@
         }
       }
     }
-    @include touch() {
-      flex-direction: column;
+    @include desktop() {
+      flex-direction: row;
     }
   }
   // column layout

@@ -11,11 +11,12 @@
     display: flex;
     gap: 1rem;
     align-items: center;
+    flex-direction: column;
     & > * {
       flex-basis: 100%;
     }
-    @include touch() {
-      flex-direction: column;
+    @include desktop() {
+      flex-direction: row;
     }
     &.defaultLayoutFixedHeight {
       max-height: 25rem;
@@ -55,8 +56,9 @@
     align-items: flex-end;
     position: relative;
     max-height: inherit;
-    @include touch() {
-      margin-top: 1rem;
+    margin-top: 1rem;
+    @include desktop() {
+      margin-top: initial;
     }
     div {
       width: 100%;

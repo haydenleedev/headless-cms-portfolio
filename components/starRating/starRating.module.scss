@@ -1,7 +1,8 @@
 @import "../../styles/settings/mixins";
 .starRating {
-  @include touch() {
-    text-align: center;
+  text-align: center;
+  @include desktop() {
+    text-align: unset;
   }
   img {
     margin: 0 0.25rem;

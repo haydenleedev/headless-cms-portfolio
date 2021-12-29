@@ -3,10 +3,11 @@
 
 .textWithMedia {
   .heading {
-    margin-bottom: 2rem;
-    @include touch() {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    @include desktop() {
+      margin-top: initial;
+      margin-bottom: 2rem;
     }
   }
   .content {
@@ -88,13 +89,6 @@
         img {
           object-fit: contain;
         }
-      }
-    }
-    @include touch() {
-      margin: unset !important;
-      & > * {
-        margin-left: auto;
-        margin-right: auto;
       }
     }
   }
