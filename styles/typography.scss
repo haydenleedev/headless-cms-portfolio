@@ -157,8 +157,17 @@ blog posts or anywhere where html is rendered */
   }
 
   ol {
+    &.romans {
+      list-style-type: lower-roman;
+    }
+    &.alphabets {
+      list-style-type: lower-alpha;
+    }
     li {
       margin-top: 1.5rem;
+      &::marker {
+        font-weight: 600;
+      }
     }
   }
   ul {
