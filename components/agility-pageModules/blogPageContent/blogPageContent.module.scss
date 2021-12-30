@@ -97,15 +97,19 @@
         }
         label {
           display: flex;
-          align-items: center;
+          // align-items: center;
           &:hover {
             cursor: pointer;
             color: $color-darkblue;
           }
+          input {
+            position: relative;
+            top: .1rem;
+            margin-right: .5rem;
+          }
           input[type="radio"] {
             margin-block: unset;
             margin-left: unset;
-            margin-right: 0.5rem;
           }
         }
       }

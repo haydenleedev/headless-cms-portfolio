@@ -96,7 +96,7 @@
         }
       }
     }
-    // !important is used here to override some form styles because this is layout has unique styles for it.
+    // !important is used here to override some form styles because this layout has unique styles for it.
     .form {
       margin-top: 1rem;
       & > * {
@@ -151,12 +151,12 @@
     .content {
       padding-top: 3rem;
       .form {
-        margin-top: unset;
+        margin-top: 2rem;
       }
     }
     .columnLayoutContent {
       .form {
-        margin-top: unset;
+        margin-top: 2rem;
       }
     }
   }

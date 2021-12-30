@@ -50,6 +50,11 @@
             cursor: pointer;
             color: $color-darkblue;
           }
+
+          input {
+            margin-right: .5rem;
+            position: relative;
+          }
           input[type="radio"] {
             margin-block: unset;
             margin-left: unset;

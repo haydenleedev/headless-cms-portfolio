@@ -1,0 +1,8 @@
+@import "../../../styles/settings/mixins";
+
+.spacer {
+    display: none;
+    @include desktop() {
+        display: block;
+    }
+}
