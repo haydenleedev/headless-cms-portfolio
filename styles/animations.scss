@@ -35,13 +35,20 @@
   animation-fill-mode: both;
 }
 
+.fadeIn {
+  opacity: 0;
+  animation: 1s fadeIn alternate;
+  animation-delay: 0.1s;
+  animation-fill-mode: both;
+}
 .slideInFromTop,
 .slideInFromBottom,
 .slideInFromRight,
 .slideInFromLeft,
 .scaleIn,
 .scaleOut,
-.bounceIn {
+.bounceIn,
+.fadeIn {
   &:nth-child(1) {
     animation-delay: 0.2s;
   }

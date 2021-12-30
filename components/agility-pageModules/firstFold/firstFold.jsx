@@ -20,7 +20,7 @@ const FirstFold = ({ module, customData }) => {
   const customerStory = boolean(fields.customerStory);
   const softwareIntegration = boolean(fields.softwareIntegration);
   const narrowContainer = boolean(fields?.narrowContainer);
-  const fixedHeight = boolean(fields?.fixedHeight);
+  const fixedHeight = fields?.fixedHeight;
 
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
@@ -175,7 +175,9 @@ const FirstFold = ({ module, customData }) => {
                       ? "flex-direction-row-reverse"
                       : "flex-direction-row"
                   } ${uncenteredVertically ? "align-items-unset" : ""} ${
-                    fixedHeight ? style.defaultLayoutFixedHeight : ""
+                    fixedHeight
+                      ? style[`defaultLayoutFixedHeight${fixedHeight}`]
+                      : ""
                   }`
             }
           >

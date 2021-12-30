@@ -68,6 +68,14 @@
     }
     .textContent {
       padding: 0 1rem;
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-bottom: 1rem;
+      }
       .testimonial {
         .testimonialRating {
           display: flex;
@@ -150,14 +158,6 @@
   @include desktop() {
     .content {
       padding-top: 3rem;
-      .form {
-        margin-top: 2rem;
-      }
-    }
-    .columnLayoutContent {
-      .form {
-        margin-top: 2rem;
-      }
     }
   }
 }
