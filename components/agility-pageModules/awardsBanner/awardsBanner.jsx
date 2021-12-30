@@ -6,7 +6,8 @@ import style from "./awardsBanner.module.scss";
 import { renderHTML } from "@agility/nextjs";
 
 const AwardsBanner = ({ module, customData }) => {
-  const { sanitizedHtml } = customData;
+  const { sanitizedHtml, featuredAwards } = customData;
+  console.log(featuredAwards);
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const columnLayout = boolean(fields?.columnLayout);
@@ -14,9 +15,7 @@ const AwardsBanner = ({ module, customData }) => {
 
   return (
     <section
-      className={`section ${style.awardsBanner} ${
-        fields.classes ? fields.classes : ""
-      }`}
+      className={`section ${style.awardsBanner} ${fields.classes ? fields.classes : ""}`}
       id={fields.id ? fields.id : null}
     >
       {fields.backgroundImage && (
@@ -25,17 +24,11 @@ const AwardsBanner = ({ module, customData }) => {
         </div>
       )}
       <div className="container">
-        <div
-          className={`${style.content} ${
-            columnLayout ? "flex-direction-column" : "flex-direction-row"
-          }`}
-        >
+        <div className={`${style.content} ${columnLayout ? "flex-direction-column" : "flex-direction-row"}`}>
           <aside
-            className={`${style.textContent} ${
-              fields.textContentHighlightColor
-            } ${columnLayout ? style.columnLayoutTextContent : ""} ${
-              textCenterJustification ? "align-center" : ""
-            }`}
+            className={`${style.textContent} ${fields.textContentHighlightColor} ${
+              columnLayout ? style.columnLayoutTextContent : ""
+            } ${textCenterJustification ? "align-center" : ""}`}
           >
             <div>
               <div className={style.heading}>
@@ -46,28 +39,24 @@ const AwardsBanner = ({ module, customData }) => {
                   <Media media={fields.featuredImage} />
                 </div>
               )}
-              <div
-                className={style.description}
-                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-              ></div>
+              <div className={style.description} dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}></div>
             </div>
           </aside>
-          <aside
-            className={`grid-columns ${style.awards} ${
-              columnLayout ? "width-100" : ""
-            }`}
-          >
-            {fields.awardBadges &&
-              fields.awardBadges.map((award) => (
-                <div
-                  className={`grid-column is-${fields.awardBadgeColumnsCount} d-flex align-items-center justify-content-center`}
-                  key={award.contentID}
-                >
-                  <div className={style.awardImage}>
-                    <Media media={award.fields.image} />
-                  </div>
-                </div>
-              ))}
+          <aside className={`grid-columns ${style.awards} ${columnLayout ? "width-100" : ""}`}>
+            {featuredAwards &&
+              featuredAwards.map(
+                (award, index) =>
+                  index < fields.awardBadgeColumnsCount && (
+                    <div
+                      className={`grid-column is-${fields.awardBadgeColumnsCount} d-flex align-items-center justify-content-center`}
+                      key={award.contentID}
+                    >
+                      <div className={style.awardImage}>
+                        <Media media={award.fields.image} />
+                      </div>
+                    </div>
+                  )
+              )}
           </aside>
         </div>
       </div>
@@ -75,17 +64,31 @@ const AwardsBanner = ({ module, customData }) => {
   );
 };
 
-AwardsBanner.getCustomInitialProps = async function ({ item }) {
+AwardsBanner.getCustomInitialProps = async function ({
+  agility,
+  languageCode,
+  item,
+}) {
+  const api = agility;
+  let featuredAwards = await api.getContentList({
+    referenceName: "featuredawards",
+    languageCode,
+    sort: "properties.itemOrder",
+    direction: "desc",
+    expandAllContentLinks: true,
+    take: 7,
+  });
+  featuredAwards = featuredAwards.items[0].fields.awards;
+
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-  const sanitizedHtml = item.fields.description
-    ? cleanHtml(item.fields.description)
-    : null;
+  const sanitizedHtml = item.fields.description ? cleanHtml(item.fields.description) : null;
 
   return {
     sanitizedHtml,
+    featuredAwards,
   };
 };
 

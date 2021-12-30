@@ -7,10 +7,9 @@ import { useState } from "react";
 import AgilityLink from "../../agilityLink";
 
 const Footer = ({ globalData }) => {
-  const { data } = globalData.footer;
+  const { data, featuredAwards } = globalData.footer;
   const global = globalData.globalSettings.data;
   const [activeFooterColumn, setActiveFooterColumn] = useState(null);
-
   function toggleFooterColumn(item) {
     if (isMobile()) {
       if (item == activeFooterColumn) {
@@ -32,16 +31,8 @@ const Footer = ({ globalData }) => {
                 <img
                   className={style.logo}
                   src={data.fields.logo.url}
-                  width={
-                    data.fields.logo.pixelWidth == 0
-                      ? "96"
-                      : data.fields.logo.pixelWidth
-                  }
-                  height={
-                    data.fields.logo.pixelHeight == 0
-                      ? "auto"
-                      : data.fields.logo.pixelHeight
-                  }
+                  width={data.fields.logo.pixelWidth == 0 ? "96" : data.fields.logo.pixelWidth}
+                  height={data.fields.logo.pixelHeight == 0 ? "auto" : data.fields.logo.pixelHeight}
                   alt=""
                 />
               </a>
@@ -75,38 +66,36 @@ const Footer = ({ globalData }) => {
                     title={item.fields.link.text}
                     key={item.contentID}
                   >
-                    <img
-                      src={item.fields.image.url}
-                      width="32"
-                      height="32"
-                    ></img>
+                    <img src={item.fields.image.url} width="32" height="32"></img>
                   </a>
                 ))}
               </div>
             )}
-            {data.fields.awards?.length > 0 && (
+            {featuredAwards?.length > 0 && (
               <div className={style.awards}>
                 <p className={style.awardsTitle}>{data.fields.awardsTitle}</p>
                 <div className={`${style.badges}`}>
-                  {data.fields.awards.map((award) => (
-                    <a
-                      href={award.fields.link.href}
-                      aria-label={award.fields.link.text}
-                      title={award.fields.link.text}
-                      key={award.contentID}
-                      // TODO: link meta att resolver if hrefSelf
-                      target="_blank"
-                      rel="noindex noreferrer noopener"
-                    >
-                      <AgilityImage
-                        src={award.fields.image.url}
-                        layout="responsive"
-                        width="4"
-                        height="5"
-                        objectFit="contain"
-                      ></AgilityImage>
-                    </a>
-                  ))}
+                  {featuredAwards.map(
+                    (award, index) =>
+                      index < 3 && (
+                        // <a
+                        //   href={award.fields.link.href}
+                        //   aria-label={award.fields.link.text}
+                        //   title={award.fields.link.text}
+                        //   key={award.contentID}
+                        //   target="_blank"
+                        //   rel="noindex noreferrer noopener"
+                        // >
+                          <AgilityImage
+                            src={award.fields.image.url}
+                            layout="responsive"
+                            width="4"
+                            height="5"
+                            objectFit="contain"
+                          ></AgilityImage>
+                        // </a>
+                      )
+                  )}
                 </div>
               </div>
             )}
@@ -121,34 +110,22 @@ const Footer = ({ globalData }) => {
             {data.fields.mainNavigation?.length > 0 &&
               data.fields.mainNavigation.map((item) => (
                 // Footer column
-                <div
-                  className={`column ${style.footerColumn}`}
-                  key={item.contentID}
-                >
+                <div className={`column ${style.footerColumn}`} key={item.contentID}>
                   <button
                     className={`${style.footerColumnTitle}`}
                     onClick={() => {
                       toggleFooterColumn(item.contentID);
                     }}
                     aria-controls={item.contentID}
-                    aria-expanded={
-                      (!isMobile() && true) ||
-                      activeFooterColumn == item.contentID
-                        ? true
-                        : false
-                    }
+                    aria-expanded={(!isMobile() && true) || activeFooterColumn == item.contentID ? true : false}
                   >
                     <span>{item.fields.heading}</span>
-                    <span className={style.toggleIcon}>
-                      {activeFooterColumn == item.contentID ? "-" : "+"}
-                    </span>
+                    <span className={style.toggleIcon}>{activeFooterColumn == item.contentID ? "-" : "+"}</span>
                   </button>
                   <ul
                     id={item.contentID}
                     className={`${
-                      activeFooterColumn == item.contentID
-                        ? style.footerColumnActive
-                        : style.footerColumnClosed
+                      activeFooterColumn == item.contentID ? style.footerColumnActive : style.footerColumnClosed
                     }`}
                   >
                     {item.fields.links?.length > 0 &&
@@ -215,11 +192,7 @@ const Footer = ({ globalData }) => {
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>
             {data.fields.bottomNavigation?.length > 0 &&
               data.fields.bottomNavigation.map((item) => (
-                <AgilityLink
-                  agilityLink={item.fields.link}
-                  key={item.contentID}
-                  className={style.footNoteLink}
-                >
+                <AgilityLink agilityLink={item.fields.link} key={item.contentID} className={style.footNoteLink}>
                   {item.fields.link.text}
                 </AgilityLink>
               ))}
@@ -231,13 +204,19 @@ const Footer = ({ globalData }) => {
   );
 };
 
-Footer.getCustomInitialProps = async function ({
-  agility,
-  languageCode,
-  channelName,
-}) {
+Footer.getCustomInitialProps = async function ({ agility, languageCode, channelName }) {
   const api = agility;
   let contentItem = null;
+
+  let featuredAwards = await api.getContentList({
+    referenceName: "featuredawards",
+    languageCode,
+    sort: "properties.itemOrder",
+    direction: "desc",
+    expandAllContentLinks: true,
+    take: 7,
+  });
+  featuredAwards = featuredAwards.items[0].fields.awards;
 
   try {
     let data = await api.getContentList({
@@ -253,13 +232,13 @@ Footer.getCustomInitialProps = async function ({
       return null;
     }
   } catch (error) {
-    if (console)
-      console.error("Could not load site footer configuration.", error);
+    if (console) console.error("Could not load site footer configuration.", error);
     return null;
   }
   // return a clean object...
   return {
     data: contentItem,
+    featuredAwards,
   };
 };
 
