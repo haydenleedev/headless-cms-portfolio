@@ -18,6 +18,7 @@ const TextWithMedia = ({ module, customData }) => {
   const columnLayout = boolean(fields?.columnLayout);
   const mediaLeft = boolean(fields?.mediaLeft);
   const headingOnTop = boolean(fields?.headingOnTop);
+  const headingSizeforTextArea = fields.headingSizeforTextArea;
   const mediaVerticalAlignment = fields.mediaVerticalAlignment;
   const textContentVerticalAlignment = fields.textContentVerticalAlignment;
   // observer for triggering animations if an animation style is selected in agility.
@@ -96,7 +97,9 @@ const TextWithMedia = ({ module, customData }) => {
                 </div>
               )}
               <div
-                className={`${style.html} content`}
+                className={`${style.html} content ${
+                  headingSizeforTextArea ? headingSizeforTextArea : ""
+                }`}
                 dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
               ></div>
               {fields.link && (
