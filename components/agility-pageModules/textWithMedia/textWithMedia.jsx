@@ -11,9 +11,16 @@ const TextWithMedia = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
-  const narrowContainer = boolean(fields?.narrowContainer);
-  const alignTop = boolean(fields?.alignTop);
 
+  //configuration options
+  const narrowContainer = boolean(fields?.narrowContainer);
+  const fullPageWidth = boolean(fields?.fullPageWidth);
+  const columnLayout = boolean(fields?.columnLayout);
+  const mediaLeft = boolean(fields?.mediaLeft);
+  const headingOnTop = boolean(fields?.headingOnTop);
+  const mediaVerticalAlignment = fields.mediaVerticalAlignment;
+  const textContentVerticalAlignment = fields.textContentVerticalAlignment;
+  // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {
       threshold: 0.0,
@@ -35,6 +42,7 @@ const TextWithMedia = ({ module, customData }) => {
     if (value !== "quote") return style.testimonialComment;
     return "";
   };
+
   return (
     <section
       className={`section ${style.textWithMedia} ${
@@ -45,40 +53,45 @@ const TextWithMedia = ({ module, customData }) => {
     >
       <div
         className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
-          boolean(fields.fullPageWidth) ? "max-width-unset padding-unset" : ""
+          fullPageWidth ? "max-width-unset padding-unset" : ""
         }`}
       >
+        {headingOnTop && heading.text && (
+          <div
+            className={`${columnLayout ? "heading" : style.heading} ${
+              fields.headingAlignment
+            }`}
+          >
+            <Heading {...heading} />
+          </div>
+        )}
         <div
           className={`${style.content} ${
-            boolean(fields.columnLayout)
+            columnLayout
               ? "flex-direction-column justify-content-center align-items-center"
-              : boolean(fields.mediaLeft)
+              : mediaLeft
               ? "flex-direction-row-reverse"
               : "flex-direction-row"
-          } ${boolean(fields.fullPageWidth) ? style.fullPageWidthContent : ""}`}
+          } ${fullPageWidth ? style.fullPageWidthContent : ""}`}
         >
           <div
             className={`${style.textContent} ${
-              boolean(fields.fullPageWidth)
-                ? style.fullPageWidthTextContent
-                : ""
-            } ${alignTop ? "justify-content-flex-start" : ""}`}
+              fullPageWidth ? style.fullPageWidthTextContent : ""
+            } ${
+              style[`textContentBasis${fields.textWidthPercentage || 50}`]
+            } ${textContentVerticalAlignment}`}
           >
             <div
               className={`${
-                boolean(fields.columnLayout)
+                columnLayout
                   ? "justify-content-center align-items-center"
-                  : boolean(fields.mediaLeft)
+                  : mediaLeft
                   ? "justify-content-flex-end align-items-flex-start"
                   : "justify-content-flex-start align-items-flex-start"
               }`}
             >
-              {heading.text && (
-                <div
-                  className={
-                    boolean(fields.columnLayout) ? "heading" : style.heading
-                  }
-                >
+              {!headingOnTop && heading.text && (
+                <div className={columnLayout ? "heading" : style.heading}>
                   <Heading {...heading} />
                 </div>
               )}
@@ -90,9 +103,7 @@ const TextWithMedia = ({ module, customData }) => {
                 <AgilityLink
                   agilityLink={fields.link}
                   className={`mt-4 button ${
-                    !boolean(fields.columnLayout) && !fields.linkClasses
-                      ? "small"
-                      : ""
+                    !columnLayout && !fields.linkClasses ? "small" : ""
                   } cyan outlined ${style.link} ${
                     fields.linkClasses ? fields.linkClasses : ""
                   }`}
@@ -106,8 +117,12 @@ const TextWithMedia = ({ module, customData }) => {
           </div>
           <div
             className={`${style.media} ${
-              boolean(fields.fullPageWidth) ? style.fullPageWidthMedia : ""
-            } ${alignTop ? "justify-content-flex-start" : ""}`}
+              fullPageWidth ? style.fullPageWidthMedia : ""
+            } ${mediaVerticalAlignment} ${
+              style[
+                `mediaBasis${100 - parseInt(fields.textWidthPercentage) || 50}`
+              ]
+            }`}
           >
             <div data-animate="true">
               {fields.media && !fields.testimonial && (

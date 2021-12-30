@@ -13,9 +13,6 @@
   .content {
     display: flex;
     gap: 3rem;
-    & > * {
-      flex-basis: 100%;
-    }
     @include touch() {
       flex-direction: column-reverse;
     }
@@ -68,6 +65,21 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    &.textContentBasis30 {
+      flex-basis: 30%;
+    }
+    &.textContentBasis40 {
+      flex-basis: 40%;
+    }
+    &.textContentBasis50 {
+      flex-basis: 50%;
+    }
+    &.textContentBasis60 {
+      flex-basis: 60%;
+    }
+    &.textContentBasis70 {
+      flex-basis: 70%;
+    }
     .html {
       margin-bottom: 2rem;
     }
@@ -82,9 +94,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-grow: 1;
+    &.mediaBasis30 {
+      flex-basis: 30%;
+    }
+    &.mediaBasis40 {
+      flex-basis: 40%;
+    }
+    &.mediaBasis50 {
+      flex-basis: 50%;
+    }
+    &.mediaBasis60 {
+      flex-basis: 60%;
+    }
+    &.mediaBasis70 {
+      flex-basis: 70%;
+    }
     div {
       &:only-child {
-        height: 100%;
         width: 100%;
         img {
           object-fit: contain;

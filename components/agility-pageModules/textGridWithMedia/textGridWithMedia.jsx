@@ -18,6 +18,8 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemImageCentered = boolean(fields?.itemImageCentered);
   const centerItemsHorizontally = boolean(fields?.centerItemsHorizontally);
   const roundCorners = boolean(fields?.roundCorners);
+
+  // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {
       threshold: 0.0,
