@@ -5,7 +5,7 @@
 
 .searchContainer {
   position: absolute;
-  top: 0;
+  top: .15rem;
   left: 0;
   width: 100%;
   @include desktop() {
