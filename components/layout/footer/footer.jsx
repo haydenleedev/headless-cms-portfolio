@@ -226,7 +226,7 @@ const Footer = ({ globalData }) => {
           </div>
         </div>
       </div>
-      <div id="consent_blackbar"></div>
+      <div id="consent_blackbar" className={style.consentBlackbar}></div>
     </footer>
   );
 };
