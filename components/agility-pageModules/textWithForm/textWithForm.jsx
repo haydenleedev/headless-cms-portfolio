@@ -13,6 +13,7 @@ const TextWithForm = ({ module, customData }) => {
   const narrowContainer = boolean(fields?.narrowContainer);
   const columnLayout = boolean(fields?.columnLayout);
   const formLeft = boolean(fields?.formLeft);
+  const showAwards = boolean(fields?.showAwards);
 
   const handleSetFormLoaded = () => {
     setFormLoaded(true);
@@ -48,12 +49,12 @@ const TextWithForm = ({ module, customData }) => {
                   ))}
                 </div>
               )}
-              {featuredAwards && (
+              {showAwards && featuredAwards && (
                 <div className={`grid-columns ${style.awardImages}`}>
                   {featuredAwards.map((award) => (
                     <div
                       key={award.contentID}
-                      className={`grid-column is-${fields.awardImages.length} ${style.awardImage}`}
+                      className={`grid-column is-${featuredAwards.length} ${style.awardImage}`}
                     >
                       <Media media={award.fields.image} />
                     </div>
