@@ -21,9 +21,9 @@ const TextWithForm = ({ module, customData }) => {
   return (
     <FormWrapper handleSetFormLoaded={handleSetFormLoaded} formID={fields.marketoFormID}>
       <section
-        className={`section ${style.textWithForm} ${fields.classes ? fields.classes : ""} ${
-          columnLayout ? "padding-block-2" : ""
-        }`}
+        className={`section ${style.textWithForm} ${
+          fields.classes ? fields.classes : ""
+        } ${columnLayout ? "padding-block-3" : ""}`}
         id={fields.id ? fields.id : null}
       >
         <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>

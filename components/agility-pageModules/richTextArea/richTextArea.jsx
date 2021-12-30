@@ -8,6 +8,7 @@ const RichTextArea = ({ module, customData }) => {
   const { fields } = module;
   const fullContainerWidth = boolean(fields?.fullContainerWidth);
   const alignCenter = boolean(fields?.alignCenter);
+  const narrowContainer = boolean(fields?.narrowContainer);
 
   return (
     <section
@@ -19,7 +20,9 @@ const RichTextArea = ({ module, customData }) => {
       <div
         className={`container content ${
           fullContainerWidth ? style.fullContainerWidthContent : style.content
-        } ${alignCenter ? "align-center" : ""}`}
+        } ${alignCenter ? "align-center" : ""} ${
+          narrowContainer ? "max-width-narrow" : ""
+        }`}
         dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
       ></div>
     </section>

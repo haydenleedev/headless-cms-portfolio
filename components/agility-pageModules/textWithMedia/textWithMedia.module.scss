@@ -82,6 +82,15 @@
     }
     .html {
       margin-bottom: 2rem;
+      ul {
+        li {
+          margin-top: 0.25rem;
+        }
+      }
+      a {
+        text-decoration: unset;
+        color: $color-darkblue;
+      }
     }
     .link {
       margin-top: unset;
