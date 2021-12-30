@@ -25,7 +25,7 @@ const Subscribe = ({}) => {
       attributes: true,
     });
     return () => {
-      window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1024);
+      window.MktoForms2.loadForm("//info.ujet.co", process.env.NEXT_PUBLIC_MARKETO_ID, 1024);
     };
   }, []);
 
@@ -36,7 +36,7 @@ const Subscribe = ({}) => {
         src="//info.ujet.co/js/forms2/js/forms2.min.js"
         strategy="lazyOnload"
         onLoad={() => {
-          window.MktoForms2.loadForm("//info.ujet.co", "205-VHT-559", 1024);
+          window.MktoForms2.loadForm("//info.ujet.co", process.env.NEXT_PUBLIC_MARKETO_ID, 1024);
         }}
       />
       <div className="subscribe-blog">
