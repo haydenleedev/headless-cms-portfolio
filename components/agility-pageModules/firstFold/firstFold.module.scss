@@ -103,7 +103,6 @@
     }
     .primaryLink,
     .secondaryLink {
-      margin: unset;
     }
   }
 }
@@ -316,6 +315,7 @@
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    text-align: left;
     p {
       margin: 0.5rem 0;
       font-size: 1rem;
@@ -331,5 +331,17 @@
         }
       }
     }
+  }
+}
+
+.logoGridColumns {
+  justify-content: unset;
+  .logoGridColumn {
+    padding: 1.75rem;
+    @include desktop(){
+      padding: .5rem;
+      margin-right: .5rem;
+    }
+
   }
 }

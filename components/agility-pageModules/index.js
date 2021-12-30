@@ -80,7 +80,7 @@ const allModules = [
   { name: "LeadershipPageContent", module: LeadershipPageContent },
   { name: "SpeakerList", module: SpeakerList },
   { name: "SearchPageContent", module: SearchPageContent },
-  { name: "Modal", module: Modal },
+  { name: "Modal", module: Placeholder },
 ];
 
 export const getModule = (moduleName) => {

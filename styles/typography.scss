@@ -220,7 +220,7 @@ blog posts or anywhere where html is rendered */
 // generic styling for the heading custom field. Override if necessary
 .heading {
   padding: 2rem 0;
-  margin: 3rem 0 1rem 0;
+  margin: 0 0 1rem 0;
   text-align: center;
   @include desktop() {
     padding: 2rem 0;

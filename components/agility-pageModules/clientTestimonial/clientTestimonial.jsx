@@ -77,7 +77,7 @@ const ClientTestimonial = ({ module }) => {
                     </p>
                     <div className={style.client}>
                       {fields.testimonial.fields.name && (
-                        <p>{fields.testimonial.fields.name}</p>
+                        <p className={style.clientName}>{fields.testimonial.fields.name}</p>
                       )}
                       {fields.testimonial.fields.jobTitle && (
                         <p className={style.jobTitle}>

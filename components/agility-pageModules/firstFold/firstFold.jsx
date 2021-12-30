@@ -190,11 +190,11 @@ const FirstFold = ({ module, customData }) => {
                 ></div>
               )}
               {fields.logos && (
-                <div className="grid-columns">
+                <div className={`grid-columns ${style.logoGridColumns}`}>
                   {fields.logos.map((logo) => (
                     <div
                       key={logo.contentID}
-                      className="grid-column is-6"
+                      className={`grid-column is-6 ${style.logoGridColumn}`}
                       data-animate="true"
                     >
                       <Media media={logo.fields.logo} />
