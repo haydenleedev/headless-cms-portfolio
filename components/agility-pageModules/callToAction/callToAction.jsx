@@ -14,7 +14,7 @@ const CallToAction = ({ module, customData }) => {
   const bannerLayout = boolean(fields?.bannerLayout);
 
   const itemContentRight = boolean(fields?.itemContentRight);
-  const textCenterJustification = boolean(fields?.textCenterJustification);
+  const textLeftJustification = boolean(fields?.textLeftJustification);
 
   return (
     <section
@@ -37,7 +37,7 @@ const CallToAction = ({ module, customData }) => {
       >
         <div
           className={`${style.content} ${
-            textCenterJustification ? style.textCenter : style.textLeft
+            textLeftJustification ? style.textLeft : style.textCenter
           }`}
         >
           {heading.text && (

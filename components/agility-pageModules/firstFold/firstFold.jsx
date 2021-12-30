@@ -22,6 +22,7 @@ const FirstFold = ({ module, customData }) => {
   const narrowContainer = boolean(fields?.narrowContainer);
   const fixedHeight = boolean(fields?.fixedHeight);
 
+  // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {
       threshold: 0.0,
