@@ -82,6 +82,14 @@
     }
     .html {
       margin-bottom: 2rem;
+      p {
+        margin-bottom: 2rem;
+        margin-top: 0.5rem;
+        display: block;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
       ul {
         li {
           margin-top: 0.25rem;
