@@ -42,11 +42,7 @@ const TitleGroup = ({ module }) => {
         }`}
       >
         {heading.text && (
-          <div
-            className={`${columnLayout ? "heading" : style.heading} ${
-              fields.headingAlignment
-            }`}
-          >
+          <div className={`${fields.headingAlignment}`}>
             <Heading {...heading} />
           </div>
         )}
