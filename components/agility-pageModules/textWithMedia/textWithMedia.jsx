@@ -96,12 +96,14 @@ const TextWithMedia = ({ module, customData }) => {
                   <Heading {...heading} />
                 </div>
               )}
-              <div
-                className={`${style.html} content ${
-                  headingSizeforTextArea ? headingSizeforTextArea : ""
-                }`}
-                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-              ></div>
+              {fields.text && (
+                <div
+                  className={`${style.html} content ${
+                    headingSizeforTextArea ? headingSizeforTextArea : ""
+                  }`}
+                  dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+                ></div>
+              )}
               {fields.link && (
                 <AgilityLink
                   agilityLink={fields.link}
