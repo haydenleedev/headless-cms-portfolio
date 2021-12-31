@@ -28,6 +28,7 @@ import BondFirstFold from "./bondFirstFold/bondFirstFold";
 import HideNavbar from "./hideNavbar/hideNavbar";
 import SpeakerList from "./speakerList/speakerList";
 import OverrideSEO from "./overrideSEO/overrideSEO";
+import Title from "./title/title";
 import Modal from "./modal/modal";
 
 // Template renderers
@@ -80,6 +81,7 @@ const allModules = [
   { name: "LeadershipPageContent", module: LeadershipPageContent },
   { name: "SpeakerList", module: SpeakerList },
   { name: "SearchPageContent", module: SearchPageContent },
+  { name: "Title", module: Title },
   { name: "Modal", module: Placeholder },
 ];
 
