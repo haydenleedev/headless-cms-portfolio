@@ -1,5 +1,6 @@
 import Heading from "../heading";
 import { useIntersectionObserver } from "../../../utils/hooks";
+import { boolean } from "../../../utils/validation";
 import style from "./titleGroup.module.scss";
 
 const TitleGroup = ({ module }) => {
