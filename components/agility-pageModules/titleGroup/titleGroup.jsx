@@ -1,8 +1,8 @@
-import { useIntersectionObserver } from "../../../utils/hooks";
 import Heading from "../heading";
-import style from "./title.module.scss";
+import { useIntersectionObserver } from "../../../utils/hooks";
+import style from "./titleGroup.module.scss";
 
-const Title = ({ module }) => {
+const TitleGroup = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
 
@@ -29,7 +29,7 @@ const Title = ({ module }) => {
 
   return (
     <section
-      className={`section ${style.heading} ${
+      className={`section ${style.textWithMedia} ${
         fields.classes ? fields.classes : ""
       }`}
       id={fields.id ? fields.id : null}
@@ -54,4 +54,4 @@ const Title = ({ module }) => {
   );
 };
 
-export default Title;
+export default TitleGroup;
