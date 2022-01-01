@@ -29,6 +29,9 @@
       gap: 2rem;
       p {
         padding-bottom: 1rem;
+        &:last-child {
+          padding-bottom: 0;
+        }
       }
       a {
         font-weight: 600;
