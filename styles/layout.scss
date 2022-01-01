@@ -304,6 +304,9 @@
   @include desktop() {
     padding-top: 3rem;
     padding-bottom: 3rem;
+    .bg-radial-gradient-bottom {
+      padding-bottom: 4.5rem;
+    }
   }
 }
 

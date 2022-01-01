@@ -82,6 +82,11 @@
       }
     }
   }
+  .noImageLayout {
+    .links {
+      margin-top: toRem(20);
+    }
+  }
 
   .links {
     flex-direction: column;
