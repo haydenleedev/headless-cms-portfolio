@@ -137,6 +137,7 @@
     }
     .content {
       gap: 2.5rem;
+      align-items: stretch;
       .story {
         min-height: 32.1875rem;
         padding-bottom: unset;
@@ -150,8 +151,8 @@
         }
       }
       .storyCard {
-        min-height: 40.625rem;
         padding-bottom: unset;
+        height: 100%;
       }
     }
   }
