@@ -43,9 +43,13 @@ const TextGridWithMedia = ({ module, customData }) => {
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
-      <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
+      <div className={`container `}>
         {heading.text && (
-          <div className={style.heading}>
+          <div
+            className={`{style.heading} ${
+              narrowContainer ? "max-width-narrow" : ""
+            }`}
+          >
             <Heading {...heading} />
             {fields.subtitle && <p>{fields.subtitle}</p>}
           </div>

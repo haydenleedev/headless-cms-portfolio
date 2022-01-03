@@ -357,19 +357,15 @@ table {
 
 .chevron-after {
   position: relative;
-  display: flex;
-  align-items: center;
   color: $color-darkblue;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
   &::after {
-    content: "";
-    display: block;
-    padding: 0.3rem;
-    border-right: solid;
-    border-top: solid;
-    margin-left: 0.2rem;
-    border-width: 0.1rem;
-    border-color: $color-darkblue;
-    transform: rotate(45deg);
+    content: ">";
+    display: inline-block;
+    padding-left: 0.5rem;
   }
 }
 
