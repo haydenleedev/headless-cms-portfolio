@@ -36,6 +36,10 @@
   &.white {
     background-color: white;
     color: $color-navy;
+    &:hover {
+      color: white;
+      background-color: $color-paleblue;
+    }
   }
 
   // Main navigation link cta
