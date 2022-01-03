@@ -36,7 +36,7 @@
     position: absolute;
     padding: inherit;
     right: -1rem;
-    top: 50%;
+    top: 1rem;
     transform: translateY(-50%);
     button {
       padding: 1rem;
@@ -59,7 +59,7 @@
   color: $color-white;
   width: 90%;
   text-align: left;
-
+  font-size: toRem(16);
   @include desktop() {
     text-align: center;
   }
