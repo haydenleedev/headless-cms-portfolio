@@ -44,6 +44,7 @@ const Navbar = ({ globalData }) => {
         handleTransparency().then((shouldBeTransparent) => {
           const options = {
             threshold: 1.0,
+            rootMargin: "-80px 0px 0px 0px",
           };
           const firstSection = document
             .getElementById("__next")

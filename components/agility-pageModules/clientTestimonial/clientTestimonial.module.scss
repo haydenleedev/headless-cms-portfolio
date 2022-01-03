@@ -164,6 +164,9 @@
           position: unset !important;
           height: unset !important;
           width: unset !important;
+          &:only-child {
+            height: 0 !important;
+          }
         }
       }
     }

@@ -109,16 +109,8 @@ ResourceList.getCustomInitialProps = async function ({
 
   function sortContentByDate(list) {
     return list.sort((a, b) => {
-      if (
-        new Date(a.fields.date).getMilliseconds() <
-        new Date(b.fields.date).getMilliseconds()
-      )
-        return -1;
-      if (
-        new Date(a.fields.date).getMilliseconds() >
-        new Date(b.fields.date).getMilliseconds()
-      )
-        return 1;
+      if (Date.parse(a.fields.date) < Date.parse(b.fields.date)) return -1;
+      if (Date.parse(a.fields.date) > Date.parse(b.fields.date)) return 1;
 
       return 0;
     });
@@ -135,26 +127,19 @@ ResourceList.getCustomInitialProps = async function ({
 
   let webinars = await getContentList("webinars");
 
-  let guidesReportsContent = sortContentByDate([...guides, ...reports]).slice(
-    0,
-    3
-  );
-  let ebooksWhitepapersContent = sortContentByDate([
-    ...ebooks,
-    ...whitePapers,
-  ]).slice(0, 3);
-  let productDatasheetsContent = sortContentByDate([...integrations]).slice(
-    0,
-    3
-  );
-  let videosWebinarsContent = sortContentByDate([...webinars]).slice(0, 3);
+  let guidesReportsContent = sortContentByDate([...guides, ...reports]);
+  let ebooksWhitepapersContent = sortContentByDate([...ebooks, ...whitePapers]);
+  let productDatasheetsContent = sortContentByDate([...integrations]);
+  let videosWebinarsContent = sortContentByDate([...webinars]);
 
-  mappedResourceListCategory["guidesReports"].content = guidesReportsContent;
+  mappedResourceListCategory["guidesReports"].content =
+    guidesReportsContent.slice(0, 3);
   mappedResourceListCategory["ebooksWhitepapers"].content =
-    ebooksWhitepapersContent;
+    ebooksWhitepapersContent.slice(0, 3);
   mappedResourceListCategory["productDatasheets"].content =
-    productDatasheetsContent;
-  mappedResourceListCategory["videosWebinars"].content = videosWebinarsContent;
+    productDatasheetsContent.slice(0, 3);
+  mappedResourceListCategory["videosWebinars"].content =
+    videosWebinarsContent.slice(0, 3);
 
   return {
     mappedResourceListCategory,

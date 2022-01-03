@@ -105,6 +105,32 @@
       padding: 0.5em 2em;
       border-radius: 3em;
       border-width: 0.15em;
+      &.chevronStyle {
+        border: unset;
+        background: unset;
+        color: $color-darkblue;
+        padding: inherit;
+        position: relative;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 600;
+        white-space: nowrap;
+        &::after {
+          content: ">";
+          display: inline-block;
+          padding-left: 0.5rem;
+        }
+      }
+      &.simpleStyle {
+        border: unset;
+        background: unset;
+        color: $color-darkblue;
+        padding: inherit;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
     }
   }
   .media {

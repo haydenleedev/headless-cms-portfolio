@@ -20,7 +20,7 @@ const FirstFold = ({ module, customData }) => {
   const customerStory = boolean(fields.customerStory);
   const softwareIntegration = boolean(fields.softwareIntegration);
   const narrowContainer = boolean(fields?.narrowContainer);
-  const fixedHeight = fields?.fixedHeight;
+  const fixedMediaHeight = fields?.fixedMediaHeight;
 
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
@@ -165,7 +165,6 @@ const FirstFold = ({ module, customData }) => {
         <div
           className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
         >
-          {/* TODO: allow reverse column order for desktop as a conditional toggle from Agility*/}
           <div
             className={
               noImageLayout
@@ -174,14 +173,14 @@ const FirstFold = ({ module, customData }) => {
                     imageLeft
                       ? "flex-direction-row-reverse"
                       : "flex-direction-row"
-                  } ${uncenteredVertically ? "align-items-unset" : ""} ${
-                    fixedHeight
-                      ? style[`defaultLayoutFixedHeight${fixedHeight}`]
-                      : ""
-                  }`
+                  } ${uncenteredVertically ? "align-items-unset" : ""}`
             }
           >
-            <div className={style.textContent}>
+            <div
+              className={`${style.textContent} ${
+                style[`textContentBasis${fields.textWidthPercentage || 50}`]
+              }`}
+            >
               <div className={style.heading}>
                 <Heading {...heading}></Heading>
               </div>
@@ -311,7 +310,20 @@ const FirstFold = ({ module, customData }) => {
               !noImageLayout &&
               !fields.customSVG &&
               !fields.imageLink && (
-                <div className={style.image} data-animate="true">
+                <div
+                  className={`${style.image} ${
+                    style[
+                      `mediaBasis${
+                        100 - parseInt(fields.textWidthPercentage) || 50
+                      }`
+                    ]
+                  } ${
+                    fixedMediaHeight
+                      ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
+                      : ""
+                  } ${fields.mediaVerticalAlignment}`}
+                  data-animate="true"
+                >
                   <Media media={fields.media}></Media>
                 </div>
               )}
@@ -323,7 +335,17 @@ const FirstFold = ({ module, customData }) => {
                   agilityLink={fields.imageLink}
                   className={`${style.imageLink} ${
                     fields.linkClasses ? fields.linkClasses : ""
-                  }`}
+                  } ${
+                    style[
+                      `mediaBasis${
+                        100 - parseInt(fields.textWidthPercentage) || 50
+                      }`
+                    ]
+                  } ${
+                    fixedMediaHeight
+                      ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
+                      : ""
+                  } ${fields.mediaVerticalAlignment}`}
                   ariaLabel={`Navigate to page ` + fields.imageLink.href}
                   title={`Navigate to page ` + fields.imageLink.href}
                 >

@@ -116,6 +116,12 @@
   align-items: unset !important;
 }
 
+.align-self-end {
+  align-self: end !important;
+}
+.align-self-start {
+  align-self: start !important;
+}
 /*
   <<<<<<<<<<<<<<<<GRID LAYOUT CLASSES>>>>>>>>>>>>>>>>>
 */
@@ -489,6 +495,9 @@
 }
 
 // padding-block: selects both padding-top and padding-bottom
+.padding-block-0 {
+  padding-block: 0 !important;
+}
 .padding-block-1 {
   padding-block: $size-1 !important;
 }

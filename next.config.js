@@ -350,6 +350,12 @@ module.exports = {
           "/press-releases/ujet-assembled-partner-enable-seamless-customer-service-intelligent-workforce-management",
         permanent: true,
       },
+      // resource redirects
+      {
+        source: "/why-ujet-ccaas-wbn-ty",
+        destination: "/resources/webinars/why-ujet-ccaas-wbn-ty",
+        permanent: true,
+      },
     ];
   },
   images: {

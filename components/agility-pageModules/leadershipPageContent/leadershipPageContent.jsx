@@ -61,10 +61,8 @@ const LeadershipPageContent = ({ customData }) => {
                 <Media media={leader.fields.image} />
                 <span className={style.leaderImageFilter}></span>
               </div>
-              <div>
-                <p>{leader.fields.name}</p>
-                <p>{leader.fields.description}</p>
-              </div>
+              <p>{leader.fields.name}</p>
+              <p>{leader.fields.description}</p>
             </button>
           ))}
         </div>

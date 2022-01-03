@@ -54,7 +54,7 @@ export const resolveCategory = (referenceName) => {
   switch (referenceName) {
     case "newsarticle":
       return "News";
-    case "externalContent":
+    case "externalcontent":
       return fields.link;
     case "pressreleasearticle":
       return "Press Release";
@@ -82,8 +82,12 @@ export const resolveLink = (referenceName, fields) => {
   switch (referenceName) {
     case "newsarticle":
       return fields.link;
+    case "externalcontent":
+      return fields.link;
     case "pressreleasearticle":
       return { href: `/press-releases/${fields.slug}` };
+    case "blogposts":
+      return { href: `/blog/${fields.slug}` };
     case "integrations":
       return { href: `/integrations/${fields.slug}` };
     case "whitepapers":

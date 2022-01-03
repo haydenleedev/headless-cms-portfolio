@@ -20,29 +20,47 @@ const TextWithForm = ({ module, customData }) => {
   };
 
   return (
-    <FormWrapper handleSetFormLoaded={handleSetFormLoaded} formID={fields.marketoFormID}>
+    <FormWrapper
+      handleSetFormLoaded={handleSetFormLoaded}
+      formID={fields.marketoFormID}
+    >
       <section
         className={`section ${style.textWithForm} ${
           fields.classes ? fields.classes : ""
-        } ${columnLayout ? "padding-block-3" : ""}`}
+        }`}
         id={fields.id ? fields.id : null}
       >
-        <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
+        <div
+          className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
+        >
           <div
             className={
               columnLayout
                 ? style.columnLayoutContent
-                : `${style.content} ${formLeft ? "flex-direction-row-reverse" : "flex-direction-row"}`
+                : `${style.content} ${
+                    formLeft
+                      ? "flex-direction-row-reverse"
+                      : "flex-direction-row"
+                  }`
             }
           >
             <aside className={style.textContent}>
-              <div className="content" dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}></div>
+              <div
+                className="content"
+                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+              ></div>
 
               {fields.testimonials && (
                 <div className={`columns repeat-2 ${style.testimonials}`}>
                   {fields.testimonials.map((testimonial) => (
-                    <div key={testimonial.contentID} className={style.testimonial}>
-                      <StarRating starCount={testimonial.fields?.starCount} starWidth="25" />
+                    <div
+                      key={testimonial.contentID}
+                      className={style.testimonial}
+                    >
+                      <StarRating
+                        starCount={testimonial.fields?.starCount}
+                        starWidth="25"
+                      />
                       <p>{testimonial.fields.text}</p>
                       <small>–{testimonial.fields.name}</small>
                     </div>
@@ -63,7 +81,11 @@ const TextWithForm = ({ module, customData }) => {
               )}
             </aside>
             <aside className={style.form}>
-              <Form submitButtonText={fields.formSubmitText} formLoaded={formLoaded} formID={fields.marketoFormID} />
+              <Form
+                submitButtonText={fields.formSubmitText}
+                formLoaded={formLoaded}
+                formID={fields.marketoFormID}
+              />
             </aside>
           </div>
         </div>
@@ -72,7 +94,11 @@ const TextWithForm = ({ module, customData }) => {
   );
 };
 
-TextWithForm.getCustomInitialProps = async function ({ agility, languageCode, item }) {
+TextWithForm.getCustomInitialProps = async function ({
+  agility,
+  languageCode,
+  item,
+}) {
   const api = agility;
   let featuredAwards = await api.getContentList({
     referenceName: "featuredawards",

@@ -107,11 +107,11 @@ const TextWithMedia = ({ module, customData }) => {
               {fields.link && (
                 <AgilityLink
                   agilityLink={fields.link}
-                  className={`mt-4 button ${
+                  className={`button ${
                     !columnLayout && !fields.linkClasses ? "small" : ""
                   } cyan outlined ${style.link} ${
                     fields.linkClasses ? fields.linkClasses : ""
-                  }`}
+                  } ${style[fields.linkStyle]}`}
                   ariaLabel={`Navigate to page ` + fields.link.href}
                   title={`Navigate to page ` + fields.link.href}
                 >
