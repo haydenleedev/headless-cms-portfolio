@@ -14,6 +14,7 @@
   transition: all 150ms;
   border: 0.2rem solid $color-navy;
   vertical-align: center;
+  white-space: nowrap;
   &.small,
   .mktoButton {
     font-size: 1rem;
@@ -35,6 +36,12 @@
   &.white {
     background-color: white;
     color: $color-navy;
+  }
+
+  // Main navigation link cta
+  &.navbar_navigationLink__3UVZD {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 
   // Contact form cta

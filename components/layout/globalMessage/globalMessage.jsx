@@ -27,19 +27,18 @@ const GlobalMessage = ({ globalData }) => {
   return (
     <section className={style.message}>
       <nav className="container" role="navigation">
-        {globalMessage.fields.primaryLink.href &&
-          !globalMessage.fields.content && (
-            <div className={style.demo}>
-              <AgilityLink
-                agilityLink={globalMessage.fields.primaryLink}
-                className="button small white"
-                ariaLabel={globalMessage.fields.primaryLink.text}
-                title={globalMessage.fields.primaryLink.text}
-              >
-                {globalMessage.fields.primaryLink.text || "Request a demo"}
-              </AgilityLink>
-            </div>
-          )}
+        {globalMessage.fields.primaryLink.href && (
+          <div className={style.demo}>
+            <AgilityLink
+              agilityLink={globalMessage.fields.primaryLink}
+              className="button small white"
+              ariaLabel={globalMessage.fields.primaryLink.text}
+              title={globalMessage.fields.primaryLink.text}
+            >
+              {globalMessage.fields.primaryLink.text || "Request a demo"}
+            </AgilityLink>
+          </div>
+        )}
         {boolean(globalMessage.fields.showContactInfo) &&
           !globalMessage.fields.content && (
             <div className={style.contact}>

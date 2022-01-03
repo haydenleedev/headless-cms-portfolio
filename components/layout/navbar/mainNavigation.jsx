@@ -61,9 +61,9 @@ const MainNavigation = ({
         >
           {/* Group Main Link */}
           <a
-            className={`${style.navigationLink} ${
+            className={`${style.navigationLink}${
               navigationGroup.fields.classes
-                ? navigationGroup.fields.classes
+                ? " " + navigationGroup.fields.classes
                 : ""
             }`}
             aria-label={navigationGroup.fields.mainLink?.fields.link.text}
