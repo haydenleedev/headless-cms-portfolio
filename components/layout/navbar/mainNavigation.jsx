@@ -66,7 +66,7 @@ const MainNavigation = ({
           `}
           aria-label="Toggle dropdown menu"
           aria-controls={
-            !navigationGroup.fields.columns ? navigationGroup.contentID : null
+            navigationGroup.fields.columns ? navigationGroup.contentID : null
           }
         >
           {/* Group Main Link */}
