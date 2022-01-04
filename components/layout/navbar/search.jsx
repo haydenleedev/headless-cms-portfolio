@@ -111,7 +111,7 @@ const Search = ({
   };
 
   return (
-    <div className={style.searchContainer}>
+    <li className={style.searchContainer}>
       <div className={style.search}>
         <div
           className={`${style.searchInputWrapper} ${
@@ -140,8 +140,9 @@ const Search = ({
               {...autocomplete.getInputProps({})}
             />
 
-            <div></div>
+            <div aria-disabled></div>
             <button
+              aria-label="Hide search input"
               className={`reset-button ${style.clearInput}`}
               onClick={(e) => {
                 e.preventDefault();
@@ -150,92 +151,95 @@ const Search = ({
                 autocomplete.setIsOpen(false);
               }}
             ></button>
-            <button className={`reset-button ${style.searchSubmit}`}>
+            <button
+              aria-label="Search"
+              className={`reset-button ${style.searchSubmit}`}
+            >
               <span className={style.magnifyingGlass}></span>
             </button>
           </form>
-          {autocompleteState.isOpen && (
-            <div
-              className={style.autocomplete}
-              {...autocomplete.getPanelProps({})}
-            >
-              {autocompleteState.collections.map((collection, index) => {
-                const { source, items } = collection;
-                return (
-                  <div
-                    key={`source-${index}`}
-                    className={style.autocompleteSource}
-                  >
-                    {items.length > 0 && (
-                      <div className={style.autocompleteSourceTitle}>
-                        <p>{source.sourceId.toUpperCase()}</p>
-                      </div>
-                    )}
-                    {items.length > 0 && (
-                      <ul {...autocomplete.getListProps()}>
-                        {items.map((item) => {
-                          let description = null;
-                          if (
-                            item._snippetResult?.content &&
-                            item._snippetResult.content.length > 0
-                          ) {
-                            let snippetBlock = item._snippetResult.content.find(
-                              (block) => {
-                                return block.data.text.matchLevel === "full";
-                              }
-                            );
-
-                            if (snippetBlock) {
-                              description = snippetBlock.data.text.value;
+          {/* {autocompleteState.isOpen && ( */}
+          <div
+            className={`${style.autocomplete} ${
+              autocompleteState.isOpen ? "" : style.autocompleteClosed
+            }`}
+            {...autocomplete.getPanelProps({})}
+          >
+            {autocompleteState.collections?.map((collection, index) => {
+              const { source, items } = collection;
+              return (
+                <div
+                  key={`source-${index}`}
+                  className={style.autocompleteSource}
+                >
+                  {items.length > 0 && (
+                    <div className={style.autocompleteSourceTitle}>
+                      <p>{source.sourceId.toUpperCase()}</p>
+                    </div>
+                  )}
+                  {items.length > 0 && (
+                    <ul {...autocomplete.getListProps()}>
+                      {items.map((item) => {
+                        let description = null;
+                        if (
+                          item._snippetResult?.content &&
+                          item._snippetResult.content.length > 0
+                        ) {
+                          let snippetBlock = item._snippetResult.content.find(
+                            (block) => {
+                              return block.data.text.matchLevel === "full";
                             }
-                          }
+                          );
 
-                          if (!description) {
-                            description = getAlgoliaHighestResultFormatted(
-                              item._snippetResult
-                            );
+                          if (snippetBlock) {
+                            description = snippetBlock.data.text.value;
                           }
+                        }
 
-                          return (
-                            <li
-                              key={item.objectID}
-                              className={style.autocompleteEntry}
-                              {...autocomplete.getItemProps({
-                                item,
-                                source,
-                              })}
-                              onClick={() => handleSetMainNavigationActive?.()}
-                              role="button"
-                            >
-                              <AgilityLink agilityLink={{ href: item.path }}>
+                        if (!description) {
+                          description = getAlgoliaHighestResultFormatted(
+                            item._snippetResult
+                          );
+                        }
+
+                        return (
+                          <li
+                            key={item.objectID}
+                            className={style.autocompleteEntry}
+                            {...autocomplete.getItemProps({
+                              item,
+                              source,
+                            })}
+                            onClick={() => handleSetMainNavigationActive?.()}
+                            role="button"
+                          >
+                            <AgilityLink agilityLink={{ href: item.path }}>
+                              <p
+                                className={style.autocompleteEntryTitle}
+                                dangerouslySetInnerHTML={renderHTML(
+                                  item._highlightResult.title.value
+                                )}
+                              ></p>
+
+                              {description && (
                                 <p
-                                  className={style.autocompleteEntryTitle}
+                                  className={style.autocompleteEntryDescription}
                                   dangerouslySetInnerHTML={renderHTML(
-                                    item._highlightResult.title.value
+                                    description
                                   )}
                                 ></p>
-
-                                {description && (
-                                  <p
-                                    className={
-                                      style.autocompleteEntryDescription
-                                    }
-                                    dangerouslySetInnerHTML={renderHTML(
-                                      description
-                                    )}
-                                  ></p>
-                                )}
-                              </AgilityLink>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          )}
+                              )}
+                            </AgilityLink>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          {/* )} */}
         </div>
         <button
           aria-controls="site-search"
@@ -247,7 +251,7 @@ const Search = ({
           <span className={style.magnifyingGlass}></span>
         </button>
       </div>
-    </div>
+    </li>
   );
 };
 

@@ -24,7 +24,7 @@ const GenericCard = ({
           <div className="genericCard__image">
             <AgilityImage
               src={image.url}
-              alt={image.label || null}
+              alt={image.label || ""}
               width={image.pixelWidth}
               height={image.pixelHeight}
               objectFit="cover"

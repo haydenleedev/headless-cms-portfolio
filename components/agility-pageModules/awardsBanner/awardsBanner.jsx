@@ -7,7 +7,6 @@ import { renderHTML } from "@agility/nextjs";
 
 const AwardsBanner = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards } = customData;
-  console.log(featuredAwards);
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const columnLayout = boolean(fields?.columnLayout);

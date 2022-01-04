@@ -32,7 +32,7 @@ const Footer = ({ globalData }) => {
                   className={style.logo}
                   src={data.fields.logo.url}
                   width={data.fields.logo.pixelWidth == 0 ? "96" : data.fields.logo.pixelWidth}
-                  height={data.fields.logo.pixelHeight == 0 ? "auto" : data.fields.logo.pixelHeight}
+                  height={data.fields.logo.pixelHeight == 0 ? "52" : data.fields.logo.pixelHeight}
                   alt=""
                 />
               </a>
@@ -66,7 +66,7 @@ const Footer = ({ globalData }) => {
                     title={item.fields.link.text}
                     key={item.contentID}
                   >
-                    <img src={item.fields.image.url} width="32" height="32"></img>
+                    <img src={item.fields.image.url} width="32" height="32" alt=""></img>
                   </a>
                 ))}
               </div>
@@ -92,6 +92,7 @@ const Footer = ({ globalData }) => {
                             width="4"
                             height="5"
                             objectFit="contain"
+                            alt=""
                           ></AgilityImage>
                         // </a>
                       )
@@ -172,6 +173,8 @@ const Footer = ({ globalData }) => {
                 rel="noreferrer"
               >
                 <img
+                width="106"
+                height={"34"}
                   src="//privacy-policy.truste.com/privacy-seal/seal?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
                   alt="TRUSTe"
                 />
@@ -182,6 +185,8 @@ const Footer = ({ globalData }) => {
                 rel="noreferrer"
               >
                 <img
+                width="106"
+                height="32"
                   src="https://submit-irm.trustarc.com/services/validation/bac0a2d7-003d-4c6d-8171-d3fd1756d56d/image"
                   alt="TrustArc"
                 />

@@ -46,7 +46,7 @@ const TextGridWithMedia = ({ module, customData }) => {
       <div className={`container `}>
         {heading.text && (
           <div
-            className={`{style.heading} ${
+            className={`${style.heading} ${
               narrowContainer ? "max-width-narrow" : ""
             }`}
           >
@@ -101,7 +101,7 @@ const TextGridWithMedia = ({ module, customData }) => {
                       dangerouslySetInnerHTML={renderHTML(textItem.fields.text)}
                     ></div>
                   </div>
-                  {textItem.fields.link && (
+                  {textItem.fields.link && textItem.fields.link.text &&  (
                     <AgilityLink agilityLink={textItem.fields.link}>
                       {textItem.fields.link.text}
                     </AgilityLink>

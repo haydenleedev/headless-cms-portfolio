@@ -13,7 +13,6 @@ const MainNavigation = ({
   const [activeNavigationItem, setActiveNavigationItem] = useState(null);
   const [searchToggled, setSearchToggled] = useState(false);
   const router = useRouter();
-  console.log(mainNavigation)
   //Manual sort since something is bugged in Agility item order returned from Agility...
   // mainNavigation.forEach((group) => {
   //   if (group.fields.columns?.length > 0) {
@@ -29,7 +28,6 @@ const MainNavigation = ({
   };
   const handleNavigationGroupClick = (fields, item) => {
     if (isMobile()) {
-      console.log(fields.mainLink);
       if (item == activeNavigationItem) {
         setActiveNavigationItem(null);
         return;
@@ -76,11 +74,11 @@ const MainNavigation = ({
                 ? " " + navigationGroup.fields.classes
                 : ""
             }`}
+            href={navigationGroup.fields.mainLink?.fields.link.href || "#"}
             aria-label={navigationGroup.fields.mainLink?.fields.link.text}
             label={navigationGroup.fields.mainLink?.fields.link.text}
             onClick={(e) => {
               e.preventDefault();
-
               handleNavigationGroupClick(
                 navigationGroup.fields,
                 `navigation-group-${index}`

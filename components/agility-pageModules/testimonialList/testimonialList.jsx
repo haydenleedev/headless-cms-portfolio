@@ -15,7 +15,6 @@ const TestimonialList = ({ module }) => {
   const staticImageLayout = boolean(fields?.staticImageLayout);
   const displayRatings = boolean(fields?.displayRatings);
   const FADE_DURATION = 300;
-  console.log("classes:", fields.classes)
   const previousIndex = () => {
     setTriggerFadeout(!triggerFadeout);
     sleep(FADE_DURATION).then(() => {
