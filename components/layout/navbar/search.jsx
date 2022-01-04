@@ -133,7 +133,7 @@ const Search = ({
               type="text"
               aria-label="Search query"
               title="Search query"
-              aria-expanded={searchToggled}
+              // aria-expanded={searchToggled}
               ref={inputRef}
               id="site-search"
               placeholder="Search..."
@@ -211,7 +211,7 @@ const Search = ({
                               source,
                             })}
                             onClick={() => handleSetMainNavigationActive?.()}
-                            role="button"
+                            role="option"
                           >
                             <AgilityLink agilityLink={{ href: item.path }}>
                               <p
@@ -242,7 +242,8 @@ const Search = ({
           {/* )} */}
         </div>
         <button
-          aria-controls="site-search"
+          aria-label="Site search button"
+          // aria-controls="site-search"
           className={`reset-button ${style.searchButton} ${
             searchToggled ? style.searchButtonHidden : ""
           }`}

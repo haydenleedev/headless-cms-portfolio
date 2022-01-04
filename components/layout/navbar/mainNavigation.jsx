@@ -65,7 +65,9 @@ const MainNavigation = ({
           ${searchToggled && style.disabled}
           `}
           aria-label="Toggle dropdown menu"
-          aria-controls={navigationGroup.contentID}
+          aria-controls={
+            !navigationGroup.fields.columns ? navigationGroup.contentID : null
+          }
         >
           {/* Group Main Link */}
           <a
@@ -100,7 +102,6 @@ const MainNavigation = ({
                 } 
                 `}
               >
-                
                 {navigationGroup.fields.columns?.map(
                   (navigationColumn, index) => (
                     <li
@@ -116,21 +117,12 @@ const MainNavigation = ({
                             role="button"
                           >
                             <AgilityLink
-                              agilityLink={
-                                navigationItem.fields.link
-                              }
+                              agilityLink={navigationItem.fields.link}
                               className={`${style.navigationItem} ${style.navigationLink}`}
-                              ariaLabel={
-                                navigationItem.fields.link.text
-                              }
-                              title={
-                                navigationItem.fields.link.text
-                              }
+                              ariaLabel={navigationItem.fields.link.text}
+                              title={navigationItem.fields.link.text}
                             >
-                              {
-                                navigationItem.fields
-                                  .internalTitle
-                              }
+                              {navigationItem.fields.internalTitle}
                             </AgilityLink>
                             {/* {navigationItem.fields.navigationItemChildren && (
                               <ul>
