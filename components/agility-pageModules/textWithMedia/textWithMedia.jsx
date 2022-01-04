@@ -127,7 +127,8 @@ const TextWithMedia = ({ module, customData }) => {
               style[
                 `mediaBasis${100 - parseInt(fields.textWidthPercentage) || 50}`
               ]
-            }`}
+            } ${style[`${fields.mediaPadding}`]}
+            `}
           >
             <div data-animate="true">
               {fields.media && !fields.testimonial && (
