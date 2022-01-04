@@ -73,6 +73,7 @@
     }
     .filterPanel {
       grid-area: side;
+
       & > label,
       fieldset {
         display: flex;
@@ -90,7 +91,11 @@
         padding-top: 0;
       }
       & > fieldset {
-        max-height: 25rem;
+        height: 14rem;
+        @include desktop() {
+          padding: initial;
+          height: 25rem;
+        }
         overflow-y: scroll;
         legend {
           margin-bottom: 1rem;
@@ -104,8 +109,8 @@
           }
           input {
             position: relative;
-            top: .1rem;
-            margin-right: .5rem;
+            top: 0.1rem;
+            margin-right: 0.5rem;
           }
           input[type="radio"] {
             margin-block: unset;

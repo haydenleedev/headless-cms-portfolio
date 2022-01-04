@@ -17,7 +17,7 @@ const ResourceList = ({ module, customData }) => {
     >
       <nav className="container" aria-label="resource list">
         {heading.text && (
-          <div className="heading">
+          <div className={`heading ${style.heading}`}>
             <Heading {...heading} />
           </div>
         )}

@@ -13,11 +13,13 @@
 @import "./settings/reset";
 
 /* Try not to set anything on html for best accessibility */
-// html {
-// }
+html {
+  scroll-behavior: smooth;
+}
 
 * {
   box-sizing: border-box;
+
 }
 
 #__next {

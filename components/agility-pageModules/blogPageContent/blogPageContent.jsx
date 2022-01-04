@@ -21,8 +21,10 @@ const BlogPageContent = ({ customData }) => {
   const [activeContentType, setActiveContentType] = useState(null); // these are their own states because it makes handing multiple categories easier.
   const [contentCategories, setContentCategories] = useState(null); // these are their own states because it makes handing multiple categories easier.
   const [activeCategories, setActiveCategories] = useState([]); // currently selected categories.
+  const [filterToggled, setFilterToggled] = useState(false)
 
   const PER_PAGE = 9; // how many cards are shown per page
+
 
   // initial load: check if query params are provided in the url, set active content type and categories accordingly
   useEffect(() => {
