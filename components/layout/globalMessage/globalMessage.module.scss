@@ -10,6 +10,8 @@
     position: relative;
     display: flex;
     flex-flow: column;
+    align-items: center;
+    gap: 1rem;
     padding-top: 0.5rem;
     @include desktop() {
       padding-top: 0;
@@ -34,12 +36,16 @@
 
   .close {
     position: absolute;
-    padding: inherit;
-    right: -1rem;
-    top: 1rem;
-    transform: translateY(-50%);
+    right: 0;
+    top: 0;
+    @include desktop() {
+      position: relative;
+    }
     button {
-      padding: 1rem;
+      padding: 0.7rem 1.2rem;
+      @include desktop() {
+        padding: 0.3rem 1.2rem;
+      }
       &:before {
         content: "\00d7";
         speak: none;
@@ -61,6 +67,7 @@
   text-align: left;
   p {
     font-size: toRem(16);
+    text-align: center;
   }
 
   @include desktop() {
