@@ -131,7 +131,7 @@ Navbar.getCustomInitialProps = async function ({
   channelName,
 }) {
   const api = agility;
-  let contentItem = null;
+  let navbarGroups = null;
 
   try {
     let navbar = await api.getContentList({
@@ -142,7 +142,7 @@ Navbar.getCustomInitialProps = async function ({
     });
 
     if (navbar && navbar.items && navbar.items.length > 0) {
-      contentItem = navbar.items[0];
+      navbarGroups = navbar.items[0];
     } else {
       return null;
     }
@@ -151,9 +151,10 @@ Navbar.getCustomInitialProps = async function ({
       console.error("Could not load site navbar configuration.", error);
     return null;
   }
+
   // return clean object...
   return {
-    navbar: contentItem,
+    navbar: navbarGroups,
   };
 };
 

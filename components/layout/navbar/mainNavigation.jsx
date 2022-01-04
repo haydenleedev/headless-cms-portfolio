@@ -14,6 +14,16 @@ const MainNavigation = ({
   const [searchToggled, setSearchToggled] = useState(false);
   const router = useRouter();
 
+  //Manual sort since something is bugged in Agility item order returned from Agility...
+  mainNavigation.forEach((group) => {
+    if (group.fields.columns?.length > 0) {
+      group.fields.columns.forEach((column) => {
+        column.fields.items.sort(function (a, b) {
+          return a.properties.itemOrder - b.properties.itemOrder;
+        });
+      });
+    }
+  });
   const handleSetSearchToggled = (boolean) => {
     setSearchToggled(boolean);
   };
