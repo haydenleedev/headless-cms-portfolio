@@ -59,11 +59,10 @@
   color: $color-white;
   width: 90%;
   text-align: left;
-  &.content {
-    p {
-      font-size: toRem(16);
-    }
+  p {
+    font-size: toRem(16);
   }
+
   @include desktop() {
     text-align: center;
   }
