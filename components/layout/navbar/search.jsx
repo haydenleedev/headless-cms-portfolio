@@ -172,69 +172,69 @@ const Search = ({
                   key={`source-${index}`}
                   className={style.autocompleteSource}
                 >
-                  {items.length > 0 && (
-                    <div className={style.autocompleteSourceTitle}>
-                      <p>{source.sourceId.toUpperCase()}</p>
-                    </div>
-                  )}
-                  {items.length > 0 && (
-                    <ul {...autocomplete.getListProps()}>
-                      {items.map((item) => {
-                        let description = null;
-                        if (
-                          item._snippetResult?.content &&
-                          item._snippetResult.content.length > 0
-                        ) {
-                          let snippetBlock = item._snippetResult.content.find(
-                            (block) => {
-                              return block.data.text.matchLevel === "full";
-                            }
-                          );
-
-                          if (snippetBlock) {
-                            description = snippetBlock.data.text.value;
+                  {/* {items.length > 0 && ( */}
+                  <div className={style.autocompleteSourceTitle}>
+                    <p>{source.sourceId.toUpperCase()}</p>
+                  </div>
+                  {/* )} */}
+                  {/* {items.length > 0 && ( */}
+                  <ul {...autocomplete.getListProps()}>
+                    {items.map((item) => {
+                      let description = null;
+                      if (
+                        item._snippetResult?.content &&
+                        item._snippetResult.content.length > 0
+                      ) {
+                        let snippetBlock = item._snippetResult.content.find(
+                          (block) => {
+                            return block.data.text.matchLevel === "full";
                           }
-                        }
+                        );
 
-                        if (!description) {
-                          description = getAlgoliaHighestResultFormatted(
-                            item._snippetResult
-                          );
+                        if (snippetBlock) {
+                          description = snippetBlock.data.text.value;
                         }
+                      }
 
-                        return (
-                          <li
-                            key={item.objectID}
-                            className={style.autocompleteEntry}
-                            {...autocomplete.getItemProps({
-                              item,
-                              source,
-                            })}
-                            onClick={() => handleSetMainNavigationActive?.()}
-                            role="option"
-                          >
-                            <AgilityLink agilityLink={{ href: item.path }}>
+                      if (!description) {
+                        description = getAlgoliaHighestResultFormatted(
+                          item._snippetResult
+                        );
+                      }
+
+                      return (
+                        <li
+                          key={item.objectID}
+                          className={style.autocompleteEntry}
+                          {...autocomplete.getItemProps({
+                            item,
+                            source,
+                          })}
+                          onClick={() => handleSetMainNavigationActive?.()}
+                          role="option"
+                        >
+                          <AgilityLink agilityLink={{ href: item.path }}>
+                            <p
+                              className={style.autocompleteEntryTitle}
+                              dangerouslySetInnerHTML={renderHTML(
+                                item._highlightResult.title.value
+                              )}
+                            ></p>
+
+                            {description && (
                               <p
-                                className={style.autocompleteEntryTitle}
+                                className={style.autocompleteEntryDescription}
                                 dangerouslySetInnerHTML={renderHTML(
-                                  item._highlightResult.title.value
+                                  description
                                 )}
                               ></p>
-
-                              {description && (
-                                <p
-                                  className={style.autocompleteEntryDescription}
-                                  dangerouslySetInnerHTML={renderHTML(
-                                    description
-                                  )}
-                                ></p>
-                              )}
-                            </AgilityLink>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
+                            )}
+                          </AgilityLink>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  {/* )} */}
                 </div>
               );
             })}
