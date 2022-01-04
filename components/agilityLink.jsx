@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { hrefSelf } from "../utils/validation";
+import { useRouter } from "next/router";
 
 // use this component instead of directly using next/link / a tag combo WHEN a link from Agility is passed!!
 // determines whether a link from agility is inner or outer
@@ -34,7 +35,10 @@ const AgilityLink = ({
   locale,
   // child components
   children,
+  smooth = false,
 }) => {
+  const router = useRouter();
+
   const href = agilityLink?.href;
   if (!href)
     throw new Error(

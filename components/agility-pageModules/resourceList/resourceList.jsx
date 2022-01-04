@@ -10,6 +10,7 @@ const ResourceList = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
   const resources =
     mappedResourceListCategory[fields.resourceListCategory]?.content;
+
   return (
     <section
       className={`section ${style.resourceList}`}
