@@ -1,0 +1,84 @@
+@import "../../../styles/settings/mixins";
+
+#content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10rem;
+    row-gap: 6rem;
+    margin: 2rem 0;
+    @include desktop() {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    #text {
+        div {
+            margin-top: 3rem;
+        }
+    }
+    #card {
+        flex: 0 0 35%;
+        border-radius: .75rem;
+        overflow: hidden;
+        margin-top: 3rem;
+        box-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
+        #cardTop {
+            position: relative;
+            background-color: rgb(0, 7, 67);
+            padding: 2.75rem 3rem 1.5rem 3rem;
+            #bar {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                padding: .5rem 1rem;
+                text-align: center;
+                background-color: rgb(248, 91, 67);
+                p {
+                    line-height: 100%;
+                    font-size: .8rem;
+                    color: white;
+                }
+            }
+            #cardHeading {
+                font-size: 1.8rem;
+                font-weight: 400;
+                color: rgb(2, 156, 253);
+            }
+            #price {
+                font-size: 4.75rem;
+                font-weight: 600;
+                margin-top: .5rem;
+            }
+            #conditions {
+                margin-top: 1.25rem;
+                font-size: .97rem;
+                font-weight: 400;
+                font-style: italic;
+            }
+            #price, #conditions {
+                color: white;
+            }
+            #cardHeading, #price, #conditions {
+                line-height: 100%;
+            }
+        }
+        #cardContent {
+            padding: .25rem 3rem .75rem 3rem;
+            ul {
+                padding-left: 1rem;
+                li {
+                    padding-left: .25rem;
+                    font-size: .95rem;
+                    &:not(:first-of-type) {
+                        margin-top: .35rem;
+                    }
+                }
+            }
+            p {
+                font-size: 1rem;
+            }
+        }
+    }
+}

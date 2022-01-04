@@ -30,6 +30,7 @@ import SpeakerList from "./speakerList/speakerList";
 import OverrideSEO from "./overrideSEO/overrideSEO";
 import TitleGroup from "./titleGroup/titleGroup";
 import Modal from "./modal/modal";
+import TextWithCard from "./textWithCard/textWithCard";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -83,6 +84,7 @@ const allModules = [
   { name: "SearchPageContent", module: SearchPageContent },
   { name: "TitleGroup", module: TitleGroup },
   { name: "Modal", module: Placeholder },
+  { name: "TextWithCard", module: TextWithCard }
 ];
 
 export const getModule = (moduleName) => {
