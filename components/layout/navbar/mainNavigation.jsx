@@ -13,17 +13,17 @@ const MainNavigation = ({
   const [activeNavigationItem, setActiveNavigationItem] = useState(null);
   const [searchToggled, setSearchToggled] = useState(false);
   const router = useRouter();
-
+  console.log(mainNavigation)
   //Manual sort since something is bugged in Agility item order returned from Agility...
-  mainNavigation.forEach((group) => {
-    if (group.fields.columns?.length > 0) {
-      group.fields.columns.forEach((column) => {
-        column.fields.items.sort(function (a, b) {
-          return a.properties.itemOrder - b.properties.itemOrder;
-        });
-      });
-    }
-  });
+  // mainNavigation.forEach((group) => {
+  //   if (group.fields.columns?.length > 0) {
+  //     group.fields.columns.forEach((column) => {
+  //       column.fields.items.sort(function (a, b) {
+  //         return a.properties.itemOrder - b.properties.itemOrder;
+  //       });
+  //     });
+  //   }
+  // });
   const handleSetSearchToggled = (boolean) => {
     setSearchToggled(boolean);
   };
@@ -102,13 +102,14 @@ const MainNavigation = ({
                 } 
                 `}
               >
+                
                 {navigationGroup.fields.columns?.map(
                   (navigationColumn, index) => (
                     <li
                       key={`navigation-column-${index}`}
                       className={style.navigationColumn}
                     >
-                      {navigationColumn.fields.items?.map(
+                      {navigationColumn.fields.links?.map(
                         (navigationItem, index) => (
                           <div
                             className="display-block"
@@ -118,22 +119,22 @@ const MainNavigation = ({
                           >
                             <AgilityLink
                               agilityLink={
-                                navigationItem.fields.mainLink.fields.link
+                                navigationItem.fields.link
                               }
                               className={`${style.navigationItem} ${style.navigationLink}`}
                               ariaLabel={
-                                navigationItem.fields.mainLink.fields.link.text
+                                navigationItem.fields.link.text
                               }
                               title={
-                                navigationItem.fields.mainLink.fields.link.text
+                                navigationItem.fields.link.text
                               }
                             >
                               {
-                                navigationItem.fields.mainLink.fields
+                                navigationItem.fields
                                   .internalTitle
                               }
                             </AgilityLink>
-                            {navigationItem.fields.navigationItemChildren && (
+                            {/* {navigationItem.fields.navigationItemChildren && (
                               <ul>
                                 {navigationItem.fields.navigationItemChildren.map(
                                   (navigationItemChild, index) => (
@@ -159,7 +160,7 @@ const MainNavigation = ({
                                   )
                                 )}
                               </ul>
-                            )}
+                            )} */}
                           </div>
                         )
                       )}
