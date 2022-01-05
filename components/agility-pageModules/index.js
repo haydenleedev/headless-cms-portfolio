@@ -31,6 +31,7 @@ import OverrideSEO from "./overrideSEO/overrideSEO";
 import TitleGroup from "./titleGroup/titleGroup";
 import Modal from "./modal/modal";
 import TextWithCard from "./textWithCard/textWithCard";
+import TableWithHeading from "./tableWithHeading/tableWithHeading";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -84,7 +85,8 @@ const allModules = [
   { name: "SearchPageContent", module: SearchPageContent },
   { name: "TitleGroup", module: TitleGroup },
   { name: "Modal", module: Placeholder },
-  { name: "TextWithCard", module: TextWithCard }
+  { name: "TextWithCard", module: TextWithCard },
+  { name: "TableWithHeading", module: TableWithHeading }
 ];
 
 export const getModule = (moduleName) => {
