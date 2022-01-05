@@ -19,8 +19,12 @@ const EventsPageContent = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
   return (
     <section className="section">
-      {events && fields.heading && <Heading {...heading}></Heading>}
-      {events && fields.subHeading && <Heading {...heading}></Heading>}
+      {events && fields.heading && (
+        <div className={style.heading}>
+          <Heading {...heading}></Heading>
+        </div>
+      )}
+
       <div className="container">
         <nav className={style.eventsPageContent} aria-label="events navigation">
           {(events &&
