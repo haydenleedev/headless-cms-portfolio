@@ -4,8 +4,9 @@ import {
   toPacificTimeMilliseconds,
 } from "../../../utils/convert";
 import AgilityLink from "../../agilityLink";
+import Heading from "../heading";
 
-const EventsPageContent = ({ customData }) => {
+const EventsPageContent = ({ module, customData }) => {
   const { allEvents } = customData;
   const events = allEvents
     .filter(
@@ -14,13 +15,12 @@ const EventsPageContent = ({ customData }) => {
         toPacificTimeMilliseconds(new Date(event.fields.startTime))
     )
     .reverse();
-
+  const { fields } = module;
+  const heading = JSON.parse(fields.heading);
   return (
     <section className="section">
-      {events && events.fields.title && (
-        <h1 className="title">{events.fields.title}</h1>
-      )}
-      {events && events.fields.subTitle && <p>{events.fields.subTitle}</p>}
+      {events && fields.heading && <Heading {...heading}></Heading>}
+      {events && fields.subHeading && <Heading {...heading}></Heading>}
       <div className="container">
         <nav className={style.eventsPageContent} aria-label="events navigation">
           {(events &&
