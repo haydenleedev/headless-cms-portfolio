@@ -6,6 +6,7 @@ import { sleep } from "../../../utils/generic";
 import { boolean } from "../../../utils/validation";
 import Heading from "../heading";
 import StarRating from "../../starRating/starRating";
+import { AgilityImage } from "@agility/nextjs";
 
 const TestimonialList = ({ module }) => {
   const [triggerFadeout, setTriggerFadeout] = useState(false);
@@ -14,6 +15,7 @@ const TestimonialList = ({ module }) => {
   const testimonials = fields.testimonials;
   const staticImageLayout = boolean(fields?.staticImageLayout);
   const displayRatings = boolean(fields?.displayRatings);
+  const gridLayout = boolean(fields?.gridLayout);
   const FADE_DURATION = 300;
   const previousIndex = () => {
     setTriggerFadeout(!triggerFadeout);
@@ -36,6 +38,7 @@ const TestimonialList = ({ module }) => {
       setActiveIndex(index);
     });
   };
+
   return (
     <section
       className={`section ${style.testimonialList} ${
@@ -44,7 +47,39 @@ const TestimonialList = ({ module }) => {
       id={fields.id ? fields.id : null}
     >
       <div className="container">
-        {staticImageLayout ? (
+        {gridLayout ?
+          <div id={style.testimonialGrid}>
+            {
+              testimonials.map((testimonial, index) => {
+                return (
+                  <div className={style.gridItem} key={`tst${index}`}>
+                    {testimonial.fields.logo?.url ?
+                      <div className={style.gridItemLogoContainer}>
+                        <AgilityImage className={style.gridItemLogo} src={testimonial.fields.logo.url}
+                          layout="fill"
+                          objectFit="contain"
+                          width={0}
+                          height={0}
+                        />
+                      </div>
+                      :
+                      <div className={style.gridItemLogoPlaceholder} />
+                    }
+                    {displayRatings &&
+                      <StarRating
+                      starCount={testimonial.starCount}
+                      starWidth="25"
+                    />
+                    }
+                    <p className={style.gridItemText}>{testimonial.fields.text}</p>
+                    <p className={style.gridItemName}>{testimonial.fields.name}</p>
+                  </div>
+                );
+              })
+            }
+          </div>
+        :
+        staticImageLayout ? (
           <div className={style.content}>
             {testimonials[activeIndex] && (
               <>
