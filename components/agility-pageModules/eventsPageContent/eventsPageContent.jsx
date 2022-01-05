@@ -20,7 +20,7 @@ const EventsPageContent = ({ customData }) => {
       {events && events.fields.title && (
         <h1 className="title">{events.fields.title}</h1>
       )}
-      {events && events.fields.subTitle && <h2>{events.fields.subTitle}</h2>}
+      {events && events.fields.subTitle && <p>{events.fields.subTitle}</p>}
       <div className="container">
         <nav className={style.eventsPageContent} aria-label="events navigation">
           {(events &&
