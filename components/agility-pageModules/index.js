@@ -32,6 +32,7 @@ import TitleGroup from "./titleGroup/titleGroup";
 import Modal from "./modal/modal";
 import TextWithCard from "./textWithCard/textWithCard";
 import TableWithHeading from "./tableWithHeading/tableWithHeading";
+import ApplySmoothScrolling from "./applySmoothScrolling/applySmoothScrolling";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -86,7 +87,8 @@ const allModules = [
   { name: "TitleGroup", module: TitleGroup },
   { name: "Modal", module: Placeholder },
   { name: "TextWithCard", module: TextWithCard },
-  { name: "TableWithHeading", module: TableWithHeading }
+  { name: "TableWithHeading", module: TableWithHeading },
+  { name: "ApplySmoothScrolling", module: Placeholder },
 ];
 
 export const getModule = (moduleName) => {
