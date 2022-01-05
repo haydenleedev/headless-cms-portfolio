@@ -96,12 +96,16 @@ const TextGridWithMedia = ({ module, customData }) => {
                         <Heading {...heading} />
                       </div>
                     )}
-                    <div
-                      className={`${style.textItemHtml} content`}
-                      dangerouslySetInnerHTML={renderHTML(textItem.fields.text)}
-                    ></div>
+                    {textItem.fields.text && (
+                      <div
+                        className={`${style.textItemHtml} content`}
+                        dangerouslySetInnerHTML={renderHTML(
+                          textItem.fields.text
+                        )}
+                      ></div>
+                    )}
                   </div>
-                  {textItem.fields.link && textItem.fields.link.text &&  (
+                  {textItem.fields.link && textItem.fields.link.text && (
                     <AgilityLink agilityLink={textItem.fields.link}>
                       {textItem.fields.link.text}
                     </AgilityLink>

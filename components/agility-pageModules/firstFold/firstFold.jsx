@@ -103,7 +103,9 @@ const FirstFold = ({ module, customData }) => {
   } else if (softwareIntegration) {
     return (
       <section
-        className={`section ${style.softwareIntegration}`}
+        className={`section ${style.softwareIntegration}${
+          fields.classes ? " " + fields.classes : ""
+        }`}
         id={fields.id ? fields.id : null}
       >
         <div
