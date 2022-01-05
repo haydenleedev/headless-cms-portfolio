@@ -210,4 +210,44 @@
       }
     }
   }
+  #testimonialGrid {
+    display: grid;
+    grid-gap: 3.5rem;
+    margin-top: 3rem;
+    grid-template-columns: 1fr;
+    .gridItem {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      background-color: white;
+      box-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
+      .gridItemLogoPlaceholder, .gridItemLogoContainer {
+        height: 7rem;
+        width: 100%;
+      }
+      .gridItemLogoContainer {
+        position: relative;
+        .gridItemLogo {
+          height: 100%;
+        }
+      }
+      .gridItemText {
+        text-align: center;
+        line-height: 140%;
+        margin-top: .25rem;
+      }
+      .gridItemName {
+        padding-top: 1.5rem;
+        margin-top: auto;
+      }
+      .gridItemText, .gridItemName {
+        font-size: 1.25rem;
+      }
+    }
+    @include desktop() {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
 }

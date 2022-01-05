@@ -1,0 +1,23 @@
+#table {
+    border: 1px solid rgb(194, 221, 239);
+    border-bottom: none;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    tr {
+        border: none;
+        &:nth-of-type(odd) {
+            background-color: rgb(232, 246, 255);
+        }
+        &:first-of-type {
+            background-color:rgb(51, 152, 220);
+            th {
+                color: white;
+            }
+        }
+        td, th {
+            border: none;
+            padding: .9rem;
+            font-size: 1.1rem;
+        }
+    }
+}
