@@ -137,11 +137,11 @@ const TestimonialListLayout = (fields) => {
           {testimonials.map((testimonial, index) => {
             return (
               <div className={style.gridItem} key={`tst${index}`}>
-                {testimonial.fields.logo?.url ? (
+                {fields.awards[index]?.fields.image?.url ? (
                   <div className={style.gridItemLogoContainer}>
                     <AgilityImage
                       className={style.gridItemLogo}
-                      src={testimonial.fields.logo.url}
+                      src={fields.awards[index].fields.image.url}
                       layout="fill"
                       objectFit="contain"
                       width={0}
