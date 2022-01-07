@@ -1,0 +1,75 @@
+@import "../../styles/settings/colors";
+
+.slider {
+  position: relative;
+  min-width: 100%;
+  overflow-x: clip;
+  .sliderTrack {
+    display: flex;
+    min-width: inherit;
+    width: max-content;
+    height: max-content;
+    transition: transform 0.25s ease-in-out;
+  }
+  .sliderControls {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    .dots {
+      display: flex;
+      align-items: center;
+      margin: unset;
+      padding: unset;
+      list-style-type: none;
+      button {
+        width: 0.75rem;
+        height: 0.75rem;
+        margin: 0 0.25rem;
+        border: solid 0.185rem $color-navy;
+        border-radius: 50%;
+        &.activeDot {
+          background-color: $color-navy;
+        }
+      }
+    }
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 7.8125rem;
+      margin: 1rem 0;
+      .button {
+        position: relative;
+        padding: 1.25rem;
+        border: 0.2rem solid $color-mediumblue;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:first-child {
+          &::before {
+            content: "";
+            position: absolute;
+            display: block;
+            padding: 0.5rem;
+            border-bottom: 0.2rem solid $color-mediumblue;
+            border-left: 0.2rem solid $color-mediumblue;
+            transform: rotate(45deg);
+          }
+          &:after {
+            display: none;
+          }
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          display: block;
+          padding: 0.5rem;
+          border-top: 0.2rem solid $color-mediumblue;
+          border-right: 0.2rem solid $color-mediumblue;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+}

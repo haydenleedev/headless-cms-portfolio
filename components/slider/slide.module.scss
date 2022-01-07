@@ -1,0 +1,5 @@
+.slide {
+  & > * {
+    max-width: inherit;
+  }
+}
