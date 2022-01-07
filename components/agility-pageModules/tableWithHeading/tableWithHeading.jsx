@@ -17,7 +17,7 @@ const TableWithHeading = ({ module }) => {
               </tr>
               {fields.tableCells.map((cell, index) => {
                 return (
-                  <tr key={cell.index}>
+                  <tr key={`cell${index}`}>
                     <td>{cell.fields.leftColumnValue}</td>
                     <td>{cell.fields.rightColumnValue}</td>
                   </tr>
