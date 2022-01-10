@@ -14,7 +14,9 @@ const AwardsBanner = ({ module, customData }) => {
 
   return (
     <section
-      className={`section ${style.awardsBanner} ${fields.classes ? fields.classes : ""}`}
+      className={`section ${style.awardsBanner} ${
+        fields.classes ? fields.classes : ""
+      }`}
       id={fields.id ? fields.id : null}
     >
       {fields.backgroundImage && (
@@ -23,11 +25,17 @@ const AwardsBanner = ({ module, customData }) => {
         </div>
       )}
       <div className="container">
-        <div className={`${style.content} ${columnLayout ? "flex-direction-column" : "flex-direction-row"}`}>
+        <div
+          className={`${style.content} ${
+            columnLayout ? "flex-direction-column" : "flex-direction-row"
+          }`}
+        >
           <aside
-            className={`${style.textContent} ${fields.textContentHighlightColor} ${
-              columnLayout ? style.columnLayoutTextContent : ""
-            } ${textCenterJustification ? "align-center" : ""}`}
+            className={`${style.textContent} ${
+              fields.textContentHighlightColor
+            } ${columnLayout ? style.columnLayoutTextContent : ""} ${
+              textCenterJustification ? "align-center" : ""
+            }${fields.NumberofRows ? " " + fields.NumberofRows : ""}`}
           >
             <div>
               <div className={style.heading}>
@@ -38,10 +46,17 @@ const AwardsBanner = ({ module, customData }) => {
                   <Media media={fields.featuredImage} />
                 </div>
               )}
-              <div className={style.description} dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}></div>
+              <div
+                className={style.description}
+                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+              ></div>
             </div>
           </aside>
-          <aside className={`grid-columns ${style.awards} ${columnLayout ? "width-100" : ""}`}>
+          <aside
+            className={`grid-columns ${style.awards} ${
+              columnLayout ? "width-100" : ""
+            }`}
+          >
             {featuredAwards &&
               featuredAwards.map(
                 (award, index) =>
@@ -83,7 +98,9 @@ AwardsBanner.getCustomInitialProps = async function ({
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-  const sanitizedHtml = item.fields.description ? cleanHtml(item.fields.description) : null;
+  const sanitizedHtml = item.fields.description
+    ? cleanHtml(item.fields.description)
+    : null;
 
   return {
     sanitizedHtml,

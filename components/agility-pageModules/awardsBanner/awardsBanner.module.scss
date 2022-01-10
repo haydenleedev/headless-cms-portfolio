@@ -4,6 +4,20 @@
 .awardsBanner {
   padding: 2rem 0;
   position: relative;
+  &.row-2 {
+    .is-6 {
+      @include tablet() {
+        // Make them as .is-3 to display them in two rows
+        flex: 0 0 calc(33.3333% - 0.5rem);
+      }
+    }
+    .is-7 {
+      @include tablet() {
+        // Make them as .is-4 to display them in two rows
+        flex: 0 0 calc(25% - 0.5rem);
+      }
+    }
+  }
   .backgroundImage {
     position: absolute;
     top: 0;
