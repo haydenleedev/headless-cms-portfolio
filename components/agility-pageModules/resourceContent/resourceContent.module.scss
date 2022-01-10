@@ -1,7 +1,8 @@
 @import "../../../styles/settings/colors";
 @import "../../../styles/settings/mixins";
 
-.heading {}
+.heading {
+}
 
 .columns {
   display: grid;
@@ -19,13 +20,13 @@
 }
 
 .form {
-  background: $color-purple;
+  background: $color-paleblue;
   padding: 3rem;
   height: min-content;
   border-radius: 1rem;
 
   .formTitle {
-    color: $color-white;
+    color: $color-black;
     font-weight: 400;
     margin-bottom: 2rem;
   }

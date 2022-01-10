@@ -128,7 +128,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     formID={resource.marketoFormID}
                   />
                   {resource.link.href && (
-                    <div className="mt-4 text-white">
+                    <div className="mt-4">
                       <p> Want to learn more about UJET?</p>
                       <AgilityLink
                         className="text-decoration-underline"

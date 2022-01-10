@@ -94,13 +94,13 @@
   input,
   select {
     font-size: 1rem;
-    background-color: $color-lightgray;
+    background-color: $color-white;
     width: 100%;
     min-height: 2.6875rem;
     padding: 0.75rem 1rem;
     margin: 0.25rem 0;
     box-sizing: border-box;
-    border: unset !important;
+    border: toRem(1) solid $color-navy !important;
     border-radius: 0.2rem !important;
   }
 }
