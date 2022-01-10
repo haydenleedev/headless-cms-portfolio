@@ -170,6 +170,34 @@ input[type="number"]::-webkit-inner-spin-button {
   text-decoration: underline;
 }
 
+.chevron-style {
+  border: unset;
+  background: unset;
+  color: $color-darkblue;
+  padding: inherit;
+  position: relative;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  &::after {
+    content: ">";
+    display: inline-block;
+    padding-left: 0.5rem;
+  }
+}
+
+.simple-style {
+  border: unset;
+  background: unset;
+  color: $color-darkblue;
+  padding: inherit;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 /* This class is a wrapper that applies a standard typography for pure html content in 
 blog posts or anywhere where html is rendered */
 .content {

@@ -111,7 +111,7 @@ const TextWithMedia = ({ module, customData }) => {
                     !columnLayout && !fields.linkClasses ? "small" : ""
                   } cyan outlined ${style.link} ${
                     fields.linkClasses ? fields.linkClasses : ""
-                  } ${style[fields.linkStyle]}`}
+                  } ${fields.linkStyle}`}
                   ariaLabel={`Navigate to page ` + fields.link.href}
                   title={`Navigate to page ` + fields.link.href}
                 >

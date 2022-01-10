@@ -6,6 +6,8 @@ import AgilityLink from "../../agilityLink";
 
 const ClientTestimonial = ({ module }) => {
   const { fields } = module;
+  const slim = boolean(fields.slim);
+  const displayRating = boolean(fields.displayRating);
   return (
     <section
       className={`section ${style.clientTestimonial} ${
@@ -21,7 +23,7 @@ const ClientTestimonial = ({ module }) => {
       <div className="container">
         {fields.testimonial && (
           <div className={style.content}>
-            {boolean(fields.slim) ? (
+            {slim ? (
               <div className={style.slim}>
                 {fields?.award?.fields?.image && (
                   <div className={style.awardImage}>
@@ -30,7 +32,7 @@ const ClientTestimonial = ({ module }) => {
                 )}
                 {fields.testimonial.fields?.text && (
                   <div className={style.textContent}>
-                    {boolean(fields.displayRating) && (
+                    {displayRating && (
                       <StarRating
                         starCount={fields.testimonial?.starCount}
                         starWidth="25"
@@ -66,7 +68,7 @@ const ClientTestimonial = ({ module }) => {
                 )}
                 {fields.testimonial.fields?.text && (
                   <div className={style.textContent}>
-                    {boolean(fields.displayRating) && (
+                    {displayRating && (
                       <StarRating
                         starCount={fields.testimonial?.starCount}
                         starWidth="25"
@@ -102,7 +104,7 @@ const ClientTestimonial = ({ module }) => {
             {fields.link && (
               <AgilityLink
                 agilityLink={fields.link}
-                className={`button white small ${style.link}`}
+                className={slim ? `chevron-style ${style.slimLink}` : `button white small ${style.link}`}
                 ariaLabel={`Navigate to page ` + fields.link.href}
                 title={`Navigate to page ` + fields.link.href}
               >
