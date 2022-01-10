@@ -9,25 +9,27 @@ const AwardsPageContent = ({ customData }) => {
       <h1 className=""></h1>
       <div className="container">
         <nav className={style.awardsPageContent} aria-label="awards navigation">
-          {allAwards.map((award) => (
-            <div className={style.award} key={award.contentID}>
-              <div className={style.awardImage}>
-                <Media media={award.fields.image} />
+          {allAwards.map((award) => {
+            if (!award.fields.hideOnAwardsPage) return (
+              <div className={style.award} key={award.contentID}>
+                <div className={style.awardImage}>
+                  <Media media={award.fields.image} />
+                </div>
+                <div>
+                  <p>{award.fields.title}</p>
+                  {award.fields.year && <small>{award.fields.year}</small>}
+                  {award.fields.link && (
+                    <AgilityLink
+                      agilityLink={award.fields.link}
+                      className={style.awardLink}
+                    >
+                      <span>Learn More</span>
+                    </AgilityLink>
+                  )}
+                </div>
               </div>
-              <div>
-                <p>{award.fields.title}</p>
-                {award.fields.year && <small>{award.fields.year}</small>}
-                {award.fields.link && (
-                  <AgilityLink
-                    agilityLink={award.fields.link}
-                    className={style.awardLink}
-                  >
-                    <span>Learn More</span>
-                  </AgilityLink>
-                )}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </nav>
       </div>
     </section>
