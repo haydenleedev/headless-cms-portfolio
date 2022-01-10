@@ -262,7 +262,6 @@
 
   // resets for large screen sizes
   @include desktop() {
-    min-height: 23.4375rem;
     .backgroundImage {
       & > * {
         display: block !important;
