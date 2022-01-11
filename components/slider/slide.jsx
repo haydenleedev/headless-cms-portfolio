@@ -12,5 +12,5 @@ const Slide = forwardRef(({ maxWidth, children }, ref) => {
     </div>
   );
 });
-
+Slide.displayName = "Slide";
 export default Slide;

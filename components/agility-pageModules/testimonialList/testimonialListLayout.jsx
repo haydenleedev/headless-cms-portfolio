@@ -52,7 +52,7 @@ const TestimonialListLayout = (fields) => {
               )}
               <Slider loop dots>
                 {testimonials.map((testimonial) => (
-                  <div className="d-flex flex-direction-column justify-content-space-between">
+                  <div className="d-flex flex-direction-column justify-content-space-between" key={`testimonial${index}`}>
                     <div className={style.staticImageLayoutTextContent}>
                       <StarRating
                         starCount={testimonial.fields?.starCount}
@@ -136,7 +136,7 @@ const TestimonialListLayout = (fields) => {
         <div id={style.testimonialGrid}>
           {testimonials.map((testimonial, index) => {
             return (
-              <div className={style.gridItem} key={`tst${index}`}>
+              <div className={style.gridItem} key={`testimonial${index}`}>
                 {fields.awards[index]?.fields.image?.url ? (
                   <div className={style.gridItemLogoContainer}>
                     <AgilityImage
