@@ -129,7 +129,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                   />
                   {resource.link.href && (
                     <div className="mt-4">
-                      <p> Want to learn more about UJET?</p>
+                      <p>Want to learn more about UJET?</p>
                       <AgilityLink
                         className="text-decoration-underline"
                         agilityLink={resource.link}
