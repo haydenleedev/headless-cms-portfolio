@@ -2,7 +2,6 @@ import { AgilityImage } from "@agility/nextjs";
 import { toDate } from "../../../utils/convert";
 import AgilityLink from "../../agilityLink";
 import style from "./archiveCard.module.scss";
-import ujetLogo from "../../../assets/ujet-logo.svg";
 
 const ArchiveCard = ({ title, image, link, date, category }) => {
   return (
@@ -22,17 +21,7 @@ const ArchiveCard = ({ title, image, link, date, category }) => {
               objectFit="cover"
             />
           </div>
-        )) || (
-          <div className="pl-4 pr-4">
-            <AgilityImage
-              src={ujetLogo}
-              alt=""
-              width="250"
-              height="162"
-              objectFit="contain"
-            />
-          </div>
-        )}
+        ))}
         <div className={style.textContent}>
           {/*           {date && <p className={style.date}>{toDate(date)}</p>} */}
           {category && <p className={style.category}>{category}</p>}
