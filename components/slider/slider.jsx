@@ -53,7 +53,7 @@ const Slider = ({ activeIndex, loop, dots, children }) => {
       >
         {Array.isArray(children) ? (
           children.map((child, index) => (
-            <Slide maxWidth={slideMaxWidth} ref={slideRefs.current[index]}>
+            <Slide maxWidth={slideMaxWidth} ref={slideRefs.current[index]} key={`slide${index}`}>
               {child}
             </Slide>
           ))
