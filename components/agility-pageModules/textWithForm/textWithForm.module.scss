@@ -5,7 +5,26 @@
   .sideWrapper {
     padding: 1.2rem 0;
   }
-
+  .rowLayoutHeading {
+    display: none;
+  }
+  .columnLayoutHeading {
+    order: 1;
+  }
+  .columnLayoutHeading,
+  .rowLayoutHeading {
+      text-align: center;
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        &:last-child {
+          margin-bottom: .7rem;
+        }
+      }
+  }
   // default layout
   .content {
     display: flex;
@@ -14,6 +33,7 @@
       flex-basis: 100%;
     }
     .textContent {
+      order: 3;
       padding: 0 1rem;
       .testimonials {
         margin-top: 2rem;
@@ -50,6 +70,7 @@
       }
     }
     .form {
+      order: 2;
       margin-top: 1rem;
       & > * {
         max-width: 26.25rem;
@@ -66,6 +87,15 @@
     }
     @include desktop() {
       flex-direction: row;
+      .columnLayoutHeading {
+        display: none;
+      }
+      .rowLayoutHeading {
+        display: block;
+      }
+      .columnLayoutHeading, .textContent, .form {
+        order: unset;
+      }
     }
   }
   // column layout
