@@ -11,6 +11,7 @@ const AwardsBanner = ({ module, customData }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const columnLayout = boolean(fields?.columnLayout);
   const textCenterJustification = boolean(fields?.textCenterJustification);
+  const numberofRows = fields.numberofRows ? fields.numberofRows : null;
 
   return (
     <section
@@ -35,7 +36,7 @@ const AwardsBanner = ({ module, customData }) => {
               fields.textContentHighlightColor
             } ${columnLayout ? style.columnLayoutTextContent : ""} ${
               textCenterJustification ? "align-center" : ""
-            }${fields.NumberofRows ? " " + fields.NumberofRows : ""}`}
+            }`}
           >
             <div>
               <div className={style.heading}>
@@ -55,7 +56,7 @@ const AwardsBanner = ({ module, customData }) => {
           <aside
             className={`grid-columns ${style.awards} ${
               columnLayout ? "width-100" : ""
-            }`}
+            }${numberofRows ? " row-2" : null}`}
           >
             {featuredAwards &&
               featuredAwards.map(

@@ -166,6 +166,20 @@
   flex-wrap: wrap;
   justify-content: center;
 
+  @include tablet() {
+    // When we want to make the items into two differnt rows
+    &.row-2 {
+      .is-6 {
+        // Make them as .is-3 to display them in two rows
+        flex: 0 0 calc(33.3333% - 0.5rem);
+      }
+      .is-7 {
+        // Make them as .is-4 to display them in two rows
+        flex: 0 0 calc(25% - 0.5rem);
+      }
+    }
+  }
+
   .grid-column {
     position: relative;
     padding: 0.75rem;
