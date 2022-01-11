@@ -81,11 +81,13 @@ const TextWithForm = ({ module, customData }) => {
               )}
             </aside>
             <aside className={style.form}>
-              <Form
-                submitButtonText={fields.formSubmitText}
-                formLoaded={formLoaded}
-                formID={fields.marketoFormID}
-              />
+              <div className={`${style.sideWrapper} bg-paleblue`}>
+                <Form
+                  submitButtonText={fields.formSubmitText}
+                  formLoaded={formLoaded}
+                  formID={fields.marketoFormID}
+                />
+              </div>
             </aside>
           </div>
         </div>

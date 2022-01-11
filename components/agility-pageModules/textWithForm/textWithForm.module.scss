@@ -2,6 +2,10 @@
 @import "../../../styles/settings/colors";
 
 .textWithForm {
+  .sideWrapper {
+    padding: 1.2rem 0;
+  }
+
   // default layout
   .content {
     display: flex;
