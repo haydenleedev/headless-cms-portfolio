@@ -10,7 +10,16 @@ const ResourceList = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
   const resources =
     mappedResourceListCategory[fields.resourceListCategory]?.content;
-
+  const placeholderImages = [];
+  fields.placeholderImages.media.forEach((image) => {
+    placeholderImages.push(
+      {
+        url: image.url,
+        pixelWidth: image.metaData.pixelWidth,
+        pixelHeight: image.metaData.pixelHeight
+      }
+    );
+  });
   return (
     <section
       className={`section ${style.resourceList}`}
@@ -24,32 +33,36 @@ const ResourceList = ({ module, customData }) => {
         )}
         <div className={style.resources}>
           {fields.highlightedResources
-            ? fields.highlightedResources.map((resource) => (
-                <div className={style.resource} key={resource.contentID}>
-                  <GenericCard
-                    link={resolveLink(
-                      resource.properties.referenceName,
-                      resource.fields
-                    )}
-                    category={resource.properties.referenceName}
-                    title={resource.fields.title}
-                    image={resource.fields.image}
-                  />
-                </div>
-              ))
-            : resources.map((resource) => (
-                <div className={style.resource} key={resource.contentID}>
-                  <GenericCard
-                    link={resolveLink(
-                      resource.properties.referenceName,
-                      resource.fields
-                    )}
-                    category={resource.properties.referenceName}
-                    title={resource.fields.title}
-                    image={resource.fields.image}
-                  />
-                </div>
-              ))}
+            ? fields.highlightedResources.map((resource, index) => (
+              <div className={style.resource} key={resource.contentID}>
+                <GenericCard
+                  link={resolveLink(
+                    resource.properties.referenceName,
+                    resource.fields
+                  )}
+                  category={resource.properties.referenceName}
+                  title={resource.fields.title}
+                  image={resource.fields.image ? resource.fields.image :
+                    (placeholderImages && placeholderImages.length >= index && placeholderImages[index])
+                  }
+                />
+              </div>
+            ))
+            : resources.map((resource, index) => (
+              <div className={style.resource} key={resource.contentID}>
+                <GenericCard
+                  link={resolveLink(
+                    resource.properties.referenceName,
+                    resource.fields
+                  )}
+                  category={resource.properties.referenceName}
+                  title={resource.fields.title}
+                  image={resource.fields.image ? resource.fields.image :
+                    (placeholderImages && placeholderImages.length >= index && placeholderImages[index])
+                  }
+                />
+              </div>
+            ))}
         </div>
         {fields.resourceListCategory && (
           <div className={style.link}>
