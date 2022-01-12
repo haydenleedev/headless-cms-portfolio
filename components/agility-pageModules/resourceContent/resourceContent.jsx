@@ -101,7 +101,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     </span>
                     <AgilityLink
                       agilityLink={resource.link}
-                      className="link ml-4"
+                      className="link ml-2"
                     >
                       {resource.link.text}
                     </AgilityLink>
