@@ -13,13 +13,20 @@ module.exports = {
         permanent: true,
       },
       {
+        source: "/files/:path*/:slug",
+        destination: "https://assets.ujet.cx/:slug", // Matched parameters can be used in the destination
+        permanent: true,
+      },
+      {
         source: "/customerstories/the-farmers-dog",
         destination: "/customerstories",
+        // TODO: is this permanent?
         permanent: false,
       },
       {
         source: "/digital-voice-channels",
         destination: "/channels",
+        // TODO: is this permanent?
         permanent: false,
       },
       // press release redirects
