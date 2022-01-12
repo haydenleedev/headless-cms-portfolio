@@ -21,7 +21,17 @@
   padding: 1.875rem 2.375rem;
   height: min-content;
   border-radius: 1rem;
-
+  form {
+    display: grid;
+    column-gap: 1rem;
+    grid-template-columns: 1fr;
+    div:last-of-type {
+      grid-column: 1 / -1;
+    }
+    @include desktop() {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
   .formTitle {
     color: $color-black;
     font-weight: 400;
