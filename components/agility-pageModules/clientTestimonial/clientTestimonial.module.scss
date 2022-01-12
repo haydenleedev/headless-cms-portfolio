@@ -65,13 +65,8 @@
             font-size: 1rem;
             line-height: 1.2;
             margin-left: 1rem;
-            &::before {
-              content: "- ";
+            span {
               display: block;
-              position: absolute;
-              left: 0;
-              top: 50%;
-              transform: translate(-1rem, -50%);
             }
           }
         }

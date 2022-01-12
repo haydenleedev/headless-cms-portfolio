@@ -43,17 +43,13 @@ const ClientTestimonial = ({ module }) => {
                     </p>
                     <div className={style.client}>
                       <p>
-                        <span>{fields.testimonial.fields.name}</span>
-                        <span>
-                          {fields.testimonial.fields.jobTitle
-                            ? `, ${fields.testimonial.fields.jobTitle}`
-                            : ""}
-                        </span>
-                        <span>
-                          {fields.testimonial.fields.companyName
-                            ? `, ${fields.testimonial.fields.companyName}`
-                            : ""}
-                        </span>
+                        <span>- {fields.testimonial.fields.name}</span>
+                        {fields.testimonial.fields.jobTitle &&
+                          <span>{fields.testimonial.fields.jobTitle}</span>
+                        }
+                        {fields.testimonial.fields.companyName &&
+                          <span>{fields.testimonial.fields.companyName}</span>
+                        }
                       </p>
                     </div>
                   </div>
