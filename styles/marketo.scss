@@ -104,8 +104,8 @@
     background-color: $color-white;
     width: 100%;
     min-height: 2.6875rem;
-    padding: 0.75rem 1rem;
-    margin: 0.25rem 0;
+    padding: 0.75rem 1rem !important;
+    margin: 0 !important;
     box-sizing: border-box;
     border: toRem(1) solid $color-darkgray !important;
     border-radius: 0.2rem !important;
