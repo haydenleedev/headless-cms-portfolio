@@ -22,6 +22,9 @@ $color-mediumpurple: #6e0bdc;
 .bg-paleblue {
   background-color: #f0f6ff !important; // $color-paleblue: not pale enough...;
 }
+.bg-skyblue {
+  background-color: $color-paleblue !important;
+}
 .bg-lightblue {
   background-color: $color-lightblue !important;
 }

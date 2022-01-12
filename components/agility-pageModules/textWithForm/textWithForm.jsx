@@ -50,25 +50,17 @@ const TextWithForm = ({ module, customData }) => {
           >
             {(heading || subheading) && (
               <aside className={style.columnLayoutHeading}>
-                {heading &&
-                  <Heading {...heading} />
-                }
-                {subheading &&
-                  <Heading {...subheading} />
-                }
+                {heading && <Heading {...heading} />}
+                {subheading && <Heading {...subheading} />}
               </aside>
             )}
             <aside className={style.textContent}>
-              {(heading || subheading) &&
+              {(heading || subheading) && (
                 <div className={style.rowLayoutHeading}>
-                  {heading &&
-                    <Heading {...heading} />
-                  }
-                  {subheading &&
-                    <Heading {...subheading} />
-                  }
+                  {heading && <Heading {...heading} />}
+                  {subheading && <Heading {...subheading} />}
                 </div>
-              }
+              )}
               <div
                 className="content"
                 dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
@@ -105,7 +97,7 @@ const TextWithForm = ({ module, customData }) => {
               )}
             </aside>
             <aside className={style.form}>
-              <div className={`${style.sideWrapper} bg-paleblue`}>
+              <div className={`${style.sideWrapper} bg-skyblue`}>
                 <Form
                   submitButtonText={fields.formSubmitText}
                   formLoaded={formLoaded}
