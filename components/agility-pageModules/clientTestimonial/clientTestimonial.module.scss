@@ -64,7 +64,6 @@
             position: relative;
             font-size: 1rem;
             line-height: 1.2;
-            margin-left: 1rem;
             span {
               display: block;
             }
@@ -174,6 +173,7 @@
     font-size: 0.9rem;
   }
   .slimLink {
-    margin: 3rem 0 1rem;
+    margin: 2rem 0 0;
+    display: block;
   }
 }
