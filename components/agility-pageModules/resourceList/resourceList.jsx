@@ -11,7 +11,7 @@ const ResourceList = ({ module, customData }) => {
   const resources =
     mappedResourceListCategory[fields.resourceListCategory]?.content;
   const placeholderImages = [];
-  fields.placeholderImages.media.forEach((image) => {
+  fields.placeholderImages?.media?.forEach((image) => {
     placeholderImages.push(
       {
         url: image.url,
