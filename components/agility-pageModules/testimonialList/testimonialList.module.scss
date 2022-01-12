@@ -290,7 +290,7 @@
         align-items: center;
         margin-top: unset;
         div {
-          transform: translate(70%, -50%);
+          // transform: translate(70%, -50%);
           button {
             &:first-of-type {
               margin-right: 1.5rem;
@@ -323,7 +323,7 @@
               transform: translateX(-0.15rem) rotate(45deg) !important;
             }
             &:first-of-type {
-              display: none;
+              display: none !important;
             }
           }
         }
