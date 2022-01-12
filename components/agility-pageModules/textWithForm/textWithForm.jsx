@@ -97,7 +97,7 @@ const TextWithForm = ({ module, customData }) => {
               )}
             </aside>
             <aside className={style.form}>
-              <div className={`${style.sideWrapper} bg-skyblue`}>
+              <div className={`${style.sideWrapper} bbg-skyblue-light`}>
                 <Form
                   submitButtonText={fields.formSubmitText}
                   formLoaded={formLoaded}
