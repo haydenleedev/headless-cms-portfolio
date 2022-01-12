@@ -18,7 +18,7 @@ const Slider = ({ activeIndex, loop, dots, children }) => {
 
   useEffect(() => {
     const updateSlideMaxWidth = () => {
-      const sliderWidth = sliderRef.current.getBoundingClientRect().width;
+      const sliderWidth = sliderRef.current?.getBoundingClientRect().width;
       setSlideMaxWidth(sliderWidth);
     };
     if (sliderRef.current) {
