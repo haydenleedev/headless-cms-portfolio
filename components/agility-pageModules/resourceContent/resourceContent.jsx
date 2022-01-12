@@ -94,6 +94,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
               {resource.link.text && resource.link.href && (
                 <div className="container">
                   <p className={style.alternateLink}>
+                    <span>
+                      {resource.footerText
+                        ? resource.footerText
+                        : "Want to learn more about UJET?"}
+                    </span>
                     <AgilityLink
                       agilityLink={resource.link}
                       className="link ml-4"
@@ -129,7 +134,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                   />
                   {resource.link.href && (
                     <div className="mt-4">
-                      <p>Want to learn more about UJET?</p>
+                      <p>
+                        {resource.footerText
+                          ? resource.footerText
+                          : "Want to learn more about UJET?"}
+                      </p>
                       <AgilityLink
                         className="text-decoration-underline"
                         agilityLink={resource.link}
