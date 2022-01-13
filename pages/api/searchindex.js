@@ -9,11 +9,12 @@ import algoliasearch from "algoliasearch";
 
 export default function handler(req, res) {
   //set up the Agolia client and index
+  console.log("request caught");
   const algoliaClient = algoliasearch(
     process.env.ALGOLIA_APP_ID,
     process.env.ALGOLIA_ADMIN_API_KEY
   );
-  const index = algoliaClient.initIndex("main-index");
+  const index = algoliaClient.initIndex("dev_ujet");
   const api = agility.getApi({
     guid: process.env.AGILITY_GUID,
     apiKey: process.env.AGILITY_API_FETCH_KEY,
@@ -55,7 +56,11 @@ export default function handler(req, res) {
   |
   */
   function normalizePage(page, path) {
-    const metaKeywords = page.seo.metaKeywords.split(" ");
+    // meta keywords in AgilityCMS can be used to add tags to pages
+    const metaKeywords =
+      page.seo.metaKeywords.split(" ").length > 0
+        ? page.seo.metaKeywords.split(" ")
+        : [];
     const overrideSEOData = page.zones.MainContentZone.find(
       (module) => module.item.properties.definitionName === "OverrideSEO"
     );
@@ -204,6 +209,16 @@ export default function handler(req, res) {
       languageCode: "en-us",
       expandAllContentLinks: true,
     });
+
+    // the word "nosearchindex" in meta keywords is used to exclude a page from adding it to the search index.
+    // if "nosearchindex" is present, stop execution.
+    if (
+      pageData.seo.metaKeywords
+        .split(" ")
+        .find((keyword) => keyword === "nosearchindex")
+    ) {
+      return;
+    }
     const sitemap = await api.getSitemapFlat({
       channelName: "website",
       languageCode: "en-us",

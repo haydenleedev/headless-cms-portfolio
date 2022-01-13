@@ -43,7 +43,7 @@ const Search = ({
                   searchClient,
                   queries: [
                     {
-                      indexName: "main-index",
+                      indexName: "dev_ujet",
                       query,
                       params: {
                         hitsPerPage: 5,
