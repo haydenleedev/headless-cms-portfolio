@@ -363,6 +363,11 @@ module.exports = {
         destination: "/resources/webinars/why-ujet-ccaas-wbn-ty",
         permanent: true,
       },
+      {
+        source: "/the-evolution-of-cx-wbn-typ",
+        destination: "/resources/webinars/the-evolution-of-cx-wbn-typ",
+        permanent: true,
+      },
     ];
   },
   images: {

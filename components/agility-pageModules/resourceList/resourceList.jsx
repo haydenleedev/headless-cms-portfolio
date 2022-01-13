@@ -18,6 +18,7 @@ const ResourceList = ({ module, customData }) => {
       pixelHeight: image.metaData.pixelHeight,
     });
   });
+
   return (
     <section
       className={`section ${style.resourceList}`}
@@ -129,8 +130,8 @@ ResourceList.getCustomInitialProps = async function ({
 
   function sortContentByDate(list) {
     return list.sort((a, b) => {
-      if (Date.parse(a.fields.date) < Date.parse(b.fields.date)) return -1;
-      if (Date.parse(a.fields.date) > Date.parse(b.fields.date)) return 1;
+      if (Date.parse(a.fields.date) > Date.parse(b.fields.date)) return -1;
+      if (Date.parse(a.fields.date) < Date.parse(b.fields.date)) return 1;
 
       return 0;
     });
@@ -152,16 +153,25 @@ ResourceList.getCustomInitialProps = async function ({
   let productDatasheetsContent = sortContentByDate([...integrations]);
   let videosWebinarsContent = sortContentByDate([...webinars]);
 
-  mappedResourceListCategory["guidesReports"].content = guidesReportsContent
-    .slice(0, 3)
-    .reverse();
+  mappedResourceListCategory["guidesReports"].content =
+    guidesReportsContent.slice(0, 3);
+
   mappedResourceListCategory["ebooksWhitepapers"].content =
-    ebooksWhitepapersContent.slice(0, 3).reverse();
+    ebooksWhitepapersContent.slice(0, 3);
   mappedResourceListCategory["productDatasheets"].content =
-    productDatasheetsContent.slice(0, 3).reverse();
-  mappedResourceListCategory["videosWebinars"].content = videosWebinarsContent
-    .slice(0, 3)
-    .reverse();
+    productDatasheetsContent.slice(0, 3);
+  mappedResourceListCategory["videosWebinars"].content =
+    videosWebinarsContent.slice(0, 3);
+
+  // set same static images for entries in videosWebinars
+  const staticWebinarCardImageUrls = [
+    "https://assets.ujet.cx/Webinar-June24_website-webinar-tile.png?q=75&w=480&format=auto",
+    "https://assets.ujet.cx/CCC-Solutions-Website-Tile.png?q=75&w=480&format=auto",
+    "https://assets.ujet.cx/Webinar-May-27-V2_website-webinar-tile.png?q=75&w=480&format=auto",
+  ];
+  mappedResourceListCategory["videosWebinars"].content.map((entry, index) => {
+    entry.fields.image.url = staticWebinarCardImageUrls[index];
+  });
 
   return {
     mappedResourceListCategory,
