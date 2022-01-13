@@ -2,13 +2,21 @@
 @import "./settings/colors";
 .mktoAsterix {
   color: $color-red;
-  margin-right: 0.5rem;
+  margin-right: 0.25rem;
 }
 
 .mktoField,
 .mktoLabel,
 .mktoButtonRow {
   width: 100% !important;
+}
+
+.mktoFieldDescriptor {
+  margin: 0 !important;
+}
+
+.mktoFieldWrap {
+  padding: 0.5rem 0;
 }
 
 .mktoError {
@@ -21,6 +29,12 @@
 
 .mktoFormRow {
   input {
+    &::placeholder {
+      opacity: 0;
+    }
+    &:focus {
+      outline: 0.25rem solid $color-lightblue;
+    }
     &:not(:focus) {
       & + .mktoError {
         display: none !important;
@@ -58,6 +72,8 @@
 // Basic resource form
 [id^="mktoForm_"] {
   .mktoLabel {
+    margin: 0 0 0.25rem 0;
+    padding: 0;
   }
   .mktoError {
     color: $color-white;
@@ -70,7 +86,7 @@
   }
   button {
     font-size: 1.2rem;
-    font-weight: 400;
+    font-weight: 600;
     margin-top: 1.5rem;
     padding: toRem(15) toRem(30);
     color: $color-white;
@@ -82,24 +98,26 @@
       background-color: $color-darkpurple;
     }
   }
-
-  margin-top: 1rem;
-  & > * {
-    @include desktop() {
-      max-width: 26.25rem;
-      margin: 0 auto;
-    }
-  }
   input,
   select {
     font-size: 1rem;
     background-color: $color-white;
     width: 100%;
     min-height: 2.6875rem;
-    padding: 0.75rem 1rem;
-    margin: 0.25rem 0;
+    padding: 0.75rem 1rem !important;
+    margin: 0 !important;
     box-sizing: border-box;
-    border: toRem(1) solid $color-navy !important;
+    border: toRem(1) solid $color-darkgray !important;
     border-radius: 0.2rem !important;
   }
+  select {
+    &:focus {
+      outline: none;
+    }
+  }
+  // @include desktop() {
+  //   [id^="Country"] {
+  //     width: 203.5% !important;
+  //   }
+  // }
 }

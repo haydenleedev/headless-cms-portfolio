@@ -158,7 +158,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
             dateCreated: blogPost.date,
             description: blogPost.metaDescription,
             articleBody: articleText,
-            authorName: blogPost.author.fields.name || "UJET Team",
+            authorName: blogPost.author?.fields.name || "UJET Team",
           }),
         ]}
       />

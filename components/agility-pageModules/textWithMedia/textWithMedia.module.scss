@@ -12,7 +12,7 @@
   }
   .content {
     display: flex;
-    gap: 3rem;
+    gap: 3.5rem;
     @include touch() {
       flex-direction: column-reverse;
     }

@@ -6,6 +6,8 @@ import Media from "../media";
 import StarRating from "../../starRating/starRating";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
+import Heading from "../heading";
+
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards } = customData;
   const { fields } = module;
@@ -14,6 +16,8 @@ const TextWithForm = ({ module, customData }) => {
   const columnLayout = boolean(fields?.columnLayout);
   const formLeft = boolean(fields?.formLeft);
   const showAwards = boolean(fields?.showAwards);
+  const heading = fields.heading ? JSON.parse(fields.heading) : null;
+  const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
 
   const handleSetFormLoaded = () => {
     setFormLoaded(true);
@@ -44,7 +48,19 @@ const TextWithForm = ({ module, customData }) => {
                   }`
             }
           >
+            {(heading || subheading) && (
+              <aside className={style.columnLayoutHeading}>
+                {heading && <Heading {...heading} />}
+                {subheading && <Heading {...subheading} />}
+              </aside>
+            )}
             <aside className={style.textContent}>
+              {(heading || subheading) && (
+                <div className={style.rowLayoutHeading}>
+                  {heading && <Heading {...heading} />}
+                  {subheading && <Heading {...subheading} />}
+                </div>
+              )}
               <div
                 className="content"
                 dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
@@ -81,7 +97,9 @@ const TextWithForm = ({ module, customData }) => {
               )}
             </aside>
             <aside className={style.form}>
-              <div className={`${style.sideWrapper} bg-paleblue`}>
+              <div
+                className={`${style.sideWrapper} ${style["bg-skyblue-light"]}`}
+              >
                 <Form
                   submitButtonText={fields.formSubmitText}
                   formLoaded={formLoaded}
@@ -95,6 +113,26 @@ const TextWithForm = ({ module, customData }) => {
     </FormWrapper>
   );
 };
+
+const FormLoader = () => {
+  return (
+    <form id="mktoForm_" className={style.loader}>
+      {[...Array(8).keys()].map((key) => (
+        <div className="mktoFormRow" key={key}>
+          <div className="mktoFieldDescriptor mktoFormCol">
+            <div className="mktoFieldWrap">
+              <label className="mktoLabel">᠎</label>
+              <input className="mktoField mktoHasWidth" disabled></input>
+            </div>
+          </div>
+        </div>
+      ))}
+      <div>
+        <button className="mktoButton">᠎</button>
+      </div>
+    </form>
+  );
+}
 
 TextWithForm.getCustomInitialProps = async function ({
   agility,
@@ -126,3 +164,4 @@ TextWithForm.getCustomInitialProps = async function ({
 };
 
 export default TextWithForm;
+export { FormLoader };

@@ -5,7 +5,7 @@ module.exports = {
         source: "/integrations",
         destination: "/resources",
         // TODO: is this permanent?
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/wp-content/:path*/:slug",
@@ -13,14 +13,21 @@ module.exports = {
         permanent: true,
       },
       {
+        source: "/files/:path*/:slug",
+        destination: "https://assets.ujet.cx/:slug", // Matched parameters can be used in the destination
+        permanent: true,
+      },
+      {
         source: "/customerstories/the-farmers-dog",
         destination: "/customerstories",
-        permanent: false,
+        // TODO: is this permanent?
+        permanent: true,
       },
       {
         source: "/digital-voice-channels",
         destination: "/channels",
-        permanent: false,
+        // TODO: is this permanent?
+        permanent: true,
       },
       // press release redirects
       {
@@ -354,6 +361,11 @@ module.exports = {
       {
         source: "/why-ujet-ccaas-wbn-ty",
         destination: "/resources/webinars/why-ujet-ccaas-wbn-ty",
+        permanent: true,
+      },
+      {
+        source: "/the-evolution-of-cx-wbn-typ",
+        destination: "/resources/webinars/the-evolution-of-cx-wbn-typ",
         permanent: true,
       },
     ];

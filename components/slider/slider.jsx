@@ -15,10 +15,11 @@ const Slider = ({ activeIndex, loop, dots, children }) => {
   const slideRefs = useRef([]);
   const [currentIndex, setCurrentIndex] = useState(activeIndex || 0);
   const [slideMaxWidth, setSlideMaxWidth] = useState(null);
+  const [touchX, setTouchX] = useState(null);
 
   useEffect(() => {
     const updateSlideMaxWidth = () => {
-      const sliderWidth = sliderRef.current.getBoundingClientRect().width;
+      const sliderWidth = sliderRef.current?.getBoundingClientRect().width;
       setSlideMaxWidth(sliderWidth);
     };
     if (sliderRef.current) {
@@ -45,6 +46,30 @@ const Slider = ({ activeIndex, loop, dots, children }) => {
     }
   };
 
+  const handleTouchStart = (e) => {
+    const touchStartX = e.touches[0].clientX;
+    setTouchX(touchStartX);
+  };
+
+  const handleTouchMove = (e) => {
+    e.preventDefault();
+
+    if (!touchX) {
+      return;
+    }
+
+    const currentTouch = e.touches[0].clientX;
+    const difference = touchX - currentTouch;
+
+    if (difference > 5) {
+      nextIndex();
+    } else if (difference < -5) {
+      previousIndex();
+    }
+
+    setTouchX(null);
+  };
+
   return (
     <div className={style.slider} ref={sliderRef}>
       <div
@@ -53,7 +78,13 @@ const Slider = ({ activeIndex, loop, dots, children }) => {
       >
         {Array.isArray(children) ? (
           children.map((child, index) => (
-            <Slide maxWidth={slideMaxWidth} ref={slideRefs.current[index]} key={`slide${index}`}>
+            <Slide
+              maxWidth={slideMaxWidth}
+              handleTouchStart={handleTouchStart}
+              handleTouchMove={handleTouchMove}
+              ref={slideRefs.current[index]}
+              key={`slide${index}`}
+            >
               {child}
             </Slide>
           ))
@@ -73,6 +104,7 @@ const Slider = ({ activeIndex, loop, dots, children }) => {
                     className={`reset-button ${
                       currentIndex === index ? style.activeDot : ""
                     }`}
+                    aria-label={`Slide number ${index + 1}`}
                     onClick={() => setCurrentIndex(index)}
                   ></button>
                 </li>
@@ -89,10 +121,12 @@ const Slider = ({ activeIndex, loop, dots, children }) => {
         <div className={style.buttons}>
           <button
             onClick={previousIndex}
+            aria-label="Previous slide"
             className={`reset-button ${style.button}`}
           ></button>
           <button
             onClick={nextIndex}
+            aria-label="Next slide"
             className={`reset-button ${style.button}`}
           ></button>
         </div>

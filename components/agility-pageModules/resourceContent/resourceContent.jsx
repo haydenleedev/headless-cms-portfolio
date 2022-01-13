@@ -13,9 +13,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;
   const [formLoaded, setFormLoaded] = useState(false);
   const resource = dynamicPageItem.fields;
-
-  const articleText = sanitizedHtml.replace(/<[^>]+>/g, "");
-
+  const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
   const handleSetFormLoaded = () => {
     setFormLoaded(true);
   };
@@ -29,7 +27,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
             headline: resource.title,
             image: resource?.image?.url,
             keywords: dynamicPageItem.properties.referenceName,
-            wordcount: articleText.split(" ").length,
+            wordcount: articleText?.split(" ").length,
             url: resource.oGUrl,
             datePublished: resource.date,
             dateModified: dynamicPageItem.properties.modified,
@@ -80,10 +78,12 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                   <div
                     className={`${resource.formBackgroundColor} marketo-resource`}
                   >
-                    <h2 className={`${style.alternateFormTitle} heading-6`}>
-                      {resource.formTitle ||
-                        "Fill out the form to download the the resource today!"}
-                    </h2>
+                    {/\S/.test(resource.formTitle) &&
+                      <h2 className={`${style.formTitle} heading-6`}>
+                        {resource.formTitle ||
+                          "Fill out the form to download the the resource today!"}
+                      </h2>
+                    }
                     <Form
                       formLoaded={formLoaded}
                       formID={resource.marketoFormID}
@@ -94,9 +94,14 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
               {resource.link.text && resource.link.href && (
                 <div className="container">
                   <p className={style.alternateLink}>
+                    <span>
+                      {resource.footerText
+                        ? resource.footerText
+                        : "Want to learn more about UJET?"}
+                    </span>
                     <AgilityLink
                       agilityLink={resource.link}
-                      className="link ml-4"
+                      className="link ml-2"
                     >
                       {resource.link.text}
                     </AgilityLink>
@@ -119,17 +124,23 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                 <div
                   className={`${resource.formBackgroundColor} ${style.form} marketo-resource`}
                 >
-                  <h2 className={`${style.formTitle} heading-6`}>
-                    {resource.formTitle ||
-                      "Fill out the form to download the the resource today!"}
-                  </h2>
+                  {/\S/.test(resource.formTitle) &&
+                    <h2 className={`${style.formTitle} heading-6`}>
+                      {resource.formTitle ||
+                        "Fill out the form to download the the resource today!"}
+                    </h2>
+                  }
                   <Form
                     formLoaded={formLoaded}
                     formID={resource.marketoFormID}
                   />
                   {resource.link.href && (
                     <div className="mt-4">
-                      <p> Want to learn more about UJET?</p>
+                      <p>
+                        {resource.footerText
+                          ? resource.footerText
+                          : "Want to learn more about UJET?"}
+                      </p>
                       <AgilityLink
                         className="text-decoration-underline"
                         agilityLink={resource.link}

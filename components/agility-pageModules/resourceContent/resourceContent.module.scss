@@ -1,9 +1,6 @@
 @import "../../../styles/settings/colors";
 @import "../../../styles/settings/mixins";
 
-.heading {
-}
-
 .columns {
   display: grid;
   grid-template-columns: 100%;
@@ -21,10 +18,20 @@
 
 .form {
   background: $color-paleblue;
-  padding: 3rem;
+  padding: 1.875rem 2.375rem;
   height: min-content;
   border-radius: 1rem;
-
+  form {
+    display: grid;
+    column-gap: 1rem;
+    grid-template-columns: 1fr;
+    div:last-of-type {
+      grid-column: 1 / -1;
+    }
+    @include desktop() {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
   .formTitle {
     color: $color-black;
     font-weight: 400;
@@ -90,6 +97,7 @@
   .title {
     font-weight: 200;
     color: $color-white;
+    padding-right: 1rem;
   }
 
   .hr {
