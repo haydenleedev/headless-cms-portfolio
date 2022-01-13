@@ -43,7 +43,10 @@ const TextWithCard = ({ module, customData }) => {
                         </div>
                     }
                     {(fields.heading || fields.text) &&
-                        <div id={style.text}>
+                        <div
+                            id={style.text}
+                            className={`${fields.textVerticalAlignment}`}
+                        >
                             {fields.heading &&
                                 <h2>{fields.heading}</h2>
                             }
