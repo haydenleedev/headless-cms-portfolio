@@ -22,7 +22,7 @@ const SearchPageContent = ({ customData }) => {
     process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
   );
-  const index = searchClient.initIndex("main-index");
+  const index = searchClient.initIndex("dev_ujet");
   const basicSettings = {
     hitsPerPage: 1000,
     highlightPreTag: "<mark>",
@@ -323,7 +323,7 @@ SearchPageContent.getCustomInitialProps = async function () {
       process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
       process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
     );
-    const index = searchClient.initIndex("main-index");
+    const index = searchClient.initIndex("dev_ujet");
 
     const tagSet = new Set();
     const data = await index.search("", {
