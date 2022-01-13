@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import FormLoader from "./formLoader";
+import { FormLoader }  from "../agility-pageModules/textWithForm/textWithForm";
 
 const Form = ({ submitButtonText, formLoaded, formID }) => {
   const formRef = useRef(null);

@@ -5,6 +5,11 @@
   background-color: $color-paleblue;
 }
 .textWithForm {
+  .loader {
+    button {
+      min-width: 8rem;
+    }
+  }
   .sideWrapper {
     padding: 1.875rem 2.375rem;
     border-radius: 1rem;
@@ -113,7 +118,7 @@
     & > * {
       flex-basis: 100%;
     }
-    form {
+    form, .loader {
       display: grid;
       column-gap: 1rem;
       grid-template-columns: 1fr;
