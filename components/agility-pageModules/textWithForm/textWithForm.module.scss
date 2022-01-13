@@ -108,7 +108,7 @@
     flex-direction: column;
     text-align: center;
     .bg-skyblue-light {
-      background-color: transparent;
+      background-color: transparent !important;
     }
     & > * {
       flex-basis: 100%;
