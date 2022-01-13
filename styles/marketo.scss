@@ -16,7 +16,7 @@
 }
 
 .mktoFieldWrap {
-  padding: .5rem 0;
+  padding: 0.5rem 0;
 }
 
 .mktoError {
@@ -33,7 +33,7 @@
       opacity: 0;
     }
     &:focus {
-      outline: .25rem solid $color-lightblue;
+      outline: 0.25rem solid $color-lightblue;
     }
     &:not(:focus) {
       & + .mktoError {
@@ -72,7 +72,7 @@
 // Basic resource form
 [id^="mktoForm_"] {
   .mktoLabel {
-    margin: 0 0 .25rem 0;
+    margin: 0 0 0.25rem 0;
     padding: 0;
   }
   .mktoError {
@@ -115,4 +115,9 @@
       outline: none;
     }
   }
+  // @include desktop() {
+  //   [id^="Country"] {
+  //     width: 203.5% !important;
+  //   }
+  // }
 }

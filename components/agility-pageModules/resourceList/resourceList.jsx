@@ -11,14 +11,15 @@ const ResourceList = ({ module, customData }) => {
   const resources =
     mappedResourceListCategory[fields.resourceListCategory]?.content;
   const placeholderImages = [];
-  fields.placeholderImages?.media?.forEach((image) => {
-    placeholderImages.push({
-      url: image.url,
-      pixelWidth: image.metaData.pixelWidth,
-      pixelHeight: image.metaData.pixelHeight,
+  if (fields.overrideImages && fields.overrideImages.media) {
+    fields.overrideImages?.media?.forEach((image) => {
+      placeholderImages.push({
+        url: image.url,
+        pixelWidth: 3,
+        pixelHeight: 2,
+      });
     });
-  });
-
+  }
   return (
     <section
       className={`section ${style.resourceList}`}
@@ -40,13 +41,12 @@ const ResourceList = ({ module, customData }) => {
                       resource.fields
                     )}
                     category={resource.properties.referenceName}
+                    overrideCategory={resource.fields.cardCategoryTitle}
                     title={resource.fields.title}
                     image={
-                      resource.fields.image
-                        ? resource.fields.image
-                        : placeholderImages &&
-                          placeholderImages.length >= index &&
-                          placeholderImages[index]
+                      placeholderImages?.length >= index
+                        ? placeholderImages[index]
+                        : resource.fields.image
                     }
                   />
                 </div>
@@ -59,13 +59,12 @@ const ResourceList = ({ module, customData }) => {
                       resource.fields
                     )}
                     category={resource.properties.referenceName}
+                    overrideCategory={resource.fields.cardCategoryTitle}
                     title={resource.fields.title}
                     image={
-                      resource.fields.image
-                        ? resource.fields.image
-                        : placeholderImages &&
-                          placeholderImages.length >= index &&
-                          placeholderImages[index]
+                      placeholderImages?.length >= index
+                        ? placeholderImages[index]
+                        : resource.fields.image
                     }
                   />
                 </div>
