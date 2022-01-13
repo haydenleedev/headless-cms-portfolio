@@ -1,6 +1,7 @@
 import agility from "@agility/content-fetch";
 import { getDynamicPageURL } from "@agility/nextjs/node";
 import algoliasearch from "algoliasearch";
+import { boolean } from "../../utils/validation";
 
 /*
 | this endpoint receives webhook events from AgilityCMS and pushes any content updates
@@ -9,7 +10,6 @@ import algoliasearch from "algoliasearch";
 
 export default function handler(req, res) {
   //set up the Agolia client and index
-  console.log("request caught");
   const algoliaClient = algoliasearch(
     process.env.ALGOLIA_APP_ID,
     process.env.ALGOLIA_ADMIN_API_KEY
@@ -115,7 +115,7 @@ export default function handler(req, res) {
   }
 
   function normalizeBlogPost(post, path) {
-    const categories = post.categories.map((categoryObject) => {
+    const categories = post.fields.categories.map((categoryObject) => {
       return categoryObject.title;
     });
     function getHeadings() {
@@ -146,7 +146,7 @@ export default function handler(req, res) {
   function normalizePressReleaseArticle(content, path) {
     function getHeadings() {
       let headings = [];
-      const foundHeadings = content.fields.text.match(headingRegex);
+      const foundHeadings = content.fields?.text?.match?.(headingRegex);
       if (foundHeadings) {
         foundHeadings.forEach((foundHeading) => {
           headings.push(
@@ -173,7 +173,7 @@ export default function handler(req, res) {
   function normalizeResource(content, path) {
     function getHeadings() {
       let headings = [];
-      const foundHeadings = content.fields.text.match(headingRegex);
+      const foundHeadings = content.fields?.text?.match?.(headingRegex);
       if (foundHeadings) {
         foundHeadings.forEach((foundHeading) => {
           headings.push(
@@ -201,7 +201,7 @@ export default function handler(req, res) {
   async function pageUpdate(pageID, state) {
     // if page has been deleted or unpublished, remove it from algolia index
     if (state === "Deleted") {
-      await index.deleteObject(pageID);
+      await index.deleteObject(pageID + "p");
       return;
     }
     const pageData = await api.getPage({
@@ -217,6 +217,7 @@ export default function handler(req, res) {
         .split(" ")
         .find((keyword) => keyword === "nosearchindex")
     ) {
+      await index.deleteObject(pageID + "p");
       return;
     }
     const sitemap = await api.getSitemapFlat({
@@ -285,6 +286,12 @@ export default function handler(req, res) {
       languageCode: "en-us",
       expandAllContentLinks: true,
     });
+
+    if (boolean(resourceData.fields?.excludefromSearchIndex)) {
+      await index.deleteObject(contentID);
+      return;
+    }
+
     const path = await getDynamicPageURL({
       contentID: parseInt(contentID),
       preview: false,
