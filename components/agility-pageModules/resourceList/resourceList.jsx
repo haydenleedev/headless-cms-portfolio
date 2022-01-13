@@ -12,13 +12,11 @@ const ResourceList = ({ module, customData }) => {
     mappedResourceListCategory[fields.resourceListCategory]?.content;
   const placeholderImages = [];
   fields.placeholderImages?.media?.forEach((image) => {
-    placeholderImages.push(
-      {
-        url: image.url,
-        pixelWidth: image.metaData.pixelWidth,
-        pixelHeight: image.metaData.pixelHeight
-      }
-    );
+    placeholderImages.push({
+      url: image.url,
+      pixelWidth: image.metaData.pixelWidth,
+      pixelHeight: image.metaData.pixelHeight,
+    });
   });
   return (
     <section
@@ -34,35 +32,43 @@ const ResourceList = ({ module, customData }) => {
         <div className={style.resources}>
           {fields.highlightedResources
             ? fields.highlightedResources.map((resource, index) => (
-              <div className={style.resource} key={resource.contentID}>
-                <GenericCard
-                  link={resolveLink(
-                    resource.properties.referenceName,
-                    resource.fields
-                  )}
-                  category={resource.properties.referenceName}
-                  title={resource.fields.title}
-                  image={resource.fields.image ? resource.fields.image :
-                    (placeholderImages && placeholderImages.length >= index && placeholderImages[index])
-                  }
-                />
-              </div>
-            ))
+                <div className={style.resource} key={resource.contentID}>
+                  <GenericCard
+                    link={resolveLink(
+                      resource.properties.referenceName,
+                      resource.fields
+                    )}
+                    category={resource.properties.referenceName}
+                    title={resource.fields.title}
+                    image={
+                      resource.fields.image
+                        ? resource.fields.image
+                        : placeholderImages &&
+                          placeholderImages.length >= index &&
+                          placeholderImages[index]
+                    }
+                  />
+                </div>
+              ))
             : resources.map((resource, index) => (
-              <div className={style.resource} key={resource.contentID}>
-                <GenericCard
-                  link={resolveLink(
-                    resource.properties.referenceName,
-                    resource.fields
-                  )}
-                  category={resource.properties.referenceName}
-                  title={resource.fields.title}
-                  image={resource.fields.image ? resource.fields.image :
-                    (placeholderImages && placeholderImages.length >= index && placeholderImages[index])
-                  }
-                />
-              </div>
-            ))}
+                <div className={style.resource} key={resource.contentID}>
+                  <GenericCard
+                    link={resolveLink(
+                      resource.properties.referenceName,
+                      resource.fields
+                    )}
+                    category={resource.properties.referenceName}
+                    title={resource.fields.title}
+                    image={
+                      resource.fields.image
+                        ? resource.fields.image
+                        : placeholderImages &&
+                          placeholderImages.length >= index &&
+                          placeholderImages[index]
+                    }
+                  />
+                </div>
+              ))}
         </div>
         {fields.resourceListCategory && (
           <div className={style.link}>
@@ -146,14 +152,16 @@ ResourceList.getCustomInitialProps = async function ({
   let productDatasheetsContent = sortContentByDate([...integrations]);
   let videosWebinarsContent = sortContentByDate([...webinars]);
 
-  mappedResourceListCategory["guidesReports"].content =
-    guidesReportsContent.slice(0, 3);
+  mappedResourceListCategory["guidesReports"].content = guidesReportsContent
+    .slice(0, 3)
+    .reverse();
   mappedResourceListCategory["ebooksWhitepapers"].content =
-    ebooksWhitepapersContent.slice(0, 3);
+    ebooksWhitepapersContent.slice(0, 3).reverse();
   mappedResourceListCategory["productDatasheets"].content =
-    productDatasheetsContent.slice(0, 3);
-  mappedResourceListCategory["videosWebinars"].content =
-    videosWebinarsContent.slice(0, 3);
+    productDatasheetsContent.slice(0, 3).reverse();
+  mappedResourceListCategory["videosWebinars"].content = videosWebinarsContent
+    .slice(0, 3)
+    .reverse();
 
   return {
     mappedResourceListCategory,
