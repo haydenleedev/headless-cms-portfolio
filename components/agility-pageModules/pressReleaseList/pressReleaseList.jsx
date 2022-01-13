@@ -43,11 +43,11 @@ const PressReleaseList = ({ module }) => {
             </div>
           ))}
         </div>
-        <Link href="/archives?type=press-releases">
+        <Link href="/archives?type=pressreleases">
           <a
             className="button cyan outlined newsList--link"
-            aria-label="Navigate to page /archives?type=press-releases"
-            title="Navigate to page /archives?type=press-releases"
+            aria-label="Navigate to page /archives?type=pressreleases"
+            title="Navigate to page /archives?type=pressreleases"
           >
             Read More
           </a>

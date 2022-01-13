@@ -368,6 +368,12 @@ module.exports = {
         destination: "/resources/webinars/the-evolution-of-cx-wbn-typ",
         permanent: true,
       },
+
+      {
+        source: "/resources/webinars/successful-case-study-snapshot-destcrm-wbn-lp",
+        destination: "/resources/webinars/destcrm-successful-case-study-snapshot-wbn-typ",
+        permanent: true,
+      },
     ];
   },
   images: {
