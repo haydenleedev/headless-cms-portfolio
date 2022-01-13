@@ -71,6 +71,7 @@
       display: block;
       font-weight: 600;
       font-size: 1rem;
+      color: $color-darkblue;
       span {
         position: relative;
         display: flex;
@@ -84,7 +85,7 @@
           border-top: solid;
           margin-left: 0.2rem;
           border-width: 0.2rem;
-          border-color: $color-navy;
+          border-color: $color-darkblue;
           transform: rotate(45deg);
         }
       }
