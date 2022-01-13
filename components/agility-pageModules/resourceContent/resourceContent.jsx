@@ -13,9 +13,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;
   const [formLoaded, setFormLoaded] = useState(false);
   const resource = dynamicPageItem.fields;
-
-  const articleText = sanitizedHtml.replace(/<[^>]+>/g, "");
-
+  const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
   const handleSetFormLoaded = () => {
     setFormLoaded(true);
   };
@@ -29,7 +27,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
             headline: resource.title,
             image: resource?.image?.url,
             keywords: dynamicPageItem.properties.referenceName,
-            wordcount: articleText.split(" ").length,
+            wordcount: articleText?.split(" ").length,
             url: resource.oGUrl,
             datePublished: resource.date,
             dateModified: dynamicPageItem.properties.modified,
