@@ -29,6 +29,10 @@
   }
   .heading {
     max-width: 37.5rem;
+    margin-top: 1rem;
+    @include desktop () {
+      margin-top: unset;
+    }
   }
   .textContent {
     display: flex;
