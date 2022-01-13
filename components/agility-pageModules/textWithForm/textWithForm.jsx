@@ -114,6 +114,26 @@ const TextWithForm = ({ module, customData }) => {
   );
 };
 
+const FormLoader = () => {
+  return (
+    <form id="mktoForm_" className={style.loader}>
+      {[...Array(8).keys()].map((key) => (
+        <div className="mktoFormRow" key={key}>
+          <div className="mktoFieldDescriptor mktoFormCol">
+            <div className="mktoFieldWrap">
+              <label className="mktoLabel">᠎</label>
+              <input className="mktoField mktoHasWidth" disabled></input>
+            </div>
+          </div>
+        </div>
+      ))}
+      <div>
+        <button className="mktoButton">᠎</button>
+      </div>
+    </form>
+  );
+}
+
 TextWithForm.getCustomInitialProps = async function ({
   agility,
   languageCode,
@@ -144,3 +164,4 @@ TextWithForm.getCustomInitialProps = async function ({
 };
 
 export default TextWithForm;
+export { FormLoader };
