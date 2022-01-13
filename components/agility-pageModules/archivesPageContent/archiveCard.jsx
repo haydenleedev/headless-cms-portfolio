@@ -7,7 +7,7 @@ const ArchiveCard = ({ title, image, link, date, category }) => {
   return (
     <AgilityLink
       agilityLink={link}
-      ariaLabel={"Navigate to blog post: " + title}
+      ariaLabel={"Navigate to : " + title}
       title={title}
     >
       <div className={style.archiveCard}>

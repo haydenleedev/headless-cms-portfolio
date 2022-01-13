@@ -7,7 +7,7 @@ const BlogCard = ({ title, image, link, date, category }) => {
   return (
     <AgilityLink
       agilityLink={link}
-      ariaLabel={"Navigate to blog post: " + title}
+      ariaLabel={"Navigate to : " + title}
       title={title}
       target={link?.target}
     >

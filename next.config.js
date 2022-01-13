@@ -5,7 +5,7 @@ module.exports = {
         source: "/integrations",
         destination: "/resources",
         // TODO: is this permanent?
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/wp-content/:path*/:slug",
@@ -21,13 +21,13 @@ module.exports = {
         source: "/customerstories/the-farmers-dog",
         destination: "/customerstories",
         // TODO: is this permanent?
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/digital-voice-channels",
         destination: "/channels",
         // TODO: is this permanent?
-        permanent: false,
+        permanent: true,
       },
       // press release redirects
       {
