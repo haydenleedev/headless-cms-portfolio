@@ -1,6 +1,9 @@
 @import "../../../styles/settings/mixins";
 @import "../../../styles/settings/colors";
 
+.bg-skyblue-light {
+  background-color: $color-paleblue;
+}
 .textWithForm {
   .sideWrapper {
     padding: 1.875rem 2.375rem;
