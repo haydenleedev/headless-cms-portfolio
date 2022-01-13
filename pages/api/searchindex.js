@@ -111,6 +111,7 @@ export default function handler(req, res) {
       _tags: ["UJET", ...metaKeywords],
       path,
     };
+    normalized["_tags"] = normalized["_tags"].filter((tag) => tag.length > 0);
     return normalized;
   }
 
