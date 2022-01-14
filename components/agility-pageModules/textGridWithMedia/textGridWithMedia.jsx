@@ -41,18 +41,21 @@ const TextGridWithMedia = ({ module, customData }) => {
     const heading = JSON.parse(itemFields.heading);
     return (
       <div
-        className={`${centerItemsHorizontally
-            ? `grid-column is-${itemFields.columns}-larger-gap ${style.horizontallyCenteredTextItem}`
+        className={`${
+          centerItemsHorizontally
+            ? `grid-column is-${fields.columns}-larger-gap ${style.horizontallyCenteredTextItem}`
             : ""
-          } ${itemImageLeft ? style.textItemFlex : style.textItem} ${itemShadow ? "card-shadow" : ""
-          } ${roundCorners ? "border-radius-1" : ""}`}
+        } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
+          itemShadow ? "card-shadow" : ""
+        } ${roundCorners ? "border-radius-1" : ""}`}
         key={data.contentID}
         data-animate="true"
       >
         {itemFields.media && (
           <div
-            className={`${style.textItemMedia} ${itemSmallImage ? style.textItemMediaSmall : ""
-              } ${itemImageCentered ? "margin-center-horizontal" : ""}`}
+            className={`${style.textItemMedia} ${
+              itemSmallImage ? style.textItemMediaSmall : ""
+            } ${itemImageCentered ? "margin-center-horizontal" : ""}`}
           >
             <Media media={itemFields.media} />
           </div>
@@ -66,20 +69,16 @@ const TextGridWithMedia = ({ module, customData }) => {
           {itemFields.text && (
             <div
               className={"content"}
-              dangerouslySetInnerHTML={renderHTML(
-                itemFields.text
-              )}
+              dangerouslySetInnerHTML={renderHTML(itemFields.text)}
             ></div>
           )}
         </div>
         {itemFields.link && itemFields.link.text && (
-          <span>
-            {itemFields.link.text}
-          </span>
+          <span className={style.rightArrow}>{itemFields.link.text}</span>
         )}
       </div>
     );
-  }
+  };
 
   return (
     <section
@@ -124,11 +123,8 @@ const TextGridWithMedia = ({ module, customData }) => {
                     <TextItem data={textItem} />
                   </AgilityLink>
                 );
-              }
-              else {
-                return (
-                  <TextItem data={textItem} key={`textItem${index}`} />
-                );
+              } else {
+                return <TextItem data={textItem} key={`textItem${index}`} />;
               }
             })}
           </div>

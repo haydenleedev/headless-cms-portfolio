@@ -21,12 +21,16 @@
   padding: 1.875rem 2.375rem;
   height: min-content;
   border-radius: 1rem;
+  &.bg-lightblue {
+    background: $color-paleblue;
+  }
   form {
     display: grid;
     column-gap: 1rem;
     grid-template-columns: 1fr;
     div:last-of-type {
       grid-column: 1 / -1;
+      text-align: center;
     }
     @include desktop() {
       grid-template-columns: 1fr 1fr;
@@ -46,9 +50,10 @@
 .alternateHeader {
   .alternateHeaderContainer {
     position: relative;
-    min-height: 28.75rem;
+    min-height: 33.75rem;
     display: flex;
     @include desktop() {
+      min-height: 28.75rem;
       align-items: center;
     }
   }
@@ -74,7 +79,7 @@
     }
 
     .sideColumn {
-      min-height: 17.5rem;
+      min-height: 22.5rem;
       background: $color-navy;
       @include desktop() {
         min-height: 25rem;
@@ -82,7 +87,9 @@
     }
 
     .imageColumn {
-      min-height: 25rem;
+      @include desktop() {
+        min-height: 25rem;
+      }
       div {
         height: 100%;
         width: 100%;
@@ -97,7 +104,11 @@
   .title {
     font-weight: 200;
     color: $color-white;
-    padding-right: 1rem;
+    padding-right: 0;
+
+    @include desktop {
+      padding-right: 2rem;
+    }
   }
 
   .hr {
@@ -132,5 +143,17 @@
 }
 
 .alternateLink {
+  h2 {
+    font-weight: unset;
+  }
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.marketoResource {
+  padding: 2rem;
+  border-radius: 0.5rem;
+}
+.mktoButtonRow {
   text-align: center;
 }

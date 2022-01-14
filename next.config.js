@@ -1,4 +1,22 @@
 module.exports = {
+  async rewrites() {
+    return {
+      beforeFiles: [
+        // if the host is `app.acme.com`,
+        // this rewrite will be applied
+        {
+          source: "/:path*",
+          has: [
+            {
+              type: "host",
+              value: "blog.ujet.co",
+            },
+          ],
+          destination: "/blog/:path*",
+        },
+      ],
+    };
+  },
   async redirects() {
     return [
       {
@@ -366,6 +384,46 @@ module.exports = {
       {
         source: "/the-evolution-of-cx-wbn-typ",
         destination: "/resources/webinars/the-evolution-of-cx-wbn-typ",
+        permanent: true,
+      },
+
+      {
+        source:
+          "/resources/webinars/successful-case-study-snapshot-destcrm-wbn-lp",
+        destination:
+          "/resources/webinars/destcrm-successful-case-study-snapshot-wbn-typ",
+        permanent: true,
+      },
+      // archive redirects
+      // {
+      //   source: "/archive/policy-prior-to-01-June-2019",
+      //   destination: "/archive/policy-prior-to-01-june-2019",
+      //   permanent: true,
+      // },
+      // Misc.
+      {
+        source: "/salesforce-sales-cloud-crm",
+        destination: "/integrations/salesforce-sales-cloud-crm",
+        permanent: true,
+      },
+      {
+        source: "/request-a-demo-2",
+        destination: "/request-a-demo",
+        permanent: true,
+      },
+      {
+        source: "/request-a-demo-3",
+        destination: "/request-a-demo",
+        permanent: true,
+      },
+      {
+        source: "/unified-cx-for-the-smartphone-era-2",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/integrations/ujet-advanced-reporting-data%20sheet-lp",
+        destination: "/integrations/ujet-advanced-reporting-datasheet-lp",
         permanent: true,
       },
     ];

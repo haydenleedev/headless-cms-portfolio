@@ -20,6 +20,7 @@ const ArchivesPageContent = ({ customData }) => {
   const [activeContentType, setActiveContentType] = useState(null); // these are their own states because it makes handing multiple categories easier.
   const [contentCategories, setContentCategories] = useState(null); // these are their own states because it makes handing multiple categories easier.
   const [activeCategories, setActiveCategories] = useState([]); // currently selected categories.
+  const [mobileCategoriesVisible, setMobileCategoriesVisible] = useState(false);
 
   const PER_PAGE = 9; // how many cards are shown per page
 
@@ -28,9 +29,9 @@ const ArchivesPageContent = ({ customData }) => {
     if (query.type) {
       let queriedType = contentListTypes.find((type) => type.id === query.type);
       const categories = query?.categories?.split(",");
-      setActiveContentType(queriedType.id);
-      setActiveContentList(queriedType.content);
-      setContentCategories(queriedType.categories);
+      setActiveContentType(queriedType?.id);
+      setActiveContentList(queriedType?.content);
+      setContentCategories(queriedType?.categories);
       if (categories) {
         setActiveCategories(categories);
       }
@@ -177,20 +178,35 @@ const ArchivesPageContent = ({ customData }) => {
           </label>
           {contentCategories && (
             <fieldset>
-              <legend>Categories</legend>
-              {Object.entries(contentCategories).map(([key, category], i) => (
-                <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
-                  <input
-                    type="checkbox"
-                    id={key + "Checkbox"}
-                    checked={activeCategories.find(
-                      (category) => category === key
-                    )}
-                    onChange={(event) => handleCategoryChange(event, key)}
-                  />
-                  {category.title}
-                </label>
-              ))}
+              <div
+                id={style.mobileCategoryToggle}
+                className="d-flex align-items-center justify-content-space-between"
+                onClick={() => { setMobileCategoriesVisible(!mobileCategoriesVisible) }}
+              >
+                <legend>Categories</legend>
+                <div
+                  id={style.chevron}
+                  className={mobileCategoriesVisible ? style.flipped : ""}
+                />
+              </div>
+              <div
+                id={style.categoryCheckboxes}
+                className={mobileCategoriesVisible ? "" : style.hidden}
+              >
+                {Object.entries(contentCategories).map(([key, category], i) => (
+                  <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
+                    <input
+                      type="checkbox"
+                      id={key + "Checkbox"}
+                      checked={activeCategories.find(
+                        (category) => category === key
+                      )}
+                      onChange={(event) => handleCategoryChange(event, key)}
+                    />
+                    {category.title}
+                  </label>
+                ))}
+              </div>
             </fieldset>
           )}
         </aside>
@@ -207,7 +223,7 @@ const ArchivesPageContent = ({ customData }) => {
                       item.properties.referenceName,
                       item.fields
                     )}
-                    date={item.fields.date}
+                    date={activeContentType !== "resources" ? item.fields.date : null}
                     category={
                       item.fields?.cardCategoryTitle ||
                       resolveCategory(item.properties.referenceName)

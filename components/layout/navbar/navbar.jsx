@@ -115,11 +115,13 @@ const Navbar = ({ globalData }) => {
           <span></span>
           <span></span>
         </button>
-        <MainNavigation
-          active={mainNavigationActive}
-          mainNavigation={navbar.fields.mainNavigation}
-          handleSetMainNavigationActive={handleSetMainNavigationActive}
-        />
+        <div className={`${style.mainNavigationContainer} ${mainNavigationActive ? "active" : style.mainNavigationContainerClosed}`}>
+          <MainNavigation
+            active={mainNavigationActive}
+            mainNavigation={navbar.fields.mainNavigation}
+            handleSetMainNavigationActive={handleSetMainNavigationActive}
+          />
+        </div>
       </nav>
     </section>
   );

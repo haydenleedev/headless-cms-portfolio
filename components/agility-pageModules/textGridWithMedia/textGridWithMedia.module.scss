@@ -33,10 +33,16 @@
           padding-bottom: 0;
         }
       }
-      span {
+      span.rightArrow {
         font-weight: 600;
         color: $color-darkblue;
         margin-bottom: 1rem;
+        &:after {
+          content: ">";
+          margin-left: 0.5rem;
+          font-size: 1rem;
+          display: inline-block;
+        }
       }
       .textItem,
       .textItemFlex {
@@ -97,6 +103,6 @@
     }
   }
   .textItemHeading {
-    margin-bottom: .625rem;
+    margin-bottom: 0.625rem;
   }
 }

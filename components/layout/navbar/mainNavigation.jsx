@@ -26,6 +26,10 @@ const MainNavigation = ({
   const handleSetSearchToggled = (boolean) => {
     setSearchToggled(boolean);
   };
+
+  const closeActiveNavigationItem = () => {
+    setActiveNavigationItem(null)
+  }
   const handleNavigationGroupClick = (fields, item) => {
     if (isMobile()) {
       if (item == activeNavigationItem) {
@@ -113,7 +117,10 @@ const MainNavigation = ({
                           <div
                             className="display-block"
                             key={`navigation-item-${index}`}
-                            onClick={() => handleSetMainNavigationActive?.()}
+                            onClick={() => {
+                              handleSetMainNavigationActive?.()
+                              setActiveNavigationItem(null)
+                            }}
                             role="button"
                           >
                             <AgilityLink

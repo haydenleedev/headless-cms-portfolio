@@ -75,15 +75,13 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     className="content"
                     dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                   />
-                  <div
-                    className={`${resource.formBackgroundColor} marketo-resource`}
-                  >
-                    {/\S/.test(resource.formTitle) &&
+                  <div className={`bg-skyblue-light  ${style.marketoResource}`}>
+                    {/\S/.test(resource.formTitle) && (
                       <h2 className={`${style.formTitle} heading-6`}>
                         {resource.formTitle ||
                           "Fill out the form to download the the resource today!"}
                       </h2>
-                    }
+                    )}
                     <Form
                       formLoaded={formLoaded}
                       formID={resource.marketoFormID}
@@ -94,11 +92,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
               {resource.link.text && resource.link.href && (
                 <div className="container">
                   <p className={style.alternateLink}>
-                    <span>
+                    <h2 className="heading-6">
                       {resource.footerText
                         ? resource.footerText
                         : "Want to learn more about UJET?"}
-                    </span>
+                    </h2>
                     <AgilityLink
                       agilityLink={resource.link}
                       className="link ml-2"
@@ -122,20 +120,20 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                   />
                 </div>
                 <div
-                  className={`${resource.formBackgroundColor} ${style.form} marketo-resource`}
+                  className={`${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`}
                 >
-                  {/\S/.test(resource.formTitle) &&
+                  {/\S/.test(resource.formTitle) && (
                     <h2 className={`${style.formTitle} heading-6`}>
                       {resource.formTitle ||
                         "Fill out the form to download the the resource today!"}
                     </h2>
-                  }
+                  )}
                   <Form
                     formLoaded={formLoaded}
                     formID={resource.marketoFormID}
                   />
                   {resource.link.href && (
-                    <div className="mt-4">
+                    <div className="mt-4 align-center">
                       <p>
                         {resource.footerText
                           ? resource.footerText
