@@ -139,6 +139,9 @@
 }
 
 .alternateLink {
+  h2 {
+    font-weight: unset;
+  }
   margin-top: 1rem;
   text-align: center;
 }
