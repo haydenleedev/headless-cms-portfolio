@@ -133,7 +133,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     formID={resource.marketoFormID}
                   />
                   {resource.link.href && (
-                    <div className="mt-4">
+                    <div className="mt-4 align-center">
                       <p>
                         {resource.footerText
                           ? resource.footerText
