@@ -6,7 +6,6 @@ const AwardsPageContent = ({ customData }) => {
   const { allAwards } = customData;
   return (
     <section className="section">
-      <h1 className=""></h1>
       <div className="container">
         <nav className={style.awardsPageContent} aria-label="awards navigation">
           {allAwards.map((award) => {
