@@ -75,7 +75,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     className="content"
                     dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                   />
-                  <div className={`bg-skyblue-light marketo-resource`}>
+                  <div className={`bg-skyblue-light  ${style.marketoResource}`}>
                     {/\S/.test(resource.formTitle) && (
                       <h2 className={`${style.formTitle} heading-6`}>
                         {resource.formTitle ||
