@@ -404,7 +404,17 @@ module.exports = {
       {
         source: "/salesforce-sales-cloud-crm",
         destination: "/integrations/salesforce-sales-cloud-crm",
-        permanent: false,
+        permanent: true,
+      },
+      {
+        source: "/request-a-demo-2",
+        destination: "/request-a-demo",
+        permanent: true,
+      },
+      {
+        source: "/request-a-demo-3",
+        destination: "/request-a-demo",
+        permanent: true,
       },
     ];
   },
