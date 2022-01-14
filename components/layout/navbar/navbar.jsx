@@ -115,7 +115,7 @@ const Navbar = ({ globalData }) => {
           <span></span>
           <span></span>
         </button>
-        <div className={style.mainNavigationContainer}>
+        <div className={`${style.mainNavigationContainer} ${mainNavigationActive ? "active" : style.mainNavigationContainerClosed}`}>
           <MainNavigation
             active={mainNavigationActive}
             mainNavigation={navbar.fields.mainNavigation}

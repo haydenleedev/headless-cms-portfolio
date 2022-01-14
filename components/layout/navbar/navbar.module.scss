@@ -187,7 +187,6 @@
 
 // Renamed hasDropdown since the dropdown is actually a child ul
 .hasDropdown {
-  height: 100%;
   display: flex;
   padding: 1rem 0;
   flex-flow: column;
@@ -203,6 +202,7 @@
   }
 
   @include desktop() {
+    height: 100%;
     flex-flow: row;
     border: none;
     padding-left: 1.5rem;
@@ -327,7 +327,7 @@
 
   .navigationColumn {
     padding: 0 3rem 0 0;
-
+    height: 100%;
     .navigationItem {
       padding: 0.625rem 0;
 
@@ -347,8 +347,25 @@
 }
 
 .mainNavigationContainer {
-  // overflow-y: scroll;
-  // @include desktop () {
-  //   overflow: unset;
-  // }
+  overflow-y: scroll;
+  height: 100vh;
+  max-height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+
+
+
+  
+  @include desktop () {
+    overflow: unset;
+    height: unset;
+    max-height: unset;
+    widows: unset;
+    overflow-y: unset;
+  }
+}
+
+.mainNavigationContainerClosed {
+    max-height: unset;
+    height: unset;
 }
