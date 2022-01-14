@@ -11,7 +11,6 @@ const LeadershipPageContent = ({ customData }) => {
   const { handleSetGlobalModal } = useContext(GlobalContext);
   return (
     <section className="section">
-      <h1 className=""></h1>
       <div className="container">
         <div className={`grid-columns ${style.leadershipPageContent}`}>
           {allLeaders.map((leader) => (
