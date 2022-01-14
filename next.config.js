@@ -370,8 +370,16 @@ module.exports = {
       },
 
       {
-        source: "/resources/webinars/successful-case-study-snapshot-destcrm-wbn-lp",
-        destination: "/resources/webinars/destcrm-successful-case-study-snapshot-wbn-typ",
+        source:
+          "/resources/webinars/successful-case-study-snapshot-destcrm-wbn-lp",
+        destination:
+          "/resources/webinars/destcrm-successful-case-study-snapshot-wbn-typ",
+        permanent: true,
+      },
+      // archive redirects
+      {
+        source: "/archive/policy-prior-to-01-June-2019",
+        destination: "/archive/policy-prior-to-01-june-2019",
         permanent: true,
       },
     ];
