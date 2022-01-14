@@ -50,9 +50,10 @@
 .alternateHeader {
   .alternateHeaderContainer {
     position: relative;
-    min-height: 28.75rem;
+    min-height: 33.75rem;
     display: flex;
     @include desktop() {
+      min-height: 28.75rem;
       align-items: center;
     }
   }
@@ -78,7 +79,7 @@
     }
 
     .sideColumn {
-      min-height: 17.5rem;
+      min-height: 22.5rem;
       background: $color-navy;
       @include desktop() {
         min-height: 25rem;
@@ -86,7 +87,9 @@
     }
 
     .imageColumn {
-      min-height: 25rem;
+      @include desktop() {
+        min-height: 25rem;
+      }
       div {
         height: 100%;
         width: 100%;
