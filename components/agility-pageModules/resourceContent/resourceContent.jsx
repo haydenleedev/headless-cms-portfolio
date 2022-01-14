@@ -75,15 +75,13 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     className="content"
                     dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                   />
-                  <div
-                    className={`${resource.formBackgroundColor} marketo-resource`}
-                  >
-                    {/\S/.test(resource.formTitle) &&
+                  <div className={`bg-skyblue-light marketo-resource`}>
+                    {/\S/.test(resource.formTitle) && (
                       <h2 className={`${style.formTitle} heading-6`}>
                         {resource.formTitle ||
                           "Fill out the form to download the the resource today!"}
                       </h2>
-                    }
+                    )}
                     <Form
                       formLoaded={formLoaded}
                       formID={resource.marketoFormID}
@@ -124,12 +122,12 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                 <div
                   className={`${resource.formBackgroundColor} ${style.form} marketo-resource`}
                 >
-                  {/\S/.test(resource.formTitle) &&
+                  {/\S/.test(resource.formTitle) && (
                     <h2 className={`${style.formTitle} heading-6`}>
                       {resource.formTitle ||
                         "Fill out the form to download the the resource today!"}
                     </h2>
-                  }
+                  )}
                   <Form
                     formLoaded={formLoaded}
                     formID={resource.marketoFormID}
