@@ -25,6 +25,39 @@
     }
     .filterPanel {
       grid-area: side;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background-color: white;
+      #mobileCategoryToggle {
+        cursor: pointer;
+        #chevron {
+          height: 1rem;
+          width: 1rem;
+          margin-right: 1rem;
+          border-color: $color-black;
+          border-width: 0px 2px 2px 0px;
+          border-style: solid;
+          transform: translateY(-.25rem) rotate(45deg);
+          &.flipped {
+            transform: translateY(.25rem) rotate(225deg);
+          }
+        }
+        @include desktop() {
+          pointer-events: none;
+          #chevron {
+            display: none;
+          }
+        }
+      }
+      #categoryCheckboxes {
+        &.hidden {
+          display: none;
+        }
+        @include desktop() {
+          display: block !important;
+        }
+      }
       & > label,
       fieldset {
         display: flex;
@@ -61,6 +94,9 @@
             margin-right: 0.5rem;
           }
         }
+      }
+      @include desktop() {
+        position: relative;
       }
     }
     .contentList {
