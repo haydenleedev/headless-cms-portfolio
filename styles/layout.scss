@@ -334,6 +334,10 @@
   }
 }
 
+.overflow-scroll {
+  overflow-x: auto;
+}
+
 .container {
   @include siteWidth();
   margin: 0 auto;

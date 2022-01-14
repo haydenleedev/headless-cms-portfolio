@@ -26,11 +26,6 @@ module.exports = {
         permanent: true,
       },
       {
-        source: "/salesforece",
-        destination: "/integrations/salesforce",
-        permanent: false,
-      },
-      {
         source: "/wp-content/:path*/:slug",
         destination: "https://assets.ujet.cx/:slug", // Matched parameters can be used in the destination
         permanent: true,
@@ -400,10 +395,16 @@ module.exports = {
         permanent: true,
       },
       // archive redirects
+      // {
+      //   source: "/archive/policy-prior-to-01-June-2019",
+      //   destination: "/archive/policy-prior-to-01-june-2019",
+      //   permanent: true,
+      // },
+      // Misc.
       {
-        source: "/archive/policy-prior-to-01-June-2019",
-        destination: "/archive/policy-prior-to-01-june-2019",
-        permanent: true,
+        source: "/salesforce-sales-cloud-crm",
+        destination: "/integrations/salesforce-sales-cloud-crm",
+        permanent: false,
       },
     ];
   },
