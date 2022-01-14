@@ -79,7 +79,7 @@
     }
     .form {
       order: 2;
-      margin-top: 1rem;
+      margin: 2rem 0;
       & > * {
         max-width: 26.25rem;
         margin: 0 auto;
@@ -99,6 +99,9 @@
       }
       .rowLayoutHeading {
         display: block;
+      }
+      .form {
+        margin: 0;
       }
       .columnLayoutHeading,
       .textContent,
