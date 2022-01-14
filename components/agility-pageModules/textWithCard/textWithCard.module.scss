@@ -30,6 +30,7 @@
       flex-direction: column;
       align-items: center;
       background-color: $color-navy;
+      border-radius: 0.75rem 0.75rem 0 0;
       .cardTextWrapper {
         width: 100%;
         padding: 2.75rem 3rem 1.5rem 3rem;
@@ -46,7 +47,7 @@
         background-color: $color-orange;
         font-size: 0.8rem;
         font-weight: 600;
-        border-radius: 0.5rem;
+        border-radius: 1rem;
       }
       .cardHeading {
         font-size: 1.8rem;
