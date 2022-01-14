@@ -120,7 +120,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                   />
                 </div>
                 <div
-                  className={`${resource.formBackgroundColor} ${style.form} marketo-resource`}
+                  className={`${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`}
                 >
                   {/\S/.test(resource.formTitle) && (
                     <h2 className={`${style.formTitle} heading-6`}>

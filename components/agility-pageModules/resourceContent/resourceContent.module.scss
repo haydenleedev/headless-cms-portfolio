@@ -100,7 +100,11 @@
   .title {
     font-weight: 200;
     color: $color-white;
-    padding-right: 1rem;
+    padding-right: 0;
+
+    @include desktop {
+      padding-right: 2rem;
+    }
   }
 
   .hr {
@@ -136,4 +140,9 @@
 
 .alternateLink {
   text-align: center;
+}
+
+.marketoResource {
+  padding: 1rem;
+  border-radius: .5rem;
 }
