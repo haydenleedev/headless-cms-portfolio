@@ -21,7 +21,7 @@
   padding: 1.875rem 2.375rem;
   height: min-content;
   border-radius: 1rem;
-  .bg-lightblue {
+  &.bg-lightblue {
     background: $color-paleblue !important;
   }
   form {
