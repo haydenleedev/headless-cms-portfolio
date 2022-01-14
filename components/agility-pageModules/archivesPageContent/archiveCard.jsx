@@ -23,7 +23,7 @@ const ArchiveCard = ({ title, image, link, date, category }) => {
           </div>
         ))}
         <div className={style.textContent}>
-          {/*           {date && <p className={style.date}>{toDate(date)}</p>} */}
+          {date && <p className={style.date}>{toDate(date)}</p>}
           {category && <p className={style.category}>{category}</p>}
           <p className={style.title}>{title}</p>
           <p className={style.link}>
