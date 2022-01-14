@@ -416,6 +416,16 @@ module.exports = {
         destination: "/request-a-demo",
         permanent: true,
       },
+      {
+        source: "/unified-cx-for-the-smartphone-era-2",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/integrations/ujet-advanced-reporting-data%20sheet-lp",
+        destination: "/integrations/ujet-advanced-reporting-datasheet-lp",
+        permanent: true,
+      },
     ];
   },
   images: {
