@@ -11,7 +11,6 @@ import ArchivesLoader from "./archivesLoader";
 
 const ArchivesPageContent = ({ customData }) => {
   const { query } = useRouter();
-  console.log("asdsadasdassa", query)
   const { contentListTypes } = customData; // the 3 different content types: news, press releases and resources.
   const [activePageNumber, setActivePageNumber] = useState(0); // number of the current page.
   const [totalPagesCount, setTotalPagesCount] = useState(null); // total count of pages.
@@ -29,7 +28,6 @@ const ArchivesPageContent = ({ customData }) => {
   useEffect(() => {
     if (query.type) {
       let queriedType = contentListTypes.find((type) => type.id === query.type);
-      console.log("queried type: ", queriedType)
       const categories = query?.categories?.split(",");
       setActiveContentType(queriedType?.id);
       setActiveContentList(queriedType?.content);
@@ -225,7 +223,7 @@ const ArchivesPageContent = ({ customData }) => {
                       item.properties.referenceName,
                       item.fields
                     )}
-                    date={item.fields.date}
+                    date={activeContentType !== "resources" ? item.fields.date : null}
                     category={
                       item.fields?.cardCategoryTitle ||
                       resolveCategory(item.properties.referenceName)
