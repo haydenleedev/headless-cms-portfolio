@@ -33,6 +33,7 @@ import Modal from "./modal/modal";
 import TextWithCard from "./textWithCard/textWithCard";
 import TableWithHeading from "./tableWithHeading/tableWithHeading";
 import ApplySmoothScrolling from "./applySmoothScrolling/applySmoothScrolling";
+import HiddenH1 from "./hiddenH1/hiddenH1";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -89,6 +90,7 @@ const allModules = [
   { name: "TextWithCard", module: TextWithCard },
   { name: "TableWithHeading", module: TableWithHeading },
   { name: "ApplySmoothScrolling", module: Placeholder },
+  { name: "HiddenH1", module: HiddenH1 }
 ];
 
 export const getModule = (moduleName) => {
