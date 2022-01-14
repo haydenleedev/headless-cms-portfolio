@@ -26,13 +26,12 @@
     .filterPanel {
       grid-area: side;
       position: sticky;
-      width: calc(100vw - 1rem);
+      width: calc(100% + 2rem);
       transform: translateX(-1rem);
       padding: 0 1rem;
       top: 0;
       z-index: 2;
       background-color: white;
-      box-shadow: 0 .5rem 0.5rem -.5rem #0000005b;
       #mobileCategoryToggle {
         cursor: pointer;
         #chevron {
@@ -42,9 +41,9 @@
           border-color: $color-black;
           border-width: 0px 2px 2px 0px;
           border-style: solid;
-          transform: translateY(-.25rem) rotate(45deg);
+          transform: translate(.5rem, -.25rem) rotate(45deg);
           &.flipped {
-            transform: translateY(.25rem) rotate(225deg);
+            transform: translate(.5rem, .25rem) rotate(225deg);
           }
         }
         legend {
@@ -59,11 +58,23 @@
         }
       }
       #categoryCheckboxes {
+        position: absolute;
+        left: 0;
+        padding: 0 0 .75rem 1rem;
+        width: 100%;
+        background-color: white;
+        top: 100%;
         &.hidden {
           display: none;
         }
         @include desktop() {
           display: block !important;
+          position: relative;
+          left: auto;
+          padding: 0;
+          width: auto;
+          background-color: unset;
+          top: auto;
         }
       }
       & > label,
@@ -83,6 +94,7 @@
         padding-top: 0;
       }
       & > fieldset {
+        padding: .75rem 0;
         margin: 0;
         label {
           display: flex;
@@ -110,6 +122,12 @@
         width: auto;
         transform: unset;
         padding: 0;
+        box-shadow: unset;
+      }
+    }
+    .filterPanel, #categoryCheckboxes {
+      box-shadow: 0 .5rem 0.5rem -.5rem #0000005b;
+      @include desktop() {
         box-shadow: unset;
       }
     }
