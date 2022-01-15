@@ -390,6 +390,16 @@ module.exports = {
         destination: "/blog/10-chat-support-job-responsibilities-to-know",
         permanent: true,
       },
+      {
+        source: "/archive/~",
+        destination: "/archive",
+        permanent: true,
+      },
+      {
+        source: "/archive/policy-prior-to-01-June-2019",
+        destination: "/archive/policy-prior-to-01-june-2019",
+        permanent: true,
+      },
     ];
   },
   images: {
