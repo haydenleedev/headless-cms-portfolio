@@ -40,18 +40,16 @@ const ClientTestimonial = ({ module }) => {
                       {fields.testimonial.fields.text}
                     </p>
                     <div className={style.client}>
+                      <p>{fields.testimonial.fields.name}</p>
                       <p>
-                        <span>{fields.testimonial.fields.name}</span>
-                        <span>
-                          {fields.testimonial.fields.jobTitle
-                            ? `, ${fields.testimonial.fields.jobTitle}`
-                            : ""}
-                        </span>
-                        <span>
-                          {fields.testimonial.fields.companyName
-                            ? `, ${fields.testimonial.fields.companyName}`
-                            : ""}
-                        </span>
+                        {fields.testimonial.fields.jobTitle
+                          ? `${fields.testimonial.fields.jobTitle}`
+                          : ""}
+                      </p>
+                      <p>
+                        {fields.testimonial.fields.companyName
+                          ? `${fields.testimonial.fields.companyName}`
+                          : ""}
                       </p>
                     </div>
                     {fields.link && (
