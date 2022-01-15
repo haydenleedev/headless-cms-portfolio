@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "postbuild": "next postbuild && next-sitemap",
+    "postbuild": "next-sitemap",
     "lint": "next lint"
   },
   "dependencies": {
