@@ -375,7 +375,7 @@ module.exports = {
   },
   reactStrictMode: true,
   i18n: {
-    locales: ["en-US, blog"],
+    locales: ["en-US", "blog"],
     defaultLocale: "en-US",
     domains: [
       {
