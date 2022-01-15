@@ -375,7 +375,15 @@ module.exports = {
   },
   reactStrictMode: true,
   i18n: {
-    locales: ["en-US"],
+    locales: ["en-US, blog"],
     defaultLocale: "en-US",
+    domains: [
+      {
+        domain: 'blog.ujet.co',
+        defaultLocale: 'blog',
+        // an optional http field can also be used to test
+        // locale domains locally with http instead of https
+      },
+    ],
   },
 };
