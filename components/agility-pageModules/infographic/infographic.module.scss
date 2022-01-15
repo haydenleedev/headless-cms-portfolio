@@ -190,6 +190,8 @@
         grid-area: image;
         display: flex;
         justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 1rem;
         & > div {
           min-width: 9.375rem;
           max-height: 9.375rem;
@@ -205,6 +207,7 @@
         font-size: 2rem;
         font-weight: 600;
         grid-area: text;
+        margin-left: 0.5rem;
       }
 
       .itemTextContent {
