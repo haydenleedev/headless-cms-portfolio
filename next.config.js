@@ -1,5 +1,5 @@
 module.exports = {
-  async rewrites() {
+  rewrites() {
     return {
       beforeFiles: [
         {
