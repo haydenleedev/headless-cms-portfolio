@@ -68,7 +68,7 @@ const EventsPageContent = ({ module, customData }) => {
               </div>
             ))) || (
             <p className="align-center">
-              We currently have no events! Please check back soon!{" "}
+              We currently have no events! Please check back soon!
             </p>
           )}
         </nav>
