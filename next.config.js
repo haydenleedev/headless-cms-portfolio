@@ -426,6 +426,16 @@ module.exports = {
         destination: "/integrations/ujet-advanced-reporting-datasheet-lp",
         permanent: true,
       },
+      {
+        source: "/built-in-honors-ujet-in-2022-best-places-to-work-awards",
+        destination: "/press-releases/ujet-advanced-reporting-datasheet-lp",
+        permanent: true,
+      },
+      {
+        source: "/ujet-leads-customer-satisfaction-7th-consecutive-quarter",
+        destination: "/press-releases/ujet-leads-customer-satisfaction-7th-consecutive-quarter",
+        permanent: true,
+      },
     ];
   },
   images: {

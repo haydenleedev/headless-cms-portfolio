@@ -179,19 +179,16 @@ const ArchivesPageContent = ({ customData }) => {
           {contentCategories && (
             <fieldset>
               <div
-                id={style.mobileCategoryToggle}
-                className="d-flex align-items-center justify-content-space-between"
+                className={`${style.mobileCategoryToggle} d-flex align-items-center justify-content-space-between`}
                 onClick={() => { setMobileCategoriesVisible(!mobileCategoriesVisible) }}
               >
                 <legend>Categories</legend>
                 <div
-                  id={style.chevron}
-                  className={mobileCategoriesVisible ? style.flipped : ""}
+                  className={`${style.chevron} ${mobileCategoriesVisible ? style.flipped : ""}`}
                 />
               </div>
               <div
-                id={style.categoryCheckboxes}
-                className={mobileCategoriesVisible ? "" : style.hidden}
+                className={`${style.categoryCheckboxes} ${mobileCategoriesVisible ? "" : style.hidden}`}
               >
                 {Object.entries(contentCategories).map(([key, category], i) => (
                   <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>

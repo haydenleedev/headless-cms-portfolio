@@ -32,9 +32,9 @@
       top: 0;
       z-index: 2;
       background-color: white;
-      #mobileCategoryToggle {
+      .mobileCategoryToggle {
         cursor: pointer;
-        #chevron {
+        .chevron {
           height: 1rem;
           width: 1rem;
           margin-right: 1rem;
@@ -52,7 +52,7 @@
         }
         @include desktop() {
           pointer-events: none;
-          #chevron {
+          .chevron {
             display: none;
           }
         }
