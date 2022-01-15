@@ -1,11 +1,11 @@
 module.exports = {
   async redirects() {
     return [
-      // {
-      //   source: "blog.ujet.co/:slug",
-      //   destination: "ujet.cx/blog/:slug",
-      //   permanent: true,
-      // },
+      {
+        source: "blog.ujet.co/:slug",
+        destination: "ujet.cx/blog/:slug",
+        permanent: true,
+      },
       {
         source: "/integrations",
         destination: "/resources",
@@ -375,15 +375,7 @@ module.exports = {
   },
   reactStrictMode: true,
   i18n: {
-    locales: ["en-US", "blog"],
+    locales: ["en-US"],
     defaultLocale: "en-US",
-    domains: [
-      {
-        domain: 'blog.ujet.co',
-        defaultLocale: 'blog',
-        // an optional http field can also be used to test
-        // locale domains locally with http instead of https
-      },
-    ],
   },
 };
