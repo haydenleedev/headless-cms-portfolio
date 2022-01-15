@@ -54,29 +54,24 @@ module.exports = {
         permanent: true,
       },
       {
-        source:
-          "/ujet-announces-record-year-and-exponential-growth-of-contact-center-customer-service-platform",
+        source: "/ujet-announces-record-year-and-exponential-growth-of-contact-center-customer-service-platform",
         destination:
           "/press-releases/ujet-announces-record-year-and-exponential-growth-of-contact-center-customer-service-platform",
         permanent: true,
       },
       {
         source: "/ujet-announces-salesforce-sales-cloud-integration",
-        destination:
-          "/press-releases/ujet-announces-salesforce-sales-cloud-integration",
+        destination: "/press-releases/ujet-announces-salesforce-sales-cloud-integration",
         permanent: true,
       },
       {
-        source:
-          "/ujet-awarded-customer-magazine-workforce-optimization-innovation-award",
-        destination:
-          "/press-releases/ujet-awarded-customer-magazine-workforce-optimization-innovation-award",
+        source: "/ujet-awarded-customer-magazine-workforce-optimization-innovation-award",
+        destination: "/press-releases/ujet-awarded-customer-magazine-workforce-optimization-innovation-award",
         permanent: true,
       },
       {
         source: "/ujet-focuses-on-expansion-with-25-million-series-b",
-        destination:
-          "/press-releases/ujet-focuses-on-expansion-with-25-million-series-b",
+        destination: "/press-releases/ujet-focuses-on-expansion-with-25-million-series-b",
         permanent: true,
       },
       {
@@ -85,104 +80,81 @@ module.exports = {
         permanent: true,
       },
       {
-        source:
-          "/ujet-named-hot-vendor-by-aragon-research-in-intelligent-contact-center",
-        destination:
-          "/press-releases/ujet-named-hot-vendor-by-aragon-research-in-intelligent-contact-center",
+        source: "/ujet-named-hot-vendor-by-aragon-research-in-intelligent-contact-center",
+        destination: "/press-releases/ujet-named-hot-vendor-by-aragon-research-in-intelligent-contact-center",
         permanent: true,
       },
       {
-        source:
-          "/ujet-receives-2019-customer-magazine-product-of-the-year-award",
-        destination:
-          "/press-releases/ujet-receives-2019-customer-magazine-product-of-the-year-award",
+        source: "/ujet-receives-2019-customer-magazine-product-of-the-year-award",
+        destination: "/press-releases/ujet-receives-2019-customer-magazine-product-of-the-year-award",
         permanent: true,
       },
       {
-        source:
-          "/ujet-strengthens-its-executive-leadership-team-with-vasili-triant-as-chief-business-officer",
+        source: "/ujet-strengthens-its-executive-leadership-team-with-vasili-triant-as-chief-business-officer",
         destination:
           "/press-releases/ujet-strengthens-its-executive-leadership-team-with-vasili-triant-as-chief-business-officer",
         permanent: true,
       },
       {
-        source:
-          "/ujet-raises-another-55-million-to-accelerate-contact-center-transformation-2",
-        destination:
-          "/press-releases/ujet-raises-another-55-million-to-accelerate-contact-center-transformation-2",
+        source: "/ujet-raises-another-55-million-to-accelerate-contact-center-transformation-2",
+        destination: "/press-releases/ujet-raises-another-55-million-to-accelerate-contact-center-transformation-2",
         permanent: true,
       },
       {
-        source:
-          "/ujet-releases-e-book-on-how-millennials-and-generation-z-are-transforming-customer-support",
+        source: "/ujet-releases-e-book-on-how-millennials-and-generation-z-are-transforming-customer-support",
         destination:
           "/press-releases/ujet-releases-e-book-on-how-millennials-and-generation-z-are-transforming-customer-support",
         permanent: true,
       },
       {
-        source:
-          "/ujet-named-a-2019-cool-vendor-in-crm-customer-service-and-support-by-gartner",
-        destination:
-          "/press-releases/ujet-named-a-2019-cool-vendor-in-crm-customer-service-and-support-by-gartner",
+        source: "/ujet-named-a-2019-cool-vendor-in-crm-customer-service-and-support-by-gartner",
+        destination: "/press-releases/ujet-named-a-2019-cool-vendor-in-crm-customer-service-and-support-by-gartner",
         permanent: true,
       },
       {
-        source:
-          "/ujet-appoints-jeff-nichols-as-new-chief-financial-officer-amidst-rapid-growth",
-        destination:
-          "/press-releases/ujet-appoints-jeff-nichols-as-new-chief-financial-officer-amidst-rapid-growth",
+        source: "/ujet-appoints-jeff-nichols-as-new-chief-financial-officer-amidst-rapid-growth",
+        destination: "/press-releases/ujet-appoints-jeff-nichols-as-new-chief-financial-officer-amidst-rapid-growth",
         permanent: true,
       },
       {
-        source:
-          "/ujet-and-acqueon-to-help-companies-create-modern-and-hyper-personalized-outbound-campaigns",
+        source: "/ujet-and-acqueon-to-help-companies-create-modern-and-hyper-personalized-outbound-campaigns",
         destination:
           "/press-releases/ujet-and-acqueon-to-help-companies-create-modern-and-hyper-personalized-outbound-campaigns",
         permanent: true,
       },
       {
         source: "/ujet-announces-strategic-global-partnership-with-telarus",
-        destination:
-          "/press-releases/ujet-announces-strategic-global-partnership-with-telarus",
+        destination: "/press-releases/ujet-announces-strategic-global-partnership-with-telarus",
         permanent: true,
       },
       {
-        source:
-          "/ujet-ccaas-cloud-contact-center-now-available-on-oracle-cloud-marketplace",
-        destination:
-          "/press-releases/ujet-ccaas-cloud-contact-center-now-available-on-oracle-cloud-marketplace",
+        source: "/ujet-ccaas-cloud-contact-center-now-available-on-oracle-cloud-marketplace",
+        destination: "/press-releases/ujet-ccaas-cloud-contact-center-now-available-on-oracle-cloud-marketplace",
         permanent: true,
       },
       {
         source: "/karen-bowman-of-ujet-recognized-as-2021-crn-channel-chief",
-        destination:
-          "/press-releases/karen-bowman-of-ujet-recognized-as-2021-crn-channel-chief",
+        destination: "/press-releases/karen-bowman-of-ujet-recognized-as-2021-crn-channel-chief",
         permanent: true,
       },
       {
-        source:
-          "/observe-ai-partners-with-ujet-to-improve-cx-quality-for-the-remote-work-era",
-        destination:
-          "/press-releases/observe-ai-partners-with-ujet-to-improve-cx-quality-for-the-remote-work-era",
+        source: "/observe-ai-partners-with-ujet-to-improve-cx-quality-for-the-remote-work-era",
+        destination: "/press-releases/observe-ai-partners-with-ujet-to-improve-cx-quality-for-the-remote-work-era",
         permanent: true,
       },
       {
         source: "/ujet-adds-intelisys-to-expanding-channel-partner-program",
-        destination:
-          "/press-releases/ujet-adds-intelisys-to-expanding-channel-partner-program",
+        destination: "/press-releases/ujet-adds-intelisys-to-expanding-channel-partner-program",
         permanent: true,
       },
       {
         source: "/ujet-as-the-best-software-company-2021-by-g2",
-        destination:
-          "/press-releases/ujet-as-the-best-software-company-2021-by-g2",
+        destination: "/press-releases/ujet-as-the-best-software-company-2021-by-g2",
         permanent: true,
       },
       {
-        source:
-          "/ujet-announces-partnership-with-google-cloud-contact-center-ai",
-        destination:
-          "/press-releases/ujet-announces-partnership-with-google-cloud-contact-center-ai",
+        source: "/ujet-announces-partnership-with-google-cloud-contact-center-ai",
+        destination: "/press-releases/ujet-announces-partnership-with-google-cloud-contact-center-ai",
         permanent: true,
       },
       {
@@ -192,41 +164,33 @@ module.exports = {
       },
       {
         source: "/ujet-announces-strategic-global-partnership-with-jenne",
-        destination:
-          "/press-releases/ujet-announces-strategic-global-partnership-with-jenne",
+        destination: "/press-releases/ujet-announces-strategic-global-partnership-with-jenne",
         permanent: true,
       },
       {
         source: "/ujet-announces-strategic-partnership-with-cx-effect",
-        destination:
-          "/press-releases/ujet-announces-strategic-partnership-with-cx-effect",
+        destination: "/press-releases/ujet-announces-strategic-partnership-with-cx-effect",
         permanent: true,
       },
       {
-        source:
-          "/ujet-adds-planetone-to-rapidly-growing-channel-partner-program",
-        destination:
-          "/press-releases/ujet-adds-planetone-to-rapidly-growing-channel-partner-program",
+        source: "/ujet-adds-planetone-to-rapidly-growing-channel-partner-program",
+        destination: "/press-releases/ujet-adds-planetone-to-rapidly-growing-channel-partner-program",
         permanent: true,
       },
       {
-        source:
-          "/ujet-continues-unparalleled-pace-of-innovation-with-added-text-chat-and-feedback-capabilities",
+        source: "/ujet-continues-unparalleled-pace-of-innovation-with-added-text-chat-and-feedback-capabilities",
         destination:
           "/press-releases/ujet-continues-unparalleled-pace-of-innovation-with-added-text-chat-and-feedback-capabilities",
         permanent: true,
       },
       {
         source: "/avant-and-ujet-announce-strategic-partnership",
-        destination:
-          "/press-releases/avant-and-ujet-announce-strategic-partnership",
+        destination: "/press-releases/avant-and-ujet-announce-strategic-partnership",
         permanent: true,
       },
       {
-        source:
-          "/g2-ranks-ujet-1-in-user-satisfaction-for-5th-consecutive-quarter",
-        destination:
-          "/press-releases/g2-ranks-ujet-1-in-user-satisfaction-for-5th-consecutive-quarter",
+        source: "/g2-ranks-ujet-1-in-user-satisfaction-for-5th-consecutive-quarter",
+        destination: "/press-releases/g2-ranks-ujet-1-in-user-satisfaction-for-5th-consecutive-quarter",
         permanent: true,
       },
       {
@@ -249,35 +213,27 @@ module.exports = {
         permanent: true,
       },
       {
-        source:
-          "/ujet-launches-its-channel-partner-program-with-peakview-partnership",
-        destination:
-          "/press-releases/ujet-launches-its-channel-partner-program-with-peakview-partnership",
+        source: "/ujet-launches-its-channel-partner-program-with-peakview-partnership",
+        destination: "/press-releases/ujet-launches-its-channel-partner-program-with-peakview-partnership",
         permanent: true,
       },
       {
-        source:
-          "/ujet-recognized-as-a-leader-in-contact-center-operations-software",
-        destination:
-          "/press-releases/ujet-recognized-as-a-leader-in-contact-center-operations-software",
+        source: "/ujet-recognized-as-a-leader-in-contact-center-operations-software",
+        destination: "/press-releases/ujet-recognized-as-a-leader-in-contact-center-operations-software",
         permanent: true,
       },
       {
-        source:
-          "/ujet-unveils-next-generation-virtual-agent-for-less-robotic-interactions",
-        destination:
-          "/press-releases/ujet-unveils-next-generation-virtual-agent-for-less-robotic-interactions",
+        source: "/ujet-unveils-next-generation-virtual-agent-for-less-robotic-interactions",
+        destination: "/press-releases/ujet-unveils-next-generation-virtual-agent-for-less-robotic-interactions",
         permanent: true,
       },
       {
         source: "/ujet-wins-2020-stevie-award-for-sales-and-customer-service",
-        destination:
-          "/press-releases/ujet-wins-2020-stevie-award-for-sales-and-customer-service",
+        destination: "/press-releases/ujet-wins-2020-stevie-award-for-sales-and-customer-service",
         permanent: true,
       },
       {
-        source:
-          "/zendesk-marketplace-lists-ujets-ultra-modern-enterprise-grade-contact-center-solution",
+        source: "/zendesk-marketplace-lists-ujets-ultra-modern-enterprise-grade-contact-center-solution",
         destination:
           "/press-releases/zendesk-marketplace-lists-ujets-ultra-modern-enterprise-grade-contact-center-solution",
         permanent: true,
@@ -291,50 +247,42 @@ module.exports = {
       },
       {
         source: "/ujet-mobile-first-approach-raises-over-20m-in-funding",
-        destination:
-          "/press-releases/ujet-mobile-first-approach-raises-over-20m-in-funding",
+        destination: "/press-releases/ujet-mobile-first-approach-raises-over-20m-in-funding",
         permanent: true,
       },
       {
         source: "/ujet-commits-to-customer-security-in-latest-certifications",
-        destination:
-          "/press-releases/ujet-commits-to-customer-security-in-latest-certifications",
+        destination: "/press-releases/ujet-commits-to-customer-security-in-latest-certifications",
         permanent: true,
       },
       {
         source: "/ujet-integrates-okta-onelogin-and-microsoft-adfs",
-        destination:
-          "/press-releases/ujet-integrates-okta-onelogin-and-microsoft-adfs",
+        destination: "/press-releases/ujet-integrates-okta-onelogin-and-microsoft-adfs",
         permanent: true,
       },
       {
         source: "/ujet-leads-g2-fall-2020-report-for-satisfaction-relationship",
-        destination:
-          "/press-releases/ujet-leads-g2-fall-2020-report-for-satisfaction-relationship",
+        destination: "/press-releases/ujet-leads-g2-fall-2020-report-for-satisfaction-relationship",
         permanent: true,
       },
       {
         source: "/ujet-unveils-platform-enhancements-to-fit-and-flexibility",
-        destination:
-          "/press-releases/ujet-unveils-platform-enhancements-to-fit-and-flexibility",
+        destination: "/press-releases/ujet-unveils-platform-enhancements-to-fit-and-flexibility",
         permanent: true,
       },
       {
         source: "/ujet-and-kustomer-further-extend-their-integration",
-        destination:
-          "/press-releases/ujet-and-kustomer-further-extend-their-integration",
+        destination: "/press-releases/ujet-and-kustomer-further-extend-their-integration",
         permanent: true,
       },
       {
         source: "/ujet-powers-the-worlds-largest-cloud-contact-center",
-        destination:
-          "/press-releases/ujet-powers-the-worlds-largest-cloud-contact-center",
+        destination: "/press-releases/ujet-powers-the-worlds-largest-cloud-contact-center",
         permanent: true,
       },
       {
         source: "/ujet-wins-saas-product-of-the-year-award-2021",
-        destination:
-          "/press-releases/ujet-wins-saas-product-of-the-year-award-2021",
+        destination: "/press-releases/ujet-wins-saas-product-of-the-year-award-2021",
         permanent: true,
       },
       {
@@ -343,16 +291,13 @@ module.exports = {
         permanent: true,
       },
       {
-        source:
-          "/ujet-walks-away-victorious-in-the-2021-titan-business-awards-second-season",
-        destination:
-          "/press-releases/ujet-walks-away-victorious-in-the-2021-titan-business-awards-second-season",
+        source: "/ujet-walks-away-victorious-in-the-2021-titan-business-awards-second-season",
+        destination: "/press-releases/ujet-walks-away-victorious-in-the-2021-titan-business-awards-second-season",
         permanent: true,
       },
       {
         source: "/google-cloud-and-ujet-announce-strategic-partnership",
-        destination:
-          "/press-releases/google-cloud-and-ujet-announce-strategic-partnership",
+        destination: "/press-releases/google-cloud-and-ujet-announce-strategic-partnership",
         permanent: true,
       },
       {
@@ -362,13 +307,11 @@ module.exports = {
       },
       {
         source: "/ujet-and-playvox-partner-to-optimize-contact-center-agent",
-        destination:
-          "/press-releases/ujet-and-playvox-partner-to-optimize-contact-center-agent",
+        destination: "/press-releases/ujet-and-playvox-partner-to-optimize-contact-center-agent",
         permanent: true,
       },
       {
-        source:
-          "/ujet-assembled-partner-enable-seamless-customer-service-intelligent-workforce-management",
+        source: "/ujet-assembled-partner-enable-seamless-customer-service-intelligent-workforce-management",
         destination:
           "/press-releases/ujet-assembled-partner-enable-seamless-customer-service-intelligent-workforce-management",
         permanent: true,
@@ -386,10 +329,8 @@ module.exports = {
       },
 
       {
-        source:
-          "/resources/webinars/successful-case-study-snapshot-destcrm-wbn-lp",
-        destination:
-          "/resources/webinars/destcrm-successful-case-study-snapshot-wbn-typ",
+        source: "/resources/webinars/successful-case-study-snapshot-destcrm-wbn-lp",
+        destination: "/resources/webinars/destcrm-successful-case-study-snapshot-wbn-typ",
         permanent: true,
       },
       // archive redirects
@@ -431,19 +372,22 @@ module.exports = {
       },
       {
         source: "/ujet-leads-customer-satisfaction-7th-consecutive-quarter",
-        destination:
-          "/press-releases/ujet-leads-customer-satisfaction-7th-consecutive-quarter",
+        destination: "/press-releases/ujet-leads-customer-satisfaction-7th-consecutive-quarter",
         permanent: true,
       },
       {
         source: "/resources/reports/cb-icg-agent-engagement-and-empowerment-lp",
-        destination:
-          "/resources/guides/cb-icg-agent-engagement-and-empowerment-lp",
+        destination: "/resources/guides/cb-icg-agent-engagement-and-empowerment-lp",
         permanent: true,
       },
       {
         source: "/resources/reports/cloud-contact-center-buyers-guide",
         destination: "/resources/guides/cloud-contact-center-buyers-guide",
+        permanent: true,
+      },
+      {
+        source: "/blog/10-chat-support-job-responsibilities-what-you-need-to-know-about-providing-live-chat-support-t",
+        destination: "/blog/10-chat-support-job-responsibilities-to-know",
         permanent: true,
       },
     ];
