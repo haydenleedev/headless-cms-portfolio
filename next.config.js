@@ -1,22 +1,11 @@
 module.exports = {
-  rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: "/:path*",
-          has: [
-            {
-              type: "host",
-              value: "blog.ujet.co",
-            },
-          ],
-          destination: "/blog/:path*",
-        },
-      ],
-    };
-  },
   async redirects() {
     return [
+      // {
+      //   source: "blog.ujet.co/:slug",
+      //   destination: "ujet.cx/blog/:slug",
+      //   permanent: true,
+      // },
       {
         source: "/integrations",
         destination: "/resources",
