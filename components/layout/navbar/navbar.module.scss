@@ -347,15 +347,10 @@
 }
 
 .mainNavigationContainer {
-  overflow-y: scroll;
   height: 100vh;
   max-height: 100vh;
   width: 100%;
-  overflow-y: scroll;
-
-
-
-  
+  position: relative;
   @include desktop () {
     overflow: unset;
     height: unset;
@@ -368,4 +363,12 @@
 .mainNavigationContainerClosed {
     max-height: unset;
     height: unset;
+}
+
+.mainNavigationContainerActive {
+  
+  overflow-y: scroll;
+  @include desktop () {
+    overflow-y: unset;
+  }
 }
