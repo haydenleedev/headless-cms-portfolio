@@ -21,7 +21,7 @@ module.exports = {
         source: "/integrations",
         destination: "/resources",
         // TODO: is this permanent?
-        permanent: false,
+        permanent: true,
       },
       {
         source: "/wp-content/:path*/:slug",
@@ -29,14 +29,21 @@ module.exports = {
         permanent: true,
       },
       {
+        source: "/files/:path*/:slug",
+        destination: "https://assets.ujet.cx/:slug", // Matched parameters can be used in the destination
+        permanent: true,
+      },
+      {
         source: "/customerstories/the-farmers-dog",
         destination: "/customerstories",
-        permanent: false,
+        // TODO: is this permanent?
+        permanent: true,
       },
       {
         source: "/digital-voice-channels",
         destination: "/channels",
-        permanent: false,
+        // TODO: is this permanent?
+        permanent: true,
       },
       // press release redirects
       {
@@ -313,6 +320,51 @@ module.exports = {
       {
         source: "/why-ujet-ccaas-wbn-ty",
         destination: "/resources/webinars/why-ujet-ccaas-wbn-ty",
+        permanent: true,
+      },
+      {
+        source: "/the-evolution-of-cx-wbn-typ",
+        destination: "/resources/webinars/the-evolution-of-cx-wbn-typ",
+        permanent: true,
+      },
+
+      {
+        source:
+          "/resources/webinars/successful-case-study-snapshot-destcrm-wbn-lp",
+        destination:
+          "/resources/webinars/destcrm-successful-case-study-snapshot-wbn-typ",
+        permanent: true,
+      },
+      // archive redirects
+      // {
+      //   source: "/archive/policy-prior-to-01-June-2019",
+      //   destination: "/archive/policy-prior-to-01-june-2019",
+      //   permanent: true,
+      // },
+      // Misc.
+      {
+        source: "/salesforce-sales-cloud-crm",
+        destination: "/integrations/salesforce-sales-cloud-crm",
+        permanent: true,
+      },
+      {
+        source: "/request-a-demo-2",
+        destination: "/request-a-demo",
+        permanent: true,
+      },
+      {
+        source: "/request-a-demo-3",
+        destination: "/request-a-demo",
+        permanent: true,
+      },
+      {
+        source: "/unified-cx-for-the-smartphone-era-2",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/integrations/ujet-advanced-reporting-data%20sheet-lp",
+        destination: "/integrations/ujet-advanced-reporting-datasheet-lp",
         permanent: true,
       },
     ];

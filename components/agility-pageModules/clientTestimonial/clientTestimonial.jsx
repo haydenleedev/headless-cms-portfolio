@@ -6,8 +6,6 @@ import AgilityLink from "../../agilityLink";
 
 const ClientTestimonial = ({ module }) => {
   const { fields } = module;
-  const slim = boolean(fields.slim);
-  const displayRating = boolean(fields.displayRating);
   return (
     <section
       className={`section ${style.clientTestimonial} ${
@@ -23,7 +21,7 @@ const ClientTestimonial = ({ module }) => {
       <div className="container">
         {fields.testimonial && (
           <div className={style.content}>
-            {slim ? (
+            {boolean(fields.slim) ? (
               <div className={style.slim}>
                 {fields?.award?.fields?.image && (
                   <div className={style.awardImage}>
@@ -32,7 +30,7 @@ const ClientTestimonial = ({ module }) => {
                 )}
                 {fields.testimonial.fields?.text && (
                   <div className={style.textContent}>
-                    {displayRating && (
+                    {boolean(fields.displayRating) && (
                       <StarRating
                         starCount={fields.testimonial?.starCount}
                         starWidth="25"
@@ -42,20 +40,28 @@ const ClientTestimonial = ({ module }) => {
                       {fields.testimonial.fields.text}
                     </p>
                     <div className={style.client}>
+                      <p>{fields.testimonial.fields.name}</p>
                       <p>
-                        <span>{fields.testimonial.fields.name}</span>
-                        <span>
-                          {fields.testimonial.fields.jobTitle
-                            ? `, ${fields.testimonial.fields.jobTitle}`
-                            : ""}
-                        </span>
-                        <span>
-                          {fields.testimonial.fields.companyName
-                            ? `, ${fields.testimonial.fields.companyName}`
-                            : ""}
-                        </span>
+                        {fields.testimonial.fields.jobTitle
+                          ? `${fields.testimonial.fields.jobTitle}`
+                          : ""}
+                      </p>
+                      <p>
+                        {fields.testimonial.fields.companyName
+                          ? `${fields.testimonial.fields.companyName}`
+                          : ""}
                       </p>
                     </div>
+                    {fields.link && (
+                      <AgilityLink
+                        agilityLink={fields.link}
+                        className={`chevron-style ${style.slimLink}`}
+                        ariaLabel={`Navigate to page ` + fields.link.href}
+                        title={`Navigate to page ` + fields.link.href}
+                      >
+                        {fields.link.text}
+                      </AgilityLink>
+                    )}
                   </div>
                 )}
               </div>
@@ -68,7 +74,7 @@ const ClientTestimonial = ({ module }) => {
                 )}
                 {fields.testimonial.fields?.text && (
                   <div className={style.textContent}>
-                    {displayRating && (
+                    {boolean(fields.displayRating) && (
                       <StarRating
                         starCount={fields.testimonial?.starCount}
                         starWidth="25"
@@ -79,7 +85,9 @@ const ClientTestimonial = ({ module }) => {
                     </p>
                     <div className={style.client}>
                       {fields.testimonial.fields.name && (
-                        <p className={style.clientName}>{fields.testimonial.fields.name}</p>
+                        <p className={style.clientName}>
+                          {fields.testimonial.fields.name}
+                        </p>
                       )}
                       {fields.testimonial.fields.jobTitle && (
                         <p className={style.jobTitle}>
@@ -97,20 +105,30 @@ const ClientTestimonial = ({ module }) => {
                         </div>
                       )}
                     </div>
+                    {fields.link && (
+                      <AgilityLink
+                        agilityLink={fields.link}
+                        className={`button white small ${style.link}`}
+                        ariaLabel={`Navigate to page ` + fields.link.href}
+                        title={`Navigate to page ` + fields.link.href}
+                      >
+                        {fields.link.text}
+                      </AgilityLink>
+                    )}
                   </div>
                 )}
               </div>
             )}
-            {fields.link && (
+            {/* fields.link && (
               <AgilityLink
                 agilityLink={fields.link}
-                className={slim ? `chevron-style ${style.slimLink}` : `button white small ${style.link}`}
+                className={`button white small ${style.link}`}
                 ariaLabel={`Navigate to page ` + fields.link.href}
                 title={`Navigate to page ` + fields.link.href}
               >
                 {fields.link.text}
               </AgilityLink>
-            )}
+            ) */}
           </div>
         )}
       </div>

@@ -35,6 +35,51 @@ const TextGridWithMedia = ({ module, customData }) => {
         }
       : null
   );
+
+  const TextItem = ({ data }) => {
+    const itemFields = data.fields;
+    const heading = JSON.parse(itemFields.heading);
+    return (
+      <div
+        className={`${
+          centerItemsHorizontally
+            ? `grid-column is-${fields.columns}-larger-gap ${style.horizontallyCenteredTextItem}`
+            : ""
+        } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
+          itemShadow ? "card-shadow" : ""
+        } ${roundCorners ? "border-radius-1" : ""}`}
+        key={data.contentID}
+        data-animate="true"
+      >
+        {itemFields.media && (
+          <div
+            className={`${style.textItemMedia} ${
+              itemSmallImage ? style.textItemMediaSmall : ""
+            } ${itemImageCentered ? "margin-center-horizontal" : ""}`}
+          >
+            <Media media={itemFields.media} />
+          </div>
+        )}
+        <div>
+          {heading.text && (
+            <div className={style.textItemHeading}>
+              <Heading {...heading} />
+            </div>
+          )}
+          {itemFields.text && (
+            <div
+              className={"content"}
+              dangerouslySetInnerHTML={renderHTML(itemFields.text)}
+            ></div>
+          )}
+        </div>
+        {itemFields.link && itemFields.link.text && (
+          <span className={style.rightArrow}>{itemFields.link.text}</span>
+        )}
+      </div>
+    );
+  };
+
   return (
     <section
       className={`section ${style.textGridWithMedia} ${
@@ -67,51 +112,20 @@ const TextGridWithMedia = ({ module, customData }) => {
                 : `columns mt-4 repeat-${fields.columns}`
             } ${style.grid}`}
           >
-            {itemsWithSanitizedHTML?.map((textItem) => {
-              const heading = JSON.parse(textItem.fields.heading);
-              return (
-                <div
-                  className={`${
-                    centerItemsHorizontally
-                      ? `grid-column is-${fields.columns}-larger-gap ${style.horizontallyCenteredTextItem}`
-                      : ""
-                  } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
-                    itemShadow ? "card-shadow" : ""
-                  } ${roundCorners ? "border-radius-1" : ""}`}
-                  key={textItem.contentID}
-                  data-animate="true"
-                >
-                  {textItem.fields.media && (
-                    <div
-                      className={`${style.textItemMedia} ${
-                        itemSmallImage ? style.textItemMediaSmall : ""
-                      } ${itemImageCentered ? "margin-center-horizontal" : ""}`}
-                    >
-                      <Media media={textItem.fields.media} />
-                    </div>
-                  )}
-                  <div>
-                    {heading.text && (
-                      <div className={style.textItemHeading}>
-                        <Heading {...heading} />
-                      </div>
-                    )}
-                    {textItem.fields.text && (
-                      <div
-                        className={`${style.textItemHtml} content`}
-                        dangerouslySetInnerHTML={renderHTML(
-                          textItem.fields.text
-                        )}
-                      ></div>
-                    )}
-                  </div>
-                  {textItem.fields.link && textItem.fields.link.text && (
-                    <AgilityLink agilityLink={textItem.fields.link}>
-                      {textItem.fields.link.text}
-                    </AgilityLink>
-                  )}
-                </div>
-              );
+            {itemsWithSanitizedHTML?.map((textItem, index) => {
+              if (textItem.fields.link) {
+                return (
+                  <AgilityLink
+                    agilityLink={textItem.fields.link}
+                    ariaLabel={`Read more about ${textItem.fields.title}`}
+                    key={`textItem${index}`}
+                  >
+                    <TextItem data={textItem} />
+                  </AgilityLink>
+                );
+              } else {
+                return <TextItem data={textItem} key={`textItem${index}`} />;
+              }
             })}
           </div>
         </div>

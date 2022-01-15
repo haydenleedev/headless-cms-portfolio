@@ -1,6 +1,7 @@
 import agility from "@agility/content-fetch";
 import { getDynamicPageURL } from "@agility/nextjs/node";
 import algoliasearch from "algoliasearch";
+import { boolean } from "../../utils/validation";
 
 /*
 | this endpoint receives webhook events from AgilityCMS and pushes any content updates
@@ -13,7 +14,7 @@ export default function handler(req, res) {
     process.env.ALGOLIA_APP_ID,
     process.env.ALGOLIA_ADMIN_API_KEY
   );
-  const index = algoliaClient.initIndex("main-index");
+  const index = algoliaClient.initIndex("dev_ujet");
   const api = agility.getApi({
     guid: process.env.AGILITY_GUID,
     apiKey: process.env.AGILITY_API_FETCH_KEY,
@@ -55,7 +56,11 @@ export default function handler(req, res) {
   |
   */
   function normalizePage(page, path) {
-    const metaKeywords = page.seo.metaKeywords.split(" ");
+    // meta keywords in AgilityCMS can be used to add tags to pages
+    const metaKeywords =
+      page.seo.metaKeywords.split(" ").length > 0
+        ? page.seo.metaKeywords.split(" ")
+        : [];
     const overrideSEOData = page.zones.MainContentZone.find(
       (module) => module.item.properties.definitionName === "OverrideSEO"
     );
@@ -106,11 +111,12 @@ export default function handler(req, res) {
       _tags: ["UJET", ...metaKeywords],
       path,
     };
+    normalized["_tags"] = normalized["_tags"].filter((tag) => tag.length > 0);
     return normalized;
   }
 
   function normalizeBlogPost(post, path) {
-    const categories = post.categories.map((categoryObject) => {
+    const categories = post.fields.categories.map((categoryObject) => {
       return categoryObject.title;
     });
     function getHeadings() {
@@ -141,7 +147,7 @@ export default function handler(req, res) {
   function normalizePressReleaseArticle(content, path) {
     function getHeadings() {
       let headings = [];
-      const foundHeadings = content.fields.text.match(headingRegex);
+      const foundHeadings = content.fields?.text?.match?.(headingRegex);
       if (foundHeadings) {
         foundHeadings.forEach((foundHeading) => {
           headings.push(
@@ -168,7 +174,7 @@ export default function handler(req, res) {
   function normalizeResource(content, path) {
     function getHeadings() {
       let headings = [];
-      const foundHeadings = content.fields.text.match(headingRegex);
+      const foundHeadings = content.fields?.text?.match?.(headingRegex);
       if (foundHeadings) {
         foundHeadings.forEach((foundHeading) => {
           headings.push(
@@ -196,7 +202,7 @@ export default function handler(req, res) {
   async function pageUpdate(pageID, state) {
     // if page has been deleted or unpublished, remove it from algolia index
     if (state === "Deleted") {
-      await index.deleteObject(pageID);
+      await index.deleteObject(pageID + "p");
       return;
     }
     const pageData = await api.getPage({
@@ -204,6 +210,17 @@ export default function handler(req, res) {
       languageCode: "en-us",
       expandAllContentLinks: true,
     });
+
+    // the word "nosearchindex" in meta keywords is used to exclude a page from adding it to the search index.
+    // if "nosearchindex" is present, stop execution.
+    if (
+      pageData.seo.metaKeywords
+        .split(" ")
+        .find((keyword) => keyword === "nosearchindex")
+    ) {
+      await index.deleteObject(pageID + "p");
+      return;
+    }
     const sitemap = await api.getSitemapFlat({
       channelName: "website",
       languageCode: "en-us",
@@ -270,6 +287,12 @@ export default function handler(req, res) {
       languageCode: "en-us",
       expandAllContentLinks: true,
     });
+
+    if (boolean(resourceData.fields?.excludefromSearchIndex)) {
+      await index.deleteObject(contentID);
+      return;
+    }
+
     const path = await getDynamicPageURL({
       contentID: parseInt(contentID),
       preview: false,

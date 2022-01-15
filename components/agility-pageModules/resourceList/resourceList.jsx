@@ -10,7 +10,16 @@ const ResourceList = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
   const resources =
     mappedResourceListCategory[fields.resourceListCategory]?.content;
-
+  const placeholderImages = [];
+  if (fields.overrideImages && fields.overrideImages.media) {
+    fields.overrideImages?.media?.forEach((image) => {
+      placeholderImages.push({
+        url: image.url,
+        pixelWidth: 3,
+        pixelHeight: 2,
+      });
+    });
+  }
   return (
     <section
       className={`section ${style.resourceList}`}
@@ -24,7 +33,7 @@ const ResourceList = ({ module, customData }) => {
         )}
         <div className={style.resources}>
           {fields.highlightedResources
-            ? fields.highlightedResources.map((resource) => (
+            ? fields.highlightedResources.map((resource, index) => (
                 <div className={style.resource} key={resource.contentID}>
                   <GenericCard
                     link={resolveLink(
@@ -32,12 +41,17 @@ const ResourceList = ({ module, customData }) => {
                       resource.fields
                     )}
                     category={resource.properties.referenceName}
+                    overrideCategory={resource.fields.cardCategoryTitle}
                     title={resource.fields.title}
-                    image={resource.fields.image}
+                    image={
+                      placeholderImages?.length >= index
+                        ? placeholderImages[index]
+                        : resource.fields.image
+                    }
                   />
                 </div>
               ))
-            : resources.map((resource) => (
+            : resources.map((resource, index) => (
                 <div className={style.resource} key={resource.contentID}>
                   <GenericCard
                     link={resolveLink(
@@ -45,8 +59,13 @@ const ResourceList = ({ module, customData }) => {
                       resource.fields
                     )}
                     category={resource.properties.referenceName}
+                    overrideCategory={resource.fields.cardCategoryTitle}
                     title={resource.fields.title}
-                    image={resource.fields.image}
+                    image={
+                      placeholderImages?.length >= index
+                        ? placeholderImages[index]
+                        : resource.fields.image
+                    }
                   />
                 </div>
               ))}
@@ -110,8 +129,8 @@ ResourceList.getCustomInitialProps = async function ({
 
   function sortContentByDate(list) {
     return list.sort((a, b) => {
-      if (Date.parse(a.fields.date) < Date.parse(b.fields.date)) return -1;
-      if (Date.parse(a.fields.date) > Date.parse(b.fields.date)) return 1;
+      if (Date.parse(a.fields.date) > Date.parse(b.fields.date)) return -1;
+      if (Date.parse(a.fields.date) < Date.parse(b.fields.date)) return 1;
 
       return 0;
     });
@@ -135,12 +154,23 @@ ResourceList.getCustomInitialProps = async function ({
 
   mappedResourceListCategory["guidesReports"].content =
     guidesReportsContent.slice(0, 3);
+
   mappedResourceListCategory["ebooksWhitepapers"].content =
     ebooksWhitepapersContent.slice(0, 3);
   mappedResourceListCategory["productDatasheets"].content =
     productDatasheetsContent.slice(0, 3);
   mappedResourceListCategory["videosWebinars"].content =
     videosWebinarsContent.slice(0, 3);
+
+  // set same static images for entries in videosWebinars
+  const staticWebinarCardImageUrls = [
+    "https://assets.ujet.cx/Webinar-June24_website-webinar-tile.png?q=75&w=480&format=auto",
+    "https://assets.ujet.cx/CCC-Solutions-Website-Tile.png?q=75&w=480&format=auto",
+    "https://assets.ujet.cx/Webinar-May-27-V2_website-webinar-tile.png?q=75&w=480&format=auto",
+  ];
+  mappedResourceListCategory["videosWebinars"].content.map((entry, index) => {
+    entry.fields.image.url = staticWebinarCardImageUrls[index];
+  });
 
   return {
     mappedResourceListCategory,

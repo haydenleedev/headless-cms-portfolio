@@ -57,21 +57,15 @@
           text-align: left;
           .quote {
             font-weight: 400;
-            font-size: 1.25em;
+            font-size: 1.1em;
             padding: 0.75rem 0 2rem 0;
           }
           .client {
             position: relative;
             font-size: 1rem;
             line-height: 1.2;
-            margin-left: 1rem;
-            &::before {
-              content: "- ";
+            span {
               display: block;
-              position: absolute;
-              left: 0;
-              top: 50%;
-              transform: translate(-1rem, -50%);
             }
           }
         }
@@ -179,6 +173,7 @@
     font-size: 0.9rem;
   }
   .slimLink {
-    margin: 3rem 0 1rem;
+    margin: 2rem 0 0;
+    display: block;
   }
 }

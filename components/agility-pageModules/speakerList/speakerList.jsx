@@ -26,7 +26,7 @@ const SpeakerList = ({ module }) => {
               <div className={style.speakerImage}>
                 <Media media={speaker.fields.image} />
               </div>
-              <div>
+              <div className="d-flex flex-direction-column justify-content-flex-start">
                 <p>{speaker.fields.name}</p>
                 <p>{speaker.fields.description}</p>
               </div>

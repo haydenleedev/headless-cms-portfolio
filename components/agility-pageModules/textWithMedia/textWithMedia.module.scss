@@ -12,7 +12,7 @@
   }
   .content {
     display: flex;
-    gap: 3rem;
+    gap: 3.5rem;
     @include touch() {
       flex-direction: column-reverse;
     }
@@ -102,7 +102,6 @@
     }
     .link {
       margin-top: unset;
-      padding: 0.5em 2em;
       border-radius: 3em;
       border-width: 0.15em;
     }

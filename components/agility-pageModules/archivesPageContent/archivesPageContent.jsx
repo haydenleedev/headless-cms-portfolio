@@ -1,7 +1,6 @@
 import style from "./archivesPageContent.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Loader from "../../layout/loader/loader";
 import ArchiveCard from "./archiveCard";
 import {
   sortContentListByDate,
@@ -13,7 +12,6 @@ import ArchivesLoader from "./archivesLoader";
 const ArchivesPageContent = ({ customData }) => {
   const { query } = useRouter();
   const { contentListTypes } = customData; // the 3 different content types: news, press releases and resources.
-  const [mounted, setMounted] = useState(false);
   const [activePageNumber, setActivePageNumber] = useState(0); // number of the current page.
   const [totalPagesCount, setTotalPagesCount] = useState(null); // total count of pages.
   const [currentOffset, setCurrentOffset] = useState(0); // current offset in the active content list.
@@ -22,6 +20,7 @@ const ArchivesPageContent = ({ customData }) => {
   const [activeContentType, setActiveContentType] = useState(null); // these are their own states because it makes handing multiple categories easier.
   const [contentCategories, setContentCategories] = useState(null); // these are their own states because it makes handing multiple categories easier.
   const [activeCategories, setActiveCategories] = useState([]); // currently selected categories.
+  const [mobileCategoriesVisible, setMobileCategoriesVisible] = useState(false);
 
   const PER_PAGE = 9; // how many cards are shown per page
 
@@ -30,9 +29,9 @@ const ArchivesPageContent = ({ customData }) => {
     if (query.type) {
       let queriedType = contentListTypes.find((type) => type.id === query.type);
       const categories = query?.categories?.split(",");
-      setActiveContentType(queriedType.id);
-      setActiveContentList(queriedType.content);
-      setContentCategories(queriedType.categories);
+      setActiveContentType(queriedType?.id);
+      setActiveContentList(queriedType?.content);
+      setContentCategories(queriedType?.categories);
       if (categories) {
         setActiveCategories(categories);
       }
@@ -179,20 +178,35 @@ const ArchivesPageContent = ({ customData }) => {
           </label>
           {contentCategories && (
             <fieldset>
-              <legend>Categories</legend>
-              {Object.entries(contentCategories).map(([key, category], i) => (
-                <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
-                  <input
-                    type="checkbox"
-                    id={key + "Checkbox"}
-                    checked={activeCategories.find(
-                      (category) => category === key
-                    )}
-                    onChange={(event) => handleCategoryChange(event, key)}
-                  />
-                  {category.title}
-                </label>
-              ))}
+              <div
+                id={style.mobileCategoryToggle}
+                className="d-flex align-items-center justify-content-space-between"
+                onClick={() => { setMobileCategoriesVisible(!mobileCategoriesVisible) }}
+              >
+                <legend>Categories</legend>
+                <div
+                  id={style.chevron}
+                  className={mobileCategoriesVisible ? style.flipped : ""}
+                />
+              </div>
+              <div
+                id={style.categoryCheckboxes}
+                className={mobileCategoriesVisible ? "" : style.hidden}
+              >
+                {Object.entries(contentCategories).map(([key, category], i) => (
+                  <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
+                    <input
+                      type="checkbox"
+                      id={key + "Checkbox"}
+                      checked={activeCategories.find(
+                        (category) => category === key
+                      )}
+                      onChange={(event) => handleCategoryChange(event, key)}
+                    />
+                    {category.title}
+                  </label>
+                ))}
+              </div>
             </fieldset>
           )}
         </aside>
@@ -209,8 +223,11 @@ const ArchivesPageContent = ({ customData }) => {
                       item.properties.referenceName,
                       item.fields
                     )}
-                    date={item.fields.date}
-                    category={resolveCategory(item.properties.referenceName)}
+                    date={activeContentType !== "resources" ? item.fields.date : null}
+                    category={
+                      item.fields?.cardCategoryTitle ||
+                      resolveCategory(item.properties.referenceName)
+                    }
                   />
                 </div>
               ))}
@@ -450,12 +467,40 @@ ArchivesPageContent.getCustomInitialProps = async function ({
 
   // get resources: ebooks, guides, integrations, reports, webinars, white papers
 
-  let ebooks = await getContentList("ebooks");
-  let guides = await getContentList("guides");
-  let integrations = await getContentList("integrations");
-  let reports = await getContentList("reports");
-  let webinars = await getContentList("webinars");
-  let whitepapers = await getContentList("whitepapers");
+  const ebooks = await getContentList("ebooks");
+  const guides = await getContentList("guides");
+  const integrations = await getContentList("integrations");
+  const reports = await getContentList("reports");
+  const webinars = await getContentList("webinars");
+  const whitepapers = await getContentList("whitepapers");
+
+  // set same static images for entries in webinars
+  const staticWebinarCardImageUrls = [
+    "https://assets.ujet.cx/CCC-Solutions-Website-Tile.png?q=75&w=480&format=auto",
+    "https://assets.ujet.cx/Webinar-May-27-V2_website-webinar-tile.png?q=75&w=480&format=auto",
+    "https://assets.ujet.cx/Webinar-June24_website-webinar-tile.png?q=75&w=480&format=auto",
+  ];
+  webinars.map((entry, index) => {
+    const indexRemainder = index % staticWebinarCardImageUrls.length;
+    const imageIndex =
+      indexRemainder > 0
+        ? indexRemainder - 1
+        : staticWebinarCardImageUrls.length - 1;
+    if (entry.fields.image) {
+      entry.fields.image.url = staticWebinarCardImageUrls[imageIndex];
+    } else {
+      entry.fields["image"] = {
+        label: null,
+        url: staticWebinarCardImageUrls[imageIndex],
+        target: null,
+        filesize: 118727,
+        pixelHeight: "450",
+        pixelWidth: "794",
+        height: 450,
+        width: 794,
+      };
+    }
+  });
 
   contentListTypes[2].content = sortContentListByDate([
     ...ebooks,

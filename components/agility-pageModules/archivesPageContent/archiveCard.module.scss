@@ -2,14 +2,13 @@
 @import "../../../styles/settings/mixins";
 
 .archiveCard {
-  height: 22.5vh;
-  min-height: 18.75rem;
+  height: 100%;
   border-radius: 1rem;
   box-shadow: 0 0 0.45rem 0.15rem rgb(0 0 0 / 12%);
   background-color: $color-white;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-start;
   .image {
     max-height: 22.5rem;
   }
@@ -20,9 +19,7 @@
   }
 
   .image {
-    min-height: 50%;
-    max-height: 50%;
-    height: 50%;
+    height: toRem(125);
     overflow: hidden;
     object-fit: fill;
     border-top-left-radius: 1rem;
@@ -45,18 +42,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 50%;
-    max-height: 50%;
 
     .date {
       text-transform: uppercase;
       color: $color-black;
       font-size: 1rem;
-      padding: 0.5rem 1.5rem 0 1.5rem;
+      padding: 1rem 1.5rem 0 1.5rem;
     }
 
     .category {
-      padding: 0.5rem 1.5rem;
+      padding: 0.7rem 1.5rem;
       display: block;
       font-weight: 600;
       font-size: 1rem;
@@ -67,9 +62,6 @@
       line-height: 1.2;
       padding: 0 1.5rem 0.5rem 1.5rem;
       overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
       width: 100%;
       height: 100%;
     }
@@ -79,6 +71,7 @@
       display: block;
       font-weight: 600;
       font-size: 1rem;
+      color: $color-darkblue;
       span {
         position: relative;
         display: flex;
@@ -92,7 +85,7 @@
           border-top: solid;
           margin-left: 0.2rem;
           border-width: 0.2rem;
-          border-color: $color-navy;
+          border-color: $color-darkblue;
           transform: rotate(45deg);
         }
       }

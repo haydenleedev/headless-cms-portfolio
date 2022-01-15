@@ -14,8 +14,10 @@
     height: 100%;
     top: 0;
     left: 0;
+    overflow-y: auto;
     .background {
-      position: absolute;
+      position: fixed;
+      z-index: -1;
       top: 0;
       left: 0;
       width: 100%;
@@ -28,7 +30,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       padding: 1rem;
-      overflow-y: scroll;
+      overflow-y: auto;
       max-height: 100vh;
       .contentWrapper {
         position: relative;
@@ -62,7 +64,6 @@
         }
       }
       @include desktop() {
-        max-height: unset;
         overflow-y: unset;
       }
     }

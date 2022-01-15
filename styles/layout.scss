@@ -92,19 +92,19 @@
 .justify-content-center {
   justify-content: center !important;
 }
-
 .justify-content-flex-start {
   justify-content: flex-start !important;
 }
-
 .justify-content-flex-end {
   justify-content: flex-end !important;
+}
+.justify-content-space-between {
+  justify-content: space-between !important;
 }
 
 .align-items-flex-start {
   align-items: flex-start !important;
 }
-
 .align-items-flex-end {
   align-items: flex-end !important;
 }
@@ -116,12 +116,16 @@
   align-items: unset !important;
 }
 
+.align-self-center {
+  align-self: center !important;
+}
 .align-self-end {
   align-self: end !important;
 }
 .align-self-start {
   align-self: start !important;
 }
+
 /*
   <<<<<<<<<<<<<<<<GRID LAYOUT CLASSES>>>>>>>>>>>>>>>>>
 */
@@ -328,6 +332,10 @@
       padding-bottom: 4.5rem;
     }
   }
+}
+
+.overflow-scroll {
+  overflow-x: auto;
 }
 
 .container {
@@ -540,6 +548,9 @@
 */
 .width-100 {
   width: 100%;
+}
+.max-width-very-narrow {
+  max-width: $very-narrow;
 }
 .max-width-narrow {
   @include narrowWidth();

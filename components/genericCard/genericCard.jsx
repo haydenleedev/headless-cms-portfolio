@@ -7,6 +7,7 @@ import AgilityLink from "../agilityLink";
 const GenericCard = ({
   date,
   category,
+  overrideCategory,
   title,
   description,
   image,
@@ -16,7 +17,7 @@ const GenericCard = ({
   return (
     <AgilityLink
       agilityLink={link}
-      ariaLabel={"Navigate to blog post: " + ariaTitle}
+      ariaLabel={"Navigate to : " + ariaTitle}
       title={ariaTitle}
     >
       <div className="genericCard">
@@ -28,6 +29,7 @@ const GenericCard = ({
               width={image.pixelWidth}
               height={image.pixelHeight}
               objectFit="cover"
+              layout="responsive"
             />
           </div>
         )}
@@ -35,9 +37,14 @@ const GenericCard = ({
           {date && (
             <p className="genericCard__textContent--date">{toDate(date)}</p>
           )}
-          {category && (
+          {category && !overrideCategory && (
             <p className="genericCard__textContent--category">
               {resolveCategory(category)}
+            </p>
+          )}
+          {overrideCategory && (
+            <p className="genericCard__textContent--category">
+              {overrideCategory}
             </p>
           )}
           <p className="genericCard__textContent--title">{title}</p>

@@ -208,6 +208,18 @@ blog posts or anywhere where html is rendered */
   h5,
   h6 {
     margin: 0 0 0.7rem 0;
+
+    &[id] {
+      // anchor top margin fix
+      &::before {
+        display: block;
+        content: " ";
+        margin-top: -$navbar-height;
+        height: $navbar-height;
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
   }
 
   p {
@@ -221,6 +233,9 @@ blog posts or anywhere where html is rendered */
   a {
     color: $color-lightblue;
     text-decoration: underline;
+    &.chevron-after {
+      text-decoration: none;
+    }
   }
 
   ol,
@@ -389,10 +404,8 @@ table {
   text-decoration: none;
   font-size: 1rem;
   font-weight: 600;
-  white-space: nowrap;
   &::after {
     content: ">";
-    display: inline-block;
     padding-left: 0.5rem;
   }
 }
