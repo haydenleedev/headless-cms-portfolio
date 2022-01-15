@@ -365,5 +365,9 @@
 }
 
 .mainNavigationContainerActive {
+  
   overflow-y: scroll;
+  @include desktop () {
+    overflow-y: unset;
+  }
 }
