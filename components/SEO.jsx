@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { breadcrumbs, organization, webSite } from "../schema";
+import Script from "next/script";
+
 const SEO = ({ title, description, keywords, metaHTML, url }) => {
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
