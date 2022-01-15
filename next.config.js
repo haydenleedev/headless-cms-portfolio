@@ -367,7 +367,7 @@ module.exports = {
       },
       {
         source: "/built-in-honors-ujet-in-2022-best-places-to-work-awards",
-        destination: "/press-releases/ujet-advanced-reporting-datasheet-lp",
+        destination: "/press-releases/built-in-honors-ujet-in-2022-best-places-to-work-awards",
         permanent: true,
       },
       {
