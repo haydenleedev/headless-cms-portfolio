@@ -3,7 +3,10 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import BlogCard from "./blogCard";
-import { sortContentListByDate, removeDuplicatePosts } from "../../../utils/convert";
+import {
+  sortContentListByDate,
+  removeDuplicatePosts,
+} from "../../../utils/convert";
 import BlogLoader from "./blogLoader";
 import Media from "../media";
 
@@ -65,7 +68,9 @@ const BlogPageContent = ({ customData }) => {
       // if there are no selected categories, just set the content list to include all categories (the default content for selected content type).
     } else if (activeContentType) {
       setCurrentOffset(0);
-      let list = contentListTypes.find((type) => type.id === activeContentType).content;
+      let list = contentListTypes.find(
+        (type) => type.id === activeContentType
+      ).content;
       if (list.length !== activeContentList) {
         setActiveContentList(list);
       }
@@ -76,7 +81,8 @@ const BlogPageContent = ({ customData }) => {
   useEffect(() => {
     if (activeCategories && activeContentList)
       setPage(activeContentList.slice(currentOffset, currentOffset + PER_PAGE));
-    else if (activeContentList) setPage(activeContentList.slice(currentOffset, currentOffset + PER_PAGE));
+    else if (activeContentList)
+      setPage(activeContentList.slice(currentOffset, currentOffset + PER_PAGE));
   }, [currentOffset]);
 
   // returns a sorted content list with the contents of selected categories.
@@ -84,7 +90,10 @@ const BlogPageContent = ({ customData }) => {
     let newContentList = [];
     if (activeCategories) {
       activeCategories.forEach((category) => {
-        newContentList = [...newContentList, ...contentCategories[category].content];
+        newContentList = [
+          ...newContentList,
+          ...contentCategories[category].content,
+        ];
       });
       return sortContentListByDate(removeDuplicatePosts(newContentList));
     } else {
@@ -104,7 +113,9 @@ const BlogPageContent = ({ customData }) => {
   // when some category is selected update the active categories list accordingly.
   const handleCategoryChange = (event, category) => {
     if (!event.target.checked) {
-      let newCategories = activeCategories.filter((active) => active !== category);
+      let newCategories = activeCategories.filter(
+        (active) => active !== category
+      );
       setActiveCategories(newCategories);
     } else {
       let newCategories = [...activeCategories, category];
@@ -139,41 +150,57 @@ const BlogPageContent = ({ customData }) => {
           <h1 className="heading-6 w-400">BLOG</h1>
           <p className="is-size-4 w-600">{highlightedPost.fields.title}</p>
           <Link href={`blog/${highlightedPost.fields.slug}`}>
-            <a className="button mediumblue no-outline" aria-label={`Navigate to /blog/${highlightedPost.fields.slug}`}>
+            <a
+              className="button mediumblue no-outline"
+              aria-label={`Navigate to /blog/${highlightedPost.fields.slug}`}
+            >
               READ
             </a>
           </Link>
         </div>
       </section>
       <section className={`section ${style.blogPageContent}`}>
-        <nav className={`container ${style.navigationMenu}`} aria-label="blog posts navigation">
+        <nav
+          className={`container ${style.navigationMenu}`}
+          aria-label="blog posts navigation"
+        >
           <aside className={style.filterPanel}>
             {contentCategories && (
               <fieldset className={`${filterToggled ? style.open : ""}`}>
                 <legend
-                className={`${style.mobileCategoryToggle} `}
+                  className={`${style.mobileCategoryToggle} `}
                   onClick={() => {
                     setFilterToggled(!filterToggled);
                   }}
                 >
                   Categories
                   <div
-                  className={`${style.chevron} ${filterToggled ? style.flipped : ""}`}
-                />
+                    className={`${style.chevron} ${
+                      filterToggled ? style.flipped : ""
+                    }`}
+                  />
                 </legend>
-       
-                <div className={filterToggled ? style.filterOpen : style.filterClosed}>
-                  {Object.entries(contentCategories).map(([key, category], i) => (
-                    <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
-                      <input
-                        type="checkbox"
-                        id={key + "Checkbox"}
-                        checked={activeCategories.find((category) => category === key)}
-                        onChange={(event) => handleCategoryChange(event, key)}
-                      />
-                      {category.title}
-                    </label>
-                  ))}
+
+                <div
+                  className={
+                    filterToggled ? style.filterOpen : style.filterClosed
+                  }
+                >
+                  {Object.entries(contentCategories).map(
+                    ([key, category], i) => (
+                      <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
+                        <input
+                          type="checkbox"
+                          id={key + "Checkbox"}
+                          checked={activeCategories.find(
+                            (category) => category === key
+                          )}
+                          onChange={(event) => handleCategoryChange(event, key)}
+                        />
+                        {category.title}
+                      </label>
+                    )
+                  )}
                 </div>
               </fieldset>
             )}
@@ -196,7 +223,9 @@ const BlogPageContent = ({ customData }) => {
                       </div>
                     ))}
                   </div>
-                )) || <p>Nothing here...</p>}
+                )) || (
+                  <p>We currently have no articles! Please check back soon!</p>
+                )}
               </>
             )) || <BlogLoader />}
           </div>
@@ -212,7 +241,12 @@ const BlogPageContent = ({ customData }) => {
                 <>
                   {totalPagesCount < 8 ? (
                     [...Array(totalPagesCount).keys()].map((pageNumber) => (
-                      <div key={`pageButton${pageNumber}`} className={pageNumber === activePageNumber ? "w-600" : ""}>
+                      <div
+                        key={`pageButton${pageNumber}`}
+                        className={
+                          pageNumber === activePageNumber ? "w-600" : ""
+                        }
+                      >
                         <button
                           className={`reset-button ${style.pageButton}`}
                           onClick={() => {
@@ -241,35 +275,14 @@ const BlogPageContent = ({ customData }) => {
                       </div>
                       {activePageNumber < 4 && (
                         <>
-                          {[...Array(totalPagesCount).keys()].slice(1, 4).map((pageNumber) => (
-                            <div
-                              key={`pageButton${pageNumber}`}
-                              className={pageNumber === activePageNumber ? "w-600" : ""}
-                            >
-                              <button
-                                className={`reset-button ${style.pageButton}`}
-                                onClick={() => {
-                                  setCurrentOffset(pageNumber * PER_PAGE);
-                                  setActivePageNumber(pageNumber);
-                                }}
-                                key={pageNumber}
-                              >
-                                {pageNumber + 1}
-                              </button>
-                            </div>
-                          ))}
-                          ...
-                        </>
-                      )}
-                      {activePageNumber > 3 && activePageNumber < totalPagesCount - 3 && (
-                        <>
-                          ...
                           {[...Array(totalPagesCount).keys()]
-                            .slice(activePageNumber - 1, activePageNumber + 2)
+                            .slice(1, 4)
                             .map((pageNumber) => (
                               <div
                                 key={`pageButton${pageNumber}`}
-                                className={pageNumber === activePageNumber ? "w-600" : ""}
+                                className={
+                                  pageNumber === activePageNumber ? "w-600" : ""
+                                }
                               >
                                 <button
                                   className={`reset-button ${style.pageButton}`}
@@ -286,6 +299,36 @@ const BlogPageContent = ({ customData }) => {
                           ...
                         </>
                       )}
+                      {activePageNumber > 3 &&
+                        activePageNumber < totalPagesCount - 3 && (
+                          <>
+                            ...
+                            {[...Array(totalPagesCount).keys()]
+                              .slice(activePageNumber - 1, activePageNumber + 2)
+                              .map((pageNumber) => (
+                                <div
+                                  key={`pageButton${pageNumber}`}
+                                  className={
+                                    pageNumber === activePageNumber
+                                      ? "w-600"
+                                      : ""
+                                  }
+                                >
+                                  <button
+                                    className={`reset-button ${style.pageButton}`}
+                                    onClick={() => {
+                                      setCurrentOffset(pageNumber * PER_PAGE);
+                                      setActivePageNumber(pageNumber);
+                                    }}
+                                    key={pageNumber}
+                                  >
+                                    {pageNumber + 1}
+                                  </button>
+                                </div>
+                              ))}
+                            ...
+                          </>
+                        )}
                       {activePageNumber > totalPagesCount - 4 && (
                         <>
                           ...
@@ -294,7 +337,9 @@ const BlogPageContent = ({ customData }) => {
                             .map((pageNumber) => (
                               <div
                                 key={`pageButton${pageNumber}`}
-                                className={pageNumber === activePageNumber ? "w-600" : ""}
+                                className={
+                                  pageNumber === activePageNumber ? "w-600" : ""
+                                }
                               >
                                 <button
                                   className={`reset-button ${style.pageButton}`}
@@ -310,7 +355,13 @@ const BlogPageContent = ({ customData }) => {
                             ))}
                         </>
                       )}
-                      <div className={activePageNumber === totalPagesCount - 1 ? "w-600" : ""}>
+                      <div
+                        className={
+                          activePageNumber === totalPagesCount - 1
+                            ? "w-600"
+                            : ""
+                        }
+                      >
                         <button
                           className={`reset-button ${style.pageButton}`}
                           onClick={() => {
@@ -342,7 +393,10 @@ const BlogPageContent = ({ customData }) => {
   );
 };
 
-BlogPageContent.getCustomInitialProps = async function ({ agility, languageCode }) {
+BlogPageContent.getCustomInitialProps = async function ({
+  agility,
+  languageCode,
+}) {
   const api = agility;
   let contentListTypes = [
     {
@@ -364,16 +418,18 @@ BlogPageContent.getCustomInitialProps = async function ({ agility, languageCode 
 
     let totalCount = initial.totalCount;
     let skip = 0;
-    let promisedPages = [...Array(Math.ceil(totalCount / 50)).keys()].map((call) => {
-      let pagePromise = api.getContentList({
-        referenceName,
-        languageCode,
-        take: 50, // 50 is max value for take parameter
-        skip,
-      });
-      skip += 50;
-      return pagePromise;
-    });
+    let promisedPages = [...Array(Math.ceil(totalCount / 50)).keys()].map(
+      (call) => {
+        let pagePromise = api.getContentList({
+          referenceName,
+          languageCode,
+          take: 50, // 50 is max value for take parameter
+          skip,
+        });
+        skip += 50;
+        return pagePromise;
+      }
+    );
     promisedPages = await Promise.all(promisedPages);
     let contentList = [];
     promisedPages.map((result) => {
@@ -405,7 +461,9 @@ BlogPageContent.getCustomInitialProps = async function ({ agility, languageCode 
   });
   Object.values(blogCategories).forEach((values) => {
     const relatedPosts = blogPosts.filter((post) =>
-      post.fields?.categories?.some((category) => category.fields.title === values.title)
+      post.fields?.categories?.some(
+        (category) => category.fields.title === values.title
+      )
     );
     values.content = relatedPosts;
   });
