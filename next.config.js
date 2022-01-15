@@ -1,5 +1,5 @@
 module.exports = {
-  async rewrites() {
+  rewrites() {
     return {
       beforeFiles: [
         {
@@ -17,11 +17,6 @@ module.exports = {
   },
   async redirects() {
     return [
-      // {
-      //   source: "blog.ujet.co/:slug",
-      //   destination: "ujet.cx/blog/:slug",
-      //   permanent: true,
-      // },
       {
         source: "/integrations",
         destination: "/resources",
