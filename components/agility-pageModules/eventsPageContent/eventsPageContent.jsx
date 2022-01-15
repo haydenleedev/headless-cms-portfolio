@@ -66,7 +66,11 @@ const EventsPageContent = ({ module, customData }) => {
                   </AgilityLink>
                 </div>
               </div>
-            ))) || <p className="align-center">Nothing here.</p>}
+            ))) || (
+            <p className="align-center">
+              We currently have no events! Please check back soon!{" "}
+            </p>
+          )}
         </nav>
       </div>
     </section>
