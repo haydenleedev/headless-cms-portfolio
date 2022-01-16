@@ -514,6 +514,11 @@ module.exports = {
           "/press-releases/ujet-leads-g2-fall-2020-report-for-satisfaction-relationship",
         permanent: true,
       },
+      {
+        source: "/home",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
   images: {
