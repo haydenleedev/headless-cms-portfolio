@@ -470,6 +470,12 @@ module.exports = {
           "/resources/guides/us-customer-experience-decision-makers-guide-lp",
         permanent: true,
       },
+      {
+        source: "/resources/reports/the-end-of-the-omnichannel-era-guide-lp",
+        destination:
+          "/resources/guides/the-end-of-the-omnichannel-era-guide-lp",
+        permanent: true,
+      },
     ];
   },
   images: {
