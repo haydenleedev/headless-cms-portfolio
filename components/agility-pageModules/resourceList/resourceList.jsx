@@ -44,7 +44,7 @@ const ResourceList = ({ module, customData }) => {
                     overrideCategory={resource.fields.cardCategoryTitle}
                     title={resource.fields.title}
                     image={
-                      placeholderImages?.length >= index
+                      placeholderImages?.length > index
                         ? placeholderImages[index]
                         : resource.fields.image
                     }
