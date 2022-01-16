@@ -476,6 +476,11 @@ module.exports = {
           "/resources/guides/the-end-of-the-omnichannel-era-guide-lp",
         permanent: true,
       },
+      {
+        source: "resources/reports/cb-icg-video-nextgen-cc-guide-lp",
+        destination: "resources/guides/cb-icg-video-nextgen-cc-guide-lp",
+        permanent: true,
+      },
     ];
   },
   images: {
