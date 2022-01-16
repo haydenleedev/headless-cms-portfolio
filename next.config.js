@@ -507,6 +507,13 @@ module.exports = {
           "/resources/guides/cb-icg-agent-engagement-and-empowerment-lp",
         permanent: true,
       },
+      {
+        source:
+          "/ujet-leads-g2-fall-2020-enterprise-report-with-highest-customer-satisfaction-ratings-and-relationship-index-score",
+        destination:
+          "/press-releases/ujet-leads-g2-fall-2020-report-for-satisfaction-relationship",
+        permanent: true,
+      },
     ];
   },
   images: {
