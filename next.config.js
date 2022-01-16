@@ -478,7 +478,7 @@ module.exports = {
       },
       {
         source: "/resources/reports/cb-icg-video-nextgen-cc-guide-lp",
-        destination: "resources/guides/cb-icg-video-nextgen-cc-guide-lp",
+        destination: "/resources/guides/cb-icg-video-nextgen-cc-guide-lp",
         permanent: true,
       },
       {
