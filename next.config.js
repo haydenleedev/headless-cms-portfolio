@@ -477,8 +477,21 @@ module.exports = {
         permanent: true,
       },
       {
-        source: "resources/reports/cb-icg-video-nextgen-cc-guide-lp",
-        destination: "resources/guides/cb-icg-video-nextgen-cc-guide-lp",
+        source: "/resources/reports/cb-icg-video-nextgen-cc-guide-lp",
+        destination: "/resources/guides/cb-icg-video-nextgen-cc-guide-lp",
+        permanent: true,
+      },
+      {
+        source:
+          "/resources/reports/the-2021-us-contact-center-decision-makers-guide-lp",
+        destination:
+          "/resources/guides/the-2021-us-contact-center-decision-makers-guide-lp",
+        permanent: true,
+      },
+      {
+        source: "/resources/reports/cb-icg-agent-engagement-and-empowerment-lp",
+        destination:
+          "/resources/guides/cb-icg-agent-engagement-and-empowerment-lp",
         permanent: true,
       },
     ];
