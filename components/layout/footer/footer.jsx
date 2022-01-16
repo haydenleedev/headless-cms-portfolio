@@ -31,8 +31,16 @@ const Footer = ({ globalData }) => {
                 <img
                   className={style.logo}
                   src={data.fields.logo.url}
-                  width={data.fields.logo.pixelWidth == 0 ? "96" : data.fields.logo.pixelWidth}
-                  height={data.fields.logo.pixelHeight == 0 ? "52" : data.fields.logo.pixelHeight}
+                  width={
+                    data.fields.logo.pixelWidth == 0
+                      ? "150"
+                      : data.fields.logo.pixelWidth
+                  }
+                  height={
+                    data.fields.logo.pixelHeight == 0
+                      ? "52"
+                      : data.fields.logo.pixelHeight
+                  }
                   alt=""
                 />
               </a>
@@ -66,7 +74,12 @@ const Footer = ({ globalData }) => {
                     title={item.fields.link.text}
                     key={item.contentID}
                   >
-                    <img src={item.fields.image.url} width="32" height="32" alt=""></img>
+                    <img
+                      src={item.fields.image.url}
+                      width="32"
+                      height="32"
+                      alt=""
+                    ></img>
                   </a>
                 ))}
               </div>
@@ -86,14 +99,14 @@ const Footer = ({ globalData }) => {
                         //   target="_blank"
                         //   rel="noindex noreferrer noopener"
                         // >
-                          <AgilityImage
-                            src={award.fields.image.url}
-                            layout="responsive"
-                            width="4"
-                            height="5"
-                            objectFit="contain"
-                            alt=""
-                          ></AgilityImage>
+                        <AgilityImage
+                          src={award.fields.image.url}
+                          layout="responsive"
+                          width="4"
+                          height="5"
+                          objectFit="contain"
+                          alt=""
+                        ></AgilityImage>
                         // </a>
                       )
                   )}
@@ -111,22 +124,34 @@ const Footer = ({ globalData }) => {
             {data.fields.mainNavigation?.length > 0 &&
               data.fields.mainNavigation.map((item) => (
                 // Footer column
-                <div className={`column ${style.footerColumn}`} key={item.contentID}>
+                <div
+                  className={`column ${style.footerColumn}`}
+                  key={item.contentID}
+                >
                   <button
                     className={`${style.footerColumnTitle}`}
                     onClick={() => {
                       toggleFooterColumn(item.contentID);
                     }}
                     aria-controls={item.contentID}
-                    aria-expanded={(!isMobile() && true) || activeFooterColumn == item.contentID ? true : false}
+                    aria-expanded={
+                      (!isMobile() && true) ||
+                      activeFooterColumn == item.contentID
+                        ? true
+                        : false
+                    }
                   >
                     <span>{item.fields.heading}</span>
-                    <span className={style.toggleIcon}>{activeFooterColumn == item.contentID ? "-" : "+"}</span>
+                    <span className={style.toggleIcon}>
+                      {activeFooterColumn == item.contentID ? "-" : "+"}
+                    </span>
                   </button>
                   <ul
                     id={item.contentID}
                     className={`${
-                      activeFooterColumn == item.contentID ? style.footerColumnActive : style.footerColumnClosed
+                      activeFooterColumn == item.contentID
+                        ? style.footerColumnActive
+                        : style.footerColumnClosed
                     }`}
                   >
                     {item.fields.links?.length > 0 &&
@@ -173,8 +198,8 @@ const Footer = ({ globalData }) => {
                 rel="noreferrer"
               >
                 <img
-                width="106"
-                height={"34"}
+                  width="106"
+                  height={"34"}
                   src="//privacy-policy.truste.com/privacy-seal/seal?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
                   alt="TRUSTe"
                 />
@@ -185,8 +210,8 @@ const Footer = ({ globalData }) => {
                 rel="noreferrer"
               >
                 <img
-                width="106"
-                height="32"
+                  width="106"
+                  height="32"
                   src="https://submit-irm.trustarc.com/services/validation/bac0a2d7-003d-4c6d-8171-d3fd1756d56d/image"
                   alt="TrustArc"
                 />
@@ -197,7 +222,11 @@ const Footer = ({ globalData }) => {
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>
             {data.fields.bottomNavigation?.length > 0 &&
               data.fields.bottomNavigation.map((item) => (
-                <AgilityLink agilityLink={item.fields.link} key={item.contentID} className={style.footNoteLink}>
+                <AgilityLink
+                  agilityLink={item.fields.link}
+                  key={item.contentID}
+                  className={style.footNoteLink}
+                >
                   {item.fields.link.text}
                 </AgilityLink>
               ))}
@@ -209,7 +238,11 @@ const Footer = ({ globalData }) => {
   );
 };
 
-Footer.getCustomInitialProps = async function ({ agility, languageCode, channelName }) {
+Footer.getCustomInitialProps = async function ({
+  agility,
+  languageCode,
+  channelName,
+}) {
   const api = agility;
   let contentItem = null;
 
@@ -237,7 +270,8 @@ Footer.getCustomInitialProps = async function ({ agility, languageCode, channelN
       return null;
     }
   } catch (error) {
-    if (console) console.error("Could not load site footer configuration.", error);
+    if (console)
+      console.error("Could not load site footer configuration.", error);
     return null;
   }
   // return a clean object...
