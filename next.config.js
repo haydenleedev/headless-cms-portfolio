@@ -454,6 +454,19 @@ module.exports = {
         permanent: true,
       },
       {
+        source:
+          "/blog/10-chat-support-job-responsibilities-what-you-need-to-know-about-providing-live-chat-support-to-your-customers",
+        destination:
+          "/ujet-leads-g2-fall-2020-report-for-satisfaction-relationship",
+        permanent: true,
+      },
+      {
+        source:
+          "/blog/ujet-leads-g2-fall-2020-enterprise-report-with-highest-customer-satisfaction-ratings-and-relationship-index-score",
+        destination: "/blog/10-chat-support-job-responsibilities-to-know",
+        permanent: true,
+      },
+      {
         source: "/archive/~",
         destination: "/archive",
         permanent: true,
