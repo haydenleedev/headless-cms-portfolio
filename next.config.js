@@ -491,7 +491,7 @@ module.exports = {
       {
         source: "/resources/reports/cb-icg-agent-engagement-and-empowerment-lp",
         destination:
-          "/resources/guides/cb-icg-agent-engagement-and-empowerment-lp/",
+          "/resources/guides/cb-icg-agent-engagement-and-empowerment-lp",
         permanent: true,
       },
     ];
