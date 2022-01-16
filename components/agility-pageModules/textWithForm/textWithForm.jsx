@@ -20,7 +20,7 @@ const TextWithForm = ({ module, customData }) => {
   const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
 
   const handleSetFormLoaded = () => {
-    console.log("form loaded text with form: ", formLoaded)
+    console.log("form loaded text with form: ", formLoaded);
     setFormLoaded(true);
   };
 
@@ -49,12 +49,12 @@ const TextWithForm = ({ module, customData }) => {
                   }`
             }
           >
-            {(heading || subheading) && (
+            {/* (heading || subheading) && (
               <aside className={style.columnLayoutHeading}>
                 {heading && <Heading {...heading} />}
                 {subheading && <Heading {...subheading} />}
               </aside>
-            )}
+            ) */}
             <aside className={style.textContent}>
               {(heading || subheading) && (
                 <div className={style.rowLayoutHeading}>
@@ -133,7 +133,7 @@ const FormLoader = () => {
       </div>
     </form>
   );
-}
+};
 
 TextWithForm.getCustomInitialProps = async function ({
   agility,
