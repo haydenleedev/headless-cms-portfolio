@@ -803,5 +803,10 @@
         "source": "/website-privacy-notice",
         "destination": "/archive/01june2019-website-privacy-notice",
         "permanent": true
+    },
+    {
+        "source": "/unified-cx-for-the-smart-phone-era-2",
+        "destination": "/",
+        "permanent": true
     }
 ]
