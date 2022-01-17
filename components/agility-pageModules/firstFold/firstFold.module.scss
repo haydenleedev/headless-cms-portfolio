@@ -177,7 +177,7 @@
   .backgroundImage {
     & > * {
       display: block !important;
-      height: 100%;
+      height: 100% !important;
     }
     position: absolute !important;
     top: 0;

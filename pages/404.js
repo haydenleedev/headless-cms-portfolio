@@ -1,34 +1,37 @@
 import HeroImage from "../components/agility-pageModules/heroImage/heroImage";
 import Layout from "../components/layout/layout";
 import agility from "@agility/content-fetch";
+import Head from "next/head";
 
 const NotFoundPage = ({ globalData }) => {
   return (
-    <Layout globalData={globalData}>
-      <div className="notFoundPage">
-        <HeroImage
-          module={{
-            fields: {
-              image: {
-                url: "https://assets.ujet.cx/404.png",
-                pixelHeight: "200",
-                pixelWidth: "1920",
+    <>
+      <Head>
+        <title>{globalData.fourOhFour.data.fields.metaTitle}</title>
+      </Head>
+      <Layout globalData={globalData}>
+        <div className="notFoundPage">
+          <HeroImage
+            module={{
+              fields: {
+                image: {
+                  url: "https://assets.ujet.cx/404.png",
+                  pixelHeight: "200",
+                  pixelWidth: "1920",
+                },
               },
-            },
-          }}
-          narrowHeight
-        />
-        <section className="section">
-          <div className="container">
-            <h1 className="heading-4 w-400">Page not found</h1>
-            <h2 className="heading-6 w-400 margin-block-1">Error 404</h2>
-            <p>
-              Sorry, the page you were looking for at this URL was not found.
-            </p>
-          </div>
-        </section>
-      </div>
-    </Layout>
+            }}
+            narrowHeight
+          />
+          <section className="section">
+            <div
+              className="container"
+              dangerouslySetInnerHTML={{ __html: globalData.fourOhFour.data.fields.text }}
+            ></div>
+          </section>
+        </div>
+      </Layout>
+    </>
   );
 };
 
@@ -63,7 +66,12 @@ export const getStaticProps = async () => {
     expandAllContentLinks: true,
     contentLinkDepth: 6,
   });
-
+  const fourOhFourConfig = await api.getContentList({
+    referenceName: "fourohfour",
+    languageCode: "en-us",
+    expandAllContentLinks: true,
+    contentLinkDepth: 6,
+  });
   return {
     props: {
       globalData: {
@@ -71,6 +79,7 @@ export const getStaticProps = async () => {
         navbar: { navbar: navbarConfig.items[0] },
         globalSettings: { data: globalSettings.items[0] },
         footer: { data: footerConfig.items[0] },
+        fourOhFour: { data: fourOhFourConfig.items[0] },
       },
     },
   };
