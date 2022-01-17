@@ -471,11 +471,11 @@ module.exports = {
         destination: "/archive",
         permanent: true,
       },
-      {
+      /* {
         source: "/archive/policy-prior-to-01-June-2019",
         destination: "/archive/policy-prior-to-01-june-2019",
         permanent: true,
-      },
+      }, */
       {
         source:
           "/resources/reports/us-customer-experience-decision-makers-guide-lp",
@@ -517,6 +517,24 @@ module.exports = {
       {
         source: "/home",
         destination: "/",
+        permanent: true,
+      },
+      {
+        source:
+          "/with-over-22000-agents-ujet-powers-the-worlds-largest-cloud-contact-center-for-one-of-north-americas-largest-e-commerce-companies-2",
+        destination: "/ujet-powers-the-worlds-largest-cloud-contact-center",
+        permanent: true,
+      },
+      {
+        source:
+          "/ujet-furthers-its-commitment-to-securing-its-customers-through-its-latest-data-protection-and-privacy-certifications",
+        destination:
+          "/ujet-commits-to-customer-security-in-latest-certifications",
+        permanent: true,
+      },
+      {
+        source: "/website-privacy-notice",
+        destination: "/archive/01june2019-website-privacy-notice",
         permanent: true,
       },
     ];
