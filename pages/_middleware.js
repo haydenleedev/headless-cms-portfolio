@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function middleware(req) {
-  const url = req.url.replace(/en-US/g, "");
-  
-  // Handle URL's that contain uppercase characters
-  if (url.toLowerCase() !== url) return NextResponse.redirect(url.toLowerCase());
+  const url = req.url;
   
   // Handle blog.ujet.co redirects to ujet.cx/blog/postname
   const blogUrl = "blog.ujet.co";
