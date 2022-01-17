@@ -20,6 +20,7 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
     ogImage,
     ogImageURL,
     twitterCard,
+    blockIndexing
   } = fields;
 
   // might be input either one depending on the context...
@@ -54,6 +55,9 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
       )}
       {twitterCard && (
         <meta name="twitter:card" content={twitterCard} key="twittercard" />
+      )}
+      {blockIndexing && (
+        <meta name="robots" content="noindex" />
       )}
       {/* Any content-based additional schemas e.g. blogPosting type */}
       {additionalSchemas &&
