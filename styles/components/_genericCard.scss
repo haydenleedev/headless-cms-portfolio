@@ -21,9 +21,9 @@
     overflow: hidden;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
-    & > div {
+    & > span {
       &:only-child {
-        height: 100%;
+        height: 100% !important;
       }
     }
   }

@@ -251,7 +251,7 @@
       .gridItemLogoContainer {
         position: relative;
         .gridItemLogo {
-          height: 100%;
+          height: 100% !important;
         }
       }
       .gridItemText {
