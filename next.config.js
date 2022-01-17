@@ -30,7 +30,7 @@ module.exports = {
       },
       {
         source: "/files/:path*/:slug",
-        destination: "https://assets.ujet.cx/:slug", // Matched parameters can be used in the destination
+        destination: "https://assets.ujet.cx/files/:path*/:slug",
         permanent: true,
       },
       {
