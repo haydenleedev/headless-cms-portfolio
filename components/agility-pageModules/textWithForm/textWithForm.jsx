@@ -20,7 +20,6 @@ const TextWithForm = ({ module, customData }) => {
   const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
 
   const handleSetFormLoaded = () => {
-    console.log("form loaded text with form: ", formLoaded);
     setFormLoaded(true);
   };
 
