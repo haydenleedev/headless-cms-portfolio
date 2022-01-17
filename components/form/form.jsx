@@ -10,7 +10,7 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     : null;
 
   useEffect(() => {
-    setLoading(false)
+    setLoading(false);
     // override form's submit button text if provided
     if (formLoaded && submitButtonText && formRef.current) {
       const submit = formRef.current.querySelector("button[type=submit]");
@@ -25,7 +25,7 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         ref={formRef}
         className={`marketoForm ${formLoaded ? "is-hidden" : ""}`}
       ></form>
-      {/* {!formLoaded && <FormLoader />} */}
+      {!formLoaded && <FormLoader />}
     </>
   ) : null;
 };

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { generateUUID } from "../../utils/generic";
-import Head from "next/head";
 import { getCookie } from "../../utils/cookies";
 
 const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
+  const [canTriggerOnLoadCallback, setCanTriggerOnLoadCallback] =
+    useState(false);
   // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"
   const splitID = formID?.split("_");
   const marketoFormID = formID ? parseInt(splitID[splitID.length - 1]) : null;
@@ -30,46 +31,54 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
     },
   ];
 
-  // Appends meta data to head, which tag manager reads with script...
-  function addMetaToHead(seed) {
-    if (metaAdded.current) return;
-    // Loop and append randomized UID
-    const UUID = generateUUID();
-    const head = document.getElementsByTagName("head")[0];
-    gaMeta.map((item, index) => {
-      var meta = document.createElement("meta");
-      meta.name = item.name;
-      meta.content = UUID + index;
-      meta.id = item.id;
-      head.appendChild(meta);
-    });
-
-    // Page url
-    var meta = document.createElement("meta");
-    meta.name = "ga_page";
-    meta.content = window.location.href;
-    meta.id = "ga-page-url";
-    head.appendChild(meta);
-
-    // Date
-    var meta = document.createElement("meta");
-    meta.name = "ga_date__c";
-    meta.content = new Date().toUTCString();
-    meta.id = "ga-date";
-    head.appendChild(meta);
-
-    // Marketo cookie date not sure where this comes from?
-    var meta = document.createElement("meta");
-    meta.name = "ga_cookie_date__c";
-    meta.content = getCookie("mkto-gaCookieDate7");
-    meta.id = "ga-cookie-date";
-    head.appendChild(meta);
-
-    // Flag done so we don't run it again
-    metaAdded.current = true;
-  }
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) handleSetFormLoaded();
+    return () => {
+      isMounted = false;
+    };
+  }, [canTriggerOnLoadCallback]);
 
   useEffect(() => {
+    // Appends meta data to head, which tag manager reads with script...
+    function addMetaToHead(seed) {
+      if (metaAdded.current) return;
+      // Loop and append randomized UID
+      const UUID = generateUUID();
+      const head = document.getElementsByTagName("head")[0];
+      gaMeta.map((item, index) => {
+        var meta = document.createElement("meta");
+        meta.name = item.name;
+        meta.content = UUID + index;
+        meta.id = item.id;
+        head.appendChild(meta);
+      });
+
+      // Page url
+      var meta = document.createElement("meta");
+      meta.name = "ga_page";
+      meta.content = window.location.href;
+      meta.id = "ga-page-url";
+      head.appendChild(meta);
+
+      // Date
+      var meta = document.createElement("meta");
+      meta.name = "ga_date__c";
+      meta.content = new Date().toUTCString();
+      meta.id = "ga-date";
+      head.appendChild(meta);
+
+      // Marketo cookie date not sure where this comes from?
+      var meta = document.createElement("meta");
+      meta.name = "ga_cookie_date__c";
+      meta.content = getCookie("mkto-gaCookieDate7");
+      meta.id = "ga-cookie-date";
+      head.appendChild(meta);
+
+      // Flag done so we don't run it again
+      metaAdded.current = true;
+    }
+
     // check if script has already been loaded => load form
     if (window.MktoForms2 && marketoFormID) {
       const data = window.MktoForms2.loadForm(
@@ -124,7 +133,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         strategy="lazyOnload"
         onLoad={() =>
           onScriptLoad().then(() => {
-            if (handleSetFormLoaded) handleSetFormLoaded();
+            setCanTriggerOnLoadCallback(true);
           })
         }
       />
