@@ -135,6 +135,12 @@ export const youtubeVideoLinkToEmbed = (link) => {
   return embedLink;
 };
 
+// Convert a Vimeo video's url to the proper format for embedding
+export const vimeoLinkToEmbed = (link) => {
+  const videoNumber = link.split(/vimeo.com\//)[1];
+  return `https://player.vimeo.com/video/${videoNumber}`;
+}
+
 // use same config for all sanitizeHtml calls
 export const sanitizeHtmlConfig = {
   allowedTags: false,
