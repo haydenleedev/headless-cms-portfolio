@@ -48,12 +48,12 @@ const TextWithForm = ({ module, customData }) => {
                   }`
             }
           >
-            {/* (heading || subheading) && (
+            {(heading || subheading) && (
               <aside className={style.columnLayoutHeading}>
                 {heading && <Heading {...heading} />}
                 {subheading && <Heading {...subheading} />}
               </aside>
-            ) */}
+            )}
             <aside className={style.textContent}>
               {(heading || subheading) && (
                 <div className={style.rowLayoutHeading}>
@@ -116,7 +116,7 @@ const TextWithForm = ({ module, customData }) => {
 
 const FormLoader = () => {
   return (
-    <form id="mktoForm_" className={style.loader}>
+    <form id="mktoForm_loader" className={style.loader}>
       {[...Array(8).keys()].map((key) => (
         <div className="mktoFormRow" key={key}>
           <div className="mktoFieldDescriptor mktoFormCol">
@@ -132,7 +132,7 @@ const FormLoader = () => {
       </div>
     </form>
   );
-};
+}
 
 TextWithForm.getCustomInitialProps = async function ({
   agility,

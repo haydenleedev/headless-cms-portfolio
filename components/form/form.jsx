@@ -3,7 +3,6 @@ import { FormLoader } from "../agility-pageModules/textWithForm/textWithForm";
 
 const Form = ({ submitButtonText, formLoaded, formID }) => {
   const formRef = useRef(null);
-  const formLoaderRef = useRef(null);
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
   // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"
@@ -12,12 +11,12 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     : null;
 
   useEffect(() => {
+
     // override form's submit button text if provided
     if (formLoaded && submitButtonText && formRef.current) {
       const submit = formRef.current.querySelector("button[type=submit]");
       if (submit) submit.innerText = submitButtonText;
     }
-    console.log("loaded")
   }, [formLoaded]);
 
   return marketoFormID ? (
@@ -27,7 +26,8 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         ref={formRef}
         className={`marketoForm ${formLoaded ? "is-hidden" : ""}`}
       ></form>
-      {<FormLoader ref={formLoaderRef} />}
+      {!formLoaded && <FormLoader/>}
+      {/* <FormLoader></FormLoader> */}
     </>
   ) : null;
 };
