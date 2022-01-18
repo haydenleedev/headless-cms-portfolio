@@ -16,7 +16,7 @@
         max-width: 18.75rem;
         border-radius: 50%;
         border: 0.25rem solid $color-skyblue;
-        div {
+        span {
           &:only-child {
             display: block !important;
             border-radius: 50%;
@@ -32,7 +32,7 @@
           top: -6rem;
           min-width: unset;
           border: 0.65rem solid $color-skyblue;
-          div {
+          span {
             &:only-child {
               border: 0.65rem solid $color-white;
             }

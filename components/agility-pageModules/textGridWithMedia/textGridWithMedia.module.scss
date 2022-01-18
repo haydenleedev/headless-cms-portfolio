@@ -62,14 +62,14 @@
       &.textItemMediaSmall {
         max-width: 5.625rem;
         max-height: 5.625rem;
-        & > div {
+        & > span {
           &:only-child {
             min-width: 5.625rem;
             min-height: 5.625rem;
           }
         }
       }
-      & > div {
+      & > span {
         &:only-child {
           min-width: 7.5rem;
           min-height: 7.5rem;
