@@ -136,7 +136,7 @@
   .staticImageLayoutContent {
     display: grid;
     grid-template-columns: 1fr;
-    & > div {
+    & > span {
       &:first-of-type {
         img {
           object-fit: contain;
