@@ -46,6 +46,9 @@ var HeadingField = function () {
             } else {
               // set observables on the existing binding properties
               var existingBinding = ko.mapping.fromJSON(options.fieldBinding());
+              if (existingBinding.color === undefined) {
+                existingBinding.color = ko.observable(null);
+              }
               self.fieldBinding(existingBinding);
             }
 
