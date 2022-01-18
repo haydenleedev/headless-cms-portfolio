@@ -5,15 +5,18 @@
   padding: unset;
   height: 30vw;
   overflow: hidden;
-  & > * {
-    position: absolute;
-    top: 0;
-    left: 0;
-    object-fit: fill;
-    width: 100%;
-    height: 100%;
-    img {
-      object-fit: cover;
+  & > span {
+    &:only-child {
+      position: absolute;
+      top: 0;
+      left: 0;
+      object-fit: fill;
+      // Have to override
+      width: 100% !important;
+      height: 100% !important;
+      img {
+        object-fit: cover;
+      }
     }
   }
   @include desktop() {
@@ -21,15 +24,16 @@
     min-height: 21.25rem;
     overflow: hidden;
     position: relative;
-    & > * {
-      position: absolute !important;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      img {
-        object-fit: cover;
-        height: unset !important;
+    & > span {
+      &:only-child {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        height: 100% !important;
+        img {
+          object-fit: cover;
+          height: unset !important;
+        }
       }
     }
     &.heroImageNarrowHeight {
