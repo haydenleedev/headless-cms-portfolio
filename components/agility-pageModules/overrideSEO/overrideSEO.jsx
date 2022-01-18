@@ -20,6 +20,7 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
     ogImage,
     ogImageURL,
     twitterCard,
+    twitterImage,
     canonicalURL,
     blockIndexing
   } = fields;
@@ -56,6 +57,12 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
       )}
       {twitterCard && (
         <meta name="twitter:card" content={twitterCard} key="twittercard" />
+      )}
+      {twitterImage && (
+        <meta name="twitter:image" content={`${twitterImage.url}${"?q=50&w=1200&height=630format=auto"}`} key="twitterimage" />
+      )}
+      {twitterImage && metaTitle && (
+          <meta name="twitter:image:alt" content={metaTitle} key="twitterimagealt" />
       )}
       {canonicalURL && (
         <link rel="canonical" href={canonicalURL} />
