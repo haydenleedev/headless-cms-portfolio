@@ -14,9 +14,7 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
     metaTitle,
     metaDescription,
     ogType,
-    ogTitle,
     ogUrl,
-    ogDescription,
     ogImage,
     ogImageURL,
     twitterCard,
@@ -31,20 +29,24 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
 
   return (
     <Head>
-      {metaTitle && <title key="title">{metaTitle}</title>}
-      {metaDescription && (
-        <meta name="description" content={metaDescription} key="description" />
+      {metaTitle && (
+        <>
+          <title key="title">{metaTitle}</title>
+          <meta property="og:title" content={metaTitle} key="ogtitle" />
+        </>
       )}
-      {ogTitle && <meta property="og:title" content={ogTitle} key="ogtitle" />}
+      {metaDescription && (
+        <>
+          <meta name="description" content={metaDescription} key="description" />
+          <meta
+            property="og:description"
+            content={metaDescription}
+            key="ogdescription"
+          />
+        </>
+      )}
       {ogUrl && <meta property="og:url" content={ogUrl} key="ogurl" />}
       {ogType && <meta property="og:type" content={ogType} key="ogtype" />}
-      {ogDescription && (
-        <meta
-          property="og:description"
-          content={ogDescription}
-          key="ogdescription"
-        />
-      )}
       {og_image && (
         <meta
           property="og:image"
