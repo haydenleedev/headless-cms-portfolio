@@ -11,7 +11,7 @@ import { article, blogPosting } from "../../../schema";
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const { relatedBlogPosts, sanitizedHtml } = customData;
   const blogPost = dynamicPageItem.fields;
-  const url = process.env.NEXT_PUBLIC_SITE_URL + "/" + blogPost.slug;
+  const url = process.env.NEXT_PUBLIC_SITE_URL + "/blog/" + blogPost.slug;
   const dateStr = new Date(blogPost.date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",

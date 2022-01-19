@@ -35,7 +35,7 @@ const PressReleaseList = ({ module }) => {
               {
                 <GenericCard
                   date={pressReleaseArticle.fields.date}
-                  link={{ href: pressReleaseArticle.fields.slug }}
+                  link={{ href: "/press-releases/" + pressReleaseArticle.fields.slug }}
                   description={pressReleaseArticle.fields.title}
                   title="Press Release"
                 />

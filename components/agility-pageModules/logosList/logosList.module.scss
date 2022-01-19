@@ -41,9 +41,10 @@
     justify-content: center;
     min-height: 6.25rem;
     padding: 1.25rem;
-    & > div {
+    & > span {
       &:only-child {
-        height: 100%;
+        // have to override
+        height: 100% !important;
         img {
           height: unset;
           width: unset;

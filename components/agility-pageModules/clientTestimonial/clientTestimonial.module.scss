@@ -11,7 +11,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    & > div {
+    & > span {
       &:only-child {
         height: 100%;
         display: block !important;
@@ -39,7 +39,7 @@
       flex-direction: column;
       .awardImage {
         max-width: 12.5rem;
-        div {
+        span {
           &:not(:only-child) {
             display: none !important;
           }
@@ -149,7 +149,7 @@
   .logo {
     margin: 2rem auto 0 auto;
     max-width: 11.25rem;
-    & > div {
+    & > span {
       &:only-child {
         * {
           padding-top: unset !important;
