@@ -35,3 +35,6 @@ env.local
 
 # vercel
 .vercel
+
+# Generated build time
+/public/sitemap.xml
