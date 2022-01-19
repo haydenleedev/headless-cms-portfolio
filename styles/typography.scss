@@ -21,7 +21,9 @@ a,
 button,
 li {
   &:focus {
-    outline: dotted 0.15rem $color-mediumblue;
+    outline: none;
+    /* outline: 4px solid rgba(0, 125, 250, 0.6);
+    outline-offset: 1px; */
   }
 }
 
