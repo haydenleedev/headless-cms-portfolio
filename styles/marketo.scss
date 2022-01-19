@@ -36,7 +36,8 @@
       opacity: 0;
     }
     &:focus {
-      outline: 0.25rem solid $color-lightblue;
+      outline: 4px solid rgba(0, 125, 250, 0.6);
+      outline-offset: 1px;
     }
     &:not(:focus) {
       & + .mktoError {
