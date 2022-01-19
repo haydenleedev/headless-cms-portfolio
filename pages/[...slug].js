@@ -47,7 +47,7 @@ export async function getStaticProps({
 export async function getStaticPaths({ locales, defaultLocale }) {
   //get the paths configured in agility
   const agilityPaths = await getAgilityPaths({
-    preview: false,
+    preview: true,
     locales,
     defaultLocale,
   });
