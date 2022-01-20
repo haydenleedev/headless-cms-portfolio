@@ -14,12 +14,11 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
     metaTitle,
     metaDescription,
     ogType,
-    ogTitle,
     ogUrl,
-    ogDescription,
     ogImage,
     ogImageURL,
     twitterCard,
+    twitterImage,
     canonicalURL,
     blockIndexing
   } = fields;
@@ -30,20 +29,24 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
 
   return (
     <Head>
-      {metaTitle && <title key="title">{metaTitle}</title>}
-      {metaDescription && (
-        <meta name="description" content={metaDescription} key="description" />
+      {metaTitle && (
+        <>
+          <title key="title">{metaTitle}</title>
+          <meta property="og:title" content={metaTitle} key="ogtitle" />
+        </>
       )}
-      {ogTitle && <meta property="og:title" content={ogTitle} key="ogtitle" />}
+      {metaDescription && (
+        <>
+          <meta name="description" content={metaDescription} key="description" />
+          <meta
+            property="og:description"
+            content={metaDescription}
+            key="ogdescription"
+          />
+        </>
+      )}
       {ogUrl && <meta property="og:url" content={ogUrl} key="ogurl" />}
       {ogType && <meta property="og:type" content={ogType} key="ogtype" />}
-      {ogDescription && (
-        <meta
-          property="og:description"
-          content={ogDescription}
-          key="ogdescription"
-        />
-      )}
       {og_image && (
         <meta
           property="og:image"
@@ -56,6 +59,12 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
       )}
       {twitterCard && (
         <meta name="twitter:card" content={twitterCard} key="twittercard" />
+      )}
+      {twitterImage && (
+        <meta name="twitter:image" content={`${twitterImage.url}${"?q=50&w=1200&height=630format=auto"}`} key="twitterimage" />
+      )}
+      {twitterImage && metaTitle && (
+          <meta name="twitter:image:alt" content={metaTitle} key="twitterimagealt" />
       )}
       {canonicalURL && (
         <link rel="canonical" href={canonicalURL} />

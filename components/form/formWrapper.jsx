@@ -86,6 +86,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
       emailInput?.addEventListener?.("input", (evt) => {
         addMetaToHead(evt.data);
       });
+      
     });
     if (marketoFormID) {
       var form = document.getElementById(`mktoForm_${marketoFormID}`);
@@ -124,6 +125,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         strategy="lazyOnload"
         onLoad={() =>
           onScriptLoad().then(() => {
+            // document.getElementById("mktoForm_loader").remove();
             if (handleSetFormLoaded) handleSetFormLoaded();
           })
         }

@@ -16,6 +16,15 @@ export default async (req, res) => {
 	}
 
 	let previewUrl = req.query.slug;
+	let referer = req.headers.referer;
+	let queryString;
+	if (referer.includes("?") && !referer.includes("?lang=") && !referer.includes("?ContentID=")) {
+		queryString = referer.substring(
+			referer.indexOf("?"),
+			referer.indexOf("&lang=")
+		);
+		previewUrl += queryString;
+	}
 
 	//TODO: these kinds of dynamic links should work by default (even outside of preview)
 	if(req.query.ContentID) {
@@ -30,7 +39,7 @@ export default async (req, res) => {
 
 	// Redirect to the slug
 	//Add a dummy querystring to the location header - since Netlify will keep the QS for the incoming request by default
-	res.writeHead(307, { Location: `${previewUrl}?preview=1` })
+	res.writeHead(307, { Location: `${previewUrl}${queryString ? "&" : "?"}preview=1` })
 	res.end()
 
 }
