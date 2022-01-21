@@ -28,6 +28,11 @@ a {
   &:focus-visible {
     outline: dotted 0.15rem $color-mediumblue;
   }
+  @media (pointer: coarse) {
+    &:hover {
+      outline: dotted 0.15rem $color-mediumblue;
+    }
+  }
 }
 
 p {
