@@ -5,6 +5,7 @@ import Script from "next/script";
 const SEO = ({ title, description, keywords, metaHTML, url }) => {
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
+  const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
   return (
     <>
       <Head>
@@ -20,12 +21,20 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         <meta property="og:locale" content="en_US" key="oglocale" />
         <meta property="og:site_name" content="UJET" key="ogsitename" />
         <meta property="og:type" content="website" key="ogtype" />
-        <meta property="og:description" content={description} key="ogdescription" />
+        <meta
+          property="og:description"
+          content={description}
+          key="ogdescription"
+        />
         <meta name="twitter:card" content="summary" key="twittercard" />
         <meta name="twitter:creator" content="@UJETcx" key="twittercreator" />
         <meta name="twitter:site" content="@UJETcx" key="twittersite" />
         {/* Note: this is usually overridden on component/page Head, since we can't easily get the image we want to use here as prop */}
-        <meta property="og:image" content="https://assets.ujet.cx/FB-UJET-Image-V2.jpg" key="ogimage" />
+        <meta
+          property="og:image"
+          content="https://assets.ujet.cx/FB-UJET-Image-V2.jpg"
+          key="ogimage"
+        />
         <meta property="og:image:alt" content={title} key="ogimagealt" />
 
         {/* schema */}
@@ -42,6 +51,10 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
       </Script>
+      <Script
+        src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
+        strategy="lazyOnload"
+      />
     </>
   );
 };
