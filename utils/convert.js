@@ -159,6 +159,9 @@ export const sanitizeHtmlConfig = {
   },
   transformTags: {
     a: function (tagName, attribs) {
+      if (attribs.href) {
+        attribs.href = attribs.href.replace(/\/$/, "");
+      }
       if (!hrefSelf(attribs.href)) {
         attribs.rel = "noindex noreferrer nofollow";
         attribs.target = "_blank";
