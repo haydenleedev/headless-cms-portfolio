@@ -278,7 +278,7 @@
 
   // Triangle
   &:not(.disabled) {
-    &:hover {
+    &:hover, &:focus-within {
       @include desktop() {
         &::before {
           position: absolute;
