@@ -11,15 +11,6 @@ body {
   color: $color-black;
 }
 
-a {
-  cursor: pointer;
-  color: inherit;
-  text-decoration: none;
-  &:focus {
-    outline: 2px solid $color-lightblue !important;
-  }
-}
-
 a,
 button,
 li {
@@ -27,6 +18,15 @@ li {
     outline: none;
     /* outline: 4px solid rgba(0, 125, 250, 0.6);
     outline-offset: 1px; */
+  }
+}
+
+a {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  &:focus-visible {
+    outline: dotted 0.15rem $color-mediumblue;
   }
 }
 
