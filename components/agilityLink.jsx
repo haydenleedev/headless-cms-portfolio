@@ -17,6 +17,9 @@ as?: Url;
     href?: string | undefined;
     ref?: any;
 */
+function sanitizeHref(href) {
+  return href.replace(/\/$/, '');
+}
 
 const AgilityLink = ({
   agilityLink, // the URL object from agility
@@ -49,7 +52,7 @@ const AgilityLink = ({
   const target = isInner ? "_self" : "_blank";
   return href ? (
     <Link
-      href={href}
+      href={sanitizeHref(href)}
       as={as}
       passHref={passHref}
       locale={locale}
