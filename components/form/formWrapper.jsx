@@ -125,7 +125,6 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         strategy="lazyOnload"
         onLoad={() =>
           onScriptLoad().then(() => {
-            console.log("loaded")
             // document.getElementById("mktoForm_loader").remove();
             if (handleSetFormLoaded) handleSetFormLoaded();
           })
