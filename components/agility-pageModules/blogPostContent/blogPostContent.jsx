@@ -7,6 +7,7 @@ import BlogPostList from "../blogPostList/blogPostList";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article, blogPosting } from "../../../schema";
+import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const { relatedBlogPosts, sanitizedHtml } = customData;
@@ -166,6 +167,14 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
         <div className={`container ${style.container}`}>
           <div className={style.body}>
             <div>
+              <Breadcrumbs breadcrumbs={
+                  [
+                    { name: "Home", path: "/" },
+                    { name: "Blog", path: "/blog" },
+                    { name: blogPost.title }
+                  ]
+                }
+              />
               <h1 className="heading-4">{blogPost.title}</h1>
               <small className={style.meta}>
                 by {blogPost.author?.fields.name || "UJET Team"} | 

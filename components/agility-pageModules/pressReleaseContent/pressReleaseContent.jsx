@@ -2,6 +2,7 @@ import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
 import { article } from "../../../schema";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
+import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import style from "./pressReleaseContent.module.scss";
 
@@ -51,6 +52,14 @@ const PressReleaseContent = ({ dynamicPageItem, customData }) => {
         </section>
         <section className="section">
           <div className="container">
+            <Breadcrumbs breadcrumbs={
+                [
+                  { name: "Home", path: "/" },
+                  { name: "Press Releases" },
+                  { name: resource.title }
+                ]
+              }
+            />
             <div
               className={`content ${style.textContent}`}
               dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
