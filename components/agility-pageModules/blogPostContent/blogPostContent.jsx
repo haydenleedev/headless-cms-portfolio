@@ -163,18 +163,18 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
           }),
         ]}
       />
+      <Breadcrumbs breadcrumbs={
+          [
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: blogPost.title }
+          ]
+        }
+      />
       <section className={`section ${style.blogPostContent}`}>
         <div className={`container ${style.container}`}>
           <div className={style.body}>
             <div>
-              <Breadcrumbs breadcrumbs={
-                  [
-                    { name: "Home", path: "/" },
-                    { name: "Blog", path: "/blog" },
-                    { name: blogPost.title }
-                  ]
-                }
-              />
               <h1 className="heading-4">{blogPost.title}</h1>
               <small className={style.meta}>
                 by {blogPost.author?.fields.name || "UJET Team"} | 

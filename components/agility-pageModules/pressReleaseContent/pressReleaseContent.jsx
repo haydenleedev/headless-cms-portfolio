@@ -50,16 +50,16 @@ const PressReleaseContent = ({ dynamicPageItem, customData }) => {
             <h1>{resource.title}</h1>
           </div>
         </section>
+        <Breadcrumbs breadcrumbs={
+            [
+              { name: "Home", path: "/" },
+              { name: "Press Releases" },
+              { name: resource.title }
+            ]
+          }
+        />
         <section className="section">
           <div className="container">
-            <Breadcrumbs breadcrumbs={
-                [
-                  { name: "Home", path: "/" },
-                  { name: "Press Releases" },
-                  { name: resource.title }
-                ]
-              }
-            />
             <div
               className={`content ${style.textContent}`}
               dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}

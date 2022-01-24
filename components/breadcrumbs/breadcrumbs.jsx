@@ -2,9 +2,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import style from "./breadcrumbs.module.scss";
 
-const Breadcrumbs = ({ breadcrumbs, autoGenerate = false }) => {
+const Breadcrumbs = ({ breadcrumbs }) => {
     let breadcrumbItems = [];
-    if (autoGenerate) {
+    if (breadcrumbs) {
+        breadcrumbItems = breadcrumbs;
+    }
+    else {
         const { asPath } = useRouter();
         const splitPath = asPath.split("/");
         for (let i = 0; i < splitPath.length; i++) {
@@ -19,9 +22,6 @@ const Breadcrumbs = ({ breadcrumbs, autoGenerate = false }) => {
             }
             breadcrumbItems.push(item);
         }
-    }
-    else if (breadcrumbs) {
-        breadcrumbItems = breadcrumbs;
     }
 
     const breadcrumbElements = breadcrumbItems.map((item, index) => {
@@ -46,13 +46,17 @@ const Breadcrumbs = ({ breadcrumbs, autoGenerate = false }) => {
 
     return (
         <>
-            {breadcrumbElements.length > 1 ? 
-                <nav
-                    className={style.breadcrumbs}
-                    aria-label="Breadcrumbs"
-                >
-                    {breadcrumbElements}
-                </nav>
+            {breadcrumbElements.length > 1 ?
+                <section className={`${style.section} section`}>
+                    <div className="container">
+                        <nav
+                            className={style.breadcrumbs}
+                            aria-label="Breadcrumbs"
+                        >
+                            {breadcrumbElements}
+                        </nav>
+                    </div>
+                </section>
                 : null
             }
         </>

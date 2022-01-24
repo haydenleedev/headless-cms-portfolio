@@ -1,13 +1,17 @@
 @import "../../styles/settings/colors";
 @import "../../styles/settings/mixins";
 
-.breadcrumbs {
+.section {
     display: none;
-    gap: .75rem;
-    margin-bottom: 1rem;
+    padding-bottom: 0;
     @include desktop() {
-        display: flex;
+        display: block;
     }
+}
+
+.breadcrumbs {
+    display: flex;
+    gap: .75rem;
     div {
         p {
             display: inline;
