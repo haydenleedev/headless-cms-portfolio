@@ -52,9 +52,26 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
           })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
       </Script>
       <Script
+        id="google-optimize"
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
         strategy="lazyOnload"
       />
+
+      <Script id="6sense">
+        {`window._6si = window._6si || [];
+          window._6si.push(['enableEventTracking', true]);
+          window._6si.push(['setToken', '${process.env.NEXT_PUBLIC_SIXSENSE_TOKEN}']);
+          window._6si.push(['setEndpoint', 'b.6sc.co']);
+
+          (function() {
+            var gd = document.createElement('script');
+            gd.type = 'text/javascript';
+            gd.async = true;
+            gd.src = '//j.6sc.co/6si.min.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gd, s);
+          })();`}
+      </Script>
     </>
   );
 };
