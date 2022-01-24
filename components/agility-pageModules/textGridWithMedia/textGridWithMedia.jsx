@@ -39,6 +39,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const TextItem = ({ data }) => {
     const itemFields = data.fields;
     const heading = JSON.parse(itemFields.heading);
+
     return (
       <div
         className={`${
@@ -80,6 +81,7 @@ const TextGridWithMedia = ({ module, customData }) => {
     );
   };
 
+  const largeColumnNumber = style["is-" + fields.columns + "-larger-gap"];
   return (
     <section
       className={`section ${style.textGridWithMedia} ${
@@ -119,6 +121,9 @@ const TextGridWithMedia = ({ module, customData }) => {
                     agilityLink={textItem.fields.link}
                     ariaLabel={`Read more about ${textItem.fields.title}`}
                     key={`textItem${index}`}
+                    className={`${
+                      centerItemsHorizontally ? `${largeColumnNumber}` : ""
+                    }`}
                   >
                     <TextItem data={textItem} />
                   </AgilityLink>
