@@ -3,12 +3,12 @@ import { useRouter } from "next/router";
 import style from "./breadcrumbs.module.scss";
 
 const Breadcrumbs = ({ breadcrumbs }) => {
+    const { asPath } = useRouter();
     let breadcrumbItems = [];
     if (breadcrumbs) {
         breadcrumbItems = breadcrumbs;
     }
     else {
-        const { asPath } = useRouter();
         const splitPath = asPath.split("/");
         for (let i = 0; i < splitPath.length; i++) {
             const item = {};
