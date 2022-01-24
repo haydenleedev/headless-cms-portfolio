@@ -101,3 +101,7 @@
   box-shadow: 0 0 1.875rem 0.125rem rgb(0 0 0 / 12%);
   background-color: $color-white;
 }
+
+@mixin outline() {
+  outline: dotted 0.15rem $color-mediumblue;
+}
