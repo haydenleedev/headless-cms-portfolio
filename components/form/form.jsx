@@ -16,7 +16,11 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
       const submit = formRef.current.querySelector(
         ".mktoButtonRow button[type=submit]"
       );
-      if (submit) submit.innerHTML = submitButtonText;
+      //if (submit) submit.innerHTML = submitButtonText;
+      if (submit)
+        MktoForms2.whenRendered(function (form) {
+          form.getFormElem().find("button.mktoButton").html(submitButtonText);
+        });
     }
   }, [formLoaded]);
 
