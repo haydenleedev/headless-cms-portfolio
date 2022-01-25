@@ -22,7 +22,7 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
           form.getFormElem().find("button.mktoButton").html(submitButtonText);
         });
     }
-  }, [formLoaded]);
+  }, [formLoaded, submitButtonText]);
 
   return marketoFormID ? (
     <>
