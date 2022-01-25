@@ -13,7 +13,9 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
   useEffect(() => {
     // override form's submit button text if provided
     if (formLoaded && submitButtonText && formRef.current) {
-      const submit = formRef.current.querySelector("button[type=submit]");
+      const submit = formRef.current.querySelector(
+        ".mktoButtonRow button[type=submit]"
+      );
       if (submit) submit.innerHTML = submitButtonText;
     }
   }, [formLoaded]);
