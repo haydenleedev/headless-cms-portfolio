@@ -190,7 +190,6 @@
   display: flex;
   padding: 1rem 0;
   flex-flow: column;
-
   @include touch {
     &:not(:last-child) {
       border-bottom: 0.1rem solid $color-mediumgray;
@@ -279,7 +278,7 @@
 
   // Triangle
   &:not(.disabled) {
-    &:hover {
+    &:hover, &:focus-within {
       @include desktop() {
         &::before {
           position: absolute;
@@ -296,9 +295,21 @@
 
   // Dropdown trigger on hover
   &:not(.disabled) {
-    &:hover > ul {
-      @include desktop() {
-        left: unset;
+    @include desktop() {
+      &:focus-within {
+        ul {
+          left: unset;
+        }
+      }
+    }
+    &:hover {
+      > ul {
+        @include desktop() {
+          left: unset;
+          &:focus-within {
+            left: unset;
+          }
+        }
       }
     }
   }
@@ -333,8 +344,7 @@
 
       & > ul {
         padding-bottom: 0;
-        & > li {
-        }
+
       }
 
       &:first-child {

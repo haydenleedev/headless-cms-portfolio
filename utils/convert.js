@@ -139,7 +139,7 @@ export const youtubeVideoLinkToEmbed = (link) => {
 export const vimeoLinkToEmbed = (link) => {
   const videoNumber = link.split(/vimeo.com\//)[1];
   return `https://player.vimeo.com/video/${videoNumber}`;
-}
+};
 
 // use same config for all sanitizeHtml calls
 export const sanitizeHtmlConfig = {
@@ -159,6 +159,7 @@ export const sanitizeHtmlConfig = {
   },
   transformTags: {
     a: function (tagName, attribs) {
+      // Remove trailing slash
       if (attribs.href) {
         attribs.href = attribs.href.replace(/\/$/, "");
       }

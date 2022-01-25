@@ -11,12 +11,6 @@ body {
   color: $color-black;
 }
 
-a {
-  cursor: pointer;
-  color: inherit;
-  text-decoration: none;
-}
-
 a,
 button,
 li {
@@ -24,6 +18,23 @@ li {
     outline: none;
     /* outline: 4px solid rgba(0, 125, 250, 0.6);
     outline-offset: 1px; */
+  }
+}
+
+a {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  &:focus-visible {
+    @include outline();
+    .genericCard {
+      @include outline();
+    }
+  }
+  @media (pointer: coarse) {
+    &:hover {
+      @include outline();
+    }
   }
 }
 

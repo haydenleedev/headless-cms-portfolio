@@ -1,3 +1,4 @@
+import agility from "@agility/content-fetch";
 import { validatePreview, getDynamicPageURL } from "@agility/nextjs/node";
 
 // A simple example for testing it manually from your browser.
@@ -15,6 +16,11 @@ export default async (req, res) => {
 		return res.status(401).end(`${validationResp.message}`)
 	}
 
+	const api = agility.getApi({
+		guid: process.env.AGILITY_GUID,
+		apiKey: process.env.AGILITY_API_FETCH_KEY,
+	});
+
 	let previewUrl = req.query.slug;
 	let referer = req.headers.referer;
 	let queryString;
@@ -27,10 +33,21 @@ export default async (req, res) => {
 	}
 
 	//TODO: these kinds of dynamic links should work by default (even outside of preview)
-	if(req.query.ContentID) {
-		const dynamicPath = await getDynamicPageURL({contentID: req.query.ContentID, preview: true, slug: req.query.slug});
-		if(dynamicPath) {
-			previewUrl = dynamicPath;
+	if (req.query.ContentID) {
+		if (req.query.slug.includes("/resources/")) {
+			// Use the resource item's slug for the preview URL
+			// This is to make previews work correctly for resource items that also have separate pages with corresponding slugs (e.g. webinars)
+			const resourceItem = await api.getContentItem({
+				contentID: req.query.ContentID,
+				languageCode: "en-us"
+			});
+			previewUrl = `${req.query.slug.split(/\/(?=[^\/]+$)/)[0]}/${resourceItem.fields.slug}`;
+		}
+		else {
+			const dynamicPath = await getDynamicPageURL({contentID: req.query.ContentID, preview: true, slug: req.query.slug});
+			if (dynamicPath) {
+				previewUrl = dynamicPath;
+			}
 		}
 	}
 

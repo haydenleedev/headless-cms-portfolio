@@ -110,7 +110,7 @@
   -webkit-appearance: none;
 
   &:focus {
-    outline: dotted 0.15rem $color-mediumblue;
+    @include outline();
     &:not(:focus-visible) {
       outline: none;
     }
