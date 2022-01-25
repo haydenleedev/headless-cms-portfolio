@@ -21,10 +21,6 @@ function sanitizeHref(href) {
   return href.replace(/\/$/, '');
 }
 
-function sanitizeHref(href) {
-  return href.replace(/\/$/, '');
-}
-
 const AgilityLink = ({
   agilityLink, // the URL object from agility
   // passed to the inner a tag:
