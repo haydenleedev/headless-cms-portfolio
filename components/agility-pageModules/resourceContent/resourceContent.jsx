@@ -84,7 +84,7 @@ else {
                 [
                   { name: "Home", path: "/" },
                   { name: "Resources", path: "/resources" },
-                  { name: resourceCategory.replaceAll(/-/g, " "), path: `/archives?type=resources&categories=${resourceCategory.replaceAll(/-/g, "")}`},
+                  { name: resourceCategory.replace(/-/g, " "), path: `/archives?type=resources&categories=${resourceCategory.replace(/-/g, "")}`},
                   { name: resource.title }
                 ]
               }
@@ -136,7 +136,7 @@ else {
                 [
                   { name: "Home", path: "/" },
                   { name: "Resources", path: "/resources" },
-                  { name: resourceCategory.replaceAll(/-/g, " "), path: `/archives?type=resources&categories=${resourceCategory.replaceAll(/-/g, "")}`},
+                  { name: resourceCategory.replace(/-/g, " "), path: `/archives?type=resources&categories=${resourceCategory.replace(/-/g, "")}`},
                   { name: resource.title }
                 ]
               }
