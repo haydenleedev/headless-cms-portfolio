@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import style from "./breadcrumbs.module.scss";
 
-const Breadcrumbs = ({ breadcrumbs }) => {
+const Breadcrumbs = ({ breadcrumbs, className }) => {
     const { asPath } = useRouter();
     let breadcrumbItems = [];
     if (breadcrumbs) {
@@ -47,7 +47,7 @@ const Breadcrumbs = ({ breadcrumbs }) => {
     return (
         <>
             {breadcrumbElements.length > 1 ?
-                <section className={`${style.section} section`}>
+                <section className={`${style.section} section ${className}`}>
                     <div className="container">
                         <nav
                             className={style.breadcrumbs}
