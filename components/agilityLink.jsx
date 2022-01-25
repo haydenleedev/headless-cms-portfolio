@@ -17,6 +17,9 @@ as?: Url;
     href?: string | undefined;
     ref?: any;
 */
+function sanitizeHref(href) {
+  return href.replace(/\/$/, '');
+}
 
 function sanitizeHref(href) {
   return href.replace(/\/$/, '');
