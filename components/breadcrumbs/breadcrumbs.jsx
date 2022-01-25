@@ -17,7 +17,7 @@ const Breadcrumbs = ({ breadcrumbs }) => {
                 item.path = "/"
             }
             else {
-                item.name = splitPath[i].replaceAll(/-/g, " ");
+                item.name = splitPath[i].replace(/-/g, " ");
                 item.path = splitPath[i];
             }
             breadcrumbItems.push(item);
