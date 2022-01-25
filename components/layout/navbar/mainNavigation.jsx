@@ -12,6 +12,7 @@ const MainNavigation = ({
 }) => {
   const [activeNavigationItem, setActiveNavigationItem] = useState(null);
   const [searchToggled, setSearchToggled] = useState(false);
+  const [dropdownFocus, setDropdownFocus] = useState(false);
   const router = useRouter();
   //Manual sort since something is bugged in Agility item order returned from Agility...
   // mainNavigation.forEach((group) => {
@@ -67,11 +68,15 @@ const MainNavigation = ({
                 }`
           }
           ${searchToggled && style.disabled}
+          ${!dropdownFocus && style.disabled}
           `}
           aria-label="Toggle dropdown menu"
           aria-controls={
             navigationGroup.fields.columns ? navigationGroup.contentID : null
           }
+          onClick={(e) => { e.target.blur(); setDropdownFocus(false) }}
+          onMouseEnter={() => setDropdownFocus(true)}
+          onFocus={() => setDropdownFocus(true)}
         >
           {/* Group Main Link */}
           <a
@@ -105,6 +110,7 @@ const MainNavigation = ({
                     : style.dropdownClosed
                 } 
                 `}
+                onClick={() => setDropdownFocus(false)}
               >
                 {navigationGroup.fields.columns?.map(
                   (navigationColumn, index) => (

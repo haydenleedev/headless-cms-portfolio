@@ -1,0 +1,28 @@
+@import "../../styles/settings/colors";
+@import "../../styles/settings/mixins";
+
+.section {
+    display: none;
+    padding-bottom: 0;
+    @include desktop() {
+        display: block;
+    }
+}
+
+.breadcrumbs {
+    display: flex;
+    gap: .75rem;
+    div {
+        p {
+            display: inline;
+            font-size: .8rem;
+            text-transform: uppercase;
+        }
+        a {
+            color: $color-lightblue;
+        }
+        .separator {
+            margin-left: .75rem;
+        }
+    }
+}

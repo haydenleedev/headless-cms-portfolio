@@ -34,6 +34,7 @@ import TextWithCard from "./textWithCard/textWithCard";
 import TableWithHeading from "./tableWithHeading/tableWithHeading";
 import ApplySmoothScrolling from "./applySmoothScrolling/applySmoothScrolling";
 import HiddenH1 from "./hiddenH1/hiddenH1";
+import Breadcrumbs from "../breadcrumbs/breadcrumbs";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -90,7 +91,8 @@ const allModules = [
   { name: "TextWithCard", module: TextWithCard },
   { name: "TableWithHeading", module: TableWithHeading },
   { name: "ApplySmoothScrolling", module: Placeholder },
-  { name: "HiddenH1", module: HiddenH1 }
+  { name: "HiddenH1", module: HiddenH1 },
+  { name: "Breadcrumbs", module: Breadcrumbs }
 ];
 
 export const getModule = (moduleName) => {
