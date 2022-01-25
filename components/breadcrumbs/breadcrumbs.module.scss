@@ -3,8 +3,9 @@
 
 .section {
     display: none;
-    padding-bottom: 0;
     @include desktop() {
+        padding-bottom: 1rem;
+        padding-top: 1rem;
         display: block;
     }
 }
