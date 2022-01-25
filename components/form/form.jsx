@@ -14,7 +14,7 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     // override form's submit button text if provided
     if (formLoaded && submitButtonText && formRef.current) {
       const submit = formRef.current.querySelector("button[type=submit]");
-      if (submit) submit.innerText = submitButtonText;
+      if (submit) submit.innerHTML = submitButtonText;
     }
   }, [formLoaded]);
 
