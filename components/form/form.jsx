@@ -29,7 +29,7 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
           attributes: true,
         });
     }
-  }, [formLoaded]);
+  }, [formLoaded, submitButtonText]);
 
   return marketoFormID ? (
     <>
