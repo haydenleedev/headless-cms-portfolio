@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { sleep } from "../../utils/generic";
 import { FormLoader } from "../agility-pageModules/textWithForm/textWithForm";
 
 const Form = ({ submitButtonText, formLoaded, formID }) => {
@@ -11,10 +12,22 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     : null;
 
   useEffect(() => {
+    // if (formLoaded && submitButtonText && formRef.current) {
+    // const submit = formRef.current.querySelector("button[type=submit]");
+    // if (submit) submit.innerText = submitButtonText;
+    // }
+
     // override form's submit button text if provided
-    if (formLoaded && submitButtonText && formRef.current) {
+    var observer = new MutationObserver(function (mutations) {
       const submit = formRef.current.querySelector("button[type=submit]");
-      if (submit) submit.innerHTML = submitButtonText;
+      if (submit && submitButtonText) submit.innerText = submitButtonText;
+    });
+    if (marketoFormID) {
+      var form = document.getElementById(`mktoForm_${marketoFormID}`);
+      if (form)
+        observer.observe(form, {
+          attributes: true,
+        });
     }
   }, [formLoaded, submitButtonText]);
 
