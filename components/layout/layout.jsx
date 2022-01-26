@@ -30,7 +30,13 @@ const Layout = (props) => {
 
   // if page not found, throw 404
   if (notFound === true) {
-    return <Error statusCode={404} />;
+    // Prevent 404 when previewing content items
+    if (router.asPath.includes("?ContentID=")) {
+      return <p>Loading...</p>;
+    }
+    else {
+      return <Error statusCode={404} />;
+    }
   }
 
   const AgilityPageTemplate = getPageTemplate(pageTemplateName);
