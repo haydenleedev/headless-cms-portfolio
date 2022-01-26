@@ -8,9 +8,21 @@ import { getPageTemplate } from "../agility-pageTemplates";
 import { handlePreview } from "@agility/nextjs";
 import { useRouter } from "next/router";
 import Error from "next/error";
+import Head from "next/head";
 
 const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+const Loader = () => {
+  return (
+    <>
+      <Head>
+        <title>Loading...</title>
+      </Head>
+      <p>Loading...</p>
+    </>
+  );
+}
 
 const Layout = (props) => {
   const {
@@ -25,14 +37,14 @@ const Layout = (props) => {
   // initially until getStaticProps() finishes running
   const router = useRouter();
   if (router.isFallback) {
-    return <p>Loading...</p>;
+    return <Loader />
   }
 
   // if page not found, throw 404
   if (notFound === true) {
     // Prevent 404 when previewing content items
     if (router.asPath.includes("?ContentID=")) {
-      return <p>Loading...</p>;
+      return <Loader />
     }
     else {
       return <Error statusCode={404} />;
