@@ -20,7 +20,7 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     // override form's submit button text if provided
     var observer = new MutationObserver(function (mutations) {
       const submit = formRef.current.querySelector("button[type=submit]");
-      if (submit) submit.innerText = submitButtonText;
+      if (submit && submitButtonText) submit.innerText = submitButtonText;
     });
     if (marketoFormID) {
       var form = document.getElementById(`mktoForm_${marketoFormID}`);
