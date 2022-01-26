@@ -10,7 +10,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
   const marketoFormID = formID ? parseInt(splitID[splitID.length - 1]) : null;
   // Have to use Ref instead of state since we trigger it inside an event listener
   const metaAdded = useRef(false);
-
+  const [mutated, setMutated] = useState(false);
   const gaMeta = [
     {
       name: "ga_user_id__c",
@@ -80,13 +80,15 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
       data.whenReady(handleSetFormLoaded);
     }
     var observer = new MutationObserver(function (mutations) {
-      mutations[0].target.removeAttribute("class");
-      mutations[0].target.removeAttribute("style");
-      var emailInput = mutations[0].target.elements["Email"];
-      emailInput?.addEventListener?.("input", (evt) => {
-        addMetaToHead(evt.data);
-      });
-      
+      if (!mutated) {
+        mutations[0].target.removeAttribute("class");
+        mutations[0].target.removeAttribute("style");
+        var emailInput = mutations[0].target.elements["Email"];
+        emailInput?.addEventListener?.("input", (evt) => {
+          addMetaToHead(evt.data);
+        });
+        setMutated(true);
+      }
     });
     if (marketoFormID) {
       var form = document.getElementById(`mktoForm_${marketoFormID}`);

@@ -374,7 +374,6 @@ var SelectListFromAPICustomField = function () {
           };
         },
         current: function (data) {
-          console.log("current", data);
         },
         cache: true,
       },
