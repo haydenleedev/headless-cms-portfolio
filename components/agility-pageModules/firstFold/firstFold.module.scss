@@ -8,7 +8,7 @@
   // default firstFold layout
   .defaultLayout {
     display: flex;
-    gap: 1rem;
+    gap: 1.7rem;
     align-items: center;
     flex-direction: column;
     @include desktop() {
