@@ -77,8 +77,9 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         process.env.NEXT_PUBLIC_MARKETO_ID,
         marketoFormID
       );
-      data.whenReady(handleSetFormLoaded);
+      // data.whenReady(handleSetFormLoaded);
     }
+
     var observer = new MutationObserver(function (mutations) {
       if (!mutated) {
         mutations[0].target.removeAttribute("class");
@@ -90,6 +91,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         setMutated(true);
       }
     });
+
     if (marketoFormID) {
       var form = document.getElementById(`mktoForm_${marketoFormID}`);
       if (form)
@@ -128,7 +130,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         onLoad={() =>
           onScriptLoad().then(() => {
             // document.getElementById("mktoForm_loader").remove();
-            if (handleSetFormLoaded) handleSetFormLoaded();
+            // if (handleSetFormLoaded) handleSetFormLoaded();
           })
         }
       />
