@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { sleep } from "../../utils/generic";
 import { FormLoader } from "../agility-pageModules/textWithForm/textWithForm";
 
 const Form = ({ submitButtonText, formLoaded, formID }) => {
   const formRef = useRef(null);
-  const [loading, setLoading] = useState(true);
-  const [mounted, setMounted] = useState(false);
   // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"
   const marketoFormID = formID
     ? parseInt(formID.split("_")[formID.split("_").length - 1])
@@ -21,6 +18,9 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     var observer = new MutationObserver(function (mutations) {
       const submit = formRef.current.querySelector("button[type=submit]");
       if (submit && submitButtonText) submit.innerText = submitButtonText;
+      if (document.getElementById("mktoForm_loader")) {
+        document.getElementById("mktoForm_loader").remove();
+      }
     });
     if (marketoFormID) {
       var form = document.getElementById(`mktoForm_${marketoFormID}`);
@@ -38,8 +38,7 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         ref={formRef}
         className={`marketoForm ${formLoaded ? "is-hidden" : ""}`}
       ></form>
-      {/* {!formLoaded && <FormLoader/>} */}
-      {/* <FormLoader></FormLoader> */}
+      <FormLoader />
     </>
   ) : null;
 };
