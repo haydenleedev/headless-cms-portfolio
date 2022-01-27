@@ -16,10 +16,10 @@ export const toPacificDateTime = (date) => {
     day: "numeric",
     month: "long",
     year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZone: "America/Los_Angeles",
-    timeZoneName: "short",
+    //  hour: "2-digit",
+    //  minute: "2-digit",
+    // timeZone: "America/Los_Angeles",
+    // timeZoneName: "short",
   });
 };
 
@@ -159,6 +159,7 @@ export const sanitizeHtmlConfig = {
   },
   transformTags: {
     a: function (tagName, attribs) {
+      // Remove trailing slash
       if (attribs.href) {
         attribs.href = attribs.href.replace(/\/$/, "");
       }

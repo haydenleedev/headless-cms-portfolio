@@ -314,6 +314,8 @@ const FirstFold = ({ module, customData }) => {
               !fields.imageLink && (
                 <div
                   className={`${style.image} ${
+                    fields.imageBottomMargin ? fields.imageBottomMargin : ""
+                  } ${fields.linkClasses ? fields.linkClasses : ""} ${
                     style[
                       `mediaBasis${
                         100 - parseInt(fields.textWidthPercentage) || 50
@@ -336,8 +338,8 @@ const FirstFold = ({ module, customData }) => {
                 <AgilityLink
                   agilityLink={fields.imageLink}
                   className={`${style.imageLink} ${
-                    fields.linkClasses ? fields.linkClasses : ""
-                  } ${
+                    fields.imageBottomMargin ? fields.imageBottomMargin : ""
+                  } ${fields.linkClasses ? fields.linkClasses : ""} ${
                     style[
                       `mediaBasis${
                         100 - parseInt(fields.textWidthPercentage) || 50

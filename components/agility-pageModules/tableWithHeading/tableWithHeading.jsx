@@ -12,12 +12,18 @@ const TableWithHeading = ({ module }) => {
           <table id={style.table}>
             <tbody>
               <tr>
+                {fields.leftRowHeading && <th>{fields.leftRowHeading}</th>}
+
                 <th>{fields.leftColumnLabel}</th>
                 <th>{fields.rightColumnLabel}</th>
               </tr>
               {fields.tableCells.map((cell, index) => {
                 return (
                   <tr key={`cell${index}`}>
+                    {cell.fields.leftRowHeadingValue && (
+                      <td>{cell.fields.leftRowHeadingValue}</td>
+                    )}
+
                     <td>{cell.fields.leftColumnValue}</td>
                     <td>{cell.fields.rightColumnValue}</td>
                   </tr>
