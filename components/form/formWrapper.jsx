@@ -77,7 +77,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         process.env.NEXT_PUBLIC_MARKETO_ID,
         marketoFormID
       );
-      // data.whenReady(handleSetFormLoaded);
+      data.whenReady(handleSetFormLoaded);
     }
 
     var observer = new MutationObserver(function (mutations) {
@@ -130,7 +130,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         onLoad={() =>
           onScriptLoad().then(() => {
             // document.getElementById("mktoForm_loader").remove();
-            // if (handleSetFormLoaded) handleSetFormLoaded();
+            if (handleSetFormLoaded) handleSetFormLoaded();
           })
         }
       />
