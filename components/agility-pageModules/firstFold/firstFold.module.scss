@@ -30,9 +30,6 @@
   .heading {
     max-width: 37.5rem;
     margin-top: 1rem;
-    @include desktop () {
-      margin-top: unset;
-    }
   }
   .textContent {
     display: flex;
@@ -137,14 +134,14 @@
 
   .primaryLink {
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     padding: 0.5em 2em;
     border-radius: 3em;
     border-width: 0.15em;
   }
   .secondaryLink {
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     padding: 0.5em 2em;
     border-radius: 3em;
     border-width: 0.15em;
@@ -306,7 +303,7 @@
       }
       flex-basis: 100%;
       padding-bottom: 2rem;
-      @include desktop () {
+      @include desktop() {
         border-bottom: 0.1rem solid $color-gray;
       }
     }
