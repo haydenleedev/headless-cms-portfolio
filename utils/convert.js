@@ -159,7 +159,6 @@ export const sanitizeHtmlConfig = {
   },
   transformTags: {
     a: function (tagName, attribs) {
-      // Remove trailing slash
       if (attribs.href) {
         attribs.href = attribs.href.replace(/\/$/, "");
       }
