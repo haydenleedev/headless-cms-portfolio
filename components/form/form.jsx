@@ -8,6 +8,8 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     ? parseInt(formID.split("_")[formID.split("_").length - 1])
     : null;
 
+  const [loaderVisible, setLoaderVisible] = useState(true);
+
   useEffect(() => {
     // if (formLoaded && submitButtonText && formRef.current) {
     // const submit = formRef.current.querySelector("button[type=submit]");
@@ -18,8 +20,11 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     var observer = new MutationObserver(function (mutations) {
       const submit = formRef.current.querySelector("button[type=submit]");
       if (submit && submitButtonText) submit.innerText = submitButtonText;
-      if (document.getElementById("mktoForm_loader")) {
-        document.getElementById("mktoForm_loader").remove();
+      if (formRef.current && !formRef.current.innerHTML) {
+        setLoaderVisible(true);
+      }
+      else if (document.getElementById("mktoForm_loader")) {
+        setLoaderVisible(false);
       }
     });
     if (marketoFormID) {
@@ -37,8 +42,11 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         id={`mktoForm_${marketoFormID}`}
         ref={formRef}
         className={`marketoForm ${formLoaded ? "is-hidden" : ""}`}
-      ></form>
-      <FormLoader />
+      >
+      </form>
+      {loaderVisible &&
+        <FormLoader />
+      }
     </>
   ) : null;
 };
