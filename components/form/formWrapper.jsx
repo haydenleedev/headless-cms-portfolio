@@ -79,6 +79,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
       );
       data.whenReady(handleSetFormLoaded);
     }
+
     var observer = new MutationObserver(function (mutations) {
       if (!mutated) {
         mutations[0].target.removeAttribute("class");
@@ -90,6 +91,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         setMutated(true);
       }
     });
+
     if (marketoFormID) {
       var form = document.getElementById(`mktoForm_${marketoFormID}`);
       if (form)
