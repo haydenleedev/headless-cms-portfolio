@@ -1,16 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { sleep } from "../../utils/generic";
 import { FormLoader } from "../agility-pageModules/textWithForm/textWithForm";
 
 const Form = ({ submitButtonText, formLoaded, formID }) => {
   const formRef = useRef(null);
-  const [loading, setLoading] = useState(true);
-  const [mutated, setMutated] = useState(false);
   // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"
   const marketoFormID = formID
     ? parseInt(formID.split("_")[formID.split("_").length - 1])
     : null;
 
+  const [loaderVisible, setLoaderVisible] = useState(true);
 
   useEffect(() => {
     // if (formLoaded && submitButtonText && formRef.current) {
@@ -18,20 +16,22 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     // if (submit) submit.innerText = submitButtonText;
     // }
     // override form's submit button text if provided
-    if (!mutated) {
-      setMutated(true);
-      var observer = new MutationObserver(function (mutations) {
-        const submit = formRef.current.querySelector("button[type=submit]");
-        if (submit && submitButtonText) submit.innerText = submitButtonText;
-        setLoading(false);
-      });
-      if (marketoFormID) {
-        var form = document.getElementById(`mktoForm_${marketoFormID}`);
-        if (form)
-          observer.observe(form, {
-            attributes: true,
-          });
+    var observer = new MutationObserver(function (mutations) {
+      const submit = formRef.current.querySelector("button[type=submit]");
+      if (submit && submitButtonText) submit.innerText = submitButtonText;
+      if (formRef.current && !formRef.current.innerHTML) {
+        setLoaderVisible(true);
       }
+      else if (document.getElementById("mktoForm_loader")) {
+        setLoaderVisible(false);
+      }
+    });
+    if (marketoFormID) {
+      var form = document.getElementById(`mktoForm_${marketoFormID}`);
+      if (form)
+        observer.observe(form, {
+          attributes: true,
+        });
     }
   }, []);
 
@@ -41,10 +41,11 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         id={`mktoForm_${marketoFormID}`}
         ref={formRef}
         className={`marketoForm ${formLoaded ? "is-hidden" : ""}`}
-      ></form>
-      {/* {!formLoaded && <FormLoader/>} */}
-      {loading && <FormLoader></FormLoader>}
-      {/* <FormLoader></FormLoader> */}
+      >
+      </form>
+      {loaderVisible &&
+        <FormLoader />
+      }
     </>
   ) : null;
 };

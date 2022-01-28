@@ -121,14 +121,16 @@ const FormLoader = () => {
         <div className="mktoFormRow" key={key}>
           <div className="mktoFieldDescriptor mktoFormCol">
             <div className="mktoFieldWrap">
-              <label className="mktoLabel">᠎</label>
+              <label className="mktoLabel">Loading...</label>
               <input className="mktoField mktoHasWidth" disabled></input>
             </div>
           </div>
         </div>
       ))}
       <div>
-        <button className="mktoButton">᠎</button>
+        <div className="mktoButtonRow">
+          <button className="mktoButton">Loading...</button>
+        </div>
       </div>
     </form>
   );
