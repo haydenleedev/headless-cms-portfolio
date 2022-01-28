@@ -805,8 +805,8 @@
     "permanent": true
   },
   {
-    "source": "/test",
-    "destination": "/",
+    "source": "/partner-referral",
+    "destination": "https://info.ujet.co/channel-opportunity-request.html",
     "permanent": true
   }
 ]
