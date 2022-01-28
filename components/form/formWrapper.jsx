@@ -11,7 +11,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
   // Have to use Ref instead of state since we trigger it inside an event listener
   const metaAdded = useRef(false);
   const [mutated, setMutated] = useState(false);
-  const [formLoaded, setFormLoaded] = useState(false);
+  const [formLoading, setFormLoading] = useState(false);
   const gaMeta = [
     {
       name: "ga_user_id__c",
@@ -110,16 +110,14 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
 
   const onScriptLoad = () => {
     return new Promise((resolve) => {
-      if (marketoFormID) {
-        if (!formLoaded) {
+      if (marketoFormID && !formLoading) {
+          setFormLoading(true);
           const data = window.MktoForms2.loadForm(
             "//info.ujet.co",
             process.env.NEXT_PUBLIC_MARKETO_ID,
             marketoFormID
           );
           data.whenReady(resolve);
-          data.whenReady(setFormLoaded(true));
-        }
       } else resolve();
     });
   };
