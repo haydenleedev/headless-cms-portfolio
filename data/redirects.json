@@ -803,5 +803,10 @@
     "source": "/unified-cx-for-the-smart-phone-era-2",
     "destination": "/",
     "permanent": true
+  },
+  {
+    "source": "/partner-referral",
+    "destination": "https://info.ujet.co/Channel-Opportunity-Request.html",
+    "permanent": true
   }
 ]
