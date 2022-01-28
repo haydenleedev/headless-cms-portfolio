@@ -5,7 +5,6 @@ const api = agility.getApi({
   guid: process.env.AGILITY_GUID,
   apiKey: process.env.AGILITY_API_FETCH_KEY,
 });
-
 const getAgilityRedirects = () => {
   return api.getUrlRedirections({ lastAccessDate: null });
 };

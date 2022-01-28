@@ -803,5 +803,10 @@
     "source": "/unified-cx-for-the-smart-phone-era-2",
     "destination": "/",
     "permanent": true
+  },
+  {
+    "source": "/test",
+    "destination": "/",
+    "permanent": true
   }
 ]
