@@ -8,6 +8,8 @@ import AgilityLink from "../../agilityLink";
 import { resolveCategory, sanitizeHtmlConfig } from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
+import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
+import { useRouter } from "next/router";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;
@@ -17,6 +19,16 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   const handleSetFormLoaded = () => {
     setFormLoaded(true);
   };
+
+const { asPath } = useRouter();
+let resourceCategory;
+// Integrations are not under /resources/
+if (asPath.includes("/resources/")) {
+  resourceCategory = asPath.split("/resources/")[1].split("/")[0];
+}
+else {
+  resourceCategory = asPath.split("/")[1];
+}
 
   return (
     <>
@@ -68,6 +80,16 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                 </div>
               </div>
             </section>
+            <Breadcrumbs breadcrumbs={
+                [
+                  { name: "Home", path: "/" },
+                  { name: "Resources", path: "/resources" },
+                  { name: resourceCategory.replace(/-/g, " "), path: `/archives?type=resources&categories=${resourceCategory.replace(/-/g, "")}`},
+                  { name: resource.title }
+                ]
+              }
+              className={"pt-3 pb-6 mb-5"}
+            />
             <section className="section">
               <div className={`container ${style.alternateContent}`}>
                 <div className="columns repeat-2">
@@ -109,48 +131,59 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
             </section>
           </>
         ) : (
-          <section className="section">
-            <div className="container">
-              <div className={style.columns}>
-                <div className={style.content}>
-                  <h1 className="heading-5">{resource.title}</h1>
+          <>
+            <Breadcrumbs breadcrumbs={
+                [
+                  { name: "Home", path: "/" },
+                  { name: "Resources", path: "/resources" },
+                  { name: resourceCategory.replace(/-/g, " "), path: `/archives?type=resources&categories=${resourceCategory.replace(/-/g, "")}`},
+                  { name: resource.title }
+                ]
+              }
+            />
+            <section className="section">
+              <div className="container">
+                <div className={style.columns}>
+                  <div className={style.content}>
+                    <h1 className="heading-5">{resource.title}</h1>
+                    <div
+                      className="content mt-4"
+                      dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+                    />
+                  </div>
                   <div
-                    className="content mt-4"
-                    dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                  />
-                </div>
-                <div
-                  className={`${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`}
-                >
-                  {/\S/.test(resource.formTitle) && (
-                    <h2 className={`${style.formTitle} heading-6`}>
-                      {resource.formTitle ||
-                        "Fill out the form to download the the resource today!"}
-                    </h2>
-                  )}
-                  <Form
-                    formLoaded={formLoaded}
-                    formID={resource.marketoFormID}
-                  />
-                  {resource.link.href && (
-                    <div className="mt-4 align-center">
-                      <p>
-                        {resource.footerText
-                          ? resource.footerText
-                          : "Want to learn more about UJET?"}
-                      </p>
-                      <AgilityLink
-                        className="text-decoration-underline"
-                        agilityLink={resource.link}
-                      >
-                        {resource.link.text}
-                      </AgilityLink>
-                    </div>
-                  )}
+                    className={`${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`}
+                  >
+                    {/\S/.test(resource.formTitle) && (
+                      <h2 className={`${style.formTitle} heading-6`}>
+                        {resource.formTitle ||
+                          "Fill out the form to download the the resource today!"}
+                      </h2>
+                    )}
+                    <Form
+                      formLoaded={formLoaded}
+                      formID={resource.marketoFormID}
+                    />
+                    {resource.link.href && (
+                      <div className="mt-4 align-center">
+                        <p>
+                          {resource.footerText
+                            ? resource.footerText
+                            : "Want to learn more about UJET?"}
+                        </p>
+                        <AgilityLink
+                          className="text-decoration-underline"
+                          agilityLink={resource.link}
+                        >
+                          {resource.link.text}
+                        </AgilityLink>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </>
         )}
       </FormWrapper>
     </>
