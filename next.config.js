@@ -37,7 +37,16 @@ module.exports = {
         });
       });
     });
-    return redirects;
+    return (
+      redirects +
+      [
+        {
+          source: "/partner-referral",
+          destination: "https://info.ujet.co/channel-opportunity-request.html",
+          permanent: true,
+        },
+      ]
+    );
   },
   images: {
     domains: ["assets.ujet.cx"],
