@@ -35,6 +35,7 @@ import TableWithHeading from "./tableWithHeading/tableWithHeading";
 import ApplySmoothScrolling from "./applySmoothScrolling/applySmoothScrolling";
 import HiddenH1 from "./hiddenH1/hiddenH1";
 import Breadcrumbs from "../breadcrumbs/breadcrumbs";
+import ScriptLoader from "./scriptLoader/scriptLoader";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -92,7 +93,8 @@ const allModules = [
   { name: "TableWithHeading", module: TableWithHeading },
   { name: "ApplySmoothScrolling", module: Placeholder },
   { name: "HiddenH1", module: HiddenH1 },
-  { name: "Breadcrumbs", module: Breadcrumbs }
+  { name: "Breadcrumbs", module: Breadcrumbs },
+  { name: "ScriptLoader", module: ScriptLoader }
 ];
 
 export const getModule = (moduleName) => {
