@@ -38,3 +38,4 @@ env.local
 
 # Generated build time
 /public/sitemap.xml
+excludedPages.json
