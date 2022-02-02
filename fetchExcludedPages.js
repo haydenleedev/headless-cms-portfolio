@@ -26,7 +26,7 @@ const getExcludedPages = async () => {
         }
     });
     fs.writeFile(
-        "./excludedPages.json",
+        "./data/excludedPages.json",
         JSON.stringify(excludedPages),
         (err) => {
             if (err) throw err;
