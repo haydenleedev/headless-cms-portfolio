@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node ./fetchExcludedPages.js && next dev",
-    "build": "node ./fetchExcludedPages.js && next build",
+    "dev": "node ./fetchAgilityRedirects && node ./fetchExcludedPages.js && next dev",
+    "build": "node ./fetchAgilityRedirects && node ./fetchExcludedPages.js && next build",
     "start": "next start",
     "postbuild": "next-sitemap",
     "lint": "next lint"
