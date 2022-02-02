@@ -808,5 +808,15 @@
     "source": "/partner-referral",
     "destination": "https://info.ujet.co/channel-opportunity-request.html",
     "permanent": true
+  },
+  {
+    "source": "/url",
+    "destination": "https://haydenleedev.github.io/ujet-url-builder/url/",
+    "permanent": true
+  },
+  {
+    "source": "/url2",
+    "destination": "https://haydenleedev.github.io/ujet-url-builder/url2/",
+    "permanent": true
   }
 ]
