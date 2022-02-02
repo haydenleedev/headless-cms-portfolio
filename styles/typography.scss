@@ -14,7 +14,7 @@ body {
 a,
 button,
 li {
-  &:focus {
+  &:focus:not(:hover) {
     @include outline();
     &:not(:focus-visible) {
       outline: none;
@@ -29,7 +29,7 @@ a {
   cursor: pointer;
   color: inherit;
   text-decoration: none;
-  &:focus {
+  &:focus:not(:hover) {
     .genericCard {
       @include outline();
     }
@@ -44,7 +44,19 @@ a {
       @include outline();
     }
   }
-  @media (pointer: coarse) {
+  
+  @media (any-pointer: coarse) {
+    &:hover {
+      @include outline();
+      .genericCard {
+        @include outline();
+      }
+    }
+  }
+}
+
+button {
+  @media (any-pointer: coarse) {
     &:hover {
       @include outline();
     }
