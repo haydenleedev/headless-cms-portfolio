@@ -34,6 +34,8 @@
   }
 
   nav {
+    // Overflow fallback for Safari
+    overflow-x: hidden;
     overflow-x: clip;
     background: white;
     display: flex;

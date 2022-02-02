@@ -3,6 +3,8 @@
 .slider {
   position: relative;
   min-width: 100%;
+  // Overflow fallback for Safari
+  overflow-x: hidden;
   overflow-x: clip;
   .sliderTrack {
     display: flex;
