@@ -15,9 +15,16 @@ const writeAgilityRedirects = async () => {
     const redirects = [];
     await getAgilityRedirects().then((agilityRedirects) => {
         agilityRedirects.items.forEach((item) => {
+            let destination;
+            if (item.destinationUrl.includes("~/")) {
+                destination = item.destinationUrl.split("~")[1];
+            }
+            else {
+                destination = item.destinationUrl;
+            }
             redirects.push({
                 source: item.originUrl.split("~")[1],
-                destination: item.destinationUrl.split("~")[1],
+                destination: destination,
                 permanent: item.statusCode == 301,
             });
         });
