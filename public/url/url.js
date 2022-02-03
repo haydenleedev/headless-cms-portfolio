@@ -1,4 +1,6 @@
 console.log("ready!");
+console.log($);
+
 var $webUrl = $("#website_url");
 var $faResult = $("#facebook-result-final");
 var $liResult = $("#linkedin-result-final");

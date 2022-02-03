@@ -47,6 +47,7 @@ import EventsPageContent from "./eventsPageContent/eventsPageContent";
 import AwardsPageContent from "./awardsPageContent/awardsPageContent";
 import LeadershipPageContent from "./leadershipPageContent/leadershipPageContent";
 import SearchPageContent from "./searchPageContent/searchPageContent";
+import GlossaryPageContent from "./glossaryPageContent/glossaryPageContent";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -94,7 +95,8 @@ const allModules = [
   { name: "ApplySmoothScrolling", module: Placeholder },
   { name: "HiddenH1", module: HiddenH1 },
   { name: "Breadcrumbs", module: Breadcrumbs },
-  { name: "ScriptLoader", module: ScriptLoader }
+  { name: "ScriptLoader", module: ScriptLoader },
+  { name: "GlossaryPageContent", module: GlossaryPageContent },
 ];
 
 export const getModule = (moduleName) => {

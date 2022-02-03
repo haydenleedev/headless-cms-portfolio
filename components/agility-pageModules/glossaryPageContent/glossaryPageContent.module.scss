@@ -1,0 +1,115 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
+.alpha-tag-nav {
+  top: 88px;
+  @include desktop() {
+    .alpha-tag-nav {
+      position: sticky;
+      top: toRem(122);
+      margin-top: toRem(10);
+      z-index: 99;
+    }
+  }
+}
+
+.word-anchor {
+  font-weight: 600;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: 20px;
+  font-size: toRem(20);
+  color: $color-darkblue;
+}
+
+.w-800px {
+  padding-left: 0;
+  padding-right: 0;
+  @include desktop() {
+    .w-800px {
+      width: 100%;
+      max-width: toRem(820);
+      margin: toRem(30) auto;
+    }
+  }
+}
+
+.alpha-tags {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0 1.25rem;
+  background-color: $color-white;
+  a.selected {
+    background-color: $color-darkblue;
+    color: $color-white;
+  }
+  li {
+    margin: 0 toRem(1);
+  }
+  a,
+  span {
+    font-size: 14px;
+    padding: 7px;
+    border: 1px solid $color-darkblue;
+    border-radius: toRem(5);
+    @include desktop() {
+      .alpha-tags a,
+      .alpha-tags span {
+        padding: toRem(8);
+      }
+    }
+  }
+  @include desktop() {
+    .alpha-tags {
+      justify-content: space-evenly;
+      margin: 0 toRem(20);
+    }
+  }
+}
+
+.glossary-anchor {
+  padding-right: 0.3rem;
+  opacity: 0;
+}
+.css-0 {
+  cursor: pointer;
+}
+.css-0:hover .glossary-anchor {
+  opacity: 1;
+}
+
+h2.css-0 {
+  font-weight: 600;
+  font-size: toRem(50);
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: toRem(20);
+}
+h3.css-0 {
+  font-weight: 600;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-top: toRem(20);
+}
+h2.css-0:before {
+  background: none;
+}
+.display {
+  margin-top: toRem(40);
+  p {
+    padding-left: toRem(20);
+    padding-bottom: toRem(10);
+  }
+}
+.glossary-title {
+  font-size: toRem(40);
+  font-weight: 600;
+  padding: 0 toRem(20);
+  margin-bottom: toRem(20);
+}
+.text-20px {
+  font-size: toRem(20);
+}
