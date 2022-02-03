@@ -17,7 +17,7 @@ li {
   &:focus:not(:hover) {
     @include outline();
     &:not(:focus-visible) {
-      outline: none;
+      outline: none !important;
     }
   }
   &:focus-visible {
@@ -35,7 +35,7 @@ a {
     }
     &:not(:focus-visible) {
       .genericCard {
-        outline: none;
+        outline: none !important;
       }
     }
   }
@@ -44,7 +44,6 @@ a {
       @include outline();
     }
   }
-  
   @media (any-pointer: coarse) {
     &:hover {
       @include outline();
