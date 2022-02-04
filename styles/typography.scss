@@ -14,38 +14,17 @@ body {
 a,
 button,
 li {
-  @supports #{'\selector(*:focus-visible)'} {
-    &:not(:focus-visible) {
-      outline: none !important;
-    }
-    &:focus-visible {
-      @include outline();
-    }
-  }
-  @supports #{'\not selector(*:focus-visible)'} {
-    &:focus {
-      @include outline();  
-    }
-  }
+  @include focus-visible-outline();
 }
 
 a {
   cursor: pointer;
   color: inherit;
   text-decoration: none;
-  @media (any-pointer: coarse) {
-    &:hover {
-      @include outline();
-    }
-  }
 }
 
-button {
-  @media (any-pointer: coarse) {
-    &:hover {
-      @include outline();
-    }
-  }
+a, button {
+  @include touch-focus-outline();
 }
 
 p {
