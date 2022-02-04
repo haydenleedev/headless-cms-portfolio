@@ -32,7 +32,11 @@
       top: 0;
       z-index: 2;
       background-color: white;
+      select, input {
+        @include focus-visible-touch-outlines();
+      }
       .mobileCategoryToggle {
+        @include focus-visible-touch-outlines();
         cursor: pointer;
         .chevron {
           height: 1rem;

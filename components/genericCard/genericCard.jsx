@@ -19,6 +19,7 @@ const GenericCard = ({
       agilityLink={link}
       ariaLabel={"Navigate to : " + ariaTitle}
       title={ariaTitle}
+      className="genericCardWrapper"
     >
       <div className="genericCard">
         {image && (
