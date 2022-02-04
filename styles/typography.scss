@@ -14,14 +14,18 @@ body {
 a,
 button,
 li {
-  &:focus:not(:hover) {
-    @include outline();
+  @supports #{'\selector(*:focus-visible)'} {
     &:not(:focus-visible) {
       outline: none !important;
     }
+    &:focus-visible {
+      @include outline();
+    }
   }
-  &:focus-visible {
-    @include outline();
+  @supports #{'\not selector(*:focus-visible)'} {
+    &:focus {
+      @include outline();  
+    }
   }
 }
 
@@ -29,27 +33,9 @@ a {
   cursor: pointer;
   color: inherit;
   text-decoration: none;
-  &:focus:not(:hover) {
-    .genericCard {
-      @include outline();
-    }
-    &:not(:focus-visible) {
-      .genericCard {
-        outline: none !important;
-      }
-    }
-  }
-  &:focus-visible {
-    .genericCard {
-      @include outline();
-    }
-  }
   @media (any-pointer: coarse) {
     &:hover {
       @include outline();
-      .genericCard {
-        @include outline();
-      }
     }
   }
 }
