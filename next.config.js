@@ -1,13 +1,5 @@
-const agility = require("@agility/content-fetch");
 const redirects = require("./data/redirects.json");
-
-const api = agility.getApi({
-  guid: process.env.AGILITY_GUID,
-  apiKey: process.env.AGILITY_API_FETCH_KEY,
-});
-const getAgilityRedirects = () => {
-  return api.getUrlRedirections({ lastAccessDate: null });
-};
+const agilityRedirects = require("./data/agilityRedirects.json");
 
 module.exports = {
   rewrites() {
@@ -27,14 +19,8 @@ module.exports = {
     };
   },
   async redirects() {
-    await getAgilityRedirects().then((agilityRedirects) => {
-      agilityRedirects.items.forEach((item) => {
-        redirects.push({
-          source: item.originUrl.split("~")[1],
-          destination: item.destinationUrl.split("~")[1],
-          permanent: item.statusCode == 301,
-        });
-      });
+    agilityRedirects.forEach((redirect) => {
+      redirects.push(redirect);
     });
     return redirects;
   },

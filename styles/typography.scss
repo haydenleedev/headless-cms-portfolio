@@ -14,28 +14,17 @@ body {
 a,
 button,
 li {
-  &:focus {
-    outline: none;
-    /* outline: 4px solid rgba(0, 125, 250, 0.6);
-    outline-offset: 1px; */
-  }
+  @include focus-visible-outline();
 }
 
 a {
   cursor: pointer;
   color: inherit;
   text-decoration: none;
-  &:focus-visible {
-    @include outline();
-    .genericCard {
-      @include outline();
-    }
-  }
-  @media (pointer: coarse) {
-    &:hover {
-      @include outline();
-    }
-  }
+}
+
+a, button {
+  @include touch-focus-outline();
 }
 
 p {

@@ -39,6 +39,8 @@
     text-align: center;
     position: relative;
     z-index: 1;
+    // Overflow fallback for Safari
+    overflow: hidden;
     overflow: clip;
     &.textContentBasis30 {
       flex-basis: 30%;
@@ -67,6 +69,8 @@
     position: relative;
     max-height: inherit;
     margin-top: 1rem;
+    // Overflow fallback for Safari
+    overflow: hidden;
     overflow: clip;
     @include desktop() {
       margin-top: initial;

@@ -103,5 +103,34 @@
 }
 
 @mixin outline() {
-  outline: dotted 0.15rem $color-mediumblue;
+  outline: dotted 0.15rem $color-mediumblue !important;
+}
+
+@mixin focus-visible-touch-outlines() {
+  @include focus-visible-outline();
+  @include touch-focus-outline();
+}
+
+@mixin touch-focus-outline() {
+  @media (any-pointer: coarse) {
+    &:hover {
+      @include outline();
+    }
+  }
+}
+
+@mixin focus-visible-outline() {
+  @supports #{'\selector(*:focus-visible)'} {
+    &:not(:focus-visible) {
+      outline: none !important;
+    }
+    &:focus-visible {
+      @include outline();
+    }
+  }
+  @supports #{'\not selector(*:focus-visible)'} {
+    &:focus {
+      @include outline();  
+    }
+  }
 }

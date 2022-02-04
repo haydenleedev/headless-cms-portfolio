@@ -1,94 +1,126 @@
 @import "../../../styles/settings/colors";
 @import "../../../styles/settings/mixins";
 
-.archiveCard {
-  height: 100%;
-  border-radius: 1rem;
-  box-shadow: 0 0 0.45rem 0.15rem rgb(0 0 0 / 12%);
-  background-color: $color-white;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  .image {
-    max-height: 22.5rem;
-  }
-  @include desktop() {
-    .image {
-      max-height: initial;
+.archiveCardWrapper {
+  @supports #{'\selector(*:focus-visible)'} {
+    &:not(:focus-visible) {
+      .archiveCard {
+        outline: none !important;
+      }
     }
-  }
-
-  .image {
-    height: toRem(125);
-    overflow: hidden;
-    object-fit: fill;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    position: relative;
-    & > * {
-      position: absolute !important;
-      top: 0;
-      left: 0;
-      width: 100% !important;
-      height: 100% !important;
-      img {
-        max-height: unset !important;
-        min-height: unset !important;
-        height: 100% !important;
+    &:focus-visible {
+      outline: none !important;
+      .archiveCard {
+        @include outline();
       }
     }
   }
-  .textContent {
+  @supports #{'\not selector(*:focus-visible)'} {
+    &:focus {
+      outline: none !important;
+      .archiveCard {
+        @include outline();
+      }
+    }
+  }
+  @media (any-pointer: coarse) {
+    &:hover {
+      outline: none !important;
+      .archiveCard {
+        @include outline();
+      }
+    }
+  }
+  .archiveCard {
+    height: 100%;
+    border-radius: 1rem;
+    box-shadow: 0 0 0.45rem 0.15rem rgb(0 0 0 / 12%);
+    background-color: $color-white;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-
-    .date {
-      text-transform: uppercase;
-      color: $color-black;
-      font-size: 1rem;
-      padding: 1rem 1.5rem 0 1.5rem;
+    justify-content: flex-start;
+    .image {
+      max-height: 22.5rem;
     }
-
-    .category {
-      padding: 0.7rem 1.5rem;
-      display: block;
-      font-weight: 600;
-      font-size: 1rem;
+    @include desktop() {
+      .image {
+        max-height: initial;
+      }
     }
-
-    .title {
-      font-size: 1.075rem;
-      line-height: 1.2;
-      padding: 0 1.5rem 0.5rem 1.5rem;
+  
+    .image {
+      height: toRem(125);
       overflow: hidden;
-      width: 100%;
-      height: 100%;
+      object-fit: fill;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      position: relative;
+      & > * {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+        img {
+          max-height: unset !important;
+          min-height: unset !important;
+          height: 100% !important;
+        }
+      }
     }
-
-    .link {
-      padding: 0.75rem 1.5rem;
-      display: block;
-      font-weight: 600;
-      font-size: 1rem;
-      color: $color-darkblue;
-      span {
-        position: relative;
-        display: flex;
-        align-items: center;
+    .textContent {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  
+      .date {
+        text-transform: uppercase;
+        color: $color-black;
+        font-size: 1rem;
+        padding: 1rem 1.5rem 0 1.5rem;
+      }
+  
+      .category {
+        padding: 0.7rem 1.5rem;
+        display: block;
         font-weight: 600;
-        &::after {
-          content: "";
-          display: block;
-          padding: 0.1rem;
-          border-right: solid;
-          border-top: solid;
-          margin-left: 0.2rem;
-          border-width: 0.2rem;
-          border-color: $color-darkblue;
-          transform: rotate(45deg);
+        font-size: 1rem;
+      }
+  
+      .title {
+        font-size: 1.075rem;
+        line-height: 1.2;
+        padding: 0 1.5rem 0.5rem 1.5rem;
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+      }
+  
+      .link {
+        padding: 0.75rem 1.5rem;
+        display: block;
+        font-weight: 600;
+        font-size: 1rem;
+        color: $color-darkblue;
+        span {
+          position: relative;
+          display: flex;
+          align-items: center;
+          font-weight: 600;
+          &::after {
+            content: "";
+            display: block;
+            padding: 0.1rem;
+            border-right: solid;
+            border-top: solid;
+            margin-left: 0.2rem;
+            border-width: 0.2rem;
+            border-color: $color-darkblue;
+            transform: rotate(45deg);
+          }
         }
       }
     }
   }
+  
 }

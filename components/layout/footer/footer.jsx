@@ -106,6 +106,7 @@ const Footer = ({ globalData }) => {
                           height="5"
                           objectFit="contain"
                           alt=""
+                          key={award.contentID}
                         ></AgilityImage>
                         // </a>
                       )

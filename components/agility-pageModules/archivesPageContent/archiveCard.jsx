@@ -9,6 +9,7 @@ const ArchiveCard = ({ title, image, link, date, category }) => {
       agilityLink={link}
       ariaLabel={"Navigate to : " + title}
       title={title}
+      className={style.archiveCardWrapper}
     >
       <div className={style.archiveCard}>
         {(image && image.pixelWidth && (

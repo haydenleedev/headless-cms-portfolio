@@ -9,7 +9,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
   const splitID = formID?.split("_");
   const marketoFormID = formID ? parseInt(splitID[splitID.length - 1]) : null;
   // Have to use Ref instead of state since we trigger it inside an event listener
-  const metaAdded = useRef(false);
+  const gaDataAdded = useRef(false);
   const [mutated, setMutated] = useState(false);
   const [formLoading, setFormLoading] = useState(false);
   const gaMeta = [
@@ -32,8 +32,9 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
   ];
 
   // Appends meta data to head, which tag manager reads with script...
-  function addMetaToHead(seed) {
-    if (metaAdded.current) return;
+  // Also adds data to corresponding hidden form inputs
+  function addGaData(seed) {
+    if (gaDataAdded.current) return;
     // Loop and append randomized UID
     const UUID = generateUUID();
     const head = document.getElementsByTagName("head")[0];
@@ -43,6 +44,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
       meta.content = UUID + index;
       meta.id = item.id;
       head.appendChild(meta);
+      addFormInputData(document.getElementsByName(meta.name), meta.content);
     });
 
     // Page url
@@ -51,6 +53,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
     meta.content = window.location.href;
     meta.id = "ga-page-url";
     head.appendChild(meta);
+    addFormInputData(document.getElementsByName(meta.name), meta.content);
 
     // Date
     var meta = document.createElement("meta");
@@ -58,6 +61,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
     meta.content = new Date().toUTCString();
     meta.id = "ga-date";
     head.appendChild(meta);
+    addFormInputData(document.getElementsByName(meta.name), meta.content);
 
     // Marketo cookie date not sure where this comes from?
     var meta = document.createElement("meta");
@@ -65,9 +69,18 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
     meta.content = getCookie("mkto-gaCookieDate7");
     meta.id = "ga-cookie-date";
     head.appendChild(meta);
+    addFormInputData(document.getElementsByName(meta.name), meta.content);
 
     // Flag done so we don't run it again
-    metaAdded.current = true;
+    gaDataAdded.current = true;
+
+    function addFormInputData(nodeList, value) {
+      nodeList.forEach((element) => {
+        if (element.nodeName === "INPUT") {
+          element.value = value;
+        }
+      });
+    }
   }
 
   useEffect(() => {
@@ -87,7 +100,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         mutations[0].target.removeAttribute("style");
         var emailInput = mutations[0].target.elements["Email"];
         emailInput?.addEventListener?.("input", (evt) => {
-          addMetaToHead(evt.data);
+          addGaData(evt.data);
         });
         setMutated(true);
       }

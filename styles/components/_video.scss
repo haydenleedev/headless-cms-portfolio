@@ -1,4 +1,5 @@
 .video {
   width: 100%;
   max-width: 100vw;
+  @include focus-visible-outline();
 }
