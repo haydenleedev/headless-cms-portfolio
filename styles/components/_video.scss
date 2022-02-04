@@ -1,4 +1,17 @@
 .video {
   width: 100%;
   max-width: 100vw;
+  @supports #{'\selector(*:focus-visible)'} {
+    &:not(:focus-visible) {
+      outline: none !important;
+    }
+    &:focus-visible {
+      @include outline();
+    }
+  }
+  @supports #{'\not selector(*:focus-visible)'} {
+    &:focus {
+      @include outline();  
+    }
+  }
 }
