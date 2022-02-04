@@ -32,7 +32,45 @@
       top: 0;
       z-index: 2;
       background-color: white;
+      select, input {
+        @supports #{'\selector(*:focus-visible)'} {
+          &:not(:focus-visible) {
+            outline: none !important;
+          }
+          &:focus-visible {
+            @include outline();
+          }
+        }
+        @supports #{'\not selector(*:focus-visible)'} {
+          &:focus {
+            @include outline();  
+          }
+        }
+        @media (any-pointer: coarse) {
+          &:hover {
+            @include outline();
+          }
+        }
+      }
       .mobileCategoryToggle {
+        @supports #{'\selector(*:focus-visible)'} {
+          &:not(:focus-visible) {
+            outline: none !important;
+          }
+          &:focus-visible {
+            @include outline();
+          }
+        }
+        @supports #{'\not selector(*:focus-visible)'} {
+          &:focus {
+            @include outline();  
+          }
+        }
+        @media (any-pointer: coarse) {
+          &:hover {
+            @include outline();
+          }
+        }
         cursor: pointer;
         .chevron {
           height: 1rem;
