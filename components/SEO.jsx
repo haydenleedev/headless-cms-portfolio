@@ -44,10 +44,6 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
 
         {/* TODO: add Canonical url */}
       </Head>
-      <Script
-        src="https://cmp.osano.com/169skCSwkN6Q3T9/ec66c8fb-a974-443e-a118-9fa74a490bf5/osano.js"
-        strategy="lazyOnload"
-      />
       <Script id="google-tag-manager">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
