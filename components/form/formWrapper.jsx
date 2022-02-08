@@ -63,10 +63,9 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
     head.appendChild(meta);
     addFormInputData(document.getElementsByName(meta.name), meta.content);
 
-    // Marketo cookie date not sure where this comes from?
     var meta = document.createElement("meta");
     meta.name = "ga_cookie_date__c";
-    meta.content = getCookie("mkto-gaCookieDate7");
+    meta.content = getCookie("ga_cookie_date");
     meta.id = "ga-cookie-date";
     head.appendChild(meta);
     addFormInputData(document.getElementsByName(meta.name), meta.content);

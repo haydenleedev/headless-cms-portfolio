@@ -1,11 +1,13 @@
 import Head from "next/head";
 import { breadcrumbs, organization, webSite } from "../schema";
 import Script from "next/script";
+import { setCookie } from "../utils/cookies";
 
 const SEO = ({ title, description, keywords, metaHTML, url }) => {
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
+  setCookie("ga_cookie_date", new Date().toUTCString(), "Fri, 31 Dec 9999 23:59:59 GMT");
   return (
     <>
       <Head>
