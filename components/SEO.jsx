@@ -46,7 +46,11 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
 
         {/* TODO: add Canonical url */}
       </Head>
-      <Script id="google-tag-manager">
+      <Script
+        src="https://cmp.osano.com/169skCSwkN6Q3T9/c5734755-b49d-479e-b44d-19e99658fda7/osano.js"
+        strategy="lazyOnload"
+      />
+      {/* <Script id="google-tag-manager">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -73,7 +77,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(gd, s);
           })();`}
-      </Script>
+      </Script> */}
     </>
   );
 };

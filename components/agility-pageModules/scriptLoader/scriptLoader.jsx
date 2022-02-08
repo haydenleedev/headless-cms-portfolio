@@ -14,7 +14,7 @@ const ScriptLoader = ({ module }) => {
       ></Script>
       <Script type="text/javascript" src="../../url/url.js" strategy="lazyOnLoad"></Script> */}
       <div className="container">
-        <div dangerouslySetInnerHTML={{ __html: fields.html }} />
+        {/* <div dangerouslySetInnerHTML={{ __html: fields.html }} /> */}
       </div>
     </section>
   );
