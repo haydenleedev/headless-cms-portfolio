@@ -47,7 +47,10 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         {/* TODO: add Canonical url */}
       </Head>
       <Script
-        src="https://cmp.osano.com/169skCSwkN6Q3T9/c5734755-b49d-479e-b44d-19e99658fda7/osano.js"
+        id="Cookiebot"
+        src="https://consent.cookiebot.com/uc.js"
+        data-cbid="0c470e3e-d090-4a8b-bd9f-400283f086fc"
+        data-blockingmode="auto" type="text/javascript"
         strategy="lazyOnload"
       />
       {/* <Script id="google-tag-manager">
