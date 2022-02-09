@@ -7,7 +7,11 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
-  setCookie("ga_cookie_date", new Date().toUTCString(), "Fri, 31 Dec 9999 23:59:59 GMT");
+  setCookie(
+    "ga_cookie_date",
+    new Date().toUTCString(),
+    "Fri, 31 Dec 9999 23:59:59 GMT"
+  );
   return (
     <>
       <Head>
@@ -52,6 +56,14 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
+      </Script>
+      <Script id="form-datalayer">
+        {`(window.dataLayer = window.dataLayer || []
+        dataLayer.push({
+        'event': 'formSubmission',
+        'formCategory': 'Marketo Form',
+        'formAction': 'Form Submission'
+        }); )`}
       </Script>
       <Script
         id="google-optimize"

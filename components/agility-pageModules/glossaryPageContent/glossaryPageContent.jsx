@@ -13,6 +13,8 @@ const GlossaryPageContent = ({ customData }) => {
 
   const [isActive, setActive] = useState(null);
 
+  const clickHandler = (index = 1) => {};
+
   //const { fields } = module;
   return (
     <section className={`section`}>
@@ -31,7 +33,8 @@ const GlossaryPageContent = ({ customData }) => {
                 <li key={glossary}>
                   <a
                     href={"#" + glossary}
-                    /*  className={`${isActive ? "selected" : null}`} */
+                    className={`${isActive === 1 ? "selected" : null}`}
+                    onClick={() => clickHandler(glossary)}
                   >
                     {glossary.toUpperCase()}
                   </a>
