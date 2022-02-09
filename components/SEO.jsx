@@ -57,14 +57,6 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
       </Script>
-      <Script id="form-datalayer">
-        {`(window.dataLayer = window.dataLayer || []
-        dataLayer.push({
-        'event': 'formSubmission',
-        'formCategory': 'Marketo Form',
-        'formAction': 'Form Submission'
-        }); )`}
-      </Script>
       <Script
         id="google-optimize"
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
