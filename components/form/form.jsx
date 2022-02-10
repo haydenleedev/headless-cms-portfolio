@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { formSubmissionEvent } from "../../utils/dataLayer";
 import { FormLoader } from "../agility-pageModules/textWithForm/textWithForm";
 
 const Form = ({ submitButtonText, formLoaded, formID }) => {
@@ -18,12 +19,18 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
     // override form's submit button text if provided
     var observer = new MutationObserver(function (mutations) {
       const submit = formRef.current.querySelector("button[type=submit]");
+
       if (submit && submitButtonText) submit.innerText = submitButtonText;
+
       if (formRef.current && !formRef.current.innerHTML) {
         setLoaderVisible(true);
-      }
-      else if (document.getElementById("mktoForm_loader")) {
+      } else if (document.getElementById("mktoForm_loader")) {
         setLoaderVisible(false);
+
+        // GTM form submission event through data layer
+        formRef.current.addEventListener("submit", (e) => {
+          formSubmissionEvent({});
+        });
       }
     });
     if (marketoFormID) {
@@ -41,11 +48,8 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         id={`mktoForm_${marketoFormID}`}
         ref={formRef}
         className={`marketoForm ${formLoaded ? "is-hidden" : ""}`}
-      >
-      </form>
-      {loaderVisible &&
-        <FormLoader />
-      }
+      ></form>
+      {loaderVisible && <FormLoader />}
     </>
   ) : null;
 };
