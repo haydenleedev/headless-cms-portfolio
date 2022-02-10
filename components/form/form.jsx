@@ -26,9 +26,9 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         setLoaderVisible(true);
       } else if (document.getElementById("mktoForm_loader")) {
         setLoaderVisible(false);
+
+        // GTM form submission event through data layer
         formRef.current.addEventListener("submit", (e) => {
-          e.preventDefault();
-          console.log("triggering data layer event form submission");
           formSubmissionEvent({});
         });
       }
