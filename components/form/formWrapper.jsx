@@ -50,21 +50,22 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
       if (meta.name === "ga_user_id__c") {
         if (!userIdCookie) {
           gaCookieIdCValue = meta.content;
-          setCookie("ga_user_id", meta.content, "Fri, 31 Dec 9999 23:59:59 GMT");
+          setCookie(
+            "ga_user_id",
+            meta.content,
+            "Fri, 31 Dec 9999 23:59:59 GMT"
+          );
         }
         setFormInputValue(meta.name, meta.content);
-      }
-      else if (meta.name === "ga_cookie_id__c") {
+      } else if (meta.name === "ga_cookie_id__c") {
         if (userIdCookie) {
           setFormInputValue(meta.name, userIdCookie);
           meta.content = userIdCookie;
-        }
-        else {
+        } else {
           setFormInputValue(meta.name, gaCookieIdCValue);
           meta.content = gaCookieIdCValue;
         }
-      }
-      else {
+      } else {
         setFormInputValue(meta.name, meta.content);
       }
       head.appendChild(meta);
@@ -120,19 +121,15 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
       if (!mutated) {
         mutations[0].target.removeAttribute("class");
         mutations[0].target.removeAttribute("style");
-
         let emailInput = mutations[0].target.elements["Email"];
-        let submitButton = mutations[0].target.getElementsByTagName("BUTTON")[0];
-
+        // mutations[0].target.addEventListener("submit", (e) => {
+        //   console.log("triggering data layer event form submission");
+        //   formSubmissionEvent({});
+        // });
         emailInput?.addEventListener?.("input", (evt) => {
           addGaData(evt.data);
         });
-        submitButton.addEventListener("submit", () => {
-          console.log("form submission triggered")
-          formSubmissionEvent({});
-        });
 
-        
         setMutated(true);
       }
     });
@@ -157,13 +154,13 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
   const onScriptLoad = () => {
     return new Promise((resolve) => {
       if (marketoFormID && !formLoading) {
-          setFormLoading(true);
-          const data = window.MktoForms2.loadForm(
-            "//info.ujet.co",
-            process.env.NEXT_PUBLIC_MARKETO_ID,
-            marketoFormID
-          );
-          data.whenReady(resolve);
+        setFormLoading(true);
+        const data = window.MktoForms2.loadForm(
+          "//info.ujet.co",
+          process.env.NEXT_PUBLIC_MARKETO_ID,
+          marketoFormID
+        );
+        data.whenReady(resolve);
       } else resolve();
     });
   };
