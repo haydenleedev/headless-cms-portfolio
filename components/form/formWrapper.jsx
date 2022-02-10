@@ -122,10 +122,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         mutations[0].target.removeAttribute("class");
         mutations[0].target.removeAttribute("style");
         let emailInput = mutations[0].target.elements["Email"];
-        // mutations[0].target.addEventListener("submit", (e) => {
-        //   console.log("triggering data layer event form submission");
-        //   formSubmissionEvent({});
-        // });
+
         emailInput?.addEventListener?.("input", (evt) => {
           addGaData(evt.data);
         });
@@ -173,6 +170,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         onLoad={() =>
           onScriptLoad().then(() => {
             if (handleSetFormLoaded) handleSetFormLoaded();
+            
           })
         }
       />

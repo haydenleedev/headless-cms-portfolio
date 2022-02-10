@@ -26,6 +26,11 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         setLoaderVisible(true);
       } else if (document.getElementById("mktoForm_loader")) {
         setLoaderVisible(false);
+        formRef.current.addEventListener("submit", (e) => {
+          e.preventDefault();
+          console.log("triggering data layer event form submission");
+          formSubmissionEvent({});
+        });
       }
     });
     if (marketoFormID) {
