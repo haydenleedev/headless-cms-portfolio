@@ -4,13 +4,16 @@ import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./accordion.module.scss";
 
 const Accordion = ({ customData }) => {
-    const fields = customData.items;
+    const items = customData.items;
+    items.sort(function (a, b) {
+        return a.properties.itemOrder - b.properties.itemOrder;
+    });
     const [expandedItem, setExpandedItem] = useState(null);
     return (
         <section className="section">
             <div className="container">
                 <div className={style.accordion}>
-                    {fields.map((item, index) => {
+                    {items.map((item, index) => {
                         return (
                             <div
                                 className={`${style.accordionItem} ${expandedItem == index && style.expanded }`}
