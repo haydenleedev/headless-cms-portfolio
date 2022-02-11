@@ -15,16 +15,15 @@ const Accordion = ({ customData }) => {
                             <div
                                 className={`${style.accordionItem} ${expandedItem == index && style.expanded }`}
                                 key={`accordionItem${index}`}
+                                onFocus={() => setExpandedItem(index)}
                             >
                                 <div
                                     className={style.itemToggle}
                                     tabIndex={0}
-                                    onFocus={() => {
-                                        setExpandedItem(index);
-                                    }}
+                                    aria-label={`Open accordion item ${item.fields.heading}`}
                                 >
                                     <div className={style.chevron} />
-                                    <span>{item.fields.heading}</span>
+                                    <h3 className="heading-5 text-darkblue">{item.fields.heading}</h3>
                                 </div>
                                 <div className={style.itemContentWrapper}>
                                     <div dangerouslySetInnerHTML={renderHTML(item.fields.html)} />
