@@ -10,6 +10,7 @@ const BlogCard = ({ title, image, link, date, category }) => {
       ariaLabel={"Navigate to : " + title}
       title={title}
       target={link?.target}
+      className={style.blogCardWrapper}
     >
       <div className={style.blogCard}>
         {(image && image.pixelWidth && (

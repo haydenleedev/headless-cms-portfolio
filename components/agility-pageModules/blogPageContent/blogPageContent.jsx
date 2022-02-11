@@ -212,15 +212,14 @@ const BlogPageContent = ({ customData }) => {
                 {(page.length > 0 && (
                   <div className="columns repeat-3">
                     {page.map((item) => (
-                      <div key={item.contentID}>
                         <BlogCard
                           image={item.fields?.image}
                           title={item.fields.title}
                           link={{ href: `blog/${item.fields.slug}` }}
                           date={item.fields.date}
                           category="Blog"
+                          key={item.contentID}
                         />
-                      </div>
                     ))}
                   </div>
                 )) || (

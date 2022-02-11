@@ -1,107 +1,139 @@
 @import "../../../styles/settings/colors";
 @import "../../../styles/settings/mixins";
 
-.blogCard {
-  // height: 22.5vh;
-  // min-height: 21rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
-  background-color: $color-white;
-  display: flex;
-  flex-direction: column;
-  // justify-content: flex-end;
-  padding-bottom: 1rem;
-  height: 100%;
-
-  .image {
-    min-height: 8rem;
-  }
-  @include desktop() {
-    .image {
-      max-height: initial;
+.blogCardWrapper {
+  @supports #{'\selector(*:focus-visible)'} {
+    &:not(:focus-visible) {
+      .blogCard {
+        outline: none !important;
+      }
     }
-  }
-
-  .image {
-    background: $color-gray;
-    // min-height: 50%;
-    // max-height: 50%;
-    // height: 50%;
-    height: 6rem;
-    overflow: hidden;
-    object-fit: fill;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    position: relative;
-    & > * {
-      position: absolute !important;
-      top: 0;
-      left: 0;
-      width: 100% !important;
-      height: 100% !important;
-      img {
-        object-fit: cover;
-        max-height: unset !important;
-        min-height: unset !important;
-        height: 100% !important;
+    &:focus-visible {
+      outline: none !important;
+      .blogCard {
+        @include outline();
       }
     }
   }
-  .textContent {
+  @supports #{'\not selector(*:focus-visible)'} {
+    &:focus {
+      outline: none !important;
+      .blogCard {
+        @include outline();
+      }
+    }
+  }
+  @media (any-pointer: coarse) {
+    &:hover {
+      outline: none !important;
+      .blogCard {
+        @include outline();
+      }
+    }
+  }
+  .blogCard {
+    // height: 22.5vh;
+    // min-height: 21rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
+    background-color: $color-white;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    // min-height: 50%;
-    // max-height: 50%;
-
-    .date {
-      text-transform: uppercase;
-      color: $color-black;
-      font-size: 1rem;
-      padding: 0.5rem 1.5rem 0 1.5rem;
+    // justify-content: flex-end;
+    padding-bottom: 1rem;
+    height: 100%;
+  
+    .image {
+      min-height: 8rem;
     }
-
-    .category {
-      padding: 0 1.5rem;
-      display: block;
-      font-weight: 600;
-      font-size: 1rem;
+    @include desktop() {
+      .image {
+        max-height: initial;
+      }
     }
-
-    .title {
-      font-size: 1rem;
-      line-height: 1.2;
-      padding: 1rem 1.5rem 1rem 1.5rem;
+  
+    .image {
+      background: $color-gray;
+      // min-height: 50%;
+      // max-height: 50%;
+      // height: 50%;
+      height: 6rem;
       overflow: hidden;
-      // display: -webkit-box;
-      // -webkit-line-clamp: 4;
-      // -webkit-box-orient: vertical;
-      width: 100%;
+      object-fit: fill;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      position: relative;
+      & > * {
+        position: absolute !important;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+        img {
+          object-fit: cover;
+          max-height: unset !important;
+          min-height: unset !important;
+          height: 100% !important;
+        }
+      }
     }
-
-    .link {
-      padding: 0 1.5rem 0.75rem 1.5rem;
-      display: block;
-      font-weight: 600;
-      font-size: 1rem;
-      color: $color-darkblue;
-      span {
-        position: relative;
-        display: flex;
-        align-items: center;
+    .textContent {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      // min-height: 50%;
+      // max-height: 50%;
+  
+      .date {
+        text-transform: uppercase;
+        color: $color-black;
+        font-size: 1rem;
+        padding: 0.5rem 1.5rem 0 1.5rem;
+      }
+  
+      .category {
+        padding: 0 1.5rem;
+        display: block;
         font-weight: 600;
-        &::after {
-          content: "";
-          display: block;
-          padding: 0.1rem;
-          border-right: solid;
-          border-top: solid;
-          margin-left: 0.2rem;
-          border-width: 0.2rem;
-          border-color: $color-darkblue;
-          transform: rotate(45deg);
+        font-size: 1rem;
+      }
+  
+      .title {
+        font-size: 1rem;
+        line-height: 1.2;
+        padding: 1rem 1.5rem 1rem 1.5rem;
+        overflow: hidden;
+        // display: -webkit-box;
+        // -webkit-line-clamp: 4;
+        // -webkit-box-orient: vertical;
+        width: 100%;
+      }
+  
+      .link {
+        padding: 0 1.5rem 0.75rem 1.5rem;
+        display: block;
+        font-weight: 600;
+        font-size: 1rem;
+        color: $color-darkblue;
+        span {
+          position: relative;
+          display: flex;
+          align-items: center;
+          font-weight: 600;
+          &::after {
+            content: "";
+            display: block;
+            padding: 0.1rem;
+            border-right: solid;
+            border-top: solid;
+            margin-left: 0.2rem;
+            border-width: 0.2rem;
+            border-color: $color-darkblue;
+            transform: rotate(45deg);
+          }
         }
       }
     }
   }
 }
+
