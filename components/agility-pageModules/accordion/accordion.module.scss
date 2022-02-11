@@ -30,7 +30,8 @@
             @include focus-visible-touch-outlines();
         }
         .itemContentWrapper {
-            height: 0;
+            position: absolute;
+            left: -2147483647px;
             transform: scaleY(0);
             color: $color-black;
             > div {
@@ -44,7 +45,8 @@
                 transform: translateY(.2rem) rotate(225deg);
             }
             .itemContentWrapper, ~.itemContentWrapper {
-                height: auto;
+                position: relative;
+                left: auto;
                 transition: transform 350ms;
                 transform-origin: top;
                 transform: scaleY(1);
