@@ -1,0 +1,147 @@
+@import "./settings/__settings";
+
+.shop {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: GalanoGrotesque, sans-serif;
+  line-height: 1;
+  width: 100%;
+  font-size: initial;
+  padding: initial;
+  background-color: $color-lightgray;
+  &:root {
+    --primary-nav-height: 4.125rem;
+  }
+  * {
+    box-sizing: border-box;
+    vertical-align: baseline;
+    &:not(ul, li) {
+      line-height: 1;
+    }
+    :focus {
+      @include outline();
+    }
+  }
+
+  ul {
+    padding: unset;
+  }
+
+  a,
+  a:active,
+  a:visited {
+    color: inherit;
+  }
+
+  iframe {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 toRem(10);
+    @include tablet() {
+      width: toRem(540);
+      margin: 0 auto;
+    }
+    @include desktop() {
+      width: 600px;
+    }
+  }
+
+  main {
+    padding-top: toRem(30);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  span,
+  button,
+  input,
+  select {
+    font-family: GalanoGrotesque, sans-serif;
+  }
+
+  /* Font Size */
+
+  h1 {
+    font-size: initial;
+    font-weight: 600;
+    line-height: 1.5em;
+    line-height: calc(1em + toRem(12));
+    padding: 0 toRem(15) toRem(20) toRem(15);
+    @include desktop() {
+      padding: 0 0 toRem(20) 0;
+    }
+  }
+
+  h2 {
+    font-size: initial;
+    font-weight: 600;
+    line-height: calc(1em + toRem(10));
+    padding-bottom: toRem(15);
+  }
+  h3 {
+    font-size: initial;
+    font-weight: 600;
+    line-height: 1.5em;
+    line-height: calc(1em + toRem(8));
+  }
+  h4 {
+    font-size: initial;
+    font-weight: 600;
+    line-height: 1.5em;
+  }
+  p {
+    line-height: 1.5em;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  input:not([type="checkbox"], [type="submit"]) {
+    background: $color-white;
+    border-radius: toRem(4);
+    border: toRem(1) solid $color-darkgray;
+    color: $color-black;
+    font-size: $size-16px; /* 16px */
+    height: toRem(48);
+    padding: toRem(20) toRem(15);
+    width: 100%;
+    &:disabled {
+      background-color: $color-lightgray;
+      cursor: not-allowed;
+    }
+  }
+
+  label {
+    display: block;
+    color: $color-black;
+    font-size: $size-16px;
+    margin-bottom: toRem(4);
+    line-height: 1.4em;
+  }
+
+  input[type="checkbox"]:checked ~ span:before {
+    border-color: $color-green;
+  }
+  input[type="checkbox"]:checked ~ span::after {
+    background-color: transparent;
+    left: toRem(6);
+    border-width: 0 toRem(2) toRem(2) 0;
+    border-style: solid;
+    border-color: $color-green;
+    transform: translateY(0.1rem) rotate(45deg);
+    width: toRem(5);
+    height: toRem(10);
+  }
+  input[type="number"]::-webkit-inner-spin-button {
+    opacity: 1;
+  }
+
+  footer {
+    margin-top: auto;
+  }
+}
