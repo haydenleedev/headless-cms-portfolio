@@ -7,6 +7,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
+  const qualifiedSrc = "https://js.qualified.com/qualified.js?token=";
   setCookie(
     "ga_cookie_date",
     new Date().toUTCString(),
