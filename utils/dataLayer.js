@@ -6,3 +6,10 @@ export const formSubmissionEvent = (data) => {
     ...data,
   });
 };
+
+export const phoneNumberClickEvent = (data) => {
+  window.dataLayer?.push({
+    event: "phoneNumberClick",
+    ...data,
+  });
+};
