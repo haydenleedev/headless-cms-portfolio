@@ -78,6 +78,18 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             s.parentNode.insertBefore(gd, s);
           })();`}
       </Script>
+
+      {/* Qualified Script */}
+      <Script id="qualified">
+        {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+          (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
+      </Script>
+      <Script
+        id="qualified-src"
+        async
+        src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+        strategy="lazyOnload"
+      />
     </>
   );
 };
