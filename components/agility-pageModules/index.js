@@ -98,7 +98,8 @@ const allModules = [
   { name: "Breadcrumbs", module: Breadcrumbs },
   { name: "ScriptLoader", module: ScriptLoader },
   { name: "GlossaryPageContent", module: GlossaryPageContent },
-  { name: "Accordion", module: Accordion }
+  { name: "Accordion", module: Accordion },
+  { name: "AcknowledgePageContent", module: Placeholder }
 ];
 
 export const getModule = (moduleName) => {
