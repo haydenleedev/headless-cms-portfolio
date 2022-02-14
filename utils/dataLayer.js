@@ -13,3 +13,24 @@ export const phoneNumberClickEvent = (data) => {
     ...data,
   });
 };
+
+export const thirtySecondTimerEvent = (data) => {
+  window.dataLayer?.push({
+    event: "thirtySecondTimer",
+    ...data,
+  });
+};
+
+export const sixtySecondTimerEvent = (data) => {
+  window.dataLayer?.push({
+    event: "sixtySecondTimer",
+    ...data,
+  });
+};
+
+export const internalLinkClickEvent = (data) => {
+  window.dataLayer?.push({
+    event: "internalLinkClick",
+    ...data,
+  });
+};
