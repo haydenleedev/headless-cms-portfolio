@@ -9,6 +9,7 @@ import { handlePreview } from "@agility/nextjs";
 import { useRouter } from "next/router";
 import Error from "next/error";
 import Head from "next/head";
+import { internalLinkClickEvent, phoneNumberClickEvent, sixtySecondTimerEvent, thirtySecondTimerEvent } from "../../utils/dataLayer";
 
 const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
@@ -22,6 +23,25 @@ const Loader = () => {
       <p>Loading...</p>
     </>
   );
+}
+
+if (typeof window !== "undefined") {
+  window.addEventListener("click", (e) => {
+    if (e.target.nodeName === "A") {
+      if (e.target.href.includes("tel:")) {
+        phoneNumberClickEvent({});
+      }
+      else if (e.target.href.includes(process.env.NEXT_PUBLIC_SITE_URL)) {
+        internalLinkClickEvent({});
+      }
+    }
+  });
+  setTimeout(() => {
+    thirtySecondTimerEvent({});
+  }, 30000);
+  setTimeout(() => {
+    sixtySecondTimerEvent({});
+  }, 60000);
 }
 
 const Layout = (props) => {

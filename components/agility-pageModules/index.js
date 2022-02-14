@@ -36,6 +36,7 @@ import ApplySmoothScrolling from "./applySmoothScrolling/applySmoothScrolling";
 import HiddenH1 from "./hiddenH1/hiddenH1";
 import Breadcrumbs from "../breadcrumbs/breadcrumbs";
 import ScriptLoader from "./scriptLoader/scriptLoader";
+import Accordion from "./accordion/accordion";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -97,6 +98,8 @@ const allModules = [
   { name: "Breadcrumbs", module: Breadcrumbs },
   { name: "ScriptLoader", module: ScriptLoader },
   { name: "GlossaryPageContent", module: GlossaryPageContent },
+  { name: "Accordion", module: Accordion },
+  { name: "AcknowledgePageContent", module: Placeholder }
 ];
 
 export const getModule = (moduleName) => {

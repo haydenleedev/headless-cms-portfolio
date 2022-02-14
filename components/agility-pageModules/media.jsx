@@ -2,7 +2,7 @@ import { AgilityImage } from "@agility/nextjs";
 
 const Media = ({ media }) => {
   const isBrowser = typeof window !== "undefined";
-  if (!media.url) return null;
+  if (!media?.url) return null;
   else {
     let mediaName = media.url.split("/");
     mediaName = mediaName[mediaName.length - 1];

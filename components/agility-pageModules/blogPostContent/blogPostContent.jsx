@@ -180,16 +180,18 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                 by {blogPost.author?.fields.name || "UJET Team"} | 
                 <time dateTime={blogPost.date}>{dateStr}</time>
               </small>
-              <div className={style.blogPostImage}>
-                <AgilityImage
-                  src={blogPost.image.url}
-                  alt={blogPost.image.label || null}
-                  width={blogPost.image.pixelWidth}
-                  height={blogPost.image.pixelHeight}
-                  objectFit="cover"
-                  layout="responsive"
-                />
-              </div>
+              {blogPost.image && (
+                <div className={style.blogPostImage}>
+                    <AgilityImage
+                      src={blogPost.image.url}
+                      alt={blogPost.image.label || null}
+                      width={blogPost.image.pixelWidth}
+                      height={blogPost.image.pixelHeight}
+                      objectFit="cover"
+                      layout="responsive"
+                    />
+                </div>
+              )}
               <article
                 className={`content ${style.content}`}
                 dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}

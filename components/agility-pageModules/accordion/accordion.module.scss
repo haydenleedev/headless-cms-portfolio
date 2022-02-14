@@ -1,0 +1,56 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
+.accordion, .accordionItem {
+    display: flex;
+    flex-direction: column;
+}
+.accordion {
+    .accordionItem {
+        .itemToggle {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: .75rem 0;
+            cursor: pointer;
+            user-select: none;
+            .chevron {
+                width: .75rem;
+                height: .75rem;
+                margin-left: .2rem;
+                border-color: $color-darkblue;
+                border-width: 0 .25rem .25rem 0;
+                border-style: solid;
+                transform: translateY(-.2rem) rotate(45deg);
+            }
+            span {
+                color: $color-white;
+                font-size: 1.25rem;
+            }
+            @include focus-visible-touch-outlines();
+        }
+        .itemContentWrapper {
+            position: absolute;
+            left: -2147483647px;
+            transform: scaleY(0);
+            color: $color-black;
+            > div {
+                a {
+                    color: $color-darkblue;
+                }
+            }
+        }
+        &.expanded {
+            .chevron {
+                transform: translateY(.2rem) rotate(225deg);
+            }
+            .itemContentWrapper, ~.itemContentWrapper {
+                position: relative;
+                left: auto;
+                transition: transform 350ms;
+                transform-origin: top;
+                transform: scaleY(1);
+            }
+        }
+    }
+}
