@@ -7,6 +7,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
+  const qualifiedSrc = "https://js.qualified.com/qualified.js?token=";
   setCookie(
     "ga_cookie_date",
     new Date().toUTCString(),
@@ -78,6 +79,18 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             s.parentNode.insertBefore(gd, s);
           })();`}
       </Script>
+
+      {/* Qualified Script */}
+      <Script id="qualified">
+        {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+          (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
+      </Script>
+      <Script
+        id="qualified-src"
+        async
+        src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+        strategy="lazyOnload"
+      />
     </>
   );
 };

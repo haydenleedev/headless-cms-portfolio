@@ -1,0 +1,18 @@
+@import "../../styles/settings/__settings";
+.grid-row-3 {
+  display: grid;
+  grid-auto-flow: row;
+  justify-content: center;
+  @include desktop() {
+    grid-auto-flow: column;
+    grid-template-rows: repeat(3, 1fr);
+    justify-content: space-between;
+  }
+}
+
+.mb-20px {
+  margin-bottom: toRem(20);
+}
+.title {
+  font-size: 2.5rem !important;
+}

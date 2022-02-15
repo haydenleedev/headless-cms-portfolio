@@ -9,6 +9,8 @@ import { handlePreview } from "@agility/nextjs";
 import { useRouter } from "next/router";
 import Error from "next/error";
 import Head from "next/head";
+import { addDataLayerEventTriggers } from "../../utils/dataLayer";
+import { useEffect } from "react";
 
 const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
@@ -33,9 +35,15 @@ const Layout = (props) => {
     pageTemplateName,
     children, // for pages created manually in the next.js pages folder
   } = props;
+
+  const router = useRouter();
+
+  useEffect(() => {
+    addDataLayerEventTriggers(router);
+  }, []);
+
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
-  const router = useRouter();
   if (router.isFallback) {
     return <Loader />
   }

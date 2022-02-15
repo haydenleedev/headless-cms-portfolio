@@ -1,0 +1,46 @@
+@import "../../styles/settings/__settings";
+
+.form-title-wrap {
+  display: flex;
+  margin-top: toRem(20);
+}
+label {
+  &.form-title-wrap {
+    display: flex;
+    color: unset;
+  }
+}
+.form-title {
+  font-size: $size-18px !important;
+}
+.number {
+  width: toRem(24);
+  height: toRem(24);
+  font-size: $size-18px;
+  line-height: toRem(24);
+  color: $color-black;
+  font-weight: 600;
+  border-radius: 50%;
+  background-color: $color-paleblue;
+  display: block;
+  text-align: center;
+  margin-right: toRem(15);
+}
+
+.ml-20px {
+  margin-left: toRem(20);
+}
+.mlr-38px {
+  margin-left: toRem(38);
+  margin-right: toRem(38);
+}
+.mlr-30px {
+  margin-left: toRem(30);
+  margin-right: toRem(30);
+}
+.text-regular {
+  font-size: $size-16px;
+}
+.flex {
+  display: flex;
+}

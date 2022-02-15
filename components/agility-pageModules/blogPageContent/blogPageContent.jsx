@@ -9,6 +9,7 @@ import {
 } from "../../../utils/convert";
 import BlogLoader from "./blogLoader";
 import Media from "../media";
+import { isMobile } from "../../../utils/responsivity";
 
 const BlogPageContent = ({ customData }) => {
   const { query } = useRouter();
@@ -167,25 +168,30 @@ const BlogPageContent = ({ customData }) => {
           <aside className={style.filterPanel}>
             {contentCategories && (
               <fieldset className={`${filterToggled ? style.open : ""}`}>
-                <legend
-                  className={`${style.mobileCategoryToggle} `}
+                <legend className={style.desktopCategoryLegend}>
+                  Categories
+                </legend>
+                <button
+                  className={style.mobileCategoryToggle}
+                  aria-label="Toggle category selector"
                   onClick={() => {
                     setFilterToggled(!filterToggled);
                   }}
                 >
-                  Categories
-                  <div
-                    className={`${style.chevron} ${
-                      filterToggled ? style.flipped : ""
-                    }`}
-                  />
-                </legend>
+                  <div>
+                    <legend>
+                      Categories
+                    </legend>
+                    <div
+                      className={`${style.chevron} ${
+                        filterToggled ? style.flipped : ""
+                      }`}
+                    />
+                  </div>
 
-                <div
-                  className={
-                    filterToggled ? style.filterOpen : style.filterClosed
-                  }
-                >
+                </button>
+
+                <div className={!filterToggled && style.filterClosed}>
                   {Object.entries(contentCategories).map(
                     ([key, category], i) => (
                       <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
@@ -195,6 +201,7 @@ const BlogPageContent = ({ customData }) => {
                           checked={activeCategories.find(
                             (category) => category === key
                           )}
+                          tabIndex={isMobile() && !filterToggled ? "-1" : "0"}
                           onChange={(event) => handleCategoryChange(event, key)}
                         />
                         {category.title}
@@ -212,15 +219,14 @@ const BlogPageContent = ({ customData }) => {
                 {(page.length > 0 && (
                   <div className="columns repeat-3">
                     {page.map((item) => (
-                      <div key={item.contentID}>
                         <BlogCard
                           image={item.fields?.image}
                           title={item.fields.title}
                           link={{ href: `blog/${item.fields.slug}` }}
                           date={item.fields.date}
                           category="Blog"
+                          key={item.contentID}
                         />
-                      </div>
                     ))}
                   </div>
                 )) || (

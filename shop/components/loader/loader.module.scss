@@ -1,0 +1,15 @@
+@import "../../styles/settings/__settings";
+.loader-header {
+  font-size: toRem(40);
+  font-weight: 600;
+  max-width: toRem(480);
+  text-align: center;
+  margin: 0 auto;
+}
+.loader-body {
+  font-size: toRem(20);
+  font-weight: 400;
+  max-width: toRem(480);
+  text-align: center;
+  margin: 0 auto toRem(20) auto;
+}

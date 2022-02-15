@@ -1,0 +1,233 @@
+@import "../../styles/settings/__settings";
+
+/* Buttons */
+.btn {
+  border-radius: toRem(30);
+  border-style: solid;
+  border-width: toRem(1);
+  line-height: 1.5 !important;
+  cursor: pointer;
+}
+
+.btn-dis {
+  border: toRem(1) solid $color-gray;
+  background-color: $color-lightgray;
+  color: $color-darkgray;
+}
+.btn-big {
+  font-size: $size-16px;
+  padding: toRem(10) toRem(32);
+  @include tablet() {
+    font-size: $size-18px;
+  }
+  @include desktop() {
+    font-size: $size-22px;
+    padding: toRem(11) toRem(46);
+  }
+}
+.btn-medium {
+  font-size: $size-16px;
+  padding: toRem(10) toRem(16);
+  @include tablet() {
+    font-size: $size-16px;
+  }
+  @include desktop() {
+    font-size: $size-18px;
+    padding: toRem(10) toRem(40);
+  }
+}
+.btn-small {
+  font-size: $size-12px;
+  padding: toRem(3) toRem(5);
+  @include tablet() {
+    font-size: $size-14px;
+    padding: toRem(10) toRem(10);
+  }
+  @include desktop() {
+    font-size: $size-15px;
+    margin: 0 toRem(14);
+    padding: toRem(8) toRem(16);
+  }
+}
+
+.mlr-7px {
+  margin-left: toRem(7);
+  margin-right: toRem(7);
+}
+
+.btn-orange {
+  @include buttons($color-orange, $color-orange, $color-white, 600);
+}
+.btn-navy {
+  @include buttons($color-navy, $color-navy, $color-white, 600);
+}
+.btn-blue {
+  @include buttons($color-darkblue, $color-darkblue, $color-white, 600);
+  &.clicked {
+    background-color: $color-navy;
+    border-color: $color-white;
+    border: toRem(2) solid $color-white;
+    outline: solid toRem(3) $color-navy;
+    color: $color-white;
+    &:hover {
+      background-color: $color-navy;
+      border-color: $color-white;
+      border: toRem(2) solid $color-white;
+    }
+  }
+}
+.btn-skyblue {
+  @include buttons($color-white, $color-skyblue, $color-black, 600);
+}
+.btn-white {
+  @include buttons($color-white, $color-gray, $color-gray, 400);
+}
+
+.b-divider {
+  padding-bottom: toRem(25);
+  border-bottom: toRem(1) solid $color-mediumgray;
+}
+
+.radio-btn {
+  width: toRem(16);
+  height: toRem(16);
+  position: absolute;
+  left: 0;
+  margin-right: toRem(8);
+  top: toRem(6);
+}
+
+.radio-btn:before {
+  background-color: $color-white;
+  top: 50%;
+  margin-top: toRem(-7);
+  content: "";
+  border: toRem(2) solid $color-darkblue;
+  border-radius: 100%;
+  width: toRem(18);
+  height: toRem(18);
+  cursor: pointer;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+}
+
+.radio-btn:after {
+  width: toRem(8);
+  height: toRem(8);
+  border-radius: 100%;
+  background-color: $color-darkblue;
+  content: "";
+  position: absolute;
+  left: toRem(5);
+  top: toRem(6);
+}
+
+/* Interface */
+.circle {
+  width: toRem(15);
+  height: toRem(15);
+  border-radius: toRem(9);
+  border: toRem(3) solid $color-gray;
+  box-sizing: border-box;
+  display: block;
+  &.blue {
+    border-color: $color-lightblue;
+  }
+  @include desktop() {
+    width: toRem(18);
+    height: toRem(18);
+  }
+}
+
+.tooltip-wrap {
+  position: absolute;
+  right: 0;
+  top: 0.6em;
+  cursor: pointer;
+  margin-left: toRem(4);
+  width: toRem(17);
+  height: toRem(17);
+  display: block;
+  background-size: contain;
+  background-image: url(../icons/svgs/icon-info.svg);
+  background-repeat: no-repeat;
+  overflow: hidden;
+  &:not(:focus):after {
+    visibility: hidden;
+    position: absolute;
+    left: toRem(-99999999999);
+
+    height: toRem(1);
+    overflow: hidden;
+    width: toRem(1);
+  }
+  &:hover {
+    overflow: visible;
+  }
+  &:hover:after,
+  &:focus:after {
+    visibility: visible;
+    height: auto;
+    overflow: visible;
+    width: auto;
+    left: 0;
+  }
+  &:not(:hover) .tooltip,
+  &:not(:focus) .tooltip {
+    box-shadow: none;
+    visibility: hidden;
+    left: toRem(-99999999999);
+  }
+  &:hover .tooltip,
+  &:focus .tooltip {
+    visibility: visible;
+    left: toRem(-192);
+  }
+  &:after {
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-bottom: 0.5rem solid $color-navy;
+    bottom: toRem(-11);
+    content: "";
+    left: 0;
+  }
+}
+
+.tooltip {
+  right: toRem(16);
+  background: $color-navy;
+  top: 165%;
+  box-shadow: 0 toRem(4) toRem(12) 0 rgb(104 115 125 / 15%);
+  color: $color-white;
+  font-size: toRem(14);
+  line-height: 1.25em;
+  padding: toRem(16);
+  width: toRem(224);
+  z-index: 2;
+  border-radius: toRem(8);
+  visibility: hidden;
+  position: absolute;
+  left: toRem(-99999999999);
+}
+
+.cta {
+  font-weight: 600;
+  border-radius: 0 0 toRem(11) toRem(11);
+  padding: toRem(11) toRem(40);
+  border-style: solid;
+  border-width: 0;
+  cursor: pointer;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  color: $color-white;
+  background-color: $color-orange;
+}
+
+.modal-footer-btn-theme {
+  button {
+    margin: toRem(5) toRem(10);
+  }
+}
