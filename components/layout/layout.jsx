@@ -36,10 +36,10 @@ if (typeof window !== "undefined") {
       }
     }
   });
-  setTimeout(() => {
+  setInterval(() => {
     thirtySecondTimerEvent({});
   }, 30000);
-  setTimeout(() => {
+  setInterval(() => {
     sixtySecondTimerEvent({});
   }, 60000);
 }
