@@ -9,7 +9,8 @@ import { handlePreview } from "@agility/nextjs";
 import { useRouter } from "next/router";
 import Error from "next/error";
 import Head from "next/head";
-import { internalLinkClickEvent, phoneNumberClickEvent, sixtySecondTimerEvent, thirtySecondTimerEvent } from "../../utils/dataLayer";
+import { addDataLayerEventTriggers } from "../../utils/dataLayer";
+import { useEffect } from "react";
 
 const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
@@ -23,25 +24,6 @@ const Loader = () => {
       <p>Loading...</p>
     </>
   );
-}
-
-if (typeof window !== "undefined") {
-  window.addEventListener("click", (e) => {
-    if (e.target.nodeName === "A") {
-      if (e.target.href.includes("tel:")) {
-        phoneNumberClickEvent({});
-      }
-      else if (e.target.href.includes(process.env.NEXT_PUBLIC_SITE_URL)) {
-        internalLinkClickEvent({});
-      }
-    }
-  });
-  setInterval(() => {
-    thirtySecondTimerEvent({});
-  }, 30000);
-  setInterval(() => {
-    sixtySecondTimerEvent({});
-  }, 60000);
 }
 
 const Layout = (props) => {
@@ -76,6 +58,10 @@ const Layout = (props) => {
   if (dynamicPageItem?.seo?.metaDescription) {
     page.seo.metaDescription = dynamicPageItem.seo.metaDescription;
   }
+
+  useEffect(() => {
+    addDataLayerEventTriggers(router);
+  }, []);
 
   return (
     <>
