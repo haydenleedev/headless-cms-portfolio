@@ -73,7 +73,10 @@ export const addDataLayerEventTriggers = (router) => {
         clearInterval(customerStoryPageInterval);
         customerStoryPageIntervalActive = false;
       }
-    })
+      else if (url.includes("thank-you")) {
+        formSuccessEvent({});
+      } 
+    });
     // Click triggers
     window.addEventListener("click", (e) => {
       if (e.target.nodeName === "A") {

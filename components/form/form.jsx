@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { formSubmissionEvent, formSuccessEvent } from "../../utils/dataLayer";
+import { formSubmissionEvent } from "../../utils/dataLayer";
 import { FormLoader } from "../agility-pageModules/textWithForm/textWithForm";
 
 const Form = ({ submitButtonText, formLoaded, formID }) => {
@@ -30,8 +30,6 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         // GTM form submission event through data layer
         formRef.current.addEventListener("submit", (e) => {
           formSubmissionEvent({});
-          // Create success event here for now
-          formSuccessEvent({});
         });
       }
     });
