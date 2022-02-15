@@ -35,9 +35,15 @@ const Layout = (props) => {
     pageTemplateName,
     children, // for pages created manually in the next.js pages folder
   } = props;
+
+  const router = useRouter();
+
+  useEffect(() => {
+    addDataLayerEventTriggers(router);
+  }, []);
+
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
-  const router = useRouter();
   if (router.isFallback) {
     return <Loader />
   }
@@ -58,10 +64,6 @@ const Layout = (props) => {
   if (dynamicPageItem?.seo?.metaDescription) {
     page.seo.metaDescription = dynamicPageItem.seo.metaDescription;
   }
-
-  useEffect(() => {
-    addDataLayerEventTriggers(router);
-  }, []);
 
   return (
     <>
