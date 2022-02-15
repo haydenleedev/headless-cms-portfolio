@@ -7,6 +7,13 @@ export const formSubmissionEvent = (data) => {
   });
 };
 
+export const formSuccessEvent = (data) => {
+  window.dataLayer?.push({
+    event: "formSuccess",
+    ...data,
+  });
+};
+
 export const phoneNumberClickEvent = (data) => {
   window.dataLayer?.push({
     event: "phoneNumberClick",
