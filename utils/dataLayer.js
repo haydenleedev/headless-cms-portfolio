@@ -14,12 +14,7 @@ export const formSuccessEvent = (data) => {
   });
 };
 
-export const phoneNumberClickEvent = (data) => {
-  window.dataLayer?.push({
-    event: "phoneNumberClick",
-    ...data,
-  });
-};
+
 
 export const thirtySecondTimerEvent = (data) => {
   window.dataLayer?.push({
@@ -42,9 +37,23 @@ export const customerStoryTimerEvent = (data) => {
   });
 };
 
+export const phoneNumberClickEvent = (data) => {
+  window.dataLayer?.push({
+    event: "phoneNumberClick",
+    ...data,
+  });
+};
+
 export const internalLinkClickEvent = (data) => {
   window.dataLayer?.push({
     event: "internalLinkClick",
+    ...data,
+  });
+};
+
+export const elementClickEvent = (data) => {
+  window.dataLayer?.push({
+    event: "elementClick",
     ...data,
   });
 };
@@ -86,6 +95,9 @@ export const addDataLayerEventTriggers = (router) => {
         else if (e.target.href.includes(process.env.NEXT_PUBLIC_SITE_URL)) {
           internalLinkClickEvent({});
         }
+      }
+      else {
+        elementClickEvent({});
       }
     });
   }
