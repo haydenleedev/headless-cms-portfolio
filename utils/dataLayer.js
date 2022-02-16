@@ -14,8 +14,6 @@ export const formSuccessEvent = (data) => {
   });
 };
 
-
-
 export const thirtySecondTimerEvent = (data) => {
   window.dataLayer?.push({
     event: "thirtySecondTimer",
@@ -58,6 +56,13 @@ export const elementClickEvent = (data) => {
   });
 };
 
+export const linkClickEvent = (data) => {
+  window.dataLayer?.push({
+    event: "linkClick",
+    ...data,
+  });
+};
+
 export const addDataLayerEventTriggers = (router) => {
   if (typeof window !== "undefined") {
     // Regular timer triggers
@@ -89,6 +94,7 @@ export const addDataLayerEventTriggers = (router) => {
     // Click triggers
     window.addEventListener("click", (e) => {
       if (e.target.nodeName === "A") {
+        linkClickEvent({});
         if (e.target.href.includes("tel:")) {
           phoneNumberClickEvent({});
         }
