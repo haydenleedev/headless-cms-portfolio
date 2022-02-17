@@ -52,14 +52,17 @@ const TestimonialListLayout = (fields) => {
               )}
               <Slider loop dots>
                 {testimonials.map((testimonial, index) => (
-                  <div className="d-flex flex-direction-column justify-content-space-between" key={`testimonial${index}`}>
+                  <div
+                    className="d-flex flex-direction-column justify-content-space-between"
+                    key={`testimonial${index}`}
+                  >
                     <div className={style.staticImageLayoutTextContent}>
                       <StarRating
                         starCount={testimonial.fields?.starCount}
                         starWidth="25"
                       />
                       {testimonial.fields.heading && (
-                        <Heading {...JSON.parse(testimonial.fields.heading)} />
+                        <Heading {...JSON.parse(fields.heading)} />
                       )}
 
                       <p>{testimonial.fields.text}</p>
