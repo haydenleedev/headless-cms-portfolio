@@ -1,3 +1,4 @@
+@import "./settings/mixins";
 @use "./settings/variables" as var;
 /*
 Configure font sizes and how text is rendred.
@@ -23,7 +24,8 @@ a {
   text-decoration: none;
 }
 
-a, button {
+a,
+button {
   @include touch-focus-outline();
 }
 
@@ -122,6 +124,10 @@ h6,
   @include desktop() {
     font-size: 1.5rem;
   }
+}
+
+.text-76px {
+  font-size: toRem(76);
 }
 
 strong,
