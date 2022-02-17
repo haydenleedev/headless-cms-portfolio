@@ -61,7 +61,7 @@ const TestimonialListLayout = (fields) => {
                         starCount={testimonial.fields?.starCount}
                         starWidth="25"
                       />
-                      {testimonial.fields.heading && (
+                      {fields.heading && (
                         <Heading {...JSON.parse(fields.heading)} />
                       )}
 
