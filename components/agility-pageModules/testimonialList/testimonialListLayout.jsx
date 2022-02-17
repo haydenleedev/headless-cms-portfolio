@@ -66,7 +66,11 @@ const TestimonialListLayout = (fields) => {
                       )}
 
                       <p
-                        className={`${testimonial.fields.textClass} ? ${testimonial.fields.textClass} : "null"`}
+                        className={`${
+                          testimonial.fields.textClass
+                            ? testimonial.fields.textClass
+                            : "null"
+                        }`}
                       >
                         {testimonial.fields.text}
                       </p>
@@ -106,7 +110,11 @@ const TestimonialListLayout = (fields) => {
                         )}
 
                         <p
-                          className={`${testimonials[activeIndex].fields.textClass} ? ${testimonials[activeIndex].fields.textClass} : "null"`}
+                          className={`${
+                            testimonials[activeIndex].fields.textClass
+                              ? testimonial.fields.textClass
+                              : "null"
+                          }`}
                         >
                           {testimonials[activeIndex].fields.text}
                         </p>
@@ -169,7 +177,11 @@ const TestimonialListLayout = (fields) => {
                   />
                 )}
                 <p
-                  className={`${style.gridItemText} ${testimonial.fields.textClass} ? ${testimonial.fields.textClass} : "null"`}
+                  className={`${style.gridItemText} ${
+                    testimonial.fields.textClass
+                      ? testimonial.fields.textClass
+                      : "null"
+                  }`}
                 >
                   {testimonial.fields.text}
                 </p>
@@ -199,7 +211,11 @@ const TestimonialListLayout = (fields) => {
                       <div className="d-flex flex-direction-column justify-content-space-between">
                         <div className={style.textContent}>
                           <p
-                            className={`${testimonial.fields.textClass} ? ${testimonial.fields.textClass} : "null"`}
+                            className={`${
+                              testimonial.fields.textClass
+                                ? testimonial.fields.textClass
+                                : "null"
+                            }`}
                           >
                             {testimonial.fields.text}
                           </p>
@@ -233,7 +249,11 @@ const TestimonialListLayout = (fields) => {
                     <Fade duration={FADE_DURATION} trigger={triggerFadeout}>
                       <div className={style.textContent}>
                         <p
-                          className={`${testimonials[activeIndex].fields.textClass} ? ${testimonials[activeIndex].fields.textClass} : "null"`}
+                          className={`${
+                            testimonials[activeIndex].fields.textClass
+                              ? testimonials[activeIndex].fields.textClass
+                              : "null"
+                          }`}
                         >
                           {testimonials[activeIndex].fields.text}
                         </p>

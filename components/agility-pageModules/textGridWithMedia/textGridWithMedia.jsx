@@ -18,6 +18,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemImageCentered = boolean(fields?.itemImageCentered);
   const centerItemsHorizontally = boolean(fields?.centerItemsHorizontally);
   const roundCorners = boolean(fields?.roundCorners);
+  const itemImageFullSizeWidth = boolean(fields?.itemImageFullSizeWidth);
 
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
@@ -48,7 +49,9 @@ const TextGridWithMedia = ({ module, customData }) => {
             : ""
         } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
           itemShadow ? "card-shadow" : ""
-        } ${roundCorners ? "border-radius-1" : ""}`}
+        } ${roundCorners ? "border-radius-1" : ""} ${
+          itemImageFullSizeWidth ? style.imageFullWidth : ""
+        }`}
         key={data.contentID}
         data-animate="true"
       >
