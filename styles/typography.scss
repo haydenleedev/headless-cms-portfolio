@@ -57,6 +57,12 @@ h1,
     font-size: 4rem;
   }
 }
+.heading-1-important {
+  font-size: 3rem !important;
+  @include desktop() {
+    font-size: 4rem !important;
+  }
+}
 
 h2,
 .heading-2,
@@ -71,6 +77,14 @@ h2,
     font-size: 3.5rem;
   }
 }
+
+.heading-2-important {
+  font-size: 2.5rem !important;
+  @include desktop() {
+    font-size: 3.5rem !important;
+  }
+}
+
 h3,
 .heading-3,
 .heading-3 h1,
@@ -84,6 +98,14 @@ h3,
     font-size: 3rem;
   }
 }
+
+.heading-3-important {
+  font-size: 2rem !important;
+  @include desktop() {
+    font-size: 3rem !important;
+  }
+}
+
 h4,
 .heading-4,
 .heading-4 h1,

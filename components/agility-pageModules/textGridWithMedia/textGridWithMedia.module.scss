@@ -110,6 +110,21 @@
   .textItemHeading {
     margin-bottom: 0.625rem;
   }
+  .logoLeftHeaderRight {
+    align-items: center;
+
+    .textItemMedia {
+      max-width: 3rem !important;
+      min-width: 25%;
+      margin-right: 0.8rem;
+      & > * {
+        font-size: 1rem;
+      }
+    }
+    .textItemHeading > * {
+      font-size: 1rem;
+    }
+  }
 }
 .imageFullWidth {
   &.textItem {
@@ -120,14 +135,6 @@
     }
     .content {
       padding: 0 1.5rem;
-    }
-  }
-}
-.logoLeftHeaderRight {
-  &.textItem {
-    .textItemMedia {
-      max-width: 4rem;
-      margin-right: 1.5rem;
     }
   }
 }
