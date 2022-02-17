@@ -111,6 +111,19 @@
     margin-bottom: 0.625rem;
   }
 }
+.imageFullWidth {
+  .textItem {
+    overflow: hidden;
+    padding: 0 0 1.5rem 0;
+    .textItemMedia {
+      max-width: 100%;
+    }
+    .content {
+      padding: 0 1.5rem;
+    }
+  }
+}
+
 @include tablet {
   .is-2-larger-gap {
     flex: 0 0 calc(50% - 2rem);
