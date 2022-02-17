@@ -105,7 +105,11 @@ const TestimonialListLayout = (fields) => {
                           />
                         )}
 
-                        <p>{testimonials[activeIndex].fields.text}</p>
+                        <p
+                          className={`${testimonial.fields.textClass} ? ${testimonial.fields.textClass} : "null"`}
+                        >
+                          {testimonials[activeIndex].fields.text}
+                        </p>
                         <small>–{testimonials[activeIndex].fields.name}</small>
                         <p>{testimonials[activeIndex].fields.jobTitle}</p>
                         <p>{testimonials[activeIndex].fields.companyName}</p>
@@ -164,7 +168,11 @@ const TestimonialListLayout = (fields) => {
                     starWidth="25"
                   />
                 )}
-                <p className={style.gridItemText}>{testimonial.fields.text}</p>
+                <p
+                  className={`${style.gridItemText} ${testimonial.fields.textClass} ? ${testimonial.fields.textClass} : "null"`}
+                >
+                  {testimonial.fields.text}
+                </p>
                 <p className={style.gridItemName}>{testimonial.fields.name}</p>
               </div>
             );
@@ -190,7 +198,11 @@ const TestimonialListLayout = (fields) => {
 
                       <div className="d-flex flex-direction-column justify-content-space-between">
                         <div className={style.textContent}>
-                          <p>{testimonial.fields.text}</p>
+                          <p
+                            className={`${testimonial.fields.textClass} ? ${testimonial.fields.textClass} : "null"`}
+                          >
+                            {testimonial.fields.text}
+                          </p>
                           <p>{testimonial.fields.name}</p>
                           <p>{testimonial.fields.jobTitle}</p>
                           <p>{testimonial.fields.companyName}</p>
@@ -220,7 +232,11 @@ const TestimonialListLayout = (fields) => {
                   <div className="d-flex flex-direction-column justify-content-space-between">
                     <Fade duration={FADE_DURATION} trigger={triggerFadeout}>
                       <div className={style.textContent}>
-                        <p>{testimonials[activeIndex].fields.text}</p>
+                        <p
+                          className={`${testimonial.fields.textClass} ? ${testimonial.fields.textClass} : "null"`}
+                        >
+                          {testimonials[activeIndex].fields.text}
+                        </p>
                         <p>{testimonials[activeIndex].fields.name}</p>
                         <p>{testimonials[activeIndex].fields.jobTitle}</p>
                         <p>{testimonials[activeIndex].fields.companyName}</p>
