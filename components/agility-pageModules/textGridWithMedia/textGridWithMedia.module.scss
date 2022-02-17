@@ -123,6 +123,14 @@
     }
   }
 }
+.logoLeftHeaderRight {
+  &.textItem {
+    .textItemMedia {
+      max-width: 4rem;
+      margin-right: 1.5rem;
+    }
+  }
+}
 
 @include tablet {
   .is-2-larger-gap {

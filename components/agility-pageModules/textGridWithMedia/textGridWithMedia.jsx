@@ -51,7 +51,7 @@ const TextGridWithMedia = ({ module, customData }) => {
           itemShadow ? "card-shadow" : ""
         } ${roundCorners ? "border-radius-1" : ""} ${
           itemImageFullSizeWidth ? style.imageFullWidth : ""
-        }`}
+        } ${fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""}`}
         key={data.contentID}
         data-animate="true"
       >
