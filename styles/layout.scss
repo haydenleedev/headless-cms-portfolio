@@ -232,7 +232,9 @@
 }
 .align-left {
   .grid-columns .grid-column {
-    justify-content: flex-start;
+    span {
+      justify-content: flex-start;
+    }
   }
 }
 
