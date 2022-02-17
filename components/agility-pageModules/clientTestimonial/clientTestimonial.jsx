@@ -36,7 +36,13 @@ const ClientTestimonial = ({ module }) => {
                         starWidth="25"
                       />
                     )}
-                    <p className={style.quote}>
+                    <p
+                      className={`${style.quote} ${
+                        fields.testimonial.fields.textClass
+                          ? fields.testimonial.fields.textClass
+                          : "null"
+                      }`}
+                    >
                       {fields.testimonial.fields.text}
                     </p>
                     <div className={style.client}>
@@ -80,7 +86,13 @@ const ClientTestimonial = ({ module }) => {
                         starWidth="25"
                       />
                     )}
-                    <p className={style.quote}>
+                    <p
+                      className={`${style.quote} ${
+                        fields.testimonial.fields.textClass
+                          ? fields.testimonial.fields.textClass
+                          : "null"
+                      }`}
+                    >
                       {fields.testimonial.fields.text}
                     </p>
                     <div className={style.client}>
