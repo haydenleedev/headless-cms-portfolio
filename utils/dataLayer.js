@@ -63,6 +63,14 @@ export const linkClickEvent = (data) => {
   });
 };
 
+export const pathChangeEvent = (data) => {
+  console.log(data)
+  window.dataLayer?.push({
+    event: "pathChange",
+    ...data,
+  });
+}
+
 export const addDataLayerEventTriggers = (router) => {
   if (typeof window !== "undefined") {
     // Regular timer triggers
@@ -72,18 +80,21 @@ export const addDataLayerEventTriggers = (router) => {
     setInterval(() => {
       sixtySecondTimerEvent({});
     }, 60000);
-    // Customer story page timer trigger
+    // Router triggers
     let customerStoryPageInterval;
     let customerStoryPageIntervalActive = false;
-    const customerStoryPath = "/customerstories"
+    const customerStoriesPath = "/customerstories";
+    let previousPath = router.asPath;
     router.events.on("routeChangeComplete", (url) => {
-      if (url.includes(customerStoryPath) && !customerStoryPageIntervalActive) {
+      pathChangeEvent({ previousPath: previousPath, newPath: url });
+      previousPath = url;
+      if (url.includes(customerStoriesPath) && !customerStoryPageIntervalActive) {
         customerStoryPageInterval = setInterval(() => {
           customerStoryTimerEvent({});
         }, 30000);
         customerStoryPageIntervalActive = true;
       }
-      else if (!url.includes(customerStoryPath) && customerStoryPageIntervalActive) {
+      else if (!url.includes(customerStoriesPath) && customerStoryPageIntervalActive) {
         clearInterval(customerStoryPageInterval);
         customerStoryPageIntervalActive = false;
       }
