@@ -112,7 +112,9 @@
   }
   .logoLeftHeaderRight {
     align-items: center;
-
+    .textItemHeading {
+      width: 100%;
+    }
     .textItemMedia {
       max-width: 3rem !important;
       min-width: 25%;
