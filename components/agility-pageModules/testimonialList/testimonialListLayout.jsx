@@ -106,7 +106,7 @@ const TestimonialListLayout = (fields) => {
                         )}
 
                         <p
-                          className={`${testimonial.fields.textClass} ? ${testimonial.fields.textClass} : "null"`}
+                          className={`${testimonials[activeIndex].fields.textClass} ? ${testimonials[activeIndex].fields.textClass} : "null"`}
                         >
                           {testimonials[activeIndex].fields.text}
                         </p>
@@ -233,7 +233,7 @@ const TestimonialListLayout = (fields) => {
                     <Fade duration={FADE_DURATION} trigger={triggerFadeout}>
                       <div className={style.textContent}>
                         <p
-                          className={`${testimonial.fields.textClass} ? ${testimonial.fields.textClass} : "null"`}
+                          className={`${testimonials[activeIndex].fields.textClass} ? ${testimonials[activeIndex].fields.textClass} : "null"`}
                         >
                           {testimonials[activeIndex].fields.text}
                         </p>
