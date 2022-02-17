@@ -72,7 +72,7 @@ const TextGridWithMedia = ({ module, customData }) => {
           )}
           {itemFields.text && (
             <div
-              className={"content"}
+              className={`content ${style.content}`}
               dangerouslySetInnerHTML={renderHTML(itemFields.text)}
             ></div>
           )}
