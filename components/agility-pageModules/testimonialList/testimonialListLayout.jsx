@@ -61,11 +61,15 @@ const TestimonialListLayout = (fields) => {
                         starCount={testimonial.fields?.starCount}
                         starWidth="25"
                       />
-                      {fields.heading && (
-                        <Heading {...JSON.parse(fields.heading)} />
+                      {testimonial.fields.heading && (
+                        <Heading {...JSON.parse(testimonial.fields.heading)} />
                       )}
 
-                      <p>{testimonial.fields.text}</p>
+                      <p
+                        className={`${testimonial.fields.textClass} ? ${testimonial.fields.textClass} : "null"`}
+                      >
+                        {testimonial.fields.text}
+                      </p>
                       <small>–{testimonial.fields.name}</small>
                       <p>{testimonial.fields.jobTitle}</p>
                       <p>{testimonial.fields.companyName}</p>
