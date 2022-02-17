@@ -240,6 +240,11 @@
     }
   }
 }
+.align-item-center {
+  .grid-columns {
+    align-items: center;
+  }
+}
 
 /*
   <<<<<<<<<<<<<<<<GENERIC HELPER CLASSES>>>>>>>>>>>>>>>>>
