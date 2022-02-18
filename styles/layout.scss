@@ -109,7 +109,8 @@
   align-items: flex-end !important;
 }
 
-.align-items-center {
+.align-items-center,
+.align-items-center .grid-columns {
   align-items: center !important;
 }
 .align-items-unset {
@@ -168,7 +169,7 @@
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between;
 
   @include tablet() {
     // When we want to make the items into two differnt rows
@@ -228,6 +229,21 @@
         flex: 0 0 calc(14.2857% - 2rem);
       }
     }
+  }
+}
+.align-left {
+  .grid-columns .grid-column {
+    span {
+      justify-content: flex-start;
+    }
+    .content {
+      align-items: flex-start;
+    }
+  }
+}
+.align-item-center {
+  .grid-columns {
+    align-items: center;
   }
 }
 
@@ -370,7 +386,10 @@
   margin-top: $size-6 !important;
 }
 .mt--5 {
-  margin-top: -$size-6 !important;
+  margin-top: 0 !important;
+  @include desktop() {
+    margin-top: -$size-6 !important;
+  }
 }
 
 .mb-0 {

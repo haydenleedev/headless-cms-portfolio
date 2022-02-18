@@ -18,6 +18,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemImageCentered = boolean(fields?.itemImageCentered);
   const centerItemsHorizontally = boolean(fields?.centerItemsHorizontally);
   const roundCorners = boolean(fields?.roundCorners);
+  const itemImageFullSizeWidth = boolean(fields?.itemImageFullSizeWidth);
 
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
@@ -44,11 +45,15 @@ const TextGridWithMedia = ({ module, customData }) => {
       <div
         className={`${
           centerItemsHorizontally
-            ? `grid-column is-${fields.columns}-larger-gap ${style.horizontallyCenteredTextItem}`
+            ? `grid-column is-${fields.columns}${
+                fields.itemGapSize ? fields.itemGapSize : "-larger-gap"
+              } ${style.horizontallyCenteredTextItem}`
             : ""
         } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
           itemShadow ? "card-shadow" : ""
-        } ${roundCorners ? "border-radius-1" : ""}`}
+        } ${roundCorners ? "border-radius-1" : ""} ${
+          itemImageFullSizeWidth ? style.imageFullWidth : ""
+        } ${fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""}`}
         key={data.contentID}
         data-animate="true"
       >
@@ -69,7 +74,7 @@ const TextGridWithMedia = ({ module, customData }) => {
           )}
           {itemFields.text && (
             <div
-              className={"content"}
+              className={`content ${style.content}`}
               dangerouslySetInnerHTML={renderHTML(itemFields.text)}
             ></div>
           )}
@@ -81,12 +86,17 @@ const TextGridWithMedia = ({ module, customData }) => {
     );
   };
 
-  const largeColumnNumber = style["is-" + fields.columns + "-larger-gap"];
+  const largeColumnNumber =
+    style[
+      "is-" +
+        fields.columns +
+        `${fields.itemGapSize === " small-gap" ? "" : "-larger-gap"}`
+    ];
   return (
     <section
       className={`section ${style.textGridWithMedia} ${
         fields.classes ? fields.classes : ""
-      }`}
+      } ${fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
@@ -129,7 +139,9 @@ const TextGridWithMedia = ({ module, customData }) => {
                   </AgilityLink>
                 );
               } else {
-                return <TextItem data={textItem} key={`textItem${index}`} />;
+                return (
+                  <TextItem data={textItem} key={textItem.fields.contentID} />
+                );
               }
             })}
           </div>
