@@ -64,9 +64,15 @@ export const linkClickEvent = (data) => {
 };
 
 export const pathChangeEvent = (data) => {
-  console.log(data)
   window.dataLayer?.push({
     event: "pathChange",
+    ...data,
+  });
+}
+
+export const siteSectionTimerEvent = (data) => {
+  window.dataLayer?.push({
+    event: "siteSectionTimer",
     ...data,
   });
 }
@@ -81,24 +87,30 @@ export const addDataLayerEventTriggers = (router) => {
       sixtySecondTimerEvent({});
     }, 60000);
     // Router triggers
-    let customerStoryPageInterval;
-    let customerStoryPageIntervalActive = false;
-    const customerStoriesPath = "/customerstories";
     let previousPath = router.asPath;
+    let siteSectionInterval;
     router.events.on("routeChangeComplete", (url) => {
-      pathChangeEvent({ previousPath: previousPath, newPath: url });
-      previousPath = url;
-      if (url.includes(customerStoriesPath) && !customerStoryPageIntervalActive) {
-        customerStoryPageInterval = setInterval(() => {
-          customerStoryTimerEvent({});
+      const setSiteSectionInterval = () => {
+        siteSectionInterval = setInterval(() => {
+          siteSectionTimerEvent({ siteSection: getSiteSection(url) });
         }, 30000);
-        customerStoryPageIntervalActive = true;
       }
-      else if (!url.includes(customerStoriesPath) && customerStoryPageIntervalActive) {
-        clearInterval(customerStoryPageInterval);
-        customerStoryPageIntervalActive = false;
+      const getSiteSection = (path) => {
+        return path.split(/(\/)/g).filter(function(e) { return e; })[1]?.split("?")[0];
       }
-      else if (url.includes("thank-you")) {
+      pathChangeEvent({ previousPath: previousPath, newPath: url });
+      if (previousPath !== url) {
+        if (getSiteSection(previousPath) !== getSiteSection(url)) {
+          clearInterval(siteSectionInterval);
+          setSiteSectionInterval(url);
+        }
+      }
+      else if (!siteSectionInterval) {
+        // Interval based on first visited page
+        setSiteSectionInterval(url);
+      }
+      previousPath = url;
+      if (url.includes("thank-you")) {
         formSuccessEvent({});
       } 
     });
