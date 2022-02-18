@@ -112,12 +112,18 @@
   }
   .logoLeftHeaderRight {
     align-items: center;
+    &.textItemFlex {
+      @include desktop() {
+        height: 100%;
+        padding: 1.5rem 0;
+      }
+    }
     .textItemHeading {
       width: 100%;
     }
     .textItemMedia {
-      max-width: 3rem !important;
-      min-width: 25%;
+      max-width: 13rem !important;
+      min-width: 15%;
       margin-right: 0.8rem;
       & > * {
         font-size: 1rem;
@@ -143,6 +149,21 @@
 }
 
 @include tablet {
+  .is-2 {
+    flex: 0 0 calc(50% - 0.5rem);
+  }
+  .is-3 {
+    flex: 0 0 calc(33.3333% - 0.5rem);
+  }
+  .is-4 {
+    flex: 0 0 calc(25% - 0.5rem);
+  }
+  .is-5 {
+    flex: 0 0 calc(20% - 0.5rem);
+  }
+  .is-7 {
+    flex: 0 0 calc(14.2857% - 0.5rem);
+  }
   .is-2-larger-gap {
     flex: 0 0 calc(50% - 2rem);
   }

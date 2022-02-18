@@ -45,7 +45,9 @@ const TextGridWithMedia = ({ module, customData }) => {
       <div
         className={`${
           centerItemsHorizontally
-            ? `grid-column is-${fields.columns}-larger-gap ${style.horizontallyCenteredTextItem}`
+            ? `grid-column is-${fields.columns}${
+                fields.itemGapSize ? fields.itemGapSize : "-larger-gap"
+              } ${style.horizontallyCenteredTextItem}`
             : ""
         } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
           itemShadow ? "card-shadow" : ""
