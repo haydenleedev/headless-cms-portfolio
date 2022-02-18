@@ -134,7 +134,9 @@ const TextGridWithMedia = ({ module, customData }) => {
                   </AgilityLink>
                 );
               } else {
-                return <TextItem data={textItem} key={`textItem${index}`} />;
+                return (
+                  <TextItem data={textItem} key={textItem.fields.contentID} />
+                );
               }
             })}
           </div>
