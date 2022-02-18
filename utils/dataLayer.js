@@ -96,7 +96,12 @@ export const addDataLayerEventTriggers = (router) => {
         }, 30000);
       }
       const getSiteSection = (path) => {
-        return path.split(/(\/)/g).filter(function(e) { return e; })[1]?.split("?")[0];
+        if (path == "/") {
+          return path;
+        }
+        else {
+          return "/" + path.split(/(\/)/g).filter(function(e) { return e; })[1]?.split("?")[0];
+        }
       }
       pathChangeEvent({ previousPath: previousPath, newPath: url });
       if (previousPath !== url) {
