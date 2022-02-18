@@ -110,28 +110,36 @@
   .textItemHeading {
     margin-bottom: 0.625rem;
   }
-  .logoLeftHeaderRight {
-    align-items: center;
-    &.textItemFlex {
-      @include desktop() {
-        height: 100%;
-        padding: 1.5rem 0;
-      }
+}
+.logoLeftHeaderRight {
+  .content {
+    .grid {
+      gap: 1rem;
     }
-    .textItemHeading {
-      width: 100%;
+  }
+  align-items: center;
+  &.textItemFlex {
+    @include desktop() {
+      height: 100%;
+      padding: 1.5rem 0 !important;
     }
-    .textItemMedia {
-      max-width: 13rem !important;
-      min-width: 15%;
-      margin-right: 0.8rem;
-      & > * {
-        font-size: 1rem;
-      }
+    > * {
+      justify-content: flex-start;
     }
-    .textItemHeading > * {
+  }
+  .textItemHeading {
+    width: 100%;
+  }
+  .textItemMedia {
+    width: 2rem !important;
+    min-width: auto !important;
+    margin-right: 0.8rem !important;
+    & > * {
       font-size: 1rem;
     }
+  }
+  .textItemHeading > * {
+    font-size: 1rem;
   }
 }
 .imageFullWidth {

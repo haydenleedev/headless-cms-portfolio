@@ -91,7 +91,7 @@ const TextGridWithMedia = ({ module, customData }) => {
     <section
       className={`section ${style.textGridWithMedia} ${
         fields.classes ? fields.classes : ""
-      }`}
+      } ${fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
