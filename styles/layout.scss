@@ -385,7 +385,10 @@
   margin-top: $size-6 !important;
 }
 .mt--5 {
-  margin-top: -$size-6 !important;
+  margin-top: 0 !important;
+  @include desktop() {
+    margin-top: -$size-6 !important;
+  }
 }
 
 .mb-0 {
