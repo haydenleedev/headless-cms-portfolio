@@ -120,7 +120,11 @@ const ClientTestimonial = ({ module }) => {
                     {fields.link && (
                       <AgilityLink
                         agilityLink={fields.link}
-                        className={`button white small ${style.link}`}
+                        className={`button ${
+                          fields.cTALinkColor ? fields.cTALinkColor : "white"
+                        } ${
+                          fields.cTALinkSize ? fields.cTALinkSize : "small"
+                        } ${style.link}`}
                         ariaLabel={`Navigate to page ` + fields.link.href}
                         title={`Navigate to page ` + fields.link.href}
                       >

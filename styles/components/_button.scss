@@ -19,6 +19,12 @@
     font-size: 1rem;
     border-width: 0.1rem;
   }
+  &.medium {
+    font-size: 1.2rem !important;
+  }
+  &.big {
+    font-size: 1.4rem !important;
+  }
 
   &.outlined {
     border-color: $color-navy;
