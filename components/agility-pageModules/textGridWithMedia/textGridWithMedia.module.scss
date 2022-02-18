@@ -151,6 +151,11 @@
   }
 }
 .imageFullWidth {
+  .textItem {
+    flex: auto;
+  }
+}
+.imageFullWidth {
   &.textItem {
     overflow: hidden;
     padding: 0 0 1.5rem 0 !important;
