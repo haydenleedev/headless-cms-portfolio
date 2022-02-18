@@ -86,7 +86,12 @@ const TextGridWithMedia = ({ module, customData }) => {
     );
   };
 
-  const largeColumnNumber = style["is-" + fields.columns + "-larger-gap"];
+  const largeColumnNumber =
+    style[
+      "is-" +
+        fields.columns +
+        `${fields.itemGapSize === " small-gap" ? "" : "-larger-gap"}`
+    ];
   return (
     <section
       className={`section ${style.textGridWithMedia} ${
