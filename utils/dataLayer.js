@@ -64,9 +64,15 @@ export const linkClickEvent = (data) => {
 };
 
 export const pathChangeEvent = (data) => {
-  console.log(data)
   window.dataLayer?.push({
     event: "pathChange",
+    ...data,
+  });
+}
+
+export const siteSectionTimerEvent = (data) => {
+  window.dataLayer?.push({
+    event: "siteSectionTimer",
     ...data,
   });
 }
@@ -74,31 +80,42 @@ export const pathChangeEvent = (data) => {
 export const addDataLayerEventTriggers = (router) => {
   if (typeof window !== "undefined") {
     // Regular timer triggers
-    setInterval(() => {
+    setTimeout(() => {
       thirtySecondTimerEvent({});
     }, 30000);
-    setInterval(() => {
+    setTimeout(() => {
       sixtySecondTimerEvent({});
     }, 60000);
     // Router triggers
-    let customerStoryPageInterval;
-    let customerStoryPageIntervalActive = false;
-    const customerStoriesPath = "/customerstories";
     let previousPath = router.asPath;
+    let siteSectionTimeout;
     router.events.on("routeChangeComplete", (url) => {
-      pathChangeEvent({ previousPath: previousPath, newPath: url });
-      previousPath = url;
-      if (url.includes(customerStoriesPath) && !customerStoryPageIntervalActive) {
-        customerStoryPageInterval = setInterval(() => {
-          customerStoryTimerEvent({});
+      const setSiteSectionTimeout = () => {
+        siteSectionTimeout = setTimeout(() => {
+          siteSectionTimerEvent({ siteSection: getSiteSection(url) });
         }, 30000);
-        customerStoryPageIntervalActive = true;
       }
-      else if (!url.includes(customerStoriesPath) && customerStoryPageIntervalActive) {
-        clearInterval(customerStoryPageInterval);
-        customerStoryPageIntervalActive = false;
+      const getSiteSection = (path) => {
+        if (path == "/") {
+          return path;
+        }
+        else {
+          return "/" + path.split(/(\/)/g).filter(function(e) { return e; })[1]?.split("?")[0];
+        }
       }
-      else if (url.includes("thank-you")) {
+      pathChangeEvent({ previousPath: previousPath, newPath: url });
+      if (previousPath !== url) {
+        if (getSiteSection(previousPath) !== getSiteSection(url)) {
+          clearTimeout(siteSectionTimeout);
+          setSiteSectionTimeout(url);
+        }
+      }
+      else if (!siteSectionTimeout) {
+        // Timer for first visited page
+        setSiteSectionTimeout(url);
+      }
+      previousPath = url;
+      if (url.includes("thank-you")) {
         formSuccessEvent({});
       } 
     });
