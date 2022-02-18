@@ -113,12 +113,19 @@
 }
 .logoLeftHeaderRight {
   .content {
+    line-height: 1.3rem;
     .grid {
-      gap: 1rem;
+      gap: 0;
+      display: block;
+      @include desktop() {
+        display: flex;
+        gap: 1rem;
+      }
     }
   }
   align-items: center;
   &.textItemFlex {
+    display: flex;
     @include desktop() {
       height: 100%;
       padding: 1.5rem 0 !important;
