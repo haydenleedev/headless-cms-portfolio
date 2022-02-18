@@ -80,18 +80,18 @@ export const siteSectionTimerEvent = (data) => {
 export const addDataLayerEventTriggers = (router) => {
   if (typeof window !== "undefined") {
     // Regular timer triggers
-    setInterval(() => {
+    setTimeout(() => {
       thirtySecondTimerEvent({});
     }, 30000);
-    setInterval(() => {
+    setTimeout(() => {
       sixtySecondTimerEvent({});
     }, 60000);
     // Router triggers
     let previousPath = router.asPath;
-    let siteSectionInterval;
+    let siteSectionTimeout;
     router.events.on("routeChangeComplete", (url) => {
-      const setSiteSectionInterval = () => {
-        siteSectionInterval = setInterval(() => {
+      const setSiteSectionTimeout = () => {
+        siteSectionTimeout = setTimeout(() => {
           siteSectionTimerEvent({ siteSection: getSiteSection(url) });
         }, 30000);
       }
@@ -106,13 +106,13 @@ export const addDataLayerEventTriggers = (router) => {
       pathChangeEvent({ previousPath: previousPath, newPath: url });
       if (previousPath !== url) {
         if (getSiteSection(previousPath) !== getSiteSection(url)) {
-          clearInterval(siteSectionInterval);
-          setSiteSectionInterval(url);
+          clearTimeout(siteSectionTimeout);
+          setSiteSectionTimeout(url);
         }
       }
-      else if (!siteSectionInterval) {
-        // Interval based on first visited page
-        setSiteSectionInterval(url);
+      else if (!siteSectionTimeout) {
+        // Timer for first visited page
+        setSiteSectionTimeout(url);
       }
       previousPath = url;
       if (url.includes("thank-you")) {
