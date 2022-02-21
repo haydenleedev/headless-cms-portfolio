@@ -89,6 +89,7 @@
     .textItemMedia {
       max-width: 7.5rem;
       &.textItemMediaSmall {
+        flex-shrink: 0;
         max-width: 5.625rem;
       }
       img {
@@ -112,12 +113,21 @@
     margin-bottom: 0.625rem;
   }
 }
+.textItemContentWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
 .logoLeftHeaderRight {
   .content {
     line-height: 1.3rem;
     .grid {
       gap: 0;
-      display: block;
+      display: grid;
+      grid-template-columns: 1fr;
+      @media (min-width: 25.5rem) {
+        grid-template-columns: 1fr 1fr;
+      }
       @include desktop() {
         display: flex;
         gap: 0.5rem;

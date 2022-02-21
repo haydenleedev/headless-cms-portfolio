@@ -72,11 +72,21 @@ const TextGridWithMedia = ({ module, customData }) => {
               <Heading {...heading} />
             </div>
           )}
-          {itemFields.text && (
-            <div
-              className={`content ${style.content}`}
-              dangerouslySetInnerHTML={renderHTML(itemFields.text)}
-            ></div>
+          {(itemFields.text || itemFields.secondText) && (
+            <div className={style.textItemContentWrapper}>
+              {itemFields.text && (
+                <div
+                  className={`content ${style.content}`}
+                  dangerouslySetInnerHTML={renderHTML(itemFields.text)}
+                ></div>
+              )}
+              {itemFields.secondText && (
+                <div
+                  className={`content ${style.content}`}
+                  dangerouslySetInnerHTML={renderHTML(itemFields.secondText)}
+                ></div>
+              )}
+            </div>
           )}
         </div>
         {itemFields.link && itemFields.link.text && (
