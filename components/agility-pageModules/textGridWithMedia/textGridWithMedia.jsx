@@ -20,6 +20,10 @@ const TextGridWithMedia = ({ module, customData }) => {
   const roundCorners = boolean(fields?.roundCorners);
   const itemImageFullSizeWidth = boolean(fields?.itemImageFullSizeWidth);
 
+  itemsWithSanitizedHTML.sort(function (a, b) {
+      return a.properties.itemOrder - b.properties.itemOrder;
+  });
+
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {
