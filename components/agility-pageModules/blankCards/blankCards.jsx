@@ -11,24 +11,25 @@ const BlankCards = ({ module, customData }) => {
         return a.properties.itemOrder - b.properties.itemOrder;
     });
     const RenderCard = ({ card }) => {
+        const isIconCard = boolean(card.fields.useImageAsIcon);
         return (
             <div className={style.cardWrapper}>
                 <div className={style.card}>
-                    {(card.fields.image && !boolean(card.fields.useImageAsIcon)) && (
-                        <div className={style.imageWrapper}>
+                    {(card.fields.image && !isIconCard) && (
+                        <div className={`${style.imageWrapper} ${cards.length < fields.maxCardsPerRow ? style[`height${cards.length}`] : style.height4}`}>
                             <AgilityImage
                                 src={card.fields.image.url}
                                 width={0}
                                 height={0}
                                 layout="responsive"
-                                className={style.image}
+                                objectFit="cover"
                             />
                         </div>
                     )}
-                    <div className={style.textContent}>
-                        {card.fields.title && (
-                            <div className={style.titleArea}>
-                                {(card.fields.image && boolean(card.fields.useImageAsIcon)) && (
+                    <div className={`${style.textContent} ${(card.fields.image && !isIconCard) && style.imageCardTextContent}`}>
+                        {(card.fields.title && isIconCard) && (
+                            <div className={`${style.titleWithIcon} ${cards.length < fields.maxCardsPerRow ? style[`height${cards.length}`] : style.height4}`}>
+                                {card.fields.image && (
                                     <div className={style.iconWrapper}>
                                         <AgilityImage
                                             src={card.fields.image.url}
@@ -43,11 +44,17 @@ const BlankCards = ({ module, customData }) => {
                                 <p className={style.title}>{card.fields.title}</p>
                             </div>
                         )}
+                        {(card.fields.title && !isIconCard) && (
+                            <p className={style.title}>{card.fields.title}</p>
+                        )}
                         {card.fields.text && (
                             <div
                                 dangerouslySetInnerHTML={renderHTML(card.fields.text)}
-                                className={`${fields.textAlignment == "left" ? "align-items-start" : "align-items-center"} mt-2`}
+                                className={fields.textAlignment == "left" ? "align-left" : "align-center"}
                             />
+                        )}
+                        {card.fields.link && (
+                            <p className={style.linkText}><span >{card.fields.link.text}</span></p>
                         )}
                     </div>
                 </div>
@@ -62,11 +69,11 @@ const BlankCards = ({ module, customData }) => {
                         return (
                             <div
                                 key={`card${index}`}
-                                className={style[`flexBasis${fields.maxCardsPerRow}`]}
+                                className={cards.length < fields.maxCardsPerRow ? style[`flexBasis${cards.length}`] : style[`flexBasis${fields.maxCardsPerRow}`]}
                             >
                                 {card.fields.link ?
                                     <AgilityLink agilityLink={card.fields.link} className={style.linkCard}>
-                                        <RenderCard card={card}/>
+                                        <RenderCard card={card} />
                                     </AgilityLink>
                                     : <RenderCard card={card} />
                                 }
