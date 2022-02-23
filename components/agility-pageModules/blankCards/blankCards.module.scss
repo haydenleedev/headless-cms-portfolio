@@ -78,18 +78,31 @@
             }
             .imageWrapper, .titleWithIcon {
                 margin-bottom: .75rem;
+                height: 22.5rem;
                 @include desktop() {
                     &.height1 {
                         height: 22.5rem;
+                        &.titleWithIcon .title {
+                            font-size: 1.5rem;
+                        }
                     }
                     &.height2 {
                         height: 15rem;
+                        &.titleWithIcon .title {
+                            font-size: 1.35rem;
+                        }
                     }
                     &.height3 {
                         height: 12.5rem;
+                        &.titleWithIcon .title {
+                            font-size: 1.25rem;
+                        }
                     }
                     &.height4 {
                         height: 10.625rem;
+                        &.titleWithIcon .title {
+                            font-size: 1.1rem;
+                        }
                     }
                 }
             }
@@ -103,7 +116,6 @@
                 .title {
                     font-size: 1rem;
                     font-weight: 600;
-                    justify-self: center;
                     &:not(:only-child) {
                         flex-basis: 60%;
                     }
@@ -111,9 +123,15 @@
                 .titleWithIcon {
                     display: flex;
                     align-items: center;
+                    justify-content: center;
                     width: 100%;
                     gap: .75rem;
+                    .title {
+                        text-align: center;
+                        font-size: 1.5rem;
+                    }
                     .iconWrapper {
+                        height: 100%;
                         flex-grow: 1;
                         flex-basis: 40%;
                         > span {
@@ -121,9 +139,13 @@
                             width: 100% !important;
                         }
                     }
+                    @include desktop() {
+                        padding-top: 1.5rem;
+                    }
                 }
             }
             .linkText {
+                padding-top: 1rem;
                 margin-top: auto;
                 font-size: 1rem;
                 font-weight: 600;
