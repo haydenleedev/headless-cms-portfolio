@@ -37,6 +37,7 @@ import HiddenH1 from "./hiddenH1/hiddenH1";
 import Breadcrumbs from "../breadcrumbs/breadcrumbs";
 import ScriptLoader from "./scriptLoader/scriptLoader";
 import Accordion from "./accordion/accordion";
+import BlankCards from "./blankCards/blankCards";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -100,7 +101,8 @@ const allModules = [
   { name: "GlossaryPageContent", module: GlossaryPageContent },
   { name: "Accordion", module: Accordion },
   { name: "AcknowledgePageContent", module: Placeholder },
-  { name: "ShopErrorPageContent", module: Placeholder }
+  { name: "ShopErrorPageContent", module: Placeholder },
+  { name: "BlankCards", module: BlankCards }
 ];
 
 export const getModule = (moduleName) => {

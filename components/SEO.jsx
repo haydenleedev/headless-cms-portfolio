@@ -45,8 +45,8 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         <meta property="og:image:alt" content={title} key="ogimagealt" />
 
         {/* schema */}
-        <script type="application/ld+json">{organization}</script>
-        <script type="application/ld+json">{webSite}</script>
+        <script type="application/ld+json">{JSON.stringify(organization)}</script>
+        <script type="application/ld+json">{JSON.stringify(webSite)}</script>
         <script type="application/ld+json">{breadcrumbs(url)}</script>
 
         {/* TODO: add Canonical url */}
