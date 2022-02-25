@@ -64,7 +64,10 @@
       }
     }
     &--main {
-      path:not(.g) {
+      path:not(.g),
+      circle:not(.g),
+      polygon:not(.g),
+      rect:not(.g) {
         opacity: 0;
         animation: 0.5s translateY-down forwards;
       }
