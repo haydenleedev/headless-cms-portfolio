@@ -53,10 +53,6 @@ const TextGridWithMedia = ({ module, customData }) => {
                 fields.itemGapSize ? fields.itemGapSize : "-larger-gap"
               }`
             : ""
-        } ${
-          fields.justifyContentCenterHorizontally
-            ? style.justifyContentCenterHorizontally
-            : ""
         } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
           itemShadow ? "card-shadow" : ""
         } ${roundCorners ? "border-radius-1" : ""} ${
@@ -142,7 +138,11 @@ const TextGridWithMedia = ({ module, customData }) => {
               centerItemsHorizontally
                 ? "grid-columns"
                 : `columns mt-4 repeat-${fields.columns}`
-            } ${style.grid}`}
+            } ${style.grid} ${
+              fields.justifyContentCenterHorizontally
+                ? style.justifyContentCenterHorizontally
+                : ""
+            }`}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {
               if (textItem.fields.link) {
