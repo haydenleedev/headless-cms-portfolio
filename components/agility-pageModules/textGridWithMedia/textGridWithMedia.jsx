@@ -21,7 +21,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemImageFullSizeWidth = boolean(fields?.itemImageFullSizeWidth);
 
   itemsWithSanitizedHTML.sort(function (a, b) {
-      return a.properties.itemOrder - b.properties.itemOrder;
+    return a.properties.itemOrder - b.properties.itemOrder;
   });
 
   // observer for triggering animations if an animation style is selected in agility.
@@ -51,7 +51,11 @@ const TextGridWithMedia = ({ module, customData }) => {
           centerItemsHorizontally
             ? `grid-column is-${fields.columns}${
                 fields.itemGapSize ? fields.itemGapSize : "-larger-gap"
-              } ${style.horizontallyCenteredTextItem}`
+              }`
+            : ""
+        } ${
+          fields.justifyContentCenterHorizontally
+            ? style.justifyContentCenterHorizontally
             : ""
         } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
           itemShadow ? "card-shadow" : ""

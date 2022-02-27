@@ -116,7 +116,7 @@
 .textItemContentWrapper {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 .logoLeftHeaderRight {
   .content {
@@ -219,4 +219,8 @@
   .is-7-larger-gap {
     flex: 0 0 calc(14.2857% - 2rem);
   }
+}
+
+.justifyContentCenterHorizontally {
+  justify-content: center !important;
 }

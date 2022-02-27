@@ -144,6 +144,7 @@
     div {
       &:only-child {
         width: 100%;
+        display: flex;
         img {
           object-fit: contain;
         }
