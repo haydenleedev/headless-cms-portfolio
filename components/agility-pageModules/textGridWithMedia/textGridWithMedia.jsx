@@ -49,10 +49,7 @@ const TextGridWithMedia = ({ module, customData }) => {
     return (
       <div
         className={`${style.gridItem}
-        ${
-          centerItemsHorizontally
-            ? `grid-column ${largeColumnNumber}`
-            : ""
+        ${`grid-column ${largeColumnNumber}`
         } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
           itemShadow ? "card-shadow" : ""
         } ${roundCorners ? "border-radius-1" : ""} ${
@@ -130,16 +127,14 @@ const TextGridWithMedia = ({ module, customData }) => {
           <div
             className={`${
               centerItemsHorizontally
-                ? "grid-columns"
-                : `columns mt-4 repeat-${fields.columns}`
-            } ${style.grid} ${
-              fields.centerItemsHorizontally
-                ? style.justifyContentCenterHorizontally
-                : ""
-            } ${
+                ? `grid-columns ${style.justifyContentCenterHorizontally}`
+                : `columns repeat-${fields.columns}`
+            } ${style.grid}
+            ${
               narrowContainer ? "max-width-narrow" : ""
             }
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
+            mt-4
           `}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {
@@ -149,10 +144,10 @@ const TextGridWithMedia = ({ module, customData }) => {
                     agilityLink={textItem.fields.link}
                     ariaLabel={`Read more about ${textItem.fields.title}`}
                     key={`textItem${index}`}
-                    className={`${style.gridItem}
-                    ${
-                      centerItemsHorizontally ? `${largeColumnNumber}` : ""
-                    }`}
+                    className={`
+                      ${style.gridItem}
+                      ${largeColumnNumber}
+                    `}
                   >
                     <TextItem data={textItem} />
                   </AgilityLink>
