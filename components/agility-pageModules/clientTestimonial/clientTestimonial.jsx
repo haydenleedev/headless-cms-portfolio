@@ -48,7 +48,10 @@ const ClientTestimonial = ({ module }) => {
                   </div>
                 )}
                 {fields.testimonial.fields?.text && (
-                  <div className={style.textContent}>
+                  <div
+                    className={style.textContent}
+                    data-animate="true"
+                  >
                     {boolean(fields.displayRating) && (
                       <StarRating
                         starCount={fields.testimonial?.starCount}
@@ -98,7 +101,10 @@ const ClientTestimonial = ({ module }) => {
                   </div>
                 )}
                 {fields.testimonial.fields?.text && (
-                  <div className={style.textContent}>
+                  <div
+                    className={style.textContent}
+                    data-animate="true"
+                  >
                     {boolean(fields.displayRating) && (
                       <StarRating
                         starCount={fields.testimonial?.starCount}
@@ -131,10 +137,7 @@ const ClientTestimonial = ({ module }) => {
                         </p>
                       )}
                       {fields.testimonial.fields.logo && (
-                        <div
-                          className={style.logo}
-                          data-animate="true"
-                        >
+                        <div className={style.logo}>
                           <Media media={fields.testimonial.fields.logo} />
                         </div>
                       )}
