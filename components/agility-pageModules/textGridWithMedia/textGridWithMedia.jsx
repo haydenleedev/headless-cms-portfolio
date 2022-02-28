@@ -41,17 +41,17 @@ const TextGridWithMedia = ({ module, customData }) => {
       : null
   );
 
+  const largeColumnNumber = style[`is-${fields.columns}`];
+
   const TextItem = ({ data }) => {
     const itemFields = data.fields;
     const heading = JSON.parse(itemFields.heading);
-
     return (
       <div
-        className={`${
+        className={`${style.gridItem}
+        ${
           centerItemsHorizontally
-            ? `grid-column is-${fields.columns}${
-                fields.itemGapSize ? fields.itemGapSize : "-larger-gap"
-              }`
+            ? `grid-column ${largeColumnNumber}`
             : ""
         } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
           itemShadow ? "card-shadow" : ""
@@ -100,12 +100,6 @@ const TextGridWithMedia = ({ module, customData }) => {
     );
   };
 
-  const largeColumnNumber =
-    style[
-      "is-" +
-        fields.columns +
-        `${fields.itemGapSize === " small-gap" ? "" : "-larger-gap"}`
-    ];
   return (
     <section
       className={`section ${style.textGridWithMedia} ${
@@ -142,7 +136,11 @@ const TextGridWithMedia = ({ module, customData }) => {
               fields.justifyContentCenterHorizontally
                 ? style.justifyContentCenterHorizontally
                 : ""
-            }`}
+            } ${
+              !narrowContainer ? "max-width-narrow" : ""
+            }
+            ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
+          `}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {
               if (textItem.fields.link) {
@@ -151,7 +149,8 @@ const TextGridWithMedia = ({ module, customData }) => {
                     agilityLink={textItem.fields.link}
                     ariaLabel={`Read more about ${textItem.fields.title}`}
                     key={`textItem${index}`}
-                    className={`${
+                    className={`${style.gridItem}
+                    ${
                       centerItemsHorizontally ? `${largeColumnNumber}` : ""
                     }`}
                   >
