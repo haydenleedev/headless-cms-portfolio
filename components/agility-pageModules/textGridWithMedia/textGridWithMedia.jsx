@@ -133,7 +133,7 @@ const TextGridWithMedia = ({ module, customData }) => {
                 ? "grid-columns"
                 : `columns mt-4 repeat-${fields.columns}`
             } ${style.grid} ${
-              fields.justifyContentCenterHorizontally
+              fields.centerItemsHorizontally
                 ? style.justifyContentCenterHorizontally
                 : ""
             } ${
