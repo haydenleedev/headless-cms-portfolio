@@ -41,7 +41,7 @@ const TextGridWithMedia = ({ module, customData }) => {
       : null
   );
 
-  const largeColumnNumber = style[`is-${fields.columns}`];
+  const largeColumnNumber = itemsWithSanitizedHTML.length < fields.columns ? style[`is-${itemsWithSanitizedHTML.length}`] : style[`is-${fields.columns}`];
 
   const TextItem = ({ data }) => {
     const itemFields = data.fields;
@@ -137,7 +137,7 @@ const TextGridWithMedia = ({ module, customData }) => {
                 ? style.justifyContentCenterHorizontally
                 : ""
             } ${
-              !narrowContainer ? "max-width-narrow" : ""
+              narrowContainer ? "max-width-narrow" : ""
             }
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
           `}
@@ -159,7 +159,10 @@ const TextGridWithMedia = ({ module, customData }) => {
                 );
               } else {
                 return (
-                  <TextItem data={textItem} key={textItem.fields.contentID} />
+                  <TextItem
+                    data={textItem}
+                    key={`textItem${index}`}
+                  />
                 );
               }
             })}
