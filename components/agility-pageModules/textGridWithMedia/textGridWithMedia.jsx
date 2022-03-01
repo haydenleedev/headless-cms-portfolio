@@ -21,7 +21,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemImageFullSizeWidth = boolean(fields?.itemImageFullSizeWidth);
 
   itemsWithSanitizedHTML.sort(function (a, b) {
-      return a.properties.itemOrder - b.properties.itemOrder;
+    return a.properties.itemOrder - b.properties.itemOrder;
   });
 
   // observer for triggering animations if an animation style is selected in agility.
@@ -41,18 +41,15 @@ const TextGridWithMedia = ({ module, customData }) => {
       : null
   );
 
+  const largeColumnNumber = itemsWithSanitizedHTML.length < fields.columns ? style[`is-${itemsWithSanitizedHTML.length}`] : style[`is-${fields.columns}`];
+
   const TextItem = ({ data }) => {
     const itemFields = data.fields;
     const heading = JSON.parse(itemFields.heading);
-
     return (
       <div
-        className={`${
-          centerItemsHorizontally
-            ? `grid-column is-${fields.columns}${
-                fields.itemGapSize ? fields.itemGapSize : "-larger-gap"
-              } ${style.horizontallyCenteredTextItem}`
-            : ""
+        className={`${style.gridItem}
+        ${`grid-column ${largeColumnNumber}`
         } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
           itemShadow ? "card-shadow" : ""
         } ${roundCorners ? "border-radius-1" : ""} ${
@@ -100,12 +97,6 @@ const TextGridWithMedia = ({ module, customData }) => {
     );
   };
 
-  const largeColumnNumber =
-    style[
-      "is-" +
-        fields.columns +
-        `${fields.itemGapSize === " small-gap" ? "" : "-larger-gap"}`
-    ];
   return (
     <section
       className={`section ${style.textGridWithMedia} ${
@@ -136,9 +127,15 @@ const TextGridWithMedia = ({ module, customData }) => {
           <div
             className={`${
               centerItemsHorizontally
-                ? "grid-columns"
-                : `columns mt-4 repeat-${fields.columns}`
-            } ${style.grid}`}
+                ? `grid-columns ${style.justifyContentCenterHorizontally}`
+                : `columns repeat-${fields.columns}`
+            } ${style.grid}
+            ${
+              narrowContainer ? "max-width-narrow" : ""
+            }
+            ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
+            mt-4
+          `}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {
               if (textItem.fields.link) {
@@ -147,16 +144,20 @@ const TextGridWithMedia = ({ module, customData }) => {
                     agilityLink={textItem.fields.link}
                     ariaLabel={`Read more about ${textItem.fields.title}`}
                     key={`textItem${index}`}
-                    className={`${
-                      centerItemsHorizontally ? `${largeColumnNumber}` : ""
-                    }`}
+                    className={`
+                      ${style.gridItem}
+                      ${largeColumnNumber}
+                    `}
                   >
                     <TextItem data={textItem} />
                   </AgilityLink>
                 );
               } else {
                 return (
-                  <TextItem data={textItem} key={textItem.fields.contentID} />
+                  <TextItem
+                    data={textItem}
+                    key={`textItem${index}`}
+                  />
                 );
               }
             })}

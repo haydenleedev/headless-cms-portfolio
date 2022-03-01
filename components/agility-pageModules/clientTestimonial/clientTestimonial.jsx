@@ -3,15 +3,34 @@ import Media from "../media";
 import StarRating from "../../starRating/starRating";
 import style from "./clientTestimonial.module.scss";
 import AgilityLink from "../../agilityLink";
+import { useIntersectionObserver } from "../../../utils/hooks";
 
 const ClientTestimonial = ({ module }) => {
   const { fields } = module;
+  // observer for triggering animations if an animation style is selected in agility.
+  const intersectionRef = useIntersectionObserver(
+    {
+      threshold: 0.0,
+    },
+    0.0,
+    fields.animationStyle
+      ? () => {
+          intersectionRef.current
+            .querySelectorAll('*[data-animate="true"]')
+            .forEach((elem) => {
+              elem.classList.add(fields.animationStyle);
+            });
+        }
+      : null
+  );
+
   return (
     <section
       className={`section ${style.clientTestimonial} ${
         fields.classes ? fields.classes : ""
       }`}
       id={fields.id ? fields.id : null}
+      ref={intersectionRef}
     >
       {fields.backgroundImage && (
         <div className={style.backgroundImage}>
@@ -29,7 +48,10 @@ const ClientTestimonial = ({ module }) => {
                   </div>
                 )}
                 {fields.testimonial.fields?.text && (
-                  <div className={style.textContent}>
+                  <div
+                    className={style.textContent}
+                    data-animate="true"
+                  >
                     {boolean(fields.displayRating) && (
                       <StarRating
                         starCount={fields.testimonial?.starCount}
@@ -79,7 +101,10 @@ const ClientTestimonial = ({ module }) => {
                   </div>
                 )}
                 {fields.testimonial.fields?.text && (
-                  <div className={style.textContent}>
+                  <div
+                    className={style.textContent}
+                    data-animate="true"
+                  >
                     {boolean(fields.displayRating) && (
                       <StarRating
                         starCount={fields.testimonial?.starCount}
