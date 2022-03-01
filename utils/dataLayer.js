@@ -196,6 +196,12 @@ export const addDataLayerEventTriggers = (router) => {
           internalLinkClickEvent({});
         }
       }
+      else if (e.target.parentNode.nodeName === "A") {
+        linkClickEvent({});
+        if (e.target.parentNode.href.includes(process.env.NEXT_PUBLIC_SITE_URL)) {
+          internalLinkClickEvent({});
+        }
+      }
       else {
         elementClickEvent({});
       }
