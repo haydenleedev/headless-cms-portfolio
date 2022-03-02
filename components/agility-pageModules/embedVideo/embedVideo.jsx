@@ -8,7 +8,7 @@ import {
 } from "../../../utils/convert";
 import { renderHTML } from "@agility/nextjs";
 import Script from "next/script";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 import { youTubeActivityEvent } from "../../../utils/dataLayer";
 
 const EmbedVideo = ({ module, customData }) => {
