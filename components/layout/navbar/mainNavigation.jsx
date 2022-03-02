@@ -15,15 +15,23 @@ const MainNavigation = ({
   const [dropdownFocus, setDropdownFocus] = useState(false);
   const router = useRouter();
   //Manual sort since something is bugged in Agility item order returned from Agility...
-  // mainNavigation.forEach((group) => {
-  //   if (group.fields.columns?.length > 0) {
-  //     group.fields.columns.forEach((column) => {
-  //       column.fields.items.sort(function (a, b) {
-  //         return a.properties.itemOrder - b.properties.itemOrder;
-  //       });
-  //     });
-  //   }
-  // });
+  mainNavigation.forEach((group) => { 
+    if (group.fields.columns?.length > 1) {
+      group.fields.columns.sort(function (a, b) {
+        return b.properties.itemOrder + a.properties.itemOrder;
+      });
+    }
+  });
+  mainNavigation.forEach((group) => {
+    if (group.fields.columns?.length > 0) {
+      group.fields.columns.forEach((column) => {
+        column.fields.items.sort(function (a, b) {
+          return b.properties.itemOrder + a.properties.itemOrder;
+        });
+      });
+    }
+  });
+  
   const handleSetSearchToggled = (boolean) => {
     setSearchToggled(boolean);
   };
