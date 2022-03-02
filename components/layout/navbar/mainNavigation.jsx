@@ -25,7 +25,7 @@ const MainNavigation = ({
   mainNavigation.forEach((group) => {
     if (group.fields.columns?.length > 0) {
       group.fields.columns.forEach((column) => {
-        column.fields.items.sort(function (a, b) {
+        column.fields.items?.sort(function (a, b) {
           return b.properties.itemOrder + a.properties.itemOrder;
         });
       });
