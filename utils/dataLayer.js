@@ -84,6 +84,13 @@ export const scrollDepthEvent = (data) => {
   });
 }
 
+export const youTubeActivityEvent = (data) => {
+  window.dataLayer?.push({
+    event: "youTubeActivity",
+    ...data,
+  });
+}
+
 export const addDataLayerEventTriggers = (router) => {
   if (typeof window !== "undefined") {
     // Scroll triggers

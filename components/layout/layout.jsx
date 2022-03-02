@@ -37,9 +37,20 @@ const Layout = (props) => {
   } = props;
 
   const router = useRouter();
+  let initialPageLoaded = false;
 
   useEffect(() => {
     addDataLayerEventTriggers(router);
+    router.events.on("routeChangeComplete", () => {
+      // Track virtual page views (Bombora)
+      if (window._ml && initialPageLoaded) {
+        window._ml.q = window._ml.q || [];
+        window._ml.q.push(["track"]);
+      }
+      else if (!initialPageLoaded) {
+        initialPageLoaded = true;
+      }
+    });
   }, []);
 
   // If the page is not yet generated, this will be displayed
