@@ -18,7 +18,7 @@ const MainNavigation = ({
   mainNavigation.forEach((group) => { 
     if (group.fields.columns?.length > 1) {
       group.fields.columns.sort(function (a, b) {
-        return b.properties.itemOrder + a.properties.itemOrder;
+        return a.properties.itemOrder - b.properties.itemOrder;
       });
     }
   });
@@ -26,7 +26,7 @@ const MainNavigation = ({
     if (group.fields.columns?.length > 0) {
       group.fields.columns.forEach((column) => {
         column.fields.items?.sort(function (a, b) {
-          return b.properties.itemOrder + a.properties.itemOrder;
+          return a.properties.itemOrder - b.properties.itemOrder;
         });
       });
     }
