@@ -162,8 +162,12 @@
   gap: 0.5rem;
 }
 .logoLeftHeaderRight {
+  .mt-4 {
+    margin-top: 0;
+  }
   .content {
     line-height: 1.3rem;
+    align-items: stretch;
     .grid {
       gap: 0;
       display: grid;
@@ -221,8 +225,6 @@
     }
   }
 }
-
-
 
 .justifyContentCenterHorizontally {
   justify-content: center !important;
