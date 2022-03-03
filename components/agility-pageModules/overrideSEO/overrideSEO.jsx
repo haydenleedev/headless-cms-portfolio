@@ -1,5 +1,7 @@
-import { useEffect } from "react";
 import Head from "next/head";
+import { useContext } from "react";
+import GlobalContext from "../../../context";
+
 // this module overrides provided meta tags in the document head
 const OverrideSEO = ({ module, additionalSchemas }) => {
   let fields = {};
@@ -26,13 +28,24 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
   // might be input either one depending on the context...
   // renaming agility api names of fields for existing data doesnt seem to work so need this workaround
   const og_image = ogImage?.url || ogImageURL;
+  const { globalSettings } = useContext(GlobalContext);
+  const pageTitleSuffix = globalSettings.fields.pageTitleSuffix;
+  let suffixedMetaTitle = metaTitle;
+  if (!suffixedMetaTitle.includes(`| ${pageTitleSuffix}`)) {
+    if (suffixedMetaTitle.includes(`- ${pageTitleSuffix}`)) {
+      suffixedMetaTitle = suffixedMetaTitle.replace(`- ${pageTitleSuffix}`, `| ${pageTitleSuffix}`);
+    }
+    else {
+      suffixedMetaTitle += ` | ${pageTitleSuffix}`;
+    }
+  }
 
   return (
     <Head>
-      {metaTitle && (
+      {suffixedMetaTitle && (
         <>
-          <title key="title">{metaTitle}</title>
-          <meta property="og:title" content={metaTitle} key="ogtitle" />
+          <title key="title">{suffixedMetaTitle}</title>
+          <meta property="og:title" content={suffixedMetaTitle} key="ogtitle" />
         </>
       )}
       {metaDescription && (
@@ -54,8 +67,8 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
           key="ogimage"
         />
       )}
-      {metaTitle && (
-        <meta property="og:image:alt" content={metaTitle} key="ogimagealt" />
+      {suffixedMetaTitle && (
+        <meta property="og:image:alt" content={suffixedMetaTitle} key="ogimagealt" />
       )}
       {twitterCard && (
         <meta name="twitter:card" content={twitterCard} key="twittercard" />
@@ -63,8 +76,8 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
       {twitterImage && (
         <meta name="twitter:image" content={`${twitterImage.url}${"?q=50&w=1200&height=630format=auto"}`} key="twitterimage" />
       )}
-      {twitterImage && metaTitle && (
-          <meta name="twitter:image:alt" content={metaTitle} key="twitterimagealt" />
+      {twitterImage && suffixedMetaTitle && (
+          <meta name="twitter:image:alt" content={suffixedMetaTitle} key="twitterimagealt" />
       )}
       {canonicalURL && (
         <link rel="canonical" href={canonicalURL} />
