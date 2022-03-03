@@ -23,7 +23,14 @@ const Media = ({ media }) => {
         );
       default:
         return (
-          <video className="video" autoPlay muted loop controls aria-label={media.label || ""}>
+          <video
+            className="video"
+            autoPlay
+            muted
+            loop
+            controls
+            aria-label={media.label || ""}
+          >
             <source src={media.url} type={`video/${mediaType}`} />
             Your browser does not support the video tag.
           </video>

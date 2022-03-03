@@ -132,7 +132,10 @@ const TextWithMedia = ({ module, customData }) => {
             } ${style[`${fields.mediaPadding}`]}
             `}
           >
-            <div data-animate="true">
+            <div
+              data-animate="true"
+              className={`${fields.mediaClass ? fields.mediaClass : "null"}`}
+            >
               {fields.media && !fields.testimonial && (
                 <Media media={fields.media} />
               )}
