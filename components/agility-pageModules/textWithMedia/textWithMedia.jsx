@@ -134,7 +134,10 @@ const TextWithMedia = ({ module, customData }) => {
           >
             <div data-animate="true">
               {fields.media && !fields.testimonial && (
-                <Media media={fields.media} />
+                <Media
+                  media={fields.media}
+                  title={fields.mediaTitle}
+                />
               )}
             </div>
             {fields.testimonial && (
