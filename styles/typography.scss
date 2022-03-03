@@ -325,6 +325,9 @@ blog posts or anywhere where html is rendered */
     img {
       max-width: 50vw;
       height: unset;
+      &.fixed-width {
+        width: auto;
+      }
       @include touch() {
         max-width: 70vw;
         display: block;
