@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useContext } from "react";
 import GlobalContext from "../../../context";
+import { formatPageTitle } from "../../../utils/convert";
 
 // this module overrides provided meta tags in the document head
 const OverrideSEO = ({ module, additionalSchemas }) => {
@@ -29,16 +30,7 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
   // renaming agility api names of fields for existing data doesnt seem to work so need this workaround
   const og_image = ogImage?.url || ogImageURL;
   const { globalSettings } = useContext(GlobalContext);
-  const pageTitleSuffix = globalSettings.fields.pageTitleSuffix;
-  let suffixedMetaTitle = metaTitle;
-  if (suffixedMetaTitle && !suffixedMetaTitle.includes(`| ${pageTitleSuffix}`)) {
-    if (suffixedMetaTitle.includes(`- ${pageTitleSuffix}`)) {
-      suffixedMetaTitle = suffixedMetaTitle.replace(`- ${pageTitleSuffix}`, `| ${pageTitleSuffix}`);
-    }
-    else {
-      suffixedMetaTitle += ` | ${pageTitleSuffix}`;
-    }
-  }
+  const suffixedMetaTitle = formatPageTitle(metaTitle, globalSettings.fields.pageTitleSuffix);
 
   return (
     <Head>
