@@ -162,13 +162,11 @@
   gap: 0.5rem;
 }
 .logoLeftHeaderRight {
-  .mt-4 {
-    margin-top: 0 !important;
-  }
   .content {
     line-height: 1.3rem;
     align-items: stretch;
     .grid {
+      margin-top: 0 !important;
       gap: 0;
       display: grid;
       grid-template-columns: 1fr;
