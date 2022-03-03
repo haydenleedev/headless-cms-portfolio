@@ -106,7 +106,7 @@ export const resolveLink = (referenceName, fields) => {
 // for an user's uploaded videos: https://www.youtube.com/embed?listType=user_uploads&list=USERNAME
 // reference: https://developers.google.com/youtube/player_parameters
 
-export const youtubeVideoLinkToEmbed = (link) => {
+export const youTubeVideoLinkToEmbed = (link) => {
   // split yt link parameters
   let parameters = link
     .split("?")[1]
@@ -123,7 +123,7 @@ export const youtubeVideoLinkToEmbed = (link) => {
   parameters.forEach((parameter) => {
     switch (parameter.name) {
       case "v":
-        embedLink += parameter.value;
+        embedLink += parameter.value + "?enablejsapi=1";
         break;
       case "list":
         embedLink += `?listType=playlist&list=${parameter.value}`;
@@ -193,3 +193,15 @@ export const getAlgoliaHighestResultFormatted = (result) => {
 
   return snippet;
 };
+
+export const formatPageTitle = (title, suffix) => {
+  if (title && !title.includes(`| ${suffix}`)) {
+    if (title.includes(`- ${suffix}`)) {
+      return title.replace(`- ${suffix}`, `| ${suffix}`);
+    }
+    else {
+      return `${title} | ${suffix}`;
+    }
+  }
+  return title;
+}

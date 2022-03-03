@@ -2,6 +2,9 @@ import Head from "next/head";
 import { breadcrumbs, organization, webSite } from "../schema";
 import Script from "next/script";
 import { setCookie } from "../utils/cookies";
+import { useContext } from "react";
+import GlobalContext from "../context";
+import { formatPageTitle } from "../utils/convert";
 
 const SEO = ({ title, description, keywords, metaHTML, url }) => {
   // setup and parse additional header markup
@@ -13,17 +16,19 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
     new Date().toUTCString(),
     "Fri, 31 Dec 9999 23:59:59 GMT"
   );
+  const { globalSettings } = useContext(GlobalContext);
+  const suffixedMetaTitle = formatPageTitle(title, globalSettings.fields.pageTitleSuffix);
   return (
     <>
       <Head>
-        <title key="title">{title}</title>
+        <title key="title">{suffixedMetaTitle}</title>
         <meta name="generator" content="Agility CMS" />
         <meta name="agility_timestamp" content={new Date().toLocaleString()} />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="description" content={description} key="description" />
         <meta name="keywords" content={keywords} />
         {/* OG DATA */}
-        <meta property="og:title" content={title} key="ogtitle" />
+        <meta property="og:title" content={suffixedMetaTitle} key="ogtitle" />
         {url && <meta property="og:url" content={url} key="ogurl" />}
         <meta property="og:locale" content="en_US" key="oglocale" />
         <meta property="og:site_name" content="UJET" key="ogsitename" />
@@ -42,7 +47,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
           content="https://assets.ujet.cx/FB-UJET-Image-V2.jpg"
           key="ogimage"
         />
-        <meta property="og:image:alt" content={title} key="ogimagealt" />
+        <meta property="og:image:alt" content={suffixedMetaTitle} key="ogimagealt" />
 
         {/* schema */}
         <script type="application/ld+json">{JSON.stringify(organization)}</script>

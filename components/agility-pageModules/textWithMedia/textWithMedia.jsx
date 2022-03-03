@@ -137,7 +137,10 @@ const TextWithMedia = ({ module, customData }) => {
               className={`${fields.mediaClass ? fields.mediaClass : "null"}`}
             >
               {fields.media && !fields.testimonial && (
-                <Media media={fields.media} />
+                <Media
+                  media={fields.media}
+                  title={fields.mediaTitle}
+                />
               )}
             </div>
             {fields.testimonial && (

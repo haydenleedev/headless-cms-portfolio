@@ -1,6 +1,6 @@
 import { AgilityImage } from "@agility/nextjs";
 
-const Media = ({ media }) => {
+const Media = ({ media, title }) => {
   const isBrowser = typeof window !== "undefined";
   if (!media?.url) return null;
   else {
@@ -17,6 +17,7 @@ const Media = ({ media }) => {
             alt={media.label || ""}
             width={media.pixelWidth != "0" ? media.pixelWidth + "px" : "360"}
             height={media.pixelHeight}
+            title={title ? title : ""}
             // Does not work well...
             // layout="responsive"
           ></AgilityImage>
