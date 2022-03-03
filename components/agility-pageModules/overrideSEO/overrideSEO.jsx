@@ -31,7 +31,7 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
   const { globalSettings } = useContext(GlobalContext);
   const pageTitleSuffix = globalSettings.fields.pageTitleSuffix;
   let suffixedMetaTitle = metaTitle;
-  if (!suffixedMetaTitle.includes(`| ${pageTitleSuffix}`)) {
+  if (suffixedMetaTitle && !suffixedMetaTitle.includes(`| ${pageTitleSuffix}`)) {
     if (suffixedMetaTitle.includes(`- ${pageTitleSuffix}`)) {
       suffixedMetaTitle = suffixedMetaTitle.replace(`- ${pageTitleSuffix}`, `| ${pageTitleSuffix}`);
     }
