@@ -69,6 +69,46 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         strategy="lazyOnload"
       />
 
+      <Script>
+        {/* Bombora Tag */}
+        {`
+          //informer
+          (function(f,i,c){var a=decodeURIComponent,e="",l="",o="||",g=";;",h="split",b="length",j="indexOf",k=0,n="localStorage",m="_ccmdt";f[c]=f[c]||{};function d(q){var p;if(f[n]){return f[n][q]||""}else{p=i.cookie.match(q+"=([^;]*)");return(p&&p[1])||""}}f[c].us={};e=a(d(m))[h](o);k=e[b];if(k>0){while(k--){l=e[k][h]("=");if(l[b]>1){if(l[1][j](g)>-1){f[c].us[l[0]]=l[1][h](g);f[c].us[l[0]].pop()}else{f[c].us[l[0]]=l[1]}}}}})(window,document,"_ml");
+
+          //tag
+          (function () {
+            _ml = window._ml || {};
+            _ml.eid = '84421';
+            _ml.informer = {
+              callback: function (gaSet,gaSend) { //call back when profile is loaded
+                if (typeof dataLayer != 'undefined' && !_ml.isEmptyObj(_ml.us)) {
+                  dataLayer.push({
+                    'event' : 'Bombora_Informer',
+                    'Bombora_Topic': (_ml.us.tp && _ml.us.tp.length > 0) ? _ml.us.tp[0] : '',
+                    'Bombora_Company_Revenue': _ml.us.cr,
+                    'Bombora_Company_Size': _ml.us.cs,
+                    'Bombora_Domain': _ml.us.dm,
+                    'Bombora_Seniority': _ml.us.sn,
+                    'Bombora_Predictive_Category': (_ml.us.pc && _ml.us.pc.length > 0) ? _ml.us.pc[0] : '',
+                    'Bombora_Decision_Maker': _ml.us.dcm,
+                    'Bombora_Functional_Area': (_ml.us.fa && _ml.us.fa.length > 0) ? _ml.us.fa[0] : '',
+                    'Bombora_Install_Data': (_ml.us.ins && _ml.us.ins.length > 0) ? _ml.us.ins[0] : '',
+                    'Bombora_Professional_Group': (_ml.us.pg && _ml.us.pg.length > 0) ? _ml.us.pg[0] : '',
+                    'Bombora_Education': _ml.us.edu,
+                    'Bombora_Industry': _ml.us.ind
+                  });
+                }
+              },
+              enable: true
+            };
+            var s = document.getElementsByTagName('script')[0], cd = new Date(), mltag = document.createElement('script');
+            mltag.type = 'text/javascript'; mltag.async = true;
+            mltag.src = 'https://ml314.com/tag.aspx?' + cd.getDate() + cd.getMonth() + cd.getFullYear();
+            s.parentNode.insertBefore(mltag, s);
+          })();
+        `}
+      </Script>
+
       <Script id="6sense">
         {`window._6si = window._6si || [];
           window._6si.push(['enableEventTracking', true]);
