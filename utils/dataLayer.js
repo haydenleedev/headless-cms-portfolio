@@ -91,6 +91,12 @@ export const youTubeActivityEvent = (data) => {
   });
 }
 
+export const marketoScriptReadyEvent = (data) => {
+  window.dataLayer?.push({
+    event: "marketoScriptReady",
+  });
+}
+
 export const addDataLayerEventTriggers = (router) => {
   if (typeof window !== "undefined") {
     // Scroll triggers
