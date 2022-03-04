@@ -69,7 +69,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         strategy="lazyOnload"
       />
 
-      <Script>
+      <Script id="bombora">
         {/* Bombora Tag */}
         {`
           //informer
