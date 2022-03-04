@@ -219,6 +219,7 @@
       height: 12.5rem;
       & > span:only-child img {
         object-fit: cover;
+        min-height: 100% !important;
       }
     }
     .content,
