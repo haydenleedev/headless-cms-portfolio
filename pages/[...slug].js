@@ -60,7 +60,7 @@ export async function getStaticPaths({ locales, defaultLocale }) {
 
 const AgilityPage = (props) => {
   return (
-    <GlobalContextWrapper>
+    <GlobalContextWrapper data={props.globalData.globalSettings.data}>
       <Layout {...props} />
     </GlobalContextWrapper>
   );

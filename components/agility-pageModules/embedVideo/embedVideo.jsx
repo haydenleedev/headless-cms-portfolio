@@ -69,11 +69,11 @@ const EmbedVideo = ({ module, customData }) => {
         const playerState = e.data;
         playerStateSequence = [...playerStateSequence, playerState];
         if (arraysAreEqual(playerStateSequence, [2, 3, 1]) || arraysAreEqual(playerStateSequence, [3, 1])) {
-          youTubeActivityEvent({ activity: "Seek" });
+          youTubeActivityEvent({ action: "Seek" });
           playerStateSequence = [];
         }
         else if (arraysAreEqual(playerStateSequence, [-1, 3, 1]) || arraysAreEqual(playerStateSequence, [1, 3, 1])) {
-          youTubeActivityEvent({ activity: "Video start" });
+          youTubeActivityEvent({ action: "Video start" });
           playerStateSequence = [];
         }
         else {
@@ -81,13 +81,13 @@ const EmbedVideo = ({ module, customData }) => {
           if (playerState !== 3) {
             let timeout = setTimeout(() => {
               if (playerState == 0) {
-                youTubeActivityEvent({ activity: "Video end" });
+                youTubeActivityEvent({ action: "Video end" });
               }
               else if (playerState == 1) {
-                youTubeActivityEvent({ activity: "Play" });
+                youTubeActivityEvent({ action: "Play" });
               }
               else if (playerState == 2) {
-                youTubeActivityEvent({ activity: "Pause" });
+                youTubeActivityEvent({ action: "Pause" });
               }
               playerStateSequence = [];
             }, 250);
@@ -103,7 +103,7 @@ const EmbedVideo = ({ module, customData }) => {
             for (let i = 0; i < playbackPercentages.length; i++) {
               if (playbackPercentage >= playbackPercentages[i].percentage && !playbackPercentages[i].played) {
                 if (Math.round(((playbackPercentages[i].percentage / 100) * player.getDuration()) - previousVideoTime) == 0) {
-                  youTubeActivityEvent({ activity: `Playback percentage: ${playbackPercentages[i].percentage}` });
+                  youTubeActivityEvent({ action: `Playback percentage: ${playbackPercentages[i].percentage}` });
                   playbackPercentages[i].played = true;
                 }
               }

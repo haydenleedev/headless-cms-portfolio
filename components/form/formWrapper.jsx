@@ -3,7 +3,7 @@ import Script from "next/script";
 import { generateUUID } from "../../utils/generic";
 import Head from "next/head";
 import { getCookie, setCookie } from "../../utils/cookies";
-import { formSubmissionEvent } from "../../utils/dataLayer";
+import { formSubmissionEvent, marketoScriptReadyEvent } from "../../utils/dataLayer";
 
 const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
   // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"
@@ -170,7 +170,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
         onLoad={() =>
           onScriptLoad().then(() => {
             if (handleSetFormLoaded) handleSetFormLoaded();
-            
+            marketoScriptReadyEvent({});
           })
         }
       />

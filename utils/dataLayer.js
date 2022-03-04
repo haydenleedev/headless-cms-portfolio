@@ -80,14 +80,20 @@ export const siteSectionTimerEvent = (data) => {
 export const scrollDepthEvent = (data) => {
   window.dataLayer?.push({
     event: "scrollDepth",
-    ...data,
+    scrollBreakpoint: data.scrollDepth
   });
 }
 
 export const youTubeActivityEvent = (data) => {
   window.dataLayer?.push({
     event: "youTubeActivity",
-    ...data,
+    youTubeAction: data.action
+  });
+}
+
+export const marketoScriptReadyEvent = (data) => {
+  window.dataLayer?.push({
+    event: "marketoScriptReady",
   });
 }
 

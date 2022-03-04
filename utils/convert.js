@@ -193,3 +193,15 @@ export const getAlgoliaHighestResultFormatted = (result) => {
 
   return snippet;
 };
+
+export const formatPageTitle = (title, suffix) => {
+  if (title && !title.includes(`| ${suffix}`)) {
+    if (title.includes(`- ${suffix}`)) {
+      return title.replace(`- ${suffix}`, `| ${suffix}`);
+    }
+    else {
+      return `${title} | ${suffix}`;
+    }
+  }
+  return title;
+}

@@ -121,7 +121,10 @@ const TextGridWithMedia = ({ module, customData }) => {
         <div className={style.content}>
           {fields.media && (
             // <div className={style.mediaContainer}>
-            <Media media={fields.media} />
+            <Media
+              media={fields.media}
+              title={fields.mediaTitle}
+            />
             // </div>
           )}
           <div
