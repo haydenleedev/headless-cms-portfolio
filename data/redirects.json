@@ -818,5 +818,15 @@
     "source": "/url2",
     "destination": "https://haydenleedev.github.io/ujet-url-builder/url2/",
     "permanent": true
+  },
+  {
+    "source": "/web1",
+    "destination": "https://datastudio.google.com/reporting/24942f58-c48d-4641-b465-048a43d0de67/page/p_6pv0ufdusc",
+    "permanent": true
+  },
+  {
+    "source": "/web2",
+    "destination": "https://datastudio.google.com/reporting/bb385f4b-8050-4356-acd0-e1b49b1e55ff/page/o5QnC",
+    "permanent": true
   }
 ]
