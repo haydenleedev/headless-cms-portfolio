@@ -189,6 +189,10 @@ label {
   display: flex;
 }
 
+sup {
+  font-size: 0.6em;
+}
+
 input[type="checkbox"]:checked ~ span:before {
   border-color: $color-green;
 }
