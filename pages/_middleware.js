@@ -7,10 +7,7 @@ export async function middleware(req) {
     "/archive/01June2019-website-privacy-notice",
     "/archive/01June2019-privacy-notice",
     "/archive/policy-prior-to-01-June-2019",
-  ];
-
-  const lowercaseRedirects = [
-    "/cer"
+    "/CER"
   ];
 
   // Redirect uppercase urls to lowercase based on the array above
@@ -19,14 +16,6 @@ export async function middleware(req) {
   ) {
     return NextResponse.redirect(
       `${req.nextUrl.origin}${req.nextUrl.pathname.toLowerCase()}`
-    );
-  }
-  // Redirect lowercase urls to uppercase based on the array above
-  else if (
-    lowercaseRedirects.includes(req.nextUrl.pathname)
-  ) {
-    return NextResponse.redirect(
-      `${req.nextUrl.origin}${req.nextUrl.pathname.toUpperCase()}`
     );
   }
 
