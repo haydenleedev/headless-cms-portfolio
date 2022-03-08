@@ -9,12 +9,24 @@ export async function middleware(req) {
     "/archive/policy-prior-to-01-June-2019",
   ];
 
+  const lowercaseRedirects = [
+    "/cer"
+  ];
+
   // Redirect uppercase urls to lowercase based on the array above
   if (
     uppercaseRedirects.includes(req.nextUrl.pathname)
   ) {
     return NextResponse.redirect(
       `${req.nextUrl.origin}${req.nextUrl.pathname.toLowerCase()}`
+    );
+  }
+  // Redirect lowercase urls to uppercase based on the array above
+  else if (
+    lowercaseRedirects.includes(req.nextUrl.pathname)
+  ) {
+    return NextResponse.redirect(
+      `${req.nextUrl.origin}${req.nextUrl.pathname.toUpperCase()}`
     );
   }
 
