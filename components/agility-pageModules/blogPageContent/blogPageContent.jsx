@@ -188,10 +188,9 @@ const BlogPageContent = ({ customData }) => {
                       }`}
                     />
                   </div>
-
                 </button>
                 <div className={`${style.categoryCheckboxesWrapper} ${!filterToggled && style.hidden}`}>
-                  <div className={`${style.categoryCheckboxes} `}>
+                  <div className={style.categoryCheckboxes}>
                     {Object.entries(contentCategories).map(
                       ([key, category], i) => (
                         <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>

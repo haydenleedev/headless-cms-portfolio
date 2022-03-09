@@ -211,18 +211,22 @@ const ArchivesPageContent = ({ module, customData }) => {
             )}
             {contentCategories && (
               <fieldset>
-                <div
-                  className={`${style.mobileCategoryToggle} d-flex align-items-center justify-content-space-between`}
+                <legend className={style.desktopCategoryLegend}>
+                  Categories
+                </legend>
+                <button
+                  className={`${style.mobileCategoryToggle}`}
+                  aria-label="Toggle category selector"
                   onClick={() => { setMobileCategoriesVisible(!mobileCategoriesVisible) }}
                 >
-                  <legend>Categories</legend>
-                  <div
-                    className={`${style.chevron} ${mobileCategoriesVisible ? style.flipped : ""}`}
-                  />
-                </div>
-                <div
-                  className={`${style.categoryCheckboxes} ${mobileCategoriesVisible ? "" : style.hidden}`}
-                >
+                  <div>
+                    <legend>Categories</legend>
+                    <div
+                      className={`${style.chevron} ${mobileCategoriesVisible ? style.flipped : ""}`}
+                    />
+                  </div>
+                </button>
+                <div className={`${style.categoryCheckboxes} ${mobileCategoriesVisible ? "" : style.hidden}`}>
                   {Object.entries(contentCategories).map(([key, category], i) => (
                     <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
                       <input
