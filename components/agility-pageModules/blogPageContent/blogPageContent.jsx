@@ -190,24 +190,25 @@ const BlogPageContent = ({ customData }) => {
                   </div>
 
                 </button>
-
-                <div className={!filterToggled && style.filterClosed}>
-                  {Object.entries(contentCategories).map(
-                    ([key, category], i) => (
-                      <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
-                        <input
-                          type="checkbox"
-                          id={key + "Checkbox"}
-                          checked={activeCategories.find(
-                            (category) => category === key
-                          )}
-                          tabIndex={isMobile() && !filterToggled ? "-1" : "0"}
-                          onChange={(event) => handleCategoryChange(event, key)}
-                        />
-                        {category.title}
-                      </label>
-                    )
-                  )}
+                <div className={`${style.categoryCheckboxesWrapper} ${!filterToggled && style.hidden}`}>
+                  <div className={`${style.categoryCheckboxes} `}>
+                    {Object.entries(contentCategories).map(
+                      ([key, category], i) => (
+                        <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
+                          <input
+                            type="checkbox"
+                            id={key + "Checkbox"}
+                            checked={activeCategories.find(
+                              (category) => category === key
+                            )}
+                            tabIndex={isMobile() && !filterToggled ? "-1" : "0"}
+                            onChange={(event) => handleCategoryChange(event, key)}
+                          />
+                          {category.title}
+                        </label>
+                      )
+                    )}
+                  </div>
                 </div>
               </fieldset>
             )}

@@ -185,7 +185,7 @@ const ArchivesPageContent = ({ module, customData }) => {
           className={`container ${style.navigationMenu}`}
           aria-label="news, press releases and resources navigation"
         >
-          <aside className={style.filterPanel}>
+          <aside className={`${style.filterPanel} ${resourcesPage ? style.resourcesPageFilterPanel : ""}`}>
             {!resourcesPage && (
               <label htmlFor="select-content-type">
                 Content type

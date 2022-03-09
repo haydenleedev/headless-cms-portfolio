@@ -77,9 +77,12 @@
       width: calc(100% + 2rem);
       transform: translateX(-1rem);
       padding: 0 1rem;
-      top: 0;
+      top: -.25rem;
       z-index: 2;
       background-color: white;
+      &.resourcesPageFilterPanel{
+        top: 5.25rem;
+      }
       select, input {
         @include focus-visible-touch-outlines();
       }
@@ -126,7 +129,6 @@
           padding: 0;
           width: auto;
           background-color: unset;
-          top: auto;
         }
       }
       & > label,
@@ -166,7 +168,12 @@
           }
         }
         @include desktop() {
-          margin-top: 1rem;
+          &:not(:only-child) {
+            margin-top: 1rem; 
+          }
+          &:only-child {
+            padding: 0;
+          }
         }
       }
       @include desktop() {
@@ -175,9 +182,10 @@
         transform: unset;
         padding: 0;
         box-shadow: unset;
+        top: 0 !important;
       }
     }
-    .filterPanel, #categoryCheckboxes {
+    .filterPanel, .categoryCheckboxes {
       box-shadow: 0 .5rem 0.5rem -.5rem #0000005b;
       @include desktop() {
         box-shadow: unset;

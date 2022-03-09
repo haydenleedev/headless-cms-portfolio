@@ -77,13 +77,45 @@
       width: calc(100% + 2rem);
       transform: translateX(-1rem);
       padding: 0 1rem;
-      top: 0;
+      top: 5.25rem;
       z-index: 2;
       background-color: #fff;
-      padding-top: 6rem;
       box-shadow: 0 0.5rem 0.5rem -0.5rem #0000005b;
+      .categoryCheckboxesWrapper {
+        position: absolute;
+        left: 0;
+        padding: 0 0 .75rem 1rem;
+        width: 100%;
+        background-color: white;
+        top: 100%;
+        height: 14rem;
+        &.hidden {
+          left: -9999999px;
+          @include desktop() {
+            position: relative;
+            left: 0;
+          }
+        }
+        @include desktop() {
+          top: unset;
+          transform: unset;
+          padding: 0;
+          overflow-y: scroll;
+          height: 100%;
+        }
+        .categoryCheckboxes {
+          position: relative;
+          height: 100%;
+          overflow-y: scroll;
+          @include desktop() {
+            height: 25rem;
+            overflow: unset;
+          }
+        }
+      }
       .mobileCategoryToggle {
         all: unset;
+        cursor: pointer;
         > div {
           display: flex;
           align-items: center;
@@ -134,7 +166,6 @@
       }
       & > fieldset {
         &.open {
-          height: 14rem;
           border-bottom: 1px solid whitesmoke;
           @include desktop () {
             height: 25rem;
@@ -142,9 +173,9 @@
         }
         @include desktop() {
           padding: initial;
+          position: relative;
           height: 25rem;
         }
-        overflow-y: scroll;
         legend {
           @include desktop () {
             margin-bottom: 1rem;
@@ -170,7 +201,8 @@
         }
       }
       @include desktop () {
-        position: sticky;
+        position: relative;
+        top: 0;
         width: unset;
         transform: unset;
         padding: unset;
@@ -184,6 +216,12 @@
         .desktopCategoryLegend {
           display: block;
         }
+      }
+    }
+    .filterPanel, .categoryCheckboxesWrapper {
+      box-shadow: 0 .5rem 0.5rem -.5rem #0000005b;
+      @include desktop() {
+        box-shadow: unset;
       }
     }
     .contentList {
@@ -253,14 +291,5 @@
         @include focus-visible-touch-outlines();
       }
     }
-  }
-}
-
-.filterClosed {
-  position: absolute;
-  right: -9999999px;
-  @include desktop () {
-    position: relative;
-    right: 0;
   }
 }
