@@ -12,9 +12,10 @@ import Media from "../media";
 import Link from "next/link";
 
 const ArchivesPageContent = ({ module, customData }) => {
-  const resourcesPage = module.fields.resourcesPage;
+  const { fields } = module;
+  const highlightedResource = fields.highlightedResource;
   const { query } = useRouter();
-  const { contentListTypes, highlightedResource } = customData; // the 3 different content types: news, press releases and resources.
+  const { contentListTypes } = customData; // the 3 different content types: news, press releases and resources.
   const [activePageNumber, setActivePageNumber] = useState(0); // number of the current page.
   const [totalPagesCount, setTotalPagesCount] = useState(null); // total count of pages.
   const [currentOffset, setCurrentOffset] = useState(0); // current offset in the active content list.
@@ -42,9 +43,6 @@ const ArchivesPageContent = ({ module, customData }) => {
       setActiveContentType(contentListTypes[0].id);
       setActiveContentList(contentListTypes[0].content);
       setContentCategories(contentListTypes[0].categories);
-    }
-    if (resourcesPage) {
-      handleContentListTypeChange("resources");
     }
   }, []);
 
@@ -156,7 +154,7 @@ const ArchivesPageContent = ({ module, customData }) => {
 
   return (
     <>
-      {resourcesPage && (
+      {highlightedResource && activeContentType == "resources" && (
         <section className={`section ${style.highlightedResource}`}>
           <div className={style.highlightedResourceBackgroundImage}>
             <Media media={highlightedResource.fields?.image} />
@@ -185,30 +183,28 @@ const ArchivesPageContent = ({ module, customData }) => {
           className={`container ${style.navigationMenu}`}
           aria-label="news, press releases and resources navigation"
         >
-          <aside className={`${style.filterPanel} ${resourcesPage ? style.resourcesPageFilterPanel : ""}`}>
-            {!resourcesPage && (
-              <label htmlFor="select-content-type">
-                Content type
-                <select
-                  id="select-content-type"
-                  className={style.contentTypeSelect}
-                  value={activeContentType}
-                  onChange={(event) =>
-                    handleContentListTypeChange(event.target.value)
-                  }
-                >
-                  {activeContentList && (
-                    <>
-                      {contentListTypes.map((type) => (
-                        <option key={type.id} value={type.id}>
-                          {type.title}
-                        </option>
-                      ))}
-                    </>
-                  )}
-                </select>
-              </label>
-            )}
+          <aside className={`${style.filterPanel}`}>
+            <label htmlFor="select-content-type">
+              Content type
+              <select
+                id="select-content-type"
+                className={style.contentTypeSelect}
+                value={activeContentType}
+                onChange={(event) =>
+                  handleContentListTypeChange(event.target.value)
+                }
+              >
+                {activeContentList && (
+                  <>
+                    {contentListTypes.map((type) => (
+                      <option key={type.id} value={type.id}>
+                        {type.title}
+                      </option>
+                    ))}
+                  </>
+                )}
+              </select>
+            </label>
             {contentCategories && (
               <fieldset>
                 <legend className={style.desktopCategoryLegend}>
@@ -509,19 +505,6 @@ ArchivesPageContent.getCustomInitialProps = async function ({
   const webinars = await getContentList("webinars");
   const whitepapers = await getContentList("whitepapers");
 
-  // Highlight newest resource
-  let highlightedResource;
-  [ebooks, guides, integrations, reports, webinars, whitepapers].forEach((category) => {
-    category.forEach((resource) => {
-      if (!highlightedResource) {
-        highlightedResource = resource;
-      }
-      else if (resource?.fields?.date > highlightedResource?.fields?.date) {
-        highlightedResource = resource;
-      }
-    });
-  });
-
   // set same static images for entries in webinars
   const staticWebinarCardImageUrls = [
     "https://assets.ujet.cx/CCC-Solutions-Website-Tile.png?q=75&w=480&format=auto",
@@ -568,7 +551,6 @@ ArchivesPageContent.getCustomInitialProps = async function ({
 
   return {
     contentListTypes,
-    highlightedResource
   };
 };
 
