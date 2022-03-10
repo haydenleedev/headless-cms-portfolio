@@ -3,7 +3,15 @@ import { toDate } from "../../../utils/convert";
 import AgilityLink from "../../agilityLink";
 import style from "./archiveCard.module.scss";
 
-const ArchiveCard = ({ title, image, link, date, category }) => {
+const ArchiveCard = ({
+  title,
+  image,
+  link,
+  date,
+  category,
+  newsSite,
+  podcast,
+}) => {
   return (
     <AgilityLink
       agilityLink={link}
@@ -12,7 +20,7 @@ const ArchiveCard = ({ title, image, link, date, category }) => {
       className={style.archiveCardWrapper}
     >
       <div className={style.archiveCard}>
-        {(image && image.pixelWidth && (
+        {image && image.pixelWidth && (
           <div className={style.image}>
             <AgilityImage
               src={image.url}
@@ -22,10 +30,16 @@ const ArchiveCard = ({ title, image, link, date, category }) => {
               objectFit="cover"
             />
           </div>
-        ))}
+        )}
         <div className={style.textContent}>
           {date && <p className={style.date}>{toDate(date)}</p>}
-          {category && <p className={style.category}>{category}</p>}
+          {category && (
+            <p className={style.category}>
+              {category}
+              {podcast && <span className={style.podcast}>Podcast</span>}
+            </p>
+          )}
+          <p className={style.newsSite}>{newsSite}</p>
           <p className={style.title}>{title}</p>
           <p className={style.link}>
             <span>Read more</span>

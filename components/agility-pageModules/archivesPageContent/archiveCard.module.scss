@@ -2,7 +2,7 @@
 @import "../../../styles/settings/mixins";
 
 .archiveCardWrapper {
-  @supports #{'\selector(*:focus-visible)'} {
+  @supports #{"\selector(*:focus-visible)"} {
     &:not(:focus-visible) {
       .archiveCard {
         outline: none !important;
@@ -15,7 +15,7 @@
       }
     }
   }
-  @supports #{'\not selector(*:focus-visible)'} {
+  @supports #{"\not selector(*:focus-visible)"} {
     &:focus {
       outline: none !important;
       .archiveCard {
@@ -47,7 +47,7 @@
         max-height: initial;
       }
     }
-  
+
     .image {
       height: toRem(125);
       overflow: hidden;
@@ -72,21 +72,29 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-  
+
       .date {
         text-transform: uppercase;
         color: $color-black;
         font-size: 1rem;
         padding: 1rem 1.5rem 0 1.5rem;
       }
-  
+
       .category {
-        padding: 0.7rem 1.5rem;
+        padding: 0.7rem 1.5rem 0.2rem;
         display: block;
         font-weight: 600;
         font-size: 1rem;
       }
-  
+
+      .newsSite {
+        padding: 0 1.5rem 0.5rem;
+        display: block;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: $color-darkblue;
+      }
+
       .title {
         font-size: 1.075rem;
         line-height: 1.2;
@@ -95,13 +103,24 @@
         width: 100%;
         height: 100%;
       }
-  
+
+      .podcast {
+        background: url(https://assets.ujet.cx/files/Icons/podcast-icon-white.svg)
+          no-repeat 0.5rem center $color-orange;
+        background-size: toRem(13);
+        padding: 0.2rem 0.5rem 0.2rem 1.62rem;
+        margin-left: 0.5rem;
+        font-size: 0.7rem;
+        color: $color-white;
+        border-radius: 1rem;
+      }
+
       .link {
         padding: 0.75rem 1.5rem;
         display: block;
         font-weight: 600;
         font-size: 1rem;
-        color: $color-darkblue;
+        color: $color-mediumblue;
         span {
           position: relative;
           display: flex;
@@ -122,5 +141,4 @@
       }
     }
   }
-  
 }

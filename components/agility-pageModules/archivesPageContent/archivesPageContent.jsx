@@ -162,12 +162,16 @@ const ArchivesPageContent = ({ module, customData }) => {
           <div className={style.backgroundFilter}></div>
           <div className={`container ${style.highlightedResourceContent}`}>
             <h1 className="heading-6 w-400">RESOURCES</h1>
-            <p className="is-size-4 w-600">{highlightedResource.fields.title}</p>
-            <Link href={highlightedResource.properties.referenceName == "integrations" ?
-              `integrations/${highlightedResource.fields.slug}`
-              :
-              `resources/${highlightedResource.properties.referenceName}/${highlightedResource.fields.slug}`
-            }>
+            <p className="is-size-4 w-600">
+              {highlightedResource.fields.title}
+            </p>
+            <Link
+              href={
+                highlightedResource.properties.referenceName == "integrations"
+                  ? `integrations/${highlightedResource.fields.slug}`
+                  : `resources/${highlightedResource.properties.referenceName}/${highlightedResource.fields.slug}`
+              }
+            >
               <a
                 className="button mediumblue no-outline"
                 aria-label={`Navigate to /resources/${highlightedResource.fields.slug}`}
@@ -213,29 +217,39 @@ const ArchivesPageContent = ({ module, customData }) => {
                 <button
                   className={`${style.mobileCategoryToggle}`}
                   aria-label="Toggle category selector"
-                  onClick={() => { setMobileCategoriesVisible(!mobileCategoriesVisible) }}
+                  onClick={() => {
+                    setMobileCategoriesVisible(!mobileCategoriesVisible);
+                  }}
                 >
                   <div>
                     <legend>Categories</legend>
                     <div
-                      className={`${style.chevron} ${mobileCategoriesVisible ? style.flipped : ""}`}
+                      className={`${style.chevron} ${
+                        mobileCategoriesVisible ? style.flipped : ""
+                      }`}
                     />
                   </div>
                 </button>
-                <div className={`${style.categoryCheckboxes} ${mobileCategoriesVisible ? "" : style.hidden}`}>
-                  {Object.entries(contentCategories).map(([key, category], i) => (
-                    <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
-                      <input
-                        type="checkbox"
-                        id={key + "Checkbox"}
-                        checked={activeCategories.find(
-                          (category) => category === key
-                        )}
-                        onChange={(event) => handleCategoryChange(event, key)}
-                      />
-                      {category.title}
-                    </label>
-                  ))}
+                <div
+                  className={`${style.categoryCheckboxes} ${
+                    mobileCategoriesVisible ? "" : style.hidden
+                  }`}
+                >
+                  {Object.entries(contentCategories).map(
+                    ([key, category], i) => (
+                      <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
+                        <input
+                          type="checkbox"
+                          id={key + "Checkbox"}
+                          checked={activeCategories.find(
+                            (category) => category === key
+                          )}
+                          onChange={(event) => handleCategoryChange(event, key)}
+                        />
+                        {category.title}
+                      </label>
+                    )
+                  )}
                 </div>
               </fieldset>
             )}
@@ -249,14 +263,28 @@ const ArchivesPageContent = ({ module, customData }) => {
                     <ArchiveCard
                       image={item.fields?.image}
                       title={resolveTitle(activeContentType, item.fields)}
+                      newsSite={
+                        item.fields.title && activeContentType === "news"
+                          ? item.fields.title
+                          : null
+                      }
                       link={resolveLink(
                         item.properties.referenceName,
                         item.fields
                       )}
-                      date={activeContentType !== "resources" ? item.fields.date : null}
+                      date={
+                        activeContentType !== "resources"
+                          ? item.fields.date
+                          : null
+                      }
                       category={
                         item.fields?.cardCategoryTitle ||
                         resolveCategory(item.properties.referenceName)
+                      }
+                      podcast={
+                        activeContentType === "news" && item.fields.podcast
+                          ? item.fields.podcast
+                          : null
                       }
                     />
                   </div>
@@ -278,7 +306,9 @@ const ArchivesPageContent = ({ module, customData }) => {
                     [...Array(totalPagesCount).keys()].map((pageNumber) => (
                       <div
                         key={`pageButton${pageNumber}`}
-                        className={pageNumber === activePageNumber ? "w-600" : ""}
+                        className={
+                          pageNumber === activePageNumber ? "w-600" : ""
+                        }
                       >
                         <button
                           className={`reset-button ${style.pageButton}`}
@@ -342,7 +372,9 @@ const ArchivesPageContent = ({ module, customData }) => {
                                 <div
                                   key={`pageButton${pageNumber}`}
                                   className={
-                                    pageNumber === activePageNumber ? "w-600" : ""
+                                    pageNumber === activePageNumber
+                                      ? "w-600"
+                                      : ""
                                   }
                                 >
                                   <button
@@ -388,7 +420,9 @@ const ArchivesPageContent = ({ module, customData }) => {
                       )}
                       <div
                         className={
-                          activePageNumber === totalPagesCount - 1 ? "w-600" : ""
+                          activePageNumber === totalPagesCount - 1
+                            ? "w-600"
+                            : ""
                         }
                       >
                         <button
