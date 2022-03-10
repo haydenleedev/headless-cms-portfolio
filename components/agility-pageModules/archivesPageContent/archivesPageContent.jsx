@@ -9,11 +9,13 @@ import {
 } from "../../../utils/convert";
 import ArchivesLoader from "./archivesLoader";
 import Media from "../media";
-import Link from "next/link";
+import AgilityLink from "../../agilityLink";
 
 const ArchivesPageContent = ({ module, customData }) => {
   const { fields } = module;
   const highlightedResource = fields.highlightedResource;
+  const highlightedNewsArticle = fields.highlightedNewsArticle;
+  const highlightedPressRelease = fields.highlightedPressRelease;
   const { query } = useRouter();
   const { contentListTypes } = customData; // the 3 different content types: news, press releases and resources.
   const [activePageNumber, setActivePageNumber] = useState(0); // number of the current page.
@@ -152,35 +154,56 @@ const ArchivesPageContent = ({ module, customData }) => {
     }
   };
 
+  const HighlightSection = ({ highlightContent, headingText }) => {
+    const isNewsArticle =
+      highlightContent.properties.referenceName == "newsarticle";
+    const title = isNewsArticle
+      ? highlightContent.fields.articleTitle
+      : highlightContent.fields.title;
+    const link = resolveLink(
+      highlightContent.properties.referenceName,
+      highlightContent.fields
+    );
+    return (
+      <section className={`section ${style.highlightSection}`}>
+        <div className={style.highlightSectionBackgroundImage}>
+          <Media media={highlightContent.fields?.image} />
+        </div>
+        <div className={style.backgroundFilter}></div>
+        <div className={`container ${style.highlightSectionContent}`}>
+          <h1 className="heading-6 w-400">{headingText}</h1>
+          <p className="is-size-4 w-600">{title}</p>
+          <AgilityLink
+            agilityLink={link}
+            ariaLabel={`Navigate to ${title}`}
+            title={title}
+          >
+            <span className="button mediumblue no-outline">READ MORE</span>
+          </AgilityLink>
+        </div>
+      </section>
+    );
+  };
+
   return (
     <>
       {highlightedResource && activeContentType == "resources" && (
-        <section className={`section ${style.highlightedResource}`}>
-          <div className={style.highlightedResourceBackgroundImage}>
-            <Media media={highlightedResource.fields?.image} />
-          </div>
-          <div className={style.backgroundFilter}></div>
-          <div className={`container ${style.highlightedResourceContent}`}>
-            <h1 className="heading-6 w-400">RESOURCES</h1>
-            <p className="is-size-4 w-600">
-              {highlightedResource.fields.title}
-            </p>
-            <Link
-              href={
-                highlightedResource.properties.referenceName == "integrations"
-                  ? `integrations/${highlightedResource.fields.slug}`
-                  : `resources/${highlightedResource.properties.referenceName}/${highlightedResource.fields.slug}`
-              }
-            >
-              <a
-                className="button mediumblue no-outline"
-                aria-label={`Navigate to /resources/${highlightedResource.fields.slug}`}
-              >
-                SEE RESOURCE
-              </a>
-            </Link>
-          </div>
-        </section>
+        <HighlightSection
+          highlightContent={highlightedResource}
+          headingText="RESOURCES"
+        />
+      )}
+      {highlightedNewsArticle && activeContentType == "news" && (
+        <HighlightSection
+          highlightContent={highlightedNewsArticle}
+          headingText="NEWS"
+        />
+      )}
+      {highlightedPressRelease && activeContentType == "pressreleases" && (
+        <HighlightSection
+          highlightContent={highlightedPressRelease}
+          headingText="PRESS RELEASES"
+        />
       )}
       <section className={`section ${style.archivesPageContent}`}>
         <nav
