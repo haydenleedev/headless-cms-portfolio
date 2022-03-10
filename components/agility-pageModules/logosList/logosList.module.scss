@@ -19,6 +19,9 @@
       justify-content: space-between;
       align-items: center;
       flex-direction: row;
+      .list {
+        justify-content: center;
+      }
       .columnsLayout {
         display: flex;
         gap: 1.5rem;
