@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { generateUUID } from "../../utils/generic";
-import Head from "next/head";
 import { getCookie, setCookie } from "../../utils/cookies";
-import { formSubmissionEvent, marketoScriptReadyEvent } from "../../utils/dataLayer";
+import { marketoScriptReadyEvent } from "../../utils/dataLayer";
 
 const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
   // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"

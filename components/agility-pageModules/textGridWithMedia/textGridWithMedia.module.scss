@@ -34,7 +34,7 @@
       }
       .gridItem {
         min-width: 0;
-        min-height: 100%;
+        min-height: max-content;
         flex-grow: 0;
         flex-shrink: 0;
         flex-basis: 100%;
@@ -115,6 +115,8 @@
         }
       }
       & > span {
+        // Some versions of Safari need this to prevent oversized images
+        height: 0 !important;
         &:only-child {
           min-width: 7.5rem;
           min-height: 7.5rem;

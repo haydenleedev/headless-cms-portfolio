@@ -1,19 +1,3 @@
-export const formSubmissionEvent = (data) => {
-  window.dataLayer?.push({
-    event: "formSubmission",
-    formCategory: "Marketo Form",
-    formAction: "Form Submission",
-    ...data,
-  });
-};
-
-export const formSuccessEvent = (data) => {
-  window.dataLayer?.push({
-    event: "formSuccess",
-    ...data,
-  });
-};
-
 export const thirtySecondTimerEvent = (data) => {
   window.dataLayer?.push({
     event: "thirtySecondTimer",
@@ -178,7 +162,7 @@ export const addDataLayerEventTriggers = (router) => {
           return "/" + path.split(/(\/)/g).filter(function(e) { return e; })[1]?.split("?")[0];
         }
       }
-      pathChangeEvent({ previousPath: previousPath, newPath: url });
+      pathChangeEvent({ previousPath: previousPath });
       if (previousPath !== url) {
         if (getSiteSection(previousPath) !== getSiteSection(url)) {
           clearTimeout(siteSectionTimeout);
@@ -190,9 +174,6 @@ export const addDataLayerEventTriggers = (router) => {
         setSiteSectionTimeout(url);
       }
       previousPath = url;
-      if (url.includes("thank-you")) {
-        formSuccessEvent({});
-      }
       // Reset scroll triggers
       scrollBreakpoints.forEach((breakpoint) => {
         breakpoint.triggered = false;

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { formSubmissionEvent } from "../../utils/dataLayer";
 import { FormLoader } from "../agility-pageModules/textWithForm/textWithForm";
 
 const Form = ({ submitButtonText, formLoaded, formID }) => {
@@ -26,11 +25,6 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         setLoaderVisible(true);
       } else if (document.getElementById("mktoForm_loader")) {
         setLoaderVisible(false);
-
-        // GTM form submission event through data layer
-        formRef.current.addEventListener("submit", (e) => {
-          formSubmissionEvent({});
-        });
       }
     });
     if (marketoFormID) {
