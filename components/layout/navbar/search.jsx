@@ -202,7 +202,7 @@ const Search = ({
                         );
                       }
 
-                      return (
+                      return item.path ? (
                         <li
                           key={item.objectID}
                           className={style.autocompleteEntry}
@@ -231,7 +231,7 @@ const Search = ({
                             )}
                           </AgilityLink>
                         </li>
-                      );
+                      ) : null;
                     })}
                   </ul>
                   {/* )} */}

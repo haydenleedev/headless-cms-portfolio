@@ -177,8 +177,8 @@ export const sanitizeHtmlConfig = {
 
 export const getAlgoliaHighestResultFormatted = (result) => {
   let snippet;
-  const headingMatch = result.headings
-    ? result.headings.find(
+  const headingMatch = result?.headings
+    ? result?.headings?.find(
         (heading) =>
           heading?.matchLevel === "full" || heading?.matchLevel === "partial"
       )

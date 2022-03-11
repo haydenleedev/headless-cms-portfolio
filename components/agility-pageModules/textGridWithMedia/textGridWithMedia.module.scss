@@ -96,7 +96,18 @@
     }
 
     .mediaContainer {
+      display: flex;
+      justify-content: center;
       width: 100%;
+      &.svgMediaContainer {
+        > span {
+          height: 100%;
+          img {
+            height: 100% !important;
+            position: relative !important;
+          }
+        }
+      }
     }
   }
   .textItem {
