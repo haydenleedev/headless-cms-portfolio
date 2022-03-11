@@ -124,7 +124,7 @@ const TextGridWithMedia = ({ module, customData }) => {
         )}
         <div className={style.content}>
           {fields.media && (
-            <div className={`${style.mediaContainer} ${fields.media.url.toLowerCase().endsWith(".svg") ? style.svgMediaContainer : ""}`}>
+            <div className={`${style.mediaContainer} ${fields.media?.url.toLowerCase().endsWith(".svg") ? style.svgMediaContainer : ""}`}>
               <Media media={fields.media} title={fields.mediaTitle} />
             </div>
           )}
