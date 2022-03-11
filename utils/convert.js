@@ -180,14 +180,14 @@ export const getAlgoliaHighestResultFormatted = (result) => {
   const headingMatch = result.headings
     ? result.headings.find(
         (heading) =>
-          heading.matchLevel === "full" || heading.matchLevel === "partial"
+          heading?.matchLevel === "full" || heading?.matchLevel === "partial"
       )
     : null;
   if (
-    result.description.matchLevel === "full" ||
-    result.description.matchLevel === "partial"
+    result?.description?.matchLevel === "full" ||
+    result?.description?.matchLevel === "partial"
   )
-    snippet = result.description.value;
+    snippet = result?.description?.value;
   else if (headingMatch) snippet = headingMatch.value;
   else return "Read more...";
 

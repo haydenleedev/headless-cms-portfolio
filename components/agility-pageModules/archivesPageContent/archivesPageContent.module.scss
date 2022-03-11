@@ -1,10 +1,10 @@
 @import "../../../styles/settings/mixins";
 @import "../../../styles/settings/colors";
 
-.highlightedResource {
+.highlightSection {
   position: relative;
   margin-bottom: 1rem;
-  .highlightedResourceBackgroundImage {
+  .highlightSectionBackgroundImage {
     & > * {
       display: block !important;
       height: 100% !important;
@@ -29,7 +29,7 @@
     height: 100%;
     background: transparentize($color: #000, $amount: 0.35);
   }
-  .highlightedResourceContent {
+  .highlightSectionContent {
     position: relative;
     color: $color-white;
     z-index: 1;
@@ -40,7 +40,7 @@
     p {
       margin: 1rem 0 2rem 0;
     }
-    a {
+    span {
       padding: 0.75rem 3.5rem;
     }
   }
