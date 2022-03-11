@@ -273,6 +273,12 @@ const ArchivesPageContent = ({ module, customData }) => {
                       </label>
                     )
                   )}
+                  <button
+                    className="button mt-2"
+                    onClick={() => setActiveCategories([])}
+                  >
+                    Remove all filters
+                  </button>
                 </div>
               </fieldset>
             )}
@@ -609,7 +615,7 @@ ArchivesPageContent.getCustomInitialProps = async function ({
   // Make press releases the first content list type
   const pressReleaseType = contentListTypes[1];
   contentListTypes.splice(1, 1);
-  contentListTypes.splice(0, 0, pressReleaseType)
+  contentListTypes.splice(0, 0, pressReleaseType);
 
   return {
     contentListTypes,
