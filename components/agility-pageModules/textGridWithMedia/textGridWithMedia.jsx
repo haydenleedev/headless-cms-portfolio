@@ -41,7 +41,10 @@ const TextGridWithMedia = ({ module, customData }) => {
       : null
   );
 
-  const largeColumnNumber = itemsWithSanitizedHTML.length < fields.columns ? style[`is-${itemsWithSanitizedHTML.length}`] : style[`is-${fields.columns}`];
+  const largeColumnNumber =
+    itemsWithSanitizedHTML.length < fields.columns
+      ? style[`is-${itemsWithSanitizedHTML.length}`]
+      : style[`is-${fields.columns}`];
 
   const TextItem = ({ data }) => {
     const itemFields = data.fields;
@@ -49,12 +52,13 @@ const TextGridWithMedia = ({ module, customData }) => {
     return (
       <div
         className={`${style.gridItem}
-        ${`grid-column ${largeColumnNumber}`
-        } ${itemImageLeft ? style.textItemFlex : style.textItem} ${
-          itemShadow ? "card-shadow" : ""
-        } ${roundCorners ? "border-radius-1" : ""} ${
-          itemImageFullSizeWidth ? style.imageFullWidth : ""
-        } ${fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""}`}
+        ${`grid-column ${largeColumnNumber}`} ${
+          itemImageLeft ? style.textItemFlex : style.textItem
+        } ${itemShadow ? "card-shadow" : ""} ${
+          roundCorners ? "border-radius-1" : ""
+        } ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
+          fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""
+        }`}
         key={data.contentID}
         data-animate="true"
       >
@@ -120,12 +124,9 @@ const TextGridWithMedia = ({ module, customData }) => {
         )}
         <div className={style.content}>
           {fields.media && (
-            // <div className={style.mediaContainer}>
-            <Media
-              media={fields.media}
-              title={fields.mediaTitle}
-            />
-            // </div>
+            <div className={`${style.mediaContainer} ${fields.media.url.toLowerCase().endsWith(".svg") ? style.svgMediaContainer : ""}`}>
+              <Media media={fields.media} title={fields.mediaTitle} />
+            </div>
           )}
           <div
             className={`${
@@ -133,9 +134,7 @@ const TextGridWithMedia = ({ module, customData }) => {
                 ? `grid-columns ${style.justifyContentCenterHorizontally}`
                 : `columns repeat-${fields.columns}`
             } ${style.grid}
-            ${
-              narrowContainer ? "max-width-narrow" : ""
-            }
+            ${narrowContainer ? "max-width-narrow" : ""}
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
             mt-4
           `}
@@ -156,12 +155,7 @@ const TextGridWithMedia = ({ module, customData }) => {
                   </AgilityLink>
                 );
               } else {
-                return (
-                  <TextItem
-                    data={textItem}
-                    key={`textItem${index}`}
-                  />
-                );
+                return <TextItem data={textItem} key={`textItem${index}`} />;
               }
             })}
           </div>

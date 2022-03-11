@@ -134,13 +134,12 @@ const TextWithMedia = ({ module, customData }) => {
           >
             <div
               data-animate="true"
-              className={`${fields.mediaClass ? fields.mediaClass : "null"}`}
+              className={`${fields.mediaClass ? fields.mediaClass : "null"} ${
+                fields.media.url.toLowerCase().endsWith(".svg") ? style.svgMediaContainer : ""
+              }`}
             >
               {fields.media && !fields.testimonial && (
-                <Media
-                  media={fields.media}
-                  title={fields.mediaTitle}
-                />
+                <Media media={fields.media} title={fields.mediaTitle} />
               )}
             </div>
             {fields.testimonial && (

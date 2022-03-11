@@ -143,10 +143,18 @@
 
     div {
       &:only-child {
+        height: 100%;
         width: 100%;
         display: flex;
+        justify-content: center;
         img {
           object-fit: contain;
+        }
+      }
+      &.svgMediaContainer {
+        img {
+          position: relative !important;
+          height: 100% !important;
         }
       }
     }
