@@ -56,10 +56,7 @@ const FirstFold = ({ module, customData }) => {
       >
         {fields.media && (
           <div className={style.backgroundImage}>
-            <Media
-              media={fields.media}
-              title={fields.mediaTitle}
-            />
+            <Media media={fields.media} />
           </div>
         )}
         <div
