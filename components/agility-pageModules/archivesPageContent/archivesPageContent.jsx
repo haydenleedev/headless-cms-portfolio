@@ -10,6 +10,7 @@ import {
 import ArchivesLoader from "./archivesLoader";
 import Media from "../media";
 import AgilityLink from "../../agilityLink";
+import Image from "next/image";
 
 const ArchivesPageContent = ({ module, customData }) => {
   const { fields } = module;
@@ -167,7 +168,16 @@ const ArchivesPageContent = ({ module, customData }) => {
     return (
       <section className={`section ${style.highlightSection}`}>
         <div className={style.highlightSectionBackgroundImage}>
-          <Media media={highlightContent.fields?.image} />
+          {highlightContent.fields?.image ? (
+            <Media media={highlightContent.fields?.image} />
+          ) : (
+            <Image
+              src={
+                "https://assets.ujet.cx/files/How%20to%20build%20a%20better%20customer%20data%20management%20strategy.jpg"
+              }
+              layout="fill"
+            />
+          )}
         </div>
         <div className={style.backgroundFilter}></div>
         <div className={`container ${style.highlightSectionContent}`}>
@@ -273,12 +283,6 @@ const ArchivesPageContent = ({ module, customData }) => {
                       </label>
                     )
                   )}
-                  <button
-                    className="button mt-2"
-                    onClick={() => setActiveCategories([])}
-                  >
-                    Remove all filters
-                  </button>
                 </div>
               </fieldset>
             )}
