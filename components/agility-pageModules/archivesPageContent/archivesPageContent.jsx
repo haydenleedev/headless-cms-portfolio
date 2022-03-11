@@ -606,6 +606,11 @@ ArchivesPageContent.getCustomInitialProps = async function ({
   contentListTypes[2].categories.webinars.content = [...webinars];
   contentListTypes[2].categories.whitepapers.content = [...whitepapers];
 
+  // Make press releases the first content list type
+  const pressReleaseType = contentListTypes[1];
+  contentListTypes.splice(1, 1);
+  contentListTypes.splice(0, 0, pressReleaseType)
+
   return {
     contentListTypes,
   };
