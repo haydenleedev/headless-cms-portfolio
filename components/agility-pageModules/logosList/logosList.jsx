@@ -14,6 +14,10 @@ const LogosList = ({ module, customData }) => {
   const columnsLayout = boolean(fields?.columnsLayout);
   const logosLeft = boolean(fields?.logosLeft);
 
+  fields.items?.sort(function (a, b) {
+    return a.properties.itemOrder - b.properties.itemOrder;
+  });
+
   return (
     <section
       className={`section ${style.logosList} ${
