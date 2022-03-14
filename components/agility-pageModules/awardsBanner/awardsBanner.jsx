@@ -13,6 +13,10 @@ const AwardsBanner = ({ module, customData }) => {
   const textCenterJustification = boolean(fields?.textCenterJustification);
   const numberofRows = fields.numberofRows ? fields.numberofRows : null;
 
+  featuredAwards?.sort(function (a, b) {
+    return a.properties.itemOrder - b.properties.itemOrder;
+  });
+
   return (
     <section
       className={`section ${style.awardsBanner} ${

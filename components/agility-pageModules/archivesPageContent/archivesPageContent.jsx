@@ -1,5 +1,5 @@
 import style from "./archivesPageContent.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import ArchiveCard from "./archiveCard";
 import {
@@ -28,6 +28,8 @@ const ArchivesPageContent = ({ module, customData }) => {
   const [contentCategories, setContentCategories] = useState(null); // these are their own states because it makes handing multiple categories easier.
   const [activeCategories, setActiveCategories] = useState([]); // currently selected categories.
   const [mobileCategoriesVisible, setMobileCategoriesVisible] = useState(false);
+  const allCategoriesCheckboxRef = useRef();
+  const resourceCategoryCheckboxRefs = useRef([]);
 
   const PER_PAGE = 9; // how many cards are shown per page
 
@@ -63,14 +65,37 @@ const ArchivesPageContent = ({ module, customData }) => {
   useEffect(() => {
     setCurrentOffset(0);
     setActivePageNumber(0);
+    if (activeContentType == "resources") {
+      let newContentList = getSortedContentByActiveCategories();
+      setActiveContentList(newContentList);
+      if (activeCategories.length > 0) {
+        // Check the checkboxes that correspond to the selected categories
+        resourceCategoryCheckboxRefs.current.forEach((ref) => {
+          if (activeCategories.includes(ref.id.split("Checkbox")[0])) {
+            ref.checked = true;
+          } else {
+            ref.checked = false;
+          }
+        });
+        allCategoriesCheckboxRef.current.checked = false;
+        allCategoriesCheckboxRef.current.disabled = false;
+      }
+    }
   }, [activeContentType]);
 
   // if active categories changes and there are at least one category on the list, reset offset and update the active content list based on the selected categories.
   useEffect(() => {
     if (activeCategories.length > 0) {
+      if (contentCategories && activeCategories.length == Object.keys(contentCategories).length) {
+        setActiveCategories([]);
+      }
       setCurrentOffset(0);
       let newContentList = getSortedContentByActiveCategories();
       setActiveContentList(newContentList);
+      if (allCategoriesCheckboxRef.current.checked) {
+        allCategoriesCheckboxRef.current.checked = false;
+        allCategoriesCheckboxRef.current.disabled = false;
+      }
       // if there are no selected categories, just set the content list to include all categories (the default content for selected content type).
     } else if (activeContentType) {
       setCurrentOffset(0);
@@ -80,6 +105,11 @@ const ArchivesPageContent = ({ module, customData }) => {
       if (list.length !== activeContentList) {
         setActiveContentList(list);
       }
+      resourceCategoryCheckboxRefs.current.forEach((ref) => {
+        ref.checked = false;
+      });
+      allCategoriesCheckboxRef.current.checked = true;
+      allCategoriesCheckboxRef.current.disabled = true;
     }
   }, [activeCategories]);
 
@@ -94,13 +124,22 @@ const ArchivesPageContent = ({ module, customData }) => {
   // returns a sorted content list with the contents of selected categories.
   const getSortedContentByActiveCategories = () => {
     let newContentList = [];
-    if (activeCategories) {
-      activeCategories.forEach((category) => {
-        newContentList = [
-          ...newContentList,
-          ...contentCategories[category].content,
-        ];
-      });
+    if (activeCategories && contentCategories) {
+      if (activeCategories.length > 0) {
+        activeCategories.forEach((category) => {
+          newContentList = [
+            ...newContentList,
+            ...contentCategories[category].content,
+          ];
+        });
+      } else {
+        Object.keys(contentCategories).forEach((category) => {
+          newContentList = [
+            ...newContentList,
+            ...contentCategories[category].content,
+          ];
+        });
+      }
       return sortContentListByDate(newContentList);
     } else {
       return activeContentList;
@@ -274,15 +313,31 @@ const ArchivesPageContent = ({ module, customData }) => {
                         <input
                           type="checkbox"
                           id={key + "Checkbox"}
-                          checked={activeCategories.find(
-                            (category) => category === key
-                          )}
+                          ref={(elem) =>
+                            (resourceCategoryCheckboxRefs.current[i] = elem)
+                          }
                           onChange={(event) => handleCategoryChange(event, key)}
                         />
                         {category.title}
                       </label>
                     )
                   )}
+                  <label htmlFor="allCategoriesCheckbox">
+                    <input
+                      type="checkbox"
+                      id="allCategoriesCheckbox"
+                      defaultChecked={true}
+                      disabled={true}
+                      ref={allCategoriesCheckboxRef}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          e.target.disabled = true;
+                          setActiveCategories([]);
+                        }
+                      }}
+                    />
+                    Show all categories
+                  </label>
                 </div>
               </fieldset>
             )}

@@ -12,6 +12,10 @@ const Infographic = ({ module }) => {
   const itemShadow = boolean(fields?.itemShadow);
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
 
+  fields.items.sort(function (a, b) {
+    return a.properties.itemOrder - b.properties.itemOrder;
+  });
+
   const columnsClass = (columns) => {
     switch (columns) {
       case "5":
