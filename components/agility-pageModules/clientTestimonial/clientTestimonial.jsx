@@ -134,7 +134,7 @@ const ClientTestimonial = ({ module }) => {
                         <div
                           className={`${style.logo}${
                             fields.testimonial.fields.logoSizeBig
-                              ? " ".style.logoBig
+                              ? " " + style.logoBig
                               : null
                           }`}
                         >
