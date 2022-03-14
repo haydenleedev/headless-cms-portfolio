@@ -32,11 +32,9 @@ const TextGridWithMedia = ({ module, customData }) => {
     0.0,
     fields.animationStyle
       ? () => {
-          intersectionRef.current
-            .querySelectorAll('*[data-animate="true"]')
-            .forEach((elem) => {
-              elem.classList.add(fields.animationStyle);
-            });
+          intersectionRef.current.querySelectorAll('*[data-animate="true"]').forEach((elem) => {
+            elem.classList.add(fields.animationStyle);
+          });
         }
       : null
   );
@@ -52,21 +50,21 @@ const TextGridWithMedia = ({ module, customData }) => {
     return (
       <div
         className={`${style.gridItem}
-        ${`grid-column ${largeColumnNumber}`} ${
-          itemImageLeft ? style.textItemFlex : style.textItem
-        } ${itemShadow ? "card-shadow" : ""} ${
-          roundCorners ? "border-radius-1" : ""
-        } ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
+        ${`grid-column ${largeColumnNumber}`} ${itemImageLeft ? style.textItemFlex : style.textItem} ${
+          itemShadow ? "card-shadow" : ""
+        } ${roundCorners ? "border-radius-1" : ""} ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
           fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""
-        }`}
+        }
+        ${itemImageFullSizeWidth ? style.textItemFullHeight : ""} 
+        `}
         key={data.contentID}
         data-animate="true"
       >
         {itemFields.media && (
           <div
-            className={`${style.textItemMedia} ${
-              itemSmallImage ? style.textItemMediaSmall : ""
-            } ${itemImageCentered ? "margin-center-horizontal" : ""}`}
+            className={`${style.textItemMedia} ${itemSmallImage ? style.textItemMediaSmall : ""} ${
+              itemImageCentered ? "margin-center-horizontal" : ""
+            }`}
           >
             <Media media={itemFields.media} />
           </div>
@@ -80,10 +78,7 @@ const TextGridWithMedia = ({ module, customData }) => {
           {(itemFields.text || itemFields.secondText) && (
             <div className={style.textItemContentWrapper}>
               {itemFields.text && (
-                <div
-                  className={`content ${style.content}`}
-                  dangerouslySetInnerHTML={renderHTML(itemFields.text)}
-                ></div>
+                <div className={`content ${style.content}`} dangerouslySetInnerHTML={renderHTML(itemFields.text)}></div>
               )}
               {itemFields.secondText && (
                 <div
@@ -94,37 +89,33 @@ const TextGridWithMedia = ({ module, customData }) => {
             </div>
           )}
         </div>
-        {itemFields.link && itemFields.link.text && (
-          <span className={style.rightArrow}>{itemFields.link.text}</span>
-        )}
+        {itemFields.link && itemFields.link.text && <span className={style.rightArrow}>{itemFields.link.text}</span>}
       </div>
     );
   };
 
   return (
     <section
-      className={`section ${style.textGridWithMedia} ${
-        fields.classes ? fields.classes : ""
-      } ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
-        fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""
-      }`}
+      className={`section ${style.textGridWithMedia} ${fields.classes ? fields.classes : ""} ${
+        itemImageFullSizeWidth ? style.imageFullWidth : ""
+      } ${fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
       <div className={`container `}>
         {heading.text && (
-          <div
-            className={`${style.heading} ${
-              narrowContainer ? "max-width-narrow" : ""
-            }`}
-          >
+          <div className={`${style.heading} ${narrowContainer ? "max-width-narrow" : ""}`}>
             <Heading {...heading} />
             {fields.subtitle && <p>{fields.subtitle}</p>}
           </div>
         )}
         <div className={style.content}>
           {fields.media && (
-            <div className={`${style.mediaContainer} ${fields.media?.url.toLowerCase().endsWith(".svg") ? style.svgMediaContainer : ""}`}>
+            <div
+              className={`${style.mediaContainer} ${
+                fields.media?.url.toLowerCase().endsWith(".svg") ? style.svgMediaContainer : ""
+              }`}
+            >
               <Media media={fields.media} title={fields.mediaTitle} />
             </div>
           )}
@@ -155,7 +146,16 @@ const TextGridWithMedia = ({ module, customData }) => {
                   </AgilityLink>
                 );
               } else {
-                return <TextItem data={textItem} key={`textItem${index}`} />;
+                return (
+                  <div
+                    className={`
+                  ${style.gridItem}
+                  ${largeColumnNumber}
+                  `}
+                  >
+                    <TextItem data={textItem} key={`textItem${index}`} />
+                  </div>
+                );
               }
             })}
           </div>
