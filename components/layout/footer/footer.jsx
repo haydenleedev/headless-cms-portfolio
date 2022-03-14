@@ -10,7 +10,7 @@ const Footer = ({ globalData }) => {
   const { data, featuredAwards } = globalData.footer;
   const global = globalData.globalSettings.data;
   const [activeFooterColumn, setActiveFooterColumn] = useState(null);
-  featuredAwards.sort(function (a, b) {
+  featuredAwards?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
   function toggleFooterColumn(item) {
