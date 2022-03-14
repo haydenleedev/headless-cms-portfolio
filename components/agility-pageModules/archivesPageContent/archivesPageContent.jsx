@@ -65,18 +65,21 @@ const ArchivesPageContent = ({ module, customData }) => {
   useEffect(() => {
     setCurrentOffset(0);
     setActivePageNumber(0);
-    if (activeContentType == "resources" && activeCategories.length > 0) {
-      // Check the checkboxes that correspond to the selected categories
-      resourceCategoryCheckboxRefs.current.forEach(ref => {
-        if (activeCategories.includes(ref.id.split("Checkbox")[0])) {
-          ref.checked = true;
-        }
-        else {
-          ref.checked = false;
-        }
-      });
-      allCategoriesCheckboxRef.current.checked = false;
-      allCategoriesCheckboxRef.current.disabled = false;
+    if (activeContentType == "resources") {
+      let newContentList = getSortedContentByActiveCategories();
+      setActiveContentList(newContentList);
+      if (activeCategories.length > 0) {
+        // Check the checkboxes that correspond to the selected categories
+        resourceCategoryCheckboxRefs.current.forEach((ref) => {
+          if (activeCategories.includes(ref.id.split("Checkbox")[0])) {
+            ref.checked = true;
+          } else {
+            ref.checked = false;
+          }
+        });
+        allCategoriesCheckboxRef.current.checked = false;
+        allCategoriesCheckboxRef.current.disabled = false;
+      }
     }
   }, [activeContentType]);
 
@@ -99,7 +102,7 @@ const ArchivesPageContent = ({ module, customData }) => {
       if (list.length !== activeContentList) {
         setActiveContentList(list);
       }
-      resourceCategoryCheckboxRefs.current.forEach(ref => {
+      resourceCategoryCheckboxRefs.current.forEach((ref) => {
         ref.checked = false;
       });
       allCategoriesCheckboxRef.current.checked = true;
@@ -118,13 +121,22 @@ const ArchivesPageContent = ({ module, customData }) => {
   // returns a sorted content list with the contents of selected categories.
   const getSortedContentByActiveCategories = () => {
     let newContentList = [];
-    if (activeCategories) {
-      activeCategories.forEach((category) => {
-        newContentList = [
-          ...newContentList,
-          ...contentCategories[category].content,
-        ];
-      });
+    if (activeCategories && contentCategories) {
+      if (activeCategories.length > 0) {
+        activeCategories.forEach((category) => {
+          newContentList = [
+            ...newContentList,
+            ...contentCategories[category].content,
+          ];
+        });
+      } else {
+        Object.keys(contentCategories).forEach((category) => {
+          newContentList = [
+            ...newContentList,
+            ...contentCategories[category].content,
+          ];
+        });
+      }
       return sortContentListByDate(newContentList);
     } else {
       return activeContentList;
@@ -298,7 +310,9 @@ const ArchivesPageContent = ({ module, customData }) => {
                         <input
                           type="checkbox"
                           id={key + "Checkbox"}
-                          ref={elem => resourceCategoryCheckboxRefs.current[i] = elem}
+                          ref={(elem) =>
+                            (resourceCategoryCheckboxRefs.current[i] = elem)
+                          }
                           onChange={(event) => handleCategoryChange(event, key)}
                         />
                         {category.title}
