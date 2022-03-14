@@ -86,6 +86,9 @@ const ArchivesPageContent = ({ module, customData }) => {
   // if active categories changes and there are at least one category on the list, reset offset and update the active content list based on the selected categories.
   useEffect(() => {
     if (activeCategories.length > 0) {
+      if (contentCategories && activeCategories.length == Object.keys(contentCategories).length) {
+        setActiveCategories([]);
+      }
       setCurrentOffset(0);
       let newContentList = getSortedContentByActiveCategories();
       setActiveContentList(newContentList);
