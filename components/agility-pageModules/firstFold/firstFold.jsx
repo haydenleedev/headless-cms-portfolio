@@ -22,6 +22,10 @@ const FirstFold = ({ module, customData }) => {
   const narrowContainer = boolean(fields?.narrowContainer);
   const fixedMediaHeight = fields?.fixedMediaHeight;
 
+  fields.logos?.sort(function (a, b) {
+    return a.properties.itemOrder - b.properties.itemOrder;
+  });
+
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {

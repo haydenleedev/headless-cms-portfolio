@@ -13,7 +13,9 @@ import Slider from "../../slider/slider";
 const TestimonialListLayout = (fields) => {
   const [triggerFadeout, setTriggerFadeout] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
-  const testimonials = fields.testimonials;
+  const testimonials = fields.testimonials?.sort(function (a, b) {
+    return a.properties.itemOrder - b.properties.itemOrder;
+  });
   const displayRatings = boolean(fields?.displayRatings);
   const renderAs = fields?.renderAs;
 

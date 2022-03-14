@@ -19,6 +19,14 @@ const TextWithForm = ({ module, customData }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
 
+  fields.testimonials?.sort(function (a, b) {
+    return a.properties.itemOrder - b.properties.itemOrder;
+  });
+
+  fields.featuredAwards?.sort(function (a, b) {
+    return a.properties.itemOrder - b.properties.itemOrder;
+  });
+
   const handleSetFormLoaded = () => {
     setFormLoaded(true);
   };

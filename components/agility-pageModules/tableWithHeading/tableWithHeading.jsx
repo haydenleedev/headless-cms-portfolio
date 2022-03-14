@@ -4,6 +4,11 @@ import style from "./tableWithHeading.module.scss";
 const TableWithHeading = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
+
+  fields.tableCells?.sort(function (a, b) {
+    return a.properties.itemOrder - b.properties.itemOrder;
+  });
+
   return (
     <section>
       <div className="container d-flex flex-direction-column align-items-center">
