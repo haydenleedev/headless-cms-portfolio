@@ -20,15 +20,14 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     setFormLoaded(true);
   };
 
-const { asPath } = useRouter();
-let resourceCategory;
-// Integrations are not under /resources/
-if (asPath.includes("/resources/")) {
-  resourceCategory = asPath.split("/resources/")[1].split("/")[0];
-}
-else {
-  resourceCategory = asPath.split("/")[1];
-}
+  const { asPath } = useRouter();
+  let resourceCategory;
+  // Integrations are not under /resources/
+  if (asPath.includes("/resources/")) {
+    resourceCategory = asPath.split("/resources/")[1].split("/")[0];
+  } else {
+    resourceCategory = asPath.split("/")[1];
+  }
 
   return (
     <>
@@ -80,14 +79,19 @@ else {
                 </div>
               </div>
             </section>
-            <Breadcrumbs breadcrumbs={
-                [
-                  { name: "Home", path: "/" },
-                  { name: "Resources", path: "/resources" },
-                  { name: resourceCategory.replace(/-/g, " "), path: `/archives?type=resources&categories=${resourceCategory.replace(/-/g, "")}`},
-                  { name: resource.title }
-                ]
-              }
+            <Breadcrumbs
+              breadcrumbs={[
+                { name: "Home", path: "/" },
+                { name: "Resources", path: "/resources" },
+                {
+                  name: resourceCategory.replace(/-/g, " "),
+                  path: `/archives?type=resources&categories=${resourceCategory.replace(
+                    /-/g,
+                    ""
+                  )}`,
+                },
+                { name: resource.title },
+              ]}
               className={"pt-3 pb-6 mb-5"}
             />
             <section className="section">
@@ -132,14 +136,19 @@ else {
           </>
         ) : (
           <>
-            <Breadcrumbs breadcrumbs={
-                [
-                  { name: "Home", path: "/" },
-                  { name: "Resources", path: "/resources" },
-                  { name: resourceCategory.replace(/-/g, " "), path: `/archives?type=resources&categories=${resourceCategory.replace(/-/g, "")}`},
-                  { name: resource.title }
-                ]
-              }
+            <Breadcrumbs
+              breadcrumbs={[
+                { name: "Home", path: "/" },
+                { name: "Resources", path: "/resources" },
+                {
+                  name: resourceCategory.replace(/-/g, " "),
+                  path: `/archives?type=resources&categories=${resourceCategory.replace(
+                    /-/g,
+                    ""
+                  )}`,
+                },
+                { name: resource.title },
+              ]}
             />
             <section className="section">
               <div className="container">

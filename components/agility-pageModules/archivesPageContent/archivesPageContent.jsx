@@ -691,6 +691,7 @@ ArchivesPageContent.getCustomInitialProps = async function ({
     }
   });
 
+
   contentListTypes[2].content = sortContentListByDate([
     ...ebooks,
     ...guides,
