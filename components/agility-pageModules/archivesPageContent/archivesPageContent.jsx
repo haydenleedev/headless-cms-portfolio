@@ -86,7 +86,10 @@ const ArchivesPageContent = ({ module, customData }) => {
   // if active categories changes and there are at least one category on the list, reset offset and update the active content list based on the selected categories.
   useEffect(() => {
     if (activeCategories.length > 0) {
-      if (contentCategories && activeCategories.length == Object.keys(contentCategories).length) {
+      if (
+        contentCategories &&
+        activeCategories.length == Object.keys(contentCategories).length
+      ) {
         setActiveCategories([]);
       }
       setCurrentOffset(0);
@@ -581,6 +584,7 @@ ArchivesPageContent.getCustomInitialProps = async function ({
         integrations: { title: "Product Datasheets", content: [] },
         reports: { title: "Reports", content: [] },
         webinars: { title: "Webinars", content: [] },
+        videos: { title: "Videos", content: [] },
         whitepapers: { title: "White Papers", content: [] },
       },
     },
@@ -634,6 +638,7 @@ ArchivesPageContent.getCustomInitialProps = async function ({
   const integrations = await getContentList("integrations");
   const reports = await getContentList("reports");
   const webinars = await getContentList("webinars");
+  const videos = await getContentList("videos");
   const whitepapers = await getContentList("whitepapers");
 
   // set same static images for entries in webinars
