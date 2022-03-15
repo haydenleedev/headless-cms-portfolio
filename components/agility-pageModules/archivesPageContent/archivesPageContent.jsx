@@ -203,7 +203,6 @@ const ArchivesPageContent = ({ module, customData }) => {
     const title = isNewsArticle
       ? highlightContent.fields.articleTitle
       : highlightContent.fields.title;
-    const newsSite = isNewsArticle ? highlightContent.fields.title : null;
     const link = resolveLink(
       highlightContent.properties.referenceName,
       highlightContent.fields
@@ -225,15 +224,7 @@ const ArchivesPageContent = ({ module, customData }) => {
         <div className={style.backgroundFilter}></div>
         <div className={`container ${style.highlightSectionContent}`}>
           <h1 className="heading-6 w-400">{headingText}</h1>
-
-          <p className="is-size-4 w-600">
-            {newsSite && (
-              <span className="is-size-3 w-600 text-skyblue mb-1 p-0">
-                {newsSite} <span className="mr-2 ml-2 p-0"> |</span>
-              </span>
-            )}{" "}
-            {title}
-          </p>
+          <p className="is-size-4 w-600">{title}</p>
           <AgilityLink
             agilityLink={link}
             ariaLabel={`Navigate to ${title}`}
@@ -583,8 +574,8 @@ ArchivesPageContent.getCustomInitialProps = async function ({
         guides: { title: "Guides", content: [] },
         integrations: { title: "Product Datasheets", content: [] },
         reports: { title: "Reports", content: [] },
-        webinars: { title: "Webinars", content: [] },
         videos: { title: "Videos", content: [] },
+        webinars: { title: "Webinars", content: [] },
         whitepapers: { title: "White Papers", content: [] },
       },
     },
@@ -641,13 +632,36 @@ ArchivesPageContent.getCustomInitialProps = async function ({
   const videos = await getContentList("videos");
   const whitepapers = await getContentList("whitepapers");
 
-  // set same static images for entries in webinars
+  // set same static images for entries in webinars & videos
   const staticWebinarCardImageUrls = [
     "https://assets.ujet.cx/CCC-Solutions-Website-Tile.png?q=75&w=480&format=auto",
     "https://assets.ujet.cx/Webinar-May-27-V2_website-webinar-tile.png?q=75&w=480&format=auto",
     "https://assets.ujet.cx/Webinar-June24_website-webinar-tile.png?q=75&w=480&format=auto",
   ];
+
   webinars.map((entry, index) => {
+    const indexRemainder = index % staticWebinarCardImageUrls.length;
+    const imageIndex =
+      indexRemainder > 0
+        ? indexRemainder - 1
+        : staticWebinarCardImageUrls.length - 1;
+    if (entry.fields.image) {
+      entry.fields.image.url = staticWebinarCardImageUrls[imageIndex];
+    } else {
+      entry.fields["image"] = {
+        label: null,
+        url: staticWebinarCardImageUrls[imageIndex],
+        target: null,
+        filesize: 118727,
+        pixelHeight: "450",
+        pixelWidth: "794",
+        height: 450,
+        width: 794,
+      };
+    }
+  });
+
+  videos.map((entry, index) => {
     const indexRemainder = index % staticWebinarCardImageUrls.length;
     const imageIndex =
       indexRemainder > 0
@@ -674,6 +688,7 @@ ArchivesPageContent.getCustomInitialProps = async function ({
     ...guides,
     ...integrations,
     ...reports,
+    ...videos,
     ...webinars,
     ...whitepapers,
   ]);
@@ -682,6 +697,7 @@ ArchivesPageContent.getCustomInitialProps = async function ({
   contentListTypes[2].categories.guides.content = [...guides];
   contentListTypes[2].categories.integrations.content = [...integrations];
   contentListTypes[2].categories.reports.content = [...reports];
+  contentListTypes[2].categories.videos.content = [...videos];
   contentListTypes[2].categories.webinars.content = [...webinars];
   contentListTypes[2].categories.whitepapers.content = [...whitepapers];
 
