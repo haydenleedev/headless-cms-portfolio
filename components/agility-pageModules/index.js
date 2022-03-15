@@ -102,7 +102,8 @@ const allModules = [
   { name: "Accordion", module: Accordion },
   { name: "AcknowledgePageContent", module: Placeholder },
   { name: "ShopErrorPageContent", module: Placeholder },
-  { name: "BlankCards", module: BlankCards }
+  { name: "BlankCards", module: BlankCards },
+  { name: "SecondaryNav", module: Placeholder }
 ];
 
 export const getModule = (moduleName) => {
