@@ -571,6 +571,7 @@ ArchivesPageContent.getCustomInitialProps = async function ({
         guides: { title: "Guides", content: [] },
         integrations: { title: "Product Datasheets", content: [] },
         reports: { title: "Reports", content: [] },
+        videos: { title: "Videos", content: [] },
         webinars: { title: "Webinars", content: [] },
         whitepapers: { title: "White Papers", content: [] },
       },
@@ -625,14 +626,16 @@ ArchivesPageContent.getCustomInitialProps = async function ({
   const integrations = await getContentList("integrations");
   const reports = await getContentList("reports");
   const webinars = await getContentList("webinars");
+  const videos = await getContentList("videos");
   const whitepapers = await getContentList("whitepapers");
 
-  // set same static images for entries in webinars
+  // set same static images for entries in webinars & videos
   const staticWebinarCardImageUrls = [
     "https://assets.ujet.cx/CCC-Solutions-Website-Tile.png?q=75&w=480&format=auto",
     "https://assets.ujet.cx/Webinar-May-27-V2_website-webinar-tile.png?q=75&w=480&format=auto",
     "https://assets.ujet.cx/Webinar-June24_website-webinar-tile.png?q=75&w=480&format=auto",
   ];
+
   webinars.map((entry, index) => {
     const indexRemainder = index % staticWebinarCardImageUrls.length;
     const imageIndex =
@@ -655,11 +658,35 @@ ArchivesPageContent.getCustomInitialProps = async function ({
     }
   });
 
+  videos.map((entry, index) => {
+    const indexRemainder = index % staticWebinarCardImageUrls.length;
+    const imageIndex =
+      indexRemainder > 0
+        ? indexRemainder - 1
+        : staticWebinarCardImageUrls.length - 1;
+    if (entry.fields.image) {
+      entry.fields.image.url = staticWebinarCardImageUrls[imageIndex];
+    } else {
+      entry.fields["image"] = {
+        label: null,
+        url: staticWebinarCardImageUrls[imageIndex],
+        target: null,
+        filesize: 118727,
+        pixelHeight: "450",
+        pixelWidth: "794",
+        height: 450,
+        width: 794,
+      };
+    }
+  });
+
+
   contentListTypes[2].content = sortContentListByDate([
     ...ebooks,
     ...guides,
     ...integrations,
     ...reports,
+    ...videos,
     ...webinars,
     ...whitepapers,
   ]);
@@ -668,6 +695,7 @@ ArchivesPageContent.getCustomInitialProps = async function ({
   contentListTypes[2].categories.guides.content = [...guides];
   contentListTypes[2].categories.integrations.content = [...integrations];
   contentListTypes[2].categories.reports.content = [...reports];
+  contentListTypes[2].categories.videos.content = [...videos];
   contentListTypes[2].categories.webinars.content = [...webinars];
   contentListTypes[2].categories.whitepapers.content = [...whitepapers];
 
