@@ -115,6 +115,12 @@
       max-width: 7.5rem;
       min-height: 4.5rem;
       padding-bottom: 1rem;
+      &.textItemMediaTall {
+        height: 14rem;
+        & > span {
+          height: 100% !important;
+        }
+      }
       &.textItemMediaSmall {
         max-width: 5.625rem;
         max-height: 5.625rem;
@@ -147,6 +153,12 @@
       &.textItemMediaSmall {
         flex-shrink: 0;
         max-width: 5.625rem;
+        > span {
+          span {
+            // Some versions of Safari need this to prevent oversized images
+            height: 0 !important;
+          }
+        }
       }
       img {
         height: unset !important;

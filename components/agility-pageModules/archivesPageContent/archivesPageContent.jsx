@@ -86,7 +86,10 @@ const ArchivesPageContent = ({ module, customData }) => {
   // if active categories changes and there are at least one category on the list, reset offset and update the active content list based on the selected categories.
   useEffect(() => {
     if (activeCategories.length > 0) {
-      if (contentCategories && activeCategories.length == Object.keys(contentCategories).length) {
+      if (
+        contentCategories &&
+        activeCategories.length == Object.keys(contentCategories).length
+      ) {
         setActiveCategories([]);
       }
       setCurrentOffset(0);
@@ -200,6 +203,7 @@ const ArchivesPageContent = ({ module, customData }) => {
     const title = isNewsArticle
       ? highlightContent.fields.articleTitle
       : highlightContent.fields.title;
+    const newsSite = isNewsArticle ? highlightContent.fields.title : null;
     const link = resolveLink(
       highlightContent.properties.referenceName,
       highlightContent.fields
@@ -221,7 +225,14 @@ const ArchivesPageContent = ({ module, customData }) => {
         <div className={style.backgroundFilter}></div>
         <div className={`container ${style.highlightSectionContent}`}>
           <h1 className="heading-6 w-400">{headingText}</h1>
-          <p className="is-size-4 w-600">{title}</p>
+          <p className="is-size-4 w-600">
+            {newsSite && (
+              <span className="is-size-3 w-600 text-skyblue mb-1 p-0">
+                {newsSite} <span className="mr-2 ml-2 p-0"> |</span>
+              </span>
+            )}{" "}
+            {title}
+          </p>
           <AgilityLink
             agilityLink={link}
             ariaLabel={`Navigate to ${title}`}

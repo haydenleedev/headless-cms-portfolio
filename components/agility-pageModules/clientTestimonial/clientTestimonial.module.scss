@@ -149,6 +149,9 @@
   .logo {
     margin: 2rem auto 0 auto;
     max-width: 11.25rem;
+    &.logoBig {
+      max-width: 22.25rem;
+    }
     & > span {
       &:only-child {
         * {
