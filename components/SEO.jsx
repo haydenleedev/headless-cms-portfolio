@@ -65,6 +65,17 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
 
         {/* TODO: add Canonical url */}
       </Head>
+      <Script
+        id="oneTrust"
+        src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+        charSet="UTF-8"
+        data-domain-script="b558470c-4a33-4156-ab56-655f1b9bc322"
+      />
+
+      <Script id="optanonWrapper">
+        {`function OptanonWrapper() { }`}
+      </Script>
+
       <Script id="google-tag-manager">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -132,16 +143,6 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(gd, s);
           })();`}
-      </Script>
-
-      <Script
-        id="oneTrust"
-        src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
-        data-domain-script="b558470c-4a33-4156-ab56-655f1b9bc322"
-      />
-
-      <Script id="optanonWrapper">
-        {`function OptanonWrapper() { }`}
       </Script>
 
       {/* Qualified Script */}
