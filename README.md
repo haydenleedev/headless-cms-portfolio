@@ -5,7 +5,15 @@
 - For convenience files with React code use .jsx file extension. Files with vanilla js use .js.
 - Try not to set any styles on html for accessibility reasons. Screen readers and assistive technology usually manipulate the root HTML element so we don't want to overwrite any of those settings. Same for any user agent resets, only reset when necessary.
 - Try to use Semantic naming for Agility CMS modules and React components.
-- Accessibility: don't use "display: none", "opacity: 0", or "visibility: hidden" for elements that are hidden but should be available for screen readers. These include but are not limited to: navigation dropdowns, toggleable dropdowns or accordions (such as faq sliders), or any element that should be visible to screen readers. Instead, use "position: absolute" and "left: -2147483647px;" **NOTE: offsetting absolutely to top will break safari's scroll so always offset left or right** to hide elements but leave them visible for screen readers. 
+- Accessibility: don't use "display: none", "opacity: 0", or "visibility: hidden" for elements that are hidden but should be available for screen readers. These include but are not limited to: navigation dropdowns, toggleable dropdowns or accordions (such as faq sliders), or any element that should be visible to screen readers. Instead, use "position: absolute" and "left: -2147483647px;" **NOTE: offsetting absolutely to top will break safari's scroll so always offset left or right** to hide elements but leave them visible for screen readers.
+
+# Adding new resource categories for archives:
+- Navigate to archivesPageContent.jsx
+- Copy the logic of an existing resources by ctrl + f inspecting a resource.
+- On Agility CMS, create a new resource list (you may clone an existing one )
+- On sitemap, create a new folder under resources and add the newly created list under the folder
+- Add the *RENDER: Resource Content* module for the list
+- Some resources may be built as modular pages. If so -> create the resource in the list AND create a modular page so we may have the content model reference while using the modular page layout 
 
 
 # UJET Website with Next.js

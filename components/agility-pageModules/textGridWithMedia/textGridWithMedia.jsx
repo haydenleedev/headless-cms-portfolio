@@ -60,7 +60,7 @@ const TextGridWithMedia = ({ module, customData }) => {
         } ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
           fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""
         }
-        ${itemImageFullSizeWidth ? style.textItemFullHeight : ""} 
+        ${style.textItemFullHeight} 
         `}
         key={data.contentID}
         data-animate="true"
