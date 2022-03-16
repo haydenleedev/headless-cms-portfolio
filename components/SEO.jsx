@@ -17,7 +17,10 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
     "Fri, 31 Dec 9999 23:59:59 GMT"
   );
   const { globalSettings } = useContext(GlobalContext);
-  const suffixedMetaTitle = formatPageTitle(title, globalSettings.fields.pageTitleSuffix);
+  const suffixedMetaTitle = formatPageTitle(
+    title,
+    globalSettings.fields.pageTitleSuffix
+  );
   return (
     <>
       <Head>
@@ -47,10 +50,16 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
           content="https://assets.ujet.cx/FB-UJET-Image-V2.jpg"
           key="ogimage"
         />
-        <meta property="og:image:alt" content={suffixedMetaTitle} key="ogimagealt" />
+        <meta
+          property="og:image:alt"
+          content={suffixedMetaTitle}
+          key="ogimagealt"
+        />
 
         {/* schema */}
-        <script type="application/ld+json">{JSON.stringify(organization)}</script>
+        <script type="application/ld+json">
+          {JSON.stringify(organization)}
+        </script>
         <script type="application/ld+json">{JSON.stringify(webSite)}</script>
         <script type="application/ld+json">{breadcrumbs(url)}</script>
 
@@ -123,6 +132,16 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(gd, s);
           })();`}
+      </Script>
+
+      <Script
+        id="oneTrust"
+        src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+        data-domain-script="b558470c-4a33-4156-ab56-655f1b9bc322"
+      />
+
+      <Script id="optanonWrapper">
+        {`function OptanonWrapper() { }`}
       </Script>
 
       {/* Qualified Script */}
