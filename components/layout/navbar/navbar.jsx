@@ -81,7 +81,8 @@ const Navbar = ({ globalData }) => {
 
   useEffect(() => {
     if (mainNavigationActive) {
-      document.body.style.overflowY = "hidden";
+      // document.body.style.overflowY = "hidden";
+      /* It is causing issues on the entire staing site. - Unscrollable sitewide */
     } else {
       document.body.style.overflowY = "";
     }
