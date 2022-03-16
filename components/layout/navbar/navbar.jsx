@@ -4,10 +4,12 @@ import MainNavigation from "./mainNavigation";
 import { sleep } from "../../../utils/generic";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import GlobalContext from "../../../context";
 
 const Navbar = ({ globalData }) => {
   const { navbar } = globalData.navbar;
+  const { navbarRef } = useContext(GlobalContext);
   const router = useRouter();
   // affects only mobile
   const [mainNavigationActive, setMainNavigationActive] = useState(false);
@@ -20,7 +22,9 @@ const Navbar = ({ globalData }) => {
       return new Promise((resolve) => {
         // check if TransparentizeNavbar module is placed on top of the Agility page module list.
         // promise is resolved to true if the module is detected. Otherwise resolves to false
-        const firstSection = document.getElementById("__next")?.querySelector?.("main").firstChild;
+        const firstSection = document
+          .getElementById("__next")
+          ?.querySelector?.("main").firstChild;
         if (firstSection?.getAttribute("data-navbar-hidden")) {
           setHidden(true);
         }
@@ -44,7 +48,9 @@ const Navbar = ({ globalData }) => {
             threshold: 1.0,
             rootMargin: "-80px 0px 0px 0px",
           };
-          const firstSection = document.getElementById("__next").querySelector("main").firstChild;
+          const firstSection = document
+            .getElementById("__next")
+            .querySelector("main").firstChild;
           const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
               // transparency is dismissed with touch screen sizes.
@@ -73,49 +79,79 @@ const Navbar = ({ globalData }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (mainNavigationActive) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "";
+    }
+  }, [mainNavigationActive]);
+
   const handleSetMainNavigationActive = () => {
     setMainNavigationActive(!mainNavigationActive);
   };
 
   return (
-      <section
-        className={`${style.navbar} ${pageScrolled ? style.scrolled : ""} ${
-          transparentBackground ? style.transparent : ""
-        } ${hidden ? "display-none" : ""}`}
-      >
-        <nav className="container" role="navigation" aria-label="Main">
-          <Link href="/">
-            <a title="Navigate  to home page" aria-label="Navigate to home page" className={style.brand}>
-              <img className={style.logo} src={logo.src} width={logo.width} height={logo.height} alt="Ujet logo" />
-            </a>
-          </Link>
-          <button
-            aria-label="Toggle main navigation menu"
-            title="Toggle main navigation menu"
-            className={`${style.navbarToggle} ${mainNavigationActive ? style.active : style.closed}`}
-            onClick={() => handleSetMainNavigationActive()}
+    <section
+      className={`${style.navbar} ${pageScrolled ? style.scrolled : ""} ${
+        transparentBackground ? style.transparent : ""
+      } ${hidden ? "display-none" : ""} ${
+        mainNavigationActive ? style.mobileNavActive : ""
+      }
+        `}
+      ref={navbarRef}
+    >
+      <nav className="container" role="navigation" aria-label="Main">
+        <Link href="/">
+          <a
+            title="Navigate  to home page"
+            aria-label="Navigate to home page"
+            className={style.brand}
           >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          <div
-            className={`${style.mainNavigationContainer} ${
-              mainNavigationActive ? style.mainNavigationContainerActive : style.mainNavigationContainerClosed
-            }`}
-          >
-            <MainNavigation
-              active={mainNavigationActive}
-              mainNavigation={navbar.fields.mainNavigation}
-              handleSetMainNavigationActive={handleSetMainNavigationActive}
+            <img
+              className={style.logo}
+              src={logo.src}
+              width={logo.width}
+              height={logo.height}
+              alt="Ujet logo"
             />
-          </div>
-        </nav>
-      </section>
+          </a>
+        </Link>
+        <button
+          aria-label="Toggle main navigation menu"
+          title="Toggle main navigation menu"
+          className={`${style.navbarToggle} ${
+            mainNavigationActive ? style.active : style.closed
+          }`}
+          onClick={() => handleSetMainNavigationActive()}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div
+          className={`${style.mainNavigationContainer} ${
+            mainNavigationActive
+              ? style.mainNavigationContainerActive
+              : style.mainNavigationContainerClosed
+          }`}
+        >
+          <MainNavigation
+            active={mainNavigationActive}
+            mainNavigation={navbar.fields.mainNavigation}
+            handleSetMainNavigationActive={handleSetMainNavigationActive}
+          />
+        </div>
+      </nav>
+    </section>
   );
 };
 
-Navbar.getCustomInitialProps = async function ({ agility, languageCode, channelName }) {
+Navbar.getCustomInitialProps = async function ({
+  agility,
+  languageCode,
+  channelName,
+}) {
   const api = agility;
   let navbarGroups = null;
 
@@ -133,7 +169,8 @@ Navbar.getCustomInitialProps = async function ({ agility, languageCode, channelN
       return null;
     }
   } catch (error) {
-    if (console) console.error("Could not load site navbar configuration.", error);
+    if (console)
+      console.error("Could not load site navbar configuration.", error);
     return null;
   }
 
