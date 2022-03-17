@@ -11,6 +11,7 @@ const Infographic = ({ module }) => {
   const itemRoundedCorners = boolean(fields?.itemRoundedCorners);
   const itemShadow = boolean(fields?.itemShadow);
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
+  const itemContentCenterAlign = boolean(fields?.itemContentCenterAlign);
 
   fields.items.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -65,15 +66,26 @@ const Infographic = ({ module }) => {
               } ${itemRoundedCorners ? "border-radius-1" : ""}`}
               key={item.contentID}
             >
-              <div className={style.itemMedia}>
-                {item.fields.image && <Media media={item.fields.image} />}
-                {itemLayout === "column" && item.fields.title && (
-                  <p className={style.itemTitle}>{item.fields.title}</p>
-                )}
-              </div>
-              <div className={style.itemTextContent}>
+              {(itemLayout === "column" && item.fields.title) ||
+                (item.fields.image && (
+                  <div className={style.itemMedia}>
+                    {item.fields.image && <Media media={item.fields.image} />}
+                    {itemLayout === "column" && item.fields.title && (
+                      <p className={`${style.itemTitle} w-600 text-darkblue`}>
+                        {item.fields.title}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              <div
+                className={`${style.itemTextContent} ${
+                  itemContentCenterAlign ? style["align-items-center"] : ""
+                }`}
+              >
                 {itemLayout !== "column" && item.fields.title && (
-                  <p className={style.itemTitle}>{item.fields.title}</p>
+                  <p className={`${style.itemTitle} w-600 text-darkblue`}>
+                    {item.fields.title}
+                  </p>
                 )}
                 {item.fields.description && (
                   <p className={style.itemDescription}>

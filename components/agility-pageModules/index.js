@@ -38,6 +38,7 @@ import Breadcrumbs from "../breadcrumbs/breadcrumbs";
 import ScriptLoader from "./scriptLoader/scriptLoader";
 import Accordion from "./accordion/accordion";
 import BlankCards from "./blankCards/blankCards";
+import SecondaryNav from "./secondaryNav/secondaryNav";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -103,7 +104,7 @@ const allModules = [
   { name: "AcknowledgePageContent", module: Placeholder },
   { name: "ShopErrorPageContent", module: Placeholder },
   { name: "BlankCards", module: BlankCards },
-  { name: "SecondaryNav", module: Placeholder }
+  { name: "SecondaryNav", module: SecondaryNav }
 ];
 
 export const getModule = (moduleName) => {

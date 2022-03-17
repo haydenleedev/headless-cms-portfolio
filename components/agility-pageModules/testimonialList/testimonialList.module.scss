@@ -250,6 +250,7 @@
       }
       .gridItemLogoContainer {
         position: relative;
+        margin-bottom: 0.5rem;
         .gridItemLogo {
           height: 100% !important;
         }
@@ -262,6 +263,7 @@
       .gridItemName {
         padding-top: 1.5rem;
         margin-top: auto;
+        text-align: center;
       }
       .gridItemText,
       .gridItemName {

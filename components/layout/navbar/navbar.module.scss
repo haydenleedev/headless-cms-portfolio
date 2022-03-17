@@ -25,7 +25,9 @@
       background: transparent;
     }
   }
-
+  &.mobileNavActive {
+    z-index: 5;
+  }
   @include desktop() {
     padding-top: 0;
     display: flex;

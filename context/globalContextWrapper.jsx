@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import GlobalContext from ".";
 import Modal from "../components/modal/modal";
 
@@ -15,7 +15,8 @@ const GlobalContextWrapper = ({ children, data }) => {
   const context = {
     globalModalTrigger,
     handleSetGlobalModal,
-    globalSettings: data
+    globalSettings: data,
+    navbarRef: useRef()
   };
   return (
     <GlobalContext.Provider value={context}>
