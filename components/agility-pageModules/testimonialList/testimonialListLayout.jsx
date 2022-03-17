@@ -142,11 +142,22 @@ const TestimonialListLayout = (fields) => {
           {testimonials.map((testimonial, index) => {
             return (
               <div className={style.gridItem} key={`testimonial${index}`}>
-                {fields.awards[index]?.fields.image?.url ? (
+                {fields.awards && fields.awards[index]?.fields.image?.url ? (
                   <div className={style.gridItemLogoContainer}>
                     <AgilityImage
                       className={style.gridItemLogo}
                       src={fields.awards[index].fields.image.url}
+                      layout="fill"
+                      objectFit="contain"
+                      width={0}
+                      height={0}
+                    />
+                  </div>
+                ) : testimonial.fields.logo?.url ? (
+                  <div className={style.gridItemLogoContainer}>
+                    <AgilityImage
+                      className={style.gridItemLogo}
+                      src={testimonial.fields.logo.url}
                       layout="fill"
                       objectFit="contain"
                       width={0}
