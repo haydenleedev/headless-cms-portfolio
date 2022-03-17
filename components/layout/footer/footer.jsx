@@ -180,11 +180,6 @@ const Footer = ({ globalData }) => {
         <div className={style.footNote}>
           <div className={style.cookies}>
             {}
-            <Script
-              id="CookieDeclaration"
-              src="https://consent.cookiebot.com/ca30a40e-fb47-4e0e-bf05-8f3db35e5eea/cd.js"
-              strategy="lazyOnload"
-            />
             {/* <Script
               src="//consent.truste.com/notice?domain=ujet.co&c=teconsent&js=bb&noticeType=bb&gtm=1"
               async={true}
