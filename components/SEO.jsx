@@ -65,6 +65,13 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
 
         {/* TODO: add Canonical url */}
       </Head>
+      <Script
+        id="Cookiebot"
+        src="https://consent.cookiebot.com/uc.js"
+        data-cbid="ca30a40e-fb47-4e0e-bf05-8f3db35e5eea"
+        data-blockingmode="auto"
+        strategy="beforeInteractive"
+      />
       {/* <Script
         id="onetrust"
         src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
