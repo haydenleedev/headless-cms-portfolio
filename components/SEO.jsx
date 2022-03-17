@@ -66,13 +66,13 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         {/* TODO: add Canonical url */}
       </Head>
       <Script
-        id="oneTrust"
+        id="onetrust"
         src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
         charSet="UTF-8"
-        data-domain-script="b558470c-4a33-4156-ab56-655f1b9bc322"
+        data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
       />
 
-      <Script id="optanonWrapper">
+      <Script id="optanon-wrapper">
         {`function OptanonWrapper() { }`}
       </Script>
 
