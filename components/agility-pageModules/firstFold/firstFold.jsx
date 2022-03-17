@@ -117,10 +117,7 @@ const FirstFold = ({ module, customData }) => {
         >
           <div className={style.softwareIntegrationContent}>
             <aside>
-              <Media
-                media={fields.media}
-                title={fields.mediaTitle}
-              />
+              <Media media={fields.media} title={fields.mediaTitle} />
             </aside>
             <div>
               <div className={style.heading}>
@@ -321,6 +318,8 @@ const FirstFold = ({ module, customData }) => {
               !fields.imageLink && (
                 <div
                   className={`${style.image} ${
+                    fields.circularImage ? style.circularImage : ""
+                  } ${
                     fields.imageBottomMargin ? fields.imageBottomMargin : ""
                   } ${fields.linkClasses ? fields.linkClasses : ""} ${
                     style[
@@ -335,10 +334,7 @@ const FirstFold = ({ module, customData }) => {
                   } ${fields.mediaVerticalAlignment}`}
                   data-animate="true"
                 >
-                  <Media
-                    media={fields.media}
-                    title={fields.mediaTitle}
-                  />
+                  <Media media={fields.media} title={fields.mediaTitle} />
                 </div>
               )}
             {fields.media &&
@@ -364,10 +360,7 @@ const FirstFold = ({ module, customData }) => {
                   title={`Navigate to page ` + fields.imageLink.href}
                 >
                   <div className={style.image} data-animate="true">
-                    <Media
-                      media={fields.media}
-                      title={fields.mediaTitle}
-                    />
+                    <Media media={fields.media} title={fields.mediaTitle} />
                   </div>
                 </AgilityLink>
               )}
