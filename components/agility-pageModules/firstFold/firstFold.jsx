@@ -321,7 +321,9 @@ const FirstFold = ({ module, customData }) => {
                     fields.circularImage ? style.circularImage : ""
                   } ${
                     fields.imageBottomMargin ? fields.imageBottomMargin : ""
-                  } ${fields.linkClasses ? fields.linkClasses : ""} ${
+                  } ${fields.imageTopMargin ? fields.imageTopMargin : ""} ${
+                    fields.linkClasses ? fields.linkClasses : ""
+                  } ${
                     style[
                       `mediaBasis${
                         100 - parseInt(fields.textWidthPercentage) || 50
