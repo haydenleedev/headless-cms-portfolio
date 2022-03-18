@@ -236,7 +236,7 @@
   },
   {
     "source": "/newsroom/ujet-retail-shopping-survey",
-    "destination": "/resources/",
+    "destination": "/archives",
     "permanent": true
   },
   {
@@ -391,7 +391,7 @@
   },
   {
     "source": "/integrations",
-    "destination": "/resources",
+    "destination": "/archives",
     "permanent": true
   },
   {
@@ -827,6 +827,11 @@
   {
     "source": "/web2",
     "destination": "https://datastudio.google.com/reporting/bb385f4b-8050-4356-acd0-e1b49b1e55ff/page/o5QnC",
+    "permanent": true
+  },
+  {
+    "source": "/resources",
+    "destination": "/archives",
     "permanent": true
   }
 ]
