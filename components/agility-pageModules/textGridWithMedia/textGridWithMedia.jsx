@@ -13,13 +13,10 @@ const TextGridWithMedia = ({ module, customData }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields?.narrowContainer);
   const itemShadow = boolean(fields?.itemShadow);
-  const itemSmallImage = boolean(fields?.itemSmallImage);
-  const itemTallImage = boolean(fields?.itemImageTall);
-  const itemImageLeft = boolean(fields?.itemImageLeft);
-  const itemImageCentered = boolean(fields?.itemImageCentered);
   const centerItemsHorizontally = boolean(fields?.centerItemsHorizontally);
   const roundCorners = boolean(fields?.roundCorners);
   const itemImageFullSizeWidth = boolean(fields?.itemImageFullSizeWidth);
+  const itemFlexDirectionClass = fields.itemImagePosition;
 
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -53,9 +50,10 @@ const TextGridWithMedia = ({ module, customData }) => {
     return (
       <div
         className={`${style.gridItem}
-        ${`grid-column ${largeColumnNumber}`} ${
-          itemImageLeft ? style.textItemFlex : style.textItem
-        } ${itemShadow ? "card-shadow" : ""} ${
+        ${`grid-column ${largeColumnNumber}`}
+        ${style.textItem}
+        ${itemFlexDirectionClass}
+        ${itemShadow ? "card-shadow" : ""} ${
           roundCorners ? "border-radius-1" : ""
         } ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
           fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""
@@ -68,15 +66,23 @@ const TextGridWithMedia = ({ module, customData }) => {
         {itemFields.media && (
           <div
             className={`${style.textItemMedia} ${
-              itemSmallImage ? style.textItemMediaSmall : ""
+              fields.itemImageSize
+                ? style[`textItemMedia${fields.itemImageSize}`]
+                : ""
             } ${
-              itemTallImage && !itemSmallImage ? style.textItemMediaTall : ""
-            } ${itemImageCentered ? "margin-center-horizontal" : ""}`}
+              itemFlexDirectionClass == "flex-direction-column"
+                ? "align-self"
+                : "justify-self"
+            }-${
+              fields.itemImageHorizontalAlignment
+                ? fields.itemImageHorizontalAlignment
+                : "start"
+            }`}
           >
             <Media media={itemFields.media} />
           </div>
         )}
-        <div>
+        <div className="d-flex flex-direction-column">
           {heading.text && (
             <div className={style.textItemHeading}>
               <Heading {...heading} />
@@ -98,10 +104,10 @@ const TextGridWithMedia = ({ module, customData }) => {
               )}
             </div>
           )}
+          {itemFields.link && itemFields.link.text && (
+            <span className={style.rightArrow}>{itemFields.link.text}</span>
+          )}
         </div>
-        {itemFields.link && itemFields.link.text && (
-          <span className={style.rightArrow}>{itemFields.link.text}</span>
-        )}
       </div>
     );
   };

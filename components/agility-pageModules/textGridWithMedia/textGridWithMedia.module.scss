@@ -89,12 +89,7 @@
           display: inline-block;
         }
       }
-      .textItem,
-      .textItemFlex {
-        padding: 1.5rem;
-      }
     }
-
     .mediaContainer {
       display: flex;
       justify-content: center;
@@ -111,11 +106,13 @@
     }
   }
   .textItem {
+    display: flex;
+    padding: 1.5rem;
     .textItemMedia {
       max-width: 7.5rem;
       min-height: 4.5rem;
       padding-bottom: 1rem;
-      &.textItemMediaTall {
+      &.textItemMediaLarge {
         height: 14rem;
         & > span {
           height: 100% !important;
@@ -143,36 +140,6 @@
             height: unset !important;
             min-height: unset !important;
           }
-        }
-      }
-    }
-  }
-  .textItemFlex {
-    .textItemMedia {
-      max-width: 7.5rem;
-      &.textItemMediaSmall {
-        flex-shrink: 0;
-        max-width: 5.625rem;
-        > span {
-          span {
-            // Some versions of Safari need this to prevent oversized images
-            height: 0 !important;
-          }
-        }
-      }
-      img {
-        height: unset !important;
-        position: unset !important;
-      }
-    }
-    @include desktop() {
-      display: flex;
-      .textItemMedia {
-        min-width: 7.5rem;
-        margin-right: 2.5rem;
-        img {
-          height: auto !important;
-          min-height: auto !important;
         }
       }
     }
@@ -205,16 +172,6 @@
     }
   }
   align-items: center;
-  &.textItemFlex {
-    display: flex;
-    @include desktop() {
-      height: 100%;
-      padding: 1.5rem 0 !important;
-    }
-    > * {
-      justify-content: flex-start;
-    }
-  }
   .textItemHeading {
     width: 100%;
   }
