@@ -23,6 +23,9 @@ const SecondaryNav = ({ module }) => {
       {threshold: [1]}
     );
     observer.observe(sectionRef.current)
+    return () => {
+      navbarRef.current.style.display = "block";
+    }
   }, []);
 
   return (
