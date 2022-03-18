@@ -13,7 +13,6 @@ const TextGridWithMedia = ({ module, customData }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields?.narrowContainer);
   const itemShadow = boolean(fields?.itemShadow);
-  const centerItemsHorizontally = boolean(fields?.centerItemsHorizontally);
   const roundCorners = boolean(fields?.roundCorners);
   const itemImageFullSizeWidth = boolean(fields?.itemImageFullSizeWidth);
   const itemFlexDirectionClass = fields.itemImagePosition;
@@ -74,9 +73,7 @@ const TextGridWithMedia = ({ module, customData }) => {
                 ? "align-self"
                 : "justify-self"
             }-${
-              fields.itemImageHorizontalAlignment
-                ? fields.itemImageHorizontalAlignment
-                : "start"
+              fields.itemImageHorizontalAlignment || "start"
             }`}
           >
             <Media media={itemFields.media} />
@@ -146,11 +143,8 @@ const TextGridWithMedia = ({ module, customData }) => {
             </div>
           )}
           <div
-            className={`${
-              centerItemsHorizontally
-                ? `grid-columns ${style.justifyContentCenterHorizontally}`
-                : `columns repeat-${fields.columns}`
-            } ${style.grid}
+            className={`${`grid-columns ${fields.itemHorizontalAlignment || "justify-content-flex-start"}`}
+            ${style.grid}
             ${narrowContainer ? "max-width-narrow" : ""}
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
             mt-4
