@@ -79,7 +79,7 @@ const TextGridWithMedia = ({ module, customData }) => {
             <Media media={itemFields.media} />
           </div>
         )}
-        <div className="d-flex flex-direction-column">
+        <div className="d-flex flex-direction-column justify-content-flex-start">
           {heading.text && (
             <div className={style.textItemHeading}>
               <Heading {...heading} />
