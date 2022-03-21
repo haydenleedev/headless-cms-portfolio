@@ -65,6 +65,10 @@ const TextGridWithMedia = ({ module, customData }) => {
         {itemFields.media && (
           <div
             className={`${style.textItemMedia} ${
+              itemFlexDirectionClass == "flex-direction-column"
+                ? style.textItemMediaTop
+                : ""
+            } ${
               fields.itemImageSize
                 ? style[`textItemMedia${fields.itemImageSize}`]
                 : ""
@@ -72,9 +76,7 @@ const TextGridWithMedia = ({ module, customData }) => {
               itemFlexDirectionClass == "flex-direction-column"
                 ? "align-self"
                 : "justify-self"
-            }-${
-              fields.itemImageHorizontalAlignment || "start"
-            }`}
+            }-${fields.itemImageHorizontalAlignment || "start"}`}
           >
             <Media media={itemFields.media} />
           </div>
@@ -143,7 +145,9 @@ const TextGridWithMedia = ({ module, customData }) => {
             </div>
           )}
           <div
-            className={`${`grid-columns ${fields.itemHorizontalAlignment || "justify-content-flex-start"}`}
+            className={`${`grid-columns ${
+              fields.itemHorizontalAlignment || "justify-content-flex-start"
+            }`}
             ${style.grid}
             ${narrowContainer ? "max-width-narrow" : ""}
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}

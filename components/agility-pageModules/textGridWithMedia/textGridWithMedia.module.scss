@@ -129,18 +129,21 @@
         }
       }
       & > span {
-        // Some versions of Safari need this to prevent oversized images
+        // This is needed to prevent oversized images
         height: 0 !important;
         &:only-child {
-          min-width: 7.5rem;
           min-height: 7.5rem;
           img {
+            margin: 0 !important;
             width: 100% !important;
             object-fit: contain;
             height: unset !important;
             min-height: unset !important;
           }
         }
+      }
+      &.textItemMediaTop > span:only-child {
+        min-width: 7.5rem;
       }
     }
   }
