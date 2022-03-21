@@ -153,12 +153,12 @@ const EmbedVideo = ({ module, customData }) => {
           </div>
         </section>
       )}
-      {/* {isYouTubeVideo && (
+      {isYouTubeVideo && (
         <Script
           src="https://www.youtube.com/iframe_api"
           onLoad={handleAPIScriptLoad}
         />
-      )} */}
+      )}
     </>
   );
 };
