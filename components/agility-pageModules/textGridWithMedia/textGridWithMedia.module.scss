@@ -111,7 +111,6 @@
     .textItemMedia {
       max-width: 7.5rem;
       min-height: 4.5rem;
-      padding-bottom: 1rem;
       &.textItemMediaLarge {
         height: 14rem;
         & > span {
@@ -129,8 +128,6 @@
         }
       }
       & > span {
-        // This is needed to prevent oversized images
-        height: 0 !important;
         &:only-child {
           min-height: 7.5rem;
           img {
@@ -142,8 +139,11 @@
           }
         }
       }
-      &.textItemMediaTop > span:only-child {
-        min-width: 7.5rem;
+      &.textItemMediaTop {
+        padding-bottom: 1rem;
+        > span:only-child {
+          min-width: 7.5rem;
+        }
       }
       &.textItemMediaVerticalCenter {
         span {
@@ -170,6 +170,9 @@
     line-height: 1.3rem;
     align-items: stretch;
     .grid {
+      > .gridItem {
+        padding: 0;
+      }
       margin-top: 0 !important;
       gap: 0;
       display: grid;
@@ -180,6 +183,9 @@
       @include desktop() {
         display: flex;
         gap: 0.7rem;
+        .gridItem .gridItem {
+          padding: 1.5rem 0 !important;
+        }
       }
     }
   }
@@ -191,6 +197,10 @@
     width: 2rem !important;
     min-width: auto !important;
     margin-right: 0.8rem !important;
+    min-height: 0 !important;
+    & > span:only-child {
+      min-height: 0 !important;
+    }
     & > * {
       font-size: 1rem;
     }
