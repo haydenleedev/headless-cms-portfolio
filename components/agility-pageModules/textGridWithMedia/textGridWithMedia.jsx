@@ -76,7 +76,15 @@ const TextGridWithMedia = ({ module, customData }) => {
               itemFlexDirectionClass == "flex-direction-column"
                 ? "align-self"
                 : "justify-self"
-            }-${fields.itemImageHorizontalAlignment || "start"}`}
+            }-${fields.itemImageHorizontalAlignment || "start"}
+            ${`align-items-${fields.itemImageVerticalAlignment || "start"}`}
+            ${`justify-self-${fields.itemImageVerticalAlignment || "start"}`}
+            ${
+              fields.itemImageVerticalAlignment == "center"
+                ? style.textItemMediaVerticalCenter
+                : ""
+            }
+            `}
           >
             <Media media={itemFields.media} />
           </div>

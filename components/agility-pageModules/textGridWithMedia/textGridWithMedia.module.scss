@@ -145,6 +145,15 @@
       &.textItemMediaTop > span:only-child {
         min-width: 7.5rem;
       }
+      &.textItemMediaVerticalCenter {
+        span {
+          display: flex !important;
+          align-items: center !important;
+          img {
+            position: relative !important;
+          }
+        }
+      }
     }
   }
   .textItemHeading {
