@@ -16,6 +16,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const roundCorners = boolean(fields?.roundCorners);
   const itemImageFullSizeWidth = boolean(fields?.itemImageFullSizeWidth);
   const itemFlexDirectionClass = fields.itemImagePosition;
+  const itemImagesAtTop = itemFlexDirectionClass == "flex-direction-column";
 
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -65,15 +66,15 @@ const TextGridWithMedia = ({ module, customData }) => {
         {itemFields.media && (
           <div
             className={`${style.textItemMedia} ${
-              itemFlexDirectionClass == "flex-direction-column"
+              itemImagesAtTop
                 ? style.textItemMediaTop
                 : ""
             } ${
-              fields.itemImageSize
+              fields.itemImageSize && itemImagesAtTop
                 ? style[`textItemMedia${fields.itemImageSize}`]
                 : ""
             } ${
-              itemFlexDirectionClass == "flex-direction-column"
+              itemImagesAtTop
                 ? "align-self"
                 : "justify-self"
             }-${fields.itemImageHorizontalAlignment || "start"}
