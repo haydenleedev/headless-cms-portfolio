@@ -30,27 +30,21 @@
             @include focus-visible-touch-outlines();
         }
         .itemContentWrapper {
-            position: absolute;
-            left: -2147483647px;
-            transform: scaleY(0);
+            // transform-origin: top;
+            // transition: transform 350ms;
+            // transform: scaleY(0);
             color: $color-black;
-            > div {
-                a {
-                    color: $color-darkblue;
-                }
+            > div a {
+                color: $color-darkblue;
             }
         }
-        &.expanded {
+        &[open] {
             .chevron {
                 transform: translateY(.2rem) rotate(225deg);
             }
-            .itemContentWrapper, ~.itemContentWrapper {
-                position: relative;
-                left: auto;
-                transition: transform 350ms;
-                transform-origin: top;
-                transform: scaleY(1);
-            }
+            // .itemContentWrapper {
+            //     transform: scaleY(1);
+            // }
         }
     }
 }
