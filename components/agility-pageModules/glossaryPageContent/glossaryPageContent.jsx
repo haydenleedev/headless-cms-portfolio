@@ -33,8 +33,9 @@ const GlossaryPageContent = ({ customData }) => {
                 <li key={glossary}>
                   <a
                     href={"#" + glossary}
-                    className={`${isActive === 1 ? "selected" : null}`}
-                    onClick={() => clickHandler(glossary)}
+                    className={`${isActive === index && style.selected}`}
+                    key={index}
+                    onClick={() => setActive(index)}
                   >
                     {glossary.toUpperCase()}
                   </a>
@@ -97,7 +98,13 @@ const GlossaryPageContent = ({ customData }) => {
                 </a>
                 {glossary.fields.word}
               </h3>
-              <p dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}></p>
+              {glossary.fields.description && (
+                <p
+                  dangerouslySetInnerHTML={renderHTML(
+                    glossary.fields.description
+                  )}
+                ></p>
+              )}
             </div>
           ))}
         </div>

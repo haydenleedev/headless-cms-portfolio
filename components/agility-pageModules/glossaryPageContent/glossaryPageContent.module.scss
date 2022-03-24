@@ -2,14 +2,10 @@
 @import "../../../styles/settings/colors";
 
 .alpha-tag-nav {
-  top: 88px;
+  top: toRem(88);
+  position: sticky;
   @include desktop() {
-    .alpha-tag-nav {
-      position: sticky;
-      top: toRem(122);
-      margin-top: toRem(10);
-      z-index: 99;
-    }
+    z-index: 99;
   }
 }
 
