@@ -11,18 +11,68 @@
   .nav {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 1rem;
-    .links {
-      flex-grow: 1;
-      flex-wrap: wrap;
+    > * {
+      align-self: center;
+    }
+    .linksWrapper {
       display: flex;
-      justify-content: space-evenly;
-      gap: 1rem;
-      a {
-        &:hover {
-          color: $color-lightblue;
+      align-items: flex-start;
+      align-self: flex-start;
+      width: 100%;
+      .links {
+        width: 100%;
+        display: flex;
+        $link-gap: 1rem;
+        gap: $link-gap;
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
         }
+        a {
+          padding: .75rem 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          flex: 0 0 calc(25% - $link-gap);
+          &:hover {
+            color: $color-lightblue;
+          }
+          p {
+            font-size: .5rem;
+            @media screen and (min-width: 400px) {
+              font-size: .75rem;
+            }
+            @media screen and (min-width: 600px) {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+      .scrollButton {
+        width: 2rem;
+        position: relative;
+        align-self: stretch;
+        user-select: none;
+        cursor: pointer;
+        &::after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-25%, -50%) rotate(45deg);
+          height: .5rem;
+          width: .5rem;
+          border: .125rem solid;
+          border-color: transparent transparent black black;
+        }
+        &:nth-of-type(2)::after {
+          transform: translate(-75%, -50%) rotate(225deg);
+        }
+        @include focus-visible-touch-outlines();
       }
     }
   }
