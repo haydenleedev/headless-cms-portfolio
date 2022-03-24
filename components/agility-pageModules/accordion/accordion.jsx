@@ -29,6 +29,7 @@ const Accordion = ({ customData }) => {
                 className={style.accordionItem}
                 onClick={() => closeOtherItems(index)}
                 ref={(elem) => (detailsRefs.current[index] = elem)}
+                key={`details${index}`}
               >
                 <summary className={style.itemToggle}>
                   <div className={style.chevron} />
