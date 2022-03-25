@@ -14,6 +14,9 @@
             padding: .75rem 0;
             cursor: pointer;
             user-select: none;
+            &::-webkit-details-marker {
+                display:none;
+              }
             .chevron {
                 width: .75rem;
                 height: .75rem;
