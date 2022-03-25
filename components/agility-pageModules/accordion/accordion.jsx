@@ -47,6 +47,7 @@ const Accordion = ({ customData }) => {
                 <details
                   className={style.accordionItem}
                   open={activeItem == index}
+                  aria-expanded={activeItem == index}
                   ref={(elem) => (detailsRefs.current[index] = elem)}
                 >
                   <summary
