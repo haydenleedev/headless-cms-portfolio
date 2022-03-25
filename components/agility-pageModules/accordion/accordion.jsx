@@ -1,23 +1,41 @@
 import { renderHTML } from "@agility/nextjs";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./accordion.module.scss";
 
 const Accordion = ({ customData }) => {
   const { itemsWithSanitizedHTML } = customData;
   const detailsRefs = useRef([]);
-
-  const closeOtherItems = (excludedIndex) => {
-    detailsRefs.current.forEach((item, index) => {
-      if (index !== excludedIndex) {
-        item.open = false;
-      }
-    });
-  };
+  const itemContentRefs = useRef([]);
+  const [activeItem, setActiveItem] = useState(null);
+  const [lastKeyPress, setLastKeyPress] = useState(null);
 
   itemsWithSanitizedHTML?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      setLastKeyPress(e.key);
+    }
+    const handleFocusIn = (index) => {
+      return function curriedHandleFocusIn() {
+        setActiveItem(index);
+      }
+    }
+    if (typeof window !== "undefined") {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    itemContentRefs.current.forEach((element, index) => {
+      element.addEventListener("focusin", handleFocusIn(index));
+    });
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      itemContentRefs.current.forEach((element, index) => {
+        element?.removeEventListener("focusin", handleFocusIn(index));
+      });
+    };
+  }, []);
 
   return (
     <section className="section">
@@ -25,22 +43,42 @@ const Accordion = ({ customData }) => {
         <div className={style.accordion}>
           {itemsWithSanitizedHTML.map((item, index) => {
             return (
-              <details
-                className={style.accordionItem}
-                onClick={() => closeOtherItems(index)}
-                ref={(elem) => (detailsRefs.current[index] = elem)}
-                key={`details${index}`}
-              >
-                <summary className={style.itemToggle}>
-                  <div className={style.chevron} />
-                  <h3 className="heading-5 text-darkblue">
-                    {item.fields.heading}
-                  </h3>
-                </summary>
-                <div className={style.itemContentWrapper}>
-                  <div dangerouslySetInnerHTML={renderHTML(item.fields.html)} />
-                </div>
-              </details>
+              <div key={`details${index}`}>
+                <details
+                  className={style.accordionItem}
+                  open={activeItem == index}
+                  ref={(elem) => (detailsRefs.current[index] = elem)}
+                >
+                  <summary
+                    className={style.itemToggle}
+                    onClick={(e) => {
+                      setLastKeyPress(null);
+                      e.preventDefault();
+                      if (activeItem == index) {
+                        setActiveItem(null);
+                      } else {
+                        setActiveItem(index);
+                      }
+                    }}
+                    onMouseDown={() => setLastKeyPress(null)}
+                    onFocus={() => {
+                      if (lastKeyPress == "Tab") {
+                        setActiveItem(index);
+                      }
+                    }}
+                  >
+                    <div className={style.chevron} />
+                    <h3 className="heading-5 text-darkblue">
+                      {item.fields.heading}
+                    </h3>
+                  </summary>
+                </details>
+                <div
+                  className={style.itemContent}
+                  ref={(elem) => (itemContentRefs.current[index] = elem)}
+                  dangerouslySetInnerHTML={renderHTML(item.fields.html)}
+                />
+              </div>
             );
           })}
         </div>

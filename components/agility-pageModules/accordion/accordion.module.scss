@@ -29,22 +29,34 @@
             }
             @include focus-visible-touch-outlines();
         }
-        .itemContentWrapper {
-            // transform-origin: top;
-            // transition: transform 350ms;
-            // transform: scaleY(0);
-            color: $color-black;
-            > div a {
-                color: $color-darkblue;
-            }
-        }
         &[open] {
             .chevron {
                 transform: translateY(.2rem) rotate(225deg);
             }
-            // .itemContentWrapper {
-            //     transform: scaleY(1);
-            // }
+            ~ .itemContent {
+                position: relative;
+                left: auto;
+                animation: slide-down 500ms;
+            }
+            @keyframes slide-down {
+                0% {
+                    pointer-events: none;
+                    transform: translateY(-3rem);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    .itemContent {
+        position: absolute;
+        left: -2147483647px;
+        color: $color-black;
+        a {
+            color: $color-darkblue;
         }
     }
 }
