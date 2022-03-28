@@ -109,11 +109,12 @@ const GlossaryPageContent = ({ customData }) => {
                   {glossary.fields.word}
                 </h3>
                 {glossary.fields.description && (
-                  <p
+                  <div
+                    className={style.contentWrapper}
                     dangerouslySetInnerHTML={renderHTML(
                       glossary.fields.description
                     )}
-                  ></p>
+                  ></div>
                 )}
               </div>
             ))}

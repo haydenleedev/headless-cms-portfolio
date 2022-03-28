@@ -103,8 +103,11 @@ h2.css-0:before {
 }
 .display {
   margin-top: toRem(40);
-  p {
+  .contentWrapper {
     padding-left: toRem(20);
+  }
+  p {
+    padding-left: 0;
     padding-bottom: toRem(10);
   }
 }
