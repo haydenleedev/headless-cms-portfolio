@@ -9,6 +9,11 @@ const GlossaryPageContent = ({ customData }) => {
   const { allGlossaries, sanitizedHtml } = customData;
 
   const alphabetsMapped = allGlossaries.map((obj) => obj.fields.alphabet);
+
+  alphabetsMapped?.sort(function (a, b) {
+    return a - b;
+  });
+
   const alphabbetChecker = [];
 
   const [isActive, setActive] = useState(null);
@@ -46,10 +51,10 @@ const GlossaryPageContent = ({ customData }) => {
         <div className={style.display}>
           {allGlossaries
             .sort(function (a, b) {
-              if (a < b) {
+              if (a.fields.word < b.fields.word) {
                 return -1;
               }
-              if (a > b) {
+              if (a.fields.word > b.fields.word) {
                 return 1;
               }
               return 0;
