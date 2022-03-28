@@ -15,8 +15,7 @@ const FirstFold = ({ module, customData }) => {
   const alternateLayout = boolean(fields.alternateLayout);
   const imageLeft = boolean(fields.imageLeft);
   const uncenteredVertically = boolean(fields.uncenteredVertically);
-
-  const noImageLayout = boolean(fields.noImageLayout);
+  const noImageLayout = !fields.media && !fields.customSVG;
   const customerStory = boolean(fields.customerStory);
   const softwareIntegration = boolean(fields.softwareIntegration);
   const narrowContainer = boolean(fields?.narrowContainer);
@@ -313,7 +312,6 @@ const FirstFold = ({ module, customData }) => {
               </div>
             </div>
             {fields.media &&
-              !noImageLayout &&
               !fields.customSVG &&
               !fields.imageLink && (
                 <div
@@ -340,7 +338,6 @@ const FirstFold = ({ module, customData }) => {
                 </div>
               )}
             {fields.media &&
-              !noImageLayout &&
               !fields.customSVG &&
               fields.imageLink && (
                 <AgilityLink
@@ -366,7 +363,7 @@ const FirstFold = ({ module, customData }) => {
                   </div>
                 </AgilityLink>
               )}
-            {fields.customSVG && !noImageLayout && (
+            {fields.customSVG && (
               <CustomSVG
                 svgInput={fields.customSVG}
                 svgClasses={fields.customSVGClasses}
