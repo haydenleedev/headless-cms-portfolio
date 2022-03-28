@@ -331,7 +331,7 @@ const FirstFold = ({ module, customData }) => {
                     fixedMediaHeight
                       ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
                       : ""
-                  } ${fields.mediaVerticalAlignment}`}
+                  } ${style[fields.mediaVerticalAlignment]}`}
                   data-animate="true"
                 >
                   <Media media={fields.media} title={fields.mediaTitle} />
@@ -354,7 +354,7 @@ const FirstFold = ({ module, customData }) => {
                     fixedMediaHeight
                       ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
                       : ""
-                  } ${fields.mediaVerticalAlignment}`}
+                  } ${style[fields.mediaVerticalAlignment]}`}
                   ariaLabel={`Navigate to page ` + fields.imageLink.href}
                   title={`Navigate to page ` + fields.imageLink.href}
                 >
