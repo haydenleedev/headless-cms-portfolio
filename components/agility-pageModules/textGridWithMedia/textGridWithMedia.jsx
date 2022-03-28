@@ -107,81 +107,85 @@ const TextGridWithMedia = ({ module, customData }) => {
   };
 
   return (
-    <section
-      className={`section ${style.textGridWithMedia} ${
-        fields.classes ? fields.classes : ""
-      } ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
-        fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""
-      }`}
-      id={fields.id ? fields.id : null}
-      ref={intersectionRef}
-    >
-      <div className={`container `}>
-        {heading.text && (
-          <div
-            className={`${style.heading} ${
-              narrowContainer ? "max-width-narrow" : ""
-            }`}
-          >
-            <Heading {...heading} />
-            {fields.subtitle && <p>{fields.subtitle}</p>}
-          </div>
-        )}
-        <div className={style.content}>
-          {fields.media && (
-            <div
-              className={`${style.mediaContainer} ${
-                fields.media?.url.toLowerCase().endsWith(".svg")
-                  ? style.svgMediaContainer
-                  : ""
-              }`}
-            >
-              <Media media={fields.media} title={fields.mediaTitle} />
-            </div>
-          )}
-          <div
-            className={`${
-              centerItemsHorizontally
-                ? `grid-columns ${style.justifyContentCenterHorizontally}`
-                : `columns repeat-${fields.columns}`
-            } ${style.grid}
-            ${narrowContainer ? "max-width-narrow" : ""}
-            ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
-            mt-4
-          `}
-          >
-            {itemsWithSanitizedHTML?.map((textItem, index) => {
-              if (textItem.fields.link) {
-                return (
-                  <AgilityLink
-                    agilityLink={textItem.fields.link}
-                    ariaLabel={`Read more about ${textItem.fields.title}`}
-                    key={`textItem${index}`}
-                    className={`
-                      ${style.gridItem}
-                      ${largeColumnNumber}
+    <>
+      {(itemsWithSanitizedHTML.length > 0 || heading.text) && (
+        <section
+          className={`section ${style.textGridWithMedia} ${
+            fields.classes ? fields.classes : ""
+          } ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
+            fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""
+          }`}
+          id={fields.id ? fields.id : null}
+          ref={intersectionRef}
+        >
+          <div className={`container `}>
+            {heading.text && (
+              <div
+                className={`${style.heading} ${
+                  narrowContainer ? "max-width-narrow" : ""
+                }`}
+              >
+                <Heading {...heading} />
+                {fields.subtitle && <p>{fields.subtitle}</p>}
+              </div>
+            )}
+            <div className={style.content}>
+              {fields.media && (
+                <div
+                  className={`${style.mediaContainer} ${
+                    fields.media?.url.toLowerCase().endsWith(".svg")
+                      ? style.svgMediaContainer
+                      : ""
+                  }`}
+                >
+                  <Media media={fields.media} title={fields.mediaTitle} />
+                </div>
+              )}
+              <div
+                className={`${
+                  centerItemsHorizontally
+                    ? `grid-columns ${style.justifyContentCenterHorizontally}`
+                    : `columns repeat-${fields.columns}`
+                } ${style.grid}
+              ${narrowContainer ? "max-width-narrow" : ""}
+              ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
+              mt-4
+            `}
+              >
+                {itemsWithSanitizedHTML?.map((textItem, index) => {
+                  if (textItem.fields.link) {
+                    return (
+                      <AgilityLink
+                        agilityLink={textItem.fields.link}
+                        ariaLabel={`Read more about ${textItem.fields.title}`}
+                        key={`textItem${index}`}
+                        className={`
+                        ${style.gridItem}
+                        ${largeColumnNumber}
+                      `}
+                      >
+                        <TextItem data={textItem} />
+                      </AgilityLink>
+                    );
+                  } else {
+                    return (
+                      <div
+                        className={`
+                    ${style.gridItem}
+                    ${largeColumnNumber}
                     `}
-                  >
-                    <TextItem data={textItem} />
-                  </AgilityLink>
-                );
-              } else {
-                return (
-                  <div
-                    className={`
-                  ${style.gridItem}
-                  ${largeColumnNumber}
-                  `}
-                  >
-                    <TextItem data={textItem} key={`textItem${index}`} />
-                  </div>
-                );
-              }
-            })}
+                      >
+                        <TextItem data={textItem} key={`textItem${index}`} />
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </section>
+      )}
+    </>
   );
 };
 
@@ -190,10 +194,12 @@ TextGridWithMedia.getCustomInitialProps = async function ({ item }) {
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-  const itemsWithSanitizedHTML = item.fields.textItems.map((item) => {
-    item.text = cleanHtml(item.text);
-    return item;
-  });
+  const itemsWithSanitizedHTML = item.fields.textItems
+    ? item.fields.textItems.map((item) => {
+        item.text = cleanHtml(item.text);
+        return item;
+      })
+    : [];
 
   return {
     itemsWithSanitizedHTML,
