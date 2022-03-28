@@ -12,14 +12,12 @@ const FirstFold = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
-  const alternateLayout = boolean(fields.alternateLayout);
   const imageLeft = boolean(fields.imageLeft);
   const uncenteredVertically = boolean(fields.uncenteredVertically);
   const noImageLayout = !fields.media && !fields.customSVG;
-  const customerStory = boolean(fields.customerStory);
-  const softwareIntegration = boolean(fields.softwareIntegration);
   const narrowContainer = boolean(fields?.narrowContainer);
   const fixedMediaHeight = fields?.fixedMediaHeight;
+  const layout = fields.layout;
 
   fields.logos?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -49,11 +47,11 @@ const FirstFold = ({ module, customData }) => {
   };
 
   // different layout when alternateLayout or customerStory is toggled on
-  if (alternateLayout || customerStory) {
+  if (layout == "alternateLayout" || layout == "customerStory") {
     return (
       <section
         className={`section ${style.firstFoldAlternate} ${
-          customerStory ? "mb-6" : ""
+          layout == "customerStory" ? "mb-6" : ""
         } ${fields.classes ? fields.classes : ""}`}
         id={fields.id ? fields.id : null}
       >
@@ -64,7 +62,7 @@ const FirstFold = ({ module, customData }) => {
         )}
         <div
           className={`container ${
-            customerStory ? style.customerStoryTextContent : style.textContent
+            layout == "customerStory" ? style.customerStoryTextContent : style.textContent
           } ${narrowContainer ? "max-width-narrow" : ""}`}
         >
           <div className={style.heading}>
@@ -103,7 +101,7 @@ const FirstFold = ({ module, customData }) => {
         </div>
       </section>
     );
-  } else if (softwareIntegration) {
+  } else if (layout == "softwareIntegration") {
     return (
       <section
         className={`section ${style.softwareIntegration}${
