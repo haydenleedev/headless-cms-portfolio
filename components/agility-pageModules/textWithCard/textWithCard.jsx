@@ -7,7 +7,7 @@ const TextWithCard = ({ module, customData }) => {
   const sanitizedHtml = customData.sanitizedHtml;
   const sanitizedCardHtml = customData.sanitizedCardHtml;
   const { fields } = module;
-  const heading = fields.heading ? JSON.parse(fields.heading) : null;
+  const heading = fields.textContentHeading ? JSON.parse(fields.textContentHeading) : null;
   const cardFields = fields.card?.fields;
   return (
     <section className="section">
@@ -39,9 +39,9 @@ const TextWithCard = ({ module, customData }) => {
               ></div>
             </div>
           )}
-          {(fields.heading || fields.text) && (
+          {(heading || fields.text) && (
             <div className={`${style.text} ${fields.textVerticalAlignment}`}>
-              {fields.heading && <Heading {...heading} />}
+              {heading && <Heading {...heading} />}
               {fields.text && (
                 <div dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}></div>
               )}
