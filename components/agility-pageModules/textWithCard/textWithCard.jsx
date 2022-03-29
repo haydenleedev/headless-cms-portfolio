@@ -1,14 +1,12 @@
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import Heading from "../heading";
 import style from "./textWithCard.module.scss";
 
 const TextWithCard = ({ module, customData }) => {
   const sanitizedHtml = customData.sanitizedHtml;
   const sanitizedCardHtml = customData.sanitizedCardHtml;
   const { fields } = module;
-  const heading = fields.heading ? JSON.parse(fields.heading) : null;
-  const cardFields = fields.card?.fields;
+  const cardFields = fields.card.fields;
   return (
     <section className="section">
       <div className="container">
@@ -41,7 +39,7 @@ const TextWithCard = ({ module, customData }) => {
           )}
           {(fields.heading || fields.text) && (
             <div className={`${style.text} ${fields.textVerticalAlignment}`}>
-              {fields.heading && <Heading {...heading} />}
+              {fields.heading && <h2>{fields.heading}</h2>}
               {fields.text && (
                 <div dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}></div>
               )}
@@ -60,7 +58,7 @@ TextWithCard.getCustomInitialProps = async function ({ item }) {
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
   const sanitizedHtml = item.fields.text ? cleanHtml(item.fields.text) : null;
-  const sanitizedCardHtml = item.fields.card?.fields.content
+  const sanitizedCardHtml = item.fields.card.fields.content
     ? cleanHtml(item.fields.card.fields.content)
     : null;
 
