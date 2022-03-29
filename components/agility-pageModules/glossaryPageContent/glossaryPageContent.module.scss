@@ -3,6 +3,7 @@
 
 .alpha-tag-nav {
   top: 88px;
+  position: sticky;
   @include desktop() {
     .alpha-tag-nav {
       position: sticky;
@@ -40,14 +41,17 @@
   justify-content: flex-start;
   flex-wrap: wrap;
   margin: 0;
-  padding: 0 1.25rem;
+  padding: 0;
+  @include desktop() {
+    padding: 0 1.25rem;
+  }
   background-color: $color-white;
   a.selected {
     background-color: $color-darkblue;
     color: $color-white;
   }
   li {
-    margin: 0 toRem(1);
+    margin: 0 toRem(1) toRem(8);
   }
   a,
   span {
@@ -99,8 +103,11 @@ h2.css-0:before {
 }
 .display {
   margin-top: toRem(40);
-  p {
+  .contentWrapper {
     padding-left: toRem(20);
+  }
+  p {
+    padding-left: 0;
     padding-bottom: toRem(10);
   }
 }
