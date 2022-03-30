@@ -31,7 +31,7 @@ class VoiceUsageCard extends Component {
     }
 
     this.state = {
-      plans: props.voiceUsage.data.reverse(),
+      plans: props.voiceUsage.data,
       rateUI,
     };
   }

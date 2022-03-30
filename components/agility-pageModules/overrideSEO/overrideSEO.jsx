@@ -23,14 +23,17 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
     twitterCard,
     twitterImage,
     canonicalURL,
-    blockIndexing
+    blockIndexing,
   } = fields;
 
   // might be input either one depending on the context...
   // renaming agility api names of fields for existing data doesnt seem to work so need this workaround
   const og_image = ogImage?.url || ogImageURL;
   const { globalSettings } = useContext(GlobalContext);
-  const suffixedMetaTitle = formatPageTitle(metaTitle, globalSettings.fields.pageTitleSuffix);
+  const suffixedMetaTitle = formatPageTitle(
+    metaTitle,
+    globalSettings?.fields?.pageTitleSuffix
+  );
 
   return (
     <Head>
@@ -42,7 +45,11 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
       )}
       {metaDescription && (
         <>
-          <meta name="description" content={metaDescription} key="description" />
+          <meta
+            name="description"
+            content={metaDescription}
+            key="description"
+          />
           <meta
             property="og:description"
             content={metaDescription}
@@ -60,23 +67,31 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
         />
       )}
       {suffixedMetaTitle && (
-        <meta property="og:image:alt" content={suffixedMetaTitle} key="ogimagealt" />
+        <meta
+          property="og:image:alt"
+          content={suffixedMetaTitle}
+          key="ogimagealt"
+        />
       )}
       {twitterCard && (
         <meta name="twitter:card" content={twitterCard} key="twittercard" />
       )}
       {twitterImage && (
-        <meta name="twitter:image" content={`${twitterImage.url}${"?q=50&w=1200&height=630format=auto"}`} key="twitterimage" />
+        <meta
+          name="twitter:image"
+          content={`${twitterImage.url}${"?q=50&w=1200&height=630format=auto"}`}
+          key="twitterimage"
+        />
       )}
       {twitterImage && suffixedMetaTitle && (
-          <meta name="twitter:image:alt" content={suffixedMetaTitle} key="twitterimagealt" />
+        <meta
+          name="twitter:image:alt"
+          content={suffixedMetaTitle}
+          key="twitterimagealt"
+        />
       )}
-      {canonicalURL && (
-        <link rel="canonical" href={canonicalURL} />
-      )}
-      {blockIndexing && (
-        <meta name="robots" content="noindex" />
-      )}
+      {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+      {blockIndexing && <meta name="robots" content="noindex" />}
       {/* Any content-based additional schemas e.g. blogPosting type */}
       {additionalSchemas &&
         additionalSchemas.map((schema, index) => (

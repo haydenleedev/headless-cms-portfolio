@@ -7,7 +7,7 @@ class FreeTrial extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      includes: props.freeProduct.includes.reverse(),
+      includes: props.freeProduct.includes,
     };
   }
   render() {

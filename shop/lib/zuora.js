@@ -567,3 +567,86 @@ function getConsumptionProduct(id) {
     };
   }
 }
+
+export async function createEventTriggers(token) {
+  const productTrigger = {
+    active: true,
+    baseObject: "Product",
+    condition:
+      "changeType == 'UPDATE' || changeType == 'INSERT' || changeType == 'DELETE'",
+    description:
+      "Trigger an event when a product is updated, created or deleted",
+    eventType: {
+      description:
+        "Trigger an event when a product is updated, created or deleted",
+      displayName: "Product changes",
+      name: "ProductChanges",
+    },
+  };
+
+  const ratePlanTrigger = {
+    active: true,
+    baseObject: "ProductRatePlan",
+    condition:
+      "changeType == 'UPDATE' || changeType == 'INSERT' || changeType == 'DELETE'",
+    description:
+      "Trigger an event when a ProductRatePlan is updated or deleted",
+    eventType: {
+      description:
+        "Trigger an event when a ProductRatePlan is updated or deleted",
+      displayName: "ProductRatePlan changes",
+      name: "ProductRatePlanChanges",
+    },
+  };
+
+  const ratePlanChargeTrigger = {
+    active: true,
+    baseObject: "ProductRatePlanCharge",
+    condition:
+      "changeType == 'UPDATE' || changeType == 'INSERT' || changeType == 'DELETE'",
+    description:
+      "Trigger an event when a ProductRatePlanCharge is updated or deleted",
+    eventType: {
+      description:
+        "Trigger an event when a ProductRatePlanCharge is updated or deleted",
+      displayName: "ProductRatePlanCharge changes",
+      name: "ProductRatePlanChargeChanges",
+    },
+  };
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "content-type": "application/json",
+  };
+
+  const productRes = await postWithCustomHeader(
+    `${process.env.ZUORA_API_URL}/events/event-triggers`,
+    JSON.stringify(productTrigger),
+    headers
+  );
+
+  console.log(productRes);
+  console.log(`Zuora event trigger '${productRes.eventType.name}' created`);
+
+  const productRatePlanRes = await postWithCustomHeader(
+    `${process.env.ZUORA_API_URL}/events/event-triggers`,
+    JSON.stringify(ratePlanTrigger),
+    headers
+  );
+
+  console.log(productRatePlanRes);
+  console.log(
+    `Zuora event trigger '${productRatePlanRes.eventType.name}' created`
+  );
+
+  const productRatePlanChargeRes = await postWithCustomHeader(
+    `${process.env.ZUORA_API_URL}/events/event-triggers`,
+    JSON.stringify(ratePlanChargeTrigger),
+    headers
+  );
+
+  console.log(productRatePlanChargeRes);
+  console.log(
+    `Zuora event trigger '${productRatePlanChargeRes.eventType.name}' created`
+  );
+}

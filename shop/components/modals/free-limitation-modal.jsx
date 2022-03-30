@@ -2,12 +2,18 @@ import Button from "../buttons/button";
 import { useRouter } from "next/dist/client/router";
 import layout from "../../styles/layout.module.scss";
 import modal from "./modal.module.scss";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 
 const FreeLimitationModal = ({ onClick }) => {
   const router = useRouter();
   const { updateFormData } = useContext(GlobalContext);
+  useEffect(() => {
+    document.body.style.overflowY = "hidden";
+    return () => {
+      document.body.style.overflowY = "";
+    };
+  }, []);
   return (
     <div className={`${modal.modal} ${modal.narrow}`}>
       <p className={modal["section-title"]}>Free Trial Details</p>

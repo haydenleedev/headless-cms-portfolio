@@ -1,7 +1,12 @@
-import '../styles/main.scss'
+import "../styles/main.scss";
+import GlobalContextWrapper from "../context/globalContextWrapper";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <GlobalContextWrapper>
+      <Component {...pageProps} />
+    </GlobalContextWrapper>
+  );
 }
 
-export default MyApp
+export default MyApp;

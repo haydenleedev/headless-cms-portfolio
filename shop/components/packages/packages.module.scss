@@ -231,3 +231,20 @@
     transition: transform 0.1s linear;
   }
 }
+
+.freeForm {
+  padding: 1.875rem 2.375rem;
+  border-radius: 1rem;
+  background-color: $color-paleblue;
+  margin: 0 1rem;
+  max-width: 31.375rem;
+  width: 100%;
+  form {
+    label {
+      display: flex;
+    }
+  }
+  @include desktop() {
+    margin: unset;
+  }
+}

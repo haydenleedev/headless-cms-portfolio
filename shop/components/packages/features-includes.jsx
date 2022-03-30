@@ -8,7 +8,7 @@ class ProductFeaturesIncludes extends Component {
     super(props);
     this.state = {
       name: props.product.packageName,
-      includes: props.product.includes.reverse(),
+      includes: props.product.includes,
       title: props.product.packageFeaturesAlsoIncluded
         ? `Includes ${props.product.packageFeaturesAlsoIncluded} Plus`
         : "Includes",
