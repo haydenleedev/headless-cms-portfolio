@@ -129,7 +129,9 @@ export const breadcrumbs = (url) => {
     let name = slug.replace(/-/g, " ");
     name = name.replace(/_/g, " ");
     name = name.split(" ").map((word) => {
-      return word.length > 3 ? word.charAt(0).toUpperCase() + word.slice(1) : word;
+      return word.length > 3
+        ? word.charAt(0).toUpperCase() + word.slice(1)
+        : word;
     });
     return name.join(" ");
   }

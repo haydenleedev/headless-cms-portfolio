@@ -59,8 +59,8 @@ const ShopSEO = ({ seo, children }) => {
       <meta name="twitter:card" content="summary" key="twittercard" />
       <meta name="twitter:creator" content="@UJETcx" key="twittercreator" />
       <meta name="twitter:site" content="@UJETcx" key="twittersite" />
-      <script type="application/ld+json">{organization}</script>
-      <script type="application/ld+json">{webSite}</script>
+      <script type="application/ld+json">{JSON.stringify(organization)}</script>
+      <script type="application/ld+json">{JSON.stringify(webSite)}</script>
       <script type="application/ld+json">{shop}</script>
       <script type="application/ld+json">
         {breadcrumbs(process.env.NEXT_PUBLIC_SITE_URL + "/shop")}
