@@ -1,0 +1,65 @@
+@import "../../styles/settings/__settings";
+
+.input-number-wrap {
+  line-height: toRem(48);
+}
+.input-number {
+  position: relative;
+  display: inline-block;
+  width: toRem(95);
+  line-height: toRem(30);
+  input {
+    background-color: $color-white;
+    border-radius: toRem(6);
+    border: toRem(1) solid $color-gray;
+    box-sizing: border-box;
+    color: $color-black;
+    display: inline-block;
+    font-size: inherit;
+    padding: 0 0 0 toRem(12) !important;
+    height: toRem(32);
+    line-height: toRem(32);
+    outline: none;
+    height: unset !important;
+    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    width: 100%;
+  }
+}
+
+.number-decrease {
+  position: absolute;
+  z-index: 1;
+  width: toRem(32);
+  text-align: center;
+  background-color: $color-lightgray;
+  color: $color-black;
+  cursor: pointer;
+  font-size: toRem(14);
+  height: toRem(15);
+  line-height: 1;
+  padding-top: 0;
+  right: toRem(1);
+  bottom: toRem(1);
+  top: auto;
+  left: auto;
+  border-right: none;
+  border-left: toRem(1) solid $color-lightgray;
+  border-radius: 0 0 toRem(8) 0;
+}
+.number-increase {
+  position: absolute;
+  z-index: 1;
+  text-align: center;
+  background-color: $color-lightgray;
+  color: $color-darkgray;
+  cursor: pointer;
+  padding-top: toRem(1);
+  top: toRem(1);
+  right: toRem(1);
+  font-size: toRem(14);
+  width: toRem(32);
+  height: toRem(15);
+  line-height: 1;
+  border-radius: 0 toRem(8) 0 0;
+  border-bottom: toRem(1) solid $color-lightgray;
+}

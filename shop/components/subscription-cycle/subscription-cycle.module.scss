@@ -1,0 +1,78 @@
+@import "../../styles/settings/__settings";
+
+.button {
+  &:focus {
+    @include outline();
+    //box-shadow: 0 0 0 toRem(4) rgba(0, 125, 250, 0.6);
+  }
+}
+
+.form-title-wrap {
+  display: flex;
+  margin-top: toRem(20);
+}
+.form-title {
+  font-size: $size-18px !important;
+}
+.number {
+  width: toRem(24);
+  height: toRem(24);
+  font-size: $size-18px;
+  line-height: toRem(24);
+  color: $color-black;
+  font-weight: 600;
+  border-radius: 50%;
+  background-color: $color-paleblue;
+  display: block;
+  text-align: center;
+  margin-right: toRem(15);
+}
+
+.ml-20px {
+  margin-left: toRem(20);
+}
+.mlr-38px {
+  margin-left: toRem(38);
+  margin-right: toRem(38);
+}
+.mlr-30px {
+  margin-left: toRem(30);
+  margin-right: toRem(30);
+}
+.text-regular {
+  font-size: $size-16px;
+}
+
+.hidden {
+  position: fixed;
+  top: -9999px;
+  left: -9999px;
+}
+
+.subscription-title {
+  font-size: $size-20px;
+  font-weight: 600;
+}
+.text-highlight {
+  color: $color-lightblue;
+  font-weight: 600;
+}
+.text-large {
+  font-size: $size-36px;
+  font-weight: 600;
+}
+.text-suffix {
+  font-size: $size-13px;
+  font-weight: 400;
+}
+.text-medium {
+  font-size: toRem(14);
+}
+.text-small {
+  font-size: $size-13px;
+  font-weight: 400;
+  li {
+    font-size: $size-13px;
+    font-weight: 400;
+  }
+}

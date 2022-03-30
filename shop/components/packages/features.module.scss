@@ -1,0 +1,120 @@
+@import "../../styles/settings/__settings";
+
+.product-anchor-open {
+  display: none;
+}
+
+/* Font size overwriting */
+.feature-title {
+  color: $color-mediumblue;
+  font-size: $size-22px !important;
+  display: block;
+  font-weight: 600;
+  margin: 0;
+  padding: toRem(12) 0 0 toRem(3);
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  z-index: 2;
+  background-color: $color-white;
+  &:after {
+    content: "+";
+    float: right;
+    font-size: $size-26px;
+    font-weight: 400;
+    line-height: 1;
+    margin-top: toRem(-2);
+    margin-right: toRem(8);
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+  }
+  @include desktop() {
+    display: none;
+  }
+}
+
+.product {
+  position: relative;
+  overflow: visible;
+  pointer-events: auto;
+  text-align: left;
+  overflow: hidden;
+  @include desktop() {
+    border-top: 0;
+    overflow: visible;
+    label {
+      display: none !important;
+    }
+  }
+}
+.product-anchor {
+  right: toRem(-9999);
+  cursor: default;
+  display: none;
+  position: absolute;
+  top: 0;
+  width: toRem(1);
+  height: toRem(1);
+  z-index: 10;
+}
+
+.feature-wrap {
+  margin: 0;
+  overflow: visible;
+  padding-top: toRem(5);
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  visibility: hidden;
+  z-index: -1;
+  transform: translateY(toRem(-20));
+  @include desktop() {
+    position: relative;
+    visibility: visible;
+    top: 0;
+    z-index: 1;
+    transform: translateY(0);
+  }
+}
+
+.accordion-state:checked + .product {
+  overflow: visible;
+}
+
+.accordion-state {
+  display: none;
+}
+
+.accordion-state,
+.product-state:checked + .product .product-anchor-open {
+  display: none;
+}
+
+.accordion-state:checked + .product .feature-title:after,
+.accordion-state:target + .product .feature-title:after {
+  transform: rotate(45deg) scale(1.08);
+}
+.accordion-state:checked,
+.accordion-state:target {
+  & + .product {
+    .feature-title {
+      padding-bottom: toRem(10);
+      padding-left: toRem(3);
+      border-bottom: toRem(1) solid $color-mediumblue;
+      margin-bottom: toRem(10);
+    }
+  }
+}
+
+.accordion-state:checked + .product .feature-wrap,
+.accordion-state:target + .product .feature-wrap {
+  position: static;
+  visibility: visible;
+  transform: none;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+  padding-bottom: 0;
+}

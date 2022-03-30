@@ -1,0 +1,364 @@
+@import "../../styles/settings/__settings";
+
+.primary-nav {
+  font-size: $size-14px;
+  position: relative;
+  top: 0;
+  left: 0;
+  padding: 0 0 toRem(30);
+  overflow-y: hidden;
+  overflow-x: hidden;
+  @include siteWidth();
+  margin: 0 auto;
+  padding: toRem(12) toRem(20);
+  @include desktop() {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    flex-direction: row;
+    font-size: $size-18px;
+    padding: toRem(10) 0;
+    overflow: visible;
+  }
+  ul,
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  a:hover {
+    color: $color-mediumblue;
+  }
+}
+
+.topmenu {
+  font-family: inherit;
+}
+
+.mobile-menu {
+  display: block;
+  @include desktop() {
+    display: none;
+  }
+}
+
+.has-dropdown {
+  & > a,
+  & > label a,
+  & > label span {
+    &:after {
+      font-family: "arrow-down";
+      content: "\e900";
+      color: $color-darkblue;
+      font-size: $size-10px;
+      @include desktop() {
+        color: $color-gray;
+        font-size: $size-8px;
+        padding: toRem(5) 0 0 toRem(8);
+      }
+    }
+  }
+
+  & > ul {
+    position: absolute;
+    top: toRem(-9999);
+    @include desktop() {
+      &:after {
+        left: toRem(-999999);
+        position: absolute;
+        left: 65%;
+        top: toRem(-10);
+        width: 0;
+        height: 0;
+        content: "";
+        border-left: toRem(10) solid transparent;
+        border-right: toRem(10) solid transparent;
+        border-bottom: toRem(10) solid $color-mediumgray;
+      }
+    }
+  }
+  &:hover > ul {
+    @include desktop() {
+      position: absolute;
+      top: toRem(48);
+      right: toRem(-48);
+      background: #fff;
+      text-align: left;
+      min-width: toRem(365);
+      padding: toRem(15) toRem(20);
+      margin-left: toRem(-240);
+      margin-top: 0;
+      @include shadow();
+      border: toRem(1) solid $color-mediumgray;
+      z-index: 3;
+    }
+  }
+}
+
+.menu {
+  label {
+    a,
+    span {
+      font-weight: 600;
+      @include desktop() {
+        font-weight: 400;
+      }
+    }
+  }
+  display: block;
+  &.items {
+    position: absolute;
+    z-index: 1;
+    top: toRem(64);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    @include desktop() {
+      top: 0;
+    }
+    & > li {
+      overflow: hidden;
+      border-bottom: toRem(1) solid $color-mediumgray;
+      @include desktop() {
+        overflow: visible;
+        position: relative;
+        border-bottom: 0;
+      }
+    }
+    a,
+    span {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: toRem(15);
+      position: relative;
+      border: none;
+      text-decoration: none;
+      font-size: $size-14px;
+      @include desktop() {
+        display: block;
+        font-size: $size-16px;
+      }
+    }
+    ul ul a {
+      padding-left: 0;
+    }
+    @include desktop() {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .has-dropdown {
+    label {
+      a {
+        display: none;
+        @include desktop() {
+          display: flex;
+        }
+      }
+      span {
+        display: flex;
+        cursor: pointer;
+        @include desktop() {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.logo {
+  a {
+    display: block;
+    flex: 0 0 auto;
+    width: toRem(130);
+    height: toRem(40);
+    background: url(../icons/svgs/ujet-cx-logo.svg) left top no-repeat
+      transparent;
+    background-size: 100%;
+    overflow: hidden;
+    text-indent: toRem(-9999);
+    border: none;
+  }
+}
+
+.grid-row-2 {
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.has-dropdown > ul > li > ul {
+  padding-left: 0;
+  margin-left: toRem(40);
+  li {
+    list-style-type: disc;
+  }
+}
+
+.grid-col-4 {
+  display: grid;
+  @include desktop() {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-flow: column;
+  }
+}
+
+.stick {
+  position: fixed;
+  width: 100%;
+  height: toRem(66);
+  background-color: $color-white;
+  z-index: 9999;
+  overflow: hidden;
+  @include shadow();
+  @include desktop() {
+    height: auto;
+    overflow: visible;
+  }
+  .sticky-wrap {
+    @include desktop() {
+      top: 0;
+      left: 0;
+    }
+  }
+}
+
+/* Hamburger menu */
+.menustate {
+  &:checked + .stick {
+    height: 100%;
+    overflow-y: scroll;
+    @include desktop() {
+      height: auto;
+      overflow-y: visible;
+    }
+  }
+  display: none;
+  &:checked + .stick {
+    .primary-nav,
+    .items {
+      visibility: visible;
+      overflow: visible;
+    }
+    .menuicon-label {
+      span {
+        opacity: 0;
+      }
+      transition-duration: 0s;
+      transition-delay: 0s;
+      &:before {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      &:after {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(135deg);
+      }
+    }
+  }
+}
+.menustate:checked + .stick .menuicon-label :before {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.menuicon {
+  right: 0;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  width: toRem(48);
+  border-bottom: none;
+}
+.menuicon-label {
+  display: block;
+  position: absolute;
+  z-index: 3;
+  overflow: hidden;
+  text-indent: toRem(-9999);
+  margin-top: toRem(14);
+  margin-bottom: toRem(10);
+  cursor: pointer;
+  @include desktop() {
+    display: none;
+  }
+  &:before,
+  &:after {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: toRem(30);
+    height: toRem(2);
+    content: "";
+    background: $color-darkblue;
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(0);
+    transition: all 0.5s;
+  }
+  span {
+    background: linear-gradient(
+      to bottom,
+      $color-darkblue,
+      $color-darkblue 10%,
+      transparent 10%,
+      transparent 45%,
+      $color-darkblue 45%,
+      $color-darkblue 55%,
+      transparent 55%,
+      transparent 90%,
+      $color-darkblue 90%,
+      $color-darkblue 100%
+    );
+    transition: opacity 0.5s 0s;
+    width: toRem(30);
+    height: toRem(20);
+    border-bottom: none;
+    display: block;
+  }
+}
+
+.has-dropdown {
+  .accordion-state:checked + label + ul {
+    overflow: visible;
+    position: relative;
+    top: 0;
+  }
+}
+
+.accordion-state {
+  display: none;
+}
+
+.accordion-state,
+.product-state:checked + label + ul .anchor-open {
+  display: none;
+}
+
+.accordion-state:checked + label + ul .feature-title:after,
+.accordion-state:target + label + ul .feature-title:after {
+  transform: rotate(45deg) scale(1.08);
+}
+.accordion-state:checked,
+.accordion-state:target {
+  & + ul {
+    .feature-title {
+      padding-bottom: toRem(10);
+      padding-left: toRem(3);
+      border-bottom: toRem(1) solid $color-mediumblue;
+      margin-bottom: toRem(10);
+    }
+  }
+}
+
+.accordion-state:checked + label + ul .feature-wrap,
+.accordion-state:target + label + ul .feature-wrap {
+  position: static;
+  visibility: visible;
+  transform: none;
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+  padding-bottom: 0;
+}

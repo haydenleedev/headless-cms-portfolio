@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node ./fetchAgilityRedirects && node ./fetchExcludedPages.js && next dev",
+    "dev": "node ./fetchAgilityRedirects && node ./fetchExcludedPages.js && next dev -p 3009",
     "build": "node ./fetchAgilityRedirects && node ./fetchExcludedPages.js && next build",
     "start": "next start",
     "postbuild": "next-sitemap",
@@ -16,13 +16,15 @@
     "@algolia/autocomplete-preset-algolia": "^1.5.1",
     "algoliasearch": "^4.11.0",
     "fs-extra": "^10.0.0",
-    "next": "^12.0.8",
+    "jsforce": "^1.10.1",
+    "next": "^12.0.10",
     "next-sitemap": "^1.9.9",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "sanitize-html": "^2.5.2"
   },
   "devDependencies": {
+    "axios": "^0.26.1",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "sass": "^1.42.1"

@@ -96,6 +96,30 @@ export const article = ({
   return JSON.stringify(data);
 };
 
+export const shop = `
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "UJET Packages",
+  "image": "https://assets.ujet.cx/BuyerGuideimage.jpg",
+  "description": "Purchase an UJET package now.",
+  "sku": "0446310786",
+  "mpn": "925872",
+  "brand": {
+    "@type": "Brand",
+    "name": "UJET"
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "url": ${process.env.NEXT_PUBLIC_SITE_URL}/shop,
+    "priceCurrency": "USD",
+    "offerCount": "4",
+    "lowPrice": "65.00",
+    "highPrice": "120.00"
+  }
+}
+`;
+
 // returns the breadCrumbList schema type in json+ld format
 export const breadcrumbs = (url) => {
   const urlObject = new URL(url);

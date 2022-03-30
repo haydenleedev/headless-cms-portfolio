@@ -1,0 +1,136 @@
+@import "../../styles/settings/__settings";
+
+.align-self-center {
+  align-self: center;
+}
+.compare-table {
+  width: 100%;
+  max-width: toRem(1084);
+  margin: toRem(20) auto;
+  background-color: $color-white;
+}
+.compare-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: $color-lightgray;
+  & > .table-row {
+    border-bottom: 0;
+  }
+  @include desktop() {
+    background-color: $color-white;
+  }
+}
+.table-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: toRem(1) solid $color-mediumgray;
+  .table-td:first-child {
+    flex: 0 0 100%;
+    @include desktop() {
+      flex: 0 0 25%;
+      text-align: left;
+      padding-left: toRem(20);
+      justify-content: flex-end;
+    }
+  }
+  &.table-cat {
+    border-bottom: 0;
+    .table-th {
+      background-color: $color-mediumgray;
+      border-radius: toRem(16);
+    }
+  }
+}
+.nowrap {
+  flex-wrap: nowrap;
+}
+.table-th {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 20%;
+  justify-content: center;
+  padding: toRem(3) toRem(4);
+  margin: toRem(8) 0;
+  text-align: center;
+  hyphens: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  .priceStrikethrough {
+    position: relative;
+    display: inline-block;
+    margin-left: toRem(5);
+    &::after {
+      content: "";
+      border-bottom: toRem(2) solid $color-orange;
+      left: 0;
+      margin-top: toRem(-1);
+      position: absolute;
+      right: 0;
+      top: 35%;
+      transform: rotate(10deg);
+    }
+  }
+  h3 {
+    font-size: $size-14px !important;
+    @include desktop() {
+      font-size: $size-18px !important;
+    }
+  }
+  h4 {
+    font-size: $size-18px !important;
+    padding: 0 toRem(20) !important;
+    @include desktop() {
+      text-align: left;
+    }
+  }
+  @include desktop() {
+    flex: 1 1 15%;
+  }
+  &.table-header {
+    display: none;
+    p {
+      font-size: 1rem;
+    }
+    @include desktop() {
+      display: flex;
+      flex: 0 0 25%;
+      text-align: left;
+      padding-left: toRem(20);
+      justify-content: flex-end;
+    }
+  }
+}
+.table-td {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 20%;
+  justify-content: center;
+  padding: toRem(8) toRem(4);
+  text-align: center;
+  @include desktop() {
+    flex: 1 1 15%;
+    text-align: left;
+    padding: toRem(8) toRem(19);
+  }
+  svg {
+    margin: 0 auto;
+  }
+  p {
+    font-size: $size-14px;
+  }
+}
+.table-body {
+  .table-row:last-child {
+    border-bottom: 0;
+  }
+}
+
+/** Hide Free Trial **/
+/* .table-row > div.table-th:nth-child(2),
+.table-row > div.table-td:nth-child(2) {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+} */
