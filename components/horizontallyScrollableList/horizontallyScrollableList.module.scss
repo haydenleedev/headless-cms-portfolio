@@ -1,0 +1,62 @@
+@import "../../styles/settings/mixins";
+@import "../../styles/settings/colors";
+
+.itemsWrapper {
+  display: flex;
+  align-items: flex-start;
+  align-self: flex-start;
+  width: 100%;
+  .items {
+    width: 100%;
+    display: flex;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    > div {
+      padding: 0.75rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      align-self: center;
+      flex: 0 0 auto;
+      &:hover {
+        color: $color-lightblue;
+      }
+      p {
+        font-size: 0.5rem;
+        @media screen and (min-width: 400px) {
+          font-size: 0.75rem;
+        }
+        @media screen and (min-width: 600px) {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  .scrollButton {
+    width: 2rem;
+    position: relative;
+    align-self: stretch;
+    user-select: none;
+    cursor: pointer;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-25%, -50%) rotate(45deg);
+      height: 0.5rem;
+      width: 0.5rem;
+      border: 0.125rem solid;
+      border-color: transparent transparent black black;
+    }
+    &:nth-of-type(2)::after {
+      transform: translate(-75%, -50%) rotate(225deg);
+    }
+    @include focus-visible-touch-outlines();
+  }
+}
