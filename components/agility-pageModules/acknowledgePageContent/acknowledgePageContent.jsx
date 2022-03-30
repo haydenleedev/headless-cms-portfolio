@@ -12,7 +12,7 @@ const AcknowledgePageContent = () => {
   const [loading, setLoading] = useState(true);
   const [isFree, setIsFree] = useState(false);
   const router = useRouter();
-  const { formData, resetData } = useContext(GlobalContext);
+  const { formData } = useContext(GlobalContext);
   useEffect(() => {
     if (
       !Boolean(formData?.contactInfo) ||
@@ -28,7 +28,6 @@ const AcknowledgePageContent = () => {
       ) {
         setIsFree(formData.freeFlow);
         setLoading(false);
-        resetData();
       } else {
         if (formData.freeFlow) router.push("/error/free-trial");
         else router.push("/error/paid-plan");
