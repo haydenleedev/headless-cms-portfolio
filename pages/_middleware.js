@@ -19,8 +19,9 @@ export async function middleware(req) {
     );
   }
 
-  // Redirect blog.ujet.co
   const url = req.url;
+  
+  // Redirect blog.ujet.co
   const blogUrl = "blog.ujet.co";
   const blogUrlRegex = new RegExp(`/(${blogUrl})/`);
 
@@ -30,6 +31,13 @@ export async function middleware(req) {
     if (postSlug) {
       return NextResponse.redirect(`${redirectUrl}/${postSlug}`);
     }
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  // Redirect buy.ujet.cx
+  const buyUrl = "buy.ujet.cx";
+  if (url.includes(buyUrl)) {
+    const redirectUrl = "https://ujet.cx/shop";
     return NextResponse.redirect(redirectUrl);
   }
 
