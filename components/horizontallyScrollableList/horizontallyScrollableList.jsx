@@ -9,7 +9,7 @@ const HorizontallyScrollableList = ({ items, maxVisibleItems = 4 }) => {
     const maxScrollValue = element.scrollWidth - element.clientWidth;
     const currentScrollValue = parseInt(element.scrollLeft);
     const scrollPoints = [];
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length - (maxVisibleItems - 1); i++) {
       scrollPoints.push(parseInt((elementWidth / maxVisibleItems) * i));
     }
     // Pixel values are sometimes rounded differently between scrollPoints and currentScrollPoint
