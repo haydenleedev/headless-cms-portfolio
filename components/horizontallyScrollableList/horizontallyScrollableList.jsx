@@ -10,26 +10,26 @@ const HorizontallyScrollableList = ({ items, maxVisibleItems = 4 }) => {
     const currentScrollValue = parseInt(element.scrollLeft);
     const scrollPoints = [];
     for (let i = 0; i < items.length; i++) {
-      scrollPoints.push(
-        (parseInt((elementWidth / maxVisibleItems) * i))
-        )
+      scrollPoints.push(parseInt((elementWidth / maxVisibleItems) * i));
     }
+    // Pixel values are sometimes rounded differently between scrollPoints and currentScrollPoint
+    const pixelValueErrorMargin = 1;
     let targetScrollValue;
-    if (currentScrollValue == maxScrollValue && !left) {
+    if (currentScrollValue >= maxScrollValue - pixelValueErrorMargin && !left) {
       targetScrollValue = 0;
     } else if (currentScrollValue == 0 && left) {
       targetScrollValue = maxScrollValue;
     } else {
       if (left) {
         for (let i = scrollPoints.length - 1; i > 0; i--) {
-          if (currentScrollValue > scrollPoints[i]) {
+          if (currentScrollValue - pixelValueErrorMargin > scrollPoints[i]) {
             targetScrollValue = scrollPoints[i];
             break;
           }
         }
       } else {
         for (let i = 0; i < scrollPoints.length; i++)
-          if (currentScrollValue < scrollPoints[i]) {
+          if (currentScrollValue + pixelValueErrorMargin < scrollPoints[i]) {
             targetScrollValue = scrollPoints[i];
             break;
           }
@@ -51,11 +51,11 @@ const HorizontallyScrollableList = ({ items, maxVisibleItems = 4 }) => {
               return (
                 <div
                   key={`item${index}`}
-                  style={{flexBasis: `calc(calc(100% / (${maxVisibleItems})`}}
+                  style={{ flexBasis: `calc(calc(100% / (${maxVisibleItems})` }}
                 >
                   {item}
                 </div>
-              )
+              );
             })}
           </div>
           <button
