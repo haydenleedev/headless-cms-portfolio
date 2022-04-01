@@ -153,10 +153,11 @@ export const getRatePlans = async (id, products) => {
         let charges = filteredPlans[i].productRatePlanCharges.filter(
           (plan) => plan.model === "PerUnit"
         );
+
         let price = charges[0].pricing.filter(
           (prices) => prices.currency === "USD"
         );
-        filteredPlans[i].price = price[0].price;
+        filteredPlans[i].price = price[0]?.price;
       }
 
       // remove promotion rate plan if promotion is not toggled on in agility.
