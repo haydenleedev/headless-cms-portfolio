@@ -61,7 +61,7 @@ export default function Home({
 
   const hasPromotion = (planType, promotionActive) => {
     const item = data.find((product) => product.name.includes("Promotion"));
-    return boolean(promotionActive) && item.PlanType__c === planType
+    return promotionActive && item.PlanType__c === planType
       ? item
       : null;
   };
@@ -227,8 +227,7 @@ export default function Home({
                               className={`${styles.pricing} ${styles["pb-20px"]}`}
                             >
                               <ins>
-                                {/* ${promotion ? promotion.price : item.price} */}
-                                ${item.price}
+                                ${promotion ? promotion.price : item.price}
                                 <span
                                   className={`${styles.pricingSmall} ${styles["pb-20px"]}`}
                                 >

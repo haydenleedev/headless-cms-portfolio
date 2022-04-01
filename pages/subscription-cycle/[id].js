@@ -143,7 +143,8 @@ export const getStaticProps = async (context) => {
 // Fetching Rate Plans of a License Product
 export const getRatePlans = async (id, products) => {
   if (products.length > 0) {
-    const plans = products.find((x) => x.id === id)?.productRatePlans;
+    const product = products.find((x) => x.id === id);
+    const plans = product?.productRatePlans;
     if (plans.length > 0) {
       // Filter for plans only which have "ecom" value.
       const filteredPlans = plans.filter((x) => x.SalesChannel__c === "ecom");
@@ -157,7 +158,14 @@ export const getRatePlans = async (id, products) => {
         );
         filteredPlans[i].price = price[0].price;
       }
-      return filteredPlans;
+
+      // remove promotion rate plan if promotion is not toggled on in agility.
+      const finalFilteredPlans = filteredPlans.map((plan) => {
+        if (!product.promotionActive && plan.name.includes("Promotion"))
+          return null;
+        return plan;
+      });
+      return finalFilteredPlans.filter((plan) => plan);
     } else {
       return [];
     }

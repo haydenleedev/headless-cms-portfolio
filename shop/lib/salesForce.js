@@ -247,7 +247,6 @@ export async function billingAccountLookup(connection, accountId) {
         if (err) {
           return console.error(err);
         }
-        console.log("records", records);
         record = records;
       });
     if (record.length > 0) {

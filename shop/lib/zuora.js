@@ -87,8 +87,9 @@ export async function getHomePageData(token) {
               .alsoIncluded
               ? agilityPackage.fields.alsoIncluded.fields.name
               : null;
-            finalProduct.promotionActive =
-              agilityPackage.fields.promotionActive;
+            finalProduct.promotionActive = boolean(
+              agilityPackage?.fields?.promotionActive
+            );
             finalProducts.push(finalProduct);
           }
         })
@@ -146,7 +147,7 @@ export async function getHomePageData(token) {
         if (
           productsWithMatchingName.length > 1 &&
           product.name?.includes?.("Promotion") &&
-          !boolean(product.promotionActive)
+          !product.promotionActive
         ) {
           return null;
         }
@@ -243,6 +244,24 @@ export async function getImplementation(token) {
     const { agilityPackages, voiceUsage, implementationServices } =
       await getShopData();
     const products = await fetchAllProducts(token, agilityPackages);
+
+    const findAgilityPackage = (id) =>
+      agilityPackages.find(
+        (item) =>
+          (process.env.ACTIVE_ENVIRONMENT === "production" &&
+            id === item?.fields?.productionID) ||
+          (process.env.ACTIVE_ENVIRONMENT === "preview" &&
+            id === item?.fields?.previewID)
+      );
+    const finalProducts = [];
+    products.map((prod) => {
+      const agilityPackage = findAgilityPackage(prod.id);
+      const finalProduct = {
+        ...prod,
+        promotionActive: boolean(agilityPackage.fields.promotionActive),
+      };
+      finalProducts.push(finalProduct);
+    });
     const implementationIds = implementationServices
       .map((item) => {
         if (process.env.ACTIVE_ENVIRONMENT === "production")
@@ -266,7 +285,12 @@ export async function getImplementation(token) {
       });
       implementation.implementationName = implementationServiceData.fields.name;
     });
-    return { implementations, products, implementationServices, voiceUsage };
+    return {
+      implementations,
+      products: finalProducts,
+      implementationServices,
+      voiceUsage,
+    };
   } catch (error) {
     return {
       implementations: null,
