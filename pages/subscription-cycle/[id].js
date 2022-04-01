@@ -161,11 +161,11 @@ export const getRatePlans = async (id, products) => {
         );
         
         //
-        if(typeof price == 'undefined') {
-          price = charges[1].pricing.filter(
-            (prices) => prices.currency === "USD"
-          );
-        }
+        // if(typeof price == 'undefined') {
+        //   price = charges[1].pricing.filter(
+        //     (prices) => prices.currency === "USD"
+        //   );
+        // }
 
         filteredPlans[i].price = price[0]?.price;
       }
