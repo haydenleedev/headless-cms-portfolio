@@ -155,10 +155,13 @@ export const getRatePlans = async (id, products) => {
           (plan) => plan.model === "PerUnit"
         );
 
+        // ZUORA DEBUG
+        const chargeIndex = typeof charges[1] == 'undefined' ? 0 : 1;        
 
-        let price = charges[0].pricing.filter(
+        let price = charges[chargeIndex].pricing.filter(
           (prices) => prices.currency === "USD"
         );
+
         
         //
         // if(typeof price == 'undefined') {
