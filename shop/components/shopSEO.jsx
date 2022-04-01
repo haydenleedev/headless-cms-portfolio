@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { breadcrumbs, organization, shop, webSite } from "../../schema";
+import Script from "next/script";
+
 const ShopSEO = ({ seo, children }) => {
   return (
     <>
