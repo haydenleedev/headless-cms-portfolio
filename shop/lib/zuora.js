@@ -104,8 +104,7 @@ export async function getHomePageData(token) {
           (plan) => plan.model === "PerUnit"
         );
         
-        // ZUORA DEBUG ARRAY ORDER MATTERS
-        const chargeIndex = typeof charges[1] == 'undefined' ? 0 : 1;        
+        // TODO: ZUORA ARRAY INDEXING
 
         const price = charges[chargeIndex].pricing.filter(
           (prices) => prices.currency === "USD"
