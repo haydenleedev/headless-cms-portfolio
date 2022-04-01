@@ -77,7 +77,8 @@ export default function Home({
     setProductId(item.primaryId);
     router.push(`/customize/${item.primaryId}`);
   };
-
+  
+  console.log(data)
   // Preselecting Enterprise Product
   // useEffect(() => {
   //   if (!Boolean(formData?.primaryId)) {
@@ -162,7 +163,7 @@ export default function Home({
               >
                 <div className={layout.row}>
                   {data
-                    .filter((ele) => !ele.name.includes("Promotion"))
+                    .filter((ele) => !ele.name.includes("Promotion") && ele.SalesChannel__c == "ecom")
                     .map((item, index) => {
                       const promotion = hasPromotion(item.PlanType__c);
                       return (
