@@ -19,6 +19,7 @@ import { getShopSEOData } from "../shop/lib/agility";
 import ShopSEO from "../shop/components/shopSEO";
 import { getReducedZuoraObject } from "../shop/utils/formatData";
 import { checkRequiredSafariVersion } from "../utils/validation";
+import { addDataLayerEventTriggers } from "../utils/dataLayer";
 import SafariDisclaimer from "../shop/components/safariDisclaimer/safariDisclaimer";
 
 export default function Home({
@@ -33,6 +34,8 @@ export default function Home({
   const [showCompDiv, setShowCompDiv] = useState(false);
   const [productId, setProductId] = useState(null);
   const router = useRouter();
+  let initialPageLoaded = false;
+
   const compareDiv = () => {
     setShowCompDiv(!showCompDiv);
   };
@@ -43,6 +46,20 @@ export default function Home({
   });
   const { formData, updateFormData, resetData } = useContext(GlobalContext);
 
+  useEffect(() => {
+    addDataLayerEventTriggers(router);
+    router.events.on("routeChangeComplete", () => {
+      // Track virtual page views (Bombora)
+      if (window._ml && initialPageLoaded) {
+        window._ml.q = window._ml.q || [];
+        window._ml.q.push(["track"]);
+      }
+      else if (!initialPageLoaded) {
+        initialPageLoaded = true;
+      }
+    });
+  }, []);
+  
   const hasPromotion = (planType) => {
     const item = data.find((product) => product.name.includes("Promotion"));
     return item && item.PlanType__c === planType ? item : null;
