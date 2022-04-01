@@ -18,7 +18,6 @@ export default async function handler(req, res) {
         try {
           // first execute contact lookup
           const contacts = await contactLookup(conn, contactInfo.email);
-
           if (contacts && contacts.length > 0) {
             let accountNotFound = true; // will be set when account is found.
             for (let i = 0; i < contacts.length; i++) {
@@ -26,14 +25,16 @@ export default async function handler(req, res) {
                 contacts[i].Account.Id &&
                 contacts[i].Account.Website === contactInfo.website
               ) {
-                accountNotFound = false;
+                accountNotFound = false; // contact match = success, account match = success
                 const billingAcc = await billingAccountLookup(
                   conn,
                   contacts[i].Account.Id
                 );
                 if (billingAcc) {
+                  console.log("scenario 1 case 1");
                   throw new Error("billingAccountError1");
                 } else {
+                  console.log("scenario 1 case 2");
                   // Dumping form data to contacts[i]
                   const contactId = await updateContact(
                     conn,
@@ -50,6 +51,7 @@ export default async function handler(req, res) {
               }
             }
             if (accountNotFound) {
+              console.log("scenario 3");
               // Create Contact and Account
               // const acc = await createAccount(conn, contactInfo);
               // const cont = await createContact(conn, contactInfo, acc, false);
@@ -61,22 +63,21 @@ export default async function handler(req, res) {
               };
             }
           } else {
+            // scenario 2
             const accounts = await accountLookup(conn, contactInfo.website);
             if (accounts && accounts.length > 0) {
+              // contact match = fail, account match = success
               for (let i = 0; i < accounts.length; i++) {
                 const billingAcc = await billingAccountLookup(
                   conn,
                   accounts[i].Id
                 );
                 if (billingAcc) {
+                  console.log("scenario 2 case 1");
                   throw new Error("billingAccountError2");
                 } else {
-                  //const cont = await createContact(
-                  //  conn,
-                  //  accounts[i],
-                  //  contactInfo,
-                  //  true
-                  //);
+                  console.log("scenario 2 case 2");
+                  // creating contact
                   console.timeEnd("salesforce lookup requests");
                   return {
                     contactInfo,
@@ -86,6 +87,7 @@ export default async function handler(req, res) {
                 }
               }
             } else {
+              console.log("scenario 4");
               // Create Contact and Account
               // const acc = await createAccount(conn, contactInfo);
               // const cont = await createContact(conn, contactInfo, acc, true);
@@ -135,11 +137,11 @@ export default async function handler(req, res) {
       const conn = await createConnection();
 
       if (!reqBody.account) {
-        {
-          const acc = await createAccount(conn, returnData.contactInfo);
-          accountId = acc;
-          returnData.account = { Id: acc };
-        }
+        const acc = await createAccount(conn, returnData.contactInfo);
+        accountId = acc;
+        returnData.account = { Id: acc };
+      } else {
+        returnData.account = reqBody.account;
       }
       if (!reqBody.contact && accountId) {
         const cont = await createContact(
@@ -149,6 +151,8 @@ export default async function handler(req, res) {
           true
         );
         returnData.contact = { Id: cont };
+      } else if (reqBody.contact) {
+        returnData.contact = reqBody.contact;
       }
 
       if (!returnData.contact) delete returnData.contact;

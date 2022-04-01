@@ -247,12 +247,13 @@ export async function billingAccountLookup(connection, accountId) {
         if (err) {
           return console.error(err);
         }
+        console.log("records", records);
         record = records;
       });
-    if (record != []) {
-      return record;
+    if (record.length > 0) {
+      return record[0];
     }
-    return [];
+    return null;
   } catch (error) {
     throw new Error("Billing Account Lookup Failed.");
   }

@@ -53,13 +53,12 @@ export default function Home({
       if (window._ml && initialPageLoaded) {
         window._ml.q = window._ml.q || [];
         window._ml.q.push(["track"]);
-      }
-      else if (!initialPageLoaded) {
+      } else if (!initialPageLoaded) {
         initialPageLoaded = true;
       }
     });
   }, []);
-  
+
   const hasPromotion = (planType) => {
     const item = data.find((product) => product.name.includes("Promotion"));
     return item && item.PlanType__c === planType ? item : null;
@@ -77,8 +76,7 @@ export default function Home({
     setProductId(item.primaryId);
     router.push(`/customize/${item.primaryId}`);
   };
-  
-  console.log(data)
+
   // Preselecting Enterprise Product
   // useEffect(() => {
   //   if (!Boolean(formData?.primaryId)) {
@@ -103,7 +101,9 @@ export default function Home({
       <div className={shop.shop}>
         <NavigationStep progress={1} />
         <main role="main">
-          {safariDisclaimerContent && <SafariDisclaimer {...safariDisclaimerContent} />}
+          {safariDisclaimerContent && (
+            <SafariDisclaimer {...safariDisclaimerContent} />
+          )}
           <PageTitle title="Select Your Package and Build Your Solution" />
 
           {isFree == true ? (
@@ -163,7 +163,11 @@ export default function Home({
               >
                 <div className={layout.row}>
                   {data
-                    .filter((ele) => !ele.name.includes("Promotion") && ele.SalesChannel__c == "ecom")
+                    .filter(
+                      (ele) =>
+                        !ele.name.includes("Promotion") &&
+                        ele.SalesChannel__c == "ecom"
+                    )
                     .map((item, index) => {
                       const promotion = hasPromotion(item.PlanType__c);
                       return (
