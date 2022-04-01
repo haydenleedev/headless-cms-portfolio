@@ -149,14 +149,24 @@ export const getRatePlans = async (id, products) => {
       // Filter for plans only which have "ecom" value.
       const filteredPlans = plans.filter((x) => x.SalesChannel__c === "ecom");
       for (let i = 0; i < filteredPlans.length; i++) {
+        
         // Getting PerUnit price in USD
         let charges = filteredPlans[i].productRatePlanCharges.filter(
           (plan) => plan.model === "PerUnit"
         );
 
+
         let price = charges[0].pricing.filter(
           (prices) => prices.currency === "USD"
         );
+        
+        //
+        if(typeof price == 'undefined') {
+          price = charges[1].pricing.filter(
+            (prices) => prices.currency === "USD"
+          );
+        }
+
         filteredPlans[i].price = price[0]?.price;
       }
 
