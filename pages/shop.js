@@ -309,7 +309,7 @@ export default function Home({
               >
                 <div className={layout.row}>
                   <ComparisonChart
-                    data={data.filter((ele) => !ele.name.includes("Promotion"))}
+                    data={data.filter((ele) => !ele.name.includes("Promotion") && ele.SalesChannel__c == "ecom")}
                     promotions={data.map((product) => {
                       return hasPromotion(product.PlanType__c);
                     })}
