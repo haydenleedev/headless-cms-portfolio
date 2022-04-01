@@ -70,6 +70,7 @@ export default function Customize({ addOns, /* products, */ seo }) {
                       min="1"
                       max={
                         formData.selectedProduct &&
+                        formData.selectedProduct.promotionActive &&
                         formData.selectedProduct.name.includes("Promotion")
                           ? 25
                           : null

@@ -18,7 +18,7 @@ import GlobalContext from "../context";
 import { getShopSEOData } from "../shop/lib/agility";
 import ShopSEO from "../shop/components/shopSEO";
 import { getReducedZuoraObject } from "../shop/utils/formatData";
-import { checkRequiredSafariVersion } from "../utils/validation";
+import { boolean, checkRequiredSafariVersion } from "../utils/validation";
 import { addDataLayerEventTriggers } from "../utils/dataLayer";
 import SafariDisclaimer from "../shop/components/safariDisclaimer/safariDisclaimer";
 
@@ -59,9 +59,11 @@ export default function Home({
     });
   }, []);
 
-  const hasPromotion = (planType) => {
+  const hasPromotion = (planType, promotionActive) => {
     const item = data.find((product) => product.name.includes("Promotion"));
-    return item && item.PlanType__c === planType ? item : null;
+    return boolean(promotionActive) && item.PlanType__c === planType
+      ? item
+      : null;
   };
 
   const toggleSelected = (item, index = 1) => {
@@ -169,7 +171,10 @@ export default function Home({
                         ele.SalesChannel__c == "ecom"
                     )
                     .map((item, index) => {
-                      const promotion = hasPromotion(item.PlanType__c);
+                      const promotion = hasPromotion(
+                        item.PlanType__c,
+                        item.promotionActive
+                      );
                       return (
                         <div
                           key={index}
@@ -313,9 +318,16 @@ export default function Home({
               >
                 <div className={layout.row}>
                   <ComparisonChart
-                    data={data.filter((ele) => !ele.name.includes("Promotion") && ele.SalesChannel__c == "ecom")}
+                    data={data.filter(
+                      (ele) =>
+                        !ele.name.includes("Promotion") &&
+                        ele.SalesChannel__c == "ecom"
+                    )}
                     promotions={data.map((product) => {
-                      return hasPromotion(product.PlanType__c);
+                      return hasPromotion(
+                        product.PlanType__c,
+                        product.promotionActive
+                      );
                     })}
                     includedFeaturesChartData={includedFeaturesChartData}
                     addOnsChartData={addOnsChartData}

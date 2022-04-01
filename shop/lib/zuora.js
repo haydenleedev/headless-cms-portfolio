@@ -1,3 +1,4 @@
+import { boolean } from "../../utils/validation";
 import { getShopData } from "./agility";
 import { getRequestWithAuth, postWithCustomHeader } from "./api";
 
@@ -86,6 +87,8 @@ export async function getHomePageData(token) {
               .alsoIncluded
               ? agilityPackage.fields.alsoIncluded.fields.name
               : null;
+            finalProduct.promotionActive =
+              agilityPackage.fields.promotionActive;
             finalProducts.push(finalProduct);
           }
         })
@@ -135,8 +138,22 @@ export async function getHomePageData(token) {
       sortedObj.push({
         includes: freePlanData.fields.includedFeatures,
       });
+      // remove any promotion products if there package has the promotionActive field set to false in Agility.
+      const returningProducts = sortedObj.map((product) => {
+        const productsWithMatchingName = sortedObj.filter(
+          (prod) => prod.productName === product.productName
+        );
+        if (
+          productsWithMatchingName.length > 1 &&
+          product.name?.includes?.("Promotion") &&
+          !boolean(product.promotionActive)
+        ) {
+          return null;
+        }
+        return product;
+      });
       return {
-        products: sortedObj,
+        products: returningProducts.filter((product) => product),
         includedFeaturesChartData,
         addOnsChartData,
       };
