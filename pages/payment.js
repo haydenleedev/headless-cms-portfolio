@@ -70,6 +70,14 @@ export default function Payment({ seo }) {
         hpmCreditCardPaymentMethodId: refId,
       });
       router.push("/review-order");
+    } else if (refId && formData.account && formData.contact) {
+      updateFormData({
+        account: createResponse.account,
+        contact: createResponse.contact,
+        contactInfo: createResponse.contactInfo,
+        hpmCreditCardPaymentMethodId: refId,
+      });
+      router.push("/review-order");
     }
   }, [refId, createResponse]);
 

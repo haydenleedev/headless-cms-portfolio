@@ -1,3 +1,4 @@
+import { boolean } from "../../utils/validation";
 import { getShopData } from "./agility";
 import { getRequestWithAuth, postWithCustomHeader } from "./api";
 
@@ -86,6 +87,9 @@ export async function getHomePageData(token) {
               .alsoIncluded
               ? agilityPackage.fields.alsoIncluded.fields.name
               : null;
+            finalProduct.promotionActive = boolean(
+              agilityPackage?.fields?.promotionActive
+            );
             finalProducts.push(finalProduct);
           }
         })
@@ -135,8 +139,22 @@ export async function getHomePageData(token) {
       sortedObj.push({
         includes: freePlanData.fields.includedFeatures,
       });
+      // remove any promotion products if there package has the promotionActive field set to false in Agility.
+      const returningProducts = sortedObj.map((product) => {
+        const productsWithMatchingName = sortedObj.filter(
+          (prod) => prod.productName === product.productName
+        );
+        if (
+          productsWithMatchingName.length > 1 &&
+          product.name?.includes?.("Promotion") &&
+          !product.promotionActive
+        ) {
+          return null;
+        }
+        return product;
+      });
       return {
-        products: sortedObj,
+        products: returningProducts.filter((product) => product),
         includedFeaturesChartData,
         addOnsChartData,
       };
@@ -226,6 +244,24 @@ export async function getImplementation(token) {
     const { agilityPackages, voiceUsage, implementationServices } =
       await getShopData();
     const products = await fetchAllProducts(token, agilityPackages);
+
+    const findAgilityPackage = (id) =>
+      agilityPackages.find(
+        (item) =>
+          (process.env.ACTIVE_ENVIRONMENT === "production" &&
+            id === item?.fields?.productionID) ||
+          (process.env.ACTIVE_ENVIRONMENT === "preview" &&
+            id === item?.fields?.previewID)
+      );
+    const finalProducts = [];
+    products.map((prod) => {
+      const agilityPackage = findAgilityPackage(prod.id);
+      const finalProduct = {
+        ...prod,
+        promotionActive: boolean(agilityPackage.fields.promotionActive),
+      };
+      finalProducts.push(finalProduct);
+    });
     const implementationIds = implementationServices
       .map((item) => {
         if (process.env.ACTIVE_ENVIRONMENT === "production")
@@ -249,7 +285,12 @@ export async function getImplementation(token) {
       });
       implementation.implementationName = implementationServiceData.fields.name;
     });
-    return { implementations, products, implementationServices, voiceUsage };
+    return {
+      implementations,
+      products: finalProducts,
+      implementationServices,
+      voiceUsage,
+    };
   } catch (error) {
     return {
       implementations: null,

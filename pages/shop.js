@@ -18,7 +18,7 @@ import GlobalContext from "../context";
 import { getShopSEOData } from "../shop/lib/agility";
 import ShopSEO from "../shop/components/shopSEO";
 import { getReducedZuoraObject } from "../shop/utils/formatData";
-import { checkRequiredSafariVersion } from "../utils/validation";
+import { boolean, checkRequiredSafariVersion } from "../utils/validation";
 import { addDataLayerEventTriggers } from "../utils/dataLayer";
 import SafariDisclaimer from "../shop/components/safariDisclaimer/safariDisclaimer";
 
@@ -53,16 +53,17 @@ export default function Home({
       if (window._ml && initialPageLoaded) {
         window._ml.q = window._ml.q || [];
         window._ml.q.push(["track"]);
-      }
-      else if (!initialPageLoaded) {
+      } else if (!initialPageLoaded) {
         initialPageLoaded = true;
       }
     });
   }, []);
-  
-  const hasPromotion = (planType) => {
+
+  const hasPromotion = (planType, promotionActive) => {
     const item = data.find((product) => product.name.includes("Promotion"));
-    return item && item.PlanType__c === planType ? item : null;
+    return promotionActive && item.PlanType__c === planType
+      ? item
+      : null;
   };
 
   const toggleSelected = (item, index = 1) => {
@@ -77,8 +78,7 @@ export default function Home({
     setProductId(item.primaryId);
     router.push(`/customize/${item.primaryId}`);
   };
-  
-  console.log(data)
+
   // Preselecting Enterprise Product
   // useEffect(() => {
   //   if (!Boolean(formData?.primaryId)) {
@@ -103,7 +103,9 @@ export default function Home({
       <div className={shop.shop}>
         <NavigationStep progress={1} />
         <main role="main">
-          {safariDisclaimerContent && <SafariDisclaimer {...safariDisclaimerContent} />}
+          {safariDisclaimerContent && (
+            <SafariDisclaimer {...safariDisclaimerContent} />
+          )}
           <PageTitle title="Select Your Package and Build Your Solution" />
 
           {isFree == true ? (
@@ -163,9 +165,16 @@ export default function Home({
               >
                 <div className={layout.row}>
                   {data
-                    .filter((ele) => !ele.name.includes("Promotion") && ele.SalesChannel__c == "ecom")
+                    .filter(
+                      (ele) =>
+                        !ele.name.includes("Promotion") &&
+                        ele.SalesChannel__c == "ecom"
+                    )
                     .map((item, index) => {
-                      const promotion = hasPromotion(item.PlanType__c);
+                      const promotion = hasPromotion(
+                        item.PlanType__c,
+                        item.promotionActive
+                      );
                       return (
                         <div
                           key={index}
@@ -218,8 +227,7 @@ export default function Home({
                               className={`${styles.pricing} ${styles["pb-20px"]}`}
                             >
                               <ins>
-                                {/* ${promotion ? promotion.price : item.price} */}
-                                ${item.price}
+                                ${promotion ? promotion.price : item.price}
                                 <span
                                   className={`${styles.pricingSmall} ${styles["pb-20px"]}`}
                                 >
@@ -309,9 +317,16 @@ export default function Home({
               >
                 <div className={layout.row}>
                   <ComparisonChart
-                    data={data.filter((ele) => !ele.name.includes("Promotion"))}
+                    data={data.filter(
+                      (ele) =>
+                        !ele.name.includes("Promotion") &&
+                        ele.SalesChannel__c == "ecom"
+                    )}
                     promotions={data.map((product) => {
-                      return hasPromotion(product.PlanType__c);
+                      return hasPromotion(
+                        product.PlanType__c,
+                        product.promotionActive
+                      );
                     })}
                     includedFeaturesChartData={includedFeaturesChartData}
                     addOnsChartData={addOnsChartData}
