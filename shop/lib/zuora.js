@@ -103,7 +103,11 @@ export async function getHomePageData(token) {
         const charges = finalProduct.productRatePlanCharges.filter(
           (plan) => plan.model === "PerUnit"
         );
-        const price = charges[0].pricing.filter(
+        
+        // ZUORA DEBUG ARRAY ORDER MATTERS
+        const chargeIndex = typeof charges[1] == 'undefined' ? 0 : 1;        
+
+        const price = charges[chargeIndex].pricing.filter(
           (prices) => prices.currency === "USD"
         );
         finalProduct.price = price[0].price;

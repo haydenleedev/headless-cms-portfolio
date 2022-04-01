@@ -362,6 +362,7 @@ export async function getStaticProps() {
     const freeProduct = products[products.length - 1];
     // Removing Free Product Data
     products.pop();
+    console.log(products)
     return {
       props: {
         data: getReducedZuoraObject(products),
