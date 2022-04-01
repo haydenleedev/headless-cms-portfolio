@@ -155,7 +155,7 @@ export const getRatePlans = async (id, products) => {
           (plan) => plan.model === "PerUnit"
         );
 
-        // ZUORA DEBUG
+        // ZUORA DEBUG ARRAY ORDER MATTERS
         const chargeIndex = typeof charges[1] == 'undefined' ? 0 : 1;        
 
         let price = charges[chargeIndex].pricing.filter(
