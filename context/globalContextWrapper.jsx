@@ -16,7 +16,6 @@ const GlobalContextWrapper = ({ children, data }) => {
     globalModalTrigger,
     handleSetGlobalModal,
     globalSettings: data.globalSettings.data,
-    contentListTypes: data.contentListTypes?.contentListTypes,
     navbarRef: useRef()
   };
   return (

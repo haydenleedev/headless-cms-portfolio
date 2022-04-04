@@ -1,7 +1,6 @@
 import { getAgilityPageProps, getAgilityPaths } from "@agility/nextjs/node";
 import { getModule } from "../components/agility-pageModules";
 import agility from "@agility/content-fetch";
-import { getArchivesPageContent } from "../utils/archives";
 import Layout from "../components/layout/layout";
 import Navbar from "../components/layout/navbar/navbar";
 import Footer from "../components/layout/footer/footer";
@@ -43,13 +42,6 @@ export async function getStaticProps({
   if (!agilityProps) {
     // We throw to make sure this fails at build time as this is never expected to happen
     throw new Error(`Page not found`);
-  }
-
-  // Make archives page content static
-  if (agilityProps.sitemapNode.path == "/archives") {
-    Object.assign(agilityProps.globalData, {
-      contentListTypes: await getArchivesPageContent(api),
-    });
   }
 
   return {

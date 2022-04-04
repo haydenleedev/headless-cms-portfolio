@@ -11,7 +11,7 @@ import ArchivesLoader from "./archivesLoader";
 import Media from "../media";
 import AgilityLink from "../../agilityLink";
 import Image from "next/image";
-import GlobalContext from "../../../context";
+import archivesPageData from "../../../data/archivesPageData.json";
 
 const ArchivesPageContent = ({ module }) => {
   const { fields } = module;
@@ -19,7 +19,7 @@ const ArchivesPageContent = ({ module }) => {
   const highlightedNewsArticle = fields.highlightedNewsArticle;
   const highlightedPressRelease = fields.highlightedPressRelease;
   const { query } = useRouter();
-  const { contentListTypes } = useContext(GlobalContext); // the 3 different content types: news, press releases and resources.
+  const contentListTypes = archivesPageData; // the 3 different content types: news, press releases and resources.
   const [activePageNumber, setActivePageNumber] = useState(0); // number of the current page.
   const [totalPagesCount, setTotalPagesCount] = useState(null); // total count of pages.
   const [currentOffset, setCurrentOffset] = useState(0); // current offset in the active content list.

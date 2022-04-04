@@ -1,6 +1,23 @@
-import { sortContentListByDate } from "./convert";
+const fs = require("fs");
+const agility = require("@agility/content-fetch");
+require("dotenv").config();
 
-export async function getArchivesPageContent(api) {
+const sortContentListByDate = (list) => {
+  const sorted = list.sort((a, b) => {
+    if (Date.parse(a.fields.date) > Date.parse(b.fields.date)) return -1;
+    if (Date.parse(a.fields.date) < Date.parse(b.fields.date)) return 1;
+
+    return 0;
+  });
+  return sorted;
+};
+
+const getArchivesPageContent = async () => {
+  const api = agility.getApi({
+    guid: process.env.AGILITY_GUID,
+    apiKey: process.env.AGILITY_API_FETCH_KEY,
+  });
+
   let contentListTypes = [
     {
       title: "News",
@@ -156,7 +173,14 @@ export async function getArchivesPageContent(api) {
   contentListTypes.splice(1, 1);
   contentListTypes.splice(0, 0, pressReleaseType);
 
-  return {
-    contentListTypes,
-  };
-}
+  fs.writeFile(
+    "./data/archivesPageData.json",
+    JSON.stringify(contentListTypes),
+    (err) => {
+      if (err) throw err;
+      console.info("Archives page data written to file");
+    }
+  );
+};
+
+getArchivesPageContent();
