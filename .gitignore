@@ -40,3 +40,4 @@ env.local
 /public/sitemap.xml
 /data/excludedPages.json
 /data/agilityRedirects.json
+/data/archivesPageData.json
