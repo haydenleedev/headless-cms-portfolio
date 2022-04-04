@@ -158,7 +158,7 @@ export const getRatePlans = async (id, products) => {
 
         // TODO: ZUORA ARRAY INDEXING
 
-        let price = charges[chargeIndex].pricing.filter(
+        let price = charges[0].pricing.filter(
           (prices) => prices.currency === "USD"
         );
 

@@ -106,7 +106,7 @@ export async function getHomePageData(token) {
         
         // TODO: ZUORA ARRAY INDEXING
 
-        const price = charges[chargeIndex].pricing.filter(
+        const price = charges[0].pricing.filter(
           (prices) => prices.currency === "USD"
         );
         finalProduct.price = price[0].price;
