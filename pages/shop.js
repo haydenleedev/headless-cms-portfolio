@@ -360,9 +360,9 @@ export async function getStaticProps() {
       await getHomePageData(res);
     const { shop } = await getShopSEOData();
     const freeProduct = products[products.length - 1];
+    console.log("PRODUCTS: ", products)
     // Removing Free Product Data
     products.pop();
-    console.log(products)
     return {
       props: {
         data: getReducedZuoraObject(products),
