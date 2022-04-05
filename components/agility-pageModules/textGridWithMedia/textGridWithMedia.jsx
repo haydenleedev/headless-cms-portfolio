@@ -14,9 +14,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const narrowContainer = boolean(fields?.narrowContainer);
   const itemShadow = boolean(fields?.itemShadow);
   const roundCorners = boolean(fields?.roundCorners);
-  const itemImageFullSizeWidth = boolean(fields?.itemImageFullSizeWidth);
-  const itemFlexDirectionClass = fields.itemImagePosition;
-  const itemImagesAtTop = itemFlexDirectionClass == "flex-direction-column";
+  const itemImagesAtTop = fields.itemStyle == null;
 
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -53,12 +51,17 @@ const TextGridWithMedia = ({ module, customData }) => {
           ${`grid-column ${largeColumnNumber}`}
           ${style.textItem}
           ${
-            fields.logoLeftHeaderRightStyle
+            fields.itemStyle == "logoLeft"
               ? style.logoLeftHeaderRight
-              : `${itemFlexDirectionClass}
+              : `
+                flex-direction-column
+                ${
+                  fields.itemImageSize
+                    ? style[`textItemWith${fields.itemImageSize}Media`]
+                    : ""
+                }
                 ${itemShadow ? "card-shadow" : ""}
-                ${roundCorners ? "border-radius-1" : ""}
-                ${itemImageFullSizeWidth ? style.imageFullWidth : ""}`
+                ${roundCorners ? "border-radius-1" : ""}`
           }`}
         key={data.contentID}
         data-animate="true"
@@ -68,33 +71,30 @@ const TextGridWithMedia = ({ module, customData }) => {
             className={`
               ${style.textItemMedia}
               ${
-                fields.logoLeftHeaderRightStyle
-                  ? ""
-                  : `
-                ${itemImagesAtTop ? style.textItemMediaTop : ""} ${
-                      fields.itemImageSize && itemImagesAtTop
+                itemFields.media?.url.toLowerCase().endsWith(".svg")
+                  ? style.textItemSvgMedia
+                  : ""
+              }
+              ${
+                itemImagesAtTop
+                  ? `${style.textItemMediaTop} ${
+                      fields.itemImageSize
                         ? style[`textItemMedia${fields.itemImageSize}`]
                         : ""
-                    } ${itemImagesAtTop ? "align-self" : "justify-self"}-${
+                    } ${`align-self-${
                       fields.itemImageHorizontalAlignment || "start"
-                    }
-                ${`align-items-${fields.itemImageVerticalAlignment || "start"}`}
-                ${`justify-self-${
-                  fields.itemImageVerticalAlignment || "start"
-                }`}
-                ${
-                  fields.itemImageVerticalAlignment == "center"
-                    ? style.textItemMediaVerticalCenter
-                    : ""
-                }
-                `
+                    }`}
+                  `
+                  : ""
               }
             `}
           >
             <Media media={itemFields.media} />
           </div>
         )}
-        <div className={`d-flex flex-direction-column ${fields.logoLeftHeaderRightStyle ? "justify-content-center" : "justify-content-flex-start"}`}>
+        <div
+          className={`${style.textItemTextContent} d-flex flex-direction-column`}
+        >
           {heading.text && (
             <div className={style.textItemHeading}>
               <Heading {...heading} />
@@ -128,9 +128,7 @@ const TextGridWithMedia = ({ module, customData }) => {
     <section
       className={`section ${style.textGridWithMedia} ${
         fields.classes ? fields.classes : ""
-      } ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
-        fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""
-      }`}
+      } ${fields.itemStyle == "logoLeft" ? style.logoLeftHeaderRight : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
@@ -164,7 +162,8 @@ const TextGridWithMedia = ({ module, customData }) => {
             ${style.grid}
             ${narrowContainer ? "max-width-narrow" : ""}
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
-          `}
+            mt-4
+            `}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {
               if (textItem.fields.link) {
@@ -184,6 +183,7 @@ const TextGridWithMedia = ({ module, customData }) => {
               } else {
                 return (
                   <div
+                    key={`textItem${index}`}
                     className={`
                   ${style.gridItem}
                   ${largeColumnNumber}
