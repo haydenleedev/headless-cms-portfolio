@@ -24,9 +24,11 @@ export const checkRequiredSafariVersion = ({ desktop, mobile }) => {
   if (typeof window !== "undefined") {
     const userAgent = navigator.userAgent;
     const vendor = navigator.vendor;
+    console.log(userAgent)
+    console.log(vendor)
     if (vendor === "Apple Computer, Inc." && userAgent.indexOf("Safari") > -1) {
       const iOS = /(iPad|iPhone|iPod)/g.test(userAgent);
-      const version = userAgent.split("Version")[1].split("/")[1].split(" ")[0];
+      const version = userAgent?.split("Version")[1]?.split("/")[1]?.split(" ")[0];
       if (iOS && parseInt(version) < parseInt(mobile)) {
         return {
           currentVersion: version,

@@ -61,9 +61,7 @@ export default function Home({
 
   const hasPromotion = (planType, promotionActive) => {
     const item = data.find((product) => product.name.includes("Promotion"));
-    return promotionActive && item.PlanType__c === planType
-      ? item
-      : null;
+    return promotionActive && item.PlanType__c === planType ? item : null;
   };
 
   const toggleSelected = (item, index = 1) => {
@@ -227,7 +225,8 @@ export default function Home({
                               className={`${styles.pricing} ${styles["pb-20px"]}`}
                             >
                               <ins>
-                                ${promotion ? promotion.price : item.price}
+                                {/* ${promotion ? promotion.price : item.price} */}
+                                ${item.price}
                                 <span
                                   className={`${styles.pricingSmall} ${styles["pb-20px"]}`}
                                 >
@@ -360,7 +359,6 @@ export async function getStaticProps() {
       await getHomePageData(res);
     const { shop } = await getShopSEOData();
     const freeProduct = products[products.length - 1];
-    console.log("PRODUCTS: ", products)
     // Removing Free Product Data
     products.pop();
     return {
