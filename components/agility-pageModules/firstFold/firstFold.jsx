@@ -198,7 +198,7 @@ const FirstFold = ({ module, customData }) => {
                   {fields.logos.map((logo) => (
                     <div
                       key={logo.contentID}
-                      className={`grid-column is-6 ${style.logoGridColumn}`}
+                      className={`grid-column is-${fields.logos.length >= 6 ? 6 : fields.logos.length} ${style.logoGridColumn}`}
                       data-animate="true"
                     >
                       <Media media={logo.fields.logo} />
