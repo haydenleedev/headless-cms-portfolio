@@ -79,9 +79,10 @@ const FormWrapper = ({ handleSetFormLoaded, formID, channelEmail, children }) =>
     setFormInputValue(meta.name, meta.content);
 
     // Date
+    let date = new Date().toUTCString();
     var meta = document.createElement("meta");
     meta.name = "ga_date__c";
-    meta.content = new Date().toUTCString();
+    meta.content = date;
     meta.id = "ga-date";
     head.appendChild(meta);
     setFormInputValue(meta.name, meta.content);
@@ -90,6 +91,20 @@ const FormWrapper = ({ handleSetFormLoaded, formID, channelEmail, children }) =>
     meta.name = "ga_cookie_date__c";
     meta.content = getCookie("ga_cookie_date");
     meta.id = "ga-cookie-date";
+    head.appendChild(meta);
+    setFormInputValue(meta.name, meta.content);
+
+    var meta = document.createElement("meta");
+    meta.name = "ga_datetime__c";
+    meta.content = date;
+    meta.id = "ga-datetime";
+    head.appendChild(meta);
+    setFormInputValue(meta.name, meta.content);
+
+    var meta = document.createElement("meta");
+    meta.name = "ga_cookie_datetime__c";
+    meta.content = getCookie("ga_cookie_date");
+    meta.id = "ga-cookie-datetime";
     head.appendChild(meta);
     setFormInputValue(meta.name, meta.content);
 

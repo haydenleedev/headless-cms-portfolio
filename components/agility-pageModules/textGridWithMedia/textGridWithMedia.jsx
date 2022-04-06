@@ -13,13 +13,8 @@ const TextGridWithMedia = ({ module, customData }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields?.narrowContainer);
   const itemShadow = boolean(fields?.itemShadow);
-  const itemSmallImage = boolean(fields?.itemSmallImage);
-  const itemTallImage = boolean(fields?.itemImageTall);
-  const itemImageLeft = boolean(fields?.itemImageLeft);
-  const itemImageCentered = boolean(fields?.itemImageCentered);
-  const centerItemsHorizontally = boolean(fields?.centerItemsHorizontally);
   const roundCorners = boolean(fields?.roundCorners);
-  const itemImageFullSizeWidth = boolean(fields?.itemImageFullSizeWidth);
+  const itemImagesAtTop = fields.itemStyle == null;
 
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -52,31 +47,54 @@ const TextGridWithMedia = ({ module, customData }) => {
     const heading = JSON.parse(itemFields.heading);
     return (
       <div
-        className={`${style.gridItem}
-        ${`grid-column ${largeColumnNumber}`} ${
-          itemImageLeft ? style.textItemFlex : style.textItem
-        } ${itemShadow ? "card-shadow" : ""} ${
-          roundCorners ? "border-radius-1" : ""
-        } ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
-          fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""
-        }
-        ${style.textItemFullHeight} 
-        `}
+        className={`
+          ${`grid-column ${largeColumnNumber}`}
+          ${style.textItem}
+          ${
+            fields.itemStyle == "logoLeft"
+              ? style.logoLeftHeaderRight
+              : `
+                flex-direction-column
+                ${
+                  fields.itemImageSize
+                    ? style[`textItemWith${fields.itemImageSize}Media`]
+                    : ""
+                }
+                ${itemShadow ? "card-shadow" : ""}
+                ${roundCorners ? "border-radius-1" : ""}`
+          }`}
         key={data.contentID}
         data-animate="true"
       >
         {itemFields.media && (
           <div
-            className={`${style.textItemMedia} ${
-              itemSmallImage ? style.textItemMediaSmall : ""
-            } ${
-              itemTallImage && !itemSmallImage ? style.textItemMediaTall : ""
-            } ${itemImageCentered ? "margin-center-horizontal" : ""}`}
+            className={`
+              ${style.textItemMedia}
+              ${
+                itemFields.media?.url.toLowerCase().endsWith(".svg")
+                  ? style.textItemSvgMedia
+                  : ""
+              }
+              ${
+                itemImagesAtTop
+                  ? `${style.textItemMediaTop} ${
+                      fields.itemImageSize
+                        ? style[`textItemMedia${fields.itemImageSize}`]
+                        : ""
+                    } ${`align-self-${
+                      fields.itemImageHorizontalAlignment || "start"
+                    }`}
+                  `
+                  : ""
+              }
+            `}
           >
             <Media media={itemFields.media} />
           </div>
         )}
-        <div>
+        <div
+          className={`${style.textItemTextContent} d-flex flex-direction-column`}
+        >
           {heading.text && (
             <div className={style.textItemHeading}>
               <Heading {...heading} />
@@ -98,94 +116,88 @@ const TextGridWithMedia = ({ module, customData }) => {
               )}
             </div>
           )}
+          {itemFields.link && itemFields.link.text && (
+            <span className={style.rightArrow}>{itemFields.link.text}</span>
+          )}
         </div>
-        {itemFields.link && itemFields.link.text && (
-          <span className={style.rightArrow}>{itemFields.link.text}</span>
-        )}
       </div>
     );
   };
 
   return (
-    <>
-      {(itemsWithSanitizedHTML.length > 0 || heading.text) && (
-        <section
-          className={`section ${style.textGridWithMedia} ${
-            fields.classes ? fields.classes : ""
-          } ${itemImageFullSizeWidth ? style.imageFullWidth : ""} ${
-            fields.logoLeftHeaderRightStyle ? style.logoLeftHeaderRight : ""
-          }`}
-          id={fields.id ? fields.id : null}
-          ref={intersectionRef}
-        >
-          <div className={`container `}>
-            {heading.text && (
-              <div
-                className={`${style.heading} ${
-                  narrowContainer ? "max-width-narrow" : ""
-                }`}
-              >
-                <Heading {...heading} />
-                {fields.subtitle && <p>{fields.subtitle}</p>}
-              </div>
-            )}
-            <div className={style.content}>
-              {fields.media && (
-                <div
-                  className={`${style.mediaContainer} ${
-                    fields.media?.url.toLowerCase().endsWith(".svg")
-                      ? style.svgMediaContainer
-                      : ""
-                  }`}
-                >
-                  <Media media={fields.media} title={fields.mediaTitle} />
-                </div>
-              )}
-              <div
-                className={`${
-                  centerItemsHorizontally
-                    ? `grid-columns ${style.justifyContentCenterHorizontally}`
-                    : `columns repeat-${fields.columns}`
-                } ${style.grid}
-              ${narrowContainer ? "max-width-narrow" : ""}
-              ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
-              mt-4
-            `}
-              >
-                {itemsWithSanitizedHTML?.map((textItem, index) => {
-                  if (textItem.fields.link) {
-                    return (
-                      <AgilityLink
-                        agilityLink={textItem.fields.link}
-                        ariaLabel={`Read more about ${textItem.fields.title}`}
-                        key={`textItem${index}`}
-                        className={`
-                        ${style.gridItem}
-                        ${largeColumnNumber}
-                      `}
-                      >
-                        <TextItem data={textItem} />
-                      </AgilityLink>
-                    );
-                  } else {
-                    return (
-                      <div
-                        className={`
-                    ${style.gridItem}
-                    ${largeColumnNumber}
-                    `}
-                      >
-                        <TextItem data={textItem} key={`textItem${index}`} />
-                      </div>
-                    );
-                  }
-                })}
-              </div>
-            </div>
+    <section
+      className={`section ${style.textGridWithMedia} ${
+        fields.classes ? fields.classes : ""
+      } ${fields.itemStyle == "logoLeft" ? style.logoLeftHeaderRight : ""}`}
+      id={fields.id ? fields.id : null}
+      ref={intersectionRef}
+    >
+      <div className={`container `}>
+        {heading.text && (
+          <div
+            className={`${style.heading} ${
+              narrowContainer ? "max-width-narrow" : ""
+            }`}
+          >
+            <Heading {...heading} />
+            {fields.subtitle && <p>{fields.subtitle}</p>}
           </div>
-        </section>
-      )}
-    </>
+        )}
+        <div className={style.content}>
+          {fields.media && (
+            <div
+              className={`${style.mediaContainer} ${
+                fields.media?.url.toLowerCase().endsWith(".svg")
+                  ? style.svgMediaContainer
+                  : ""
+              }`}
+            >
+              <Media media={fields.media} title={fields.mediaTitle} />
+            </div>
+          )}
+          <div
+            className={`${`grid-columns ${
+              fields.itemHorizontalAlignment || "justify-content-flex-start"
+            }`}
+            ${style.grid}
+            ${narrowContainer ? "max-width-narrow" : ""}
+            ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
+            mt-4
+            `}
+          >
+            {itemsWithSanitizedHTML?.map((textItem, index) => {
+              if (textItem.fields.link) {
+                return (
+                  <AgilityLink
+                    agilityLink={textItem.fields.link}
+                    ariaLabel={`Read more about ${textItem.fields.title}`}
+                    key={`textItem${index}`}
+                    className={`
+                      ${style.gridItem}
+                      ${largeColumnNumber}
+                    `}
+                  >
+                    <TextItem data={textItem} />
+                  </AgilityLink>
+                );
+              } else {
+                return (
+                  <div
+                    key={`textItem${index}`}
+                    className={`
+                  ${style.gridItem}
+                  ${largeColumnNumber}
+                  `}
+                  >
+                    <TextItem data={textItem} key={`textItem${index}`} />
+                  </div>
+                );
+              }
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -194,12 +206,10 @@ TextGridWithMedia.getCustomInitialProps = async function ({ item }) {
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-  const itemsWithSanitizedHTML = item.fields.textItems
-    ? item.fields.textItems.map((item) => {
-        item.text = cleanHtml(item.text);
-        return item;
-      })
-    : [];
+  const itemsWithSanitizedHTML = item.fields.textItems.map((item) => {
+    item.text = cleanHtml(item.text);
+    return item;
+  });
 
   return {
     itemsWithSanitizedHTML,

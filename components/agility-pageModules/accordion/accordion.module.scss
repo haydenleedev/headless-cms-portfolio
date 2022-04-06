@@ -14,6 +14,9 @@
             padding: .75rem 0;
             cursor: pointer;
             user-select: none;
+            &::-webkit-details-marker {
+                display:none;
+              }
             .chevron {
                 width: .75rem;
                 height: .75rem;
@@ -29,28 +32,34 @@
             }
             @include focus-visible-touch-outlines();
         }
-        .itemContentWrapper {
-            position: absolute;
-            left: -2147483647px;
-            transform: scaleY(0);
-            color: $color-black;
-            > div {
-                a {
-                    color: $color-darkblue;
-                }
-            }
-        }
-        &.expanded {
+        &[open] {
             .chevron {
                 transform: translateY(.2rem) rotate(225deg);
             }
-            .itemContentWrapper, ~.itemContentWrapper {
+            ~ .itemContent {
                 position: relative;
                 left: auto;
-                transition: transform 350ms;
-                transform-origin: top;
-                transform: scaleY(1);
+                animation: slide-down 500ms;
             }
+            @keyframes slide-down {
+                0% {
+                    pointer-events: none;
+                    transform: translateY(-3rem);
+                    opacity: 0;
+                }
+                100% {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    .itemContent {
+        position: absolute;
+        left: -2147483647px;
+        color: $color-black;
+        a {
+            color: $color-darkblue;
         }
     }
 }

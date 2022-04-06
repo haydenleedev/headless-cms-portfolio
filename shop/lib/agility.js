@@ -1,4 +1,5 @@
 import agility from "@agility/content-fetch";
+import { boolean } from "../../utils/validation";
 
 export const getShopData = async () => {
   try {
@@ -63,6 +64,7 @@ export const getShopData = async () => {
         information: shopConfig.fields.voiceUsageInformation,
         data: shopConfig.fields.voiceUsageList,
       },
+      freeTrialEnabled: boolean(shopConfig.fields.freeTrialEnabled)
     };
   } catch (error) {
     throw new Error("error getting shop data... caused by: ", error.message);

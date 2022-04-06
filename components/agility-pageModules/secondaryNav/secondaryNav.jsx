@@ -3,6 +3,7 @@ import style from "./secondaryNav.module.scss";
 import Heading from "../heading";
 import { useRef, useEffect, useContext } from "react";
 import GlobalContext from "../../../context";
+import HorizontallyScrollableList from "../../horizontallyScrollableList/horizontallyScrollableList";
 
 const SecondaryNav = ({ module }) => {
   const { fields } = module;
@@ -10,42 +11,47 @@ const SecondaryNav = ({ module }) => {
   const sectionRef = useRef();
   const { navbarRef } = useContext(GlobalContext);
 
+  const links = fields.links.map((link, index) => {
+    return (
+      <AgilityLink
+        agilityLink={{ href: link.fields.link.href }}
+        key={`link${index}`}
+      >
+        <p>{link.fields.link.text}</p>
+      </AgilityLink>
+    );
+  })
+
   useEffect(() => {
-    const observer = new IntersectionObserver( 
+    const observer = new IntersectionObserver(
       ([e]) => {
-        if (e.intersectionRatio < 1 && e.target.getBoundingClientRect().top < 0) { 
+        if (
+          e.intersectionRatio < 1 &&
+          e.target.getBoundingClientRect().top < 0
+        ) {
           navbarRef.current.style.display = "none";
-        }
-        else {
+        } else {
           navbarRef.current.style.display = "block";
         }
-       },
-      {threshold: [1]}
+      },
+      { threshold: [1] }
     );
-    observer.observe(sectionRef.current)
+    observer.observe(sectionRef.current);
+    return () => {
+      navbarRef.current.style.display = "block";
+    };
   }, []);
 
   return (
     <>
       {fields.links && (
-        <section
-          className={`section ${style.section}`}
-          ref={sectionRef}
-        >
+        <section className={`section ${style.section}`} ref={sectionRef}>
           <nav className={`container ${style.nav}`}>
             {heading && <Heading {...heading} />}
-            <div className={`${style.links}`}>
-              {fields.links.map((link, index) => {
-                return (
-                  <AgilityLink
-                    agilityLink={{ href: link.fields.link.href }}
-                    key={`link${index}`}
-                  >
-                    <p>{link.fields.link.text}</p>
-                  </AgilityLink>
-                );
-              })}
-            </div>
+            <HorizontallyScrollableList
+              items={links}
+              maxVisibleItems={4}
+            />
           </nav>
         </section>
       )}

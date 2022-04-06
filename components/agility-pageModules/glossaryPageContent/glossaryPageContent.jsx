@@ -1,9 +1,9 @@
 import Heading from "../heading";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import AgilityLink from "../../agilityLink";
 import { useState } from "react";
 import style from "./glossaryPageContent.module.scss";
+import HorizontallyScrollableList from "../../horizontallyScrollableList/horizontallyScrollableList";
 
 const GlossaryPageContent = ({ customData }) => {
   const { allGlossaries, sanitizedHtml } = customData;
@@ -20,6 +20,21 @@ const GlossaryPageContent = ({ customData }) => {
 
   const clickHandler = (index = 1) => {};
 
+  const listItems = alphabetsMapped
+    .filter((glossary, index) => alphabetsMapped.indexOf(glossary) === index)
+    .map((glossary, index) => (
+      <li key={glossary}>
+        <a
+          href={"#" + glossary}
+          className={`${isActive === index && style.selected}`}
+          key={index}
+          onClick={() => setActive(index)}
+        >
+          {glossary.toUpperCase()}
+        </a>
+      </li>
+    ));
+
   //const { fields } = module;
   return (
     <section className={`section`}>
@@ -30,22 +45,10 @@ const GlossaryPageContent = ({ customData }) => {
         {console.log(alphabetsMapped)}
         <nav className={style["alpha-tag-nav"]}>
           <ul className={style["alpha-tags"]}>
-            {alphabetsMapped
-              .filter(
-                (glossary, index) => alphabetsMapped.indexOf(glossary) === index
-              )
-              .map((glossary, index) => (
-                <li key={glossary}>
-                  <a
-                    href={"#" + glossary}
-                    className={`${isActive === index && style.selected}`}
-                    key={index}
-                    onClick={() => setActive(index)}
-                  >
-                    {glossary.toUpperCase()}
-                  </a>
-                </li>
-              ))}
+            <HorizontallyScrollableList
+              items={listItems}
+              maxVisibleItems={10}
+            />
           </ul>
         </nav>
         <div className={style.display}>

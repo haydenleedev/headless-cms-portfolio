@@ -62,7 +62,7 @@ const BlankCards = ({ module, customData }) => {
         );
     }
     return (
-        <div className="section">
+        <section className="section">
             <div className="container">
                 <div className={style.cardGrid}>
                     {cards.map((card, index) => {
@@ -82,7 +82,7 @@ const BlankCards = ({ module, customData }) => {
                     })}
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 

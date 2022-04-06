@@ -2,6 +2,8 @@
 @import "../../../styles/settings/colors";
 
 .textGridWithMedia {
+  $smaller-gap: 1rem;
+  $larger-gap: 2rem;
   .heading {
     display: flex;
     justify-content: center;
@@ -26,8 +28,6 @@
     align-items: center;
     justify-content: center;
     .grid {
-      $smaller-gap: 1rem;
-      $larger-gap: 2rem;
       gap: $smaller-gap;
       &.hasLargerGap {
         gap: $larger-gap;
@@ -89,12 +89,7 @@
           display: inline-block;
         }
       }
-      .textItem,
-      .textItemFlex {
-        padding: 1.5rem;
-      }
     }
-
     .mediaContainer {
       display: flex;
       justify-content: center;
@@ -111,33 +106,20 @@
     }
   }
   .textItem {
+    display: flex;
+    padding: 1.5rem;
+    height: 100%;
+    overflow: hidden;
+  }
+  .textItem:not(.logoLeftHeaderRight) {
     .textItemMedia {
       max-width: 7.5rem;
-      min-height: 4.5rem;
-      padding-bottom: 1rem;
-      &.textItemMediaTall {
-        height: 14rem;
-        & > span {
-          height: 100% !important;
-        }
-      }
-      &.textItemMediaSmall {
-        max-width: 5.625rem;
-        max-height: 5.625rem;
-        & > span {
-          &:only-child {
-            min-width: 5.625rem;
-            min-height: 5.625rem;
-          }
-        }
-      }
+      height: 7.5rem;
       & > span {
-        // Some versions of Safari need this to prevent oversized images
-        height: 0 !important;
         &:only-child {
-          min-width: 7.5rem;
-          min-height: 7.5rem;
+          height: 100% !important;
           img {
+            margin: 0 !important;
             width: 100% !important;
             object-fit: contain;
             height: unset !important;
@@ -145,120 +127,103 @@
           }
         }
       }
-    }
-  }
-  .textItemFlex {
-    .textItemMedia {
-      max-width: 7.5rem;
-      &.textItemMediaSmall {
-        flex-shrink: 0;
-        max-width: 5.625rem;
-        > span {
-          span {
-            // Some versions of Safari need this to prevent oversized images
-            height: 0 !important;
+      &.textItemMediaTop {
+        > span:only-child {
+          display: flex !important;
+          align-items: center !important;
+          img {
+            position: relative !important;
           }
         }
       }
-      img {
-        height: unset !important;
-        position: unset !important;
+    }
+    &:not(.textItemWithSmallMedia):not(.textItemWithLargeMedia) {
+      .textItemMedia {
+        margin-bottom: 1.5rem;
       }
     }
-    @include desktop() {
-      display: flex;
+    &.textItemWithLargeMedia {
+      padding: 0;
       .textItemMedia {
-        min-width: 7.5rem;
-        margin-right: 2.5rem;
-        img {
-          height: auto !important;
-          min-height: auto !important;
+        height: 14rem;
+        overflow: hidden;
+        max-width: 100%;
+        & > span:only-child img {
+          object-fit: cover;
+          min-height: 100% !important;
         }
+        .content,
+        span.rightArrow {
+          padding: 0 1.5rem;
+        }
+      }
+      .textItemTextContent {
+        padding: 1.5rem;
+      }
+    }
+    &.textItemWithSmallMedia {
+      .textItemMedia {
+        max-width: 5.625rem;
+        height: 5.625rem;
       }
     }
   }
   .textItemHeading {
     margin-bottom: 0.625rem;
   }
-}
-.textItemContentWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.logoLeftHeaderRight {
-  .content {
-    line-height: 1.3rem;
-    align-items: stretch;
-    .grid {
-      margin-top: 0 !important;
-      gap: 0;
-      display: grid;
-      grid-template-columns: 1fr;
-      @media (min-width: 25.5rem) {
-        grid-template-columns: 1fr 1fr;
+  .textItemContentWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  &.logoLeftHeaderRight {
+    .content {
+      line-height: 1.3rem;
+      align-items: stretch;
+      .grid {
+        margin-top: 0 !important;
+        grid-gap: 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        @media (min-width: 25.5rem) {
+          grid-template-columns: 1fr 1fr;
+        }
+        @include desktop() {
+          display: flex;
+          gap: $smaller-gap;
+          &.hasLargerGap {
+            gap: $larger-gap;
+          }
+        }
+      }
+    }
+    .textItem {
+      .textItemMedia {
+        align-self: center;
+        height: initial !important;
+        flex: 1 0 1.75rem;
+        margin-right: 0.8rem !important;
+        img {
+          height: initial !important;
+        }
+        &.textItemSvgMedia {
+          img {
+            position: unset !important;
+          }
+        }
+        & > * {
+          font-size: 1rem;
+        }
+      }
+      .textItemHeading {
+        width: 100%;
+      }
+      .textItemHeading > * {
+        font-size: 1rem;
       }
       @include desktop() {
-        display: flex;
-        gap: 0.7rem;
+        padding: 1.5rem 0;
       }
     }
   }
-  align-items: center;
-  &.textItemFlex {
-    display: flex;
-    @include desktop() {
-      height: 100%;
-      padding: 1.5rem 0 !important;
-    }
-    > * {
-      justify-content: flex-start;
-    }
-  }
-  .textItemHeading {
-    width: 100%;
-  }
-  .textItemMedia {
-    width: 2rem !important;
-    min-width: auto !important;
-    margin-right: 0.8rem !important;
-    & > * {
-      font-size: 1rem;
-    }
-  }
-  .textItemHeading > * {
-    font-size: 1rem;
-  }
-}
-.imageFullWidth {
-  .textItem {
-    flex: auto;
-  }
-}
-.imageFullWidth {
-  &.textItem {
-    overflow: hidden;
-    padding: 0 0 1.5rem 0 !important;
-    .textItemMedia {
-      max-width: 100%;
-      // height: 12.5rem;
-      & > span:only-child img {
-        object-fit: cover;
-        min-height: 100% !important;
-      }
-    }
-    .content,
-    span.rightArrow {
-      padding: 0 1.5rem;
-    }
-  }
-}
-
-.justifyContentCenterHorizontally {
-  justify-content: center !important;
-}
-
-.textItemFullHeight {
-  height: 100%;
-  display: inline-block;
 }
