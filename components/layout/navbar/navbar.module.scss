@@ -14,9 +14,15 @@
   position: sticky;
   top: 0;
   background: white;
+  .navbarSecondary {
+    display: none;
+    @include desktop() {
+      display: flex;
+    }
+  }
   &.scrolled {
     box-shadow: 0 0 0.5rem 0 #0000005b;
-    .navbarSecondary_navbarSecondary__4kmav {
+    .navbarSecondary {
       display: none;
     }
   }

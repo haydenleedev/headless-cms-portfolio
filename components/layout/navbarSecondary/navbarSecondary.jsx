@@ -1,12 +1,12 @@
 import AgilityLink from "../../agilityLink";
 import style from "./navbarSecondary.module.scss";
 
-const NavbarSecondary = ({ navbarData }) => {
+const NavbarSecondary = ({ navbarData, styleClsss }) => {
   return (
-    <nav className={`container navbarSecondary ${style.navbarSecondary}`}>
+    <nav className={`container ${styleClsss} ${style.navbarSecondary}`}>
       {navbarData.fields.navbarSecondary.map((item) => (
         <AgilityLink agilityLink={item.fields.link} key={item.contentID}>
-          <p>{item.fields.text}</p>
+          {item.fields.text}
         </AgilityLink>
       ))}
     </nav>

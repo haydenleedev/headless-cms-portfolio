@@ -105,7 +105,10 @@ const Navbar = ({ globalData }) => {
     >
       {/* Begin Navbar Secondary */}
       {navbar.fields.navbarSecondary?.length > 0 && (
-        <NavbarSecondary navbarData={navbar}></NavbarSecondary>
+        <NavbarSecondary
+          navbarData={navbar}
+          styleClsss={style.navbarSecondary}
+        ></NavbarSecondary>
       )}
 
       {/* End Navbar Secondary */}
