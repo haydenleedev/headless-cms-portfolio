@@ -6,7 +6,7 @@
 .navbar {
   transition: box-shadow 0.2s;
   box-shadow: 0 0 0.5rem 0px #00000014;
-  height: $navbar-height;
+  height: $navbar-height-tall;
   font-size: 1rem;
   padding-top: 1.25rem;
   width: 100%;
@@ -22,6 +22,7 @@
   }
   &.scrolled {
     box-shadow: 0 0 0.5rem 0 #0000005b;
+    height: $navbar-height;
     .navbarSecondary {
       display: none;
     }
