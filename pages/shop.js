@@ -30,6 +30,20 @@ export default function Home({
   freeTrialEnabled,
   seo,
 }) {
+  if (!freeTrialEnabled) {
+    for (let i = 0; i < includedFeaturesChartData.length; i++) {
+      if (includedFeaturesChartData[i].package == "Free") {
+        includedFeaturesChartData.splice(i, 1);
+        break;
+      }
+    }
+    for (let i = 0; i < addOnsChartData.length; i++) {
+      if (addOnsChartData[i].package == "Free") {
+        addOnsChartData.splice(i, 1);
+        break;
+      }
+    }
+  }
   const [isActive, setActive] = useState(null);
   const [isFree, setFree] = useState(false);
   const [showCompDiv, setShowCompDiv] = useState(false);
@@ -331,6 +345,7 @@ export default function Home({
                     addOnsChartData={addOnsChartData}
                     setFree={setFree}
                     toggleSelected={toggleSelected}
+                    freeTrialEnabled={freeTrialEnabled}
                   />
                 </div>
               </div>
