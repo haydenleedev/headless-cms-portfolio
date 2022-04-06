@@ -65,6 +65,18 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
 
         {/* TODO: add Canonical url */}
       </Head>
+      <Script
+        id="onetrust"
+        src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+        charSet="UTF-8"
+        strategy="beforeInteractive"
+        data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
+      />
+
+      <Script id="optanon-wrapper">
+        {`function OptanonWrapper() { }`}
+      </Script>
+
       <Script id="google-tag-manager">
         {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

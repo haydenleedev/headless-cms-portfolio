@@ -108,6 +108,12 @@
     &.mediaBasis70 {
       flex-basis: 70%;
     }
+    &.mediaTop {
+      justify-self: flex-start;
+    }
+    &.mediaBottom {
+      justify-self: flex-end;
+    }
     @include desktop() {
       &.defaultLayoutFixedHeight400 {
         max-height: 25rem;
@@ -120,6 +126,14 @@
       }
       &.defaultLayoutFixedHeight700 {
         max-height: 43.75em;
+      }
+      &.mediaTop {
+        justify-self: unset;
+        align-self: flex-start;
+      }
+      &.mediaBottom {
+        justify-self: unset;
+        align-self: flex-end;
       }
     }
   }
@@ -397,12 +411,19 @@
 }
 
 .logoGridColumns {
-  justify-content: unset;
+  justify-content: space-between;
   .logoGridColumn {
+    flex: 0 0 50%;
     padding: 1.75rem;
+    height: 7.5rem;
+    > span {
+      height: 100% !important;
+      img {
+        object-fit: contain;
+      }
+    }
     @include desktop() {
       padding: 0.5rem;
-      margin-right: 0.5rem;
     }
   }
 }

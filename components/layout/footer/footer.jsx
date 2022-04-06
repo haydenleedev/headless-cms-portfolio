@@ -180,11 +180,6 @@ const Footer = ({ globalData }) => {
         <div className={style.footNote}>
           <div className={style.cookies}>
             {}
-            <Script
-              src="//consent.truste.com/notice?domain=ujet.co&c=teconsent&js=bb&noticeType=bb&gtm=1"
-              async={true}
-              strategy="lazyOnload"
-            />
             {/* "In order to generate the required GTM events you must add the
             following code to every page on which the CM is deployed" */}
             <Script
@@ -194,33 +189,11 @@ const Footer = ({ globalData }) => {
                 `var __dispatched__ = {}; var __i__ = self.postMessage && setInterval(function() { if (self.PrivacyManagerAPI && __i__) { var apiObject = { PrivacyManagerAPI: { action: "getConsentDecision", timestamp: new Date().getTime(), self: self.location.host } }; self.top.postMessage(JSON.stringify(apiObject), "*"); __i__ = clearInterval(__i__); } }, 50); self.addEventListener("message", function(e, d) { try { if (e.data && (d = JSON.parse(e.data)) && (d = d.PrivacyManagerAPI) && d.capabilities && d.action == "getConsentDecision") { var newDecision = self.PrivacyManagerAPI.callApi("getGDPRConsentDecision", self.location.host).consentDecision; newDecision && newDecision.forEach(function(label) { if (!__dispatched__[label]) { self.dataLayer && self.dataLayer.push({ "event": "GDPR Pref Allows "+label}); __dispatched__[label] = 1; } }); } } catch (xx){ } });`
               )}
             />
-            <div id="teconsent"></div>
-            <div className={style.trusteLinks}>
-              <a
-                href="//privacy.truste.com/privacy-seal/validation?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
-                target="_ blank"
-                rel="noreferrer"
-              >
-                <img
-                  width="106"
-                  height={"34"}
-                  src="//privacy-policy.truste.com/privacy-seal/seal?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
-                  alt="TRUSTe"
-                />
-              </a>
-              <a
-                href="https://submit-irm.trustarc.com/services/validation/bac0a2d7-003d-4c6d-8171-d3fd1756d56d"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img
-                  width="106"
-                  height="32"
-                  src="https://submit-irm.trustarc.com/services/validation/bac0a2d7-003d-4c6d-8171-d3fd1756d56d/image"
-                  alt="TrustArc"
-                />
-              </a>
-            </div>
+            {/* <div id="ot-sdk-cookie-policy"></div> */}
+            {/* <button id="ot-sdk-btn" className="ot-sdk-show-settings">
+              Cookie Settings
+            </button> */}
+            {/* <div id="teconsent"></div>*/}
           </div>
           <div className={`${style.footNoteLinks}`}>
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>

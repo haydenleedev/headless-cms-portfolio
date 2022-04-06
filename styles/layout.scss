@@ -101,6 +101,15 @@
 .justify-content-space-between {
   justify-content: space-between !important;
 }
+.justify-self-center {
+  justify-self: center !important;
+}
+.justify-self-start {
+  justify-self: flex-start !important;
+}
+.justify-self-end {
+  justify-self: flex-end !important;
+}
 
 .align-items-flex-start {
   align-items: flex-start !important;

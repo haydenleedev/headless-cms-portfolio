@@ -1,5 +1,5 @@
 import style from "./archivesPageContent.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import ArchiveCard from "./archiveCard";
 import {
@@ -11,14 +11,15 @@ import ArchivesLoader from "./archivesLoader";
 import Media from "../media";
 import AgilityLink from "../../agilityLink";
 import Image from "next/image";
+import archivesPageData from "../../../data/archivesPageData.json";
 
-const ArchivesPageContent = ({ module, customData }) => {
+const ArchivesPageContent = ({ module }) => {
   const { fields } = module;
   const highlightedResource = fields.highlightedResource;
   const highlightedNewsArticle = fields.highlightedNewsArticle;
   const highlightedPressRelease = fields.highlightedPressRelease;
   const { query } = useRouter();
-  const { contentListTypes } = customData; // the 3 different content types: news, press releases and resources.
+  const contentListTypes = archivesPageData; // the 3 different content types: news, press releases and resources.
   const [activePageNumber, setActivePageNumber] = useState(0); // number of the current page.
   const [totalPagesCount, setTotalPagesCount] = useState(null); // total count of pages.
   const [currentOffset, setCurrentOffset] = useState(0); // current offset in the active content list.
@@ -553,171 +554,6 @@ const ArchivesPageContent = ({ module, customData }) => {
       </section>
     </>
   );
-};
-
-ArchivesPageContent.getCustomInitialProps = async function ({
-  agility,
-  languageCode,
-}) {
-  const api = agility;
-  let contentListTypes = [
-    {
-      title: "News",
-      id: "news",
-      content: [],
-      categories: null,
-    },
-    {
-      title: "Press Releases",
-      id: "pressreleases",
-      content: [],
-      categories: null,
-    },
-    {
-      title: "Resources",
-      id: "resources",
-      content: [],
-      categories: {
-        ebooks: { title: "e-Books", content: [] },
-        guides: { title: "Guides", content: [] },
-        integrations: { title: "Product Datasheets", content: [] },
-        reports: { title: "Reports", content: [] },
-        videos: { title: "Videos", content: [] },
-        webinars: { title: "Webinars", content: [] },
-        whitepapers: { title: "White Papers", content: [] },
-      },
-    },
-  ];
-
-  async function getContentList(referenceName) {
-    // get total count of  to determine how many calls we need to get all pages
-    let initial = await api.getContentList({
-      referenceName,
-      languageCode,
-      take: 1,
-    });
-
-    let totalCount = initial.totalCount;
-    let skip = 0;
-    let promisedPages = [...Array(Math.ceil(totalCount / 50)).keys()].map(
-      (call) => {
-        let pagePromise = api.getContentList({
-          referenceName,
-          languageCode,
-          take: 50, // 50 is max value for take parameter
-          skip,
-        });
-        skip += 50;
-        return pagePromise;
-      }
-    );
-    promisedPages = await Promise.all(promisedPages);
-    let contentList = [];
-    promisedPages.map((result) => {
-      contentList = [...contentList, ...result.items];
-    });
-    return contentList;
-  }
-
-  // get news
-  const news = await getContentList("newsArticle");
-  contentListTypes[0].content = [...contentListTypes[0].content, ...news];
-
-  // get press releases
-  const pressReleases = await getContentList("pressReleaseArticle");
-  contentListTypes[1].content = [
-    ...contentListTypes[1].content,
-    ...pressReleases,
-  ];
-
-  // get resources: ebooks, guides, integrations, reports, webinars, white papers
-
-  const ebooks = await getContentList("ebooks");
-  const guides = await getContentList("guides");
-  const integrations = await getContentList("integrations");
-  const reports = await getContentList("reports");
-  const webinars = await getContentList("webinars");
-  const videos = await getContentList("videos");
-  const whitepapers = await getContentList("whitepapers");
-
-  // set same static images for entries in webinars & videos
-  const staticWebinarCardImageUrls = [
-    "https://assets.ujet.cx/CCC-Solutions-Website-Tile.png?q=75&w=480&format=auto",
-    "https://assets.ujet.cx/Webinar-May-27-V2_website-webinar-tile.png?q=75&w=480&format=auto",
-    "https://assets.ujet.cx/Webinar-June24_website-webinar-tile.png?q=75&w=480&format=auto",
-  ];
-
-  webinars.map((entry, index) => {
-    const indexRemainder = index % staticWebinarCardImageUrls.length;
-    const imageIndex =
-      indexRemainder > 0
-        ? indexRemainder - 1
-        : staticWebinarCardImageUrls.length - 1;
-    if (entry.fields.image) {
-      entry.fields.image.url = staticWebinarCardImageUrls[imageIndex];
-    } else {
-      entry.fields["image"] = {
-        label: null,
-        url: staticWebinarCardImageUrls[imageIndex],
-        target: null,
-        filesize: 118727,
-        pixelHeight: "450",
-        pixelWidth: "794",
-        height: 450,
-        width: 794,
-      };
-    }
-  });
-
-  videos.map((entry, index) => {
-    const indexRemainder = index % staticWebinarCardImageUrls.length;
-    const imageIndex =
-      indexRemainder > 0
-        ? indexRemainder - 1
-        : staticWebinarCardImageUrls.length - 1;
-    if (entry.fields.image) {
-      entry.fields.image.url = staticWebinarCardImageUrls[imageIndex];
-    } else {
-      entry.fields["image"] = {
-        label: null,
-        url: staticWebinarCardImageUrls[imageIndex],
-        target: null,
-        filesize: 118727,
-        pixelHeight: "450",
-        pixelWidth: "794",
-        height: 450,
-        width: 794,
-      };
-    }
-  });
-
-
-  contentListTypes[2].content = sortContentListByDate([
-    ...ebooks,
-    ...guides,
-    ...integrations,
-    ...reports,
-    ...videos,
-    ...webinars,
-    ...whitepapers,
-  ]);
-
-  contentListTypes[2].categories.ebooks.content = [...ebooks];
-  contentListTypes[2].categories.guides.content = [...guides];
-  contentListTypes[2].categories.integrations.content = [...integrations];
-  contentListTypes[2].categories.reports.content = [...reports];
-  contentListTypes[2].categories.videos.content = [...videos];
-  contentListTypes[2].categories.webinars.content = [...webinars];
-  contentListTypes[2].categories.whitepapers.content = [...whitepapers];
-
-  // Make press releases the first content list type
-  const pressReleaseType = contentListTypes[1];
-  contentListTypes.splice(1, 1);
-  contentListTypes.splice(0, 0, pressReleaseType);
-
-  return {
-    contentListTypes,
-  };
 };
 
 export default ArchivesPageContent;
