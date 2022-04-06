@@ -1,7 +1,7 @@
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useIntersectionObserver } from "../../../utils/hooks";
-import { boolean } from "../../../utils/validation";
+import { boolean, mediaIsSvg } from "../../../utils/validation";
 import AgilityLink from "../../agilityLink";
 import Heading from "../heading";
 import Media from "../media";
@@ -135,7 +135,7 @@ const TextWithMedia = ({ module, customData }) => {
             <div
               data-animate="true"
               className={`${fields.mediaClass ? fields.mediaClass : "null"} ${
-                fields.media?.url.toLowerCase().endsWith(".svg") ? style.svgMediaContainer : ""
+                mediaIsSvg(fields.media) ? style.svgMediaContainer : ""
               }`}
             >
               {fields.media && !fields.testimonial && (

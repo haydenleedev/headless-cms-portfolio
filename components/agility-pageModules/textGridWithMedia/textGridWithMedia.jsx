@@ -1,6 +1,6 @@
 import Heading from "../heading";
 import Media from "../media";
-import { boolean } from "../../../utils/validation";
+import { boolean, mediaIsSvg } from "../../../utils/validation";
 import style from "./textGridWithMedia.module.scss";
 import AgilityLink from "../../agilityLink";
 import { renderHTML } from "@agility/nextjs";
@@ -70,11 +70,7 @@ const TextGridWithMedia = ({ module, customData }) => {
           <div
             className={`
               ${style.textItemMedia}
-              ${
-                itemFields.media?.url.toLowerCase().endsWith(".svg")
-                  ? style.textItemSvgMedia
-                  : ""
-              }
+              ${mediaIsSvg(itemFields.media) ? style.textItemSvgMedia : ""}
               ${
                 itemImagesAtTop
                   ? `${style.textItemMediaTop} ${
@@ -147,9 +143,7 @@ const TextGridWithMedia = ({ module, customData }) => {
           {fields.media && (
             <div
               className={`${style.mediaContainer} ${
-                fields.media?.url.toLowerCase().endsWith(".svg")
-                  ? style.svgMediaContainer
-                  : ""
+                mediaIsSvg(fields.media) ? style.svgMediaContainer : ""
               }`}
             >
               <Media media={fields.media} title={fields.mediaTitle} />
