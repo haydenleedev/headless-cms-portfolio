@@ -18,7 +18,7 @@ import GlobalContext from "../context";
 import { getShopSEOData } from "../shop/lib/agility";
 import ShopSEO from "../shop/components/shopSEO";
 import { getReducedZuoraObject } from "../shop/utils/formatData";
-import { boolean, checkRequiredSafariVersion } from "../utils/validation";
+import { checkRequiredSafariVersion } from "../utils/validation";
 import { addDataLayerEventTriggers } from "../utils/dataLayer";
 import SafariDisclaimer from "../shop/components/safariDisclaimer/safariDisclaimer";
 
@@ -27,6 +27,7 @@ export default function Home({
   freeProduct,
   includedFeaturesChartData,
   addOnsChartData,
+  freeTrialEnabled,
   seo,
 }) {
   const [isActive, setActive] = useState(null);
@@ -118,44 +119,43 @@ export default function Home({
               <Backdrop />
             </>
           ) : null}
-          <section className={layout["m-container-width"]}>
-            <div
-              className={`${layout.container} ${layout.grid} ${layout["align-center"]} ${styles["mb-10px"]} pb-2`}
-            >
-              <div className={layout.row}>
-                <div className={`${layout.col}`}>
-                  <div
-                    className={`${layout.inner} ${layout.selected}`}
-                    onClick={(e) => {
-                      if (window.innerWidth > 800) {
-                        e.preventDefault();
-                        document.body.className = layout.lock;
-                        setFree(true);
-                      }
-                    }}
-                  >
-                    {freeProduct && (
+          {freeProduct && freeTrialEnabled && (
+            <section className={layout["m-container-width"]}>
+              <div
+                className={`${layout.container} ${layout.grid} ${layout["align-center"]} ${styles["mb-10px"]} pb-2`}
+              >
+                <div className={layout.row}>
+                  <div className={`${layout.col}`}>
+                    <div
+                      className={`${layout.inner} ${layout.selected}`}
+                      onClick={(e) => {
+                        if (window.innerWidth > 800) {
+                          e.preventDefault();
+                          document.body.className = layout.lock;
+                          setFree(true);
+                        }
+                      }}
+                    >
                       <FreeTrial
                         freeProduct={freeProduct}
                         openModal={() => setFree(true)}
                       />
-                    )}
-                    <span
-                      className={styles.cta}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setFree(true);
-                        document.body.className = layout.lock;
-                      }}
-                    >
-                      Get Started &#8594;
-                    </span>
+                      <span
+                        className={styles.cta}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setFree(true);
+                          document.body.className = layout.lock;
+                        }}
+                      >
+                        Get Started &#8594;
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-
+            </section>
+          )}
           {data && (
             <section className={layout["m-container-width"]}>
               <div
@@ -355,8 +355,12 @@ export default function Home({
 export async function getStaticProps() {
   try {
     const res = await refreshOAuthToken();
-    let { products, includedFeaturesChartData, addOnsChartData } =
-      await getHomePageData(res);
+    let {
+      products,
+      includedFeaturesChartData,
+      addOnsChartData,
+      freeTrialEnabled,
+    } = await getHomePageData(res);
     const { shop } = await getShopSEOData();
     const freeProduct = products[products.length - 1];
     // Removing Free Product Data
@@ -367,6 +371,7 @@ export async function getStaticProps() {
         freeProduct,
         includedFeaturesChartData,
         addOnsChartData,
+        freeTrialEnabled,
         fallback: false,
         seo: shop,
       },
@@ -378,6 +383,7 @@ export async function getStaticProps() {
         freeProduct: [],
         includedFeaturesChartData: [],
         addOnsChartData: [],
+        freeTrialEnabled: false,
         fallback: false,
         seo: null,
       },
