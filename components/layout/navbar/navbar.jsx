@@ -1,10 +1,11 @@
 import logo from "../../../assets/ujet-logo.svg";
 import style from "./navbar.module.scss";
 import MainNavigation from "./mainNavigation";
+import NavbarSecondary from "../navbarSecondary/navbarSecondary";
 import { sleep } from "../../../utils/generic";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext } from "react";
 import GlobalContext from "../../../context";
 
 const Navbar = ({ globalData }) => {
@@ -79,21 +80,14 @@ const Navbar = ({ globalData }) => {
     };
   }, []);
 
-  // This is used because hiding body overflow-y does not work on iOS Safari
-  const preventTouchScroll = useCallback((e) => {
-    e.preventDefault();
-  }, [setMainNavigationActive]);
-
   useEffect(() => {
     if (mainNavigationActive) {
-      document.body.style.overflowY = "hidden";
-      document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
+      // document.body.style.overflowY = "hidden";
+      /* It is causing issues on the entire staing site. - Unscrollable sitewide */
     } else {
       document.body.style.overflowY = "";
-      document.body.removeEventListener("touchmove", preventTouchScroll);
     }
-    return () => document.body.removeEventListener("touchmove", preventTouchScroll);
-  }, [mainNavigationActive, preventTouchScroll]);
+  }, [mainNavigationActive]);
 
   const handleSetMainNavigationActive = () => {
     setMainNavigationActive(!mainNavigationActive);
@@ -109,6 +103,12 @@ const Navbar = ({ globalData }) => {
         `}
       ref={navbarRef}
     >
+      {/* Begin Navbar Secondary */}
+      {navbar.fields.navbarSecondary?.length > 0 && (
+        <NavbarSecondary navbarData={navbar}></NavbarSecondary>
+      )}
+
+      {/* End Navbar Secondary */}
       <nav className="container" role="navigation" aria-label="Main">
         <Link href="/">
           <a

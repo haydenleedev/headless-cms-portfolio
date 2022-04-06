@@ -1,0 +1,13 @@
+@use "sass:math";
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+@import "../../../styles/settings/variables";
+
+.navbarSecondary {
+  margin-top: toRem(10);
+  justify-content: flex-end !important;
+  a,
+  p {
+    font-size: toRem(14);
+  }
+}
