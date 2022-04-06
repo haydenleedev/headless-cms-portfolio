@@ -83,6 +83,9 @@
             }
           }
         }
+        &.awardImageSvg > span img {
+            position: relative !important;
+        }
       }
     }
     @include desktop() {

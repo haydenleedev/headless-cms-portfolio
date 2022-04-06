@@ -186,25 +186,19 @@
   border-color: $color-lightblue;
 }
 .flag-blue {
-  display: none;
-}
-
-.active {
-  .flag-blue {
-    display: block;
-    left: 50%;
-    margin: 0;
-    position: absolute;
-    text-align: center;
-    top: 0.6em;
-    transform: translate(-50%, -50%);
-    background-color: $color-darkblue;
-    color: $color-white;
-    padding: 0.3125rem 0.5625rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    z-index: 1;
-  }
+  display: block;
+  left: 50%;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  top: 0.6em;
+  transform: translate(-50%, -50%);
+  background-color: $color-darkblue;
+  color: $color-white;
+  padding: 0.3125rem 0.5625rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  z-index: 1;
 }
 
 .pointer {

@@ -80,14 +80,21 @@ const Navbar = ({ globalData }) => {
     };
   }, []);
 
-  useEffect(() => {
-    if (mainNavigationActive) {
-      // document.body.style.overflowY = "hidden";
-      /* It is causing issues on the entire staing site. - Unscrollable sitewide */
-    } else {
-      document.body.style.overflowY = "";
-    }
-  }, [mainNavigationActive]);
+  // This is used because hiding body overflow-y does not work on iOS Safari
+  // const preventTouchScroll = useCallback((e) => {
+  //   e.preventDefault();
+  // }, [setMainNavigationActive]);
+
+  // useEffect(() => {
+  //   if (mainNavigationActive) {
+  //     document.body.style.overflowY = "hidden";
+  //     document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
+  //   } else {
+  //     document.body.style.overflowY = "";
+  //     document.body.removeEventListener("touchmove", preventTouchScroll);
+  //   }
+  //   return () => document.body.removeEventListener("touchmove", preventTouchScroll);
+  // }, [mainNavigationActive, preventTouchScroll]);
 
   const handleSetMainNavigationActive = () => {
     setMainNavigationActive(!mainNavigationActive);

@@ -7,10 +7,15 @@
   border-width: toRem(1);
   line-height: 1.5 !important;
   cursor: pointer;
+  &:disabled {
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
 }
 
 .btn-dis {
-  border: toRem(1) solid $color-gray;
+  border: toRem(1) solid $color-darkgray;
   background-color: $color-lightgray;
   color: $color-darkgray;
 }

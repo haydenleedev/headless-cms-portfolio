@@ -1,3 +1,4 @@
+import { boolean } from "../../utils/validation";
 import { getShopData } from "./agility";
 import { getRequestWithAuth, postWithCustomHeader } from "./api";
 
@@ -86,6 +87,9 @@ export async function getHomePageData(token) {
               .alsoIncluded
               ? agilityPackage.fields.alsoIncluded.fields.name
               : null;
+            finalProduct.promotionActive = boolean(
+              agilityPackage?.fields?.promotionActive
+            );
             finalProducts.push(finalProduct);
           }
         })
@@ -99,6 +103,9 @@ export async function getHomePageData(token) {
         const charges = finalProduct.productRatePlanCharges.filter(
           (plan) => plan.model === "PerUnit"
         );
+        
+        // TODO: ZUORA ARRAY INDEXING
+
         const price = charges[0].pricing.filter(
           (prices) => prices.currency === "USD"
         );
@@ -135,8 +142,22 @@ export async function getHomePageData(token) {
       sortedObj.push({
         includes: freePlanData.fields.includedFeatures,
       });
+      // remove any promotion products if there package has the promotionActive field set to false in Agility.
+      const returningProducts = sortedObj.map((product) => {
+        const productsWithMatchingName = sortedObj.filter(
+          (prod) => prod.productName === product.productName
+        );
+        if (
+          productsWithMatchingName.length > 1 &&
+          product.name?.includes?.("Promotion") &&
+          !product.promotionActive
+        ) {
+          return null;
+        }
+        return product;
+      });
       return {
-        products: sortedObj,
+        products: returningProducts.filter((product) => product),
         includedFeaturesChartData,
         addOnsChartData,
       };
@@ -226,6 +247,24 @@ export async function getImplementation(token) {
     const { agilityPackages, voiceUsage, implementationServices } =
       await getShopData();
     const products = await fetchAllProducts(token, agilityPackages);
+
+    const findAgilityPackage = (id) =>
+      agilityPackages.find(
+        (item) =>
+          (process.env.ACTIVE_ENVIRONMENT === "production" &&
+            id === item?.fields?.productionID) ||
+          (process.env.ACTIVE_ENVIRONMENT === "preview" &&
+            id === item?.fields?.previewID)
+      );
+    const finalProducts = [];
+    products.map((prod) => {
+      const agilityPackage = findAgilityPackage(prod.id);
+      const finalProduct = {
+        ...prod,
+        promotionActive: boolean(agilityPackage.fields.promotionActive),
+      };
+      finalProducts.push(finalProduct);
+    });
     const implementationIds = implementationServices
       .map((item) => {
         if (process.env.ACTIVE_ENVIRONMENT === "production")
@@ -249,7 +288,12 @@ export async function getImplementation(token) {
       });
       implementation.implementationName = implementationServiceData.fields.name;
     });
-    return { implementations, products, implementationServices, voiceUsage };
+    return {
+      implementations,
+      products: finalProducts,
+      implementationServices,
+      voiceUsage,
+    };
   } catch (error) {
     return {
       implementations: null,
@@ -566,4 +610,87 @@ function getConsumptionProduct(id) {
       productRatePlanId: process.env.ZUORA_CONSUMPTION_Chat_channel_license_ID,
     };
   }
+}
+
+export async function createEventTriggers(token) {
+  const productTrigger = {
+    active: true,
+    baseObject: "Product",
+    condition:
+      "changeType == 'UPDATE' || changeType == 'INSERT' || changeType == 'DELETE'",
+    description:
+      "Trigger an event when a product is updated, created or deleted",
+    eventType: {
+      description:
+        "Trigger an event when a product is updated, created or deleted",
+      displayName: "Product changes",
+      name: "ProductChanges",
+    },
+  };
+
+  const ratePlanTrigger = {
+    active: true,
+    baseObject: "ProductRatePlan",
+    condition:
+      "changeType == 'UPDATE' || changeType == 'INSERT' || changeType == 'DELETE'",
+    description:
+      "Trigger an event when a ProductRatePlan is updated or deleted",
+    eventType: {
+      description:
+        "Trigger an event when a ProductRatePlan is updated or deleted",
+      displayName: "ProductRatePlan changes",
+      name: "ProductRatePlanChanges",
+    },
+  };
+
+  const ratePlanChargeTrigger = {
+    active: true,
+    baseObject: "ProductRatePlanCharge",
+    condition:
+      "changeType == 'UPDATE' || changeType == 'INSERT' || changeType == 'DELETE'",
+    description:
+      "Trigger an event when a ProductRatePlanCharge is updated or deleted",
+    eventType: {
+      description:
+        "Trigger an event when a ProductRatePlanCharge is updated or deleted",
+      displayName: "ProductRatePlanCharge changes",
+      name: "ProductRatePlanChargeChanges",
+    },
+  };
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "content-type": "application/json",
+  };
+
+  const productRes = await postWithCustomHeader(
+    `${process.env.ZUORA_API_URL}/events/event-triggers`,
+    JSON.stringify(productTrigger),
+    headers
+  );
+
+  console.log(productRes);
+  console.log(`Zuora event trigger '${productRes.eventType.name}' created`);
+
+  const productRatePlanRes = await postWithCustomHeader(
+    `${process.env.ZUORA_API_URL}/events/event-triggers`,
+    JSON.stringify(ratePlanTrigger),
+    headers
+  );
+
+  console.log(productRatePlanRes);
+  console.log(
+    `Zuora event trigger '${productRatePlanRes.eventType.name}' created`
+  );
+
+  const productRatePlanChargeRes = await postWithCustomHeader(
+    `${process.env.ZUORA_API_URL}/events/event-triggers`,
+    JSON.stringify(ratePlanChargeTrigger),
+    headers
+  );
+
+  console.log(productRatePlanChargeRes);
+  console.log(
+    `Zuora event trigger '${productRatePlanChargeRes.eventType.name}' created`
+  );
 }

@@ -50,7 +50,9 @@ import EventsPageContent from "./eventsPageContent/eventsPageContent";
 import AwardsPageContent from "./awardsPageContent/awardsPageContent";
 import LeadershipPageContent from "./leadershipPageContent/leadershipPageContent";
 import SearchPageContent from "./searchPageContent/searchPageContent";
+import AcknowledgePageContent from "./acknowledgePageContent/acknowledgePageContent";
 import GlossaryPageContent from "./glossaryPageContent/glossaryPageContent";
+import ShopErrorPageContent from "./shopErrorPageContent/shopErrorPageContent";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -98,13 +100,13 @@ const allModules = [
   { name: "ApplySmoothScrolling", module: Placeholder },
   { name: "HiddenH1", module: HiddenH1 },
   { name: "Breadcrumbs", module: Breadcrumbs },
-  { name: "ScriptLoader", module: ScriptLoader },
+  { name: "AcknowledgePageContent", module: AcknowledgePageContent },
+  { name: "ScriptLoader", module: Placeholder },
   { name: "GlossaryPageContent", module: GlossaryPageContent },
   { name: "Accordion", module: Accordion },
-  { name: "AcknowledgePageContent", module: Placeholder },
-  { name: "ShopErrorPageContent", module: Placeholder },
   { name: "BlankCards", module: BlankCards },
-  { name: "SecondaryNav", module: SecondaryNav }
+  { name: "SecondaryNav", module: SecondaryNav },
+  { name: "ShopErrorPageContent", module: ShopErrorPageContent },
 ];
 
 export const getModule = (moduleName) => {

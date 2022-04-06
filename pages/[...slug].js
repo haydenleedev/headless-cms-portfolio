@@ -1,3 +1,4 @@
+import React, { useEffect, useContext } from "react";
 import { getAgilityPageProps, getAgilityPaths } from "@agility/nextjs/node";
 import { getModule } from "../components/agility-pageModules";
 import agility from "@agility/content-fetch";
@@ -6,7 +7,7 @@ import Navbar from "../components/layout/navbar/navbar";
 import Footer from "../components/layout/footer/footer";
 import GlobalMessage from "../components/layout/globalMessage/globalMessage";
 import GlobalSettings from "../components/layout/globalSettings";
-import GlobalContextWrapper from "../context/globalContextWrapper";
+import GlobalContext from "../context";
 
 // getStaticProps function fetches data for all of your Agility Pages and Next.js will pre-render these pages at build time
 export async function getStaticProps({
@@ -68,11 +69,11 @@ export async function getStaticPaths({ locales, defaultLocale }) {
 }
 
 const AgilityPage = (props) => {
-  return (
-    <GlobalContextWrapper data={props.globalData}>
-      <Layout {...props} />
-    </GlobalContextWrapper>
-  );
+  const { handleSetGlobalSettings } = useContext(GlobalContext);
+  useEffect(() => {
+    handleSetGlobalSettings(props.globalData.globalSettings.data);
+  }, []);
+  return <Layout {...props} />;
 };
 
 export default AgilityPage;

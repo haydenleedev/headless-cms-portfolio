@@ -44,3 +44,12 @@ label {
 .flex {
   display: flex;
 }
+
+.selections {
+  min-height: 15.5rem;
+  margin-bottom: 2rem;
+  @include desktop() {
+    min-height: unset;
+    margin-bottom: unset;
+  }
+}

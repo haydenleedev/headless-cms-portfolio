@@ -6,7 +6,7 @@ const Button = (props) => {
 
   if (props.disable) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    disableClass = `btn-dis`;
+    disableClass = button["btn-dis"];
   } else {
     disableClass = `${button[`${props.color}`]}`;
   }

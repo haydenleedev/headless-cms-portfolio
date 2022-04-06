@@ -19,7 +19,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
   const { globalSettings } = useContext(GlobalContext);
   const suffixedMetaTitle = formatPageTitle(
     title,
-    globalSettings.fields.pageTitleSuffix
+    globalSettings?.fields?.pageTitleSuffix
   );
   return (
     <>

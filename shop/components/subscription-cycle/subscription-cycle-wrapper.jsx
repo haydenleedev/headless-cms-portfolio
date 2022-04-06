@@ -79,13 +79,13 @@ class SubscriptionCycle extends Component {
       this.props.setRateCheck(true);
       this.annual = null;
     }
-    const monthPrice = `$${this.monthlyRatePlan.price}`;
-    const annualPrice = `$${this.annualRatePlan.price}`;
+    const monthPrice = `$${this.monthlyRatePlan?.price}`;
+    const annualPrice = `$${this.annualRatePlan?.price}`;
     const annualBill = `Billed $${(
-      this.annualRatePlan.price * 12
+      this.annualRatePlan?.price * 12
     ).toLocaleString("en-US")} Annually`;
     const diff =
-      this.monthlyRatePlan.price * 12 - this.annualRatePlan.price * 12;
+      this.monthlyRatePlan?.price * 12 - this.annualRatePlan?.price * 12;
     return (
       <Fragment>
         <div className={subscription["form-title-wrap"]}>

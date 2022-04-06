@@ -4,7 +4,7 @@ import { generateUUID } from "../../utils/generic";
 import { getCookie, setCookie } from "../../utils/cookies";
 import { marketoScriptReadyEvent } from "../../utils/dataLayer";
 
-const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
+const FormWrapper = ({ handleSetFormLoaded, formID, channelEmail, children }) => {
   // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"
   const splitID = formID?.split("_");
   const marketoFormID = formID ? parseInt(splitID[splitID.length - 1]) : null;
@@ -135,7 +135,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, children }) => {
       if (!mutated) {
         mutations[0].target.removeAttribute("class");
         mutations[0].target.removeAttribute("style");
-        let emailInput = mutations[0].target.elements["Email"];
+        let emailInput = mutations[0].target.elements[channelEmail ? "channelEmail" : "Email"];
 
         emailInput?.addEventListener?.("input", (evt) => {
           addGaData(evt.data);
