@@ -86,10 +86,10 @@ const Navbar = ({ globalData }) => {
 
   useEffect(() => {
     if (mainNavigationActive) {
-      document.body.style.overflowY = "hidden";
+      // document.body.style.overflowY = "hidden";
       document.body.addEventListener("touchmove", preventTouchScroll, { passive: false });
     } else {
-      document.body.style.overflowY = "";
+      // document.body.style.overflowY = "";
       document.body.removeEventListener("touchmove", preventTouchScroll);
     }
     return () => document.body.removeEventListener("touchmove", preventTouchScroll);
