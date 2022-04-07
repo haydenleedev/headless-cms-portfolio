@@ -50,6 +50,7 @@ class ComparisonChart extends Component {
             >
               <p>Feature Breakdown</p>
             </div>
+            {this.props.freeTrialEnabled && (
             <div className={compare["table-th"]}>
               <h3>Free</h3>
               <span>$0</span>
@@ -63,6 +64,7 @@ class ComparisonChart extends Component {
                 }}
               />
             </div>
+            )}
             {this.props.data.map((product) => {
               const promoted = this.props.promotions.find(
                 (promotion) =>
@@ -170,7 +172,7 @@ class ComparisonChart extends Component {
                       >
                         {val === 1 && <svgComponent.IconCheck />}
                         {val === 0 && <svgComponent.IconX />}
-                        {val !== 1 && val !== 0 && i !== 0 && (
+                        {val !== 1 && val !== 0 && ((this.props.freeTrialEnabled && i !== 0) || !this.props.freeTrialEnabled) && (
                           <p className={compare["align-self-center"]}>{val}</p>
                         )}
                       </div>

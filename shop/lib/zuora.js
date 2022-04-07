@@ -56,9 +56,8 @@ Data from Zuora and AgilityCMS is merged to create a final sorted array.
 */
 export async function getHomePageData(token) {
   try {
-    const { agilityPackages, includedFeaturesChartData, addOnsChartData } =
+    const { agilityPackages, includedFeaturesChartData, addOnsChartData, freeTrialEnabled } =
       await getShopData();
-
     const findAgilityPackage = (id) =>
       agilityPackages.find(
         (item) =>
@@ -160,13 +159,14 @@ export async function getHomePageData(token) {
         products: returningProducts.filter((product) => product),
         includedFeaturesChartData,
         addOnsChartData,
+        freeTrialEnabled
       };
     } else {
-      return { products: null, includes: null, addOns: null };
+      return { products: null, includes: null, addOns: null, freeTrialEnabled: null };
     }
   } catch (error) {
     console.trace(error.message);
-    return { products: null, includes: null, addOns: null };
+    return { products: null, includes: null, addOns: null, freeTrialEnabled: null };
   }
 }
 

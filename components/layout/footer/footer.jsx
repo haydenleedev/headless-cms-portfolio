@@ -179,7 +179,11 @@ const Footer = ({ globalData }) => {
         <hr className={style.horizontalLine}></hr>
         <div className={style.footNote}>
           <div className={style.cookies}>
-            {}
+            <Script
+              src="//consent.truste.com/notice?domain=ujet.co&c=teconsent&js=bb&noticeType=bb&gtm=1"
+              async={true}
+              strategy="lazyOnload"
+            />
             {/* "In order to generate the required GTM events you must add the
             following code to every page on which the CM is deployed" */}
             <Script
@@ -193,7 +197,33 @@ const Footer = ({ globalData }) => {
             {/* <button id="ot-sdk-btn" className="ot-sdk-show-settings">
               Cookie Settings
             </button> */}
-            {/* <div id="teconsent"></div>*/}
+            <div id="teconsent"></div>
+            <div className={style.trusteLinks}>
+              <a
+                href="//privacy.truste.com/privacy-seal/validation?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
+                target="_ blank"
+                rel="noreferrer"
+              >
+                <img
+                  width="106"
+                  height={"34"}
+                  src="//privacy-policy.truste.com/privacy-seal/seal?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
+                  alt="TRUSTe"
+                />
+              </a>
+              <a
+                href="https://submit-irm.trustarc.com/services/validation/bac0a2d7-003d-4c6d-8171-d3fd1756d56d"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  width="106"
+                  height="32"
+                  src="https://submit-irm.trustarc.com/services/validation/bac0a2d7-003d-4c6d-8171-d3fd1756d56d/image"
+                  alt="TrustArc"
+                />
+              </a>
+            </div>
           </div>
           <div className={`${style.footNoteLinks}`}>
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>
