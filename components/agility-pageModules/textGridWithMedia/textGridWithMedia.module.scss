@@ -177,6 +177,13 @@
     gap: 0.5rem;
   }
   &.logoLeftHeaderRight {
+    &.medium {
+      .textItem {
+        .textItemMedia {
+          flex: 1 0 3.75rem;
+        }
+      }
+    }
     .content {
       line-height: 1.3rem;
       align-items: stretch;
