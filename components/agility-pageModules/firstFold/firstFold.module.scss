@@ -13,6 +13,9 @@
     flex-direction: column;
     @include desktop() {
       flex-direction: row;
+      &.imageLeft {
+        flex-direction: row-reverse;
+      }
     }
   }
   // styling configuration for the optionally toggled no image layout field
