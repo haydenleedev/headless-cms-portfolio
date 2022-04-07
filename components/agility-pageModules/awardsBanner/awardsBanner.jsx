@@ -1,5 +1,5 @@
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import { boolean } from "../../../utils/validation";
+import { boolean, mediaIsSvg } from "../../../utils/validation";
 import Heading from "../heading";
 import Media from "../media";
 import style from "./awardsBanner.module.scss";
@@ -70,7 +70,7 @@ const AwardsBanner = ({ module, customData }) => {
                       className={`grid-column is-${fields.awardBadgeColumnsCount} d-flex align-items-center justify-content-center`}
                       key={award.contentID}
                     >
-                      <div className={style.awardImage}>
+                      <div className={`${style.awardImage} ${mediaIsSvg(award.fields.image) ? style.awardImageSvg : ""}`}>
                         <Media media={award.fields.image} />
                       </div>
                     </div>

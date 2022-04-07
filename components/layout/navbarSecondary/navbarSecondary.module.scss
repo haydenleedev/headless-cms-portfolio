@@ -1,0 +1,23 @@
+@use "sass:math";
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+@import "../../../styles/settings/variables";
+
+.navbarSecondary {
+  display: none;
+  @include desktop() {
+    margin-top: toRem(10);
+    justify-content: flex-end !important;
+    grid-gap: 1rem;
+    * {
+      font-size: toRem(14);
+    }
+    a {
+      display: block;
+      padding: 0.5rem 0;
+      &:hover {
+        color: $color-darkblue;
+      }
+    }
+  }
+}

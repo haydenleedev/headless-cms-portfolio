@@ -1,7 +1,7 @@
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useIntersectionObserver } from "../../../utils/hooks";
-import { boolean } from "../../../utils/validation";
+import { boolean, mediaIsSvg } from "../../../utils/validation";
 import AgilityLink from "../../agilityLink";
 import Heading from "../heading";
 import Media from "../media";
@@ -13,10 +13,10 @@ const TextWithMedia = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
 
   //configuration options
-  const narrowContainer = boolean(fields?.narrowContainer);
-  const fullPageWidth = boolean(fields?.fullPageWidth);
-  const columnLayout = boolean(fields?.columnLayout);
-  const mediaLeft = boolean(fields?.mediaLeft);
+  const narrowContainer = fields.containerWidth == "narrow";
+  const fullPageWidth = fields.containerWidth == "fullPageWidth";
+  const columnLayout = fields.layout == "column";
+  const mediaLeft = fields.layout == "mediaLeft";
   const headingOnTop = boolean(fields?.headingOnTop);
   const headingSizeforTextArea = fields.headingSizeforTextArea;
   const mediaVerticalAlignment = fields.mediaVerticalAlignment;
@@ -135,7 +135,7 @@ const TextWithMedia = ({ module, customData }) => {
             <div
               data-animate="true"
               className={`${fields.mediaClass ? fields.mediaClass : "null"} ${
-                fields.media?.url.toLowerCase().endsWith(".svg") ? style.svgMediaContainer : ""
+                mediaIsSvg(fields.media) ? style.svgMediaContainer : ""
               }`}
             >
               {fields.media && !fields.testimonial && (

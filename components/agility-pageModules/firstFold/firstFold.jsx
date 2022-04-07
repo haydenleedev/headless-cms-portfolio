@@ -12,7 +12,6 @@ const FirstFold = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
-  const imageLeft = boolean(fields.imageLeft);
   const uncenteredVertically = boolean(fields.uncenteredVertically);
   const noImageLayout = !fields.media && !fields.customSVG;
   const narrowContainer = boolean(fields?.narrowContainer);
@@ -173,9 +172,9 @@ const FirstFold = ({ module, customData }) => {
               noImageLayout
                 ? style.noImageLayout
                 : `${style.defaultLayout} ${
-                    imageLeft
-                      ? "flex-direction-row-reverse"
-                      : "flex-direction-row"
+                    fields.layout == "imageLeft"
+                      ? style.imageLeft
+                      : ""
                   } ${uncenteredVertically ? "align-items-unset" : ""}`
             }
           >

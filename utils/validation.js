@@ -20,6 +20,10 @@ export const hrefSelf = (href) => {
   );
 };
 
+export const mediaIsSvg = (media) => {
+  return media?.url?.toLowerCase().endsWith(".svg");
+}
+
 export const checkRequiredSafariVersion = ({ desktop, mobile }) => {
   if (typeof window !== "undefined") {
     const userAgent = navigator.userAgent;

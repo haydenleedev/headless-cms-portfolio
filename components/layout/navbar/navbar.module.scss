@@ -6,7 +6,7 @@
 .navbar {
   transition: box-shadow 0.2s;
   box-shadow: 0 0 0.5rem 0px #00000014;
-  height: $navbar-height;
+  height: $navbar-height-tall;
   font-size: 1rem;
   padding-top: 1.25rem;
   width: 100%;
@@ -14,8 +14,18 @@
   position: sticky;
   top: 0;
   background: white;
+  .navbarSecondary {
+    display: none;
+    @include desktop() {
+      display: flex;
+    }
+  }
   &.scrolled {
     box-shadow: 0 0 0.5rem 0 #0000005b;
+    height: $navbar-height;
+    .navbarSecondary {
+      display: none;
+    }
   }
 
   &.transparent {
@@ -30,7 +40,7 @@
   }
   @include desktop() {
     padding-top: 0;
-    display: flex;
+    /* display: flex; */
     position: sticky;
     top: 0;
   }
@@ -280,7 +290,8 @@
 
   // Triangle
   &:not(.disabled) {
-    &:hover, &:focus-within {
+    &:hover,
+    &:focus-within {
       @include desktop() {
         &::before {
           position: absolute;
@@ -346,7 +357,6 @@
 
       & > ul {
         padding-bottom: 0;
-
       }
 
       &:first-child {
@@ -363,7 +373,7 @@
   max-height: 100vh;
   width: 100%;
   position: relative;
-  @include desktop () {
+  @include desktop() {
     overflow: unset;
     height: unset;
     max-height: unset;
@@ -373,14 +383,13 @@
 }
 
 .mainNavigationContainerClosed {
-    max-height: unset;
-    height: unset;
+  max-height: unset;
+  height: unset;
 }
 
 .mainNavigationContainerActive {
-  
   overflow-y: scroll;
-  @include desktop () {
+  @include desktop() {
     overflow-y: unset;
   }
 }
