@@ -7,7 +7,7 @@ import style from "./heroImage.module.scss";
 
 const HeroImage = ({ module, narrowHeight, customData }) => {
   const { fields } = module;
-  const { sanitizedHtml } = customData;
+  const { sanitizedHtml } = customData || {};
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const containerWidth = boolean(fields.containerWidth);
   const narrowContainer = boolean(fields?.narrowContainer);
