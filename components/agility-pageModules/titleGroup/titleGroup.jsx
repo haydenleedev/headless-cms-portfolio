@@ -41,9 +41,16 @@ const TitleGroup = ({ module }) => {
           fullPageWidth ? "max-width-unset padding-unset" : ""
         }`}
       >
-        {heading.text && (
+        {(heading.text || fields.subHeading) && (
           <div className={`${fields.headingAlignment}`}>
-            <Heading {...heading} />
+            {heading.text && <Heading {...heading} />}
+            <p
+              className={`text ${
+                fields.subHeadingClass ? fields.subHeadingClass : ""
+              }`}
+            >
+              {fields.subHeading && fields.subHeading}
+            </p>
           </div>
         )}
       </div>
