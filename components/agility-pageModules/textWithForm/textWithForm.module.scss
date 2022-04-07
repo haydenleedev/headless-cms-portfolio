@@ -97,6 +97,9 @@
     }
     @include desktop() {
       flex-direction: row;
+      &.formLeft {
+        flex-direction: row-reverse;
+      }
       .columnLayoutHeading {
         display: none;
       }
