@@ -13,10 +13,10 @@ const TextWithMedia = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
 
   //configuration options
-  const narrowContainer = boolean(fields?.narrowContainer);
-  const fullPageWidth = boolean(fields?.fullPageWidth);
-  const columnLayout = boolean(fields?.columnLayout);
-  const mediaLeft = boolean(fields?.mediaLeft);
+  const narrowContainer = fields.containerWidth == "narrow";
+  const fullPageWidth = fields.containerWidth == "fullPageWidth";
+  const columnLayout = fields.layout == "column";
+  const mediaLeft = fields.layout == "mediaLeft";
   const headingOnTop = boolean(fields?.headingOnTop);
   const headingSizeforTextArea = fields.headingSizeforTextArea;
   const mediaVerticalAlignment = fields.mediaVerticalAlignment;
