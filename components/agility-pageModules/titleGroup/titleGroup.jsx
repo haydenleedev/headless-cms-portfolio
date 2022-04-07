@@ -6,6 +6,7 @@ import style from "./titleGroup.module.scss";
 const TitleGroup = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
+  const subHeading = JSON.parse(fields.subHeading);
 
   //configuration options
   const narrowContainer = boolean(fields?.narrowContainer);
@@ -44,6 +45,7 @@ const TitleGroup = ({ module }) => {
         {heading.text && (
           <div className={`${fields.headingAlignment}`}>
             <Heading {...heading} />
+            <Heading {...subHeading} />
           </div>
         )}
       </div>
