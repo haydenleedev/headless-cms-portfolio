@@ -6,7 +6,6 @@ import style from "./titleGroup.module.scss";
 const TitleGroup = ({ module }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
-  const subHeading = JSON.parse(fields.subHeading);
 
   //configuration options
   const narrowContainer = boolean(fields?.narrowContainer);
@@ -42,10 +41,16 @@ const TitleGroup = ({ module }) => {
           fullPageWidth ? "max-width-unset padding-unset" : ""
         }`}
       >
-        {(heading.text || subHeading.text) && (
+        {(heading.text || fields.subHeading) && (
           <div className={`${fields.headingAlignment}`}>
             {heading.text && <Heading {...heading} />}
-            {subHeading.text && <Heading {...subHeading} />}
+            <p
+              className={`text ${
+                fields.subHeadingClass ? fields.subHeadingClass : ""
+              }`}
+            >
+              {fields.subHeading && fields.subHeading}
+            </p>
           </div>
         )}
       </div>
