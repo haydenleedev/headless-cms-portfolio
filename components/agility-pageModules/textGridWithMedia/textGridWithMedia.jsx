@@ -53,6 +53,8 @@ const TextGridWithMedia = ({ module, customData }) => {
           ${
             fields.itemStyle == "logoLeft"
               ? style.logoLeftHeaderRight
+              : fields.itemStyle == "mediumLogoLeft"
+              ? style.logoLeftHeaderRight + " " + style.medium
               : `
                 flex-direction-column
                 ${
@@ -124,7 +126,13 @@ const TextGridWithMedia = ({ module, customData }) => {
     <section
       className={`section ${style.textGridWithMedia} ${
         fields.classes ? fields.classes : ""
-      } ${fields.itemStyle == "logoLeft" ? style.logoLeftHeaderRight : ""}`}
+      } ${
+        fields.itemStyle == "logoLeft"
+          ? style.logoLeftHeaderRight
+          : fields.itemStyle == "mediumLogoLeft"
+          ? style.logoLeftHeaderRight + " " + style.medium
+          : ""
+      }`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
