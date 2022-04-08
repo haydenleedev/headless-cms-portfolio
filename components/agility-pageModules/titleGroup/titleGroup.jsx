@@ -1,6 +1,5 @@
 import Heading from "../heading";
 import { useIntersectionObserver } from "../../../utils/hooks";
-import { boolean } from "../../../utils/validation";
 import style from "./titleGroup.module.scss";
 
 const TitleGroup = ({ module }) => {
@@ -8,8 +7,8 @@ const TitleGroup = ({ module }) => {
   const heading = JSON.parse(fields.heading);
 
   //configuration options
-  const narrowContainer = boolean(fields?.narrowContainer);
-  const fullPageWidth = boolean(fields?.fullPageWidth);
+  const narrowContainer = fields.containerWidth == "narrow";
+  const fullPageWidth = fields.containerWidth == "fullPageWidth";
 
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
@@ -30,9 +29,7 @@ const TitleGroup = ({ module }) => {
 
   return (
     <section
-      className={`section ${style.textWithMedia} ${
-        fields.classes ? fields.classes : ""
-      }`}
+      className={`section ${fields.classes ? fields.classes : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
