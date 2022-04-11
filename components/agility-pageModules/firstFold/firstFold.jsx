@@ -45,6 +45,24 @@ const FirstFold = ({ module, customData }) => {
     return "";
   };
 
+  const FirstFoldLink = ({ primary }) => {
+    const link = primary ? fields.primaryLink : fields.secondaryLink;
+    return (link?.href && link?.text) ? (
+      <AgilityLink
+        agilityLink={link}
+        className={`button ${primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink} ${
+          fields.linkClasses ? fields.linkClasses : ""
+        }`}
+        ariaLabel={`Navigate to page ` + link.href}
+        title={`Navigate to page ` + link.href}
+      >
+        {link.text}
+      </AgilityLink>
+    ) : (
+      null
+    );
+  };
+
   // different layout when alternateLayout or customerStory is toggled on
   if (layout == "alternateLayout" || layout == "customerStory") {
     return (
@@ -61,7 +79,9 @@ const FirstFold = ({ module, customData }) => {
         )}
         <div
           className={`container ${
-            layout == "customerStory" ? style.customerStoryTextContent : style.textContent
+            layout == "customerStory"
+              ? style.customerStoryTextContent
+              : style.textContent
           } ${narrowContainer ? "max-width-narrow" : ""}`}
         >
           <div className={style.heading}>
@@ -73,30 +93,8 @@ const FirstFold = ({ module, customData }) => {
               dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
             ></div>
           )}
-          {fields.primaryLink && (
-            <AgilityLink
-              agilityLink={fields.primaryLink}
-              className={`button cyan outlined ${style.primaryLink} ${
-                fields.linkClasses ? fields.linkClasses : ""
-              }`}
-              ariaLabel={`Navigate to page ` + fields.primaryLink.href}
-              title={`Navigate to page ` + fields.primaryLink.href}
-            >
-              {fields.primaryLink.text}
-            </AgilityLink>
-          )}
-          {fields.secondaryLink && (
-            <AgilityLink
-              agilityLink={fields.secondaryLink}
-              className={`button ${style.secondaryLink} ${
-                fields.linkClasses ? fields.linkClasses : ""
-              }`}
-              ariaLabel={`Navigate to page ` + fields.secondaryLink.href}
-              title={`Navigate to page ` + fields.secondaryLink.href}
-            >
-              {fields.secondaryLink.text}
-            </AgilityLink>
-          )}
+          <FirstFoldLink primary />
+          <FirstFoldLink />
         </div>
       </section>
     );
@@ -125,30 +123,8 @@ const FirstFold = ({ module, customData }) => {
                   dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                 ></div>
               )}
-              {fields.primaryLink && (
-                <AgilityLink
-                  agilityLink={fields.primaryLink}
-                  className={`button cyan outlined ${style.primaryLink} ${
-                    fields.linkClasses ? fields.linkClasses : ""
-                  }`}
-                  ariaLabel={`Navigate to page ` + fields.primaryLink.href}
-                  title={`Navigate to page ` + fields.primaryLink.href}
-                >
-                  {fields.primaryLink.text}
-                </AgilityLink>
-              )}
-              {fields.secondaryLink && (
-                <AgilityLink
-                  agilityLink={fields.secondaryLink}
-                  className={`button ${style.secondaryLink} ${
-                    fields.linkClasses ? fields.linkClasses : ""
-                  }`}
-                  ariaLabel={`Navigate to page ` + fields.secondaryLink.href}
-                  title={`Navigate to page ` + fields.secondaryLink.href}
-                >
-                  {fields.secondaryLink.text}
-                </AgilityLink>
-              )}
+              <FirstFoldLink primary />
+              <FirstFoldLink />
             </div>
           </div>
         </div>
@@ -172,9 +148,7 @@ const FirstFold = ({ module, customData }) => {
               noImageLayout
                 ? style.noImageLayout
                 : `${style.defaultLayout} ${
-                    fields.layout == "imageLeft"
-                      ? style.imageLeft
-                      : ""
+                    fields.layout == "imageLeft" ? style.imageLeft : ""
                   } ${uncenteredVertically ? "align-items-unset" : ""}`
             }
           >
@@ -197,7 +171,9 @@ const FirstFold = ({ module, customData }) => {
                   {fields.logos.map((logo) => (
                     <div
                       key={logo.contentID}
-                      className={`grid-column is-${fields.logos.length >= 6 ? 6 : fields.logos.length} ${style.logoGridColumn}`}
+                      className={`grid-column is-${
+                        fields.logos.length >= 6 ? 6 : fields.logos.length
+                      } ${style.logoGridColumn}`}
                       data-animate="true"
                     >
                       <Media media={logo.fields.logo} />
@@ -282,84 +258,56 @@ const FirstFold = ({ module, customData }) => {
                 </div>
               )}
               <div className={style.links}>
-                {fields.primaryLink && (
-                  <AgilityLink
-                    agilityLink={fields.primaryLink}
-                    className={`button cyan outlined ${style.primaryLink} ${
-                      fields.linkClasses ? fields.linkClasses : ""
-                    }`}
-                    ariaLabel={`Navigate to page ` + fields.primaryLink.href}
-                    title={`Navigate to page ` + fields.primaryLink.href}
-                  >
-                    {fields.primaryLink.text}
-                  </AgilityLink>
-                )}
-                {fields.secondaryLink && (
-                  <AgilityLink
-                    agilityLink={fields.secondaryLink}
-                    className={`button ${style.secondaryLink} ${
-                      fields.linkClasses ? fields.linkClasses : ""
-                    }`}
-                    ariaLabel={`Navigate to page ` + fields.secondaryLink.href}
-                    title={`Navigate to page ` + fields.secondaryLink.href}
-                  >
-                    {fields.secondaryLink.text}
-                  </AgilityLink>
-                )}
+                <FirstFoldLink primary />
+                <FirstFoldLink />
               </div>
             </div>
-            {fields.media &&
-              !fields.customSVG &&
-              !fields.imageLink && (
-                <div
-                  className={`${style.image} ${
-                    fields.circularImage ? style.circularImage : ""
-                  } ${
-                    fields.imageBottomMargin ? fields.imageBottomMargin : ""
-                  } ${fields.imageTopMargin ? fields.imageTopMargin : ""} ${
-                    fields.linkClasses ? fields.linkClasses : ""
-                  } ${
-                    style[
-                      `mediaBasis${
-                        100 - parseInt(fields.textWidthPercentage) || 50
-                      }`
-                    ]
-                  } ${
-                    fixedMediaHeight
-                      ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
-                      : ""
-                  } ${style[fields.mediaVerticalAlignment]}`}
-                  data-animate="true"
-                >
+            {fields.media && !fields.customSVG && !fields.imageLink && (
+              <div
+                className={`${style.image} ${
+                  fields.circularImage ? style.circularImage : ""
+                } ${fields.imageBottomMargin ? fields.imageBottomMargin : ""} ${
+                  fields.imageTopMargin ? fields.imageTopMargin : ""
+                } ${fields.linkClasses ? fields.linkClasses : ""} ${
+                  style[
+                    `mediaBasis${
+                      100 - parseInt(fields.textWidthPercentage) || 50
+                    }`
+                  ]
+                } ${
+                  fixedMediaHeight
+                    ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
+                    : ""
+                } ${style[fields.mediaVerticalAlignment]}`}
+                data-animate="true"
+              >
+                <Media media={fields.media} title={fields.mediaTitle} />
+              </div>
+            )}
+            {fields.media && !fields.customSVG && fields.imageLink && (
+              <AgilityLink
+                agilityLink={fields.imageLink}
+                className={`${style.imageLink} ${
+                  fields.imageBottomMargin ? fields.imageBottomMargin : ""
+                } ${fields.linkClasses ? fields.linkClasses : ""} ${
+                  style[
+                    `mediaBasis${
+                      100 - parseInt(fields.textWidthPercentage) || 50
+                    }`
+                  ]
+                } ${
+                  fixedMediaHeight
+                    ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
+                    : ""
+                } ${style[fields.mediaVerticalAlignment]}`}
+                ariaLabel={`Navigate to page ` + fields.imageLink.href}
+                title={`Navigate to page ` + fields.imageLink.href}
+              >
+                <div className={style.image} data-animate="true">
                   <Media media={fields.media} title={fields.mediaTitle} />
                 </div>
-              )}
-            {fields.media &&
-              !fields.customSVG &&
-              fields.imageLink && (
-                <AgilityLink
-                  agilityLink={fields.imageLink}
-                  className={`${style.imageLink} ${
-                    fields.imageBottomMargin ? fields.imageBottomMargin : ""
-                  } ${fields.linkClasses ? fields.linkClasses : ""} ${
-                    style[
-                      `mediaBasis${
-                        100 - parseInt(fields.textWidthPercentage) || 50
-                      }`
-                    ]
-                  } ${
-                    fixedMediaHeight
-                      ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
-                      : ""
-                  } ${style[fields.mediaVerticalAlignment]}`}
-                  ariaLabel={`Navigate to page ` + fields.imageLink.href}
-                  title={`Navigate to page ` + fields.imageLink.href}
-                >
-                  <div className={style.image} data-animate="true">
-                    <Media media={fields.media} title={fields.mediaTitle} />
-                  </div>
-                </AgilityLink>
-              )}
+              </AgilityLink>
+            )}
             {fields.customSVG && (
               <CustomSVG
                 svgInput={fields.customSVG}
