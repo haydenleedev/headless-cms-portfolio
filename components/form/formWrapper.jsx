@@ -177,7 +177,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, channelEmail, children }) =>
   };
   return (
     <>
-      <Script
+      {/* <Script
         id="marketo-js"
         src="//info.ujet.co/js/forms2/js/forms2.min.js"
         strategy="lazyOnload"
@@ -187,7 +187,7 @@ const FormWrapper = ({ handleSetFormLoaded, formID, channelEmail, children }) =>
             marketoScriptReadyEvent({});
           })
         }
-      />
+      /> */}
       {children}
     </>
   );
