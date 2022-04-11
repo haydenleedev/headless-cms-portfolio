@@ -147,7 +147,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
       </Script> */}
 
       {/* Qualified Script */}
-      {/* <Script id="qualified">
+      <Script id="qualified">
         {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
       </Script>
@@ -156,7 +156,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         async
         src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
         strategy="lazyOnload"
-      /> */}
+      />
     </>
   );
 };
