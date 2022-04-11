@@ -88,15 +88,15 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         id="google-optimize"
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
         strategy="lazyOnload"
-      />*/}
+      />
 
-      <Script id="bombora">
+      <Script id="bombora">*/}
         {/* Bombora Tag */}
-        {`
-          //informer
+        {/*{`
+          informer
           (function(f,i,c){var a=decodeURIComponent,e="",l="",o="||",g=";;",h="split",b="length",j="indexOf",k=0,n="localStorage",m="_ccmdt";f[c]=f[c]||{};function d(q){var p;if(f[n]){return f[n][q]||""}else{p=i.cookie.match(q+"=([^;]*)");return(p&&p[1])||""}}f[c].us={};e=a(d(m))[h](o);k=e[b];if(k>0){while(k--){l=e[k][h]("=");if(l[b]>1){if(l[1][j](g)>-1){f[c].us[l[0]]=l[1][h](g);f[c].us[l[0]].pop()}else{f[c].us[l[0]]=l[1]}}}}})(window,document,"_ml");
 
-          //tag
+          tag
           (function () {
             _ml = window._ml || {};
             _ml.eid = '84421';
@@ -128,9 +128,9 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             s.parentNode.insertBefore(mltag, s);
           })();
         `}
-      </Script>
+      </Script> */}
 
-      {/* <Script id="6sense">
+      <Script id="6sense">
         {`window._6si = window._6si || [];
           window._6si.push(['enableEventTracking', true]);
           window._6si.push(['setToken', '${process.env.NEXT_PUBLIC_SIXSENSE_TOKEN}']);
@@ -144,7 +144,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(gd, s);
           })();`}
-      </Script> */}
+      </Script>
 
       {/* Qualified Script */}
       {/* <Script id="qualified">
