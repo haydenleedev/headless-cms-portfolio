@@ -67,7 +67,7 @@ const FirstFold = ({ module, customData }) => {
           <div className={style.heading}>
             <Heading {...heading}></Heading>
           </div>
-          {fields.text && (
+          {sanitizedHtml && (
             <div
               className={`content ${style.text}`}
               dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
@@ -119,7 +119,7 @@ const FirstFold = ({ module, customData }) => {
               <div className={style.heading}>
                 <Heading {...heading}></Heading>
               </div>
-              {fields.text && (
+              {sanitizedHtml && (
                 <div
                   className={`content ${style.text}`}
                   dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
@@ -186,7 +186,7 @@ const FirstFold = ({ module, customData }) => {
               <div className={style.heading}>
                 <Heading {...heading}></Heading>
               </div>
-              {fields.text && (
+              {sanitizedHtml && (
                 <div
                   className={`content ${style.text}`}
                   dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
