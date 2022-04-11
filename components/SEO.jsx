@@ -83,14 +83,14 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
           j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
-      </Script>
+        </Script> */}
       <Script
         id="google-optimize"
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
         strategy="lazyOnload"
       />
 
-      <Script id="bombora">*/}
+      {/* <Script id="bombora"> */}
         {/* Bombora Tag */}
         {/*{`
           informer
@@ -130,7 +130,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         `}
       </Script> */}
 
-      <Script id="6sense">
+      {/* <Script id="6sense">
         {`window._6si = window._6si || [];
           window._6si.push(['enableEventTracking', true]);
           window._6si.push(['setToken', '${process.env.NEXT_PUBLIC_SIXSENSE_TOKEN}']);
@@ -144,7 +144,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(gd, s);
           })();`}
-      </Script>
+      </Script> */}
 
       {/* Qualified Script */}
       {/* <Script id="qualified">
