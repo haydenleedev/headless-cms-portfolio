@@ -158,6 +158,7 @@ const Navbar = ({ globalData }) => {
             active={mainNavigationActive}
             mainNavigation={navbar.fields.mainNavigation}
             handleSetMainNavigationActive={handleSetMainNavigationActive}
+            navbarData={navbar}
           />
         </div>
       </nav>
