@@ -332,8 +332,8 @@
   @include desktop() {
     padding: unset !important;
     position: relative;
-    padding-top: $navbar-height !important;
-    top: -$navbar-height;
+    padding-top: calc($navbar-height + $navbar-secondary-height) !important;
+    top: 0 - $navbar-height - $navbar-secondary-height;
   }
 }
 
