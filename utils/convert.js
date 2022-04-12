@@ -198,10 +198,9 @@ export const formatPageTitle = (title, suffix) => {
   if (title && !title.includes(`| ${suffix}`)) {
     if (title.includes(`- ${suffix}`)) {
       return title.replace(`- ${suffix}`, `| ${suffix}`);
-    }
-    else {
-      return `${title} | ${suffix}`;
+    } else {
+      return `${title}`;
     }
   }
   return title;
-}
+};
