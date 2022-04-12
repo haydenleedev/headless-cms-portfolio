@@ -6,7 +6,7 @@
 .navbar {
   transition: box-shadow 0.2s;
   box-shadow: 0 0 0.5rem 0px #00000014;
-  height: $navbar-height-tall;
+  height: $navbar-height;
   font-size: 1rem;
   padding-top: 1.25rem;
   width: 100%;
@@ -39,6 +39,7 @@
     z-index: 5;
   }
   @include desktop() {
+    height: $navbar-height-tall;
     padding-top: 0;
     /* display: flex; */
     position: sticky;
@@ -379,6 +380,11 @@
     max-height: unset;
     widows: unset;
     overflow-y: unset;
+  }
+  .navbarSecondaryMobileLinks {
+    @include desktop() {
+      display: none;
+    }
   }
 }
 

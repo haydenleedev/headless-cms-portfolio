@@ -11,7 +11,11 @@ const AwardsBanner = ({ module, customData }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const columnLayout = boolean(fields?.columnLayout);
   const textCenterJustification = boolean(fields?.textCenterJustification);
-  const numberofRows = fields.numberofRows ? fields.numberofRows : null;
+  let awardColumnCount = fields.awardColumnCount > 1 ? fields.awardColumnCount : 7;
+  const displayedAwardCount = fields.displayedAwardCount > 1 ? fields.displayedAwardCount : 7;
+  if (displayedAwardCount < awardColumnCount) {
+    awardColumnCount = displayedAwardCount;
+  }
 
   featuredAwards?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -35,42 +39,50 @@ const AwardsBanner = ({ module, customData }) => {
             columnLayout ? "flex-direction-column" : "flex-direction-row"
           }`}
         >
-          <aside
-            className={`${style.textContent} ${
-              fields.textContentHighlightColor
-            } ${columnLayout ? style.columnLayoutTextContent : ""} ${
-              textCenterJustification ? "align-center" : ""
-            }`}
-          >
-            <div>
-              <div className={style.heading}>
-                <Heading {...heading} />
-              </div>
-              {fields.featuredImage && (
-                <div className={style.featuredImage}>
-                  <Media media={fields.featuredImage} />
+          {(heading.text || sanitizedHtml) && (
+            <aside
+              className={`${style.textContent} ${
+                fields.textContentHighlightColor
+              } ${columnLayout ? style.columnLayoutTextContent : ""} ${
+                textCenterJustification ? "align-center" : ""
+              }`}
+            >
+              <div>
+                <div className={style.heading}>
+                  <Heading {...heading} />
                 </div>
-              )}
-              <div
-                className={style.description}
-                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-              ></div>
-            </div>
-          </aside>
+                {fields.featuredImage && (
+                  <div className={style.featuredImage}>
+                    <Media media={fields.featuredImage} />
+                  </div>
+                )}
+                <div
+                  className={style.description}
+                  dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+                ></div>
+              </div>
+            </aside>
+          )}
           <aside
             className={`grid-columns ${style.awards} ${
               columnLayout ? "width-100" : ""
-            }${numberofRows ? " row-2" : null}`}
+            }`}
           >
             {featuredAwards &&
               featuredAwards.map(
                 (award, index) =>
-                  index < fields.awardBadgeColumnsCount && (
+                  index < displayedAwardCount && (
                     <div
-                      className={`grid-column is-${fields.awardBadgeColumnsCount} d-flex align-items-center justify-content-center`}
+                      className={`grid-column is-${awardColumnCount} d-flex align-items-center justify-content-center`}
                       key={award.contentID}
                     >
-                      <div className={`${style.awardImage} ${mediaIsSvg(award.fields.image) ? style.awardImageSvg : ""}`}>
+                      <div
+                        className={`${style.awardImage} ${
+                          mediaIsSvg(award.fields.image)
+                            ? style.awardImageSvg
+                            : ""
+                        }`}
+                      >
                         <Media media={award.fields.image} />
                       </div>
                     </div>

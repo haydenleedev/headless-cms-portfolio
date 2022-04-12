@@ -111,60 +111,62 @@
     height: 100%;
     overflow: hidden;
   }
-  .textItem:not(.logoLeftHeaderRight) {
-    .textItemMedia {
-      max-width: 7.5rem;
-      height: 7.5rem;
-      & > span {
-        &:only-child {
-          height: 100% !important;
-          img {
-            margin: 0 !important;
-            width: 100% !important;
-            object-fit: contain;
-            height: unset !important;
-            min-height: unset !important;
+  &:not(.logoLeftHeaderRight) {
+    .textItem {
+      .textItemMedia {
+        max-width: 7.5rem;
+        height: 7.5rem;
+        & > span {
+          &:only-child {
+            height: 100% !important;
+            img {
+              margin: 0 !important;
+              width: 100% !important;
+              object-fit: contain;
+              height: unset !important;
+              min-height: unset !important;
+            }
+          }
+        }
+        &.textItemMediaTop {
+          > span:only-child {
+            display: flex !important;
+            align-items: center !important;
+            img {
+              position: relative !important;
+            }
           }
         }
       }
-      &.textItemMediaTop {
-        > span:only-child {
-          display: flex !important;
-          align-items: center !important;
-          img {
-            position: relative !important;
+      &:not(.textItemWithSmallMedia):not(.textItemWithLargeMedia) {
+        .textItemMedia {
+          margin-bottom: 1.5rem;
+        }
+      }
+      &.textItemWithLargeMedia {
+        padding: 0;
+        .textItemMedia {
+          height: 14rem;
+          overflow: hidden;
+          max-width: 100%;
+          & > span:only-child img {
+            object-fit: cover;
+            min-height: 100% !important;
+          }
+          .content,
+          span.rightArrow {
+            padding: 0 1.5rem;
           }
         }
-      }
-    }
-    &:not(.textItemWithSmallMedia):not(.textItemWithLargeMedia) {
-      .textItemMedia {
-        margin-bottom: 1.5rem;
-      }
-    }
-    &.textItemWithLargeMedia {
-      padding: 0;
-      .textItemMedia {
-        height: 14rem;
-        overflow: hidden;
-        max-width: 100%;
-        & > span:only-child img {
-          object-fit: cover;
-          min-height: 100% !important;
-        }
-        .content,
-        span.rightArrow {
-          padding: 0 1.5rem;
+        .textItemTextContent {
+          padding: 1.5rem;
         }
       }
-      .textItemTextContent {
-        padding: 1.5rem;
-      }
-    }
-    &.textItemWithSmallMedia {
-      .textItemMedia {
-        max-width: 5.625rem;
-        height: 5.625rem;
+      &.textItemWithSmallMedia {
+        .textItemMedia {
+          max-width: 5.625rem;
+          height: 5.625rem;
+        }
       }
     }
   }
