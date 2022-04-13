@@ -51,10 +51,8 @@ const TextGridWithMedia = ({ module, customData }) => {
           ${`grid-column ${largeColumnNumber}`}
           ${style.textItem}
           ${
-            fields.itemStyle == "logoLeft"
-              ? style.logoLeftHeaderRight
-              : fields.itemStyle == "mediumLogoLeft"
-              ? style.logoLeftHeaderRight + " " + style.medium
+            fields.itemStyle == "logoLeft" || fields.itemStyle == "mediumLogoLeft"
+              ? ""
               : `
                 flex-direction-column
                 ${
