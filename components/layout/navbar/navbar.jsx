@@ -1,10 +1,11 @@
 import logo from "../../../assets/ujet-logo.svg";
 import style from "./navbar.module.scss";
 import MainNavigation from "./mainNavigation";
+import NavbarSecondary from "../navbarSecondary/navbarSecondary";
 import { sleep } from "../../../utils/generic";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext } from "react";
 import GlobalContext from "../../../context";
 
 const Navbar = ({ globalData }) => {
@@ -109,6 +110,15 @@ const Navbar = ({ globalData }) => {
         `}
       ref={navbarRef}
     >
+      {/* Begin Navbar Secondary */}
+      {navbar.fields.navbarSecondary?.length > 0 && (
+        <NavbarSecondary
+          navbarData={navbar}
+          styleClsss={style.navbarSecondary}
+        ></NavbarSecondary>
+      )}
+
+      {/* End Navbar Secondary */}
       <nav className="container" role="navigation" aria-label="Main">
         <Link href="/">
           <a
@@ -148,6 +158,7 @@ const Navbar = ({ globalData }) => {
             active={mainNavigationActive}
             mainNavigation={navbar.fields.mainNavigation}
             handleSetMainNavigationActive={handleSetMainNavigationActive}
+            navbarData={navbar}
           />
         </div>
       </nav>

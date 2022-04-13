@@ -13,8 +13,8 @@ const TextWithForm = ({ module, customData }) => {
   const { fields } = module;
   const [formLoaded, setFormLoaded] = useState(false);
   const narrowContainer = boolean(fields?.narrowContainer);
-  const columnLayout = boolean(fields?.columnLayout);
-  const formLeft = boolean(fields?.formLeft);
+  const columnLayout = fields.layout == "column";
+  const formLeft = fields.layout == "formLeft";
   const showAwards = boolean(fields?.showAwards);
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
@@ -49,11 +49,7 @@ const TextWithForm = ({ module, customData }) => {
             className={
               columnLayout
                 ? style.columnLayoutContent
-                : `${style.content} ${
-                    formLeft
-                      ? "flex-direction-row-reverse"
-                      : "flex-direction-row"
-                  }`
+                : `${style.content} ${formLeft ? style.formLeft : ""}`
             }
           >
             {(heading || subheading) && (
@@ -142,7 +138,7 @@ const FormLoader = () => {
       </div>
     </form>
   );
-}
+};
 
 TextWithForm.getCustomInitialProps = async function ({
   agility,

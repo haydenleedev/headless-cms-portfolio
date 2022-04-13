@@ -206,6 +206,9 @@
     @include tablet() {
       // default is six columns
       flex: 0 0 calc(16.6667% - 0.5rem);
+      &.is-1 {
+        flex-basis: 100%;
+      }
       &.is-2 {
         flex: 0 0 calc(50% - 0.5rem);
       }
@@ -329,8 +332,8 @@
   @include desktop() {
     padding: unset !important;
     position: relative;
-    padding-top: $navbar-height !important;
-    top: -$navbar-height;
+    padding-top: calc($navbar-height + $navbar-secondary-height) !important;
+    top: 0 - $navbar-height - $navbar-secondary-height;
   }
 }
 

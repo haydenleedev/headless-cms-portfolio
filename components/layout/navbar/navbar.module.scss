@@ -14,8 +14,18 @@
   position: sticky;
   top: 0;
   background: white;
+  .navbarSecondary {
+    display: none;
+    @include desktop() {
+      display: flex;
+    }
+  }
   &.scrolled {
     box-shadow: 0 0 0.5rem 0 #0000005b;
+    height: $navbar-height;
+    .navbarSecondary {
+      display: none;
+    }
   }
 
   &.transparent {
@@ -29,8 +39,9 @@
     z-index: 5;
   }
   @include desktop() {
+    height: $navbar-height-tall;
     padding-top: 0;
-    display: flex;
+    /* display: flex; */
     position: sticky;
     top: 0;
   }
@@ -280,7 +291,8 @@
 
   // Triangle
   &:not(.disabled) {
-    &:hover, &:focus-within {
+    &:hover,
+    &:focus-within {
       @include desktop() {
         &::before {
           position: absolute;
@@ -346,7 +358,6 @@
 
       & > ul {
         padding-bottom: 0;
-
       }
 
       &:first-child {
@@ -363,24 +374,28 @@
   max-height: 100vh;
   width: 100%;
   position: relative;
-  @include desktop () {
+  @include desktop() {
     overflow: unset;
     height: unset;
     max-height: unset;
     widows: unset;
     overflow-y: unset;
   }
+  .navbarSecondaryMobileLinks {
+    @include desktop() {
+      display: none;
+    }
+  }
 }
 
 .mainNavigationContainerClosed {
-    max-height: unset;
-    height: unset;
+  max-height: unset;
+  height: unset;
 }
 
 .mainNavigationContainerActive {
-  
   overflow-y: scroll;
-  @include desktop () {
+  @include desktop() {
     overflow-y: unset;
   }
 }
