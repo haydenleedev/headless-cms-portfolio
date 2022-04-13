@@ -18,7 +18,6 @@ export const NavigationGroup = ({
   const handleNavigationGroupClick = (fields, item) => {
     if (isMobile()) {
       if (item == activeNavigationItem) {
-          console.log("nulling")
         setActiveNavigationItem(null);
         return;
       }
