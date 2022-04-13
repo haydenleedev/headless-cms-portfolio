@@ -89,7 +89,7 @@ export const getStaticPaths = async () => {
   let { products } = await getHomePageData(res);
 
   // Removing Free Product Data
-  products.pop();
+  products?.pop();
   const paths = products.map((x) => {
     return {
       params: { id: x.primaryId.toString() },
