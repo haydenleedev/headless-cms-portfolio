@@ -23,7 +23,7 @@ const HeroImage = ({ module, narrowHeight, customData }) => {
       } `}
       id={fields.id ? fields.id : null}
     >
-      {heading && (
+      {heading?.text && (
         <div className={`container ${style.overlayText}`}>
           <Heading {...heading} />
           <div
