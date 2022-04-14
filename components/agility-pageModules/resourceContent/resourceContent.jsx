@@ -12,6 +12,7 @@ import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 import { useRouter } from "next/router";
 import FirstFold from "../firstFold/firstFold";
 import EmbedVideo from "../embedVideo/embedVideo";
+import Script from "next/script";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;
@@ -30,7 +31,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   } else {
     resourceCategory = asPath.split("/")[1];
   }
-
+  const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
   return (
     <>
       <OverrideSEO
@@ -49,6 +50,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
             articleBody: articleText,
           }),
         ]}
+      />
+      <Script
+        id="google-optimize"
+        src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
+        strategy="lazyOnload"
       />
       {resource.videoURL ? (
         <>
