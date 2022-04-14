@@ -30,7 +30,7 @@ const AcknowledgePageContent = () => {
         setLoading(false);
       } else {
         if (formData.freeFlow) router.push("/error/free-trial");
-        else router.push("/error/paid-plan");
+        else router.push("/error/paid-plan?step=acknowledge");
       }
     }
   }, []);
