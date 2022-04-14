@@ -84,11 +84,11 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
           'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
           })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
       </Script>
-      <Script
+      {/* <Script
         id="google-optimize"
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
         strategy="lazyOnload"
-      />
+      /> */}
 
       <Script id="bombora">
         {/* Bombora Tag */}
