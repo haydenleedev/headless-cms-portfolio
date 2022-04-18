@@ -1,14 +1,17 @@
 import { renderHTML } from "@agility/nextjs";
 import { useRef, useState, useEffect } from "react";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
+import Heading from "../heading";
 import style from "./accordion.module.scss";
 
-const Accordion = ({ customData }) => {
+const Accordion = ({ module, customData }) => {
   const { itemsWithSanitizedHTML } = customData;
   const detailsRefs = useRef([]);
   const itemContentRefs = useRef([]);
   const [activeItem, setActiveItem] = useState(null);
   const [lastKeyPress, setLastKeyPress] = useState(null);
+  const { fields } = module;
+  const heading = JSON.parse(fields.heading);
 
   itemsWithSanitizedHTML?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -17,12 +20,12 @@ const Accordion = ({ customData }) => {
   useEffect(() => {
     const handleKeyDown = (e) => {
       setLastKeyPress(e.key);
-    }
+    };
     const handleFocusIn = (index) => {
       return function curriedHandleFocusIn() {
         setActiveItem(index);
-      }
-    }
+      };
+    };
     if (typeof window !== "undefined") {
       window.addEventListener("keydown", handleKeyDown);
     }
@@ -39,11 +42,25 @@ const Accordion = ({ customData }) => {
 
   return (
     <section className="section">
-      <div className="container">
+      <div className="container max-width-narrow mb-3">
+        {heading.text ? (
+          <div className={`heading ${fields.headingAlignment}`}>
+            <Heading {...heading} />
+          </div>
+        ) : (
+          <div className={`heading mb-3 ${fields.headingAlignment}`}>
+            <h2 className="heading-5">Frequently Asked Questions</h2>
+          </div>
+        )}
         <div className={style.accordion}>
           {itemsWithSanitizedHTML.map((item, index) => {
             return (
-              <div key={`details${index}`}>
+              <div
+                key={`details${index}`}
+                className={`${style["bb-1"]} ${
+                  activeItem == index ? style.open : "null"
+                }`}
+              >
                 <details
                   className={style.accordionItem}
                   open={activeItem == index}
@@ -68,10 +85,10 @@ const Accordion = ({ customData }) => {
                       }
                     }}
                   >
-                    <div className={style.chevron} />
-                    <h3 className="heading-5 text-darkblue">
-                      {item.fields.heading}
-                    </h3>
+                    <h3 className="heading-6">{item.fields.heading}</h3>
+                    <span className={style.circle}>
+                      <span className={style.chevron} />
+                    </span>
                   </summary>
                 </details>
                 <div

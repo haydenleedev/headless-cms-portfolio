@@ -1,65 +1,94 @@
 @import "../../../styles/settings/mixins";
 @import "../../../styles/settings/colors";
 
-.accordion, .accordionItem {
-    display: flex;
-    flex-direction: column;
+.accordion,
+.accordionItem {
+  display: flex;
+  flex-direction: column;
 }
 .accordion {
-    .accordionItem {
-        .itemToggle {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: .75rem 0;
-            cursor: pointer;
-            user-select: none;
-            &::-webkit-details-marker {
-                display:none;
-              }
-            .chevron {
-                width: .75rem;
-                height: .75rem;
-                margin-left: .2rem;
-                border-color: $color-darkblue;
-                border-width: 0 .25rem .25rem 0;
-                border-style: solid;
-                transform: translateY(-.2rem) rotate(45deg);
-            }
-            span {
-                color: $color-white;
-                font-size: 1.25rem;
-            }
-            @include focus-visible-touch-outlines();
-        }
-        &[open] {
-            .chevron {
-                transform: translateY(.2rem) rotate(225deg);
-            }
-            ~ .itemContent {
-                position: relative;
-                left: auto;
-                animation: slide-down 500ms;
-            }
-            @keyframes slide-down {
-                0% {
-                    pointer-events: none;
-                    transform: translateY(-3rem);
-                    opacity: 0;
-                }
-                100% {
-                    transform: translateY(0);
-                    opacity: 1;
-                }
-            }
-        }
+  padding: 0;
+  border: toRem(1) solid $color-darkmediumgray;
+  border-radius: 1rem;
+  .open {
+    &:first-of-type {
+      border-radius: 1rem 1rem 0 0;
     }
-    .itemContent {
-        position: absolute;
-        left: -2147483647px;
-        color: $color-black;
-        a {
-            color: $color-darkblue;
-        }
+    &:last-of-type {
+      border-radius: 0 0 1rem 1rem;
     }
+    background-color: $color-lightgray;
+  }
+  @include shadow();
+  .bb-1 {
+    border-bottom: toRem(1) solid $color-darkmediumgray;
+    &:last-of-type {
+      border-bottom: 0;
+    }
+  }
+  .accordionItem {
+    .itemToggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: toRem(15) toRem(30);
+      cursor: pointer;
+      user-select: none;
+      &::-webkit-details-marker {
+        display: none;
+      }
+      .circle {
+        border: toRem(1) solid $color-darkblue;
+        padding: toRem(10);
+        border-radius: 50%;
+      }
+      .chevron {
+        display: block;
+        width: 0.75rem;
+        height: 0.75rem;
+        border-color: $color-darkblue;
+        border-width: 0 toRem(2) toRem(2) 0;
+        border-style: solid;
+        transform: rotate(-45deg);
+        transition: transform 300ms linear;
+      }
+      span {
+        color: $color-white;
+        font-size: 1.25rem;
+      }
+      @include focus-visible-touch-outlines();
+    }
+    &[open] {
+      .chevron {
+        transform: rotate(45deg);
+        transition: transform 300ms linear;
+      }
+      ~ .itemContent {
+        position: relative;
+        left: auto;
+        animation: slide-down 500ms;
+        padding: 0 toRem(30) toRem(30) toRem(30);
+      }
+      @keyframes slide-down {
+        0% {
+          pointer-events: none;
+          transform: translateY(-3rem);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .itemContent {
+    position: absolute;
+    left: -2147483647px;
+    color: $color-black;
+    a {
+      color: $color-darkblue;
+    }
+  }
 }
