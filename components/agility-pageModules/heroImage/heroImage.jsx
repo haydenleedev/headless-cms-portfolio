@@ -1,4 +1,3 @@
-import { boolean } from "../../../utils/validation";
 import Media from "../media";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
