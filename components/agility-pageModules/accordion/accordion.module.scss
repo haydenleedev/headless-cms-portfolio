@@ -68,7 +68,7 @@
         position: relative;
         left: auto;
         animation: slide-down 500ms;
-        padding: 0 toRem(30) toRem(30) toRem(30);
+        padding: toRem(10) toRem(30) toRem(30) toRem(30);
       }
       @keyframes slide-down {
         0% {
