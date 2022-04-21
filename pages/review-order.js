@@ -150,7 +150,11 @@ export default function ReviewOrder({ seo }) {
       setLoading2(false);
       router.push("/acknowledge");
     } catch (error) {
-      router.push("/error/paid-plan?previous=review-order");
+      router.push(
+        `/error/paid-plan?previous=review-order&step=review-order&errorMessage=${encodeURIComponent(
+          error.message
+        )}`
+      );
       setLoading2(false);
     }
   };

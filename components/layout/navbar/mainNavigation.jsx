@@ -56,20 +56,60 @@ const MainNavigation = ({
         <Fragment key={`navItem${index}`}>
           {index == mainNavigation.length - 1 && (
             // Render the secondary navigation links before the request a demo button
-            <NavigationGroup
-              navigationGroup={secondaryNavDropdownData}
-              index={index}
-              mainNavigation={mainNavigation}
-              activeNavigationItem={activeNavigationItem}
-              setActiveNavigationItem={setActiveNavigationItem}
-              handleSetMainNavigationActive={handleSetMainNavigationActive}
-              searchToggled={searchToggled}
-              secondaryNavigation
-            />
+            <>
+              {navbarData.fields.navbarSecondaryMobileDropdown ? (
+                <NavigationGroup
+                  navigationGroup={secondaryNavDropdownData}
+                  index={index}
+                  mainNavigation={mainNavigation}
+                  activeNavigationItem={activeNavigationItem}
+                  setActiveNavigationItem={setActiveNavigationItem}
+                  handleSetMainNavigationActive={handleSetMainNavigationActive}
+                  searchToggled={searchToggled}
+                  secondaryNavigation
+                />
+              ) : (
+                <>
+                  {navbarData.fields.navbarSecondary?.map((link, i) => {
+                    const linkData = {
+                      fields: {
+                        mainLink: {
+                          fields: {
+                            internalTitle: link.fields.text,
+                            link: link.fields.link,
+                          },
+                        },
+                      },
+                    };
+                    return (
+                      <NavigationGroup
+                        key={`secondaryNavItem${i}`}
+                        navigationGroup={linkData}
+                        index={index + i}
+                        mainNavigation={mainNavigation}
+                        activeNavigationItem={activeNavigationItem}
+                        setActiveNavigationItem={setActiveNavigationItem}
+                        handleSetMainNavigationActive={
+                          handleSetMainNavigationActive
+                        }
+                        searchToggled={searchToggled}
+                        secondaryNavigation
+                      />
+                    );
+                  })}
+                </>
+              )}
+            </>
           )}
           <NavigationGroup
             navigationGroup={navigationGroup}
-            index={index == mainNavigation.length - 1 ? index + 1 : index}
+            index={
+              index == mainNavigation.length - 1
+                ? navbarData.fields.navbarSecondaryMobileDropdown
+                  ? index + 1
+                  : index + navbarData.fields.navbarSecondary.length
+                : index
+            }
             mainNavigation={mainNavigation}
             activeNavigationItem={activeNavigationItem}
             setActiveNavigationItem={setActiveNavigationItem}
