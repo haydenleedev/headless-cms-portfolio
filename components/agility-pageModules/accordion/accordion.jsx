@@ -10,8 +10,8 @@ const Accordion = ({ module, customData }) => {
   const itemContentRefs = useRef([]);
   const [activeItem, setActiveItem] = useState(null);
   const [lastKeyPress, setLastKeyPress] = useState(null);
-  const { fields } = module;
-  const heading = JSON.parse(fields.heading);
+  const { fields } = module || {};
+  const heading = fields?.heading ? JSON.parse(fields.heading) : null;
 
   itemsWithSanitizedHTML?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -43,12 +43,12 @@ const Accordion = ({ module, customData }) => {
   return (
     <section className="section">
       <div className="container max-width-narrow mb-3">
-        {heading.text ? (
-          <div className={`heading ${fields.headingAlignment}`}>
+        {heading?.text ? (
+          <div className={`heading ${fields?.headingAlignment}`}>
             <Heading {...heading} />
           </div>
         ) : (
-          <div className={`heading mb-3 ${fields.headingAlignment}`}>
+          <div className={`heading mb-3 ${fields?.headingAlignment}`}>
             <h2 className="heading-5">Frequently Asked Questions</h2>
           </div>
         )}
