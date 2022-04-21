@@ -5,7 +5,7 @@ import { useState } from "react";
 import { boolean } from "../../../utils/validation";
 import { Form, FormWrapper } from "../../form";
 import AgilityLink from "../../agilityLink";
-import { resolveCategory, sanitizeHtmlConfig } from "../../../utils/convert";
+import { convertUJETLinksToHttps, resolveCategory, sanitizeHtmlConfig } from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
@@ -238,7 +238,7 @@ ResourceContent.getCustomInitialProps = async function ({ dynamicPageItem }) {
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
   const sanitizedHtml = dynamicPageItem.fields.text
-    ? cleanHtml(dynamicPageItem.fields.text)
+    ? convertUJETLinksToHttps(cleanHtml(dynamicPageItem.fields.text))
     : null;
 
   return {
