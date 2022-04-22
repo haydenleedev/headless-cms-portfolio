@@ -11,7 +11,6 @@ import shop from "../shop/styles/globals.module.scss";
 import GlobalContext from "../context";
 import { getShopSEOData } from "../shop/lib/agility";
 import ShopSEO from "../shop/components/shopSEO";
-import { logErrorToGraphJSON } from "../utils/logging";
 
 export default function ContactInformation({ seo }) {
   const router = useRouter();
@@ -44,7 +43,6 @@ export default function ContactInformation({ seo }) {
         }
       );
       const data = await result.json();
-      data.error = "Test";
       if (data.error && data.cause) {
         setError(data.error);
         setLoading(false);
@@ -53,7 +51,6 @@ export default function ContactInformation({ seo }) {
         (data.error === null && data.cause === null)
       ) {
         router.push("/error/sf?previous=contact-information");
-        logErrorToGraphJSON({ previous: "contact-information" });
       } else {
         updateFormData(data);
         setLoading(false);
@@ -61,7 +58,6 @@ export default function ContactInformation({ seo }) {
       }
     } catch (error) {
       console.log(error.message);
-      logErrorToGraphJSON({ error: error.message });
       setLoading(false);
     }
   };
