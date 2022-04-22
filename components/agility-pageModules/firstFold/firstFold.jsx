@@ -47,20 +47,18 @@ const FirstFold = ({ module, customData }) => {
 
   const FirstFoldLink = ({ primary }) => {
     const link = primary ? fields.primaryLink : fields.secondaryLink;
-    return (link?.href && link?.text) ? (
+    return link?.href && link?.text ? (
       <AgilityLink
         agilityLink={link}
-        className={`button ${primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink} ${
-          fields.linkClasses ? fields.linkClasses : ""
-        }`}
+        className={`button ${
+          primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
+        } ${fields.linkClasses ? fields.linkClasses : ""}`}
         ariaLabel={`Navigate to page ` + link.href}
         title={`Navigate to page ` + link.href}
       >
         {link.text}
       </AgilityLink>
-    ) : (
-      null
-    );
+    ) : null;
   };
 
   // different layout when alternateLayout or customerStory is toggled on
@@ -73,7 +71,11 @@ const FirstFold = ({ module, customData }) => {
         id={fields.id ? fields.id : null}
       >
         {fields.media && (
-          <div className={style.backgroundImage}>
+          <div
+            className={`${style.backgroundImage} ${
+              fields.mediaClasses ? fields.mediaClasses : ""
+            }`}
+          >
             <Media media={fields.media} />
           </div>
         )}
@@ -278,7 +280,9 @@ const FirstFold = ({ module, customData }) => {
                   fixedMediaHeight
                     ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
                     : ""
-                } ${style[fields.mediaVerticalAlignment]}`}
+                } ${style[fields.mediaVerticalAlignment]} ${
+                  fields.mediaClasses ? fields.mediaClasses : ""
+                }`}
                 data-animate="true"
               >
                 <Media media={fields.media} title={fields.mediaTitle} />
@@ -299,7 +303,9 @@ const FirstFold = ({ module, customData }) => {
                   fixedMediaHeight
                     ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
                     : ""
-                } ${style[fields.mediaVerticalAlignment]}`}
+                } ${style[fields.mediaVerticalAlignment]} ${
+                  fields.mediaClasses ? fields.mediaClasses : ""
+                }`}
                 ariaLabel={`Navigate to page ` + fields.imageLink.href}
                 title={`Navigate to page ` + fields.imageLink.href}
               >

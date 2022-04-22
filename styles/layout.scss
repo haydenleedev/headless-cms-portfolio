@@ -266,6 +266,15 @@
   font-weight: bold;
 }
 
+.b-r-30px {
+  border-radius: toRem(30);
+  overflow: hidden;
+}
+
+.object-fit-fill img {
+  object-fit: fill !important;
+}
+
 .wrap {
   @include siteWidth();
   margin: 0 auto;
