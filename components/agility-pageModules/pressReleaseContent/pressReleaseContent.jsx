@@ -1,7 +1,7 @@
 import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
 import { article } from "../../../schema";
-import { sanitizeHtmlConfig } from "../../../utils/convert";
+import { convertUJETLinksToHttps, sanitizeHtmlConfig } from "../../../utils/convert";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import style from "./pressReleaseContent.module.scss";
@@ -80,7 +80,7 @@ PressReleaseContent.getCustomInitialProps = async function ({
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
   const sanitizedHtml = dynamicPageItem.fields.text
-    ? cleanHtml(dynamicPageItem.fields.text)
+    ? convertUJETLinksToHttps(cleanHtml(dynamicPageItem.fields.text))
     : null;
 
   return {

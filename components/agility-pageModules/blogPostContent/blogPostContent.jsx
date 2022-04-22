@@ -4,7 +4,7 @@ import style from "./blogPostContent.module.scss";
 import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
-import { sanitizeHtmlConfig } from "../../../utils/convert";
+import { convertUJETLinksToHttps, sanitizeHtmlConfig } from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article, blogPosting } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
@@ -287,7 +287,7 @@ BlogPostContent.getCustomInitialProps = async ({
     // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
     const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-    const sanitizedHtml = cleanHtml(dynamicPageItem.fields.content);
+    const sanitizedHtml = convertUJETLinksToHttps(cleanHtml(dynamicPageItem.fields.content));
 
     return {
       relatedBlogPosts,

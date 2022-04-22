@@ -1,14 +1,20 @@
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import { boolean } from "../../../utils/validation";
 import style from "./richTextArea.module.scss";
 
 const RichTextArea = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
   const { fields } = module;
-  const fullContainerWidth = boolean(fields?.fullContainerWidth);
-  const alignCenter = boolean(fields?.alignCenter);
-  const narrowContainer = boolean(fields?.narrowContainer);
+  const contentHorizontalAlignmentClass = fields.contentHorizontalAlignment
+    ? `align-${fields.contentHorizontalAlignment}`
+    : "";
+
+  let containerWidthClass = style.content;
+  if (fields.containerWidth == "narrow") {
+    containerWidthClass += " max-width-narrow";
+  } else if (fields.containerWidth == "fullContainerWidth") {
+    containerWidthClass = style.fullContainerWidthContent;
+  }
 
   return (
     <section
@@ -18,11 +24,7 @@ const RichTextArea = ({ module, customData }) => {
       id={fields.id ? fields.id : null}
     >
       <div
-        className={`container content ${
-          fullContainerWidth ? style.fullContainerWidthContent : style.content
-        } ${alignCenter ? "align-center" : ""} ${
-          narrowContainer ? "max-width-narrow" : ""
-        }`}
+        className={`container content ${containerWidthClass} ${contentHorizontalAlignmentClass}`}
         dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
       ></div>
     </section>

@@ -4,7 +4,12 @@ import { generateUUID } from "../../utils/generic";
 import { getCookie, setCookie } from "../../utils/cookies";
 import { marketoScriptReadyEvent } from "../../utils/dataLayer";
 
-const FormWrapper = ({ handleSetFormLoaded, formID, channelEmail, children }) => {
+const FormWrapper = ({
+  handleSetFormLoaded,
+  formID,
+  channelEmail,
+  children,
+}) => {
   // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"
   const splitID = formID?.split("_");
   const marketoFormID = formID ? parseInt(splitID[splitID.length - 1]) : null;
@@ -26,10 +31,6 @@ const FormWrapper = ({ handleSetFormLoaded, formID, channelEmail, children }) =>
     {
       name: "ga_cookie_id__c",
       id: "ga-cookie-id",
-    },
-    {
-      name: "ga_em_id__c",
-      id: "ga-em-id",
     },
   ];
 
@@ -110,14 +111,14 @@ const FormWrapper = ({ handleSetFormLoaded, formID, channelEmail, children }) =>
 
     // Flag done so we don't run it again
     gaDataAdded.current = true;
+  }
 
-    function setFormInputValue(inputName, value) {
-      document.getElementsByName(inputName).forEach((element) => {
-        if (element.nodeName === "INPUT") {
-          element.value = value;
-        }
-      });
-    }
+  function setFormInputValue(inputName, value) {
+    document.getElementsByName(inputName).forEach((element) => {
+      if (element.nodeName === "INPUT") {
+        element.value = value;
+      }
+    });
   }
 
   useEffect(() => {
@@ -135,10 +136,26 @@ const FormWrapper = ({ handleSetFormLoaded, formID, channelEmail, children }) =>
       if (!mutated) {
         mutations[0].target.removeAttribute("class");
         mutations[0].target.removeAttribute("style");
-        let emailInput = mutations[0].target.elements[channelEmail ? "channelEmail" : "Email"];
+        let emailInput =
+          mutations[0].target.elements[channelEmail ? "channelEmail" : "Email"];
 
         emailInput?.addEventListener?.("input", (evt) => {
           addGaData(evt.data);
+          // Update email meta & hidden input every time the field value changes
+          if (!document.getElementById("ga-em-id")) {
+            const head = document.getElementsByTagName("head")[0];
+            var meta = document.createElement("meta");
+            meta.name = "ga_em_id__c";
+            meta.id = "ga-em-id";
+            head.appendChild(meta);
+          }
+          const emailMeta = document.getElementById("ga-em-id");
+          const formattedEmailValue = document
+            .getElementById("Email")
+            .value.replace("@", "TrQ")
+            .replace(".", "OPt");
+          emailMeta.content = formattedEmailValue;
+          setFormInputValue(emailMeta.name, formattedEmailValue);
         });
 
         setMutated(true);

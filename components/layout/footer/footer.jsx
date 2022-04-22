@@ -179,11 +179,11 @@ const Footer = ({ globalData }) => {
         <hr className={style.horizontalLine}></hr>
         <div className={style.footNote}>
           <div className={style.cookies}>
-            <Script
+            {/* <Script
               src="//consent.truste.com/notice?domain=ujet.co&c=teconsent&js=bb&noticeType=bb&gtm=1"
               async={true}
               strategy="lazyOnload"
-            />
+            /> */}
             {/* "In order to generate the required GTM events you must add the
             following code to every page on which the CM is deployed" */}
             <Script
@@ -197,7 +197,7 @@ const Footer = ({ globalData }) => {
             {/* <button id="ot-sdk-btn" className="ot-sdk-show-settings">
               Cookie Settings
             </button> */}
-            <div id="teconsent"></div>
+            {/* <div id="teconsent"></div>
             <div className={style.trusteLinks}>
               <a
                 href="//privacy.truste.com/privacy-seal/validation?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
@@ -223,7 +223,7 @@ const Footer = ({ globalData }) => {
                   alt="TrustArc"
                 />
               </a>
-            </div>
+            </div> */}
           </div>
           <div className={`${style.footNoteLinks}`}>
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>

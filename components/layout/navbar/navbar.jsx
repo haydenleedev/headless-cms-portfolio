@@ -23,9 +23,17 @@ const Navbar = ({ globalData }) => {
       return new Promise((resolve) => {
         // check if TransparentizeNavbar module is placed on top of the Agility page module list.
         // promise is resolved to true if the module is detected. Otherwise resolves to false
-        const firstSection = document
+        let firstSection;
+        const sections = document
           .getElementById("__next")
-          ?.querySelector?.("main").firstChild;
+          ?.querySelector?.("main").children;
+        for (let i = 0; i < sections.length; i++) {
+          // Avoid selecting Hidden H1
+          if (!sections[i].getAttribute("data-hidden-h1")) {
+            firstSection = sections[i];
+            break;
+          }
+        }
         if (firstSection?.getAttribute("data-navbar-hidden")) {
           setHidden(true);
         }
@@ -49,9 +57,17 @@ const Navbar = ({ globalData }) => {
             threshold: 1.0,
             rootMargin: "-80px 0px 0px 0px",
           };
-          const firstSection = document
+          let firstSection;
+          const sections = document
             .getElementById("__next")
-            .querySelector("main").firstChild;
+            ?.querySelector?.("main").children;
+          for (let i = 0; i < sections.length; i++) {
+            // Avoid selecting Hidden H1
+            if (!sections[i].getAttribute("data-hidden-h1")) {
+              firstSection = sections[i];
+              break;
+            }
+          }
           const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
               // transparency is dismissed with touch screen sizes.
