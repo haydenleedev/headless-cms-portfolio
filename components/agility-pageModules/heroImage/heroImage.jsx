@@ -1,4 +1,3 @@
-import { boolean } from "../../../utils/validation";
 import Media from "../media";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
@@ -9,19 +8,21 @@ const HeroImage = ({ module, narrowHeight, customData }) => {
   const { fields } = module;
   const { sanitizedHtml } = customData || {};
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
-  const containerWidth = boolean(fields.containerWidth);
-  const narrowContainer = boolean(fields?.narrowContainer);
+  const containerWidth = fields.width == "container";
+  const narrowContainer = fields.width == "narrow";
 
   return (
     <section
       className={`section ${style.heroImage} ${
         narrowHeight ? style.heroImageNarrowHeight : ""
-      } ${containerWidth ? "container" : ""} ${
-        narrowContainer ? "max-width-narrow" : ""
-      }`}
+      } ${
+        containerWidth || narrowContainer
+          ? `container ${narrowContainer ? "max-width-narrow" : ""}`
+          : ""
+      } `}
       id={fields.id ? fields.id : null}
     >
-      {heading && (
+      {heading?.text && (
         <div className={`container ${style.overlayText}`}>
           <Heading {...heading} />
           <div

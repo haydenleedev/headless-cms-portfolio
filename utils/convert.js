@@ -204,3 +204,7 @@ export const formatPageTitle = (title, suffix) => {
   }
   return title;
 };
+
+export const convertUJETLinksToHttps = (html) => {
+  return html?.replace(/http:\/\/ujet.cx/g, "https://ujet.cx");
+};
