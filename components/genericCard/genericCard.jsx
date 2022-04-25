@@ -28,7 +28,9 @@ const GenericCard = ({
         {(image || configuration?.defaultImage) && (
           <div
             className={`genericCard__image ${
-              configuration?.imageHeight ? `genericCard__image--${configuration?.imageHeight}` : ""
+              configuration?.imageHeight
+                ? `genericCard__image--${configuration?.imageHeight}`
+                : ""
             }`}
           >
             {image && image.pixelWidth ? (
@@ -75,14 +77,20 @@ const GenericCard = ({
               )}
             </p>
           )}
-          <p className="genericCard__textContent--newsSite">{newsSite}</p>
-          <p
-            className={`genericCard__textContent--title ${
-              configuration?.emphasizedTitle ? "genericCard__textContent--titleEmphasized" : ""
-            }`}
-          >
-            {title}
-          </p>
+          {newsSite && (
+            <p className="genericCard__textContent--newsSite">{newsSite}</p>
+          )}
+          {title && (
+            <p
+              className={`genericCard__textContent--title ${
+                configuration?.emphasizedTitle
+                  ? "genericCard__textContent--titleEmphasized"
+                  : ""
+              }`}
+            >
+              {title}
+            </p>
+          )}
           {description && (
             <p className="genericCard__textContent--description line-clamp">
               {description}
