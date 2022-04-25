@@ -57,17 +57,17 @@ const LatestCustomerStories = ({ module, customData }) => {
                     title={heading.text}
                     ariaTitle={`${heading.text} customer story`}
                     description={story.fields.description}
+                    configuration={{
+                      imageHeight: "tall",
+                      emphasizedTitle: true,
+                    }}
                   />
                 ) : (
-                  <AgilityLink
-                    agilityLink={story.fields.link}
-                  >
+                  <AgilityLink agilityLink={story.fields.link}>
                     <div className={style.story}>
                       <div>
                         <div className={style.storyImage}>
-                          <Media
-                            media={story.fields.image}
-                          />
+                          <Media media={story.fields.image} />
                         </div>
                         <div className={style.storyTitle}>
                           <Heading {...heading} />

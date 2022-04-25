@@ -10,6 +10,7 @@ import Media from "../media";
 import { isMobile } from "../../../utils/responsivity";
 import GenericCard from "../../genericCard/genericCard";
 import GenericCardListLoader from "../../genericCard/genericCardListLoader";
+import ujetLogo from "../../../assets/ujet-logo.svg";
 
 const BlogPageContent = ({ customData }) => {
   const { query } = useRouter();
@@ -227,13 +228,16 @@ const BlogPageContent = ({ customData }) => {
                   <div className="columns repeat-3">
                     {page.map((item) => (
                       <GenericCard
+                        key={item.contentID}
                         image={item.fields?.image}
                         title={item.fields.title}
                         ariaTitle={item.fields.title}
                         link={{ href: `blog/${item.fields.slug}` }}
                         // date={item.fields.date}
                         // category="Blog"
-                        key={item.contentID}
+                        configuration={{
+                          defaultImage: ujetLogo,
+                        }}
                       />
                     ))}
                   </div>
