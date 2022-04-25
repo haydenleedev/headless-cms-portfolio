@@ -1,7 +1,79 @@
 @import "../settings/_mixins";
 
+$card-image-height: toRem(170);
+$card-border-radius: 1rem;
+$card-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
+
+.genericCardListLoader .genericCardLoading,
+.genericCardWrapper .genericCard {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-white;
+  border-radius: $card-border-radius;
+  @include shadow();
+}
+
+.genericCardListLoader {
+  .genericCardLoading {
+    height: 22.5vh;
+    min-height: 18.75rem;
+    justify-content: flex-start;
+    width: 100%;
+    .loadingImageField {
+      justify-self: flex-start;
+      flex: 0 0 $card-image-height;
+      background: $color-gray;
+      overflow: hidden;
+      border-top-left-radius: $card-border-radius;
+      border-top-right-radius: $card-border-radius;
+    }
+    .loadingTextContent {
+      flex: 1 1 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      .loadingTextFieldWide {
+        height: 1rem;
+        width: 80%;
+        border-radius: 1rem;
+        margin: 0.25rem 1.5rem;
+      }
+      .loadingTextFieldNarrow {
+        height: 1rem;
+        width: 40%;
+        border-radius: 1rem;
+        margin: 0.5rem 1.5rem;
+      }
+    }
+    .loadingImageField,
+    .loadingTextContent .loadingTextFieldWide,
+    .loadingTextContent .loadingTextFieldNarrow {
+      background-image: linear-gradient(
+        65deg,
+        $color-lightgray 0%,
+        $color-mediumgray 50%,
+        $color-lightgray 100%
+      );
+      background-size: 600%;
+      animation: bg-animation 1.5s infinite;
+    }
+  }
+  @keyframes bg-animation {
+    0% {
+      background-position: left;
+    }
+    50% {
+      background-position: right;
+    }
+    100% {
+      background-position: left;
+    }
+  }
+}
+
 .genericCardWrapper {
-  @supports #{'\selector(*:focus-visible)'} {
+  @supports #{"\selector(*:focus-visible)"} {
     &:not(:focus-visible) {
       .genericCard {
         outline: none !important;
@@ -14,7 +86,7 @@
       }
     }
   }
-  @supports #{'\not selector(*:focus-visible)'} {
+  @supports #{"\not selector(*:focus-visible)"} {
     &:focus {
       outline: none !important;
       .genericCard {
@@ -32,25 +104,12 @@
   }
   .genericCard {
     height: 100%;
-    border-radius: 1rem;
-    @include shadow();
-    display: flex;
-    flex-direction: column;
-    .image {
-      max-height: 22.5rem;
-    }
-    @include desktop() {
-      .image {
-        max-height: initial;
-      }
-    }
-  
     &__image {
       background: $color-gray;
-      height: toRem(170);
+      height: $card-image-height;
       overflow: hidden;
-      border-top-left-radius: 1rem;
-      border-top-right-radius: 1rem;
+      border-top-left-radius: $card-border-radius;
+      border-top-right-radius: $card-border-radius;
       & > span {
         &:only-child {
           height: 100% !important;
@@ -61,14 +120,12 @@
       display: flex;
       flex-direction: column;
       align-items: stretch;
-  
       &--date {
         text-transform: uppercase;
         color: $color-black;
         font-size: 1rem;
         padding: 1rem 1.5rem 0 1.5rem;
       }
-  
       &--category {
         text-transform: capitalize;
         color: $color-black;
@@ -76,15 +133,31 @@
         font-weight: 600;
         padding: 1rem 1.5rem 0 1.5rem;
       }
-  
       &--title {
-        padding: 1rem 1.5rem 0 1.5rem;
+        font-size: 1rem;
+        line-height: 1.2;
+        padding: 0.75rem 1.5rem 0 1.5rem;
       }
-  
       &--description {
         padding: 1rem 1.5rem 0 1.5rem;
       }
-  
+      &--podcast {
+        background: url(https://assets.ujet.cx/files/Icons/podcast-icon-white.svg)
+          no-repeat 0.5rem center $color-orange;
+        background-size: toRem(13);
+        padding: 0.2rem 0.5rem 0.2rem 1.62rem;
+        margin-left: 0.5rem;
+        font-size: 0.7rem;
+        color: $color-white;
+        border-radius: 1rem;
+      }
+      &--newsSite {
+        padding: 0 1.5rem;
+        display: block;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: $color-darkblue;
+      }
       &--link {
         padding: 0.5rem 1.5rem 1.3rem 1.5rem;
         display: block;

@@ -9,10 +9,12 @@ const GenericCard = ({
   category,
   overrideCategory,
   title,
+  ariaTitle,
   description,
   image,
   link,
-  ariaTitle,
+  newsSite,
+  podcast,
 }) => {
   return (
     <AgilityLink
@@ -41,13 +43,16 @@ const GenericCard = ({
           {category && !overrideCategory && (
             <p className="genericCard__textContent--category">
               {resolveCategory(category)}
+              {podcast && <span className="genericCard__textContent--podcast">Podcast</span>}
             </p>
           )}
           {overrideCategory && (
             <p className="genericCard__textContent--category">
               {overrideCategory}
+              {podcast && <span className="genericCard__textContent--podcast">Podcast</span>}
             </p>
           )}
+          <p className="genericCard__textContent--newsSite">{newsSite}</p>
           <p className="genericCard__textContent--title">{title}</p>
           {description && (
             <p className="genericCard__textContent--description line-clamp">
