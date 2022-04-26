@@ -15,6 +15,7 @@ const BlankCards = ({ module }) => {
           {cards.map((card, index) => {
             return (
               <div
+                key={`card${index}`}
                 className={`
                   ${
                     cards.length < fields.maxCardsPerRow
@@ -23,7 +24,6 @@ const BlankCards = ({ module }) => {
                   }`}
               >
                 <GenericCard
-                  key={`card${index}`}
                   link={card.fields.link}
                   title={card.fields.title}
                   image={card.fields.image}
