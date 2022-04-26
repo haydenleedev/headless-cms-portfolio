@@ -147,7 +147,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
       </Script>
 
       {/* Qualified Script */}
-      {/* <Script id="qualified">
+      <Script id="qualified" strategy="lazyOnload">
         {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
       </Script>
@@ -156,7 +156,50 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         async
         src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
         strategy="lazyOnload"
-      /> */}
+      />
+      <Script id="ax" strategy="afterInteractive">
+        {`
+          _atrk_opts = { atrk_acct:"xw4cw1Y1Mn20Io", domain:"ujet.cx",dynamic: true};
+          (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+        `}
+      </Script>
+      <Script id="g2Crowd" strategy="afterInteractive">
+        {`
+          (function (c, p, d, u, id, i) {
+            id = ''; // Optional Custom ID for user in your system
+            u = 'https://tracking.g2crowd.com/attribution_tracking/conversions/' + c + '.js?p=' + encodeURI(p) + '&e=' + id;
+            i = document.createElement('script');
+            i.type = 'application/javascript';
+            i.async = true;
+            i.src = u;
+            d.getElementsByTagName('head')[0].appendChild(i);
+          }("1136", document.location.href, document));
+        `}
+      </Script>
+      <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
+        {`
+          (function() {
+            var didInit = false;
+            function initMunchkin() {
+              if(didInit === false) {
+                didInit = true;
+                Munchkin.init('205-VHT-559');
+              }
+            }
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = '//munchkin.marketo.net/munchkin.js';
+            s.onreadystatechange = function() {
+              if (this.readyState == 'complete' || this.readyState == 'loaded') {
+                initMunchkin();
+              }
+            };
+            s.onload = initMunchkin;
+            document.getElementsByTagName('head')[0].appendChild(s);
+          })();
+          `}
+      </Script>
     </>
   );
 };
