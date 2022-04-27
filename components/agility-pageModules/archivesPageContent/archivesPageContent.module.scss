@@ -209,6 +209,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      & > div {
+        &:only-child {
+          gap: 1rem;
+          @include desktop() {
+            gap: 2rem;
+          }
+        }
+      }
     }
     .pagination {
       grid-area: pages;
