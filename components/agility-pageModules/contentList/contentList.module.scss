@@ -7,10 +7,8 @@
     text-align: center;
   }
   .items {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    justify-items: center;
     gap: 1rem;
     .contentItem {
       width: 90vw;
@@ -22,7 +20,6 @@
       }
     }
     @include desktop() {
-      display: grid;
       gap: 2rem;
       width: 100%;
       grid-template-columns: repeat(3, 1fr);
