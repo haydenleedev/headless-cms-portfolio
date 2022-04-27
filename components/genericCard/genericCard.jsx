@@ -11,7 +11,7 @@ const GenericCard = (props) => {
           agilityLink={props.link}
           ariaLabel={props.ariaTitle && "Navigate to : " + props.ariaTitle}
           title={props.ariaTitle}
-          className="genericCardWrapper"
+          className="genericCardWrapper genericCardWrapper__link"
         >
           <RenderGenericCard properties={props} />
         </AgilityLink>

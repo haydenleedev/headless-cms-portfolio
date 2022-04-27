@@ -84,32 +84,34 @@ $card-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
 
 .genericCardWrapper {
   height: 100%;
-  @supports #{"\selector(*:focus-visible)"} {
-    &:not(:focus-visible) {
-      .genericCard {
+  &__link {
+    @supports #{"\selector(*:focus-visible)"} {
+      &:not(:focus-visible) {
+        .genericCard {
+          outline: none !important;
+        }
+      }
+      &:focus-visible {
         outline: none !important;
+        .genericCard {
+          @include outline();
+        }
       }
     }
-    &:focus-visible {
-      outline: none !important;
-      .genericCard {
-        @include outline();
+    @supports #{"\not selector(*:focus-visible)"} {
+      &:focus {
+        outline: none !important;
+        .genericCard {
+          @include outline();
+        }
       }
     }
-  }
-  @supports #{"\not selector(*:focus-visible)"} {
-    &:focus {
-      outline: none !important;
-      .genericCard {
-        @include outline();
-      }
-    }
-  }
-  @media (any-pointer: coarse) {
-    &:hover {
-      outline: none !important;
-      .genericCard {
-        @include outline();
+    @media (any-pointer: coarse) {
+      &:hover {
+        outline: none !important;
+        .genericCard {
+          @include outline();
+        }
       }
     }
   }
