@@ -85,12 +85,18 @@ const Accordion = ({ module, customData }) => {
                       }
                     }}
                   >
-                    <h3 className="text-20px w-600 text-darkblue">
-                      {item.fields.heading}
-                    </h3>
-                    <span className={style.circle}>
-                      <span className={style.chevron} />
-                    </span>
+                    <div className="width-100 d-flex align-items-center justify-content-space-between">
+                      <div>
+                        <h3 className="text-20px w-600 text-darkblue">
+                          {item.fields.heading}
+                        </h3>
+                      </div>
+                      <div className="d-flex">
+                        <span className={style.circle}>
+                          <span className={style.chevron} />
+                        </span>
+                      </div>
+                    </div>
                   </summary>
                 </details>
                 <div
