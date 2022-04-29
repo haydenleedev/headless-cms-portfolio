@@ -4,13 +4,27 @@
 .cardGrid {
     display: flex;
     $card-gap: 2rem;
-    gap: $card-gap;
     flex-wrap: wrap;
     justify-content: center;
     > div {
         flex-basis: 100%;
+        &:not(:only-child) {
+            &:not(:first-child) {
+                // Use margin-top on mobile, as margin-bottom cannot be overridden due to mb-0 having the !important property
+                margin-top: $card-gap;
+                @include desktop() {
+                    margin-top: 0;
+                }
+            }
+            @include desktop() {
+                margin-bottom: $card-gap;
+            }
+        }
     }
     @include desktop() {
+        > div + * {
+            margin-left: $card-gap;
+        }
         .flexBasis1 {
             flex-basis: 100%;
         }

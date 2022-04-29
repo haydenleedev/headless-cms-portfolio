@@ -8,6 +8,13 @@ const BlankCards = ({ module }) => {
   cards.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
+  const maxCardsPerRow =
+    fields.maxCardsPerRow &&
+    fields.maxCardsPerRow > 0 &&
+    fields.maxCardsPerRow <= 4
+      ? parseInt(fields.maxCardsPerRow)
+      : 4;
+  const numberOfRows = Math.ceil(cards.length / maxCardsPerRow);
   return (
     <section className="section">
       <div className="container">
@@ -18,10 +25,12 @@ const BlankCards = ({ module }) => {
                 key={`card${index}`}
                 className={`
                   ${
-                    cards.length < fields.maxCardsPerRow
+                    cards.length < maxCardsPerRow
                       ? style[`flexBasis${cards.length}`]
-                      : style[`flexBasis${fields.maxCardsPerRow}`]
-                  }`}
+                      : style[`flexBasis${maxCardsPerRow}`]
+                  } ${index % maxCardsPerRow == 0 ? "ml-0" : ""} ${
+                  index + 1 > (numberOfRows - 1) * maxCardsPerRow ? "mb-0" : ""
+                }`}
               >
                 <GenericCard
                   link={card.fields.link}
