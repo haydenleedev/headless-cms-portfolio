@@ -29,9 +29,11 @@
     display: flex;
     flex-wrap: wrap;
     z-index: 1;
-    gap: 2rem;
     aside {
       flex-basis: 100%;
+      &:first-child:not(:only-child) {
+        margin-bottom: 2rem;
+      }
     }
     .textContent {
       color: $color-white;

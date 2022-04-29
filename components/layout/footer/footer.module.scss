@@ -124,7 +124,9 @@
     }
     .trusteLinks {
       display: flex;
-      gap: 0.25rem;
+      a:not(:last-child) {
+        margin-right: 0.25rem;
+      }
       img {
         max-width: 6.625rem;
       }

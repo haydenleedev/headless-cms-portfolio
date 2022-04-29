@@ -184,10 +184,10 @@
             a {
               display: flex;
               flex-direction: column;
-              gap: 0.25rem;
               .autocompleteEntryTitle {
                 font-weight: 600;
                 color: $color-black;
+                margin-bottom: 0.25rem;
               }
             }
           }

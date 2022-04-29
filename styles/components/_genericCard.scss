@@ -22,8 +22,14 @@ $card-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
     width: 100%;
     &--tall {
       height: 62.5vh;
-      .loadingTextContent {
-        gap: 0.5rem;
+      .loadingTextContent div:not(:last-child){
+        margin-bottom: 0.5rem;
+        &.loadingTextFieldWide {
+          margin-bottom: 0.75rem;
+        }
+        &.loadingTextFieldNarrow {
+          margin-bottom: 1rem;
+        }
       }
     }
     .loadingImageField {

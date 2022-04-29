@@ -40,9 +40,11 @@
   &__social-medias {
     display: flex;
     justify-content: center;
-    gap: 1rem;
     &--media {
       max-width: 2.25rem;
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
       img {
         width: unset !important;
         height: unset !important;
