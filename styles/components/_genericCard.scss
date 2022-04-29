@@ -218,7 +218,9 @@ $card-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
         border-radius: 0;
         background-color: transparent;
         flex: 0 0 40%;
-        margin-right: 0.75rem;
+        &:not(:only-child) {
+          margin-right: 0.75rem;
+        }
         > span {
           height: 100% !important;
           img {
