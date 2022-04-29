@@ -22,24 +22,44 @@
       margin-bottom: 1rem;
     }
   }
+  @mixin grid-item-vertical-gap($gap) {
+    &:not(:only-child) {
+      &:not(:first-child) {
+        // Use margin-top on mobile, as margin-bottom cannot be overridden due to mb-0 having the !important property
+        margin-top: $gap;
+        @include tablet() {
+          margin-top: 0;
+        }
+      }
+      @include tablet() {
+        margin-bottom: $gap;
+      }
+    }
+  }
   .content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     .grid {
-      gap: $smaller-gap;
-      &.hasLargerGap {
-        gap: $larger-gap;
-      }
       .gridItem {
         min-width: 0;
         min-height: max-content;
         flex-grow: 0;
         flex-shrink: 0;
         flex-basis: 100%;
+        @include grid-item-vertical-gap($smaller-gap);
+      }
+      &.hasLargerGap .gridItem {
+        @include grid-item-vertical-gap($larger-gap);
       }
       @include tablet {
+        .gridItem + .gridItem {
+          margin-left: $smaller-gap;
+        }
+        &.hasLargerGap .gridItem + .gridItem {
+          margin-left: $larger-gap;
+        }
         .gridItem {
           &.is-1 {
             flex-basis: 100%;
@@ -176,7 +196,9 @@
   .textItemContentWrapper {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    .textItemSecondText:not(:only-child) * {
+      margin-top: 0.5rem;
+    }
   }
   &.logoLeftHeaderRight {
     &.medium {
@@ -194,14 +216,22 @@
         grid-gap: 0;
         display: grid;
         grid-template-columns: 1fr;
+        .gridItem {
+          margin-left: 0;
+        }
         @media (min-width: 25.5rem) {
           grid-template-columns: 1fr 1fr;
+          .gridItem {
+            margin-top: 0 !important;
+          }
         }
         @include desktop() {
           display: flex;
-          gap: $smaller-gap;
-          &.hasLargerGap {
-            gap: $larger-gap;
+          .gridItem {
+            margin-left: $smaller-gap;
+          }
+          &.hasLargerGap .gridItem {
+            margin-left: $larger-gap;
           }
         }
       }
