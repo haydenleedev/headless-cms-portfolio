@@ -246,6 +246,10 @@
           height: initial !important;
         }
         &.textItemSvgMedia {
+          > span > span {
+            // This is needed to prevent oversized images on older versions of Safari
+            height: 0 !important;
+          }
           img {
             position: unset !important;
           }
