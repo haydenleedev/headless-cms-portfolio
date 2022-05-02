@@ -48,16 +48,18 @@ const FirstFold = ({ module, customData }) => {
   const FirstFoldLink = ({ primary }) => {
     const link = primary ? fields.primaryLink : fields.secondaryLink;
     return link?.href && link?.text ? (
-      <AgilityLink
-        agilityLink={link}
-        className={`button ${
-          primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
-        } ${fields.linkClasses ? fields.linkClasses : ""}`}
-        ariaLabel={`Navigate to page ` + link.href}
-        title={`Navigate to page ` + link.href}
-      >
-        {link.text}
-      </AgilityLink>
+      <div className={style.linkWrapper}>
+        <AgilityLink
+          agilityLink={link}
+          className={`button ${
+            primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
+          } ${fields.linkClasses ? fields.linkClasses : ""}`}
+          ariaLabel={`Navigate to page ` + link.href}
+          title={`Navigate to page ` + link.href}
+        >
+          {link.text}
+        </AgilityLink>
+      </div>
     ) : null;
   };
 
