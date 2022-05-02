@@ -12,9 +12,32 @@
   }
   .content {
     display: flex;
-    gap: 3.5rem;
+    $gap: 3.5rem;
+    &.columnLayout {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .textContent:not(:only-child) {
+        margin-bottom: $gap;
+      }
+    }
+    &.mediaLeft {
+      flex-direction: row-reverse;
+      .textContent:not(:only-child) {
+        margin-left: $gap;
+      }
+    }
+    &.mediaRight {
+      flex-direction: row;
+      .textContent:not(:only-child) {
+        margin-right: $gap;
+      }
+    }
     @include touch() {
-      flex-direction: column-reverse;
+      flex-direction: column-reverse !important;
+      .textContent:not(:only-child) {
+        margin: $gap 0 0 0 !important;
+      }
     }
   }
   .fullPageWidthContent {
