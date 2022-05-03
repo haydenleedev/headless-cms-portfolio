@@ -45,14 +45,46 @@
   }
 
   nav {
-    padding:0 2.5rem;
-    display:flex;
-    .logo {
-      position: relative;
-      
+    padding: 0 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .logoContainer {
+      width: 30%;
+      .logo {
+        position: relative;
+      }
     }
-    .button{
 
+    .buttonContainer {
+      width: 30%;
+      display: flex;
+      justify-content: flex-end;
+      a {
+        display: flex;
+        align-items: center;
+        background: #ff4e33;
+        color: white;
+        transition-property: background-color, color !important;
+        font-size: 0.9em;
+        padding: 0 0.75rem;
+        min-height: 2.25rem;
+        font-weight: 500;
+        font-family: "DM Sans", sans-serif;
+        -webkit-border-radius: 0.35rem;
+        border-radius: 0.35rem;
+        -webkit-transition: all cubic-bezier(0.645, 0.045, 0.355, 1) 0.4s;
+        -o-transition: all cubic-bezier(0.645, 0.045, 0.355, 1) 0.4s;
+        transition: all cubic-bezier(0.645, 0.045, 0.355, 1) 0.4s;
+        &:hover {
+          background: #000843;
+        }
+      }
+    }
+    .mainNavigationContainer {
+      display: flex;
+      justify-content: space-between;
+      width: 30%;
     }
   }
 }
@@ -62,7 +94,6 @@
   @include desktop() {
     width: initial;
   }
-
 }
 
 .navbarToggle {
@@ -239,47 +270,27 @@
     }
   }
 
+  .navigationLink {
+    position: relative;
+    transition: color 0.25s;
+    width: 100%;
+    padding: 0.5rem 0;
+    display: inline-block;
 
-
-.navigationLink {
-  position: relative;
-  transition: color 0.25s;
-  width: 100%;
-  padding: 0.5rem 0;
-  display: inline-block;
-
-  &:hover {
-    color: $color-lightblue;
-  }
-}
-.mainNavigationContainer {
-  height: 100vh;
-  max-height: 100vh;
-  width: 100%;
-  position: relative;
-  @include desktop() {
-    overflow: unset;
-    height: unset;
-    max-height: unset;
-    widows: unset;
-    overflow-y: unset;
-  }
-  .navbarSecondaryMobileLinks {
-    @include desktop() {
-      display: none;
+    &:hover {
+      color: $color-lightblue;
     }
   }
-}
 
-.mainNavigationContainerClosed {
-  max-height: unset;
-  height: unset;
-}
-
-.mainNavigationContainerActive {
-  overflow-y: scroll;
-  @include desktop() {
-    overflow-y: unset;
+  .mainNavigationContainerClosed {
+    max-height: unset;
+    height: unset;
   }
-}
+
+  .mainNavigationContainerActive {
+    overflow-y: scroll;
+    @include desktop() {
+      overflow-y: unset;
+    }
+  }
 }

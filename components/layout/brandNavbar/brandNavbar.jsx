@@ -23,6 +23,7 @@ const BrandNavbar = ({ globalData }) => {
   return (
     <section className={`${style.navbar} `}>
        <nav className={style.nav} role="navigation" aria-label="Main">
+         <div className={style.logoContainer}>
         <Link href="/">
           <a
             title="Navigate  to home page"
@@ -38,6 +39,7 @@ const BrandNavbar = ({ globalData }) => {
             />
           </a>
         </Link>
+        </div>
         <button
           aria-label="Toggle main navigation menu"
           title="Toggle main navigation menu"
@@ -49,7 +51,11 @@ const BrandNavbar = ({ globalData }) => {
           <span></span>
         </button>
         <div
-          className={`${style.navigationContainer}`}
+          className={`${style.mainNavigationContainer } ${
+            mainNavigationActive
+              ? style.mainNavigationContainerActive
+              : style.mainNavigationContainerClosed
+          }`}
         >
             {brandNavbar.fields.mainNavigation.length >0 && brandNavbar.fields.mainNavigation.map((item, index) =>{
               return <Link key={`navitem${index}`} href={item.fields.mainLink.fields.link.href}>
@@ -57,6 +63,11 @@ const BrandNavbar = ({ globalData }) => {
                {item.fields.mainLink.fields.link.text}
               </Link>
             })}
+        </div>
+        <div className={style.buttonContainer}>
+            <Link href="/">
+              Questions?
+            </Link>
         </div>
       </nav>
     </section>
