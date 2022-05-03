@@ -63,7 +63,10 @@ const LatestCustomerStories = ({ module, customData }) => {
                     }}
                   />
                 ) : (
-                  <AgilityLink agilityLink={story.fields.link}>
+                  <AgilityLink
+                    agilityLink={story.fields.link}
+                    ariaLabel={`Navigate to ${heading.text} customer story`}
+                  >
                     <div className={style.story}>
                       <div>
                         <div className={style.storyImage}>
