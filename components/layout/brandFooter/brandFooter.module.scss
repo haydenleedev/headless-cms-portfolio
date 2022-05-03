@@ -2,10 +2,13 @@
   color: black;
   position: relative;
   overflow: hidden;
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
-  .container {
+  position:absolute;
+  bottom:0;
+  left:20%;
     .logo {
+      margin-bottom:7rem;
     }
     .textContainer {
       span {
@@ -15,5 +18,4 @@
       display: flex;
       justify-content: space-between;
     }
-  }
 }

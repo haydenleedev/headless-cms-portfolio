@@ -1,21 +1,30 @@
 import style from "./brandFooter.module.scss";
+import logo from "../../../assets/ujet-logo.svg";
 import Link from "next/link";
-import Script from "next/script";
-import { AgilityImage, renderHTML } from "@agility/nextjs";
-import { isMobile } from "../../../utils/responsivity";
-import { useState } from "react";
-import AgilityLink from "../../agilityLink";
-
 const BrandFooter = () => {
   return (
     <footer className={style.footer}>
-        <div className={style.container}>
-    <div className={style.textContainer}>
-        <span> Copyright 2022</span>
-        <span>All Rights Reserved</span>
-       
-    </div>
-    </div>
+      <div className="container">
+        <Link href="/">
+          <a
+            title="Navigate  to home page"
+            aria-label="Navigate to home page"
+            className={style.brand}
+          >
+            <img
+              className={style.logo}
+              src={logo.src}
+              width={logo.width * 1.2}
+              height={logo.height * 1.2}
+              alt="Ujet logo"
+            />
+          </a>
+        </Link>
+        <div className={style.textContainer}>
+          <span> Copyright 2022</span>
+          <span>All Rights Reserved</span>
+        </div>
+      </div>
     </footer>
   );
 };
