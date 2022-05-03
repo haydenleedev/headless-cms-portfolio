@@ -73,7 +73,6 @@ const Layout = (props) => {
   if (dynamicPageItem?.seo?.metaDescription) {
     page.seo.metaDescription = dynamicPageItem.seo.metaDescription;
   }
-console.log(pageTemplateName)
   return (
     <>
       {page && sitemapNode && (

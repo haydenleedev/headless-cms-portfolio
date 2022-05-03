@@ -5,13 +5,60 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 import GlobalContext from "../../../context";
-
+import MainNavigation from "../navbar/mainNavigation";
 const BrandNavbar = ({ globalData }) => {
+  const { brandNavbar } = globalData.brandNavbar;
+  console.log(brandNavbar)
+  const router = useRouter();
+  //Affects only mobile
+    const [mainNavigationActive, setMainNavigationActive] = useState(false);
+    const [pageScrolled, setPageScrolled] = useState(false);
+    const [transparentBackground, setTransparentBackground] = useState(false);
+    const [hidden, setHidden] = useState(false);
 
-  
+
+    const handleSetMainNavigationActive = () => {
+      setMainNavigationActive(!mainNavigationActive);
+    };
   return (
-    <section>
-        <p>uhhh</p>
+    <section className={`${style.navbar} `}>
+       <nav className={style.nav} role="navigation" aria-label="Main">
+        <Link href="/">
+          <a
+            title="Navigate  to home page"
+            aria-label="Navigate to home page"
+            className={style.brand}
+          >
+            <img
+              className={style.logo}
+              src={logo.src}
+              width={logo.width * 1.35}
+              height={logo.height * 1.35}
+              alt="Ujet logo"
+            />
+          </a>
+        </Link>
+        <button
+          aria-label="Toggle main navigation menu"
+          title="Toggle main navigation menu"
+          className={`${style.navbarToggle
+          }`}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div
+          className={`${style.navigationContainer}`}
+        >
+            {brandNavbar.fields.mainNavigation.length >0 && brandNavbar.fields.mainNavigation.map((item, index) =>{
+              return <Link key={`navitem${index}`} href={item.fields.mainLink.fields.link.href}>
+                
+               {item.fields.mainLink.fields.link.text}
+              </Link>
+            })}
+        </div>
+      </nav>
     </section>
   );
 };
@@ -25,15 +72,15 @@ BrandNavbar.getCustomInitialProps = async function ({
   let navbarGroups = null;
 
   try {
-    let navbar = await api.getContentList({
-      referenceName: "brandNavbarConfiguration",
+    let brandNavbar = await api.getContentList({
+      referenceName: "BrandNavbarConfiguration",
       languageCode: languageCode,
       contentLinkDepth: 5,
       expandAllContentLinks: true,
     });
 
-    if (navbar && navbar.items && navbar.items.length > 0) {
-      navbarGroups = navbar.items[0];
+    if (brandNavbar && brandNavbar.items && brandNavbar.items.length > 0) {
+      navbarGroups = brandNavbar.items[0];
     } else {
       return null;
     }
@@ -45,7 +92,7 @@ BrandNavbar.getCustomInitialProps = async function ({
 
   // return clean object...
   return {
-    navbar: navbarGroups,
+    brandNavbar: navbarGroups,
   };
 };
 
