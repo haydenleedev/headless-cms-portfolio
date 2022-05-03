@@ -33,7 +33,12 @@ export async function middleware(req) {
     }
     return NextResponse.redirect(redirectUrl);
   }
-
+  // Redirect brand.ujet.co
+  const brandUrl = "brand.ujet.cx";
+  if (url.includes(brandUrl)) {
+    const redirectUrl = "https://ujet.cx/brand";
+    return NextResponse.redirect(redirectUrl);
+  }
   // Redirect buy.ujet.cx
   const buyUrl = "buy.ujet.cx";
   if (url.includes(buyUrl)) {
