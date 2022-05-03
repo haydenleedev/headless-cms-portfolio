@@ -274,24 +274,25 @@ const ArchivesPageContent = ({ module }) => {
           <aside className={`${style.filterPanel}`}>
             <label htmlFor="select-content-type">
               Content type
-              <select
-                id="select-content-type"
-                className={style.contentTypeSelect}
-                value={activeContentType}
-                onChange={(event) =>
-                  handleContentListTypeChange(event.target.value)
-                }
-              >
-                {activeContentList && (
-                  <>
-                    {contentListTypes.map((type) => (
-                      <option key={type.id} value={type.id}>
-                        {type.title}
-                      </option>
-                    ))}
-                  </>
-                )}
-              </select>
+              <div className={style.contentTypeSelectWrapper}>
+                <select
+                  id="select-content-type"
+                  value={activeContentType}
+                  onChange={(event) =>
+                    handleContentListTypeChange(event.target.value)
+                  }
+                >
+                  {activeContentList && (
+                    <>
+                      {contentListTypes.map((type) => (
+                        <option key={type.id} value={type.id}>
+                          {type.title}
+                        </option>
+                      ))}
+                    </>
+                  )}
+                </select>
+              </div>
             </label>
             {contentCategories && (
               <fieldset>
