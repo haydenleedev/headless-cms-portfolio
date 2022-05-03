@@ -2,6 +2,7 @@
 Becomes a nightmare to manage if they're all named index.jsx... */
 import Footer from "./footer/footer";
 import Navbar from "./navbar/navbar";
+import BrandNavbar from "./brandNavbar/brandNavbar";
 import GlobalMessage from "./globalMessage/globalMessage";
 import SEO from "../SEO";
 import { getPageTemplate } from "../agility-pageTemplates";
@@ -11,6 +12,7 @@ import Error from "next/error";
 import Head from "next/head";
 import { addDataLayerEventTriggers } from "../../utils/dataLayer";
 import { useEffect } from "react";
+import BrandFooter from "./brandFooter/brandFooter";
 
 const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
@@ -24,7 +26,7 @@ const Loader = () => {
       <p>Loading...</p>
     </>
   );
-}
+};
 
 const Layout = (props) => {
   const {
@@ -46,8 +48,7 @@ const Layout = (props) => {
       if (window._ml && initialPageLoaded) {
         window._ml.q = window._ml.q || [];
         window._ml.q.push(["track"]);
-      }
-      else if (!initialPageLoaded) {
+      } else if (!initialPageLoaded) {
         initialPageLoaded = true;
       }
     });
@@ -56,26 +57,23 @@ const Layout = (props) => {
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
   if (router.isFallback) {
-    return <Loader />
+    return <Loader />;
   }
 
   // if page not found, throw 404
   if (notFound === true) {
     // Prevent 404 when previewing content items
     if (router.asPath.includes("?ContentID=")) {
-      return <Loader />
-    }
-    else {
+      return <Loader />;
+    } else {
       return <Error statusCode={404} />;
     }
   }
-
   const AgilityPageTemplate = getPageTemplate(pageTemplateName);
-
   if (dynamicPageItem?.seo?.metaDescription) {
     page.seo.metaDescription = dynamicPageItem.seo.metaDescription;
   }
-
+console.log(pageTemplateName)
   return (
     <>
       {page && sitemapNode && (
@@ -91,11 +89,23 @@ const Layout = (props) => {
       {!isPreview && (
         <>
           <GlobalMessage {...props}></GlobalMessage>
-          <Navbar {...props}></Navbar>
-          <main>
+          {pageTemplateName === "BrandTemplate" ? (
+            <>  
+            <BrandNavbar {...props} />
+            <main>
             {children ? children : <AgilityPageTemplate {...props} />}
           </main>
-          <Footer {...props}></Footer>
+          <BrandFooter/>
+          </>
+          ) : (
+            <>
+              <Navbar {...props}></Navbar>
+              <main>
+                {children ? children : <AgilityPageTemplate {...props} />}
+              </main>
+              <Footer {...props}></Footer>
+            </>
+          )}
         </>
       )}
     </>
