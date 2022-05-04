@@ -80,6 +80,27 @@
       top: -.25rem;
       z-index: 2;
       background-color: white;
+      .contentTypeSelectWrapper {
+        position: relative;
+        margin-top: 0.5rem;
+        > select {
+          font-size: 1rem;
+          -webkit-appearance: none;
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          right: 3%;
+          top: 50%;
+          transform: translateY(-50%) rotate(45deg);
+          width: 0.3rem;
+          height: 0.3rem;
+          border-color: $color-black;
+          border-style: solid;
+          border-width: 0 0.125rem 0.125rem 0;
+          pointer-events: none;
+        }
+      }
       select, input {
         @include focus-visible-touch-outlines();
       }
@@ -147,9 +168,6 @@
         padding-left: unset;
         padding-right: unset;
         border: unset;
-        select {
-          margin-top: 0.5rem;
-        }
       }
       & > label {
         padding-top: 0;
@@ -209,6 +227,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      & > div {
+        &:only-child {
+          gap: 1rem;
+          @include desktop() {
+            gap: 2rem;
+          }
+        }
+      }
     }
     .pagination {
       grid-area: pages;

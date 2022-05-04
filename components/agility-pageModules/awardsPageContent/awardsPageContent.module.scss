@@ -7,7 +7,6 @@
   margin-right: auto;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
   .award {
     display: flex;
     flex-direction: column;
@@ -17,7 +16,9 @@
     & > * {
       flex-basis: 50%;
     }
-
+    &:not(:last-child) {
+      margin-bottom: 3rem;
+    }
     .awardImage {
       display: flex;
       margin-bottom: 1rem;

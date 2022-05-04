@@ -14,6 +14,9 @@
   position: sticky;
   top: 0;
   background: white;
+  @include desktop() {
+    height: $navbar-height-tall;
+  }
   .navbarSecondary {
     display: none;
     @include desktop() {
@@ -22,9 +25,11 @@
   }
   &.scrolled {
     box-shadow: 0 0 0.5rem 0 #0000005b;
-    height: $navbar-height;
-    .navbarSecondary {
-      display: none;
+    @include desktop() {
+      transform: translateY(calc($navbar-height - $navbar-height-tall));
+      .navbarSecondary {
+        visibility: hidden;
+      }
     }
   }
 

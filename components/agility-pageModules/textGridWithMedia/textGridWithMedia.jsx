@@ -20,6 +20,13 @@ const TextGridWithMedia = ({ module, customData }) => {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
 
+  const columns =
+    fields.columns && fields.columns > 0 && fields.columns <= 4
+      ? fields.columns
+      : 4;
+
+  const numberOfRows = Math.ceil(itemsWithSanitizedHTML.length / columns);
+
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {
@@ -37,10 +44,10 @@ const TextGridWithMedia = ({ module, customData }) => {
       : null
   );
 
-  const largeColumnNumber =
-    itemsWithSanitizedHTML.length < fields.columns
+  const columnSizeClassname =
+    itemsWithSanitizedHTML.length < columns
       ? style[`is-${itemsWithSanitizedHTML.length}`]
-      : style[`is-${fields.columns}`];
+      : style[`is-${columns}`];
 
   const TextItem = ({ data }) => {
     const itemFields = data.fields;
@@ -48,10 +55,11 @@ const TextGridWithMedia = ({ module, customData }) => {
     return (
       <div
         className={`
-          ${`grid-column ${largeColumnNumber}`}
+          ${`grid-column ${columnSizeClassname}`}
           ${style.textItem}
           ${
-            fields.itemStyle == "logoLeft" || fields.itemStyle == "mediumLogoLeft"
+            fields.itemStyle == "logoLeft" ||
+            fields.itemStyle == "mediumLogoLeft"
               ? ""
               : `
                 flex-direction-column
@@ -106,7 +114,7 @@ const TextGridWithMedia = ({ module, customData }) => {
               )}
               {itemFields.secondText && (
                 <div
-                  className={`content ${style.content}`}
+                  className={`content ${style.content} ${style.textItemSecondText}`}
                   dangerouslySetInnerHTML={renderHTML(itemFields.secondText)}
                 ></div>
               )}
@@ -174,7 +182,9 @@ const TextGridWithMedia = ({ module, customData }) => {
                     key={`textItem${index}`}
                     className={`
                       ${style.gridItem}
-                      ${largeColumnNumber}
+                      ${columnSizeClassname}
+                      ${index % columns == 0 ? "ml-0" : ""}
+                      ${index + 1 > (numberOfRows - 1) * columns ? "mb-0" : ""}
                     `}
                   >
                     <TextItem data={textItem} />
@@ -185,8 +195,10 @@ const TextGridWithMedia = ({ module, customData }) => {
                   <div
                     key={`textItem${index}`}
                     className={`
-                  ${style.gridItem}
-                  ${largeColumnNumber}
+                      ${style.gridItem}
+                      ${columnSizeClassname}
+                      ${index % columns == 0 ? "ml-0" : ""}
+                      ${index + 1 > (numberOfRows - 1) * columns ? "mb-0" : ""}
                   `}
                   >
                     <TextItem data={textItem} key={`textItem${index}`} />

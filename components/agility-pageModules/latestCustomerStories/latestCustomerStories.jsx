@@ -4,6 +4,8 @@ import { boolean } from "../../../utils/validation";
 import style from "./latestCustomerStories.module.scss";
 import { useRouter } from "next/router";
 import AgilityLink from "../../agilityLink";
+import GenericCard from "../../genericCard/genericCard";
+import { Fragment } from "react";
 
 const LatestCustomerStories = ({ module, customData }) => {
   const router = useRouter();
@@ -47,27 +49,45 @@ const LatestCustomerStories = ({ module, customData }) => {
           {stories.map((story) => {
             const heading = JSON.parse(story.fields.heading);
             return (
-              <AgilityLink
-                agilityLink={story.fields.link}
-                key={story.contentID}
-              >
-                <div className={cardStyle ? style.storyCard : style.story}>
-                  <div>
-                    <div className={style.storyImage}>
-                      <Media media={story.fields.image} />
+              <Fragment key={story.contentID}>
+                {cardStyle ? (
+                  <GenericCard
+                    link={story.fields.link}
+                    image={story.fields.image}
+                    title={heading.text}
+                    ariaTitle={`${heading.text} customer story`}
+                    description={story.fields.description}
+                    configuration={{
+                      imageHeight: "tall",
+                      emphasizedTitle: true,
+                    }}
+                  />
+                ) : (
+                  <AgilityLink
+                    agilityLink={story.fields.link}
+                    ariaLabel={`Navigate to ${heading.text} customer story`}
+                  >
+                    <div className={style.story}>
+                      <div>
+                        <div className={style.storyImage}>
+                          <Media media={story.fields.image} />
+                        </div>
+                        <div className={style.storyTitle}>
+                          <Heading {...heading} />
+                        </div>
+                        <p className={style.storyDescription}>
+                          {story.fields.description}
+                        </p>
+                      </div>
+                      <div className="d-flex align-items-center justify-content-flex-start">
+                        <p className={style.storyLink}>
+                          {story.fields.link.text}
+                        </p>
+                      </div>
                     </div>
-                    <div className={style.storyTitle}>
-                      <Heading {...heading} />
-                    </div>
-                    <p className={style.storyDescription}>
-                      {story.fields.description}
-                    </p>
-                  </div>
-                  <div className="d-flex align-items-center justify-content-flex-start">
-                    <p className={style.storyLink}>{story.fields.link.text}</p>
-                  </div>
-                </div>
-              </AgilityLink>
+                  </AgilityLink>
+                )}
+              </Fragment>
             );
           })}
         </nav>

@@ -234,7 +234,10 @@
       align-items: center;
       & > div {
         &:only-child {
-          gap: 2rem;
+          gap: 1rem;
+          @include desktop() {
+            gap: 2rem;
+          }
         }
       }
     }

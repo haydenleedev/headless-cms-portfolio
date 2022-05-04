@@ -6,8 +6,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  column-gap: 10rem;
-  row-gap: 6rem;
   margin: 2rem 0;
   @include desktop() {
     flex-direction: row;
@@ -22,7 +20,7 @@
     flex: 0 0 35%;
     border-radius: 0.75rem;
     overflow: visible;
-    margin-top: 3rem;
+    margin: 3rem 0 6rem 0;
     @include shadow();
     .cardTop {
       position: relative;
@@ -90,6 +88,10 @@
       p {
         font-size: 1rem;
       }
+    }
+    @include desktop() {
+      margin-right: 10rem;
+      margin-bottom: 0;
     }
   }
 }

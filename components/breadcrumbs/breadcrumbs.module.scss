@@ -2,28 +2,30 @@
 @import "../../styles/settings/mixins";
 
 .section {
-    display: none;
-    @include desktop() {
-        padding-bottom: 1rem;
-        padding-top: 1rem;
-        display: block;
-    }
+  display: none;
+  @include desktop() {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    display: block;
+  }
 }
 
 .breadcrumbs {
-    display: flex;
-    gap: .75rem;
-    div {
-        p {
-            display: inline;
-            font-size: .8rem;
-            text-transform: uppercase;
-        }
-        a {
-            color: $color-lightblue;
-        }
-        .separator {
-            margin-left: .75rem;
-        }
+  display: flex;
+  div {
+    p {
+      display: inline;
+      font-size: 0.8rem;
+      text-transform: uppercase;
     }
+    a {
+      color: $color-lightblue;
+    }
+    .separator {
+      margin-left: 0.75rem;
+    }
+    &:not(:last-child) {
+      margin-right: 0.75rem;
+    }
+  }
 }

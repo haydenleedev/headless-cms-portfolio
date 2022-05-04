@@ -69,10 +69,10 @@ const TextWithMedia = ({ module, customData }) => {
         <div
           className={`${style.content} ${
             columnLayout
-              ? "flex-direction-column justify-content-center align-items-center"
+              ? style.columnLayout
               : mediaLeft
-              ? "flex-direction-row-reverse"
-              : "flex-direction-row"
+              ? style.mediaLeft
+              : style.mediaRight
           } ${fullPageWidth ? style.fullPageWidthContent : ""}`}
         >
           <div

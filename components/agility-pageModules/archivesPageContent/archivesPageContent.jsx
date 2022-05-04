@@ -1,17 +1,17 @@
 import style from "./archivesPageContent.module.scss";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
-import ArchiveCard from "./archiveCard";
 import {
   sortContentListByDate,
   resolveCategory,
   resolveLink,
 } from "../../../utils/convert";
-import ArchivesLoader from "./archivesLoader";
 import Media from "../media";
 import AgilityLink from "../../agilityLink";
 import Image from "next/image";
 import archivesPageData from "../../../data/archivesPageData.json";
+import GenericCard from "../../genericCard/genericCard";
+import GenericCardListLoader from "../../genericCard/genericCardListLoader";
 
 const ArchivesPageContent = ({ module }) => {
   const { fields } = module;
@@ -274,24 +274,25 @@ const ArchivesPageContent = ({ module }) => {
           <aside className={`${style.filterPanel}`}>
             <label htmlFor="select-content-type">
               Content type
-              <select
-                id="select-content-type"
-                className={style.contentTypeSelect}
-                value={activeContentType}
-                onChange={(event) =>
-                  handleContentListTypeChange(event.target.value)
-                }
-              >
-                {activeContentList && (
-                  <>
-                    {contentListTypes.map((type) => (
-                      <option key={type.id} value={type.id}>
-                        {type.title}
-                      </option>
-                    ))}
-                  </>
-                )}
-              </select>
+              <div className={style.contentTypeSelectWrapper}>
+                <select
+                  id="select-content-type"
+                  value={activeContentType}
+                  onChange={(event) =>
+                    handleContentListTypeChange(event.target.value)
+                  }
+                >
+                  {activeContentList && (
+                    <>
+                      {contentListTypes.map((type) => (
+                        <option key={type.id} value={type.id}>
+                          {type.title}
+                        </option>
+                      ))}
+                    </>
+                  )}
+                </select>
+              </div>
             </label>
             {contentCategories && (
               <fieldset>
@@ -359,38 +360,38 @@ const ArchivesPageContent = ({ module }) => {
             {(page && (
               <div className="columns repeat-3">
                 {page.map((item) => (
-                  <div key={item.contentID}>
-                    <ArchiveCard
-                      image={item.fields?.image}
-                      title={resolveTitle(activeContentType, item.fields)}
-                      newsSite={
-                        item.fields.title && activeContentType === "news"
-                          ? item.fields.title
-                          : null
-                      }
-                      link={resolveLink(
-                        item.properties.referenceName,
-                        item.fields
-                      )}
-                      date={
-                        activeContentType !== "resources"
-                          ? item.fields.date
-                          : null
-                      }
-                      category={
-                        item.fields?.cardCategoryTitle ||
-                        resolveCategory(item.properties.referenceName)
-                      }
-                      podcast={
-                        activeContentType === "news" && item.fields.podcast
-                          ? item.fields.podcast
-                          : null
-                      }
-                    />
-                  </div>
+                  <GenericCard
+                    key={item.contentID}
+                    image={item.fields?.image}
+                    title={resolveTitle(activeContentType, item.fields)}
+                    ariaTitle={resolveTitle(activeContentType, item.fields)}
+                    newsSite={
+                      item.fields.title && activeContentType === "news"
+                        ? item.fields.title
+                        : null
+                    }
+                    link={resolveLink(
+                      item.properties.referenceName,
+                      item.fields
+                    )}
+                    date={
+                      activeContentType !== "resources"
+                        ? item.fields.date
+                        : null
+                    }
+                    category={
+                      item.fields?.cardCategoryTitle ||
+                      resolveCategory(item.properties.referenceName)
+                    }
+                    podcast={
+                      activeContentType === "news" && item.fields.podcast
+                        ? item.fields.podcast
+                        : null
+                    }
+                  />
                 ))}
               </div>
-            )) || <ArchivesLoader />}
+            )) || <GenericCardListLoader />}
           </div>
           {/* Display the page numbers. truncate if there's a lot of pages*/}
           <footer className={style.pagination}>

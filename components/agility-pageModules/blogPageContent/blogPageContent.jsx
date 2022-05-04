@@ -2,14 +2,15 @@ import style from "./blogPageContent.module.scss";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import BlogCard from "./blogCard";
 import {
   sortContentListByDate,
   removeDuplicatePosts,
 } from "../../../utils/convert";
-import BlogLoader from "./blogLoader";
 import Media from "../media";
 import { isMobile } from "../../../utils/responsivity";
+import GenericCard from "../../genericCard/genericCard";
+import GenericCardListLoader from "../../genericCard/genericCardListLoader";
+import ujetLogo from "../../../assets/ujet-logo.svg";
 
 const BlogPageContent = ({ customData }) => {
   const { query } = useRouter();
@@ -179,9 +180,7 @@ const BlogPageContent = ({ customData }) => {
                   }}
                 >
                   <div>
-                    <legend>
-                      Categories
-                    </legend>
+                    <legend>Categories</legend>
                     <div
                       className={`${style.chevron} ${
                         filterToggled ? style.flipped : ""
@@ -189,11 +188,18 @@ const BlogPageContent = ({ customData }) => {
                     />
                   </div>
                 </button>
-                <div className={`${style.categoryCheckboxesWrapper} ${!filterToggled && style.hidden}`}>
+                <div
+                  className={`${style.categoryCheckboxesWrapper} ${
+                    !filterToggled && style.hidden
+                  }`}
+                >
                   <div className={style.categoryCheckboxes}>
                     {Object.entries(contentCategories).map(
                       ([key, category], i) => (
-                        <label key={key + "Checkbox"} htmlFor={key + "Checkbox"}>
+                        <label
+                          key={key + "Checkbox"}
+                          htmlFor={key + "Checkbox"}
+                        >
                           <input
                             type="checkbox"
                             id={key + "Checkbox"}
@@ -201,7 +207,9 @@ const BlogPageContent = ({ customData }) => {
                               (category) => category === key
                             )}
                             tabIndex={isMobile() && !filterToggled ? "-1" : "0"}
-                            onChange={(event) => handleCategoryChange(event, key)}
+                            onChange={(event) =>
+                              handleCategoryChange(event, key)
+                            }
                           />
                           {category.title}
                         </label>
@@ -219,21 +227,25 @@ const BlogPageContent = ({ customData }) => {
                 {(page.length > 0 && (
                   <div className="columns repeat-3">
                     {page.map((item) => (
-                        <BlogCard
-                          image={item.fields?.image}
-                          title={item.fields.title}
-                          link={{ href: `blog/${item.fields.slug}` }}
-                          date={item.fields.date}
-                          category="Blog"
-                          key={item.contentID}
-                        />
+                      <GenericCard
+                        key={item.contentID}
+                        image={item.fields?.image}
+                        title={item.fields.title}
+                        ariaTitle={item.fields.title}
+                        link={{ href: `blog/${item.fields.slug}` }}
+                        // date={item.fields.date}
+                        // category="Blog"
+                        configuration={{
+                          defaultImage: ujetLogo,
+                        }}
+                      />
                     ))}
                   </div>
                 )) || (
                   <p>We currently have no articles! Please check back soon!</p>
                 )}
               </>
-            )) || <BlogLoader />}
+            )) || <GenericCardListLoader />}
           </div>
           {/* Display the page numbers. truncate if there's a lot of pages*/}
           <footer className={style.pagination}>

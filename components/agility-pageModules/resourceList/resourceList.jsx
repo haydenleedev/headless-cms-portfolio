@@ -43,6 +43,7 @@ const ResourceList = ({ module, customData }) => {
                     category={resource.properties.referenceName}
                     overrideCategory={resource.fields.cardCategoryTitle}
                     title={resource.fields.title}
+                    ariaTitle={resource.fields.title}
                     image={
                       placeholderImages?.length > index
                         ? placeholderImages[index]
@@ -51,7 +52,7 @@ const ResourceList = ({ module, customData }) => {
                   />
                 </div>
               ))
-            : resources.map((resource, index) => (
+            : resources?.map((resource, index) => (
                 <div className={style.resource} key={resource.contentID}>
                   <GenericCard
                     link={resolveLink(

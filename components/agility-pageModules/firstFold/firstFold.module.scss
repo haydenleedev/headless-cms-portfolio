@@ -8,13 +8,23 @@
   // default firstFold layout
   .defaultLayout {
     display: flex;
-    gap: 1.7rem;
     align-items: center;
     flex-direction: column;
+    .textContent:not(:only-child) {
+      margin-bottom: 1.7rem;
+    }
     @include desktop() {
       flex-direction: row;
       &.imageLeft {
         flex-direction: row-reverse;
+        .textContent:not(:only-child) {
+          margin: 0 0 0 1.7rem;
+        }
+      }
+      &:not(.imageLeft) {
+        .textContent:not(:only-child) {
+          margin: 0 1.7rem 0 0;
+        }
       }
     }
   }
@@ -149,10 +159,18 @@
   .links {
     flex-direction: column;
     display: flex;
-    gap: 0.5rem;
+    .primaryLink,
+    .secondaryLink {
+      width: 100%;
+    }
+    .linkWrapper:first-child:not(:only-child) {
+      margin: 0 0 0.5rem 0;
+    }
     @include desktop() {
-      gap: 1.5rem;
       flex-direction: row;
+      .linkWrapper:first-child:not(:only-child) {
+        margin: 0 1.5rem 0 0;
+      }
     }
   }
 
@@ -416,7 +434,7 @@
 .logoGridColumns {
   justify-content: space-between;
   .logoGridColumn {
-    padding: .5rem;
+    padding: 0.5rem;
     height: 5rem;
     > span {
       height: 100% !important;
@@ -425,7 +443,7 @@
       }
     }
     @include desktop() {
-      padding: .25rem;
+      padding: 0.25rem;
     }
   }
 }

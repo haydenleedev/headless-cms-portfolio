@@ -7,12 +7,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     .mediaWrapper {
       position: relative;
       .media {
         position: relative;
-        width: 100%;
+        width: 90%;
         max-width: 18.75rem;
         border-radius: 50%;
         border: 0.25rem solid $color-skyblue;
@@ -29,7 +28,6 @@
         max-height: 27.5rem;
         .media {
           max-width: unset;
-          top: -6rem;
           min-width: unset;
           border: 0.65rem solid $color-skyblue;
           span {
@@ -104,8 +102,8 @@
       }
       .mediaWrapper {
         .media {
-          top: -6rem;
           min-width: unset;
+          width: 90%;
           border: 0.65rem solid $color-skyblue;
           div {
             &:only-child {

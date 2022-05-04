@@ -33,6 +33,7 @@ const NewsList = ({ module }) => {
                 link={newsArticle.fields.link}
                 description={newsArticle.fields.articleTitle}
                 title={newsArticle.fields.title}
+                ariaTitle={newsArticle.fields.articleTitle}
               />
             </div>
           ))}

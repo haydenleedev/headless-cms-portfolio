@@ -8,7 +8,6 @@
   @include desktop() {
     height: $navbar-secondary-height;
     justify-content: flex-end !important;
-    grid-gap: 1rem;
     * {
       font-size: toRem(14);
     }
@@ -18,6 +17,9 @@
       margin-top: toRem(10);
       &:hover {
         color: $color-darkblue;
+      }
+      &:not(:last-child) {
+        margin-right: 1rem;
       }
     }
   }
