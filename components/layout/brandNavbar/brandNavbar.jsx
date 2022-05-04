@@ -23,6 +23,16 @@ const BrandNavbar = ({ globalData }) => {
   return (
     <section className={`${style.navbar} `}>
        <nav className={style.nav} role="navigation" aria-label="Main">
+       <button
+          aria-label="Toggle main navigation menu"
+          title="Toggle main navigation menu"
+          onClick={()=>handleSetMainNavigationActive()}
+          className={`${style.navbarToggle
+          }`}
+        >
+          <span></span>
+          <span></span>
+        </button>
          <div className={style.logoContainer}>
         <Link href="/">
           <a
@@ -33,36 +43,28 @@ const BrandNavbar = ({ globalData }) => {
             <img
               className={style.logo}
               src={logo.src}
-              width={logo.width * 1.37}
-              height={logo.height * 1.37}
+              width="100%"
+              height="100%"
               alt="Ujet logo"
             />
           </a>
         </Link>
         </div>
-        <button
-          aria-label="Toggle main navigation menu"
-          title="Toggle main navigation menu"
-          className={`${style.navbarToggle
-          }`}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
         <div
           className={`${style.mainNavigationContainer } ${
             mainNavigationActive
               ? style.mainNavigationContainerActive
-              : style.mainNavigationContainerClosed
+              : style.mainNavigationContainerHidden
           }`}
         >
+          <div className={style.mainNavigation}>
             {brandNavbar.fields.mainNavigation.length >0 && brandNavbar.fields.mainNavigation.map((item, index) =>{
               return <Link key={`navitem${index}`} href={item.fields.mainLink.fields.link.href} className={style.navLink}>
                 
                {item.fields.mainLink.fields.link.text}
               </Link>
             })}
+            </div>
         </div>
         <div className={style.buttonContainer}>
             <Link href="/">

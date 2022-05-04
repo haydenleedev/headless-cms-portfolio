@@ -52,7 +52,13 @@
     .logoContainer {
       width: 30%;
       .logo {
-        top:0.3rem;
+        top:.4rem;
+        left:2rem;
+        width:7.5rem;
+        @include desktop{
+          width:11rem;
+          top:0.3rem;
+        }
         position: relative;
       }
     }
@@ -60,7 +66,9 @@
     .buttonContainer {
       width: 30%;
       display: flex;
-      justify-content: flex-end;
+      @include desktop{
+        justify-content: flex-end;
+      }
       a {
         display: flex;
         align-items: center;
@@ -83,14 +91,46 @@
       }
     }
     .mainNavigationContainer {
+      display: flex;
+      z-index:1; 
+      //Mobile specific styling
+      transition:background-color  0.4s;
+      position:absolute;
+      flex-direction: column;
+      width:100%;
+      height:100vh;
+      //Mobile styling end
       font-weight: 500;
       font-size:1.1rem;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
         "Segoe UI Symbol";
-      display: flex;
-      justify-content: space-between;
-      width: 35%;
+      @include desktop{
+        width: 35%;
+        background: transparent;
+        position:relative;
+        flex-direction: row;
+        height:initial;
+        align-items: center;
+        justify-content: center;
+      }
+      .mainNavigation{
+        padding:5rem 0 60vh 1rem;
+        display:flex;
+        background:white;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: start;
+        width:90%;
+        height:100%;
+        @include desktop{
+          width:100%;
+          flex-direction: row;
+          justify-content: space-between;
+          background:transparent;
+          padding:0;
+        }
+      }
       &:hover a:not(:hover){
         opacity:0.5;
       }
@@ -111,26 +151,30 @@
 }
 
 .navbarToggle {
+  z-index:5 !important;
   all: unset;
   position: absolute;
-  right: 1rem;
+  left:1rem;
   padding: inherit;
   cursor: pointer;
   padding: 1rem;
-  top: 2rem;
-
+  top:3.2rem;
+  @include desktop{
+    top: 3.5rem;
+  }
   span {
     position: absolute;
     content: "";
     background: $color-navy;
     height: 0.1rem;
-    width: 100%;
+    width: 75%;
     left: 0;
     &:nth-child(1) {
       top: 0;
     }
     &:nth-child(2) {
       top: 0.5rem;
+      width:60%;
     }
     &:nth-child(3) {
       top: 1rem;
@@ -158,15 +202,19 @@
 }
 
 // Mobile toggle menu states
-.mainNavigationActive {
+.mainNavigationContainerActive {
+  transition: left 0.4s;
   position: relative;
-  padding-top: 3.66rem;
+  left:0;
+  top:0rem;
+  background: rgba(0,0,0,0.7);
   @include desktop() {
     position: initial;
     padding-top: initial;
+    background:transparent;
   }
 }
-.mainNavigationHidden {
+.mainNavigationContainerHidden {
   // Safari needs this
   height: 0;
   left: -2147483647px;
@@ -180,131 +228,5 @@
   }
 }
 
-.mainNavigation {
-  padding-left: 0;
-  margin: 0;
-  height: 100%;
-  @include desktop() {
-    padding-left: 3rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
-    & > li:last-child {
-      & > ul {
-        right: 0;
-        margin-left: unset;
-      }
-    }
-  }
 
-  // Nav group item
-  & > li {
-    overflow: hidden;
-    @include desktop() {
-      overflow: visible;
-      // position: relative;
-    }
-  }
-  a {
-    @include desktop() {
-      display: block;
-    }
-  }
-}
-
-.noDropdown {
-  padding: 1rem 0;
-  @include desktop() {
-    flex-flow: row;
-    border: none;
-    padding-left: 1.5rem;
-    align-items: center;
-  }
-}
-
-// Renamed hasDropdown since the dropdown is actually a child ul
-.hasDropdown {
-  display: flex;
-  padding: 1rem 0;
-  flex-flow: column;
-  @include touch {
-    &:not(:last-child) {
-      border-bottom: 0.1rem solid $color-mediumgray;
-    }
-
-    &:last-child {
-      padding-bottom: 0;
-    }
-  }
-
-  @include desktop() {
-    height: 100%;
-    flex-flow: row;
-    border: none;
-    padding-left: 1.5rem;
-    align-items: center;
-  }
-
-  & > a {
-    &:after {
-      font-family: "arrow-down";
-      content: "\e900";
-      color: $color-darkblue;
-      font-size: 0.5rem;
-      padding: 0.5rem 0 0.5rem 0.5rem;
-      position: absolute;
-      right: 0;
-      @include desktop() {
-        position: relative;
-        color: $color-gray;
-      }
-    }
-  }
-  &.hasDropdownIsActive {
-    & > a {
-      &:after {
-        transform: rotateX(180deg);
-      }
-    }
-  }
-
-  // Mobile toggleable styles
-  .dropdownActive {
-    left: unset;
-    position: relative;
-  }
-
-  .dropdownClosed {
-    left: -2147483647px;
-
-    @include desktop() {
-      // Safari fix
-      display: flex;
-    }
-  }
-
-  .navigationLink {
-    position: relative;
-    transition: color 0.25s;
-    width: 100%;
-    padding: 0.5rem 0;
-    display: inline-block;
-
-    &:hover {
-      color: $color-lightblue;
-    }
-  }
-
-  .mainNavigationContainerClosed {
-    max-height: unset;
-    height: unset;
-  }
-
-  .mainNavigationContainerActive {
-    overflow-y: scroll;
-    @include desktop() {
-      overflow-y: unset;
-    }
-  }
-}
