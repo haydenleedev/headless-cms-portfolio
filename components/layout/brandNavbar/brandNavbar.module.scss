@@ -113,6 +113,9 @@
         height:initial;
         align-items: center;
         justify-content: center;
+        &:hover a:not(:hover){
+          opacity:0.5;
+        }
       }
       .mainNavigation{
         padding:5rem 0 60vh 1rem;
@@ -140,9 +143,7 @@
           }
         }
       }
-      &:hover a:not(:hover){
-        opacity:0.5;
-      }
+     
       a{
         flex-grow:1;
         text-align:center;
