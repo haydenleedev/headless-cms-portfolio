@@ -20,7 +20,7 @@ const BrandNavbar = ({ globalData }) => {
     setMainNavigationActive(!mainNavigationActive);
   };
   return (
-    <section className={`${style.navbar} `}>
+    <header className={`${style.navbar} `}>
       <nav className={style.nav} role="navigation" aria-label="Main">
         <button
           aria-label="Toggle main navigation menu"
@@ -55,12 +55,12 @@ const BrandNavbar = ({ globalData }) => {
               : style.mainNavigationContainerHidden
           }`}
         >
-          <div className={style.mainNavigation}>
+          <ul className={style.mainNavigation}>
             {brandNavbar.fields.mainNavigation.length > 0 &&
               brandNavbar.fields.mainNavigation.map((item, index) => {
                 return (
+                  <li key={`navitem${index}`}>
                   <Link
-                    key={`navitem${index}`}
                     href={item.fields.mainLink.fields.link.href}
                     className={style.navLink}
                   >
@@ -68,16 +68,17 @@ const BrandNavbar = ({ globalData }) => {
                       {item.fields.mainLink.fields.link.text}
                     </a>
                   </Link>
+                  </li>
                 );
               })}
             <p className={style.copyright}>{copyrightText}</p>
-          </div>
+          </ul>
         </div>
         <div className={style.buttonContainer}>
           <Link href="/">Questions?</Link>
         </div>
       </nav>
-    </section>
+    </header>
   );
 };
 

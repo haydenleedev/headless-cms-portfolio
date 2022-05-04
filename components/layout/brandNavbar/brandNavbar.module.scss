@@ -113,11 +113,21 @@
         height:initial;
         align-items: center;
         justify-content: center;
-        &:hover a:not(:hover){
-          opacity:0.5;
+        ul{
+          &:hover li:not(:hover){
+            opacity:0.5;
+          }
         }
+       
       }
       .mainNavigation{
+        li{
+          list-style:none;
+          height:100%; 
+          flex-grow:1;
+        text-align:center;
+        transition:opacity 0.5s;
+        }
         padding:5rem 0 60vh 1rem;
         display:flex;
         background:white;
@@ -142,12 +152,6 @@
             left: -2147483647px;
           }
         }
-      }
-     
-      a{
-        flex-grow:1;
-        text-align:center;
-        transition:opacity 0.5s;
       }
     }
   }
