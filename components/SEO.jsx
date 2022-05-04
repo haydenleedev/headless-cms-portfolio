@@ -9,6 +9,7 @@ import { formatPageTitle } from "../utils/convert";
 
 const SEO = ({ title, description, keywords, metaHTML, url }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [timerExpired, setTimerExpired] = useState(false);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
@@ -31,6 +32,10 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", handleScroll);
     }
+    // Delay script loading with setTimeout
+    setTimeout(() => {
+      setTimerExpired(true);
+    }, 0);
   }, []);
   return (
     <>
@@ -76,8 +81,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
 
         {/* TODO: add Canonical url */}
       </Head>
-      {/* Load scripts after user starts scrolling */}
-      {scrolled && (
+      {timerExpired && (
         <>
           <Script id="google-tag-manager">
             {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -125,7 +129,6 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
               })();
             `}
           </Script>
-
           <Script id="6sense">
             {`
               window._6si = window._6si || [];
@@ -147,18 +150,6 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
             strategy="lazyOnload"
           /> */}
-
-          {/* Qualified Script */}
-          <Script id="qualified" strategy="lazyOnload">
-            {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
-          (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
-          </Script>
-          <Script
-            id="qualified-src"
-            async
-            src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-            strategy="lazyOnload"
-          />
           <Script id="ax" strategy="afterInteractive">
             {`
           _atrk_opts = { atrk_acct:"xw4cw1Y1Mn20Io", domain:"ujet.cx",dynamic: true};
@@ -202,6 +193,22 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
           })();
           `}
           </Script>
+        </>
+      )}
+      {/* Load Qualified script after user starts scrolling */}
+      {scrolled && (
+        <>
+          {/* Qualified Script */}
+          <Script id="qualified" strategy="lazyOnload">
+            {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+          (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
+          </Script>
+          <Script
+            id="qualified-src"
+            async
+            src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+            strategy="lazyOnload"
+          />
         </>
       )}
       {/* <Script
