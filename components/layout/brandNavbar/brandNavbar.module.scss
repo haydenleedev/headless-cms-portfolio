@@ -4,7 +4,7 @@
 @import "../../../styles/settings/variables";
 
 .navbar {
-  background:white;
+  background: white;
   transition: box-shadow 0.2s;
   box-shadow: 0 0 0.5rem 0px #00000014;
   height: $navbar-height;
@@ -53,12 +53,12 @@
     .logoContainer {
       width: 30%;
       .logo {
-        top:.4rem;
-        left:2rem;
-        width:7.5rem;
-        @include desktop{
-          width:11rem;
-          top:0.3rem;
+        top: 0.4rem;
+        left: 2rem;
+        width: 7.5rem;
+        @include desktop {
+          width: 11rem;
+          top: 0.3rem;
         }
         position: relative;
       }
@@ -67,7 +67,7 @@
     .buttonContainer {
       width: 30%;
       display: flex;
-      @include desktop{
+      @include desktop {
         justify-content: flex-end;
       }
       a {
@@ -93,62 +93,67 @@
     }
     .mainNavigationContainer {
       display: flex;
-      z-index:1; 
+      z-index: 1;
       //Mobile specific styling
-      transition:background-color  0.4s;
-      position:absolute;
+      transition: background-color 0.4s;
+      position: absolute;
       flex-direction: column;
-      width:100%;
-      height:100vh;
+      width: 100%;
+      height: 100vh;
       //Mobile styling end
       font-weight: 500;
-      font-size:1.1rem;
+      font-size: 1.1rem;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
         "Segoe UI Symbol";
-      @include desktop{
+      @include desktop {
         width: 35%;
         background: transparent;
-        position:relative;
+        position: relative;
         flex-direction: row;
-        height:initial;
+        height: initial;
         align-items: center;
         justify-content: center;
-        ul{
-          &:hover li:not(:hover){
-            opacity:0.5;
+        ul {
+          &:hover li:not(:hover) {
+            opacity: 0.5;
           }
         }
-       
       }
-      .mainNavigation{
-        li{
-          list-style:none;
-          height:100%; 
-          flex-grow:1;
-        text-align:center;
-        transition:opacity 0.5s;
+      .mainNavigation {
+        li {
+          list-style: none;
+          height: 100%;
+          width: 100%;
+          flex-grow: 1;
+          text-align: center;
+          transition: opacity 0.5s;
+          a {
+            @include desktop {
+              padding: 0 2rem;
+            }
+          }
         }
-        padding:5rem 0 60vh 1rem;
-        display:flex;
-        background:white;
+        padding: 5rem 0 60vh 1rem;
+        display: flex;
+        background: white;
         flex-direction: column;
         align-items: flex-start;
         justify-content: start;
-        width:90%;
-        height:100%;
-        @include desktop{
-          width:100%;
+        width: 90%;
+        height: 100%;
+        @include desktop {
+          width: 100%;
           flex-direction: row;
           justify-content: space-between;
-          background:transparent;
-          padding:0;
+          background: transparent;
+          padding: 0;
         }
-        .copyright{
+        .copyright {
           font-size: 1rem;
           font-weight: 400;
-          width:50%;
-          @include desktop{
+          width: 50%;
+          @include desktop {
             position: absolute;
             left: -2147483647px;
           }
@@ -166,15 +171,15 @@
 }
 
 .navbarToggle {
-  z-index:5 !important;
+  z-index: 5 !important;
   all: unset;
   position: absolute;
-  left:1rem;
+  left: 1rem;
   padding: inherit;
   cursor: pointer;
   padding: 1rem;
-  top:3.2rem;
-  @include desktop{
+  top: 3.2rem;
+  @include desktop {
     top: 3.5rem;
   }
   span {
@@ -189,7 +194,7 @@
     }
     &:nth-child(2) {
       top: 0.5rem;
-      width:60%;
+      width: 60%;
     }
     &:nth-child(3) {
       top: 1rem;
@@ -220,13 +225,13 @@
 .mainNavigationContainerActive {
   transition: left 0.4s;
   position: relative;
-  left:0;
-  top:0rem;
-  background: rgba(0,0,0,0.7);
+  left: 0;
+  top: 0rem;
+  background: rgba(0, 0, 0, 0.7);
   @include desktop() {
     position: initial;
     padding-top: initial;
-    background:transparent;
+    background: transparent;
   }
 }
 .mainNavigationContainerHidden {
@@ -242,6 +247,3 @@
     position: initial;
   }
 }
-
-
-
