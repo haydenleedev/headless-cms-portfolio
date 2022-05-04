@@ -9,7 +9,7 @@ const BrandFooter = ({globalData}) => {
   const copyrightPart2 = copyrightText.substring(index);
   return (
     <footer className={style.footer}>
-      <div className="container">
+      <div >
         <Link href="/brand/home">
           <a
             title="Navigate  to home page"
