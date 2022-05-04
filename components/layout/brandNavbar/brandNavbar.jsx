@@ -8,7 +8,7 @@ import GlobalContext from "../../../context";
 import MainNavigation from "../navbar/mainNavigation";
 const BrandNavbar = ({ globalData }) => {
   const { brandNavbar } = globalData.brandNavbar;
-  console.log(brandNavbar)
+  const copyrightText =globalData.footer.data.fields.copyrightText;
   const router = useRouter();
   //Affects only mobile
     const [mainNavigationActive, setMainNavigationActive] = useState(false);
@@ -34,7 +34,7 @@ const BrandNavbar = ({ globalData }) => {
           <span></span>
         </button>
          <div className={style.logoContainer}>
-        <Link href="/">
+        <Link href="/brand/home">
           <a
             title="Navigate  to home page"
             aria-label="Navigate to home page"
@@ -64,6 +64,7 @@ const BrandNavbar = ({ globalData }) => {
                {item.fields.mainLink.fields.link.text}
               </Link>
             })}
+            <p className={style.copyright}>{copyrightText}</p>
             </div>
         </div>
         <div className={style.buttonContainer}>

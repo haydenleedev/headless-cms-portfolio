@@ -94,7 +94,7 @@ const Layout = (props) => {
             <main>
             {children ? children : <AgilityPageTemplate {...props} />}
           </main>
-          <BrandFooter/>
+          <BrandFooter {...props} />
           </>
           ) : (
             <>

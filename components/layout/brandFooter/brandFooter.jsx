@@ -1,11 +1,16 @@
 import style from "./brandFooter.module.scss";
 import logo from "../../../assets/ujet-logo.svg";
 import Link from "next/link";
-const BrandFooter = () => {
+const BrandFooter = ({globalData}) => {
+  const copyrightText = globalData.footer.data.fields.copyrightText;
+  //split copyright text into two parts
+  const index = copyrightText.lastIndexOf(2)+1;
+  const copyrightPart1 = copyrightText.substring(0, index);
+  const copyrightPart2 = copyrightText.substring(index);
   return (
     <footer className={style.footer}>
       <div className="container">
-        <Link href="/">
+        <Link href="/brand/home">
           <a
             title="Navigate  to home page"
             aria-label="Navigate to home page"
@@ -21,8 +26,8 @@ const BrandFooter = () => {
           </a>
         </Link>
         <div className={style.textContainer}>
-          <span> Copyright 2022</span>
-          <span>All Rights Reserved</span>
+          <span> {copyrightPart1}</span>
+          <span> {copyrightPart2}</span>
         </div>
       </div>
     </footer>

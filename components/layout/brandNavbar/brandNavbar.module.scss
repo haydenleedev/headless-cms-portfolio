@@ -130,6 +130,15 @@
           background:transparent;
           padding:0;
         }
+        .copyright{
+          font-size: 1rem;
+          font-weight: 400;
+          width:50%;
+          @include desktop{
+            position: absolute;
+            left: -2147483647px;
+          }
+        }
       }
       &:hover a:not(:hover){
         opacity:0.5;
