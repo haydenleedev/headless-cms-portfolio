@@ -15,6 +15,7 @@ const TextWithMedia = ({ module, customData }) => {
   //configuration options
   const narrowContainer = fields.containerWidth == "narrow";
   const fullPageWidth = fields.containerWidth == "fullPageWidth";
+  const brandWidth = fields.containerWidth == "brand";
   const columnLayout = fields.layout == "column";
   const mediaLeft = fields.layout == "mediaLeft";
   const headingOnTop = boolean(fields?.headingOnTop);
@@ -55,7 +56,7 @@ const TextWithMedia = ({ module, customData }) => {
       <div
         className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
           fullPageWidth ? "max-width-unset padding-unset" : ""
-        }`}
+        } ${brandWidth ? "max-width-brand" :""}`}
       >
         {headingOnTop && heading.text && (
           <div

@@ -7,17 +7,22 @@
   color: black;
   position: relative;
   overflow: hidden;
+  max-width:100%;
   width:100%;
   margin: 0 auto;
   padding: 12rem 0 3rem 0;
   position: relative;
     @include desktop{
-    width: 68%;
+      padding-left:1rem;
+      padding-right:1rem;
+      width: 87rem;
     }
     .logo {
       margin-bottom:4rem;
+      margin-left:1rem;
       @include desktop{
         margin-bottom:7rem;
+        margin-left:0;
       }
     }
     .textContainer {

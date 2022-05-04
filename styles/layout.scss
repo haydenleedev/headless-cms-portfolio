@@ -631,6 +631,9 @@
 .max-width-narrow {
   @include narrowWidth();
 }
+.max-width-brand{
+    max-width:$brand;
+}
 .qmax-width-tablet {
   max-width: $tablet;
 }
