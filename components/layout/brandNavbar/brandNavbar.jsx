@@ -33,8 +33,8 @@ const BrandNavbar = ({ globalData }) => {
             <img
               className={style.logo}
               src={logo.src}
-              width={logo.width * 1.35}
-              height={logo.height * 1.35}
+              width={logo.width * 1.37}
+              height={logo.height * 1.37}
               alt="Ujet logo"
             />
           </a>
@@ -58,7 +58,7 @@ const BrandNavbar = ({ globalData }) => {
           }`}
         >
             {brandNavbar.fields.mainNavigation.length >0 && brandNavbar.fields.mainNavigation.map((item, index) =>{
-              return <Link key={`navitem${index}`} href={item.fields.mainLink.fields.link.href}>
+              return <Link key={`navitem${index}`} href={item.fields.mainLink.fields.link.href} className={style.navLink}>
                 
                {item.fields.mainLink.fields.link.text}
               </Link>

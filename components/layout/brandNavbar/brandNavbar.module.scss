@@ -52,6 +52,7 @@
     .logoContainer {
       width: 30%;
       .logo {
+        top:0.3rem;
         position: relative;
       }
     }
@@ -66,10 +67,10 @@
         background: #ff4e33;
         color: white;
         transition-property: background-color, color !important;
-        font-size: 0.9em;
+        font-size: 0.9rem;
         padding: 0 0.75rem;
-        min-height: 2.25rem;
-        font-weight: 500;
+        min-height: 2.5rem;
+        font-weight: 700;
         font-family: "DM Sans", sans-serif;
         -webkit-border-radius: 0.35rem;
         border-radius: 0.35rem;
@@ -82,9 +83,22 @@
       }
     }
     .mainNavigationContainer {
+      font-weight: 500;
+      font-size:1.1rem;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
       display: flex;
       justify-content: space-between;
-      width: 30%;
+      width: 35%;
+      &:hover a:not(:hover){
+        opacity:0.5;
+      }
+      a{
+        flex-grow:1;
+        text-align:center;
+        transition:opacity 0.5s;
+      }
     }
   }
 }
