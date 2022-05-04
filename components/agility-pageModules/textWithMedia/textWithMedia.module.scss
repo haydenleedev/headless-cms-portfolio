@@ -61,6 +61,34 @@
       }
     }
   }
+  .brandWidthContent{
+    @include touch() {
+      flex-direction: column;
+    }
+    .brandWidthMedia {
+      display: flex;
+      @include desktop() {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        margin: 0;
+        height: 39.125rem;
+        & > * {
+          display: block;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          min-height: 100%;
+          min-width: 100%;
+          transform: translate(-50%, -50%);
+          img {
+            object-fit: cover;
+            margin-block: unset;
+          }
+        }
+      }
+    }
+  }
   .textContent {
     display: flex;
     flex-direction: column;

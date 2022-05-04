@@ -74,12 +74,12 @@ const TextWithMedia = ({ module, customData }) => {
               : mediaLeft
               ? "flex-direction-row-reverse"
               : "flex-direction-row"
-          } ${fullPageWidth ? style.fullPageWidthContent : ""}`}
+          } ${fullPageWidth ? style.fullPageWidthContent : ""} ${brandWidth ? style.brandWidthContent : ""}`}
         >
           <div
             className={`${style.textContent} ${
               fullPageWidth ? style.fullPageWidthTextContent : ""
-            } ${
+            } ${brandWidth ? style.brandWidthTextContent : ""} ${
               style[`textContentBasis${fields.textWidthPercentage || 50}`]
             } ${textContentVerticalAlignment}`}
           >
@@ -126,7 +126,7 @@ const TextWithMedia = ({ module, customData }) => {
           <div
             className={`${style.media} ${
               fullPageWidth ? style.fullPageWidthMedia : ""
-            } ${mediaVerticalAlignment} ${
+            } ${brandWidth ? style.brandWidthMedia : ""} ${mediaVerticalAlignment} ${
               style[
                 `mediaBasis${100 - parseInt(fields.textWidthPercentage) || 50}`
               ]
