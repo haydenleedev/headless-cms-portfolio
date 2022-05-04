@@ -4,6 +4,7 @@
 @import "../../../styles/settings/variables";
 
 .navbar {
+  background:white;
   transition: box-shadow 0.2s;
   box-shadow: 0 0 0.5rem 0px #00000014;
   height: $navbar-height;
