@@ -64,7 +64,9 @@ const BrandNavbar = ({ globalData }) => {
                     href={item.fields.mainLink.fields.link.href}
                     className={style.navLink}
                   >
-                    <a onClick={closeMenu}>
+                    <a onClick={closeMenu} 
+                    title={`Navigate to ${item.fields.mainLink.fields.link.text} page`}
+                    aria-label={`Navigate to ${item.fields.mainLink.fields.link.text} page`}>
                       {item.fields.mainLink.fields.link.text}
                     </a>
                   </Link>
