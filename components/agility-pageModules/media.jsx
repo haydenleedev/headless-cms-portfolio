@@ -4,22 +4,24 @@ import { useEffect, useState } from "react";
 const Media = ({ media, title }) => {
   const [videoDefinitelyNotSupported, setVideoDefinitelyNotSupported] =
     useState(false);
+  let mediaName = media?.url?.split("/");
+  mediaName = mediaName ? mediaName[mediaName.length - 1] : null;
+  const imageFileRegex = /.*\.(jpe?g|png|svg|gif)$/;
+  const mediaType = mediaName?.split(".")[1];
+  useEffect(() => {
+    if (
+      typeof document !== "undefined" &&
+      mediaName &&
+      !imageFileRegex.test(mediaName)
+    ) {
+      const supportTestVideo = document.createElement("video");
+      if (supportTestVideo.canPlayType(`video/${mediaType}`) === "") {
+        setVideoDefinitelyNotSupported(true);
+      }
+    }
+  }, []);
   if (!media?.url) return null;
   else {
-    let mediaName = media.url.split("/");
-    mediaName = mediaName[mediaName.length - 1];
-    const imageFileRegex = /.*\.(jpe?g|png|svg|gif)$/;
-    const mediaType = mediaName.split(".")[1];
-
-    useEffect(() => {
-      if (typeof document !== "undefined" && !imageFileRegex.test(mediaName)) {
-        const supportTestVideo = document.createElement("video");
-        if (supportTestVideo.canPlayType(`video/${mediaType}`) === "") {
-          setVideoDefinitelyNotSupported(true);
-        }
-      }
-    }, []);
-
     switch (imageFileRegex.test(mediaName)) {
       case true:
         return (
