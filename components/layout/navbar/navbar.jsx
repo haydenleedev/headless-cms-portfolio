@@ -80,7 +80,7 @@ const Navbar = ({ globalData }) => {
             setTransparentBackground(false);
           } else {
             setPageScrolled(false);
-            if (shouldBeTransparent) setTransparentBackground(true);
+            setTransparentBackground(shouldBeTransparent);
           }
         });
       }
