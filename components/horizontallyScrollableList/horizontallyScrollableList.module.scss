@@ -15,6 +15,9 @@
     &::-webkit-scrollbar {
       display: none;
     }
+    @include desktop() {
+      overflow-x: visible;
+    }
     > div {
       padding: 0.75rem 0;
       display: flex;
@@ -23,6 +26,9 @@
       text-align: center;
       align-self: center;
       flex: 0 0 auto;
+      @include desktop() {
+        flex: 0;
+      }
       &:hover {
         color: $color-lightblue;
       }
@@ -43,6 +49,9 @@
     align-self: stretch;
     user-select: none;
     cursor: pointer;
+    @include desktop() {
+      display: none;
+    }
     &::after {
       content: "";
       position: absolute;
