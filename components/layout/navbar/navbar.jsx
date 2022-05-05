@@ -2,6 +2,7 @@ import logo from "../../../assets/ujet-logo.svg";
 import style from "./navbar.module.scss";
 import MainNavigation from "./mainNavigation";
 import NavbarSecondary from "../navbarSecondary/navbarSecondary";
+import { sleep } from "../../../utils/generic";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
@@ -16,7 +17,6 @@ const Navbar = ({ globalData }) => {
   const [pageScrolled, setPageScrolled] = useState(false);
   const [transparentBackground, setTransparentBackground] = useState(false);
   const [hidden, setHidden] = useState(false);
-  let throttling = false;
 
   useEffect(() => {
     const handleTransparency = () => {
@@ -36,8 +36,6 @@ const Navbar = ({ globalData }) => {
         }
         if (firstSection?.getAttribute("data-navbar-hidden")) {
           setHidden(true);
-        } else {
-          setHidden(false);
         }
         if (
           // transparency is dismissed with touch screen sizes.
@@ -51,9 +49,14 @@ const Navbar = ({ globalData }) => {
       });
     };
     // this function is triggered every time the route changes, because navbar transparency needs to be checked per page.
-    const checkNavbarProperties = () => {
-      if (!hidden) {
+    // run after slight delay to prevent weird issues with the intersection api not correctly registering the observable on the new page.
+    const handleRouteChange = () => {
+      sleep(50).then(() => {
         handleTransparency().then((shouldBeTransparent) => {
+          const options = {
+            threshold: 1.0,
+            rootMargin: "-80px 0px 0px 0px",
+          };
           let firstSection;
           const sections = document
             .getElementById("__next")
@@ -65,44 +68,31 @@ const Navbar = ({ globalData }) => {
               break;
             }
           }
-          if (window.innerWidth < 890) setTransparentBackground(false);
-          // Account for the navbar's translateY value when checking scroll status
-          const navbarTransformMatrix = new DOMMatrixReadOnly(
-            window.getComputedStyle(navbarRef.current).transform
-          );
-          if (
-            navbarRef.current.getBoundingClientRect().top +
-              navbarRef.current.clientHeight -
-              navbarTransformMatrix.m42 >
-            firstSection.getBoundingClientRect().top
-          ) {
-            setPageScrolled(true);
-            setTransparentBackground(false);
-          } else {
-            setPageScrolled(false);
-            if (shouldBeTransparent) setTransparentBackground(true);
-          }
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              // transparency is dismissed with touch screen sizes.
+              if (window.innerWidth < 890) setTransparentBackground(false);
+              if (entry.intersectionRatio === 1) {
+                setPageScrolled(false);
+                if (shouldBeTransparent) setTransparentBackground(true);
+              } else {
+                setPageScrolled(true);
+                setTransparentBackground(false);
+              }
+            });
+          }, options);
+          // observe intersections with the first page section.
+          if (firstSection) observer.observe(firstSection);
         });
-      }
-    };
-    const checkNavbarPropertiesThrottled = () => {
-      if (!throttling) {
-        throttling = true;
-        setTimeout(() => {
-          checkNavbarProperties();
-          throttling = false;
-        }, 50);
-      }
+      });
     };
     // run route change handler also on initial page load
-    checkNavbarProperties();
-    router.events.on("routeChangeComplete", checkNavbarProperties);
-    window.addEventListener("resize", checkNavbarPropertiesThrottled);
-    window.addEventListener("scroll", checkNavbarPropertiesThrottled);
+    handleRouteChange();
+    router.events.on("routeChangeComplete", handleRouteChange);
+    window.addEventListener("resize", handleRouteChange);
     return () => {
-      router.events.off("routeChangeComplete", checkNavbarProperties);
-      window.removeEventListener("resize", checkNavbarPropertiesThrottled);
-      window.removeEventListener("scroll", checkNavbarPropertiesThrottled);
+      router.events.off("routeChangeComplete", handleRouteChange);
+      window.removeEventListener("resize", handleRouteChange);
     };
   }, []);
 
