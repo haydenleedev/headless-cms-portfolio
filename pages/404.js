@@ -75,11 +75,11 @@ export const getStaticProps = async () => {
   return {
     props: {
       globalData: {
-        globalMessage: { globalMessage: globalMsg.items[0] },
-        navbar: { navbar: navbarConfig.items[0] },
-        globalSettings: { data: globalSettings.items[0] },
-        footer: { data: footerConfig.items[0] },
-        fourOhFour: { data: fourOhFourConfig.items[0] },
+        globalMessage: { globalMessage: globalMsg?.items[0] },
+        navbar: { navbar: navbarConfig?.items[0] },
+        globalSettings: { data: globalSettings?.items[0] },
+        footer: { data: footerConfig?.items[0] },
+        fourOhFour: { data: fourOhFourConfig?.items[0] },
       },
     },
   };
