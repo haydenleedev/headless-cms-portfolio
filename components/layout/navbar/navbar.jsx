@@ -66,16 +66,7 @@ const Navbar = ({ globalData }) => {
             }
           }
           if (window.innerWidth < 890) setTransparentBackground(false);
-          // Account for the navbar's translateY value when checking scroll status
-          const navbarTransformMatrix = new DOMMatrixReadOnly(
-            window.getComputedStyle(navbarRef.current).transform
-          );
-          if (
-            navbarRef.current.getBoundingClientRect().top +
-              navbarRef.current.clientHeight -
-              navbarTransformMatrix.m42 >
-            firstSection.getBoundingClientRect().top
-          ) {
+          if (window.scrollY > firstSection.getBoundingClientRect().top) {
             setPageScrolled(true);
             setTransparentBackground(false);
           } else {
