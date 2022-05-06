@@ -46,18 +46,18 @@ const HorizontallyScrollableList = ({ items, maxVisibleItems = 4 }) => {
             className={`${style.scrollButton} reset-button`}
             onClick={() => scrollHorizontally(true)}
           />
-          <div className={`${style.items}`} ref={itemContainerRef}>
+          <ul className={`${style.items}`} ref={itemContainerRef}>
             {items.map((item, index) => {
               return (
-                <div
+                <li
                   key={`item${index}`}
                   style={{ flexBasis: `calc(calc(100% / (${maxVisibleItems})` }}
                 >
                   {item}
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
           <button
             className={`${style.scrollButton} reset-button`}
             onClick={() => scrollHorizontally(false)}

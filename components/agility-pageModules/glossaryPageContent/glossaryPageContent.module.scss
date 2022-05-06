@@ -55,9 +55,12 @@
   }
   a,
   span {
-    font-size: 14px;
-    padding: 7px;
-    border: 1px solid $color-darkblue;
+    font-size: toRem(14);
+    font-weight: 700;
+    min-width: toRem(34);
+    color: $color-darkblue;
+    padding: toRem(7) toRem(11);
+    border: toRem(1) solid $color-darkblue;
     border-radius: toRem(5);
     @include desktop() {
       .alpha-tags a,
