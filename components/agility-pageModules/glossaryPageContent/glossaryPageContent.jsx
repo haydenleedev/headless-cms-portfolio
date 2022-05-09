@@ -10,10 +10,7 @@ const GlossaryPageContent = ({ customData }) => {
 
   const alphabetsMapped = allGlossaries.map((obj) => obj.fields.alphabet);
 
-  alphabetsMapped?.sort(function (a, b) {
-    return a - b;
-  });
-
+  alphabetsMapped?.sort();
   const alphabbetChecker = [];
 
   const [isActive, setActive] = useState(null);
@@ -40,7 +37,7 @@ const GlossaryPageContent = ({ customData }) => {
         <h1 className={style["glossary-title"]}>
           Glossary of Contact Center Terms
         </h1>
-        {console.log(alphabetsMapped)}
+        {/* {console.log(alphabetsMapped)} */}
         <nav className={`${style["alpha-tag-nav"]} ${style["alpha-tags"]}`}>
           <HorizontallyScrollableList items={listItems} maxVisibleItems={10} />
         </nav>
@@ -80,10 +77,10 @@ const GlossaryPageContent = ({ customData }) => {
                     {glossary.fields.alphabet.toUpperCase()}
                   </h2>
                 )}
-                {
+                {/* {
                   (alphabbetChecker.push(glossary.fields.alphabet),
                   console.log("alphabetChecker: ", alphabbetChecker))
-                }
+                } */}
                 <h3
                   id={glossary.fields.word}
                   className={`${style["css-0"]} ${style["word-anchor"]}`}
