@@ -51,15 +51,16 @@
     color: $color-white;
   }
   li {
-    margin: 0 toRem(1) toRem(8);
+    margin: 0 0 toRem(8) 0;
   }
   a,
   span {
     font-size: toRem(14);
     font-weight: 700;
-    min-width: toRem(34);
     color: $color-darkblue;
-    padding: toRem(7) toRem(11);
+    padding: toRem(7) 0;
+    width: 90%;
+    max-width: toRem(34);
     border: toRem(1) solid $color-darkblue;
     border-radius: toRem(5);
     @include desktop() {

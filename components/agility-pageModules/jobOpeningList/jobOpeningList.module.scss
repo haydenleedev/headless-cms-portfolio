@@ -1,0 +1,41 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
+.jobOpeningList {
+  .jobOpenings {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    @include tablet() {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    .jobOpening {
+      display: flex;
+      flex-direction: column;
+      padding: 2rem;
+      @include shadow();
+      p {
+        font-size: 1.25rem;
+      }
+      span {
+        position: relative;
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        color: $color-darkblue;
+        margin-top: 1rem;
+        &::after {
+          content: "";
+          display: block;
+          padding: 0.3rem;
+          border-right: solid;
+          border-top: solid;
+          margin-left: 0.2rem;
+          border-width: 0.1rem;
+          border-color: $color-darkblue;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+}
