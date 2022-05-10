@@ -494,8 +494,10 @@ mark {
     font-family: "DM Sans", sans-serif;
   }
   h1{
-    font-size: 5.6vw;
-    font-size:6.55rem;
+    @include desktop{
+      font-size:6.55rem;
+    }
+    
     line-height:1;
   }
   p {
