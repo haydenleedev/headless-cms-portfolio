@@ -77,10 +77,7 @@ const GlossaryPageContent = ({ customData }) => {
                     {glossary.fields.alphabet.toUpperCase()}
                   </h2>
                 )}
-                {/* {
-                  (alphabbetChecker.push(glossary.fields.alphabet),
-                  console.log("alphabetChecker: ", alphabbetChecker))
-                } */}
+                {(alphabbetChecker.push(glossary.fields.alphabet), (<></>))}
                 <h3
                   id={glossary.fields.word}
                   className={`${style["css-0"]} ${style["word-anchor"]}`}
