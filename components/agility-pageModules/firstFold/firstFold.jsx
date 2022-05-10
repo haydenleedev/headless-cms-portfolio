@@ -143,7 +143,7 @@ const FirstFold = ({ module, customData }) => {
         ref={intersectionRef}
       >
         <div
-          className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
+          className={`container ${narrowContainer ? "max-width-narrow" : ""} ${layout === "brand" ? "max-width-brand" : ""}`}
         >
           <div
             className={
@@ -266,7 +266,7 @@ const FirstFold = ({ module, customData }) => {
             </div>
             {fields.media && !fields.customSVG && !fields.imageLink && (
               <div
-                className={`${style.image} ${
+                className={`${style.image} ${layout === "brand" ? style.brandimage : ""} ${
                   fields.circularImage ? style.circularImage : ""
                 } ${fields.imageBottomMargin ? fields.imageBottomMargin : ""} ${
                   fields.imageTopMargin ? fields.imageTopMargin : ""
@@ -303,7 +303,7 @@ const FirstFold = ({ module, customData }) => {
                   fixedMediaHeight
                     ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
                     : ""
-                } ${style[fields.mediaVerticalAlignment]} ${
+                }  ${style[fields.mediaVerticalAlignment]} ${
                   fields.mediaClasses ? fields.mediaClasses : ""
                 }`}
                 ariaLabel={`Navigate to page ` + fields.imageLink.href}
