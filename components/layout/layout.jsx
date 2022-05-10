@@ -91,7 +91,7 @@ const Layout = (props) => {
           {pageTemplateName === "BrandTemplate" ? (
             <>  
             <BrandNavbar {...props} />
-            <main>
+            <main className="brand">
             {children ? children : <AgilityPageTemplate {...props} />}
           </main>
           <BrandFooter {...props} />

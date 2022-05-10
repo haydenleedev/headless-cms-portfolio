@@ -2,6 +2,13 @@
 @import "../../../styles/settings/colors";
 
 .textWithMedia {
+  .brandHeading{
+    margin:0;
+    p{
+      font-size: 0.9em;
+      font-weight: 500;
+    }
+  }
   .heading {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -52,7 +59,7 @@
           left: 50%;
           min-height: 100%;
           min-width: 100%;
-          transform: translate(-50%, -50%);
+          
           img {
             object-fit: cover;
             margin-block: unset;
@@ -62,6 +69,9 @@
     }
   }
   .brandWidthContent{
+    @include desktop{
+      margin-bottom:2rem;
+    }
     @include touch() {
       flex-direction: column;
     }
@@ -72,7 +82,6 @@
         display: inline-block;
         overflow: hidden;
         margin: 0;
-        height: 39.125rem;
         & > * {
           display: block;
           position: absolute;
@@ -89,6 +98,7 @@
       }
     }
   }
+
   .textContent {
     display: flex;
     flex-direction: column;

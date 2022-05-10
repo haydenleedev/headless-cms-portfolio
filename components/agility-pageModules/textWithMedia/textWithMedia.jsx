@@ -60,9 +60,9 @@ const TextWithMedia = ({ module, customData }) => {
       >
         {headingOnTop && heading.text && (
           <div
-            className={`${columnLayout ? "heading" : style.heading} ${
-              fields.headingAlignment
-            }`}
+          className={`${columnLayout ? "heading" : (brandWidth ? style.brandHeading : style.heading)} ${
+            fields.headingAlignment
+          }`}
           >
             <Heading {...heading} />
           </div>
@@ -93,7 +93,7 @@ const TextWithMedia = ({ module, customData }) => {
               }`}
             >
               {!headingOnTop && heading.text && (
-                <div className={columnLayout ? "heading" : style.heading}>
+                <div className={columnLayout ? "heading" : (brandWidth ? style.brandHeading : style.heading)} >
                   <Heading {...heading} />
                 </div>
               )}
