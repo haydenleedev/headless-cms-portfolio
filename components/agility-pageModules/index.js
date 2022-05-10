@@ -107,6 +107,7 @@ const allModules = [
   { name: "BlankCards", module: BlankCards },
   { name: "SecondaryNav", module: SecondaryNav },
   { name: "ShopErrorPageContent", module: ShopErrorPageContent },
+  { name: "JobOpeningList", module: Placeholder }
 ];
 
 export const getModule = (moduleName) => {
