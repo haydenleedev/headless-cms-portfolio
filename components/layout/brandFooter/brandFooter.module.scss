@@ -7,15 +7,12 @@
   color: black;
   position: relative;
   overflow: hidden;
-  max-width:100%;
-  width:100%;
   margin: 0 auto;
   padding: 12rem 0 3rem 0;
   position: relative;
     @include desktop{
       padding-left:1rem;
       padding-right:1rem;
-      width: 87rem;
     }
     .logo {
       margin-bottom:4rem;

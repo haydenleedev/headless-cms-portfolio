@@ -8,7 +8,7 @@ const BrandFooter = ({globalData}) => {
   const copyrightPart1 = copyrightText.substring(0, index);
   const copyrightPart2 = copyrightText.substring(index);
   return (
-    <footer className={style.footer}>
+    <footer className={`max-width-brand ${style.footer}`}>
       <div >
         <Link href="/brand/home">
           <a
