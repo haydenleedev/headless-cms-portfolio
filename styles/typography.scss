@@ -507,3 +507,16 @@ mark {
       "Segoe UI Symbol";
   }
 }
+.list-checkmark{
+  li{
+    list-style-type: none;
+    position:relative;
+    margin-left:-2.2rem;
+    &::before{
+      content: '\2713';
+    display: inline-block;
+    color: white;
+    padding: 0 6px 0 0;
+    }
+  }
+}
