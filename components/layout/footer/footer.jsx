@@ -179,11 +179,11 @@ const Footer = ({ globalData }) => {
         <hr className={style.horizontalLine}></hr>
         <div className={style.footNote}>
           <div className={style.cookies}>
-            <Script
+            {/* <Script
               src="//consent.truste.com/notice?domain=ujet.co&c=teconsent&js=bb&noticeType=bb&gtm=1"
               async={true}
               strategy="lazyOnload"
-            />
+            /> */}
             {/* "In order to generate the required GTM events you must add the
             following code to every page on which the CM is deployed" */}
             <Script
