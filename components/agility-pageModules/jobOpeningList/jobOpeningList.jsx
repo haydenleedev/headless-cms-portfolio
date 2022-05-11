@@ -6,9 +6,28 @@ const JobOpeningList = ({ module, customData }) => {
   const { fields } = module;
   const { jobListJsonData } = customData;
   const heading = fields?.heading ? JSON.parse(fields.heading) : null;
+  const jobsByLocation = [];
+
+  jobListJsonData.jobs.forEach((job) => {
+    let locationInArray = false;
+    jobsByLocation.forEach((locationCategory) => {
+      if (job.location.name == locationCategory.location) {
+        locationCategory.jobs.push(job);
+        locationInArray = true;
+      }
+    });
+    if (!locationInArray) {
+      jobsByLocation.push({ location: job.location.name, jobs: [job] });
+    }
+  });
+
+  jobsByLocation.sort((a, b) => {
+    return a.location.localeCompare(b.location);
+  });
+
   return (
     <>
-      {jobListJsonData.jobs.length > 0 && (
+      {jobsByLocation.length > 0 && (
         <section className={`section ${style.jobOpeningList}`}>
           <div className="container">
             {heading?.text && (
@@ -16,21 +35,33 @@ const JobOpeningList = ({ module, customData }) => {
                 <Heading {...heading} />
               </div>
             )}
-            <div className={style.jobOpenings}>
-              {jobListJsonData.jobs.map((job, index) => {
-                return (
-                  <AgilityLink
-                    key={`joboOpening${index}`}
-                    agilityLink={{ href: job.absolute_url }}
-                    className={style.jobOpening}
-                  >
-                    <p className="bold">{job.title}</p>
-                    <p>{job.location.name}</p>
-                    <span>Learn more</span>
-                  </AgilityLink>
-                );
-              })}
-            </div>
+            {jobsByLocation.map((locationCategory, locationCategoryIndex) => {
+              return (
+                <div
+                  key={`locationCategory${locationCategoryIndex}`}
+                  className={style.locationCategory}
+                >
+                  <h3 className="heading-5 mb-3">
+                    {locationCategory.location}
+                  </h3>
+                  <div className={style.jobOpenings}>
+                    {locationCategory.jobs.map((job, jobIndex) => {
+                      return (
+                        <AgilityLink
+                          key={`joboOpening${jobIndex}`}
+                          agilityLink={{ href: job.absolute_url }}
+                          className={style.jobOpening}
+                        >
+                          <p className="bold">{job.title}</p>
+                          {/* <p>{job.location.name}</p> */}
+                          <span>Learn more</span>
+                        </AgilityLink>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
       )}
