@@ -265,9 +265,10 @@
   position:relative;
   overflow:hidden;
   padding:0;
+  color:white;
   @include desktop{
     min-height:65vh;
-    color:white;
+    
   }
   
   //Mobile view needs work
@@ -279,10 +280,10 @@
     pointer-events: none;
     & > *{
       min-width: 100vw;
-      display:block;
-    }
-    img{
-      object-fit: cover;
+      min-height:100vh;
+      @include desktop{
+        min-height:unset;
+      }
     }
   }
 }
