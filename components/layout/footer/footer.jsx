@@ -197,7 +197,8 @@ const Footer = ({ globalData }) => {
             {/* <button id="ot-sdk-btn" className="ot-sdk-show-settings">
               Cookie Settings
             </button> */}
-            <div id="teconsent"></div>
+
+            {/* <div id="teconsent"></div>
             <div className={style.trusteLinks}>
               <a
                 href="//privacy.truste.com/privacy-seal/validation?rid=c2d82a58-c9ed-4d48-b827-653acbf4d418"
@@ -223,7 +224,7 @@ const Footer = ({ globalData }) => {
                   alt="TrustArc"
                 />
               </a>
-            </div>
+            </div> */}
           </div>
           <div className={`${style.footNoteLinks}`}>
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>

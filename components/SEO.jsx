@@ -211,7 +211,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
           />
         </>
       )}
-      {/* <Script
+      <Script
         id="onetrust"
         src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
         charSet="UTF-8"
@@ -219,9 +219,7 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
       />
 
-      <Script id="optanon-wrapper">
-        {`function OptanonWrapper() { }`}
-      </Script> */}
+      <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
     </>
   );
 };
