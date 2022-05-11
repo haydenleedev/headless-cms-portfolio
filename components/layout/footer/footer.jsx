@@ -225,6 +225,14 @@ const Footer = ({ globalData }) => {
                 />
               </a>
             </div> */}
+            {/* <!-- OneTrust Cookies Settings button start --> */}
+            <button id="ot-sdk-btn" className={`ot-sdk-show-settings`}>
+              Cookie Settings
+            </button>
+            {/* <!-- OneTrust Cookies Settings button end --> */}
+            {/* <!-- OneTrust Cookies List start --> */}
+            <div id="ot-sdk-cookie-policy"></div>
+            {/* <!-- OneTrust Cookies List end --> */}
           </div>
           <div className={`${style.footNoteLinks}`}>
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>
