@@ -39,6 +39,7 @@ import ScriptLoader from "./scriptLoader/scriptLoader";
 import Accordion from "./accordion/accordion";
 import BlankCards from "./blankCards/blankCards";
 import SecondaryNav from "./secondaryNav/secondaryNav";
+import TwoTextColumns from "./twoTextColumns/twoTextColumns";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -64,6 +65,7 @@ const allModules = [
   { name: "PressReleaseContent", module: PressReleaseContent },
   { name: "OverrideSEO", module: OverrideSEO },
   { name: "TextWithMedia", module: TextWithMedia },
+  { name: "TwoTextColumns", module: TwoTextColumns },
   { name: "TextGridWithMedia", module: TextGridWithMedia },
   { name: "ClientTestimonial", module: ClientTestimonial },
   { name: "ResourceList", module: ResourceList },
