@@ -53,6 +53,10 @@
     .logoContainer {
       width: 30%;
       .logo {
+        transition:opacity 0.4s;
+        &:hover{
+          opacity:0.6;
+        }
         top: 0.4rem;
         left: 2rem;
         width: 7.5rem;
