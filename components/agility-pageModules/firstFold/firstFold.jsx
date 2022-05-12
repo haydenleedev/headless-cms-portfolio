@@ -17,7 +17,8 @@ const FirstFold = ({ module, customData }) => {
   const narrowContainer = boolean(fields?.narrowContainer);
   const fixedMediaHeight = fields?.fixedMediaHeight;
   const layout = fields.layout;
-
+  //If link classes contain a simple link class, remove button type styling
+  const simpleLink = fields?.linkClasses?.includes("simple");
   fields.logos?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -50,9 +51,10 @@ const FirstFold = ({ module, customData }) => {
     return link?.href && link?.text ? (
       <AgilityLink
         agilityLink={link}
-        className={`button ${
-          primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
-        } ${fields.linkClasses ? fields.linkClasses : ""}`}
+        className={`
+        ${!simpleLink ? `button 
+          ${primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
+    }` : ""} ${fields.linkClasses ? fields.linkClasses : ""}`}
         ariaLabel={`Navigate to page ` + link.href}
         title={`Navigate to page ` + link.href}
       >
@@ -260,7 +262,7 @@ const FirstFold = ({ module, customData }) => {
                 </div>
               )}
               <div className={style.links}>
-                <FirstFoldLink primary />
+              <FirstFoldLink primary />
                 <FirstFoldLink />
               </div>
             </div>
