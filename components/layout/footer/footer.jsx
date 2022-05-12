@@ -234,7 +234,6 @@ const Footer = ({ globalData }) => {
             {/* <div id="ot-sdk-cookie-policy"></div> */}
             {/* <!-- OneTrust Cookies List end --> */}
           </div>
-          ß
           <div className={`${style.footNoteLinks}`}>
             <p className={style.footNoteLink}>{data.fields.copyrightText}</p>
             {data.fields.bottomNavigation?.length > 0 &&
