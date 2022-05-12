@@ -2,6 +2,11 @@
 @import "../../../styles/settings/_colors.scss";
 @import "../../../styles/settings/_variables.scss";
 
+#ot-sdk-btn.ot-sdk-show-settings:hover,
+#ot-sdk-btn.optanon-show-settings:hover {
+  background-color: $color-navy !important;
+  border: 1px solid $color-navy !important;
+}
 .footer {
   background: $color-navy;
   color: white;
