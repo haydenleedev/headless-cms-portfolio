@@ -66,9 +66,13 @@ const BlankCards = ({ module, customData }) => {
     }
     return (
         <section className="section">
-            <div className={`container ${brand ? "max-width-brand" : ""}`}>
+            <div className={`container ${brand ? "max-width-brand" : ""} ${style.containerPosition}`}>
+            {fields.description &&
+                    <p className={style.description}>{fields.description}</p>}
                 <div className={`${style.headingContainer} ${"flex-direction-"+fields.subtitlePosition}`}>
+                    {fields.subtitle && 
                     <p>{fields.subtitle}</p>
+                    }
                     {heading.text && 
                     <Heading {...heading} />
                     }
