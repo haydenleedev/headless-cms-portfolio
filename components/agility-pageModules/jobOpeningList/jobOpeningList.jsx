@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import AgilityLink from "../../agilityLink";
 import Heading from "../heading";
 import style from "./jobOpeningList.module.scss";
@@ -6,28 +7,74 @@ const JobOpeningList = ({ module, customData }) => {
   const { fields } = module;
   const { jobListJsonData } = customData;
   const heading = fields?.heading ? JSON.parse(fields.heading) : null;
-  const jobsByLocation = [];
+  const searchInputRef = useRef();
 
-  jobListJsonData.jobs.forEach((job) => {
-    let locationInArray = false;
-    jobsByLocation.forEach((locationCategory) => {
-      if (job.location.name == locationCategory.location) {
-        locationCategory.jobs.push(job);
-        locationInArray = true;
+  const sortJobsByLocation = () => {
+    const jobsCopy = [...jobs];
+    if (jobSortCategory == "location") {
+      jobsCopy.reverse();
+    } else {
+      jobsCopy.sort((a, b) => {
+        return a.location.name.localeCompare(b.location.name);
+      });
+      setJobSortCategory("location");
+    }
+    setJobs(jobsCopy);
+  };
+
+  const sortJobsByTitle = () => {
+    const jobsCopy = [...jobs];
+    if (jobSortCategory == "title") {
+      jobsCopy.reverse();
+    } else {
+      jobsCopy.sort((a, b) => {
+        return a.title.localeCompare(b.title);
+      });
+      setJobSortCategory("title");
+    }
+    setJobs(jobsCopy);
+  };
+
+  const [jobSortCategory, setJobSortCategory] = useState(null);
+  const [jobs, setJobs] = useState(jobListJsonData.jobs);
+  const [locations, setLocations] = useState([]);
+  const [locationFilter, setLocationFilter] = useState(null);
+
+  useEffect(() => {
+    sortJobsByTitle();
+    const allLocations = [];
+    jobListJsonData.jobs.forEach((job) => {
+      if (!allLocations.includes(job.location.name)) {
+        allLocations.push(job.location.name);
       }
     });
-    if (!locationInArray) {
-      jobsByLocation.push({ location: job.location.name, jobs: [job] });
-    }
-  });
+    setLocations(allLocations);
+  }, []);
 
-  jobsByLocation.sort((a, b) => {
-    return a.location.localeCompare(b.location);
-  });
+  useEffect(() => {
+    filterByKeyword(searchInputRef.current.value);
+  }, [locationFilter]);
+
+  const filterByKeyword = (keyword) => {
+    const jobsCopy = [...jobListJsonData.jobs];
+    const searchTerm = keyword.toLowerCase();
+    const jobsFilteredByKeyword = jobsCopy.filter(
+      (job) =>
+        (!searchTerm && !locationFilter) ||
+        (job.title.toLowerCase().includes(searchTerm) &&
+          (!locationFilter || job.location.name == locationFilter))
+    );
+    setJobs(jobsFilteredByKeyword);
+  };
+
+  const filterByLocation = (e) => {
+    const selectedLocation = e.target.value;
+    setLocationFilter(selectedLocation);
+  };
 
   return (
     <>
-      {jobsByLocation.length > 0 && (
+      {jobListJsonData.jobs.length > 0 && (
         <section className={`section ${style.jobOpeningList}`}>
           <div className="container">
             {heading?.text && (
@@ -35,32 +82,72 @@ const JobOpeningList = ({ module, customData }) => {
                 <Heading {...heading} />
               </div>
             )}
-            {jobsByLocation.map((locationCategory, locationCategoryIndex) => {
-              return (
-                <div
-                  key={`locationCategory${locationCategoryIndex}`}
-                  className={style.locationCategory}
-                >
-                  <h3 className="heading-5 mb-3">
-                    {locationCategory.location}
-                  </h3>
-                  <div className={style.jobOpenings}>
-                    {locationCategory.jobs.map((job, jobIndex) => {
-                      return (
-                        <AgilityLink
-                          key={`joboOpening${jobIndex}`}
-                          agilityLink={{ href: `/jobs/${job.id}` }}
-                          className={style.jobOpening}
-                        >
-                          <p className="bold">{job.title}</p>
-                          <span>Learn more</span>
-                        </AgilityLink>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })}
+            <label htmlFor="job-search-input">Search</label>
+            <input
+              id="job-search-input"
+              type={"text"}
+              ref={searchInputRef}
+              onChange={(e) => {
+                filterByKeyword(e.target.value);
+              }}
+            />
+            <label htmlFor="job-location-dropdown">Filter by location</label>
+            <select
+              id="job-location-dropdown"
+              onChange={(e) => {
+                filterByLocation(e);
+              }}
+            >
+              <option value="">All</option>
+              {locations.map((location, index) => {
+                return (
+                  <option key={`location${index}`} value={location}>
+                    {location}
+                  </option>
+                );
+              })}
+            </select>
+            {jobs.length > 0 ? (
+              <table className={style.jobOpenings}>
+                <thead>
+                  <tr>
+                    <th
+                      tabIndex={0}
+                      title="Sort jobs by title"
+                      onClick={sortJobsByTitle}
+                    >
+                      Job title
+                    </th>
+                    <th
+                      tabIndex={0}
+                      title="Sort jobs by location"
+                      onClick={sortJobsByLocation}
+                    >
+                      Location
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {jobs.map((job, index) => {
+                    return (
+                      <tr key={`job${index}`} className={style.jobOpening}>
+                        <td>
+                          <AgilityLink
+                            agilityLink={{ href: `/jobs/${job.id}` }}
+                            ariaLabel={`Navigate to job opening page: ${job.title} (${job.location.name})`}
+                          >
+                            {job.title}
+                          </AgilityLink>
+                        </td>
+                        <td>{job.location.name}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            ) : (
+              <p className="mt-2">No results found.</p>
+            )}
           </div>
         </section>
       )}
