@@ -49,11 +49,10 @@ const JobOpeningList = ({ module, customData }) => {
                       return (
                         <AgilityLink
                           key={`joboOpening${jobIndex}`}
-                          agilityLink={{ href: job.absolute_url }}
+                          agilityLink={{ href: `/jobs/${job.id}` }}
                           className={style.jobOpening}
                         >
                           <p className="bold">{job.title}</p>
-                          {/* <p>{job.location.name}</p> */}
                           <span>Learn more</span>
                         </AgilityLink>
                       );
