@@ -508,15 +508,26 @@ mark {
   }
 }
 .list-checkmark{
-  li{
     list-style-type: none;
     position:relative;
-    margin-left:-2.2rem;
+    margin-left:-1rem;
     &::before{
       content: '\2713';
     display: inline-block;
-    color: white;
-    padding: 0 6px 0 0;
+    font-weight: 700;
+    position:absolute;
+    left:-1.3rem;
     }
+}
+.list-crossmark{
+  list-style-type: none;
+  position:relative;
+  margin-left:-1rem;
+  &::before{
+    content: 'X';
+  display: inline-block;
+  font-weight: 700;
+  position:absolute;
+  left:-1.3rem;
   }
 }
