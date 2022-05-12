@@ -3,17 +3,20 @@ import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { boolean } from "../../../utils/validation";
 import AgilityLink from "../../agilityLink";
 import style from "./blankCards.module.scss";
+import Heading from "../heading";
 
 const BlankCards = ({ module, customData }) => {
     const { fields } = module;
     const cards = customData;
+    const brand = fields.layout == "brand";
+    const heading = JSON.parse(fields.heading);
     cards.sort(function (a, b) {
         return a.properties.itemOrder - b.properties.itemOrder;
     });
     const RenderCard = ({ card }) => {
         const isIconCard = boolean(card.fields.useImageAsIcon);
         return (
-            <div className={style.cardWrapper}>
+            <div className={`${style.cardWrapper} ${brand ? style.brand : ""}`}>
                 <div className={style.card}>
                     {(card.fields.image && !isIconCard) && (
                         <div className={`${style.imageWrapper} ${cards.length < fields.maxCardsPerRow ? style[`height${cards.length}`] : style.height4}`}>
@@ -22,7 +25,7 @@ const BlankCards = ({ module, customData }) => {
                                 width={0}
                                 height={0}
                                 layout="responsive"
-                                objectFit="cover"
+                                objectFit={brand ? "contain" : "cover"}
                             />
                         </div>
                     )}
@@ -63,7 +66,13 @@ const BlankCards = ({ module, customData }) => {
     }
     return (
         <section className="section">
-            <div className="container">
+            <div className={`container ${brand ? "max-width-brand" : ""}`}>
+                <div className={`${style.headingContainer} ${"flex-direction-"+fields.subtitlePosition}`}>
+                    <p>{fields.subtitle}</p>
+                    {heading.text && 
+                    <Heading {...heading} />
+                    }
+                </div>
                 <div className={style.cardGrid}>
                     {cards.map((card, index) => {
                         return (
