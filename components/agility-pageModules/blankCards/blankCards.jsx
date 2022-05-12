@@ -10,6 +10,7 @@ const BlankCards = ({ module, customData }) => {
     const cards = customData;
     const brand = fields.layout == "brand";
     const heading = JSON.parse(fields.heading);
+    const smallImage = boolean(fields.smallerImage);
     cards.sort(function (a, b) {
         return a.properties.itemOrder - b.properties.itemOrder;
     });
@@ -19,7 +20,7 @@ const BlankCards = ({ module, customData }) => {
             <div className={`${style.cardWrapper} ${brand ? style.brand : ""}`}>
                 <div className={style.card}>
                     {(card.fields.image && !isIconCard) && (
-                        <div className={`${style.imageWrapper} ${cards.length < fields.maxCardsPerRow ? style[`height${cards.length}`] : style.height4}`}>
+                        <div className={`${style.imageWrapper} ${smallImage ? style.smallerSize : style.normalSize} ${cards.length < fields.maxCardsPerRow ? style[`height${cards.length}`] : style.height4}`}>
                             <AgilityImage
                                 src={card.fields.image.url}
                                 width={0}

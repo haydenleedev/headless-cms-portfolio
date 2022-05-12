@@ -65,20 +65,38 @@
         .imageWrapper {
             transition:padding 0.3s;
             flex-grow: 1;
-            padding:1rem;
+            
           > span {
-            height: 100% !important;
-         
+            max-height: 100% !important;
+            font-size: 0;
+           img{
+            justify-self: center;
+            align-self:center;
+           }
           }
-          @include desktop() {
-            padding:1.5rem;
-            margin-bottom:0;
-            max-height:80%;
-            &:hover{
-                padding:.7rem;
-                
+          &.smallerSize{
+              padding:5rem;
+              @include desktop() {
+                padding:5rem;
+                margin-bottom:0;
+                max-height:80%;
+                &:hover{
+                    padding:4.3rem;
+                }
+              }
+          }
+          &.normalSize{
+            padding:1rem;
+            @include desktop() {
+              padding:1.5rem;
+              margin-bottom:0;
+              max-height:80%;
+              &:hover{
+                  padding:.7rem;
+              }
             }
           }
+          
         }
         .textContent {
             margin-top:0;
