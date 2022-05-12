@@ -1,3 +1,6 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
 .heading{
     display:flex;
     &.alignCenter{
@@ -7,3 +10,51 @@
         text-align:right;
     }
 }
+.html {
+    margin-bottom: 2rem;
+    p {
+      margin-bottom: 2rem;
+      margin-top: 0.5rem;
+      display: block;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    ul {
+      li {
+        margin-top: 0.25rem;
+      }
+    }
+    a {
+      //text-decoration: unset;
+      color: $color-darkblue;
+    }
+  }
+  .textContainer{
+      display:flex;
+      @include desktop{
+          flex-direction:row;
+      }
+      .columnLeft,
+      .columnRight{
+          flex-basis: 100%;
+          @include desktop{
+            flex-basis:50%;
+            padding-right:2rem;
+          }
+        li{
+            margin-bottom:.5rem;
+        }
+        margin-top:1rem;
+        ul{
+            margin-top:0;
+        }
+      }
+
+      .columnLeft{
+
+      }
+      .columnRight{
+        
+      }
+  }

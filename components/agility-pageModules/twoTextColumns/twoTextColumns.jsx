@@ -13,12 +13,30 @@ const TwoTextColumns = ({ module, customData }) => {
   const brandWidth = fields.containerWidth == "brand";
   const alignRight = fields.headingAlignment == "align-right";
   const alignCenter = fields.headingAlignment == "align-center";
+
+  const intersectionRef = useIntersectionObserver(
+    {
+      threshold: 0.0,
+    },
+    0.0,
+    fields.animationStyle
+      ? () => {
+          intersectionRef.current
+            .querySelectorAll('*[data-animate="true"]')
+            .forEach((elem) => {
+              elem.classList.add(fields.animationStyle);
+            });
+        }
+      : null
+  );
+
   return (
     <section
       className={`section ${style.textWithMedia} ${
         fields.classes ? fields.classes : ""
       }`}
       id={fields.id ? fields.id : null}
+      ref={intersectionRef}
     >
       <div
         className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
@@ -30,11 +48,25 @@ const TwoTextColumns = ({ module, customData }) => {
             <p>{fields.subtitle}</p>
           <Heading {...heading} />
         </div>
-        <div className={style.textContainer}>
+        <div className={`${style.textContainer} ${"flex-direction-"+fields.mobileorder}`}>
           <div className={style.columnLeft}>
-            <p>uhhhhhhhhh</p>
+          {fields.textLeft && (
+                <div
+                  className={`${style.html} content`}
+                  dangerouslySetInnerHTML={renderHTML(customData.sanitizedHtmlLeft)}
+                >
+                </div>
+              )}
           </div>
-          <div className={style.columnRight}></div>
+          <div className={style.columnRight}>
+          {fields.textRight && (
+                <div
+                  className={`${style.html} content`}
+                  dangerouslySetInnerHTML={renderHTML(customData.sanitizedHtmlRight)}
+                >
+                </div>
+              )}
+          </div>
         </div>
       </div>
     </section>
@@ -45,13 +77,13 @@ TwoTextColumns.getCustomInitialProps = async function ({ item }) {
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
 
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
-  const sanitizedHtml = [
-    item.fields.textLeft ? cleanHtml(item.fields.text) : null,
-    item.fields.textRight ? cleanHtml(item.fields.text) : null,
-  ];
+
+  const sanitizedHtmlLeft = item.fields.textLeft ? cleanHtml(item.fields.textLeft) : null;
+  const sanitizedHtmlRight = item.fields.textRight ? cleanHtml(item.fields.textRight) : null;
 
   return {
-    sanitizedHtml,
+    sanitizedHtmlLeft,
+    sanitizedHtmlRight,
   };
 };
 
