@@ -5,76 +5,103 @@ import style from "./jobOpeningList.module.scss";
 
 const JobOpeningList = ({ module, customData }) => {
   const { fields } = module;
-  const { jobListJsonData } = customData;
+  const { jobListData } = customData;
   const heading = fields?.heading ? JSON.parse(fields.heading) : null;
   const searchInputRef = useRef();
 
-  const sortJobsByLocation = () => {
-    const jobsCopy = [...jobs];
-    if (jobSortCategory == "location") {
-      jobsCopy.reverse();
-    } else {
-      jobsCopy.sort((a, b) => {
-        return a.location.name.localeCompare(b.location.name);
-      });
-      setJobSortCategory("location");
-    }
-    setJobs(jobsCopy);
-  };
-
-  const sortJobsByTitle = () => {
-    const jobsCopy = [...jobs];
-    if (jobSortCategory == "title") {
-      jobsCopy.reverse();
-    } else {
-      jobsCopy.sort((a, b) => {
-        return a.title.localeCompare(b.title);
-      });
-      setJobSortCategory("title");
-    }
-    setJobs(jobsCopy);
-  };
-
-  const [jobSortCategory, setJobSortCategory] = useState(null);
-  const [jobs, setJobs] = useState(jobListJsonData.jobs);
+  const [jobs, setJobs] = useState(jobListData);
   const [locations, setLocations] = useState([]);
   const [locationFilter, setLocationFilter] = useState(null);
+  const [currentSortProperty, setCurrentSortProperty] = useState("title");
+  const [currentSortReversed, setCurrentSortReversed] = useState(false);
+  const [titleSortDisabled, setTitleSortDisabled] = useState(false);
+  const [locationSortDisabled, setLocationSortDisabled] = useState(false);
+  const [employmentTypeSortDisabled, setEmploymentTypeSortDisabled] =
+    useState(false);
 
-  useEffect(() => {
-    sortJobsByTitle();
-    const allLocations = [];
-    jobListJsonData.jobs.forEach((job) => {
-      if (!allLocations.includes(job.location.name)) {
-        allLocations.push(job.location.name);
-      }
+  const sortJobs = (jobsToSort) => {
+    const jobsCopy = [...jobsToSort];
+    jobsCopy.sort((a, b) => {
+      return a[currentSortProperty].localeCompare(b[currentSortProperty]);
     });
-    setLocations(allLocations);
-  }, []);
-
-  useEffect(() => {
-    filterByKeyword(searchInputRef.current.value);
-  }, [locationFilter]);
+    return jobsCopy;
+  };
 
   const filterByKeyword = (keyword) => {
-    const jobsCopy = [...jobListJsonData.jobs];
+    let jobsCopy = [...jobListData];
     const searchTerm = keyword.toLowerCase();
     const jobsFilteredByKeyword = jobsCopy.filter(
       (job) =>
         (!searchTerm && !locationFilter) ||
         (job.title.toLowerCase().includes(searchTerm) &&
-          (!locationFilter || job.location.name == locationFilter))
+          (!locationFilter || job.location == locationFilter))
     );
-    setJobs(jobsFilteredByKeyword);
+
+    let sortedFilteredJobs = sortJobs(jobsFilteredByKeyword);
+    if (currentSortReversed) {
+      sortedFilteredJobs = sortedFilteredJobs.reverse();
+    }
+    setJobs(sortedFilteredJobs);
   };
 
-  const filterByLocation = (e) => {
-    const selectedLocation = e.target.value;
+  const filterByLocation = (selectedLocation) => {
     setLocationFilter(selectedLocation);
   };
 
+  const handleSetCurrentSortProperty = (newSortProperty) => {
+    if (newSortProperty !== currentSortProperty) {
+      setCurrentSortReversed(false);
+      setCurrentSortProperty(newSortProperty);
+    } else {
+      setCurrentSortReversed(!currentSortReversed);
+    }
+  };
+
+  const countPropertyValues = (jobArray, property) => {
+    const jobPropertyValues = [];
+    jobArray.forEach((job) => {
+      if (!jobPropertyValues.includes(job[property])) {
+        jobPropertyValues.push(job[property]);
+      }
+    });
+    return jobPropertyValues.length;
+  };
+
+  useEffect(() => {
+    const allLocations = [];
+    jobListData.forEach((job) => {
+      if (!allLocations.includes(job.location)) {
+        allLocations.push(job.location);
+      }
+    });
+    setLocations(allLocations);
+    setJobs(sortJobs(jobs));
+  }, []);
+
+  useEffect(() => {
+    setTitleSortDisabled(countPropertyValues(jobs, "title") < 2);
+    setLocationSortDisabled(countPropertyValues(jobs, "location") < 2);
+    setEmploymentTypeSortDisabled(
+      countPropertyValues(jobs, "employmentType") < 2
+    );
+  }, [jobs]);
+
+  useEffect(() => {
+    filterByKeyword(searchInputRef.current.value);
+  }, [locationFilter]);
+
+  useEffect(() => {
+    setJobs(sortJobs(jobs, currentSortProperty));
+  }, [currentSortProperty]);
+
+  useEffect(() => {
+    const jobsCopy = [...jobs];
+    setJobs(jobsCopy.reverse());
+  }, [currentSortReversed])
+
   return (
     <>
-      {jobListJsonData.jobs.length > 0 && (
+      {jobListData.length > 0 && (
         <section className={`section ${style.jobOpeningList}`}>
           <div className="container">
             {heading?.text && (
@@ -95,7 +122,7 @@ const JobOpeningList = ({ module, customData }) => {
             <select
               id="job-location-dropdown"
               onChange={(e) => {
-                filterByLocation(e);
+                filterByLocation(e.target.value);
               }}
             >
               <option value="">All</option>
@@ -111,19 +138,56 @@ const JobOpeningList = ({ module, customData }) => {
               <table className={style.jobOpenings}>
                 <thead>
                   <tr>
-                    <th
-                      tabIndex={0}
-                      title="Sort jobs by title"
-                      onClick={sortJobsByTitle}
-                    >
-                      Job title
+                    <th>
+                      <div className={style.headerContentWrapper}>
+                        <p>Job title</p>
+                        <button
+                          title="Sort jobs by title"
+                          aria-label="Sort jobs by title"
+                          aria-disabled={titleSortDisabled}
+                          onClick={() => {
+                            if (!titleSortDisabled) {
+                              handleSetCurrentSortProperty("title");
+                            }
+                          }}
+                        >
+                          Sort
+                        </button>
+                      </div>
                     </th>
-                    <th
-                      tabIndex={0}
-                      title="Sort jobs by location"
-                      onClick={sortJobsByLocation}
-                    >
-                      Location
+                    <th>
+                      <div className={style.headerContentWrapper}>
+                        <p>Location</p>
+                        <button
+                          title="Sort jobs by location"
+                          aria-label="Sort jobs by location"
+                          aria-disabled={locationSortDisabled}
+                          onClick={() => {
+                            if (!locationSortDisabled) {
+                              handleSetCurrentSortProperty("location");
+                            }
+                          }}
+                        >
+                          Sort
+                        </button>
+                      </div>
+                    </th>
+                    <th>
+                      <div className={style.headerContentWrapper}>
+                        <p>Employment type</p>
+                        <button
+                          title="Sort jobs by employment type"
+                          aria-label="Sort jobs by employment type"
+                          aria-disabled={employmentTypeSortDisabled}
+                          onClick={() => {
+                            if (!employmentTypeSortDisabled) {
+                              handleSetCurrentSortProperty("employmentType");
+                            }
+                          }}
+                        >
+                          Sort
+                        </button>
+                      </div>
                     </th>
                   </tr>
                 </thead>
@@ -134,12 +198,17 @@ const JobOpeningList = ({ module, customData }) => {
                         <td>
                           <AgilityLink
                             agilityLink={{ href: `/jobs/${job.id}` }}
-                            ariaLabel={`Navigate to job opening page: ${job.title} (${job.location.name})`}
+                            ariaLabel={`Navigate to job opening page: ${
+                              job.title
+                            } (${
+                              job.location
+                            }, employment type: ${job.employmentType.toLowerCase()})`}
                           >
                             {job.title}
                           </AgilityLink>
                         </td>
-                        <td>{job.location.name}</td>
+                        <td>{job.location}</td>
+                        <td>{job.employmentType}</td>
                       </tr>
                     );
                   })}
@@ -156,12 +225,32 @@ const JobOpeningList = ({ module, customData }) => {
 };
 
 JobOpeningList.getCustomInitialProps = async function () {
-  const jobListData = await fetch(
+  const fetchedData = await fetch(
     process.env.NEXT_PUBLIC_GREENHOUSE_JOB_LIST_API_ENDPOINT,
     { method: "GET" }
   );
-  const jobListJsonData = await jobListData.json();
-  return { jobListJsonData };
+  const fetchedDataJson = await fetchedData.json();
+  let jobListData = [];
+  fetchedDataJson.jobs.forEach((job) => {
+    let employmentType;
+    if (job.metadata.length > 0) {
+      job.metadata.forEach((meta) => {
+        if (meta.name.toLowerCase() == "employment type") {
+          employmentType = meta.value ? meta.value : "Unspecified";
+        }
+      });
+    }
+    jobListData.push({
+      location: job.location.name,
+      title: job.title,
+      employmentType: employmentType,
+      id: job.id
+    });
+  });
+  jobListData = jobListData.sort((a, b) => {
+    return a.title.localeCompare(b.title);
+  });
+  return { jobListData };
 };
 
 export default JobOpeningList;

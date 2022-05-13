@@ -5,18 +5,28 @@
   select {
     width: auto;
   }
-  select, input, .jobOpenings th {
+  select,
+  input {
     @include focus-visible-touch-outlines();
   }
   .jobOpenings {
     width: 100%;
-    th {
-      cursor: pointer;
-      user-select: none;
+    .headerContentWrapper {
+      display: flex;
+      justify-content: space-between;
+      button {
+        cursor: pointer;
+        user-select: none;
+        &[aria-disabled="true"] {
+          cursor: not-allowed;
+          border-style: outset;
+          opacity: 0.5;
+        }
+      }
     }
     .jobOpening {
       td {
-        width: 50%;
+        width: 33.33%;
       }
       p {
         font-size: 1.25rem;
