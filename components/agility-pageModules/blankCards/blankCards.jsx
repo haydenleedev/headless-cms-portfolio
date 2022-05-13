@@ -90,11 +90,13 @@ const BlankCards = ({ module, customData }) => {
     );
   };
   return (
-    <section className="section">
+    <section className={`section  ${
+        fields.classes ? fields.classes : ""
+      }`}>
       <div
         className={`container ${brand ? "max-width-brand" : ""} ${
           style.containerPosition
-        }`}
+        } `}
       >
         {fields.description && (
           <p className={style.description}>{fields.description}</p>
