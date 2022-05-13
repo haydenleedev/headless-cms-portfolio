@@ -15,7 +15,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemShadow = boolean(fields?.itemShadow);
   const roundCorners = boolean(fields?.roundCorners);
   const itemImagesAtTop = fields.itemStyle == null;
-
+  const brandWidth = boolean(fields?.brandWidth);
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -134,12 +134,12 @@ const TextGridWithMedia = ({ module, customData }) => {
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
-      <div className={`container `}>
+      <div className={`container ${brandWidth ? "max-width-brand" : ""}`}>
         {heading.text && (
           <div
             className={`${style.heading} ${
               narrowContainer ? "max-width-narrow" : ""
-            }`}
+            }  `}
           >
             <Heading {...heading} />
             {fields.subtitle && <p>{fields.subtitle}</p>}
