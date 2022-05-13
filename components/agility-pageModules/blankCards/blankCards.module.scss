@@ -62,10 +62,10 @@
     &.brand {
       height: 20rem;
       .card {
+        box-shadow: unset;
         .imageWrapper {
             transition:padding 0.3s;
             flex-grow: 1;
-            
           > span {
             max-height: 100% !important;
             font-size: 0;
