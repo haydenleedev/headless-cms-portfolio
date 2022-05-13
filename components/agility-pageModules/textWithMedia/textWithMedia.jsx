@@ -23,6 +23,7 @@ const TextWithMedia = ({ module, customData }) => {
   const headingSizeforTextArea = fields.headingSizeforTextArea;
   const mediaVerticalAlignment = fields.mediaVerticalAlignment;
   const textContentVerticalAlignment = fields.textContentVerticalAlignment;
+  const increaseHeight = boolean(fields?.increaseContainerHeight);
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {
@@ -89,6 +90,7 @@ const TextWithMedia = ({ module, customData }) => {
             } ${brandWidth ? style.brandWidthTextContent : ""} ${
               style[`textContentBasis${fields.textWidthPercentage || 50}`]
             } ${textContentVerticalAlignment}`}
+            style={increaseHeight ? {height: fields.media.height*.7}:{}}
           >
             <div
               className={`${
