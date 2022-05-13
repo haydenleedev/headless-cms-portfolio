@@ -145,13 +145,21 @@
       }
       &.textItemWithLargeMedia {
         padding: 0;
+
         .textItemMedia {
-          height: 14rem;
           overflow: hidden;
-          max-width: 100%;
+          max-width: 100% !important;
+          height: 14rem;
+
+          &.adjustHeight {
+            @include mobile {
+              height: initial;
+            }
+          }
           & > span:only-child img {
+            min-width: 100% !important;
             object-fit: cover;
-            min-height: 100% !important;
+            margin: unset !important;
           }
           .content,
           span.rightArrow {
