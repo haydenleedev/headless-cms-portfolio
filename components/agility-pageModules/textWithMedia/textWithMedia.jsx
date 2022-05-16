@@ -145,7 +145,7 @@ const TextWithMedia = ({ module, customData }) => {
               fullPageWidth ? style.fullPageWidthMedia : ""
             } ${
               brandWidth ? style.brandWidthMedia : ""
-            } ${mediaVerticalAlignment} ${
+            } ${!columnLayout ? style.posAbsolute : ""} ${mediaVerticalAlignment} ${
               style[
                 `mediaBasis${100 - parseInt(fields.textWidthPercentage) || 50}`
               ]
