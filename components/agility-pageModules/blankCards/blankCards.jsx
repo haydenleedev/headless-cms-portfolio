@@ -23,7 +23,7 @@ const BlankCards = ({ module, customData }) => {
         <div className={style.card}>
           {card.fields.image && !isIconCard && (
             <div
-              className={`${style.imageWrapper} ${
+              className={`${style.imageWrapper} ${card.fields.imageWrapperClasses} ${
                 smallImage ? style.smallerSize : style.normalSize
               } ${
                 cards.length < fields.maxCardsPerRow
