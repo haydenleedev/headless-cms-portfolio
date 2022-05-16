@@ -13,7 +13,7 @@ import Head from "next/head";
 import { addDataLayerEventTriggers } from "../../utils/dataLayer";
 import { useEffect } from "react";
 import BrandFooter from "./brandFooter/brandFooter";
-
+import ScrollToTop from "../scrollToTop/scrollToTop";
 const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -92,6 +92,7 @@ const Layout = (props) => {
             <>  
             <BrandNavbar {...props} />
             <main className="brand">
+              <ScrollToTop />
             {children ? children : <AgilityPageTemplate {...props} />}
           </main>
           <BrandFooter {...props} />
