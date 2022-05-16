@@ -17,6 +17,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemImagesAtTop = fields.itemStyle == null;
   const brandWidth = boolean(fields?.brandWidth);
   const limitHeight = boolean(fields?.limitItemHeight)
+  const heightMax = boolean(fields?.imageHeightMax);
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -71,6 +72,7 @@ const TextGridWithMedia = ({ module, customData }) => {
           <div
             className={`
               ${style.textItemMedia}
+              ${heightMax ? style.height100: ""}
               ${!limitHeight ?  "": style.adjustHeight}
               ${mediaIsSvg(itemFields.media) ? style.textItemSvgMedia : ""}
               ${

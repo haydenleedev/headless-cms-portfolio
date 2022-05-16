@@ -150,7 +150,9 @@
           overflow: hidden;
           max-width: 100% !important;
           height: 14rem;
-
+          &.height100{
+            height:100% !important;
+          }
           &.adjustHeight {
             @include mobile {
               height: initial;
