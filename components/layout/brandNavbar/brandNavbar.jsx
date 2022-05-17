@@ -32,7 +32,7 @@ const BrandNavbar = ({ globalData }) => {
           <span></span>
         </button>
         <div className={style.logoContainer}>
-          <Link href="/brand/home">
+          <Link href="/brand">
             <a
               title="Navigate  to home page"
               aria-label="Navigate to home page"
