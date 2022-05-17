@@ -48,8 +48,10 @@ const ScrollToTop = () => {
       }`}
     >
       Scroll to top
+      <div class={style.progressBarWrapper}>
       <div className={style.progressBarContainer}>
         <div className="progress-bar" style={progressBarStyle} />
+      </div>
       </div>
     </button>
   );
