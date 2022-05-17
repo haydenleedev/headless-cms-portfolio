@@ -8,6 +8,8 @@ import { getModule } from "../../components/agility-pageModules";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../utils/convert";
 import { useState, useEffect } from "react";
+import JobApplicationForm from "../../components/jobApplicationForm/jobApplicationForm";
+import agility from "@agility/content-fetch";
 
 export async function getStaticProps({ params }) {
   const jobData = await fetch(
@@ -28,8 +30,30 @@ export async function getStaticProps({ params }) {
     // defaultLocale,
     globalComponents,
   });
+  const api = agility.getApi({
+    guid: process.env.AGILITY_GUID,
+    apiKey: process.env.AGILITY_API_FETCH_KEY,
+    isPreview: false,
+  });
+  const formConfig = await api.getContentItem({
+    contentID: 5499,
+    languageCode: "en-us",
+  });
+  const sanitizeHtml = (await import("sanitize-html")).default;
+  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
+
+  formConfig.fields.generalSelfIdentificationText = cleanHtml(
+    formConfig.fields.generalSelfIdentificationText
+  );
+  formConfig.fields.veteranSelfIdentificationText = cleanHtml(
+    formConfig.fields.veteranSelfIdentificationText
+  );
+  formConfig.fields.disabilitySelfIdentificationText = cleanHtml(
+    formConfig.fields.disabilitySelfIdentificationText
+  );
+  formConfig.fields.footnoteText = cleanHtml(formConfig.fields.footnoteText);
   return {
-    props: { jobData: jobJsonData, agilityProps },
+    props: { jobData: jobJsonData, agilityProps, formConfig },
     revalidate: 10,
   };
 }
@@ -47,7 +71,7 @@ export async function getStaticPaths() {
 }
 
 const JobOpeningPage = (props) => {
-  const { jobData, agilityProps } = props;
+  const { jobData, agilityProps, formConfig } = props;
   const [content, setContent] = useState(null);
 
   useEffect(() => {
@@ -71,6 +95,10 @@ const JobOpeningPage = (props) => {
         <div className="container">
           <h1 className="heading-4">{jobData.title}</h1>
           {content && <div dangerouslySetInnerHTML={renderHTML(content)} />}
+          <JobApplicationForm
+            positionName={jobData.title}
+            config={formConfig}
+          />
         </div>
       </section>
     </Layout>
