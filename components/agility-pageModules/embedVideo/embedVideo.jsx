@@ -17,6 +17,7 @@ const EmbedVideo = ({ module, customData }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields.narrowContainer);
   const wideContainer = boolean(fields.widerContainer);
+  const disableBorder = boolean(fields.disableBorder);
   let videoSrc;
   let isYouTubeVideo = false;
   if (fields.videoURL.href.includes("youtube.com")) {
@@ -141,7 +142,7 @@ const EmbedVideo = ({ module, customData }) => {
                   dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                 ></div>
               )}
-              <div className={style.embed}>
+              <div className={`${style.embed} ${disableBorder ? "" : style.border}`}>
                 <iframe
                   id="video-player"
                   type="text/html"
