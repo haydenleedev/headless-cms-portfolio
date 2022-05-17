@@ -77,7 +77,7 @@ const BrandNavbar = ({ globalData }) => {
           </ul>
         </div>
         <div className={style.buttonContainer}>
-          <Link href="/">Questions?</Link>
+          <Link href="/contact-sales">Questions?</Link>
         </div>
       </nav>
     </header>
