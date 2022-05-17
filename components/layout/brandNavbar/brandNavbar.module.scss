@@ -5,11 +5,9 @@
 
 .navbar {
   background: white;
-  transition: box-shadow 0.2s;
-  box-shadow: 0 0 0.5rem 0px #00000014;
   height: $navbar-height;
   font-size: 1rem;
-  padding-top: 2rem;
+  padding-top: 1rem;
   width: 100%;
   z-index: 4;
   position: sticky;
@@ -20,26 +18,12 @@
       display: flex;
     }
   }
-  &.scrolled {
-    box-shadow: 0 0 0.5rem 0 #0000005b;
-    height: $navbar-height;
-    .navbarSecondary {
-      display: none;
-    }
-  }
 
-  &.transparent {
-    background: transparent;
-    box-shadow: unset;
-    nav {
-      background: transparent;
-    }
-  }
   &.mobileNavActive {
     z-index: 5;
   }
   @include desktop() {
-    height: $navbar-height-tall;
+    height: $navbar-height + .5rem;
     /* display: flex; */
     position: sticky;
     top: 0;
@@ -58,10 +42,10 @@
           opacity:0.6;
         }
         top: 0.4rem;
-        left: 2rem;
+        left: 0;
         width: 7.5rem;
         @include desktop {
-          width: 11rem;
+          width: 9rem;
           top: 0.3rem;
         }
         position: relative;
@@ -106,7 +90,7 @@
       height: 100vh;
       //Mobile styling end
       font-weight: 500;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
         "Segoe UI Symbol";
@@ -133,14 +117,14 @@
               margin: 0 0;
             }
             a {
-              
               @include desktop {
                 display:block;
-                padding:0 2rem;
+                padding: 0 1.5rem;
+                overflow:hidden;
               }
             }
           }
-        padding: 5rem 0 60vh 1rem;
+          padding: 5rem 0 60vh 1rem;
         display: flex;
         background: white;
         flex-direction: column;
@@ -151,11 +135,11 @@
         margin-top:0;
         @include desktop {
           margin-top:1rem;
-          width: 70%;
           flex-direction: row;
           justify-content: space-evenly;
-          background:transparent;
+          min-width: 0 !important;
           padding: 0;
+          max-width:35vw;
         }
         .copyright {
           font-size: 1rem;
