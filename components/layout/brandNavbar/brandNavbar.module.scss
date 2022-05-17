@@ -126,10 +126,14 @@
           li {
             list-style: none;
             height: 100%;
-           
             text-align: center;
             transition: opacity 0.5s;
+            margin:.5rem 0;
+            @include desktop{
+              margin: 0 0;
+            }
             a {
+              
               @include desktop {
                 display:block;
                 padding:0 2rem;
@@ -144,7 +148,9 @@
         justify-content: start;
         width: 90%;
         height: 100%;
+        margin-top:0;
         @include desktop {
+          margin-top:1rem;
           width: 70%;
           flex-direction: row;
           justify-content: space-evenly;
@@ -228,7 +234,7 @@
   transition: left 0.4s;
   position: relative;
   left: 0;
-  top: 0rem;
+  top: 0;
   background: rgba(0, 0, 0, 0.7);
   @include desktop() {
     position: initial;
