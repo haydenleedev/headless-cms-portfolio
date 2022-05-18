@@ -13,6 +13,9 @@
     flex-basis: 100%;
   }
   @include desktop() {
+    > div + * {
+      margin-left: $card-gap;
+    }
     .flexBasis1 {
       flex-basis: 100%;
     }
@@ -20,12 +23,26 @@
       flex-basis: calc(50% - ($card-gap / 2));
     }
     .flexBasis3 {
-      flex-basis: calc(calc(33%) - (($card-gap * 2) / 3));
+      flex-basis: calc(calc(100% / 3) - (($card-gap * 2) / 3));
     }
     .flexBasis4 {
       flex-basis: calc(25% - (($card-gap * 3) / 4));
     }
   }
+  &:not(:only-child) {
+    &:not(:first-child) {
+      // Use margin-top on mobile, as margin-bottom cannot be overridden due to mb-0 having the !important property
+      margin-top: $card-gap;
+      @include desktop() {
+        margin-top: 0;
+      }
+    }
+    @include desktop() {
+      margin-bottom: $card-gap;
+    }
+  }
+
+
   .linkCard {
     @supports #{"\selector(*:focus-visible)"} {
       &:not(:focus-visible) {

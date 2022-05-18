@@ -9,13 +9,19 @@ import AgilityLink from "../../agilityLink";
 const LeadershipPageContent = ({ customData }) => {
   const { allLeaders } = customData;
   const { handleSetGlobalModal } = useContext(GlobalContext);
+  const numberOfColumns = 3;
+  const numberOfRows = Math.ceil(allLeaders.length / numberOfColumns);
   return (
     <section className="section">
       <div className="container">
         <div className={`grid-columns ${style.leadershipPageContent}`}>
-          {allLeaders.map((leader) => (
+          {allLeaders.map((leader, index) => (
             <button
-              className={`reset-button grid-column is-4 ${style.leader}`}
+              className={`reset-button grid-column is-4 ${style.leader}
+              ${index % numberOfColumns == 0 ? "ml-0" : ""}
+              ${
+                index + 1 > (numberOfRows - 1) * numberOfColumns ? "mb-0" : ""
+              }`}
               key={leader.contentID}
               onClick={() =>
                 handleSetGlobalModal(

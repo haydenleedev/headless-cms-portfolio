@@ -5,12 +5,8 @@
     text-align: center;
   }
   &__articles {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    display: grid;
     gap: 1rem;
-    align-items: stretch;
     &__article {
       width: 90vw;
       min-width: unset;
@@ -52,7 +48,6 @@
       }
     }
     @include desktop() {
-      display: grid;
       gap: 2rem;
       width: 100%;
       grid-template-columns: repeat(3, 1fr);

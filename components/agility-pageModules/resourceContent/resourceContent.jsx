@@ -253,7 +253,6 @@ ResourceContent.getCustomInitialProps = async function ({
   languageCode,
 }) {
   const api = agility;
-  console.log(dynamicPageItem.fields.accordionItems);
   const accordionItemsData = dynamicPageItem.fields.accordionItems?.referencename
     ? await api.getContentList({
         referenceName: dynamicPageItem.fields.accordionItems.referencename,

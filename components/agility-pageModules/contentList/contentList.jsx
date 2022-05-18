@@ -69,6 +69,10 @@ const ContentList = ({ module }) => {
                     contentItem.properties.referenceName,
                     contentItem.fields
                   )}
+                  ariaTitle={resolveTitle(
+                    contentItem.properties.referenceName,
+                    contentItem.fields
+                  )}
                   image={contentItem.fields.image}
                 />
               </div>

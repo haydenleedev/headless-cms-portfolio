@@ -1,65 +1,26 @@
-import { AgilityImage } from "@agility/nextjs";
-import { toDate, resolveCategory } from "../../utils/convert";
 import AgilityLink from "../agilityLink";
+import RenderGenericCard from "./renderGenericCard";
 
 // A multi-purpose generic card component which can be as a card for many other componenents
 // such as blog lists, resources lists, news lists etc.
-const GenericCard = ({
-  date,
-  category,
-  overrideCategory,
-  title,
-  description,
-  image,
-  link,
-  ariaTitle,
-}) => {
+const GenericCard = (props) => {
   return (
-    <AgilityLink
-      agilityLink={link}
-      ariaLabel={"Navigate to : " + ariaTitle}
-      title={ariaTitle}
-      className="genericCardWrapper"
-    >
-      <div className="genericCard">
-        {image && (
-          <div className="genericCard__image">
-            <AgilityImage
-              src={image.url}
-              alt={image.label || ""}
-              width={image.pixelWidth}
-              height={image.pixelHeight}
-              objectFit="cover"
-              layout="responsive"
-            />
-          </div>
-        )}
-        <div className="genericCard__textContent">
-          {date && (
-            <p className="genericCard__textContent--date">{toDate(date)}</p>
-          )}
-          {category && !overrideCategory && (
-            <p className="genericCard__textContent--category">
-              {resolveCategory(category)}
-            </p>
-          )}
-          {overrideCategory && (
-            <p className="genericCard__textContent--category">
-              {overrideCategory}
-            </p>
-          )}
-          <p className="genericCard__textContent--title">{title}</p>
-          {description && (
-            <p className="genericCard__textContent--description line-clamp">
-              {description}
-            </p>
-          )}
-          <p className="genericCard__textContent--link">
-            <span>Read more</span>
-          </p>
+    <>
+      {props.link ? (
+        <AgilityLink
+          agilityLink={props.link}
+          ariaLabel={props.ariaTitle && "Navigate to : " + props.ariaTitle}
+          title={props.ariaTitle}
+          className="genericCardWrapper genericCardWrapper__link"
+        >
+          <RenderGenericCard properties={props} />
+        </AgilityLink>
+      ) : (
+        <div className="genericCardWrapper">
+          <RenderGenericCard properties={props} />
         </div>
-      </div>
-    </AgilityLink>
+      )}
+    </>
   );
 };
 

@@ -49,7 +49,8 @@ const FirstFold = ({ module, customData }) => {
   const FirstFoldLink = ({ primary }) => {
     const link = primary ? fields.primaryLink : fields.secondaryLink;
     return link?.href && link?.text ? (
-      <AgilityLink
+      <div className={style.linkWrapper}>
+         <AgilityLink
         agilityLink={link}
         className={`
         ${!simpleLink ? `button 
@@ -60,6 +61,7 @@ const FirstFold = ({ module, customData }) => {
       >
         {link.text}
       </AgilityLink>
+      </div>
     ) : null;
   };
 

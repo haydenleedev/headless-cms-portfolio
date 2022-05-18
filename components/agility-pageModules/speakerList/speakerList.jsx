@@ -6,6 +6,9 @@ const SpeakerList = ({ module }) => {
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
 
+  const numberOfColumns = 3;
+  const numberOfRows = Math.ceil(fields.speakers.length / numberOfColumns);
+
   return (
     <section
       className={`section ${style.speakerList} ${
@@ -18,9 +21,14 @@ const SpeakerList = ({ module }) => {
           <Heading {...heading} />
         </div>
         <div className={`grid-columns ${style.content}`}>
-          {fields.speakers.map((speaker) => (
+          {fields.speakers.map((speaker, index) => (
             <div
-              className={`grid-column is-4 ${style.speaker}`}
+              className={`grid-column is-4 ${style.speaker}               ${
+                index % numberOfColumns == 0 ? "ml-0" : ""
+              }
+              ${
+                index + 1 > (numberOfRows - 1) * numberOfColumns ? "mb-0" : ""
+              }`}
               key={speaker.contentID}
             >
               <div className={style.speakerImage}>

@@ -4,7 +4,7 @@ import { boolean } from "../../../utils/validation";
 import {
   sanitizeHtmlConfig,
   youTubeVideoLinkToEmbed,
-  vimeoLinkToEmbed
+  vimeoLinkToEmbed,
 } from "../../../utils/convert";
 import { renderHTML } from "@agility/nextjs";
 import Script from "next/script";
@@ -23,8 +23,7 @@ const EmbedVideo = ({ module, customData }) => {
   if (fields.videoURL.href.includes("youtube.com")) {
     videoSrc = youTubeVideoLinkToEmbed(fields.videoURL.href);
     isYouTubeVideo = true;
-  }
-  else if (fields.videoURL.href.includes("vimeo.com")) {
+  } else if (fields.videoURL.href.includes("vimeo.com")) {
     videoSrc = vimeoLinkToEmbed(fields.videoURL.href);
   }
 
@@ -44,24 +43,24 @@ const EmbedVideo = ({ module, customData }) => {
       const playbackPercentages = [
         {
           percentage: 10,
-          played: false
+          played: false,
         },
         {
           percentage: 25,
-          played: false
+          played: false,
         },
         {
           percentage: 50,
-          played: false
+          played: false,
         },
         {
           percentage: 75,
-          played: false
+          played: false,
         },
         {
           percentage: 90,
-          played: false
-        }
+          played: false,
+        },
       ];
       let playerStateSequence = [];
       let timer = null;
@@ -70,25 +69,27 @@ const EmbedVideo = ({ module, customData }) => {
       player.addEventListener("onStateChange", (e) => {
         const playerState = e.data;
         playerStateSequence = [...playerStateSequence, playerState];
-        if (arraysAreEqual(playerStateSequence, [2, 3, 1]) || arraysAreEqual(playerStateSequence, [3, 1])) {
+        if (
+          arraysAreEqual(playerStateSequence, [2, 3, 1]) ||
+          arraysAreEqual(playerStateSequence, [3, 1])
+        ) {
           youTubeActivityEvent({ action: "Seek" });
           playerStateSequence = [];
-        }
-        else if (arraysAreEqual(playerStateSequence, [-1, 3, 1]) || arraysAreEqual(playerStateSequence, [1, 3, 1])) {
+        } else if (
+          arraysAreEqual(playerStateSequence, [-1, 3, 1]) ||
+          arraysAreEqual(playerStateSequence, [1, 3, 1])
+        ) {
           youTubeActivityEvent({ action: "Video start" });
           playerStateSequence = [];
-        }
-        else {
+        } else {
           clearTimeout(timer);
           if (playerState !== 3) {
             let timeout = setTimeout(() => {
               if (playerState == 0) {
                 youTubeActivityEvent({ action: "Video end" });
-              }
-              else if (playerState == 1) {
+              } else if (playerState == 1) {
                 youTubeActivityEvent({ action: "Play" });
-              }
-              else if (playerState == 2) {
+              } else if (playerState == 2) {
                 youTubeActivityEvent({ action: "Pause" });
               }
               playerStateSequence = [];
@@ -99,13 +100,27 @@ const EmbedVideo = ({ module, customData }) => {
       });
       player.addEventListener("onReady", () => {
         setInterval(() => {
-          const timeChangeSeconds = Math.round(player.getCurrentTime() - previousVideoTime);
-          let playbackPercentage = (player.getCurrentTime() / player.getDuration()) * 100;
+          const timeChangeSeconds = Math.round(
+            player.getCurrentTime() - previousVideoTime
+          );
+          let playbackPercentage =
+            (player.getCurrentTime() / player.getDuration()) * 100;
           if (timeChangeSeconds > 0 && timeChangeSeconds <= 1) {
             for (let i = 0; i < playbackPercentages.length; i++) {
-              if (playbackPercentage >= playbackPercentages[i].percentage && !playbackPercentages[i].played) {
-                if (Math.round(((playbackPercentages[i].percentage / 100) * player.getDuration()) - previousVideoTime) == 0) {
-                  youTubeActivityEvent({ action: `Playback percentage: ${playbackPercentages[i].percentage}` });
+              if (
+                playbackPercentage >= playbackPercentages[i].percentage &&
+                !playbackPercentages[i].played
+              ) {
+                if (
+                  Math.round(
+                    (playbackPercentages[i].percentage / 100) *
+                      player.getDuration() -
+                      previousVideoTime
+                  ) == 0
+                ) {
+                  youTubeActivityEvent({
+                    action: `Playback percentage: ${playbackPercentages[i].percentage}`,
+                  });
                   playbackPercentages[i].played = true;
                 }
               }
@@ -115,18 +130,19 @@ const EmbedVideo = ({ module, customData }) => {
         }, 1000);
       });
       const arraysAreEqual = (firstArr, secondArr) => {
-        return (firstArr.toString() == secondArr.toString());
-      }
+        return firstArr.toString() == secondArr.toString();
+      };
     }
     window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
-  }
+  };
 
   return (
     <>
       {videoSrc && (
         <section
-          className={`section ${style.embedVideo} ${fields.classes ? fields.classes : ""
-            }`}
+          className={`section ${style.embedVideo} ${
+            fields.classes ? fields.classes : ""
+          }`}
           id={fields.id ? fields.id : null}
         >
           <div className={`container ${narrowContainer ? "max-width-narrow" : ""}  ${wideContainer ? "max-width-brand" : ""}`}>
@@ -143,13 +159,15 @@ const EmbedVideo = ({ module, customData }) => {
                 ></div>
               )}
               <div className={`${style.embed} ${disableBorder ? "" : style.border}`}>
-                <iframe
-                  id="video-player"
-                  type="text/html"
-                  src={videoSrc}
-                  frameBorder="0"
-                  allow="fullscreen;"
-                />
+                <div className={style.iframeWrapper}>
+                  <iframe
+                    id="video-player"
+                    type="text/html"
+                    src={videoSrc}
+                    frameBorder="0"
+                    allow="fullscreen;"
+                  />
+                </div>
               </div>
             </div>
           </div>

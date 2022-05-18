@@ -1,153 +1,52 @@
-import { AgilityImage, renderHTML } from "@agility/nextjs";
-import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { boolean } from "../../../utils/validation";
-import AgilityLink from "../../agilityLink";
+import GenericCard from "../../genericCard/genericCard";
 import style from "./blankCards.module.scss";
 import Heading from "../heading";
 
-const BlankCards = ({ module, customData }) => {
+const BlankCards = ({ module }) => {
   const { fields } = module;
-  const cards = customData;
-  const brand = fields.layout == "brand";
-  const heading = JSON.parse(fields.heading);
-  const smallImage = boolean(fields.smallerImage);
-  cards?.length > 0 &&
-    cards.sort(function (a, b) {
-      return a.properties.itemOrder - b.properties.itemOrder;
-    });
-
-  const fillRow = boolean(fields.fillRow);
-  const fillAmount =
-    fields.maxCardsPerRow - (cards.length % fields.maxCardsPerRow);
-  const fillCards = new Array(fillAmount).fill("");
-
-  const RenderCard = ({ card }) => {
-    const isIconCard = boolean(card.fields.useImageAsIcon);
-    return (
-      <div className={`${style.cardWrapper} ${brand ? style.brand : ""}`}>
-        <div className={style.card}>
-          {card.fields.image && !isIconCard && (
-            <div
-              className={`${style.imageWrapper} ${
-                card.fields.imageWrapperClasses
-              } ${smallImage ? style.smallerSize : style.normalSize} ${
-                cards.length < fields.maxCardsPerRow
-                  ? style[`height${cards.length}`]
-                  : style.height4
-              }`}
-            >
-              <AgilityImage
-                src={card.fields.image.url}
-                width={0}
-                height={0}
-                layout="responsive"
-                objectFit={brand ? "contain" : "cover"}
-              />
-            </div>
-          )}
-          <div
-            className={`${style.textContent} ${
-              card.fields.image && !isIconCard && style.imageCardTextContent
-            }`}
-          >
-            {card.fields.title && isIconCard && (
-              <div
-                className={`${style.titleWithIcon} ${
-                  cards.length < fields.maxCardsPerRow
-                    ? style[`height${cards.length}`]
-                    : style.height4
-                }`}
-              >
-                {card.fields.image && (
-                  <div className={style.iconWrapper}>
-                    <AgilityImage
-                      src={card.fields.image.url}
-                      width={0}
-                      height={0}
-                      layout="responsive"
-                      objectFit="contain"
-                      className={style.icon}
-                    />
-                  </div>
-                )}
-                <p className={style.title}>{card.fields.title}</p>
-              </div>
-            )}
-            {card.fields.title && !isIconCard && (
-              <p className={style.title}>{card.fields.title}</p>
-            )}
-            {card.fields.text && (
-              <div
-                dangerouslySetInnerHTML={renderHTML(card.fields.text)}
-                className={
-                  fields.textAlignment == "left" ? "align-left" : "align-center"
-                }
-              />
-            )}
-            {card.fields.link && (
-              <p className={style.linkText}>
-                <span>{card.fields.link.text}</span>
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
+  const cards = fields.cards;
+  cards.sort(function (a, b) {
+    return a.properties.itemOrder - b.properties.itemOrder;
+  });
+  const maxCardsPerRow =
+    fields.maxCardsPerRow &&
+    fields.maxCardsPerRow > 0 &&
+    fields.maxCardsPerRow <= 4
+      ? parseInt(fields.maxCardsPerRow)
+      : 4;
+  const numberOfRows = Math.ceil(cards.length / maxCardsPerRow);
   return (
-    <section className={`section  ${fields.classes ? fields.classes : ""}`}>
-      <div
-        className={`container ${brand ? "max-width-brand" : ""} ${
-          style.containerPosition
-        } `}
-      >
-        {fields.description && (
-          <p className={style.description}>{fields.description}</p>
-        )}
-        <div
-          className={`${style.headingContainer} ${
-            "flex-direction-" + fields.subtitlePosition
-          }`}
-        >
-          {fields.subtitle && <p>{fields.subtitle}</p>}
-          {heading.text && <Heading {...heading} />}
-        </div>
+    <section className="section">
+      <div className="container">
         <div className={style.cardGrid}>
-          {cards?.map((card, index) => {
+          {cards.map((card, index) => {
             return (
               <div
                 key={`card${index}`}
-                className={
-                  cards.length < fields.maxCardsPerRow
-                    ? style[`flexBasis${cards.length}`]
-                    : style[`flexBasis${fields.maxCardsPerRow}`]
-                }
+                className={`
+                  ${
+                    cards.length < maxCardsPerRow
+                      ? style[`flexBasis${cards.length}`]
+                      : style[`flexBasis${maxCardsPerRow}`]
+                  } ${index % maxCardsPerRow == 0 ? "ml-0" : ""} ${
+                  index + 1 > (numberOfRows - 1) * maxCardsPerRow ? "mb-0" : ""
+                }`}
               >
-                {card.fields.link ? (
-                  <AgilityLink
-                    agilityLink={card.fields.link}
-                    className={style.linkCard}
-                  >
-                    <RenderCard card={card} />
-                  </AgilityLink>
-                ) : (
-                  <RenderCard card={card} />
-                )}
+                <GenericCard
+                  link={card.fields.link}
+                  title={card.fields.title}
+                  image={card.fields.image}
+                  ariaTitle={card.fields.title}
+                  description={card.fields.description}
+                  configuration={{
+                    iconStyleImage: boolean(card.fields.useImageAsIcon),
+                    descriptionAlignment: fields.textAlignment,
+                  }}
+                />
               </div>
             );
           })}
-          {fillCards.length > 0 &&
-            fillRow === true &&
-            fillCards.map((item, index) => {
-              return (
-                <div
-                  className={style[`flexBasis${fields.maxCardsPerRow}`]}
-                  key={`fillCard-${index}`}
-                >
-                  {" "}
-                </div>
-              );
-            })}
         </div>
       </div>
     </section>
@@ -166,4 +65,5 @@ BlankCards.getCustomInitialProps = async function ({ item }) {
 
   return items;
 };
+
 export default BlankCards;

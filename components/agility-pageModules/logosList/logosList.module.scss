@@ -23,10 +23,10 @@
       }
       .columnsLayout {
         display: flex;
-        gap: 1.5rem;
         align-items: center;
         .list {
           flex-basis: 45%;
+          margin-left: 1.5rem;
         }
       }
     }
