@@ -3,6 +3,7 @@
 .containerPosition{
   position:relative;
 }
+
 .cardGrid {
   display: flex;
   $card-gap: 2rem;
@@ -12,10 +13,15 @@
   > div {
     flex-basis: 100%;
   }
-  @include desktop() {
+  &.leftMargin{
+    @include desktop() {
     > div + * {
       margin-left: $card-gap;
     }
+  }
+  }
+  @include desktop() {
+    
     .flexBasis1 {
       flex-basis: 100%;
     }
@@ -75,70 +81,7 @@
     }
   }
   .cardWrapper {
-    //Brand layout styles
-    &.brand {
-      height: 20rem;
-      .card {
-        box-shadow: unset;
-        .imageWrapper {
-            transition:padding 0.3s;
-            flex-grow: 1;
-          > span {
-            max-height: 100% !important;
-            font-size: 0;
-           img{
-            justify-self: center;
-            align-self:center;
-           }
-          }
-          &.smallerSize{
-              padding:5rem;
-              @include desktop() {
-                padding:5rem;
-                margin-bottom:0;
-                max-height:80%;
-                &:hover{
-                    padding:4.3rem;
-                }
-              }
-          }
-          &.normalSize{
-            padding:1rem;
-            @include desktop() {
-              padding:1.5rem;
-              margin-bottom:0;
-              max-height:80%;
-              &:hover{
-                  padding:.7rem;
-              }
-            }
-          }
-          
-        }
-        .textContent {
-            margin-top:0;
-            padding-top:0;
-        }
-        .linkText {
-          padding-top:0;
-          margin-top:-.5rem;
-          font-size: 1.2rem;
-          font-weight: 700;
-          color: $color-navy;
-          align-self: center;
-          transition: opacity 0.5s ease-in;
-          &:hover{
-              text-decoration:underline;
-              opacity:0.7;
-          }
-          span {
-            &::after{
-               all: unset;
-            }
-          }
-        }
-      }
-    }
+
     height: 100%;
     .card {
       height: 100%;
