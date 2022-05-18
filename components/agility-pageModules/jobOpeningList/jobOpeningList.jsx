@@ -76,47 +76,57 @@ const JobOpeningList = ({ module, customData }) => {
     <>
       {jobListJsonData.jobs.length > 0 && (
         <section className={`section ${style.jobOpeningList}`}>
-          <div className="container">
-            {heading?.text && (
-              <div className="heading mb-3">
-                <Heading {...heading} />
+          {heading?.text && (
+            <div className="heading mb-3">
+              <Heading {...heading} />
+            </div>
+          )}
+          <div className={`bg-lightgray pb-2`}>
+            <fieldset className={`grid-columns container`}>
+              <div className={`${style.filters} grid-column is-2`}>
+                <label htmlFor="job-search-input">Keywords</label>
+                <input
+                  id="job-search-input"
+                  type={"text"}
+                  ref={searchInputRef}
+                  onChange={(e) => {
+                    filterByKeyword(e.target.value);
+                  }}
+                />
               </div>
-            )}
-            <label htmlFor="job-search-input">Search</label>
-            <input
-              id="job-search-input"
-              type={"text"}
-              ref={searchInputRef}
-              onChange={(e) => {
-                filterByKeyword(e.target.value);
-              }}
-            />
-            <label htmlFor="job-location-dropdown">Filter by location</label>
-            <select
-              id="job-location-dropdown"
-              onChange={(e) => {
-                filterByLocation(e);
-              }}
-            >
-              <option value="">All</option>
-              {locations.map((location, index) => {
-                return (
-                  <option key={`location${index}`} value={location}>
-                    {location}
-                  </option>
-                );
-              })}
-            </select>
+              <div className={`${style.filters} grid-column is-2`}>
+                <label htmlFor="job-location-dropdown">
+                  Filter by location
+                </label>
+                <select
+                  id="job-location-dropdown"
+                  onChange={(e) => {
+                    filterByLocation(e);
+                  }}
+                >
+                  <option value="">All</option>
+                  {locations.map((location, index) => {
+                    return (
+                      <option key={`location${index}`} value={location}>
+                        {location}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </fieldset>
+          </div>
+          <div className="container mt-3">
             {jobs.length > 0 ? (
               <table className={style.jobOpenings}>
-                <thead>
+                <thead className={`bg-navy text-white`}>
                   <tr>
                     <th
                       tabIndex={0}
                       title="Sort jobs by title"
                       onClick={sortJobsByTitle}
                     >
-                      Job title
+                      Job Title
                     </th>
                     <th
                       tabIndex={0}
@@ -131,7 +141,7 @@ const JobOpeningList = ({ module, customData }) => {
                   {jobs.map((job, index) => {
                     return (
                       <tr key={`job${index}`} className={style.jobOpening}>
-                        <td>
+                        <td data-head="Job Title">
                           <AgilityLink
                             agilityLink={{ href: `/jobs/${job.id}` }}
                             ariaLabel={`Navigate to job opening page: ${job.title} (${job.location.name})`}
@@ -139,7 +149,7 @@ const JobOpeningList = ({ module, customData }) => {
                             {job.title}
                           </AgilityLink>
                         </td>
-                        <td>{job.location.name}</td>
+                        <td data-head="Location">{job.location.name}</td>
                       </tr>
                     );
                   })}

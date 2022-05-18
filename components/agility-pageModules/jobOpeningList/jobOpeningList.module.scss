@@ -5,22 +5,80 @@
   select {
     width: auto;
   }
-  select, input, .jobOpenings th {
+  select,
+  input,
+  .jobOpenings th {
     @include focus-visible-touch-outlines();
   }
   .jobOpenings {
     width: 100%;
+    overflow: hidden;
+    border-radius: 0.5rem 0.5rem 0 0;
+    thead {
+      display: none;
+      @include desktop() {
+        display: table-header-group;
+      }
+    }
+
     th {
       cursor: pointer;
       user-select: none;
+      display: none;
+      @include desktop() {
+        display: table-cell;
+      }
     }
     .jobOpening {
+      td[data-head]:before {
+        content: attr(data-head) ":\00a0 ";
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+      }
+      @include desktop() {
+        td[data-head]:before {
+          content: "";
+          display: none;
+        }
+      }
+
       td {
-        width: 50%;
+        width: 100%;
+        display: block;
+        border: 0;
+        &:first-child {
+          border-top: 1px solid $color-navy;
+          @include desktop() {
+            border-top: 0;
+          }
+        }
+        &:nth-child(even) {
+          border-bottom: 1px solid $color-navy;
+        }
+
+        @include desktop() {
+          width: 50%;
+          display: table-cell;
+          border-bottom: 1px solid $color-navy;
+        }
       }
       p {
         font-size: 1.25rem;
       }
+    }
+  }
+  .filters {
+    input,
+    select {
+      border: 0.0625rem solid #777;
+      border-radius: 0.5rem;
+      line-height: 1.5;
+      padding: 0.3rem 3.75rem 0.3rem 0.8rem;
+      outline: none;
+      height: 2.8rem;
     }
   }
 }
