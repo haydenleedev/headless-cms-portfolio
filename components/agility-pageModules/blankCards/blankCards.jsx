@@ -28,7 +28,7 @@ const BlankCards = ({ module }) => {
   const fillCards = new Array(fillAmount).fill("");
 
 
-  //TODO: Integrate the brand layout options into genericCard component
+  //TODO: Integrate the brand layout options into genericCard component and rmeove this method
   const RenderCard = ({ card }) => {
     const isIconCard = boolean(card.fields.useImageAsIcon);
     return (
