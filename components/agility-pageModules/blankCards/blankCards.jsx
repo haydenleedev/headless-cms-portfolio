@@ -6,6 +6,9 @@ import Heading from "../heading";
 const BlankCards = ({ module }) => {
   const { fields } = module;
   const cards = fields.cards;
+  const heading = JSON.parse(fields.heading);
+  const brand = fields.layout == "brand";
+  const smallImage = boolean(fields.smallerImage);
   cards.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -16,9 +19,27 @@ const BlankCards = ({ module }) => {
       ? parseInt(fields.maxCardsPerRow)
       : 4;
   const numberOfRows = Math.ceil(cards.length / maxCardsPerRow);
+  const fillRow = boolean(fields.fillRow);
+  const fillAmount =
+    fields.maxCardsPerRow - (cards.length % fields.maxCardsPerRow);
+  const fillCards = new Array(fillAmount).fill("");
+
   return (
-    <section className="section">
-      <div className="container">
+    <section className={`section  ${fields.classes ? fields.classes : ""}`}>
+      <div className={`container ${brand ? "max-width-brand" : ""} ${
+            style.containerPosition
+          }`}>
+      {fields.description && (
+            <p className={style.description}>{fields.description}</p>
+          )}
+          <div
+            className={`${style.headingContainer} ${
+              "flex-direction-" + fields.subtitlePosition
+            }`}
+          >
+            {fields.subtitle && <p>{fields.subtitle}</p>}
+            {heading.text && <Heading {...heading} />}
+          </div>
         <div className={style.cardGrid}>
           {cards.map((card, index) => {
             return (
@@ -47,6 +68,18 @@ const BlankCards = ({ module }) => {
               </div>
             );
           })}
+              {fillCards.length > 0 &&
+              fillRow === true &&
+              fillCards.map((item, index) => {
+                return (
+                  <div
+                    className={style[`flexBasis${fields.maxCardsPerRow}`]}
+                    key={`fillCard-${index}`}
+                  >
+                    {" "}
+                  </div>
+                );
+              })}
         </div>
       </div>
     </section>
