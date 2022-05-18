@@ -16,6 +16,11 @@ const BlankCards = ({ module, customData }) => {
       return a.properties.itemOrder - b.properties.itemOrder;
     });
 
+  const fillRow = boolean(fields.fillRow);
+  const fillAmount =
+    fields.maxCardsPerRow - (cards.length % fields.maxCardsPerRow);
+  const fillCards = new Array(fillAmount).fill("");
+
   const RenderCard = ({ card }) => {
     const isIconCard = boolean(card.fields.useImageAsIcon);
     return (
@@ -23,9 +28,9 @@ const BlankCards = ({ module, customData }) => {
         <div className={style.card}>
           {card.fields.image && !isIconCard && (
             <div
-              className={`${style.imageWrapper} ${card.fields.imageWrapperClasses} ${
-                smallImage ? style.smallerSize : style.normalSize
-              } ${
+              className={`${style.imageWrapper} ${
+                card.fields.imageWrapperClasses
+              } ${smallImage ? style.smallerSize : style.normalSize} ${
                 cards.length < fields.maxCardsPerRow
                   ? style[`height${cards.length}`]
                   : style.height4
@@ -90,9 +95,7 @@ const BlankCards = ({ module, customData }) => {
     );
   };
   return (
-    <section className={`section  ${
-        fields.classes ? fields.classes : ""
-      }`}>
+    <section className={`section  ${fields.classes ? fields.classes : ""}`}>
       <div
         className={`container ${brand ? "max-width-brand" : ""} ${
           style.containerPosition
@@ -133,6 +136,18 @@ const BlankCards = ({ module, customData }) => {
               </div>
             );
           })}
+          {fillCards.length > 0 &&
+            fillRow === true &&
+            fillCards.map((item, index) => {
+              return (
+                <div
+                  className={style[`flexBasis${fields.maxCardsPerRow}`]}
+                  key={`fillCard-${index}`}
+                >
+                  {" "}
+                </div>
+              );
+            })}
         </div>
       </div>
     </section>
