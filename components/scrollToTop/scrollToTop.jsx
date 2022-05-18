@@ -23,9 +23,6 @@ const ScrollToTop = () => {
       document.documentElement.scrollHeight -
       document.documentElement.clientHeight;
     const scrolledTemp = `${(scrollPx / winHeightPx) * 100}%`;
-
-    console.log(scrolledTemp);
-
     setScrolled(scrolledTemp);
   };
   const toTop = () => {
