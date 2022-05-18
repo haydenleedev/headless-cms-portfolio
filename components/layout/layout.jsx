@@ -24,7 +24,7 @@ const Loader = () => {
       <p>Loading...</p>
     </>
   );
-}
+};
 
 const Layout = (props) => {
   const {
@@ -46,26 +46,68 @@ const Layout = (props) => {
       if (window._ml && initialPageLoaded) {
         window._ml.q = window._ml.q || [];
         window._ml.q.push(["track"]);
-      }
-      else if (!initialPageLoaded) {
+      } else if (!initialPageLoaded) {
         initialPageLoaded = true;
       }
     });
   }, []);
 
+
+  // HOTFIX DUE TO VERCEL MIDDLEWARE FAILING FOR AN UNKNOWN REASON !
+
+  // Temporary front-end redirect since _middleware.js on Vercel stopped working...
+  if (typeof window !== "undefined" && window.location.href) {
+    const url = window.location.href;
+    console.log(url);
+
+    const uppercaseRedirects = [
+      "https://ujet.cx/archive/01June2019-website-privacy-notice",
+      "https://ujet.cx/archive/01June2019-privacy-notice",
+      "https://ujet.cx/archive/policy-prior-to-01-June-2019",
+      "https://ujet.cx/CER",
+    ];
+
+    // Redirect uppercase urls to lowercase based on the array above
+    if (uppercaseRedirects.includes(url)) {
+      router.replace(url.toLowerCase());
+    }
+
+    // Redirect blog.ujet.co
+    const blogUrl = "blog.ujet.co";
+    const blogUrlRegex = new RegExp(`/(${blogUrl})/`);
+
+    if (url.includes(blogUrl)) {
+      const postSlug = url.replace(/en-US/g, "").split(blogUrlRegex)[2];
+      const redirectUrl = "https://ujet.cx/blog";
+      if (postSlug) {
+        router.replace(`${redirectUrl}/${postSlug}`);
+      }
+      router.replace(redirectUrl);
+    }
+
+    const buyUrl = "buy.ujet.cx";
+    if (url.includes(buyUrl)) {
+      const redirectUrl = "https://ujet.cx/shop";
+      router.replace(redirectUrl);
+    }
+  }
+
+  // END OF HOTFIX
+
+
   // If the page is not yet generated, this will be displayed
   // initially until getStaticProps() finishes running
+
   if (router.isFallback) {
-    return <Loader />
+    return <Loader />;
   }
 
   // if page not found, throw 404
   if (notFound === true) {
     // Prevent 404 when previewing content items
     if (router.asPath.includes("?ContentID=")) {
-      return <Loader />
-    }
-    else {
+      return <Loader />;
+    } else {
       return <Error statusCode={404} />;
     }
   }
@@ -92,9 +134,7 @@ const Layout = (props) => {
         <>
           <GlobalMessage {...props}></GlobalMessage>
           <Navbar {...props}></Navbar>
-          <main>
-            {children ? children : <AgilityPageTemplate {...props} />}
-          </main>
+          <main>{children ? children : <AgilityPageTemplate {...props} />}</main>
           <Footer {...props}></Footer>
         </>
       )}
