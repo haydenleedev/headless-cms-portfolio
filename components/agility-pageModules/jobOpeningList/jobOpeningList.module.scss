@@ -2,6 +2,25 @@
 @import "../../../styles/settings/colors";
 
 .jobOpeningList {
+  .formGrid {
+    display: grid;
+    grid-template-columns: 2rem;
+    position: relative;
+    justify-content: flex-end;
+    align-items: center;
+    height: 2.8rem;
+    padding: 0 0.5rem;
+  }
+  input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0.0625rem solid #777;
+    border-radius: 0.2rem;
+    padding-right: 3.75rem;
+  }
   select {
     width: auto;
   }
@@ -10,10 +29,67 @@
   .jobOpenings th {
     @include focus-visible-touch-outlines();
   }
+  .filters {
+    width: 100%;
+
+    flex: auto;
+    position: relative;
+    label {
+      justify-content: flex-start;
+    }
+    .search {
+      height: 100%;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      border: none;
+      margin: 0;
+      padding: 0;
+      width: auto;
+      overflow: visible;
+      text-align: inherit;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      line-height: normal;
+      -webkit-font-smoothing: inherit;
+      -moz-osx-font-smoothing: inherit;
+      -webkit-appearance: none;
+      .magnifyingGlass {
+        position: relative;
+        display: inline-block;
+        background: #fff;
+        border-radius: 10rem;
+        height: 1rem;
+        min-width: 1rem;
+        border: 0.2rem solid #777;
+        &:after {
+          content: "";
+          height: 0.2rem;
+          width: 0.75rem;
+          background: #777;
+          position: absolute;
+          top: 0.75rem;
+          left: 0.5rem;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
   .jobOpenings {
     width: 100%;
     overflow: hidden;
     border-radius: 0.5rem 0.5rem 0 0;
+    tbody {
+      tr:nth-child(2n) {
+        td {
+          background-color: $color-lightgray;
+        }
+      }
+    }
     thead {
       display: none;
       @include desktop() {
@@ -55,12 +131,15 @@
             border-top: 0;
           }
         }
-        &:nth-child(even) {
+        &:nth-child(3n) {
           border-bottom: 1px solid $color-navy;
+          width: 100%;
+          @include desktop() {
+            width: 30%;
+          }
         }
-
         @include desktop() {
-          width: 50%;
+          width: 35%;
           display: table-cell;
           border-bottom: 1px solid $color-navy;
         }

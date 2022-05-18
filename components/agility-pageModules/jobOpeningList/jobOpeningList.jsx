@@ -112,14 +112,20 @@ const JobOpeningList = ({ module, customData }) => {
             <fieldset className={`grid-columns container`}>
               <div className={`${style.filters} grid-column is-2`}>
                 <label htmlFor="job-search-input">Keywords</label>
-                <input
-                  id="job-search-input"
-                  type={"text"}
-                  ref={searchInputRef}
-                  onChange={(e) => {
-                    filterByKeyword(e.target.value);
-                  }}
-                />
+
+                <form role="search" className={style.formGrid}>
+                  <input
+                    id="job-search-input"
+                    type={"text"}
+                    ref={searchInputRef}
+                    onChange={(e) => {
+                      filterByKeyword(e.target.value);
+                    }}
+                  />
+                  <button aria-label="Search" className={style.search}>
+                    <span className={style.magnifyingGlass}></span>
+                  </button>
+                </form>
               </div>
               <div className={`${style.filters} grid-column is-2`}>
                 <label htmlFor="job-location-dropdown">
@@ -168,10 +174,14 @@ const JobOpeningList = ({ module, customData }) => {
                         </button>
                       </div>
                     </th>
+                    <th tabIndex={0} title="Sort jobs by location">
+                      Location
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {jobs.map((job, index) => {
+                    console.log("job: ", job);
                     return (
                       <tr key={`job${index}`} className={style.jobOpening}>
                         <td data-head="Job Title">
@@ -186,7 +196,10 @@ const JobOpeningList = ({ module, customData }) => {
                             {job.title}
                           </AgilityLink>
                         </td>
-                        <td data-head="Location">{job.location.name}</td>
+                        <td data-head="Employment Type">
+                          {job.employmentType}
+                        </td>
+                        <td data-head="Location">{job.location}</td>
                       </tr>
                     );
                   })}
