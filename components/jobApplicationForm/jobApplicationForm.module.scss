@@ -1,0 +1,150 @@
+@import "../../styles/settings/__settings";
+
+.formContainer {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .applicationForm {
+    padding: toRem(30);
+    background-color: $color-paleblue;
+    border-radius: toRem(16);
+    fieldset {
+      border: unset;
+      padding-top: unset;
+      padding-bottom: unset;
+      label {
+        padding: unset;
+        display: block;
+        color: $color-black;
+        font-size: $size-16px;
+        margin-bottom: toRem(4);
+        line-height: 1.4em;
+      }
+      input:not([type="checkbox"], [type="submit"]) {
+        background: $color-white;
+        border-radius: toRem(4);
+        border: toRem(1) solid $color-darkgray;
+        color: $color-black;
+        font-size: $size-16px;
+        height: toRem(48);
+        padding: toRem(20) toRem(15);
+        width: 100%;
+        &:disabled {
+          background-color: $color-lightgray;
+          cursor: not-allowed;
+        }
+        &[type="file"] {
+          background-color: transparent;
+          border: none;
+          padding: toRem(8) toRem(15);
+          height: auto;
+        }
+      }
+      input,
+      select {
+        @include focus-visible-touch-outlines();
+      }
+    }
+    p {
+      margin: 1rem 0;
+    }
+    h3 {
+      font-size: 1.5rem;
+    }
+    p,
+    li,
+    strong {
+      font-size: 1rem;
+    }
+    a {
+      color: $color-darkblue;
+    }
+    button {
+      cursor: pointer;
+    }
+    .required {
+      margin-right: toRem(5);
+      color: $color-red;
+    }
+    @include desktop() {
+      max-width: toRem(650);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}
+
+.error {
+  input,
+  select {
+    border: toRem(2) solid $color-red !important;
+    background-color: $color-lightred !important;
+  }
+  .booleancheckbox {
+    .check {
+      &:before {
+        border-color: $color-red;
+      }
+    }
+  }
+}
+.valid {
+  input,
+  select {
+    border: toRem(2) solid $color-green !important;
+    background-color: $color-lightgreen !important;
+  }
+  .booleancheckbox {
+    .check {
+      &:before {
+        border-color: $color-green;
+      }
+    }
+  }
+}
+
+.visuallyhidden {
+  position: absolute;
+  clip: rect(toRem(1), toRem(1), toRem(1), toRem(1));
+  -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
+  clip-path: inset(0px 0px 99.9% 99.9%);
+  overflow: hidden;
+  height: toRem(1);
+  width: toRem(1);
+  padding: 0;
+  border: 0;
+}
+.form-message-wrapper {
+  color: $color-red;
+  font-style: normal;
+  font-weight: 600;
+  font-size: toRem(15);
+  line-height: 1;
+  text-decoration: none;
+  position: relative;
+  margin-top: toRem(10);
+  z-index: 1;
+  display: flex;
+  &::before {
+    content: "";
+    font-family: "SF Pro Icons";
+    background-size: contain;
+    width: toRem(17);
+    height: toRem(17);
+    padding-right: toRem(7);
+    background: url(../../shop/components/icons/svgs/icon-error-info.svg)
+      no-repeat left bottom;
+    overflow: hidden;
+  }
+}
+
+.removehoney {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 0;
+  z-index: -1;
+}
