@@ -397,6 +397,18 @@
   overflow-wrap: break-word;
 }
 
+.reduce-list-padding-mobile{
+  @include mobile{
+    ul{
+      padding-lefT:0 ;
+      margin-lefT:0;
+      li{
+        margin-lefT:1.5rem;
+      }
+    }
+  }
+}
+
 // !important used here because these classes are meant for overriding default values
 // without !important these would not apply the changes every time
 .mt-0 {
@@ -665,3 +677,4 @@
 .max-height-size-6 {
   max-height: $size-6;
 }
+
