@@ -18,6 +18,17 @@ const JobOpeningList = ({ module, customData }) => {
   const [employmentTypeSortDisabled, setEmploymentTypeSortDisabled] =
     useState(false);
 
+  const [activeBtn, setActiveBtn] = useState("activeBtn");
+  const [isActiveSorting, setIsActiveSorting] = useState({});
+
+  const handleBtn = (btnId) => (e) => {
+    //e.preventDefault();
+    setIsActiveSorting((state) => ({
+      ...state,
+      [btnId]: !state[btnId],
+    }));
+  };
+
   const sortJobs = (jobsToSort) => {
     const jobsCopy = [...jobsToSort];
     jobsCopy.sort((a, b) => {
@@ -153,18 +164,23 @@ const JobOpeningList = ({ module, customData }) => {
                       <div className={style.headerContentWrapper}>
                         <p>Job Title</p>
                         <button
-                          className={style.sort}
+                          className={`${style.sort}`}
                           title="Sort jobs by title"
                           aria-label="Sort jobs by title"
                           aria-disabled={titleSortDisabled}
                           tabIndex={titleSortDisabled ? -1 : 0}
                           onClick={() => {
                             if (!titleSortDisabled) {
+                              handleBtn("btn1")();
                               handleSetCurrentSortProperty("title");
                             }
                           }}
                         >
-                          <span></span>
+                          <span
+                            className={`${
+                              isActiveSorting["btn1"] && style.asc
+                            }`}
+                          ></span>
                         </button>
                       </div>
                     </th>
@@ -179,11 +195,16 @@ const JobOpeningList = ({ module, customData }) => {
                           tabIndex={employmentTypeSortDisabled ? -1 : 0}
                           onClick={() => {
                             if (!employmentTypeSortDisabled) {
+                              handleBtn("btn2")();
                               handleSetCurrentSortProperty("employmentType");
                             }
                           }}
                         >
-                          <span></span>
+                          <span
+                            className={`${
+                              isActiveSorting["btn2"] ? style.asc : ""
+                            }`}
+                          ></span>
                         </button>
                       </div>
                     </th>
@@ -198,11 +219,16 @@ const JobOpeningList = ({ module, customData }) => {
                           tabIndex={locationSortDisabled ? -1 : 0}
                           onClick={() => {
                             if (!locationSortDisabled) {
+                              handleBtn("btn3")();
                               handleSetCurrentSortProperty("location");
                             }
                           }}
                         >
-                          <span></span>
+                          <span
+                            className={`${
+                              isActiveSorting["btn3"] ? style.asc : ""
+                            }`}
+                          ></span>
                         </button>
                       </div>
                     </th>
