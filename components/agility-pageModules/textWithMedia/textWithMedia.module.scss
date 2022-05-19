@@ -128,7 +128,10 @@
     }
   }
 
-  .textContent {
+  .textContent {  
+    &.brandWidthTextContent{
+      justify-content: center !important;
+    }
     display: flex;
     flex-direction: column;
     justify-content: center;
