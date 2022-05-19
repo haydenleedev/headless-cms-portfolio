@@ -129,7 +129,8 @@
   }
 
   .textContent {  
-    &.brandWidthTextContent{
+    &.brandWidthTextContent{  
+      letter-spacing: -.035em;
       justify-content: center !important;
     }
     display: flex;
