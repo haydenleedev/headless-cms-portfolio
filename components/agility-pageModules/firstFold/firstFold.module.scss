@@ -34,6 +34,7 @@
     .heading {
       max-width: unset;
       margin-bottom: unset;
+     
     }
     .textContent {
       text-align: center;
@@ -44,7 +45,7 @@
     border-radius: 50%;
   }
   .heading {
-    max-width: 37.5rem;
+    max-width: 39.5rem;
     margin-top: 1rem;
   }
   .textContent {
@@ -58,8 +59,12 @@
     // Overflow fallback for Safari
     overflow: hidden;
     overflow: clip;
+    &.brandAlign{
+      text-align: left ;
+      align-items: flex-start ;
+    }
     &.textContentBasis30 {
-      flex-basis: 30%;
+      flex-basis: 30%; 
     }
     &.textContentBasis40 {
       flex-basis: 40%;

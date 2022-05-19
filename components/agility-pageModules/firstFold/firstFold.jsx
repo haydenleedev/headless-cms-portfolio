@@ -161,9 +161,9 @@ const FirstFold = ({ module, customData }) => {
             }
           >
             <div
-              className={`${layout == "brand" ? "align-left" :style.textContent} ${
+              className={`${style.textContent} ${
                 style[`textContentBasis${fields.textWidthPercentage || 50}`]
-              }`}
+              } ${layout == "brand" ? style.brandAlign : ""}`}
             >
               <div className={style.heading}>
                 <Heading {...heading}></Heading>
