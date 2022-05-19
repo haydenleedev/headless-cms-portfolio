@@ -492,6 +492,7 @@ mark {
   h5,
   h6 {
     font-family: "Montserrat","DM Sans", sans-serif;
+    letter-spacing: -0.03em;
   }
   h1{
     @include desktop{
