@@ -98,11 +98,21 @@
     }
 
     th {
-      cursor: pointer;
-      user-select: none;
       display: none;
       @include desktop() {
         display: table-cell;
+      }
+      .headerContentWrapper {
+        display: flex;
+        justify-content: space-between;
+        button {
+          cursor: pointer;
+          &[aria-disabled="true"] {
+            opacity: 0.5;
+            cursor: not-allowed;
+            border-style: outset;
+          }
+        }
       }
     }
     .jobOpening {

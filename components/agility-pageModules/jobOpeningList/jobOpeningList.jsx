@@ -13,7 +13,6 @@ const JobOpeningList = ({ module, customData }) => {
   const [locations, setLocations] = useState([]);
   const [locationFilter, setLocationFilter] = useState(null);
   const [currentSortProperty, setCurrentSortProperty] = useState("title");
-  const [currentSortReversed, setCurrentSortReversed] = useState(false);
   const [titleSortDisabled, setTitleSortDisabled] = useState(false);
   const [locationSortDisabled, setLocationSortDisabled] = useState(false);
   const [employmentTypeSortDisabled, setEmploymentTypeSortDisabled] =
@@ -36,11 +35,7 @@ const JobOpeningList = ({ module, customData }) => {
         (job.title.toLowerCase().includes(searchTerm) &&
           (!locationFilter || job.location == locationFilter))
     );
-
     let sortedFilteredJobs = sortJobs(jobsFilteredByKeyword);
-    if (currentSortReversed) {
-      sortedFilteredJobs = sortedFilteredJobs.reverse();
-    }
     setJobs(sortedFilteredJobs);
   };
 
@@ -50,10 +45,10 @@ const JobOpeningList = ({ module, customData }) => {
 
   const handleSetCurrentSortProperty = (newSortProperty) => {
     if (newSortProperty !== currentSortProperty) {
-      setCurrentSortReversed(false);
       setCurrentSortProperty(newSortProperty);
     } else {
-      setCurrentSortReversed(!currentSortReversed);
+      const jobsCopy = [...jobs];
+      setJobs(jobsCopy.reverse());
     }
   };
 
@@ -91,13 +86,8 @@ const JobOpeningList = ({ module, customData }) => {
   }, [locationFilter]);
 
   useEffect(() => {
-    setJobs(sortJobs(jobs, currentSortProperty));
+    setJobs(sortJobs(jobs));
   }, [currentSortProperty]);
-
-  useEffect(() => {
-    const jobsCopy = [...jobs];
-    setJobs(jobsCopy.reverse());
-  }, [currentSortReversed]);
 
   return (
     <>
@@ -118,11 +108,15 @@ const JobOpeningList = ({ module, customData }) => {
                     id="job-search-input"
                     type={"text"}
                     ref={searchInputRef}
-                    onChange={(e) => {
-                      filterByKeyword(e.target.value);
-                    }}
                   />
-                  <button aria-label="Search" className={style.search}>
+                  <button
+                    aria-label="Search"
+                    className={style.search}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      filterByKeyword(searchInputRef.current.value);
+                    }}
+                  >
                     <span className={style.magnifyingGlass}></span>
                   </button>
                 </form>
@@ -134,7 +128,7 @@ const JobOpeningList = ({ module, customData }) => {
                 <select
                   id="job-location-dropdown"
                   onChange={(e) => {
-                    filterByLocation(e);
+                    filterByLocation(e.target.value);
                   }}
                 >
                   <option value="">All</option>
@@ -154,8 +148,23 @@ const JobOpeningList = ({ module, customData }) => {
               <table className={style.jobOpenings}>
                 <thead className={`bg-navy text-white`}>
                   <tr>
-                    <th tabIndex={0} title="Sort jobs by title">
-                      Job Title
+                    <th>
+                      <div className={style.headerContentWrapper}>
+                        <p>Job Title</p>
+                        <button
+                          title="Sort jobs by title"
+                          aria-label="Sort jobs by title"
+                          aria-disabled={titleSortDisabled}
+                          tabIndex={titleSortDisabled ? -1 : 0}
+                          onClick={() => {
+                            if (!titleSortDisabled) {
+                              handleSetCurrentSortProperty("title");
+                            }
+                          }}
+                        >
+                          Sort
+                        </button>
+                      </div>
                     </th>
                     <th>
                       <div className={style.headerContentWrapper}>
@@ -164,6 +173,7 @@ const JobOpeningList = ({ module, customData }) => {
                           title="Sort jobs by employment type"
                           aria-label="Sort jobs by employment type"
                           aria-disabled={employmentTypeSortDisabled}
+                          tabIndex={employmentTypeSortDisabled ? -1 : 0}
                           onClick={() => {
                             if (!employmentTypeSortDisabled) {
                               handleSetCurrentSortProperty("employmentType");
@@ -174,14 +184,28 @@ const JobOpeningList = ({ module, customData }) => {
                         </button>
                       </div>
                     </th>
-                    <th tabIndex={0} title="Sort jobs by location">
-                      Location
+                    <th>
+                      <div className={style.headerContentWrapper}>
+                        <p>Location</p>
+                        <button
+                          title="Sort jobs by location"
+                          aria-label="Sort jobs by location"
+                          aria-disabled={locationSortDisabled}
+                          tabIndex={locationSortDisabled ? -1 : 0}
+                          onClick={() => {
+                            if (!locationSortDisabled) {
+                              handleSetCurrentSortProperty("location");
+                            }
+                          }}
+                        >
+                          Sort
+                        </button>
+                      </div>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {jobs.map((job, index) => {
-                    console.log("job: ", job);
                     return (
                       <tr key={`job${index}`} className={style.jobOpening}>
                         <td data-head="Job Title">
@@ -232,7 +256,7 @@ JobOpeningList.getCustomInitialProps = async function () {
       });
     }
     jobListData.push({
-      location: job.location.name,
+      location: job.location.name.trim(),
       title: job.title,
       employmentType: employmentType,
       id: job.id,
