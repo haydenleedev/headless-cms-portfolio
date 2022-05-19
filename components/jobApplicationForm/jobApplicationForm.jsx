@@ -4,6 +4,7 @@ import { renderHTML } from "@agility/nextjs";
 import FormErrors from "./error";
 import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
 import { formatPhoneNumber } from "../../shop/utils/formatData";
+import Router from "next/router";
 
 class JobApplicationForm extends Component {
   constructor(props) {
@@ -29,10 +30,12 @@ class JobApplicationForm extends Component {
         coverLetter: false,
       },
       validity: true,
+      postInProgress: false,
+      postError: false,
     };
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
     e.preventDefault();
     // Validating
     if (
@@ -40,9 +43,66 @@ class JobApplicationForm extends Component {
       !this.form.honeyname.value &&
       !this.form.honeyemail.value
     ) {
-      // const formData = new FormData(this.form);
-      // formData.delete("honeyname");
-      // formData.delete("honeyemail");
+      const applicationData = {
+        first_name: this.form.firstName.value,
+        last_name: this.form.lastName.value,
+        email: this.form.email.value,
+        phone: this.form.phone.value,
+        gender: this.form.gender.value,
+        race: this.form.race.value,
+        veteran_status: this.form.veteranStatus.value,
+        disability_status: this.form.disabilityStatus.value,
+      };
+      await this.readFileAsBase64String(this.form.resume.files[0]).then(
+        (result) => {
+          applicationData.resume_content = result;
+          applicationData.resume_content_filename =
+            this.form.resume.files[0].name;
+        }
+      );
+      if (this.form.coverLetter.files.length > 0) {
+        await this.readFileAsBase64String(this.form.coverLetter.files[0]).then(
+          (result) => {
+            applicationData.cover_letter_content = result;
+            applicationData.cover_letter_content_filename =
+              this.form.coverLetter.files[0].name;
+          }
+        );
+      }
+      this.sendApplicationData(applicationData);
+    }
+  }
+
+  async readFileAsBase64String(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsBinaryString(file);
+      reader.onloadend = () => {
+        resolve(window.btoa(reader.result));
+      };
+    });
+  }
+
+  async sendApplicationData(applicationData) {
+    if (!this.state.postInProgress) {
+      this.setState({ postInProgress: true, postError: false });
+      const request = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/postJobApplication`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            applicationData: applicationData,
+            id: this.props.jobId,
+          }),
+        }
+      );
+      const response = await request.json();
+      if (!response.postSuccess) {
+        this.setState({ postError: true });
+        this.setState({ postInProgress: false });
+      } else {
+        Router.push("/thank-you-application");
+      }
     }
   }
 
@@ -195,12 +255,6 @@ class JobApplicationForm extends Component {
             ref={(form) => (this.form = form)}
             onSubmit={this.handleSubmit}
           >
-            <input
-              type="hidden"
-              name="positionName"
-              id="positionName"
-              value={this.props.positionName}
-            />
             <fieldset className="row">
               <div
                 className={`col col-2 ${
@@ -384,18 +438,16 @@ class JobApplicationForm extends Component {
             <fieldset>
               <div className="col">
                 <label htmlFor="gender">Gender</label>
-                <select id="gender">
+                <select name="gender" id="gender">
                   <option value="">Please select</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Decline To Self Identify">
-                    Decline To Self Identify
-                  </option>
+                  <option value="1">Male</option>
+                  <option value="2">Female</option>
+                  <option value="3">Decline To Self Identify</option>
                 </select>
               </div>
               <div className="col">
-                <label htmlFor="gender">Are you Hispanic/Latino?</label>
-                <select id="gender">
+                <label htmlFor="race">Are you Hispanic/Latino?</label>
+                <select name="race" id="race">
                   <option value="">Please select</option>
                   <option value="Yes">Yes</option>
                   <option value="No">No</option>
@@ -413,14 +465,14 @@ class JobApplicationForm extends Component {
             <fieldset>
               <div className="col">
                 <label htmlFor="veteranStatus">Veteran Status</label>
-                <select id="veteranStatus">
+                <select name="veteranStatus" id="veteranStatus">
                   <option value="">Please select</option>
-                  <option value="No">I am not a protected veteran</option>
-                  <option value="Yes">
+                  <option value="1">I am not a protected veteran</option>
+                  <option value="2">
                     I identify as one or more of the classifications of a
                     protected veteran
                   </option>
-                  <option value="No answer">I don't wish to answer</option>
+                  <option value="3">I don't wish to answer</option>
                 </select>
               </div>
             </fieldset>
@@ -433,17 +485,17 @@ class JobApplicationForm extends Component {
             <fieldset>
               <div className="col">
                 <label htmlFor="disabilityStatus">Disability Status</label>
-                <select id="disabilityStatus">
+                <select name="disabilityStatus" id="disabilityStatus">
                   <option value="">Please select</option>
-                  <option value="Yes">
+                  <option value="1">
                     Yes, I have a disability, or have a history/record of having
                     a disability
                   </option>
-                  <option value="No">
+                  <option value="2">
                     No, I don't have a disability, or a history/record of having
                     a disability
                   </option>
-                  <option value="No answer">I don't wish to answer</option>
+                  <option value="3">I don't wish to answer</option>
                 </select>
               </div>
             </fieldset>
@@ -470,10 +522,15 @@ class JobApplicationForm extends Component {
             {/* END: Honeypot */}
             <div className="d-flex flex-direction-column align-items-center">
               <button className="button margin-center-horizontal" type="submit">
-                Submit Application
+                {this.state.postInProgress
+                  ? "Please wait..."
+                  : "Submit Application"}
               </button>
               {!this.state.validity && (
                 <FormErrors message="Please fill the required fields with valid values." />
+              )}
+              {this.state.postError && (
+                <FormErrors message="Something went wrong. Please try again later." />
               )}
             </div>
           </form>

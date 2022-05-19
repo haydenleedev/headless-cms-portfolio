@@ -10,6 +10,7 @@ import { sanitizeHtmlConfig } from "../../utils/convert";
 import { useState, useEffect } from "react";
 import JobApplicationForm from "../../components/jobApplicationForm/jobApplicationForm";
 import agility from "@agility/content-fetch";
+import { useRouter } from "next/router";
 
 export async function getStaticProps({ params }) {
   const jobData = await fetch(
@@ -73,6 +74,8 @@ export async function getStaticPaths() {
 const JobOpeningPage = (props) => {
   const { jobData, agilityProps, formConfig } = props;
   const [content, setContent] = useState(null);
+  const { asPath } = useRouter();
+  const jobId = asPath.split("/jobs/")[1];
 
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -98,6 +101,7 @@ const JobOpeningPage = (props) => {
           <JobApplicationForm
             positionName={jobData.title}
             config={formConfig}
+            jobId={jobId}
           />
         </div>
       </section>
