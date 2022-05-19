@@ -141,7 +141,7 @@ const TextWithMedia = ({ module, customData }) => {
             </div>
           </div>
           <div
-            className={`${style.media} ${
+            className={`${style.media} ${fields.roundMediaCorners} ${
               fullPageWidth ? style.fullPageWidthMedia : ""
             } ${
               brandWidth ? style.brandWidthMedia : ""
@@ -156,7 +156,7 @@ const TextWithMedia = ({ module, customData }) => {
               data-animate="true"
               className={`${fields.mediaClass ? fields.mediaClass : "null"} ${
                 mediaIsSvg(fields.media) ? style.svgMediaContainer : ""
-              }`}
+              } `}
             >
               {fields.media && !fields.testimonial && (
                 <Media media={fields.media} title={fields.mediaTitle} />
