@@ -42,9 +42,10 @@
           opacity:0.6;
         }
         top: 0.4rem;
-        left: 0;
+        left: 1.5rem;
         width: 7.5rem;
         @include desktop {
+          left:0;
           width: 9rem;
           top: 0.3rem;
         }
@@ -170,7 +171,7 @@
   padding: inherit;
   cursor: pointer;
   padding: 1rem;
-  top: 3.2rem;
+  top: 2rem;
   @include desktop {
     top: 3.5rem;
   }
