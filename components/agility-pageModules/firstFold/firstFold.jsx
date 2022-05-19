@@ -87,10 +87,12 @@ const FirstFold = ({ module, customData }) => {
           className={`container ${
             layout == "customerStory"
               ? style.customerStoryTextContent
-              : style.textContent
+              : layout == "brand" 
+              ? style.brandTextContent
+              :style.textContent
           } ${narrowContainer ? "max-width-narrow" : ""}`}
         >
-          <div className={style.heading}>
+          <div className={`${style.heading}`}>
             <Heading {...heading}></Heading>
           </div>
           {sanitizedHtml && (
@@ -159,7 +161,7 @@ const FirstFold = ({ module, customData }) => {
             }
           >
             <div
-              className={`${style.textContent} ${
+              className={`${layout == "brand" ? "align-left" :style.textContent} ${
                 style[`textContentBasis${fields.textWidthPercentage || 50}`]
               }`}
             >
