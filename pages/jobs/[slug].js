@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import JobApplicationForm from "../../components/jobApplicationForm/jobApplicationForm";
 import agility from "@agility/content-fetch";
 import { useRouter } from "next/router";
+import Error from "next/error";
 
 export async function getStaticProps({ params }) {
   const jobData = await fetch(
@@ -18,6 +19,10 @@ export async function getStaticProps({ params }) {
     { method: "GET" }
   );
   const jobJsonData = await jobData.json();
+  let notFound = false;
+  if (jobJsonData.status == 404) {
+    notFound = true;
+  }
   const globalComponents = {
     navbar: Navbar,
     globalMessage: GlobalMessage,
@@ -54,7 +59,7 @@ export async function getStaticProps({ params }) {
   );
   formConfig.fields.footnoteText = cleanHtml(formConfig.fields.footnoteText);
   return {
-    props: { jobData: jobJsonData, agilityProps, formConfig },
+    props: { jobData: jobJsonData, agilityProps, formConfig, notFound },
     revalidate: 10,
   };
 }
@@ -72,7 +77,7 @@ export async function getStaticPaths() {
 }
 
 const JobOpeningPage = (props) => {
-  const { jobData, agilityProps, formConfig } = props;
+  const { jobData, agilityProps, formConfig, notFound } = props;
   const [content, setContent] = useState(null);
   const { asPath } = useRouter();
   const jobId = asPath.split("/jobs/")[1];
@@ -91,6 +96,10 @@ const JobOpeningPage = (props) => {
       processContent();
     }
   }, []);
+
+  if (notFound == true) {
+    return <Error statusCode={404} />;
+  }
 
   return (
     <Layout {...agilityProps}>
