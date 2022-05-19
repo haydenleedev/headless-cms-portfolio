@@ -12,7 +12,7 @@ const BlankCards = ({ module }) => {
   const heading = JSON.parse(fields.heading);
   const brand = fields.layout == "brand";
   const smallImage = boolean(fields.smallerImage);
-  cards.sort(function (a, b) {
+  cards?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
   const maxCardsPerRow =
@@ -21,11 +21,11 @@ const BlankCards = ({ module }) => {
     fields.maxCardsPerRow <= 4
       ? parseInt(fields.maxCardsPerRow)
       : 4;
-  const numberOfRows = Math.ceil(cards.length / maxCardsPerRow);
+  const numberOfRows = Math.ceil(cards?.length / maxCardsPerRow);
   const fillRow = boolean(fields.fillRow);
   const fillAmount =
-    fields.maxCardsPerRow - (cards.length % fields.maxCardsPerRow);
-  const fillCards = new Array(fillAmount).fill("");
+    fields.maxCardsPerRow - (cards?.length % fields.maxCardsPerRow);
+  const fillCards = fillAmount > 0 && new Array(fillAmount).fill("");
 
 
   //TODO: Integrate the brand layout options into genericCard component and rmeove this method
@@ -39,8 +39,8 @@ const BlankCards = ({ module }) => {
               className={`${style.imageWrapper} ${
                 card.fields.imageWrapperClasses
               } ${smallImage ? style.smallerSize : style.normalSize} ${
-                cards.length < fields.maxCardsPerRow
-                  ? style[`height${cards.length}`]
+                cards?.length < fields.maxCardsPerRow
+                  ? style[`height${cards?.length}`]
                   : style.height4
               }`}
             >
@@ -121,7 +121,7 @@ const BlankCards = ({ module }) => {
           {heading.text && <Heading {...heading} />}
         </div>
         <div className={`${style.cardGrid} ${!brand ? style.leftMargin : ""}`}>
-          {cards.map((card, index) => {
+          {cards?.map((card, index) => {
             if (brand) {
               return(
                 <div
