@@ -144,6 +144,7 @@ const JobOpeningList = ({ module, customData }) => {
             </fieldset>
           </div>
           <div className="container mt-3">
+            <h2 className={`heading-4 pb-3 mt-5`}>Search Results</h2>
             {jobs.length > 0 ? (
               <table className={style.jobOpenings}>
                 <thead className={`bg-navy text-white`}>
@@ -152,6 +153,7 @@ const JobOpeningList = ({ module, customData }) => {
                       <div className={style.headerContentWrapper}>
                         <p>Job Title</p>
                         <button
+                          className={style.sort}
                           title="Sort jobs by title"
                           aria-label="Sort jobs by title"
                           aria-disabled={titleSortDisabled}
@@ -162,7 +164,7 @@ const JobOpeningList = ({ module, customData }) => {
                             }
                           }}
                         >
-                          Sort
+                          <span></span>
                         </button>
                       </div>
                     </th>
@@ -170,6 +172,7 @@ const JobOpeningList = ({ module, customData }) => {
                       <div className={style.headerContentWrapper}>
                         <p>Employment Type</p>
                         <button
+                          className={style.sort}
                           title="Sort jobs by employment type"
                           aria-label="Sort jobs by employment type"
                           aria-disabled={employmentTypeSortDisabled}
@@ -180,7 +183,7 @@ const JobOpeningList = ({ module, customData }) => {
                             }
                           }}
                         >
-                          Sort
+                          <span></span>
                         </button>
                       </div>
                     </th>
@@ -188,6 +191,7 @@ const JobOpeningList = ({ module, customData }) => {
                       <div className={style.headerContentWrapper}>
                         <p>Location</p>
                         <button
+                          className={style.sort}
                           title="Sort jobs by location"
                           aria-label="Sort jobs by location"
                           aria-disabled={locationSortDisabled}
@@ -198,7 +202,7 @@ const JobOpeningList = ({ module, customData }) => {
                             }
                           }}
                         >
-                          Sort
+                          <span></span>
                         </button>
                       </div>
                     </th>
