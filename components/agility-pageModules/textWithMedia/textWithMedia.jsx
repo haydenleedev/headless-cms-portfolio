@@ -274,9 +274,7 @@ const TextWithMedia = ({ module, customData }) => {
           fullPageWidth ? "max-width-unset padding-unset" : ""
         } ${brandWidth ? "max-width-brand" : ""}`}>
       <div
-          className={`${style.content}  ${fullPageWidth ? style.fullPageWidthContent : ""} ${
-            brandWidth ? style.brandWidthContent : ""
-          } `}
+          className={`${style.content}`}
         >
           <div
             className={`${style.textContent} ${style.backgroundPadding} ${
