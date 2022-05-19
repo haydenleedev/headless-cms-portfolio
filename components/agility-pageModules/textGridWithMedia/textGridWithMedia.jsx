@@ -101,7 +101,11 @@ const TextGridWithMedia = ({ module, customData }) => {
           </div>
         )}
         <div
-          className={`${style.textItemTextContent} d-flex flex-direction-column`}
+          className={`${
+            style.textItemTextContent
+          } d-flex flex-direction-column ${
+            fields.flexAlignItems ? fields.flexAlignItems : ""
+          }`}
         >
           {heading.text && (
             <div className={style.textItemHeading}>
@@ -125,7 +129,13 @@ const TextGridWithMedia = ({ module, customData }) => {
             </div>
           )}
           {itemFields.link && itemFields.link.text && (
-            <span className={style.rightArrow}>{itemFields.link.text}</span>
+            <span
+              className={`${
+                fields.linkStyle ? fields.linkStyle : style.rightArrow2
+              }`}
+            >
+              {itemFields.link.text}
+            </span>
           )}
         </div>
       </div>

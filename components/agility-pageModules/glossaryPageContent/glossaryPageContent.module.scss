@@ -51,13 +51,17 @@
     color: $color-white;
   }
   li {
-    margin: 0 toRem(1) toRem(8);
+    margin: 0 0 toRem(8) 0;
   }
   a,
   span {
-    font-size: 14px;
-    padding: 7px;
-    border: 1px solid $color-darkblue;
+    font-size: toRem(14);
+    font-weight: 700;
+    color: $color-darkblue;
+    padding: toRem(7) 0;
+    width: 90%;
+    max-width: toRem(34);
+    border: toRem(1) solid $color-darkblue;
     border-radius: toRem(5);
     @include desktop() {
       .alpha-tags a,

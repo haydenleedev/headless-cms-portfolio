@@ -10,10 +10,7 @@ const GlossaryPageContent = ({ customData }) => {
 
   const alphabetsMapped = allGlossaries.map((obj) => obj.fields.alphabet);
 
-  alphabetsMapped?.sort(function (a, b) {
-    return a - b;
-  });
-
+  alphabetsMapped?.sort();
   const alphabbetChecker = [];
 
   const [isActive, setActive] = useState(null);
@@ -23,16 +20,14 @@ const GlossaryPageContent = ({ customData }) => {
   const listItems = alphabetsMapped
     .filter((glossary, index) => alphabetsMapped.indexOf(glossary) === index)
     .map((glossary, index) => (
-      <li key={glossary}>
-        <a
-          href={"#" + glossary}
-          className={`${isActive === index && style.selected}`}
-          key={index}
-          onClick={() => setActive(index)}
-        >
-          {glossary.toUpperCase()}
-        </a>
-      </li>
+      <a
+        href={"#" + glossary}
+        className={`${isActive === index && style.selected}`}
+        key={index}
+        onClick={() => setActive(index)}
+      >
+        {glossary.toUpperCase()}
+      </a>
     ));
 
   //const { fields } = module;
@@ -42,14 +37,9 @@ const GlossaryPageContent = ({ customData }) => {
         <h1 className={style["glossary-title"]}>
           Glossary of Contact Center Terms
         </h1>
-        {console.log(alphabetsMapped)}
-        <nav className={style["alpha-tag-nav"]}>
-          <ul className={style["alpha-tags"]}>
-            <HorizontallyScrollableList
-              items={listItems}
-              maxVisibleItems={10}
-            />
-          </ul>
+        {/* {console.log(alphabetsMapped)} */}
+        <nav className={`${style["alpha-tag-nav"]} ${style["alpha-tags"]}`}>
+          <HorizontallyScrollableList items={listItems} maxVisibleItems={10} />
         </nav>
         <div className={style.display}>
           {allGlossaries
@@ -87,10 +77,7 @@ const GlossaryPageContent = ({ customData }) => {
                     {glossary.fields.alphabet.toUpperCase()}
                   </h2>
                 )}
-                {
-                  (alphabbetChecker.push(glossary.fields.alphabet),
-                  console.log("alphabetChecker: ", alphabbetChecker))
-                }
+                {(alphabbetChecker.push(glossary.fields.alphabet), (<></>))}
                 <h3
                   id={glossary.fields.word}
                   className={`${style["css-0"]} ${style["word-anchor"]}`}

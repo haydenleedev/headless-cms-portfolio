@@ -54,6 +54,7 @@ import SearchPageContent from "./searchPageContent/searchPageContent";
 import AcknowledgePageContent from "./acknowledgePageContent/acknowledgePageContent";
 import GlossaryPageContent from "./glossaryPageContent/glossaryPageContent";
 import ShopErrorPageContent from "./shopErrorPageContent/shopErrorPageContent";
+import JobOpeningList from "./jobOpeningList/jobOpeningList";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -109,6 +110,7 @@ const allModules = [
   { name: "BlankCards", module: BlankCards },
   { name: "SecondaryNav", module: SecondaryNav },
   { name: "ShopErrorPageContent", module: ShopErrorPageContent },
+  { name: "JobOpeningList", module: JobOpeningList }
 ];
 
 export const getModule = (moduleName) => {
