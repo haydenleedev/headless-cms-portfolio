@@ -141,7 +141,7 @@ const TextWithMedia = ({ module, customData }) => {
             </div>
           </div>
           <div
-            className={`${style.media} ${
+            className={`${style.media} ${brandWidth && style.roundBorders} ${
               fullPageWidth ? style.fullPageWidthMedia : ""
             } ${
               brandWidth ? style.brandWidthMedia : ""
