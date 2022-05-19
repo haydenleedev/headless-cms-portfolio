@@ -57,8 +57,8 @@ const TextGridWithMedia = ({ module, customData }) => {
     return (
       <div
         className={`
-          ${`grid-column ${columnSizeClassname}`}
-          ${style.textItem}
+        ${brandWidth && itemsWithSanitizedHTML?.length < 2 ? "" : `grid-column ${columnSizeClassname} ${style.textItem}`}
+   
           ${
             fields.itemStyle == "logoLeft" ||
             fields.itemStyle == "mediumLogoLeft"
