@@ -33,9 +33,6 @@ const BlankCards = ({ module }) => {
           style.containerPosition
         }`}
       >
-        {fields.description && (
-          <p className={style.description}>{fields.description}</p>
-        )}
         <div
           className={`${style.headingContainer} ${
             "flex-direction-" + fields.subtitlePosition
@@ -44,6 +41,9 @@ const BlankCards = ({ module }) => {
           {fields.subtitle && <p>{fields.subtitle}</p>}
           {heading.text && <Heading {...heading} />}
         </div>
+        {fields.description && (
+          <p className={style.description}>{fields.description}</p>
+        )}
         <div className={`${style.cardGrid} ${!brand ? style.leftMargin : ""}`}>
           {cards?.map((card, index) => {
               return (
