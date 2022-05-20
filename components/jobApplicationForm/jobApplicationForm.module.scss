@@ -12,6 +12,11 @@
     > div {
       padding: 0 1.5rem;
     }
+    a {
+      color: $color-navy !important;
+      font-weight: 700;
+      text-decoration: underline;
+    }
     fieldset {
       border: unset;
       padding-top: unset;
