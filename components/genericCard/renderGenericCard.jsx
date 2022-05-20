@@ -103,7 +103,7 @@ const RenderGenericCard = ({ properties }) => {
       )}
       <div className={`${brandLayout ? style.textContent : "genericCard__textContent"}
       ${
-       image && !configuration.iconStyleImage && brandLayout && style.imageCardTextContent
+       image && !configuration?.iconStyleImage && brandLayout && style.imageCardTextContent
       }`}>
         {date && (
           <p className="genericCard__textContent--date">{toDate(date)}</p>
