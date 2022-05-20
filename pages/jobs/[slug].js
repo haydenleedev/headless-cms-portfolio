@@ -105,7 +105,7 @@ const JobOpeningPage = (props) => {
     <Layout {...agilityProps}>
       <section className="section">
         <div className="container">
-          <h1 className="heading-4">{jobData.title}</h1>
+          <h1 className="heading-4 pb-3">{jobData.title}</h1>
           {content && <div dangerouslySetInnerHTML={renderHTML(content)} />}
           <JobApplicationForm
             positionName={jobData.title}
