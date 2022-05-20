@@ -23,7 +23,7 @@
     z-index: 5;
   }
   @include desktop() {
-    height: $navbar-height + .5rem;
+    height: $navbar-height + 0.5rem;
     /* display: flex; */
     position: sticky;
     top: 0;
@@ -37,15 +37,15 @@
     .logoContainer {
       width: 30%;
       .logo {
-        transition:opacity 0.4s;
-        &:hover{
-          opacity:0.6;
+        transition: opacity 0.4s;
+        &:hover {
+          opacity: 0.6;
         }
         top: 0.4rem;
         left: 1.5rem;
         width: 7.5rem;
         @include desktop {
-          left:0;
+          left: 0;
           width: 9rem;
           top: 0.3rem;
         }
@@ -84,8 +84,8 @@
       display: flex;
       z-index: 1;
       //Mobile specific styling
-      transition: background-color 0.4s;
-      position: absolute;                                     
+      transition: background-color 0.5s;
+      position: absolute;
       flex-direction: column;
       width: 100%;
       height: 100vh;
@@ -108,24 +108,24 @@
         }
       }
       .mainNavigation {
-          li {
-            list-style: none;
-            height: 100%;
-            text-align: center;
-            margin:.5rem 0;
-            transition: opacity 0.5s;
-            @include desktop{
-              margin: 0 0;
-            }
-            a {
-              @include desktop {
-                display:block;
-                padding: 0 1.5rem;
-                overflow:hidden;
-              }
+        li {
+          list-style: none;
+          height: 100%;
+          text-align: center;
+          margin: 0.5rem 0;
+          transition: opacity 0.5s;
+          @include desktop {
+            margin: 0 0;
+          }
+          a {
+            @include desktop {
+              display: block;
+              padding: 0 1.5rem;
+              overflow: hidden;
             }
           }
-          padding: 5rem 0 60vh 1rem;
+        }
+        padding: 5rem 0 60vh 1rem;
         display: flex;
         background: white;
         flex-direction: column;
@@ -133,14 +133,14 @@
         justify-content: start;
         width: 90vw;
         height: 100%;
-        margin-top:0;
+        margin-top: 0;
         @include desktop {
-          margin-top:1rem;
+          margin-top: 1rem;
           flex-direction: row;
           justify-content: space-evenly;
           min-width: 0 !important;
           padding: 0;
-          max-width:35vw;
+          max-width: 35vw;
         }
         .copyright {
           font-size: 1rem;
@@ -217,17 +217,21 @@
 // Mobile toggle menu states
 .mainNavigationContainerActive {
   touch-action: none;
-  position: relative;
   left: 0;
   top: 0;
-  width:100%;
+  width: 100%;
   background: rgba(0, 0, 0, 0.7);
-  animation: moveRight .4s;
+  .mainNavigation {
+    position: absolute;
+    animation: moveRight 0.5s;
+    @include desktop {
+      animation: unset;
+    }
+  }
   @include desktop() {
     position: initial;
     padding-top: initial;
     background: transparent;
-    animation:unset;
   }
 }
 
@@ -235,57 +239,51 @@
   // Safari needs this
   touch-action: auto;
   height: 0;
-  left:-2147483647px;
-  top:0;
-  animation: moveLeft .4s;
+  left: 0;
+  top: 0;
   padding: 0;
   position: absolute;
+  .mainNavigation {
+    position: absolute;
+    transform: translateX(-90%);
+    animation: moveLeft 0.5s;
+    @include desktop {
+      position: initial;
+      transform: translateX(0);
+      animation: unset;
+    }
+  }
   @include desktop() {
     height: initial;
     left: unset;
     padding: initial;
     position: initial;
-    animation:unset;
+    animation: unset;
   }
 }
-.disableAnimation{
-  @include mobile{
+.disableAnimation {
+  @include mobile {
     transition: none !important;
     animation: none !important;
   }
 }
 @keyframes moveLeft {
   0% {
-    width:300vw;
-     left: 0;
-     opacity:1;
-   }
-
-   99%{
-     left:-90vw;
-     opacity:0.1;
-
-   }
-   100%{
-     left:-2147483647px;
-     width:100%;
-   }
- }
- @keyframes moveRight {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-90%);
+    opacity: 0;
+  }
+}
+@keyframes moveRight {
   0% {
-    width:300vw;
-     left: -2147483647px;
-     opacity:.1;
-   }
-   1%{
-    left:-90vw;
-   }
-   99%{
-     width:300vw;
-   }
-   100%{
-    opacity:1;
-     left:0px;
-     width:100%;
-   }
- }
+    transform: translateX(-90%);
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
