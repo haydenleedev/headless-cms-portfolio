@@ -26,82 +26,6 @@ const BlankCards = ({ module }) => {
   const fillAmount =
     fields.maxCardsPerRow - (cards?.length % fields.maxCardsPerRow);
   const fillCards = fillAmount > 0 && new Array(fillAmount).fill("");
-
-
-  //TODO: Integrate the brand layout options into genericCard component and rmeove this method
-  const RenderCard = ({ card }) => {
-    const isIconCard = boolean(card.fields.useImageAsIcon);
-    return (
-      <div className={`${style.cardWrapper} ${brand ? style.brand : ""}`}>
-        <div className={style.card}>
-          {card.fields.image && !isIconCard && (
-            <div
-              className={`${style.imageWrapper} ${
-                card.fields.imageWrapperClasses
-              } ${smallImage ? style.smallerSize : style.normalSize} ${
-                cards?.length < fields.maxCardsPerRow
-                  ? style[`height${cards?.length}`]
-                  : style.height4
-              }`}
-            >
-              <AgilityImage
-                src={card.fields.image.url}
-                width={0}
-                height={0}
-                layout="responsive"
-                objectFit={brand ? "contain" : "cover"}
-              />
-            </div>
-          )}
-          <div
-            className={`${style.textContent} ${
-              card.fields.image && !isIconCard && style.imageCardTextContent
-            }`}
-          >
-            {card.fields.title && isIconCard && (
-              <div
-                className={`${style.titleWithIcon} ${
-                  cards.length < fields.maxCardsPerRow
-                    ? style[`height${cards.length}`]
-                    : style.height4
-                }`}
-              >
-                {card.fields.image && (
-                  <div className={style.iconWrapper}>
-                    <AgilityImage
-                      src={card.fields.image.url}
-                      width={0}
-                      height={0}
-                      layout="responsive"
-                      objectFit="contain"
-                      className={style.icon}
-                    />
-                  </div>
-                )}
-                <p className={style.title}>{card.fields.title}</p>
-              </div>
-            )}
-            {card.fields.title && !isIconCard && (
-              <p className={style.title}>{card.fields.title}</p>
-            )}
-            {card.fields.text && (
-              <div
-                dangerouslySetInnerHTML={renderHTML(card.fields.text)}
-                className={
-                  fields.textAlignment == "left" ? "align-left" : "align-center"
-                }
-              />
-            )}
-            {card.fields.link && (
-              <p className={style.linkText}>
-                <span>{card.fields.link.text}</span>
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
   return (
     <section className={`section  ${fields.classes ? fields.classes : ""}`}>
       <div
@@ -122,29 +46,6 @@ const BlankCards = ({ module }) => {
         </div>
         <div className={`${style.cardGrid} ${!brand ? style.leftMargin : ""}`}>
           {cards?.map((card, index) => {
-            if (brand) {
-              return(
-                <div
-                key={`card${index}`}
-                className={
-                  cards.length < fields.maxCardsPerRow
-                    ? style[`flexBasis${cards.length}`]
-                    : style[`flexBasis${fields.maxCardsPerRow}`]
-                }
-              >
-                {card.fields.link ? (
-                  <AgilityLink
-                    agilityLink={card.fields.link}
-                    className={style.linkCard}
-                  >
-                    <RenderCard card={card} />
-                  </AgilityLink>
-                ) : (
-                  <RenderCard card={card} />
-                )}
-              </div>
-            );
-            } else{
               return (
                 <div
                   key={`card${index}`}
@@ -158,12 +59,16 @@ const BlankCards = ({ module }) => {
                   }`}
                 >
                   <GenericCard
-                    layout={brand ? "brand" : null}
+                    brandLayout={brand ? true : false}
                     link={card.fields.link}
                     title={card.fields.title}
                     image={card.fields.image}
                     ariaTitle={card.fields.title}
                     description={card.fields.description}
+                    smallImage={smallImage}
+                    text={card.fields.text}
+                    textAlignment={fields.textAlignment}
+                    imageWrapperClasses={card.fields.imageWrapperClasses}
                     configuration={{
                       iconStyleImage: boolean(card.fields.useImageAsIcon),
                       descriptionAlignment: fields.textAlignment,
@@ -171,9 +76,8 @@ const BlankCards = ({ module }) => {
                   />
                 </div>
               );
-            }
-           
-          })}
+            })}
+
           {fillCards.length > 0 &&
             fillRow === true &&
             fillCards.map((item, index) => {

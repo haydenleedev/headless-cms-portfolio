@@ -1,7 +1,7 @@
 @import "../../../styles/settings/colors";
 @import "../../../styles/settings/mixins";
-.containerPosition{
-  position:relative;
+.containerPosition {
+  position: relative;
 }
 
 .cardGrid {
@@ -13,15 +13,14 @@
   > div {
     flex-basis: 100%;
   }
-  &.leftMargin{
+  &.leftMargin {
     @include desktop() {
-    > div + * {
-      margin-left: $card-gap;
+      > div + * {
+        margin-left: $card-gap;
+      }
     }
   }
-  }
   @include desktop() {
-    
     .flexBasis1 {
       flex-basis: 100%;
     }
@@ -47,7 +46,6 @@
       margin-bottom: $card-gap;
     }
   }
-
 
   .linkCard {
     @supports #{"\selector(*:focus-visible)"} {
@@ -81,70 +79,69 @@
     }
   }
   .cardWrapper {
-//Brand layout styles
-&.brand {
-  height: 20rem;
-  .card {
-    box-shadow: unset;
-    .imageWrapper {
-        transition:padding 0.3s;
-        flex-grow: 1;
-      > span {
-        max-height: 100% !important;
-        font-size: 0;
-       img{
-        justify-self: center;
-        align-self:center;
-       }
-      }
-      &.smallerSize{
-          padding:5rem;
-          @include desktop() {
-            padding:5rem;
-            margin-bottom:0;
-            max-height:80%;
-            &:hover{
-                padding:4.3rem;
+    //Brand layout styles
+    &.brand {
+      height: 20rem;
+      .card {
+        box-shadow: unset;
+        .imageWrapper {
+          transition: padding 0.3s;
+          flex-grow: 1;
+          > span {
+            max-height: 100% !important;
+            font-size: 0;
+            img {
+              justify-self: center;
+              align-self: center;
             }
           }
-      }
-      &.normalSize{
-        padding:1rem;
-        @include desktop() {
-          padding:1.5rem;
-          margin-bottom:0;
-          max-height:80%;
-          &:hover{
-              padding:.7rem;
+          &.smallerSize {
+            padding: 5rem;
+            @include desktop() {
+              padding: 5rem;
+              margin-bottom: 0;
+              max-height: 80%;
+              &:hover {
+                padding: 4.3rem;
+              }
+            }
+          }
+          &.normalSize {
+            padding: 1rem;
+            @include desktop() {
+              padding: 1.5rem;
+              margin-bottom: 0;
+              max-height: 80%;
+              &:hover {
+                padding: 0.7rem;
+              }
+            }
+          }
+        }
+        .textContent {
+          margin-top: 0;
+          padding-top: 0;
+        }
+        .linkText {
+          padding-top: 0;
+          margin-top: -0.5rem;
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: $color-navy;
+          align-self: center;
+          transition: opacity 0.5s ease-in;
+          &:hover {
+            text-decoration: underline;
+            opacity: 0.7;
+          }
+          span {
+            &::after {
+              all: unset;
+            }
           }
         }
       }
-      
     }
-    .textContent {
-        margin-top:0;
-        padding-top:0;
-    }
-    .linkText {
-      padding-top:0;
-      margin-top:-.5rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: $color-navy;
-      align-self: center;
-      transition: opacity 0.5s ease-in;
-      &:hover{
-          text-decoration:underline;
-          opacity:0.7;
-      }
-      span {
-        &::after{
-           all: unset;
-        }
-      }
-    }
-  }
-}
     height: 100%;
     .card {
       height: 100%;
@@ -269,14 +266,14 @@
     font-weight: 600;
   }
 }
-.description{
-  margin-bottom:1rem;
-  text-align:left;
-  @include desktop{
-    position:absolute;
-    max-width:40%;
-    right:0;
+.description {
+  margin-bottom: 1rem;
+  text-align: left;
+  @include desktop {
+    position: absolute;
+    max-width: 40%;
+    right: 0;
   }
-  
-  font-weight:400;
+
+  font-weight: 400;
 }
