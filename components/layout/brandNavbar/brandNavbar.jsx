@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 import GlobalContext from "../../../context";
 import MainNavigation from "../navbar/mainNavigation";
-import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom";
 const BrandNavbar = ({ globalData }) => {
   const { brandNavbar } = globalData.brandNavbar;
   const copyrightText = globalData.footer.data.fields.copyrightText;

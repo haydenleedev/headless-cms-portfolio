@@ -102,8 +102,6 @@
         align-items: center;
         justify-content: center;
         ul {
-          li{
-          }
           &:hover li:not(:hover) {
             opacity: 0.5;
           }
