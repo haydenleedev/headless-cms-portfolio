@@ -29,8 +29,10 @@ const BrandNavbar = ({ globalData }) => {
           onClick={() => handleSetMainNavigationActive()}
           className={`${style.navbarToggle}`}
         >
-          <span></span>
-          <span></span>
+              <p className={`${style.closeMenu} ${!mainNavigationActive && style.hide}`}>X</p>
+                <span className={mainNavigationActive && style.hide}></span>
+                <span className={mainNavigationActive && style.hide}></span>
+
         </button>
         <div className={style.logoContainer}>
           <Link href="/brand">
@@ -61,16 +63,18 @@ const BrandNavbar = ({ globalData }) => {
               brandNavbar.fields.mainNavigation.map((item, index) => {
                 return (
                   <li key={`navitem${index}`}>
-                  <Link
-                    href={item.fields.mainLink.fields.link.href}
-                    className={style.navLink}
-                  >
-                    <a onClick={closeMenu} 
-                    title={`Navigate to ${item.fields.mainLink.fields.link.text} page`}
-                    aria-label={`Navigate to ${item.fields.mainLink.fields.link.text} page`}>
-                      {item.fields.mainLink.fields.link.text}
-                    </a>
-                  </Link>
+                    <Link
+                      href={item.fields.mainLink.fields.link.href}
+                      className={style.navLink}
+                    >
+                      <a
+                        onClick={closeMenu}
+                        title={`Navigate to ${item.fields.mainLink.fields.link.text} page`}
+                        aria-label={`Navigate to ${item.fields.mainLink.fields.link.text} page`}
+                      >
+                        {item.fields.mainLink.fields.link.text}
+                      </a>
+                    </Link>
                   </li>
                 );
               })}

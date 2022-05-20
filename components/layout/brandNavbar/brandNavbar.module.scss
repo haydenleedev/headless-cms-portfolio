@@ -175,6 +175,19 @@
   @include desktop {
     top: 3.5rem;
   }
+  .closeMenu{
+    position: absolute;
+    color: $color-navy;
+    height: 1rem;
+    width: 75%;
+    left: 0rem;
+    top:0;
+    font-size: 1.2rem;
+    font-weight:700;
+  }
+  .hide{
+    left:  -2147483647px !important;
+  }
   span {
     position: absolute;
     content: "";
