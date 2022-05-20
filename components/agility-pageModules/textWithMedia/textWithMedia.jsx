@@ -13,6 +13,7 @@ const TextWithMedia = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
 
   //configuration options
+  const mobilePositionTop = fields.mobileMediaPosition == "top";
   const narrowContainer = fields.containerWidth == "narrow";
   const fullPageWidth = fields.containerWidth == "fullPageWidth";
   const brandWidth = fields.containerWidth == "brand";
@@ -80,7 +81,7 @@ const TextWithMedia = ({ module, customData }) => {
               : mediaLeft
               ? style.mediaLeft
               : style.mediaRight
-          } ${fullPageWidth ? style.fullPageWidthContent : ""} ${
+          } ${mobilePositionTop ? style.mediaTop : style.mediaBottom}${fullPageWidth ? style.fullPageWidthContent : ""} ${
             brandWidth ? style.brandWidthContent : ""
           }`}
         >

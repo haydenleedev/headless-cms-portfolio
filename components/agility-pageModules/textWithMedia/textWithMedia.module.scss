@@ -40,12 +40,23 @@
         margin-right: $gap;
       }
     }
-    @include touch() {
-      flex-direction: column-reverse !important;
-      .textContent:not(:only-child) {
-        margin: $gap 0 0 0 !important;
+    &.mediaTop{
+      @include touch() {
+        flex-direction: column-reverse !important;
+        .textContent:not(:only-child) {
+          margin: $gap 0 0 0 !important;
+        }
       }
     }
+    &.mediaBottom{
+      @include touch() {
+        flex-direction: column!important;
+        .textContent:not(:only-child) {
+          margin: $gap 0 0 0 !important;
+        }
+      }
+    }
+  
   }
   .fullPageWidthContent {
     @include touch() {
