@@ -216,6 +216,7 @@
 
 // Mobile toggle menu states
 .mainNavigationContainerActive {
+  touch-action: none;
   position: relative;
   left: 0;
   top: 0;
