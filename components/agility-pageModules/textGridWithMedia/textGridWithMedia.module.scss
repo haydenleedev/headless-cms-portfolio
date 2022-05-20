@@ -42,6 +42,9 @@
     align-items: center;
     justify-content: center;
     .grid {
+      @include desktop{
+        margin-top:4rem;
+      }
       .gridItem {
         min-width: 0;
         min-height: max-content;

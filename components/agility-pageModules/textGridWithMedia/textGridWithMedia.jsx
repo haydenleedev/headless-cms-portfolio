@@ -184,7 +184,6 @@ const TextGridWithMedia = ({ module, customData }) => {
             ${style.grid}
             ${narrowContainer ? "max-width-narrow" : ""}
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
-            mt-4
             `}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {
