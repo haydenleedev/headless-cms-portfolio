@@ -233,6 +233,7 @@
 
 .mainNavigationContainerHidden {
   // Safari needs this
+  touch-action: auto;
   height: 0;
   left:-2147483647px;
   top:0;
@@ -255,17 +256,15 @@
 }
 @keyframes moveLeft {
   0% {
-    width:100%;
+    width:300vw;
      left: 0;
      opacity:1;
    }
-   1%{
-     width:300vw;
-   }
+
    99%{
      left:-90vw;
      opacity:0.1;
-     width:300vw;
+
    }
    100%{
      left:-2147483647px;
