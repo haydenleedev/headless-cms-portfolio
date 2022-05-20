@@ -6,18 +6,20 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useContext } from "react";
 import GlobalContext from "../../../context";
 import MainNavigation from "../navbar/mainNavigation";
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from "react-dom";
 const BrandNavbar = ({ globalData }) => {
   const { brandNavbar } = globalData.brandNavbar;
   const copyrightText = globalData.footer.data.fields.copyrightText;
   const router = useRouter();
   //Affects only mobile
   const [mainNavigationActive, setMainNavigationActive] = useState(false);
-
+  const [disableAnimation, setDisableAnimation] = useState(true);
   const closeMenu = () => {
     setMainNavigationActive(false);
   };
   const handleSetMainNavigationActive = () => {
     setMainNavigationActive(!mainNavigationActive);
+    setDisableAnimation(false);
   };
   return (
     <header className={`${style.navbar} `}>
@@ -53,7 +55,7 @@ const BrandNavbar = ({ globalData }) => {
             mainNavigationActive
               ? style.mainNavigationContainerActive
               : style.mainNavigationContainerHidden
-          }`}
+          } ${disableAnimation ? style.disableAnimation : ""}`}
         >
           <ul className={style.mainNavigation}>
             {brandNavbar.fields.mainNavigation.length > 0 &&

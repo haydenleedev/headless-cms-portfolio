@@ -85,9 +85,9 @@
       z-index: 1;
       //Mobile specific styling
       transition: background-color 0.4s;
-      position: absolute;
+      position: absolute;                                     
       flex-direction: column;
-      width: 100%;
+      width: 300vw;
       height: 100vh;
       //Mobile styling end
       font-weight: 500;
@@ -102,6 +102,8 @@
         align-items: center;
         justify-content: center;
         ul {
+          li{
+          }
           &:hover li:not(:hover) {
             opacity: 0.5;
           }
@@ -112,8 +114,8 @@
             list-style: none;
             height: 100%;
             text-align: center;
-            transition: opacity 0.5s;
             margin:.5rem 0;
+            transition: opacity 0.5s;
             @include desktop{
               margin: 0 0;
             }
@@ -131,7 +133,7 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: start;
-        width: 90%;
+        width: 90vw;
         height: 100%;
         margin-top:0;
         @include desktop {
@@ -216,21 +218,25 @@
 
 // Mobile toggle menu states
 .mainNavigationContainerActive {
-  transition: left 0.4s;
   position: relative;
   left: 0;
   top: 0;
   background: rgba(0, 0, 0, 0.7);
+  animation: moveRight .4s;
   @include desktop() {
     position: initial;
     padding-top: initial;
     background: transparent;
+    animation:unset;
   }
 }
+
 .mainNavigationContainerHidden {
   // Safari needs this
   height: 0;
-  left: -2147483647px;
+  left:-2147483647px;
+  top:0;
+  animation: moveLeft .4s;
   padding: 0;
   position: absolute;
   @include desktop() {
@@ -238,5 +244,39 @@
     left: unset;
     padding: initial;
     position: initial;
+    animation:unset;
   }
 }
+.disableAnimation{
+  @include mobile{
+    transition: none !important;
+    animation: none !important;
+  }
+}
+@keyframes moveLeft {
+  0% {
+     left: 0;
+     opacity:1;
+   }
+   99%{
+     left:-90vw;
+     opacity:0.1;
+   }
+   100%{
+     left:-2147483647px;
+   }
+ }
+ @keyframes moveRight {
+  0% {
+     left: -2147483647px;
+     opacity:.1;
+   }
+   1%{
+    left:-90vw;
+   }
+
+   100%{
+    opacity:1;
+     left:0px;
+   }
+ }
