@@ -87,7 +87,7 @@
       transition: background-color 0.4s;
       position: absolute;                                     
       flex-direction: column;
-      width: 300vw;
+      width: 100%;
       height: 100vh;
       //Mobile styling end
       font-weight: 500;
@@ -219,6 +219,7 @@
   position: relative;
   left: 0;
   top: 0;
+  width:100%;
   background: rgba(0, 0, 0, 0.7);
   animation: moveRight .4s;
   @include desktop() {
@@ -233,7 +234,6 @@
   // Safari needs this
   height: 0;
   left:-2147483647px;
-  top:0;
   animation: moveLeft .4s;
   padding: 0;
   position: absolute;
@@ -266,15 +266,19 @@
  }
  @keyframes moveRight {
   0% {
+    width:300vw;
      left: -2147483647px;
      opacity:.1;
    }
    1%{
     left:-90vw;
    }
-
+   99%{
+     width:300vw;
+   }
    100%{
     opacity:1;
      left:0px;
+     width:100%;
    }
  }
