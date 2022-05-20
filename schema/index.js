@@ -111,7 +111,7 @@ export const shop = `
   },
   "offers": {
     "@type": "AggregateOffer",
-    "url": ${process.env.NEXT_PUBLIC_SITE_URL}/shop,
+    "url": "${process.env.NEXT_PUBLIC_SITE_URL}/shop",
     "priceCurrency": "USD",
     "offerCount": "4",
     "lowPrice": "65.00",
