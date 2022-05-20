@@ -235,6 +235,7 @@
   // Safari needs this
   height: 0;
   left:-2147483647px;
+  top:0;
   animation: moveLeft .4s;
   padding: 0;
   position: absolute;
@@ -254,15 +255,21 @@
 }
 @keyframes moveLeft {
   0% {
+    width:100%;
      left: 0;
      opacity:1;
+   }
+   1%{
+     width:300vw;
    }
    99%{
      left:-90vw;
      opacity:0.1;
+     width:300vw;
    }
    100%{
      left:-2147483647px;
+     width:100%;
    }
  }
  @keyframes moveRight {
