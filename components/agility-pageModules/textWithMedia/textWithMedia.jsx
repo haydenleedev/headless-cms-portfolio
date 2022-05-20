@@ -278,7 +278,7 @@ const TextWithMedia = ({ module, customData }) => {
           className={`${style.content}`}
         >
           <div
-            className={`${style.textContent} ${style.backgroundPadding} ${
+            className={`${style.backgroundTextContent} ${style.backgroundPadding} ${
               fullPageWidth ? style.fullPageWidthTextContent : ""
             } ${brandWidth ? style.brandWidthTextContent : ""} ${
               style[`textContentBasis${fields.textWidthPercentage || 50}`]

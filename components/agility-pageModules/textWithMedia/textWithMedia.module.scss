@@ -312,7 +312,60 @@
     
   }
 
-  //Mobile view needs work
+  .backgroundTextContent {  
+    &.brandWidthTextContent{  
+      letter-spacing: -.035em;
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &.backgroundPadding {
+      padding: 5% 0;
+    }
+    @include desktop{
+      &.textContentBasis30 {
+        flex-basis: 30%;
+      }
+      &.textContentBasis40 {
+        flex-basis: 40%;
+      }
+      &.textContentBasis50 {
+        flex-basis: 50%;
+      }
+      &.textContentBasis60 {
+        flex-basis: 60%;
+      }
+      &.textContentBasis70 {
+        flex-basis: 70%;
+      }
+    }
+   
+    .html {
+      margin-bottom: 2rem;
+      p {
+        margin-bottom: 2rem;
+        margin-top: 0.5rem;
+        display: block;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      ul {
+        li {
+          margin-top: 0.25rem;
+        }
+      }
+      a {
+        //text-decoration: unset;
+        color: $color-darkblue;
+      }
+    }
+    .link {
+      margin-top: unset;
+      border-radius: 3em;
+      border-width: 0.15em;
+    }
+  }
   .mediaBackground {
     position: absolute;
     top: 0;
