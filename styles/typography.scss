@@ -178,6 +178,10 @@ em {
   font-style: italic;
 }
 
+select {
+  height: toRem(44);
+}
+
 form input:not([type="checkbox"], [type="submit"]),
 select {
   background: $color-white;
@@ -185,7 +189,7 @@ select {
   width: 100%;
   padding: 0.5rem;
   border-radius: 0.2rem;
-  border: 0.1rem solid $color-navy;
+  border: 0.1rem solid $color-darkgray;
 }
 
 label {

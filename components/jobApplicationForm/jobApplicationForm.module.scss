@@ -6,9 +6,12 @@
   flex-direction: column;
   align-items: center;
   .applicationForm {
-    padding: toRem(30);
+    padding: toRem(30) toRem(10);
     background-color: $color-paleblue;
     border-radius: toRem(16);
+    > div {
+      padding: 0 1.5rem;
+    }
     fieldset {
       border: unset;
       padding-top: unset;
@@ -37,7 +40,7 @@
         &[type="file"] {
           background-color: transparent;
           border: none;
-          padding: toRem(8) toRem(15);
+          padding: toRem(8) 0;
           height: auto;
         }
       }
