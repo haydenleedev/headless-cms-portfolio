@@ -86,14 +86,24 @@ const Layout = (props) => {
       }
       router.replace(redirectUrl);
     }
-
+    //Redirect brand.ujet.cx
+    const brandUrl = "brand.ujet.cx";
+    const brandUrlRegex = new RegExp(`/(${brandUrl})/`);
+    if (url.includes(brandUrl)){
+      const pageSlug = url.split(blogUrlRegex)[2];
+      const redirectUrl = "https://ujet.cx/brand";
+      if (pageSlug){
+        router.replace(`${redirectUrl}/${pageSlug}`);
+      }
+      router.replace(redirectUrl);
+    }
+    //Redirect buy.ujet.cx
     const buyUrl = "buy.ujet.cx";
     if (url.includes(buyUrl)) {
       const redirectUrl = "https://ujet.cx/shop";
       router.replace(redirectUrl);
     }
   }
-
   // END OF HOTFIX
 
 
