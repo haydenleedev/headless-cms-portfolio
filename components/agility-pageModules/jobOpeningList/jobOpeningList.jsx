@@ -182,21 +182,23 @@ const JobOpeningList = ({ module, customData }) => {
                 <label htmlFor="job-location-dropdown">
                   Filter by location
                 </label>
-                <select
-                  id="job-location-dropdown"
-                  onChange={(e) => {
-                    filterByLocation(e.target.value);
-                  }}
-                >
-                  <option value="">All</option>
-                  {locations.map((location, index) => {
-                    return (
-                      <option key={`location${index}`} value={location}>
-                        {location}
-                      </option>
-                    );
-                  })}
-                </select>
+                <div className={style.locationDropdownWrapper}>
+                  <select
+                    id="job-location-dropdown"
+                    onChange={(e) => {
+                      filterByLocation(e.target.value);
+                    }}
+                  >
+                    <option value="">All</option>
+                    {locations.map((location, index) => {
+                      return (
+                        <option key={`location${index}`} value={location}>
+                          {location}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
               </div>
             </fieldset>
           </div>
