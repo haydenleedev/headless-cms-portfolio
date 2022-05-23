@@ -258,7 +258,7 @@
   position: absolute;
   .mainNavigation {
     position: absolute;
-    transform: translateX(-90%);
+    transform: translateX(-100%);
     animation: moveLeft 0.5s;
     @include desktop {
       position: initial;
