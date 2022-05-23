@@ -189,4 +189,49 @@
       height: 2.8rem;
     }
   }
+  .pagination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    .pageButtons {
+      display: flex;
+      .previousPageButton,
+      .nextPageButton {
+        align-self: stretch;
+        position: relative;
+        display: flex;
+        align-items: center;
+        &::after {
+          content: "";
+          display: block;
+          padding: 0.3rem;
+          border-style: solid;
+          border-color: $color-black;
+          transform: rotate(45deg);
+        }
+        &:disabled {
+          visibility: hidden;
+        }
+      }
+      .previousPageButton {
+        &::after {
+          border-width: 0 0 0.1rem 0.1rem;
+        }
+      }
+      .nextPageButton {
+        &::after {
+          border-width: 0.1rem 0.1rem 0 0;
+        }
+      }
+      .pageButton {
+        padding: 0.5rem 1rem;
+      }
+      .pageButton,
+      .previousPageButton,
+      .nextPageButton {
+        @include focus-visible-touch-outlines();
+      }
+    }
+  }
 }

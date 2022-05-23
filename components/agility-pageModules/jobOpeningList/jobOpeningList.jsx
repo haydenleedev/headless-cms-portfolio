@@ -8,6 +8,14 @@ const JobOpeningList = ({ module, customData }) => {
   const { jobListData } = customData;
   const heading = fields?.heading ? JSON.parse(fields.heading) : null;
   const searchInputRef = useRef();
+  const maxListingsPerPage = 20;
+  const splitJobsIntoPages = () => {
+    const jobsCopy = [...jobs];
+    while (jobsCopy.length) {
+      jobsCopy.splice(0, maxListingsPerPage);
+    }
+    return jobsCopy;
+  };
 
   const [jobs, setJobs] = useState(jobListData);
   const [locations, setLocations] = useState([]);
@@ -17,9 +25,9 @@ const JobOpeningList = ({ module, customData }) => {
   const [locationSortDisabled, setLocationSortDisabled] = useState(false);
   const [employmentTypeSortDisabled, setEmploymentTypeSortDisabled] =
     useState(false);
-
-  const [activeBtn, setActiveBtn] = useState("activeBtn");
   const [isActiveSorting, setIsActiveSorting] = useState({});
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pages, setPages] = useState(splitJobsIntoPages());
 
   const handleBtn = (btnId) => (e) => {
     //e.preventDefault();
@@ -58,8 +66,11 @@ const JobOpeningList = ({ module, customData }) => {
     if (newSortProperty !== currentSortProperty) {
       setCurrentSortProperty(newSortProperty);
     } else {
-      const jobsCopy = [...jobs];
-      setJobs(jobsCopy.reverse());
+      const pagesCopy = [...pages];
+      pagesCopy.forEach((page, index) => {
+        pagesCopy[index] = pagesCopy[index].reverse();
+      });
+      setPages(pagesCopy);
     }
   };
 
@@ -71,6 +82,20 @@ const JobOpeningList = ({ module, customData }) => {
       }
     });
     return jobPropertyValues.length;
+  };
+
+  const updateSortDisabledStatuses = () => {
+    if (pages[currentPage]) {
+      setTitleSortDisabled(
+        countPropertyValues(pages[currentPage], "title") < 2
+      );
+      setLocationSortDisabled(
+        countPropertyValues(pages[currentPage], "location") < 2
+      );
+      setEmploymentTypeSortDisabled(
+        countPropertyValues(pages[currentPage], "employmentType") < 2
+      );
+    }
   };
 
   useEffect(() => {
@@ -85,19 +110,41 @@ const JobOpeningList = ({ module, customData }) => {
   }, []);
 
   useEffect(() => {
-    setTitleSortDisabled(countPropertyValues(jobs, "title") < 2);
-    setLocationSortDisabled(countPropertyValues(jobs, "location") < 2);
-    setEmploymentTypeSortDisabled(
-      countPropertyValues(jobs, "employmentType") < 2
-    );
+    const newPages = [];
+    let lastNonFullPageIndex = 0;
+    for (let i = 0; i < jobs.length; i++) {
+      if (!newPages[lastNonFullPageIndex]) {
+        newPages.push([]);
+      }
+      if (newPages[lastNonFullPageIndex].length < maxListingsPerPage) {
+        newPages[lastNonFullPageIndex].push(jobs[i]);
+        if (newPages[lastNonFullPageIndex].length == maxListingsPerPage) {
+          lastNonFullPageIndex += 1;
+        }
+      }
+    }
+    setPages(newPages);
+    setCurrentPage(0);
   }, [jobs]);
+
+  useEffect(() => {
+    updateSortDisabledStatuses();
+  }, [pages]);
+
+  useEffect(() => {
+    updateSortDisabledStatuses();
+  }, [currentPage]);
 
   useEffect(() => {
     filterByKeyword(searchInputRef.current.value);
   }, [locationFilter]);
 
   useEffect(() => {
-    setJobs(sortJobs(jobs));
+    const pagesCopy = [...pages];
+    pagesCopy.forEach((page, index) => {
+      pagesCopy[index] = sortJobs(pagesCopy[index]);
+    });
+    setPages(pagesCopy);
   }, [currentSortProperty]);
 
   return (
@@ -113,7 +160,6 @@ const JobOpeningList = ({ module, customData }) => {
             <fieldset className={`grid-columns container`}>
               <div className={`${style.filters} grid-column is-2`}>
                 <label htmlFor="job-search-input">Keywords</label>
-
                 <form role="search" className={style.formGrid}>
                   <input
                     id="job-search-input"
@@ -235,7 +281,7 @@ const JobOpeningList = ({ module, customData }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {jobs.map((job, index) => {
+                  {pages[currentPage]?.map((job, index) => {
                     return (
                       <tr key={`job${index}`} className={style.jobOpening}>
                         <td data-head="Job Title">
@@ -261,6 +307,163 @@ const JobOpeningList = ({ module, customData }) => {
               </table>
             ) : (
               <p className="mt-2">No results found.</p>
+            )}
+            {pages.length > 0 && (
+              <div className={style.pagination}>
+                <div className={style.pageButtons}>
+                  <button
+                    className={`reset-button ${style.previousPageButton}`}
+                    disabled={!currentPage > 0}
+                    tabIndex={currentPage > 0 ? "0" : "-1"}
+                    onClick={() => {
+                      if (currentPage > 0) {
+                        setCurrentPage(currentPage - 1);
+                      }
+                    }}
+                  />
+                  {pages.length < 8 ? (
+                    <>
+                      {pages.map((page, index) => {
+                        return (
+                          <button
+                            key={`pageButton${index}`}
+                            className={`reset-button ${style.pageButton} ${
+                              index == currentPage ? "w-600" : ""
+                            }`}
+                            onClick={() => {
+                              setCurrentPage(index);
+                            }}
+                          >
+                            {index + 1}
+                          </button>
+                        );
+                      })}
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        className={`reset-button ${style.pageButton} ${
+                          currentPage == 0 ? "w-600" : ""
+                        }`}
+                        onClick={() => {
+                          setCurrentPage(0);
+                        }}
+                      >
+                        1
+                      </button>
+                      {currentPage < 4 && (
+                        <>
+                          {pages.map((page, index) => {
+                            if (index != 0 && index < 4) {
+                              return (
+                                <button
+                                  key={`pageButton${index}`}
+                                  className={`reset-button ${
+                                    style.pageButton
+                                  } ${index == currentPage ? "w-600" : ""}`}
+                                  onClick={() => {
+                                    setCurrentPage(index);
+                                  }}
+                                >
+                                  {index + 1}
+                                </button>
+                              );
+                            }
+                          })}
+                          ...
+                        </>
+                      )}
+                      {currentPage > 3 && currentPage < pages.length - 3 && (
+                        <>
+                          ...
+                          {pages.map((page, index) => {
+                            if (
+                              index >= currentPage - 1 &&
+                              index < currentPage + 2
+                            )
+                              return (
+                                <button
+                                  key={`pageButton${index}`}
+                                  className={`reset-button ${
+                                    style.pageButton
+                                  } ${index == currentPage ? "w-600" : ""}`}
+                                  onClick={() => {
+                                    setCurrentPage(index);
+                                  }}
+                                >
+                                  {index + 1}
+                                </button>
+                              );
+                          })}
+                          ...
+                        </>
+                      )}
+                      {currentPage > pages.length - 4 && (
+                        <>
+                          ...
+                          {pages.map((page, index) => {
+                            if (
+                              index > pages.length - 4 &&
+                              index < pages.length - 1
+                            )
+                              return (
+                                <button
+                                  key={`pageButton${index}`}
+                                  className={`reset-button ${
+                                    style.pageButton
+                                  } ${index == currentPage ? "w-600" : ""}`}
+                                  onClick={() => {
+                                    setCurrentPage(index);
+                                  }}
+                                >
+                                  {index + 1}
+                                </button>
+                              );
+                          })}
+                        </>
+                      )}
+                      <button
+                        className={`reset-button ${style.pageButton} ${
+                          currentPage == pages.length - 1 ? "w-600" : ""
+                        }`}
+                        onClick={() => {
+                          setCurrentPage(pages.length - 1);
+                        }}
+                      >
+                        {pages.length}
+                      </button>
+                    </>
+                  )}
+                  {/* {pages.map((page, index) => {
+                    return (
+                      <button
+                        key={`pageButton${index}`}
+                        className={`reset-button ${style.pageButton} ${
+                          index == currentPage ? "w-600" : ""
+                        }`}
+                        onClick={() => {
+                          setCurrentPage(index);
+                        }}
+                      >
+                        {index + 1}
+                      </button>
+                    );
+                  })} */}
+                  <button
+                    className={`reset-button ${style.nextPageButton}`}
+                    disabled={currentPage == pages.length - 1}
+                    tabIndex={currentPage < pages.length - 1 ? "0" : "-1"}
+                    onClick={() => {
+                      if (currentPage < pages.length - 1) {
+                        setCurrentPage(currentPage + 1);
+                      }
+                    }}
+                  />
+                </div>
+                <p>
+                  Showing {currentPage + 1} of {pages.length}
+                </p>
+              </div>
             )}
           </div>
         </section>
