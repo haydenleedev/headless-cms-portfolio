@@ -56,7 +56,7 @@ const TextGridWithMedia = ({ module, customData }) => {
       <div
         className={`
           ${`grid-column ${columnSizeClassname}`}
-          ${style.textItem}
+          ${style.textItem} ${style["justify-content-flex-end"]}
           ${
             fields.itemStyle == "logoLeft" ||
             fields.itemStyle == "mediumLogoLeft"
@@ -74,6 +74,11 @@ const TextGridWithMedia = ({ module, customData }) => {
         key={data.contentID}
         data-animate="true"
       >
+        {heading.text && fields.itemStyle === "imgBottom" && (
+          <div className={style.textItemHeading}>
+            <Heading {...heading} />
+          </div>
+        )}
         {itemFields.media && (
           <div
             className={`
@@ -103,7 +108,7 @@ const TextGridWithMedia = ({ module, customData }) => {
             fields.flexAlignItems ? fields.flexAlignItems : ""
           }`}
         >
-          {heading.text && (
+          {heading.text && fields.itemStyle !== "imgBottom" && (
             <div className={style.textItemHeading}>
               <Heading {...heading} />
             </div>
