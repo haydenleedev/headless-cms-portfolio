@@ -52,12 +52,14 @@
       input,
       select {
         font-size: $size-16px;
+        white-space: nowrap;
         @include focus-visible-touch-outlines();
       }
       .selectWrapper {
         position: relative;
         select {
           width: 100%;
+          padding-right: 7%;
           -webkit-appearance: none;
         }
         &::after {

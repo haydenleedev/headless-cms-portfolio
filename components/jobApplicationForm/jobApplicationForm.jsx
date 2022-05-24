@@ -440,10 +440,12 @@ class JobApplicationForm extends Component {
                 <label htmlFor="gender">Gender</label>
                 <div className={style.selectWrapper}>
                   <select name="gender" id="gender">
-                    <option value="">Please select</option>
-                    <option value="1">Male</option>
-                    <option value="2">Female</option>
-                    <option value="3">Decline To Self Identify</option>
+                    <optgroup label="Gender">
+                      <option value="">Please select</option>
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
+                      <option value="3">Decline To Self Identify</option>
+                    </optgroup>
                   </select>
                 </div>
               </div>
@@ -451,12 +453,14 @@ class JobApplicationForm extends Component {
                 <label htmlFor="race">Are you Hispanic/Latino?</label>
                 <div className={style.selectWrapper}>
                   <select name="race" id="race">
-                    <option value="">Please select</option>
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                    <option value="Decline To Self Identify">
-                      Decline To Self Identify
-                    </option>
+                    <optgroup label="Are you Hispanic/Latino?">
+                      <option value="">Please select</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                      <option value="Decline To Self Identify">
+                        Decline To Self Identify
+                      </option>
+                    </optgroup>
                   </select>
                 </div>
               </div>
@@ -471,13 +475,15 @@ class JobApplicationForm extends Component {
                 <label htmlFor="veteranStatus">Veteran Status</label>
                 <div className={style.selectWrapper}>
                   <select name="veteranStatus" id="veteranStatus">
-                    <option value="">Please select</option>
-                    <option value="1">I am not a protected veteran</option>
-                    <option value="2">
-                      I identify as one or more of the classifications of a
-                      protected veteran
-                    </option>
-                    <option value="3">I don't wish to answer</option>
+                    <optgroup label="Veteran Status">
+                      <option value="">Please select</option>
+                      <option value="1">I am not a protected veteran</option>
+                      <option value="2">
+                        I identify as one or more of the classifications of a
+                        protected veteran
+                      </option>
+                      <option value="3">I don't wish to answer</option>
+                    </optgroup>
                   </select>
                 </div>
               </div>
@@ -493,16 +499,18 @@ class JobApplicationForm extends Component {
                 <label htmlFor="disabilityStatus">Disability Status</label>
                 <div className={style.selectWrapper}>
                   <select name="disabilityStatus" id="disabilityStatus">
-                    <option value="">Please select</option>
-                    <option value="1">
-                      Yes, I have a disability, or have a history/record of
-                      having a disability
-                    </option>
-                    <option value="2">
-                      No, I don't have a disability, or a history/record of
-                      having a disability
-                    </option>
-                    <option value="3">I don't wish to answer</option>
+                    <optgroup label="Disability Status">
+                      <option value="">Please select</option>
+                      <option value="1">
+                        Yes, I have a disability, or have a history/record of
+                        having a disability
+                      </option>
+                      <option value="2">
+                        No, I don't have a disability, or a history/record of
+                        having a disability
+                      </option>
+                      <option value="3">I don't wish to answer</option>
+                    </optgroup>
                   </select>
                 </div>
               </div>
