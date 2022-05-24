@@ -12,6 +12,7 @@ import JobApplicationForm from "../../components/jobApplicationForm/jobApplicati
 import agility from "@agility/content-fetch";
 import { useRouter } from "next/router";
 import Error from "next/error";
+import style from "../../components/jobApplicationForm/jobApplicationForm.module.scss";
 
 export async function getStaticProps({ params }) {
   const jobData = await fetch(
@@ -103,7 +104,7 @@ const JobOpeningPage = (props) => {
 
   return (
     <Layout {...agilityProps}>
-      <section className="section">
+      <section className={`section ${style.jobApplication}`}>
         <div className="container">
           {content ? (
             <>
