@@ -438,23 +438,27 @@ class JobApplicationForm extends Component {
             <fieldset>
               <div className="col">
                 <label htmlFor="gender">Gender</label>
-                <select name="gender" id="gender">
-                  <option value="">Please select</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                  <option value="3">Decline To Self Identify</option>
-                </select>
+                <div className={style.selectWrapper}>
+                  <select name="gender" id="gender">
+                    <option value="">Please select</option>
+                    <option value="1">Male</option>
+                    <option value="2">Female</option>
+                    <option value="3">Decline To Self Identify</option>
+                  </select>
+                </div>
               </div>
               <div className="col">
                 <label htmlFor="race">Are you Hispanic/Latino?</label>
-                <select name="race" id="race">
-                  <option value="">Please select</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                  <option value="Decline To Self Identify">
-                    Decline To Self Identify
-                  </option>
-                </select>
+                <div className={style.selectWrapper}>
+                  <select name="race" id="race">
+                    <option value="">Please select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                    <option value="Decline To Self Identify">
+                      Decline To Self Identify
+                    </option>
+                  </select>
+                </div>
               </div>
             </fieldset>
             <div
@@ -465,15 +469,17 @@ class JobApplicationForm extends Component {
             <fieldset>
               <div className="col">
                 <label htmlFor="veteranStatus">Veteran Status</label>
-                <select name="veteranStatus" id="veteranStatus">
-                  <option value="">Please select</option>
-                  <option value="1">I am not a protected veteran</option>
-                  <option value="2">
-                    I identify as one or more of the classifications of a
-                    protected veteran
-                  </option>
-                  <option value="3">I don't wish to answer</option>
-                </select>
+                <div className={style.selectWrapper}>
+                  <select name="veteranStatus" id="veteranStatus">
+                    <option value="">Please select</option>
+                    <option value="1">I am not a protected veteran</option>
+                    <option value="2">
+                      I identify as one or more of the classifications of a
+                      protected veteran
+                    </option>
+                    <option value="3">I don't wish to answer</option>
+                  </select>
+                </div>
               </div>
             </fieldset>
 
@@ -485,18 +491,20 @@ class JobApplicationForm extends Component {
             <fieldset>
               <div className="col">
                 <label htmlFor="disabilityStatus">Disability Status</label>
-                <select name="disabilityStatus" id="disabilityStatus">
-                  <option value="">Please select</option>
-                  <option value="1">
-                    Yes, I have a disability, or have a history/record of having
-                    a disability
-                  </option>
-                  <option value="2">
-                    No, I don't have a disability, or a history/record of having
-                    a disability
-                  </option>
-                  <option value="3">I don't wish to answer</option>
-                </select>
+                <div className={style.selectWrapper}>
+                  <select name="disabilityStatus" id="disabilityStatus">
+                    <option value="">Please select</option>
+                    <option value="1">
+                      Yes, I have a disability, or have a history/record of
+                      having a disability
+                    </option>
+                    <option value="2">
+                      No, I don't have a disability, or a history/record of
+                      having a disability
+                    </option>
+                    <option value="3">I don't wish to answer</option>
+                  </select>
+                </div>
               </div>
             </fieldset>
             <div
