@@ -29,6 +29,7 @@ class JobApplicationForm extends Component {
         resume: false,
         coverLetter: false,
       },
+      raceSelectEnabled: false,
       validity: true,
       postInProgress: false,
       postError: false,
@@ -48,10 +49,18 @@ class JobApplicationForm extends Component {
         last_name: this.form.lastName.value,
         email: this.form.email.value,
         phone: this.form.phone.value,
-        gender: this.form.gender.value,
-        race: this.form.race.value,
-        veteran_status: this.form.veteranStatus.value,
-        disability_status: this.form.disabilityStatus.value,
+        gender: this.form.gender.value ? parseInt(this.form.gender.value) : "",
+        race: this.form.race?.value
+          ? parseInt(this.form.race.value)
+          : this.form.hispanicEthnicity.value == "Yes"
+          ? 4
+          : "",
+        veteran_status: this.form.veteranStatus.value
+          ? parseInt(this.form.veteranStatus.value)
+          : "",
+        disability_status: this.form.disabilityStatus.value
+          ? parseInt(this.form.disabilityStatus.value)
+          : "",
       };
       await this.readFileAsBase64String(this.form.resume.files[0]).then(
         (result) => {
@@ -68,6 +77,16 @@ class JobApplicationForm extends Component {
               this.form.coverLetter.files[0].name;
           }
         );
+      }
+      const questions = [...this.props.jobData.questions];
+      for (let i = 0; i < questions.length; i++) {
+        if (questions[i].label == "LinkedIn Profile") {
+          applicationData[questions[i].fields[0].name] =
+            this.form.linkedinProfile.value;
+        } else if (questions[i].label == "Website") {
+          applicationData[questions[i].fields[0].name] =
+            this.form.website.value;
+        }
       }
       this.sendApplicationData(applicationData);
     }
@@ -92,7 +111,7 @@ class JobApplicationForm extends Component {
           method: "POST",
           body: JSON.stringify({
             applicationData: applicationData,
-            id: this.props.jobId,
+            id: this.props.jobData.id,
           }),
         }
       );
@@ -429,6 +448,19 @@ class JobApplicationForm extends Component {
                   <FormErrors message="Only the following file formats are allowed: .pdf, .doc, .docx" />
                 )}
               </div>
+              {/* Exclude LinkedIn and website fields for general application */}
+              {this.props.jobData.id !== 4011657005 && (
+                <>
+                  <div className="col">
+                    <label htmlFor="linkedinProfile">LinkedIn Profile</label>
+                    <input name="linkedinProfile" id="linkedinProfile" />
+                  </div>
+                  <div className="col">
+                    <label htmlFor="website">Website</label>
+                    <input name="website" id="website" />
+                  </div>
+                </>
+              )}
             </fieldset>
             <div
               dangerouslySetInnerHTML={renderHTML(
@@ -450,9 +482,19 @@ class JobApplicationForm extends Component {
                 </div>
               </div>
               <div className="col">
-                <label htmlFor="race">Are you Hispanic/Latino?</label>
+                <label htmlFor="hispanicEthnicity">
+                  Are you Hispanic/Latino?
+                </label>
                 <div className={style.selectWrapper}>
-                  <select name="race" id="race">
+                  <select
+                    name="hispanicEthnicity"
+                    id="hispanicEthnicity"
+                    onChange={(e) => {
+                      this.setState({
+                        raceSelectEnabled: e.target.value == "No",
+                      });
+                    }}
+                  >
                     <optgroup label="Are you Hispanic/Latino?">
                       <option value="">Please select</option>
                       <option value="Yes">Yes</option>
@@ -464,6 +506,32 @@ class JobApplicationForm extends Component {
                   </select>
                 </div>
               </div>
+              {this.state.raceSelectEnabled && (
+                <div className="col">
+                  <label htmlFor="race">Please identify your race</label>
+                  <div className={style.selectWrapper}>
+                    <select name="race" id="race">
+                      <optgroup label="Please identify your race">
+                        <option value="">Please select</option>
+                        <option value="1">
+                          American Indian or Alaskan Native
+                        </option>
+                        <option value="2">Asian</option>
+                        <option value="3">Black or African American</option>
+                        <option value="4" hidden>
+                          Hispanic or Latino
+                        </option>
+                        <option value="5">White</option>
+                        <option value="6">
+                          Native Hawaiian or Other Pacific Islander
+                        </option>
+                        <option value="7">Two or More Races</option>
+                        <option value="8">Decline To Self Identify</option>
+                      </optgroup>
+                    </select>
+                  </div>
+                </div>
+              )}
             </fieldset>
             <div
               dangerouslySetInnerHTML={renderHTML(
