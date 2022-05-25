@@ -38,25 +38,25 @@ const Media = ({ media, title }) => {
       default:
         return (
           <>
-            {/*  {videoDefinitelyNotSupported ? (
+            {videoDefinitelyNotSupported ? (
               <div className="unsupported-video">
                 <div>
                   <p>Your browser does not support the format of this video.</p>
                 </div>
               </div>
-            ) : ( */}
-            <video
-              className="video"
-              autoPlay
-              muted
-              loop
-              controls
-              aria-label={media.label || ""}
-            >
-              <source src={media.url} type={`video/${mediaType}`} />
-              Your browser does not support the video tag.
-            </video>
-            {/*  )} */}
+            ) : (
+              <video
+                className="video"
+                autoPlay
+                muted
+                loop
+                controls
+                aria-label={media.label || ""}
+              >
+                <source src={media.url} type={`video/${mediaType}`} />
+                Your browser does not support the video tag.
+              </video>
+            )}
           </>
         );
     }
