@@ -10,13 +10,12 @@ import { sanitizeHtmlConfig } from "../../utils/convert";
 import { useState, useEffect } from "react";
 import JobApplicationForm from "../../components/jobApplicationForm/jobApplicationForm";
 import agility from "@agility/content-fetch";
-import { useRouter } from "next/router";
 import Error from "next/error";
 import style from "../../components/jobApplicationForm/jobApplicationForm.module.scss";
 
 export async function getStaticProps({ params }) {
   const jobData = await fetch(
-    `${process.env.NEXT_PUBLIC_GREENHOUSE_JOB_LIST_API_ENDPOINT}/${params.slug}`,
+    `${process.env.NEXT_PUBLIC_GREENHOUSE_JOB_LIST_API_ENDPOINT}/${params.slug}?questions=true`,
     { method: "GET" }
   );
   const jobJsonData = await jobData.json();
@@ -80,8 +79,6 @@ export async function getStaticPaths() {
 const JobOpeningPage = (props) => {
   const { jobData, agilityProps, formConfig, notFound } = props;
   const [content, setContent] = useState(null);
-  const { asPath } = useRouter();
-  const jobId = asPath.split("/jobs/")[1];
 
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -111,9 +108,8 @@ const JobOpeningPage = (props) => {
               <h1 className="heading-4 pb-3">{jobData.title}</h1>
               <div dangerouslySetInnerHTML={renderHTML(content)} />
               <JobApplicationForm
-                positionName={jobData.title}
                 config={formConfig}
-                jobId={jobId}
+                jobData={jobData}
               />
             </>
           ) : (

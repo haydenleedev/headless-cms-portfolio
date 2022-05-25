@@ -78,6 +78,16 @@ class JobApplicationForm extends Component {
           }
         );
       }
+      const questions = [...this.props.jobData.questions];
+      for (let i = 0; i < questions.length; i++) {
+        if (questions[i].label == "LinkedIn Profile") {
+          applicationData[questions[i].fields[0].name] =
+            this.form.linkedinProfile.value;
+        } else if (questions[i].label == "Website") {
+          applicationData[questions[i].fields[0].name] =
+            this.form.website.value;
+        }
+      }
       this.sendApplicationData(applicationData);
     }
   }
@@ -101,7 +111,7 @@ class JobApplicationForm extends Component {
           method: "POST",
           body: JSON.stringify({
             applicationData: applicationData,
-            id: this.props.jobId,
+            id: this.props.jobData.id,
           }),
         }
       );
@@ -438,6 +448,19 @@ class JobApplicationForm extends Component {
                   <FormErrors message="Only the following file formats are allowed: .pdf, .doc, .docx" />
                 )}
               </div>
+              {/* Exclude LinkedIn and website fields for general application */}
+              {this.props.jobData.id !== 4011657005 && (
+                <>
+                  <div className="col">
+                    <label htmlFor="linkedinProfile">LinkedIn Profile</label>
+                    <input name="linkedinProfile" id="linkedinProfile" />
+                  </div>
+                  <div className="col">
+                    <label htmlFor="website">Website</label>
+                    <input name="website" id="website" />
+                  </div>
+                </>
+              )}
             </fieldset>
             <div
               dangerouslySetInnerHTML={renderHTML(
