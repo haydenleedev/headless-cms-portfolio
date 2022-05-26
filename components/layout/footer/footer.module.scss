@@ -107,9 +107,9 @@
 
   @include desktop() {
     flex-direction: row;
-    .cookies {
+    /* .cookies {
       flex-basis: 20%;
-    }
+    } */
     .footNoteLinks {
       flex-basis: 80%;
     }

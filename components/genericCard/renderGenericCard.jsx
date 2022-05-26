@@ -108,7 +108,9 @@ const RenderGenericCard = ({ properties }) => {
             className={`genericCard__textContent--title ${
               configuration?.emphasizedTitle
                 ? "genericCard__textContent--titleEmphasized"
-                : !date && !category && !overrideCategory && !newsSite ? "pt-2" : ""
+                : !date && !category && !overrideCategory && !newsSite
+                ? "pt-2"
+                : ""
             }`}
           >
             {title}
