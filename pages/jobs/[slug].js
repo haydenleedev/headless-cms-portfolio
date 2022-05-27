@@ -6,7 +6,7 @@ import GlobalMessage from "../../components/layout/globalMessage/globalMessage";
 import GlobalSettings from "../../components/layout/globalSettings";
 import { getModule } from "../../components/agility-pageModules";
 import { renderHTML } from "@agility/nextjs";
-import { sanitizeHtmlConfig } from "../../utils/convert";
+import { formatPageTitle, sanitizeHtmlConfig } from "../../utils/convert";
 import { useState, useEffect } from "react";
 import JobApplicationForm from "../../components/jobApplicationForm/jobApplicationForm";
 import agility from "@agility/content-fetch";
@@ -58,8 +58,28 @@ export async function getStaticProps({ params }) {
     formConfig.fields.disabilitySelfIdentificationText
   );
   formConfig.fields.footnoteText = cleanHtml(formConfig.fields.footnoteText);
+
+  const globalSettings = await api.getContentItem({
+    contentID: 241,
+    languageCode: "en-us",
+  });
+
+  const pageTitleSuffix = globalSettings.fields.pageTitleSuffix;
+
+  agilityProps.sitemapNode.title = formatPageTitle(
+    jobJsonData.title,
+    pageTitleSuffix
+  );
+
+  agilityProps.page.seo.metaDescription = "";
+
   return {
-    props: { jobData: jobJsonData, agilityProps, formConfig, notFound },
+    props: {
+      jobData: jobJsonData,
+      agilityProps,
+      formConfig,
+      notFound,
+    },
     revalidate: 10,
   };
 }
@@ -107,10 +127,7 @@ const JobOpeningPage = (props) => {
             <>
               <h1 className="heading-4 pb-3">{jobData.title}</h1>
               <div dangerouslySetInnerHTML={renderHTML(content)} />
-              <JobApplicationForm
-                config={formConfig}
-                jobData={jobData}
-              />
+              <JobApplicationForm config={formConfig} jobData={jobData} />
             </>
           ) : (
             <p className="text-36px w-600">Loading...</p>
