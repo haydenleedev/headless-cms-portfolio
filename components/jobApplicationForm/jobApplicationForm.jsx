@@ -9,6 +9,15 @@ import Router from "next/router";
 class JobApplicationForm extends Component {
   constructor(props) {
     super(props);
+    this.linkedInProfileField = false;
+    this.websiteField = false;
+    this.props.jobData.questions.forEach((question) => {
+      if (question.label == "LinkedIn Profile") {
+        this.linkedInProfileField = true;
+      } else if (question.label == "Website") {
+        this.websiteField = true;
+      }
+    });
     this.handleSubmit = this.handleSubmit.bind(this);
     this.phoneNumberFormatter = this.phoneNumberFormatter.bind(this);
     this.fields = this.props.config.fields;
@@ -448,18 +457,19 @@ class JobApplicationForm extends Component {
                   <FormErrors message="Only the following file formats are allowed: .pdf, .doc, .docx" />
                 )}
               </div>
-              {/* Exclude LinkedIn and website fields for general application */}
-              {this.props.jobData.id !== 4011657005 && (
+              {this.linkedInProfileField && (
                 <>
                   <div className="col">
                     <label htmlFor="linkedinProfile">LinkedIn Profile</label>
                     <input name="linkedinProfile" id="linkedinProfile" />
                   </div>
-                  <div className="col">
-                    <label htmlFor="website">Website</label>
-                    <input name="website" id="website" />
-                  </div>
                 </>
+              )}
+              {this.websiteField && (
+                <div className="col">
+                  <label htmlFor="website">Website</label>
+                  <input name="website" id="website" />
+                </div>
               )}
             </fieldset>
             <div
