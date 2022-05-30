@@ -41,24 +41,6 @@ export async function getStaticProps({ params }) {
     apiKey: process.env.AGILITY_API_FETCH_KEY,
     isPreview: false,
   });
-  const formConfig = await api.getContentItem({
-    contentID: 5499,
-    languageCode: "en-us",
-  });
-  const sanitizeHtml = (await import("sanitize-html")).default;
-  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
-
-  formConfig.fields.generalSelfIdentificationText = cleanHtml(
-    formConfig.fields.generalSelfIdentificationText
-  );
-  formConfig.fields.veteranSelfIdentificationText = cleanHtml(
-    formConfig.fields.veteranSelfIdentificationText
-  );
-  formConfig.fields.disabilitySelfIdentificationText = cleanHtml(
-    formConfig.fields.disabilitySelfIdentificationText
-  );
-  formConfig.fields.footnoteText = cleanHtml(formConfig.fields.footnoteText);
-
   const globalSettings = await api.getContentItem({
     contentID: 241,
     languageCode: "en-us",
@@ -77,7 +59,6 @@ export async function getStaticProps({ params }) {
     props: {
       jobData: jobJsonData,
       agilityProps,
-      formConfig,
       notFound,
     },
     revalidate: 10,
@@ -97,7 +78,7 @@ export async function getStaticPaths() {
 }
 
 const JobOpeningPage = (props) => {
-  const { jobData, agilityProps, formConfig, notFound } = props;
+  const { jobData, agilityProps, notFound } = props;
   const [content, setContent] = useState(null);
 
   useEffect(() => {
@@ -133,7 +114,7 @@ const JobOpeningPage = (props) => {
             <>
               <h1 className="heading-4 pb-3">{jobData.title}</h1>
               <div dangerouslySetInnerHTML={renderHTML(content)} />
-              <JobApplicationForm config={formConfig} jobData={jobData} />
+              <JobApplicationForm jobData={jobData} />
             </>
           ) : (
             <p className="text-36px w-600">Loading...</p>

@@ -16,7 +16,6 @@ class JobApplicationForm extends Component {
     this.phoneNumberFormatter = this.phoneNumberFormatter.bind(this);
     this.validate = this.validate.bind(this);
     this.updateTouched = this.updateTouched.bind(this);
-    this.fields = this.props.config.fields;
     this.fieldRefs = Array(this.props.jobData.questions.length)
       .fill(0)
       .map(() => {
