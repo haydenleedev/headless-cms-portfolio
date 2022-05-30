@@ -110,6 +110,12 @@ const JobOpeningPage = (props) => {
         const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
         const sanitizedHtml = cleanHtml(decodedContent);
         setContent(sanitizedHtml);
+        jobData.compliance.forEach((item) => {
+          const descriptionTextArea = document.createElement("textarea");
+          descriptionTextArea.innerHTML = item.description;
+          const decodedDescription = descriptionTextArea.value;
+          item.description = cleanHtml(decodedDescription);
+        });
       };
       processContent();
     }

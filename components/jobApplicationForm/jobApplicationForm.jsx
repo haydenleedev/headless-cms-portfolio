@@ -1,43 +1,46 @@
-import { Component } from "react";
+import React, { Component, Fragment } from "react";
 import style from "./jobApplicationForm.module.scss";
 import { renderHTML } from "@agility/nextjs";
 import FormErrors from "./error";
 import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
 import { formatPhoneNumber } from "../../shop/utils/formatData";
 import Router from "next/router";
+import { Field } from "./field";
 
 class JobApplicationForm extends Component {
   constructor(props) {
     super(props);
     this.linkedInProfileField = false;
     this.websiteField = false;
-    this.props.jobData.questions.forEach((question) => {
-      if (question.label == "LinkedIn Profile") {
-        this.linkedInProfileField = true;
-      } else if (question.label == "Website") {
-        this.websiteField = true;
-      }
-    });
     this.handleSubmit = this.handleSubmit.bind(this);
     this.phoneNumberFormatter = this.phoneNumberFormatter.bind(this);
+    this.validate = this.validate.bind(this);
+    this.updateTouched = this.updateTouched.bind(this);
     this.fields = this.props.config.fields;
+    this.fieldRefs = Array(this.props.jobData.questions.length)
+      .fill(0)
+      .map(() => {
+        return React.createRef();
+      });
+    this.errorMessages = [
+      { field: "first_name", message: "Please enter your first name" },
+      { field: "last_name", message: "Please enter your last name" },
+      { field: "email", message: "Please enter a valid email" },
+      { field: "phone", message: "Please enter a valid phone number" },
+      {
+        field: "resume",
+        message:
+          "Please upload a resume/CV in one of the following file formats: .pdf, .doc, .docx",
+      },
+      {
+        field: "cover_letter",
+        message:
+          "Only the following file formats are allowed: .pdf, .doc, .docx",
+      },
+    ];
     this.state = {
-      errors: {
-        email: false,
-        phone: false,
-        firstName: false,
-        lastName: false,
-        resume: false,
-        coverLetter: false,
-      },
-      touched: {
-        email: false,
-        phone: false,
-        firstName: false,
-        lastName: false,
-        resume: false,
-        coverLetter: false,
-      },
+      errors: Array(this.props.jobData.questions.length).fill(false),
+      touched: Array(this.props.jobData.questions.length).fill(false),
       raceSelectEnabled: false,
       validity: true,
       postInProgress: false,
@@ -53,50 +56,46 @@ class JobApplicationForm extends Component {
       !this.form.honeyname.value &&
       !this.form.honeyemail.value
     ) {
-      const applicationData = {
-        first_name: this.form.firstName.value,
-        last_name: this.form.lastName.value,
-        email: this.form.email.value,
-        phone: this.form.phone.value,
-        gender: this.form.gender.value ? parseInt(this.form.gender.value) : "",
-        race: this.form.race?.value
-          ? parseInt(this.form.race.value)
-          : this.form.hispanicEthnicity.value == "Yes"
-          ? 4
-          : "",
-        veteran_status: this.form.veteranStatus.value
-          ? parseInt(this.form.veteranStatus.value)
-          : "",
-        disability_status: this.form.disabilityStatus.value
-          ? parseInt(this.form.disabilityStatus.value)
-          : "",
-      };
-      await this.readFileAsBase64String(this.form.resume.files[0]).then(
-        (result) => {
-          applicationData.resume_content = result;
-          applicationData.resume_content_filename =
-            this.form.resume.files[0].name;
-        }
-      );
-      if (this.form.coverLetter.files.length > 0) {
-        await this.readFileAsBase64String(this.form.coverLetter.files[0]).then(
-          (result) => {
-            applicationData.cover_letter_content = result;
-            applicationData.cover_letter_content_filename =
-              this.form.coverLetter.files[0].name;
+      const applicationData = {};
+      for (let i = 0; i < this.props.jobData.questions.length; i++) {
+        const question = this.props.jobData.questions[i];
+        const fieldName = question.fields[0].name;
+        if (fieldName == "resume") {
+          await this.readFileAsBase64String(this.form[fieldName].files[0]).then(
+            (result) => {
+              applicationData.resume_content = result;
+              applicationData.resume_content_filename =
+                this.form[fieldName].files[0].name;
+            }
+          );
+        } else if (fieldName == "cover_letter") {
+          if (this.form[fieldName].files.length > 0) {
+            await this.readFileAsBase64String(
+              this.form[fieldName].files[0]
+            ).then((result) => {
+              applicationData.cover_letter_content = result;
+              applicationData.cover_letter_content_filename =
+                this.form[fieldName].files[0].name;
+            });
           }
-        );
-      }
-      const questions = [...this.props.jobData.questions];
-      for (let i = 0; i < questions.length; i++) {
-        if (questions[i].label == "LinkedIn Profile") {
-          applicationData[questions[i].fields[0].name] =
-            this.form.linkedinProfile.value;
-        } else if (questions[i].label == "Website") {
-          applicationData[questions[i].fields[0].name] =
-            this.form.website.value;
+        } else {
+          applicationData[fieldName] = /^-?\d+$/.test(
+            this.form[fieldName].value
+          )
+            ? parseInt(this.form[fieldName].value)
+            : this.form[fieldName].value;
         }
       }
+      this.props.jobData.compliance.forEach((item) => {
+        item.questions.forEach((question) => {
+          const questionField = this.form[question.fields[0].name];
+          applicationData[questionField.name] = /^-?\d+$/.test(
+            questionField.value
+          )
+            ? parseInt(questionField.value)
+            : questionField.value;
+        });
+      });
       this.sendApplicationData(applicationData);
     }
   }
@@ -135,15 +134,7 @@ class JobApplicationForm extends Component {
   }
 
   onSubmitValidate() {
-    const touched = {
-      email: true,
-      phone: true,
-      firstName: true,
-      lastName: true,
-      resume: true,
-      coverLetter: true,
-    };
-    this.setState({ touched: touched });
+    this.setState({ touched: Array(this.fieldRefs.length).fill(true) });
     const flag = this.validate(true);
     return flag;
   }
@@ -158,119 +149,80 @@ class JobApplicationForm extends Component {
     return ext == "pdf" || ext == "doc" || ext == "docx";
   }
 
+  updateTouched(index) {
+    const touched = this.state.touched;
+    touched[index] = true;
+    this.setState({ touched: touched });
+  }
+
+  getErrorMessage(fieldName) {
+    let errorMessage = "Please fill this field";
+    this.errorMessages.forEach((item) => {
+      if (item.field == fieldName) {
+        errorMessage = item.message;
+      }
+    });
+    return errorMessage;
+  }
+
   validate(submitflag = false) {
-    let firstInvalidField;
-    let flag = true;
-    let errors = {
-      email: false,
-      phone: false,
-      firstName: false,
-      lastName: false,
-      resume: false,
-      coverLetter: false,
-    };
-    let touched = this.state.touched;
-    if (submitflag) {
-      touched = {
-        email: true,
-        phone: true,
-        firstName: true,
-        lastName: true,
-        resume: true,
-        coverLetter: true,
-      };
-    }
-
-    if (touched.firstName && !Boolean(this.form.firstName?.value)) {
-      errors.firstName = true;
-      flag = false;
-      if (!firstInvalidField) {
-        firstInvalidField = this.form.firstName;
-      }
-    }
-
-    if (touched.lastName && !Boolean(this.form.lastName.value)) {
-      errors.lastName = true;
-      flag = false;
-      if (!firstInvalidField) {
-        firstInvalidField = this.form.lastName;
-      }
-    }
-
-    // Validating email
-    if (touched.email && !isEmail(this.form.email?.value)) {
-      errors.email = true;
-      flag = false;
-      if (!firstInvalidField) {
-        firstInvalidField = this.form.email;
-      }
-    } else {
-      errors.email = false;
-    }
-
-    // Validating Phone
-    if (
-      touched.phone &&
-      !isPhoneNumber(formatPhoneNumber(this.form.phone.value))
-    ) {
-      errors.phone = true;
-      flag = false;
-      if (!firstInvalidField) {
-        firstInvalidField = this.form.phone;
-      }
-    } else {
-      errors.phone = false;
-    }
-
-    if (touched.resume) {
-      if (!Boolean(this.form.resume?.value)) {
-        errors.resume = true;
-        flag = false;
-        if (!firstInvalidField) {
-          firstInvalidField = this.form.resume;
-        }
-      } else {
-        if (this.validateFileType(this.form.resume)) {
-          errors.resume = false;
-        } else {
-          errors.resume = true;
-          flag = false;
-          this.form.resume.value = "";
+    let touched = submitflag
+      ? Array(this.fieldRefs.length).fill(true)
+      : this.state.touched;
+    const errors = Array(this.fieldRefs.length).fill(false);
+    this.fieldRefs.forEach((fieldRef, index) => {
+      if (touched[index] == true) {
+        switch (fieldRef.current.id) {
+          case "phone":
+            if (!isPhoneNumber(formatPhoneNumber(fieldRef.current.value))) {
+              errors[index] = true;
+            }
+            break;
+          case "email":
+            if (!isEmail(fieldRef.current.value)) {
+              errors[index] = true;
+            }
+            break;
+          case "resume":
+            if (
+              !Boolean(fieldRef.current.value) ||
+              !this.validateFileType(fieldRef.current)
+            ) {
+              errors[index] = true;
+              fieldRef.current.value = "";
+            }
+            break;
+          case "cover_letter":
+            if (
+              Boolean(fieldRef.current.value) &&
+              !this.validateFileType(fieldRef.current)
+            ) {
+              errors[index] = true;
+              fieldRef.current.value = "";
+            }
+            break;
+          default:
+            if (
+              !Boolean(fieldRef.current.value) &&
+              this.props.jobData.questions[index].required
+            ) {
+              errors[index] = true;
+            }
         }
       }
-    }
-
-    if (touched.coverLetter) {
-      if (!Boolean(this.form.coverLetter.value)) {
-        errors.coverLetter = false;
-      } else {
-        if (this.validateFileType(this.form.coverLetter)) {
-          errors.coverLetter = false;
-        } else {
-          errors.coverLetter = true;
-          flag = false;
-          this.form.coverLetter.value = "";
-        }
-      }
-    }
-    if (submitflag && firstInvalidField) {
+    });
+    this.setState({ errors: errors });
+    if (submitflag && errors.includes(true)) {
+      const errorIndex = errors.findIndex((error) => error == true);
       window.scroll(
         0,
-        window.scrollY + firstInvalidField.getBoundingClientRect().top - 150
+        window.scrollY +
+          this.fieldRefs[errorIndex].current.getBoundingClientRect().top -
+          150
       );
     }
-    this.setState({ errors: errors }, () => {
-      let validity = true;
-      const errorKeys = Object.keys(this.state.errors);
-      for (let i = 0; i < errorKeys.length; i++) {
-        if (this.state.errors[errorKeys[i]] == true) {
-          validity = false;
-          break;
-        }
-      }
-      this.setState({ validity: validity });
-    });
-    return flag;
+    this.setState({ validity: !errors.includes(true) });
+    return !errors.includes(true);
   }
 
   render() {
@@ -283,319 +235,58 @@ class JobApplicationForm extends Component {
             ref={(form) => (this.form = form)}
             onSubmit={this.handleSubmit}
           >
-            <fieldset className="row">
-              <div
-                className={`col col-2 ${
-                  this.state.errors.firstName
-                    ? style.error
-                    : this.state.touched.firstName
-                    ? style.valid
-                    : null
-                }`}
-              >
-                <label htmlFor="firstName">
-                  <span className={style.required}>*</span>
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  name="firstName"
-                  id="firstName"
-                  autoComplete="firstName"
-                  maxLength="50"
-                  onChange={() => {
-                    const touch = this.state.touched;
-                    touch.firstName = true;
-                    this.setState({ touched: touch });
-                  }}
-                  onBlur={() => this.validate()}
-                />
-                {this.state.errors.firstName && (
-                  <FormErrors message="Please enter your first name" />
-                )}
-              </div>
-
-              <div
-                className={`col col-2 ${
-                  this.state.errors.lastName
-                    ? style.error
-                    : this.state.touched.lastName
-                    ? style.valid
-                    : null
-                }`}
-              >
-                <label htmlFor="lastName">
-                  <span className={style.required}>*</span>
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  name="lastName"
-                  id="lastName"
-                  autoComplete="lastName"
-                  maxLength="50"
-                  onChange={() => {
-                    const touch = this.state.touched;
-                    touch.lastName = true;
-                    this.setState({ touched: touch });
-                  }}
-                  onBlur={() => this.validate()}
-                />
-                {this.state.errors.lastName && (
-                  <FormErrors message="Please enter your last name" />
-                )}
-              </div>
-            </fieldset>
-            <fieldset className="row">
-              <div
-                className={`col col-2 ${
-                  this.state.errors.email
-                    ? style.error
-                    : this.state.touched.email
-                    ? style.valid
-                    : null
-                }`}
-              >
-                <label htmlFor="email">
-                  <span className={style.required}>*</span>
-                  Email
-                </label>
-                <input
-                  name="email"
-                  id="email"
-                  autoComplete="email"
-                  maxLength="50"
-                  onChange={() => {
-                    const touch = this.state.touched;
-                    touch.email = true;
-                    this.setState({ touched: touch });
-                  }}
-                  onBlur={() => this.validate()}
-                />
-                {this.state.errors.email && (
-                  <FormErrors message="Please enter a valid email" />
-                )}
-              </div>
-              <div
-                className={`col col-2 ${
-                  this.state.errors.phone
-                    ? style.error
-                    : this.state.touched.phone
-                    ? style.valid
-                    : null
-                }`}
-              >
-                <label htmlFor="phone">
-                  <span className={style.required}>*</span>
-                  Phone Number
-                </label>
-                <input
-                  name="phone"
-                  id="phone"
-                  title="Phone Number"
-                  onBlur={() => {
-                    this.phoneNumberFormatter();
-                    this.validate();
-                  }}
-                  onKeyDown={this.phoneNumberFormatter}
-                  onChange={() => {
-                    const touch = this.state.touched;
-                    touch.phone = true;
-                    this.setState({ touched: touch });
-                  }}
-                />
-                {this.state.errors.phone && (
-                  <FormErrors message="Please enter a valid phone number" />
-                )}
-              </div>
-            </fieldset>
             <fieldset className="row mb-3">
-              <div
-                className={`col col-2 ${
-                  this.state.errors.resume ? style.error : null
-                }`}
-              >
-                <label htmlFor="resume">
-                  <span className={style.required}>*</span>
-                  Resume/CV
-                </label>
-                <input
-                  name="resume"
-                  id="resume"
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={() => {
-                    const touch = this.state.touched;
-                    touch.resume = true;
-                    this.setState({ touched: touch });
-                    this.validate();
-                  }}
-                />
-                {this.state.errors.resume && (
-                  <FormErrors message="Please upload a resume/CV in one of the following file formats: .pdf, .doc, .docx" />
-                )}
-              </div>
-              <div
-                className={`col col-2 ${
-                  this.state.errors.coverLetter ? style.error : null
-                }`}
-              >
-                <label htmlFor="coverLetter">Cover Letter</label>
-                <input
-                  name="coverLetter"
-                  id="coverLetter"
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={() => {
-                    const touch = this.state.touched;
-                    touch.coverLetter = true;
-                    this.setState({ touched: touch });
-                    this.validate();
-                  }}
-                />
-                {this.state.errors.coverLetter && (
-                  <FormErrors message="Only the following file formats are allowed: .pdf, .doc, .docx" />
-                )}
-              </div>
-              {this.linkedInProfileField && (
-                <>
-                  <div className="col">
-                    <label htmlFor="linkedinProfile">LinkedIn Profile</label>
-                    <input name="linkedinProfile" id="linkedinProfile" />
-                  </div>
-                </>
-              )}
-              {this.websiteField && (
-                <div className="col">
-                  <label htmlFor="website">Website</label>
-                  <input name="website" id="website" />
-                </div>
-              )}
-            </fieldset>
-            <div
-              dangerouslySetInnerHTML={renderHTML(
-                this.fields.generalSelfIdentificationText
-              )}
-            />
-            <fieldset>
-              <div className="col">
-                <label htmlFor="gender">Gender</label>
-                <div className={style.selectWrapper}>
-                  <select name="gender" id="gender">
-                    <optgroup label="Gender">
-                      <option value="">Please select</option>
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
-                      <option value="3">Decline To Self Identify</option>
-                    </optgroup>
-                  </select>
-                </div>
-              </div>
-              <div className="col">
-                <label htmlFor="hispanicEthnicity">
-                  Are you Hispanic/Latino?
-                </label>
-                <div className={style.selectWrapper}>
-                  <select
-                    name="hispanicEthnicity"
-                    id="hispanicEthnicity"
-                    onChange={(e) => {
-                      this.setState({
-                        raceSelectEnabled: e.target.value == "No",
-                      });
+              {this.props.jobData.questions.map((question, index) => {
+                return (
+                  <Field
+                    key={`customQuestion${index}`}
+                    data={question}
+                    fieldRef={this.fieldRefs[index]}
+                    error={this.state.errors[index]}
+                    errorMessage={this.getErrorMessage(
+                      this.props.jobData.questions[index].fields[0].name
+                    )}
+                    className={
+                      this.state.errors[index] == true
+                        ? style.error
+                        : this.state.touched[index] &&
+                          this.props.jobData.questions[index].required
+                        ? style.valid
+                        : null
+                    }
+                    validate={this.validate}
+                    updateTouched={() => {
+                      this.updateTouched(index);
                     }}
-                  >
-                    <optgroup label="Are you Hispanic/Latino?">
-                      <option value="">Please select</option>
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
-                      <option value="Decline To Self Identify">
-                        Decline To Self Identify
-                      </option>
-                    </optgroup>
-                  </select>
-                </div>
-              </div>
-              {this.state.raceSelectEnabled && (
-                <div className="col">
-                  <label htmlFor="race">Please identify your race</label>
-                  <div className={style.selectWrapper}>
-                    <select name="race" id="race">
-                      <optgroup label="Please identify your race">
-                        <option value="">Please select</option>
-                        <option value="1">
-                          American Indian or Alaskan Native
-                        </option>
-                        <option value="2">Asian</option>
-                        <option value="3">Black or African American</option>
-                        <option value="4" hidden>
-                          Hispanic or Latino
-                        </option>
-                        <option value="5">White</option>
-                        <option value="6">
-                          Native Hawaiian or Other Pacific Islander
-                        </option>
-                        <option value="7">Two or More Races</option>
-                        <option value="8">Decline To Self Identify</option>
-                      </optgroup>
-                    </select>
-                  </div>
-                </div>
-              )}
+                  />
+                );
+              })}
             </fieldset>
-            <div
-              dangerouslySetInnerHTML={renderHTML(
-                this.fields.veteranSelfIdentificationText
-              )}
-            />
-            <fieldset>
-              <div className="col">
-                <label htmlFor="veteranStatus">Veteran Status</label>
-                <div className={style.selectWrapper}>
-                  <select name="veteranStatus" id="veteranStatus">
-                    <optgroup label="Veteran Status">
-                      <option value="">Please select</option>
-                      <option value="1">I am not a protected veteran</option>
-                      <option value="2">
-                        I identify as one or more of the classifications of a
-                        protected veteran
-                      </option>
-                      <option value="3">I don't wish to answer</option>
-                    </optgroup>
-                  </select>
-                </div>
-              </div>
-            </fieldset>
-
-            <div
-              dangerouslySetInnerHTML={renderHTML(
-                this.fields.disabilitySelfIdentificationText
-              )}
-            />
-            <fieldset>
-              <div className="col">
-                <label htmlFor="disabilityStatus">Disability Status</label>
-                <div className={style.selectWrapper}>
-                  <select name="disabilityStatus" id="disabilityStatus">
-                    <optgroup label="Disability Status">
-                      <option value="">Please select</option>
-                      <option value="1">
-                        Yes, I have a disability, or have a history/record of
-                        having a disability
-                      </option>
-                      <option value="2">
-                        No, I don't have a disability, or a history/record of
-                        having a disability
-                      </option>
-                      <option value="3">I don't wish to answer</option>
-                    </optgroup>
-                  </select>
-                </div>
-              </div>
-            </fieldset>
-            <div
-              dangerouslySetInnerHTML={renderHTML(this.fields.footnoteText)}
-            />
+            {this.props.jobData.compliance.map((item, index) => {
+              return (
+                <Fragment key={`compliance${index}`}>
+                  <div dangerouslySetInnerHTML={renderHTML(item.description)} />
+                  {item.questions.length > 0 && (
+                    <fieldset>
+                      {item.questions.map(
+                        (question, complianceQuestionIndex) => {
+                          question.label = question.label.replace(
+                            /([A-Z])/g,
+                            " $1"
+                          );
+                          return (
+                            <Field
+                              key={`complianceQuestion${complianceQuestionIndex}`}
+                              data={question}
+                            />
+                          );
+                        }
+                      )}
+                    </fieldset>
+                  )}
+                </Fragment>
+              );
+            })}
             {/* START: Honeypot */}
             <label className={style.removehoney} htmlFor="honeyname"></label>
             <input
