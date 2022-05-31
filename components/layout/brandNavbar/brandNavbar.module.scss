@@ -120,6 +120,12 @@
           a {
             @include desktop {
               display: block;
+              padding: 0 .75rem;
+              overflow: hidden;
+            }
+
+            @include largeDesktop {
+              display: block;
               padding: 0 1.5rem;
               overflow: hidden;
             }
