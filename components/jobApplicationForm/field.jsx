@@ -73,25 +73,27 @@ export const Field = ({
       )}
       {(data.fields[0].type == "multi_value_multi_select" ||
         data.fields[0].type == "multi_value_single_select") && (
-        <select
-          name={data.fields[0].name}
-          id={data.fields[0].name}
-          ref={fieldRef}
-        >
-          <optgroup label={data.label}>
-            <option value="">Please select</option>
-            {data.fields[0].values.map((option, optionIndex) => {
-              return (
-                <option
-                  key={`${data.fields[0].name}Option${optionIndex}`}
-                  value={option.value}
-                >
-                  {option.label}
-                </option>
-              );
-            })}
-          </optgroup>
-        </select>
+        <div className={style.selectWrapper}>
+          <select
+            name={data.fields[0].name}
+            id={data.fields[0].name}
+            ref={fieldRef}
+          >
+            <optgroup label={data.label}>
+              <option value="">Please select</option>
+              {data.fields[0].values.map((option, optionIndex) => {
+                return (
+                  <option
+                    key={`${data.fields[0].name}Option${optionIndex}`}
+                    value={option.value}
+                  >
+                    {option.label}
+                  </option>
+                );
+              })}
+            </optgroup>
+          </select>
+        </div>
       )}
       {error && <FormErrors message={errorMessage} />}
     </div>
