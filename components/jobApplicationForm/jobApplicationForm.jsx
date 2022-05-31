@@ -22,7 +22,7 @@ class JobApplicationForm extends Component {
         return React.createRef();
       });
     // If the limit is changed here, the config in /pages/api/postJobApplication.js should be changed accordingly
-    this.attachmentFilesizeLimitMegabytes = 10;
+    this.attachmentFilesizeLimitMegabytes = 3;
     this.errorMessages = [
       { field: "first_name", message: "Please enter your first name" },
       { field: "last_name", message: "Please enter your last name" },

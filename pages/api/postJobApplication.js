@@ -22,7 +22,7 @@ export const config = {
   api: {
     bodyParser: {
       // If the limit is changed here, the limit in jobApplicationForm.jsx should be changed accordingly
-      sizeLimit: "10mb",
+      sizeLimit: "3mb",
     },
   },
 }
