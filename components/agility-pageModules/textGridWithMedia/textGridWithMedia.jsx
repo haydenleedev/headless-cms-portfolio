@@ -16,7 +16,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const roundCorners = boolean(fields?.roundCorners);
   const itemImagesAtTop = fields.itemStyle == null;
   const brandWidth = boolean(fields?.brandWidth);
-  const limitHeight = boolean(fields?.limitItemHeight)
+  const limitHeight = boolean(fields?.limitItemHeight);
   const heightMax = boolean(fields?.imageHeightMax);
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -57,31 +57,45 @@ const TextGridWithMedia = ({ module, customData }) => {
     return (
       <div
         className={`
-        ${brandWidth && itemsWithSanitizedHTML?.length < 2 ? "" : `grid-column ${columnSizeClassname} ${style.textItem}`}
-   
           ${
-            fields.itemStyle == "logoLeft" ||
-            fields.itemStyle == "mediumLogoLeft"
+            brandWidth && itemsWithSanitizedHTML?.length < 2
               ? ""
               : `
-                flex-direction-column
-                ${
-                  fields.itemImageSize
-                    ? style[`textItemWith${fields.itemImageSize}Media`]
-                    : ""
+              ${`grid-column ${columnSizeClassname}`}
+              ${style.textItem} ${
+                  fields.itemStyle === "imgBottom" &&
+                  style["justify-content-flex-end"]
                 }
-                ${itemShadow ? "card-shadow" : ""}
-                ${roundCorners ? "border-radius-1" : ""}`
-          }`}
+              ${
+                fields.itemStyle == "logoLeft" ||
+                fields.itemStyle == "mediumLogoLeft"
+                  ? ""
+                  : `
+                    flex-direction-column
+                    ${
+                      fields.itemImageSize
+                        ? style[`textItemWith${fields.itemImageSize}Media`]
+                        : ""
+                    }
+                    ${itemShadow ? "card-shadow" : ""}
+                    ${roundCorners ? "border-radius-1" : ""}`
+              }`
+          }
+        `}
         key={data.contentID}
         data-animate="true"
       >
+        {heading.text && fields.itemStyle === "imgBottom" && (
+          <div className={style.textItemHeading}>
+            <Heading {...heading} />
+          </div>
+        )}
         {itemFields.media && (
           <div
             className={`
               ${style.textItemMedia}
-              ${heightMax ? style.height100: ""}
-              ${!limitHeight ?  "": style.adjustHeight}
+              ${heightMax ? style.height100 : ""}
+              ${!limitHeight ? "" : style.adjustHeight}
               ${mediaIsSvg(itemFields.media) ? style.textItemSvgMedia : ""}
               ${
                 itemImagesAtTop
@@ -107,7 +121,7 @@ const TextGridWithMedia = ({ module, customData }) => {
             fields.flexAlignItems ? fields.flexAlignItems : ""
           }`}
         >
-          {heading.text && (
+          {heading.text && fields.itemStyle !== "imgBottom" && (
             <div className={style.textItemHeading}>
               <Heading {...heading} />
             </div>

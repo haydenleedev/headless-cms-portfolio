@@ -151,7 +151,9 @@ h6,
 .text-76px {
   font-size: toRem(76);
 }
-
+.text-36px {
+  font-size: toRem(36);
+}
 .text-28px {
   font-size: toRem(28) !important;
 }
@@ -178,6 +180,10 @@ em {
   font-style: italic;
 }
 
+select {
+  height: toRem(44);
+}
+
 form input:not([type="checkbox"], [type="submit"]),
 select {
   background: $color-white;
@@ -185,7 +191,7 @@ select {
   width: 100%;
   padding: 0.5rem;
   border-radius: 0.2rem;
-  border: 0.1rem solid $color-navy;
+  border: 0.1rem solid $color-darkgray;
 }
 
 label {

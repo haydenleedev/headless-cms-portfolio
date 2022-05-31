@@ -271,7 +271,9 @@ const FirstFold = ({ module, customData }) => {
             {fields.media && !fields.customSVG && !fields.imageLink && (
               <div
                 className={`${style.image} ${layout === "brand" ? style.brandimage : ""} ${
-                  fields.circularImage ? style.circularImage : ""
+                  fields.circularImage
+                    ? style.circularImage
+                    : style.removeCircular
                 } ${fields.imageBottomMargin ? fields.imageBottomMargin : ""} ${
                   fields.imageTopMargin ? fields.imageTopMargin : ""
                 } ${fields.linkClasses ? fields.linkClasses : ""} ${

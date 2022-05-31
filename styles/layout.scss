@@ -276,6 +276,10 @@
   overflow: hidden;
 }
 
+.b-r-0 {
+  border-radius: 0 !important;
+}
+
 .object-fit-fill img {
   object-fit: fill !important;
 }
@@ -678,3 +682,10 @@
   max-height: $size-6;
 }
 
+fieldset {
+  border: 0;
+}
+/* GreenHouse Forms */
+.content-intro {
+  margin-bottom: 2rem;
+}
