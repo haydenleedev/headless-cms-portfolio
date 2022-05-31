@@ -21,6 +21,8 @@ class JobApplicationForm extends Component {
       .map(() => {
         return React.createRef();
       });
+    // If the limit is changed here, the config in /pages/api/postJobApplication.js should be changed accordingly
+    this.attachmentFilesizeLimitMegabytes = 10;
     this.errorMessages = [
       { field: "first_name", message: "Please enter your first name" },
       { field: "last_name", message: "Please enter your last name" },
@@ -28,13 +30,11 @@ class JobApplicationForm extends Component {
       { field: "phone", message: "Please enter a valid phone number" },
       {
         field: "resume",
-        message:
-          "Please upload a resume/CV in one of the following file formats: .pdf, .doc, .docx",
+        message: `Please upload a resume/CV (max file size ${this.attachmentFilesizeLimitMegabytes}MB) in one of the following file formats: .pdf, .doc, .docx`,
       },
       {
         field: "cover_letter",
-        message:
-          "Only the following file formats are allowed: .pdf, .doc, .docx",
+        message: `Please upload a cover letter (max file size ${this.attachmentFilesizeLimitMegabytes}MB) in one of the following file formats: .pdf, .doc, .docx`,
       },
     ];
     this.state = {
@@ -148,6 +148,10 @@ class JobApplicationForm extends Component {
     return ext == "pdf" || ext == "doc" || ext == "docx";
   }
 
+  validateFileSize(file) {
+    return file.size <= this.attachmentFilesizeLimitMegabytes * 1000000;
+  }
+
   updateTouched(index) {
     const touched = this.state.touched;
     touched[index] = true;
@@ -185,7 +189,8 @@ class JobApplicationForm extends Component {
           case "resume":
             if (
               !Boolean(fieldRef.current.value) ||
-              !this.validateFileType(fieldRef.current)
+              !this.validateFileType(fieldRef.current) ||
+              !this.validateFileSize(fieldRef.current.files[0])
             ) {
               errors[index] = true;
               fieldRef.current.value = "";
@@ -194,7 +199,8 @@ class JobApplicationForm extends Component {
           case "cover_letter":
             if (
               Boolean(fieldRef.current.value) &&
-              !this.validateFileType(fieldRef.current)
+              (!this.validateFileType(fieldRef.current) ||
+                !this.validateFileSize(fieldRef.current.files[0]))
             ) {
               errors[index] = true;
               fieldRef.current.value = "";
