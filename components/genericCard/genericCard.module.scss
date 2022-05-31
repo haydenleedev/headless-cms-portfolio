@@ -56,10 +56,9 @@
        
         .textContent {
           margin-top: 0;
-          padding-top: 0;
           display: flex;
           flex-direction: column;
-          padding: 0 1.5rem 1.5rem 1.5rem;
+          padding: 1rem 1.5rem 1.5rem 1.5rem;
           &:not(.imageCardTextContent) {
             height: 100%;
           }
