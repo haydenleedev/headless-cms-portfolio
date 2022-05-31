@@ -79,7 +79,8 @@ export async function getStaticPaths() {
 
 const JobOpeningPage = (props) => {
   const { jobData, agilityProps, notFound } = props;
-  const [content, setContent] = useState(null);
+  const [pageTextContent, setPageTextContent] = useState(null);
+  const [formComplianceContentProcessed, setFormComplianceContentProcessed] = useState(false);
 
   useEffect(() => {
     if (typeof document !== "undefined") {
@@ -90,13 +91,14 @@ const JobOpeningPage = (props) => {
         const sanitizeHtml = (await import("sanitize-html")).default;
         const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
         const sanitizedHtml = cleanHtml(decodedContent);
-        setContent(sanitizedHtml);
+        setPageTextContent(sanitizedHtml);
         jobData.compliance.forEach((item) => {
           const descriptionTextArea = document.createElement("textarea");
           descriptionTextArea.innerHTML = item.description;
           const decodedDescription = descriptionTextArea.value;
           item.description = cleanHtml(decodedDescription);
         });
+        setFormComplianceContentProcessed(true);
       };
       processContent();
     }
@@ -110,10 +112,10 @@ const JobOpeningPage = (props) => {
     <Layout {...agilityProps}>
       <section className={`section ${style.jobApplication}`}>
         <div className="container">
-          {content ? (
+          {pageTextContent && formComplianceContentProcessed ? (
             <>
               <h1 className="heading-4 pb-3">{jobData.title}</h1>
-              <div dangerouslySetInnerHTML={renderHTML(content)} />
+              <div dangerouslySetInnerHTML={renderHTML(pageTextContent)} />
               <JobApplicationForm jobData={jobData} />
             </>
           ) : (
