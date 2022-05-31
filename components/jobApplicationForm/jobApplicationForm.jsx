@@ -300,6 +300,8 @@ class JobApplicationForm extends Component {
               type="text"
               id="honeyname"
               name="honeyname"
+              tabIndex="-1"
+              aria-hidden="true"
             />
             <label className={style.removehoney} htmlFor="honeyemail"></label>
             <input
@@ -308,6 +310,8 @@ class JobApplicationForm extends Component {
               type="email"
               id="honeyemail"
               name="honeyemail"
+              tabIndex="-1"
+              aria-hidden="true"
             />
             {/* END: Honeypot */}
             <div className="d-flex flex-direction-column align-items-center">
