@@ -47,8 +47,9 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         <meta name="description" content={description} key="description" />
         <meta name="keywords" content={keywords} />
         {/* Cloudflare Verification */}
-        <meta name="cf-2fa-verify" content="1f8c066dd5d61c6" />
+
         <meta name="cf-2fa-verify" content="c4be59459696dd6" />
+        <meta name="cf-2fa-verify" content="1f8c066dd5d61c6" />
         {/* OG DATA */}
         <meta property="og:title" content={suffixedMetaTitle} key="ogtitle" />
         {url && <meta property="og:url" content={url} key="ogurl" />}
