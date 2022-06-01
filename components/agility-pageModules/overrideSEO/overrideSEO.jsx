@@ -1,3 +1,4 @@
+import { renderHTML } from "@agility/nextjs";
 import Head from "next/head";
 import { useContext } from "react";
 import GlobalContext from "../../../context";
@@ -95,9 +96,11 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
       {/* Any content-based additional schemas e.g. blogPosting type */}
       {additionalSchemas &&
         additionalSchemas.map((schema, index) => (
-          <script type="application/ld+json" key={"additionalSchema" + index}>
-            {schema}
-          </script>
+          <script
+            type="application/ld+json"
+            key={"additionalSchema" + index}
+            dangerouslySetInnerHTML={renderHTML(schema)}
+          />
         ))}
     </Head>
   );

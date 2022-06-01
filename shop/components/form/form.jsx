@@ -802,6 +802,8 @@ class ContactForm extends Component {
               type="text"
               id="honeyname"
               name="honeyname"
+              tabIndex="-1"
+              aria-hidden="true"
             />
             <label className={form.removehoney} htmlFor="honeyemail"></label>
             <input
@@ -810,6 +812,8 @@ class ContactForm extends Component {
               type="email"
               id="honeyemail"
               name="honeyemail"
+              tabIndex="-1"
+              aria-hidden="true"
             />
             {/* END: Honeypot */}
 
