@@ -19,12 +19,12 @@ export default function ContactInformation({ seo }) {
   const { formData, updateFormData } = useContext(GlobalContext);
 
   useEffect(() => {
-    if (
+    /* if (
       !Boolean(formData?.freeFlow) &&
       (!Boolean(formData?.primaryId) || !Boolean(formData?.licenses))
     ) {
       window.location.replace("/shop");
-    }
+    } */
     if (router.query.error) {
       setError(decodeURIComponent(router.query.error));
     }
