@@ -112,7 +112,7 @@ const TextWithMedia = ({ module, customData }) => {
                   } cyan outlined ${style.link} ${
                     fields.linkClasses ? fields.linkClasses : ""
                   } ${
-                    fields.linkStyle ? fields.linkStyle : "button pl-4 pr-4"
+                    fields.linkStyle ? fields.linkStyle : "chevron-after w-600 "
                   }`}
                   ariaLabel={`Navigate to page ` + fields.link.href}
                   title={`Navigate to page ` + fields.link.href}
@@ -227,7 +227,7 @@ const TextWithMedia = ({ module, customData }) => {
                 !columnLayout && !fields.linkClasses ? "small" : ""
               } cyan outlined ${style.link} ${
                 fields.linkClasses ? fields.linkClasses : ""
-              } ${fields.linkStyle ? fields.linkStyle : "button pl-4 pr-4"}`}
+              } ${fields.linkStyle ? fields.linkStyle : "chevron-after w-600"}`}
               ariaLabel={`Navigate to page ` + fields.link.href}
               title={`Navigate to page ` + fields.link.href}
             >
