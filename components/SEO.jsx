@@ -73,11 +73,18 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
         />
 
         {/* schema */}
-        <script type="application/ld+json">
-          {JSON.stringify(organization)}
-        </script>
-        <script type="application/ld+json">{JSON.stringify(webSite)}</script>
-        <script type="application/ld+json">{breadcrumbs(url)}</script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: breadcrumbs(url) }}
+        />
 
         {/* TODO: add Canonical url */}
       </Head>
