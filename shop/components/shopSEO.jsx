@@ -100,11 +100,11 @@ const ShopSEO = ({ seo, children }) => {
          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
          })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
       </Script>
-      <Script
+      {/* <Script
         id="google-optimize"
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
         strategy="lazyOnload"
-      />
+      /> */}
 
       <Script id="bombora">
         {/* Bombora Tag */}
@@ -163,7 +163,7 @@ const ShopSEO = ({ seo, children }) => {
       </Script>
 
       {/* Qualified Script */}
-      <Script id="qualified">
+      {/*  <Script id="qualified">
         {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
          (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
       </Script>
@@ -172,7 +172,7 @@ const ShopSEO = ({ seo, children }) => {
         async
         src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
         strategy="lazyOnload"
-      />
+      /> */}
     </>
   );
 };
