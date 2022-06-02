@@ -53,7 +53,7 @@ export default function ContactInformation({ seo }) {
         router.push("/error/sf?previous=contact-information");
       } else {
         console.log(data);
-        updateFormData(data);
+        updateFormData(JSON.parse(data));
         setLoading(false);
         router.push("/payment");
       }
