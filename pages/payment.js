@@ -103,7 +103,8 @@ export default function Payment({ seo }) {
           body: JSON.stringify(body),
         }
       );
-      const data = await result.json();
+      let data = await result.json();
+      data = JSON.parse(data);
       if (data.error && data.cause) {
         router.push(
           `/contact-information?error=${encodeURIComponent(data.cause)}`
@@ -194,6 +195,9 @@ export default function Payment({ seo }) {
       !formData?.contactInfo ||
       (!formData?.freeFlow && !formData?.primaryId)
     ) {
+      console.log("contactInfo", formData?.contactInfo);
+      console.log("freeFlow", formData?.freeFlow);
+      console.log("primaryId", formData?.primaryId);
       window.location.replace("/shop");
     } else {
       window.addEventListener("message", handleCallbackResponse);
