@@ -18,6 +18,7 @@ export default async function handler(req, res) {
         try {
           // first execute contact lookup
           const contacts = await contactLookup(conn, contactInfo.email);
+          console.log("contacts", contacts);
           if (contacts && contacts.length > 0) {
             let accountNotFound = true; // will be set when account is found.
             for (let i = 0; i < contacts.length; i++) {
@@ -65,6 +66,7 @@ export default async function handler(req, res) {
           } else {
             // scenario 2
             const accounts = await accountLookup(conn, contactInfo.website);
+            console.log("accounts", accounts);
             if (accounts && accounts.length > 0) {
               // contact match = fail, account match = success
               for (let i = 0; i < accounts.length; i++) {
@@ -88,6 +90,7 @@ export default async function handler(req, res) {
               }
             } else {
               console.log("scenario 4");
+              console.log(contactInfo);
               // Create Contact and Account
               // const acc = await createAccount(conn, contactInfo);
               // const cont = await createContact(conn, contactInfo, acc, true);

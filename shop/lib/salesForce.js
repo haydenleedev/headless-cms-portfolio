@@ -40,7 +40,7 @@ export function createConnection() {
       .then(() => resolve(connection))
       .catch((error) => {
         console.log(error.message);
-        throw error;
+        reject(error.message);
       });
   });
 }
@@ -70,7 +70,8 @@ export async function contactLookup(connection, email) {
       )
       .execute(function (err, records) {
         if (err) {
-          return console.error(err);
+          console.error(err.message);
+          throw err;
         }
         record = records;
       });
