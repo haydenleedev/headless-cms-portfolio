@@ -70,7 +70,8 @@ export async function contactLookup(connection, email) {
       )
       .execute(function (err, records) {
         if (err) {
-          return console.error(err);
+          console.log(err.message);
+          throw err;
         }
         record = records;
       });

@@ -13,7 +13,9 @@ export default async function handler(req, res) {
     try {
       console.time("salesforce lookup requests");
       const contactInfo = JSON.parse(req.body);
+      console.log("creating sf connection...");
       const conn = await createConnection();
+      process.stdout.write("done");
       async function handleSalesforceRequests() {
         try {
           // first execute contact lookup
