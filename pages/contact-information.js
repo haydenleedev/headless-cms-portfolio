@@ -52,7 +52,8 @@ export default function ContactInformation({ seo }) {
       ) {
         router.push("/error/sf?previous=contact-information");
       } else {
-        updateFormData(data);
+        console.log(data);
+        updateFormData(JSON.parse(data));
         setLoading(false);
         router.push("/payment");
       }
