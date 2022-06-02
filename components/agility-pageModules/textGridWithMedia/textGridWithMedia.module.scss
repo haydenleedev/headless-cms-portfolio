@@ -128,7 +128,7 @@
   .textItem {
     display: flex;
     padding: 1.5rem;
-    /* height: 100%; */
+    height: 100%;
     overflow: hidden;
   }
   &:not(.logoLeftHeaderRight) {
@@ -268,11 +268,5 @@
         padding: 1.5rem 0;
       }
     }
-  }
-}
-.justify-content-flex-end {
-  justify-content: flex-end;
-  &.textItem {
-    height: 100%;
   }
 }
