@@ -104,6 +104,7 @@ const TextGridWithMedia = ({ module, customData }) => {
           </div>
         )}
         {(itemFields.text ||
+          itemFields.secondText ||
           (heading.text && fields.itemStyle !== "imgBottom")) && (
           <div
             className={`${
