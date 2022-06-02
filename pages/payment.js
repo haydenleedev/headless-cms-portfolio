@@ -103,7 +103,8 @@ export default function Payment({ seo }) {
           body: JSON.stringify(body),
         }
       );
-      const data = await result.json();
+      let data = await result.json();
+      data = JSON.parse(data);
       if (data.error && data.cause) {
         router.push(
           `/contact-information?error=${encodeURIComponent(data.cause)}`
