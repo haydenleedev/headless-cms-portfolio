@@ -37,7 +37,11 @@ export function createConnection() {
           }
         }
       )
-      .then(() => resolve(connection));
+      .then(() => resolve(connection))
+      .catch((error) => {
+        console.log(error.message);
+        throw error;
+      });
   });
 }
 
