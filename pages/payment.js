@@ -194,7 +194,9 @@ export default function Payment({ seo }) {
       !formData?.contactInfo ||
       (!formData?.freeFlow && !formData?.primaryId)
     ) {
-      console.log("formData", formData);
+      console.log("contactInfo", formData?.contactInfo);
+      console.log("freeFlow", formData?.freeFlow);
+      console.log("primaryId", formData?.primaryId);
       window.location.replace("/shop");
     } else {
       window.addEventListener("message", handleCallbackResponse);
