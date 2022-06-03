@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { generateUUID } from "../../utils/generic";
 import { getCookie, setCookie } from "../../utils/cookies";
-import { marketoScriptReadyEvent } from "../../utils/dataLayer";
 
 const FormWrapper = ({
   handleSetFormLoaded,
@@ -201,7 +200,7 @@ const FormWrapper = ({
         onLoad={() =>
           onScriptLoad().then(() => {
             if (handleSetFormLoaded) handleSetFormLoaded();
-            marketoScriptReadyEvent({});
+            window.dispatchEvent(new CustomEvent("marketoScriptReady"));
           })
         }
       />
