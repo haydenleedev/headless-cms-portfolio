@@ -95,7 +95,7 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
       {blockIndexing && <meta name="robots" content="noindex" />}
       {/* Any content-based additional schemas e.g. blogPosting type */}
       {additionalSchemas &&
-        additionalSchemas.length > 0 &&
+        additionalSchemas !== undefined &&
         additionalSchemas.map((schema, index) => (
           <script
             type="application/ld+json"
