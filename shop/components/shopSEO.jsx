@@ -4,7 +4,6 @@ import Script from "next/script";
 import { setCookie } from "../../utils/cookies";
 
 const ShopSEO = ({ seo, children }) => {
-
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
   const qualifiedSrc = "https://js.qualified.com/qualified.js?token=";
 
@@ -17,22 +16,52 @@ const ShopSEO = ({ seo, children }) => {
     <>
       <Head>
         {seo?.metaTitle && <title key="title">{seo.metaTitle}</title>}
-        {seo?.metaDescription && <meta name="description" content={seo.metaDescription} key="description" />}
-        {seo?.ogTitle && <meta property="og:title" content={seo.ogTitle} key="ogtitle" />}
-        {seo?.ogDescription && <meta property="og:title" content={seo.ogDescription} key="ogdescription" />}
-        {seo?.ogImage && (
-          <meta property="og:image" content={`${seo.ogImage}${"?q=50&w=1200&height=630format=auto"}`} key="ogimage" />
+        {seo?.metaDescription && (
+          <meta
+            name="description"
+            content={seo.metaDescription}
+            key="description"
+          />
         )}
-        {seo?.ogImage && seo?.metaTitle && <meta property="og:image:alt" content={seo.metaTitle} key="ogimagealt" />}
+        {seo?.ogTitle && (
+          <meta property="og:title" content={seo.ogTitle} key="ogtitle" />
+        )}
+        {seo?.ogDescription && (
+          <meta
+            property="og:title"
+            content={seo.ogDescription}
+            key="ogdescription"
+          />
+        )}
+        {seo?.ogImage && (
+          <meta
+            property="og:image"
+            content={`${seo.ogImage}${"?q=50&w=1200&height=630format=auto"}`}
+            key="ogimage"
+          />
+        )}
+        {seo?.ogImage && seo?.metaTitle && (
+          <meta
+            property="og:image:alt"
+            content={seo.metaTitle}
+            key="ogimagealt"
+          />
+        )}
         {seo?.twitterImage && (
           <meta
             name="twitter:image"
-            content={`${seo.twitterImage}${"?q=50&w=1200&height=630format=auto"}`}
+            content={`${
+              seo.twitterImage
+            }${"?q=50&w=1200&height=630format=auto"}`}
             key="twitterimage"
           />
         )}
         {seo?.twitterImage && seo?.metaTitle && (
-          <meta name="twitter:image:alt" content={seo.metaTitle} key="twitterimagealt" />
+          <meta
+            name="twitter:image:alt"
+            content={seo.metaTitle}
+            key="twitterimagealt"
+          />
         )}
         {seo?.canonical && <link rel="canonical" href={seo.canonical} />}
         {seo?.robots && <meta name="robots" content={seo.robots} />}
@@ -44,10 +73,24 @@ const ShopSEO = ({ seo, children }) => {
         <meta name="twitter:card" content="summary" key="twittercard" />
         <meta name="twitter:creator" content="@UJETcx" key="twittercreator" />
         <meta name="twitter:site" content="@UJETcx" key="twittersite" />
-        <script type="application/ld+json">{JSON.stringify(organization)}</script>
-        <script type="application/ld+json">{JSON.stringify(webSite)}</script>
-        <script type="application/ld+json">{shop}</script>
-        <script type="application/ld+json">{breadcrumbs(process.env.NEXT_PUBLIC_SITE_URL + "/shop")}</script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: shop }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: breadcrumbs(process.env.NEXT_PUBLIC_SITE_URL + "/shop"),
+          }}
+        />
         {children}
       </Head>
       <Script id="google-tag-manager">
@@ -57,11 +100,11 @@ const ShopSEO = ({ seo, children }) => {
          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
          })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
       </Script>
-      <Script
+      {/* <Script
         id="google-optimize"
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
         strategy="lazyOnload"
-      />
+      /> */}
 
       <Script id="bombora">
         {/* Bombora Tag */}
@@ -120,7 +163,7 @@ const ShopSEO = ({ seo, children }) => {
       </Script>
 
       {/* Qualified Script */}
-      <Script id="qualified">
+      {/*  <Script id="qualified">
         {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
          (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
       </Script>
@@ -129,7 +172,7 @@ const ShopSEO = ({ seo, children }) => {
         async
         src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
         strategy="lazyOnload"
-      />
+      /> */}
     </>
   );
 };

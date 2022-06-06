@@ -17,3 +17,12 @@ export default async function handler(req, res) {
   const postSuccess = postResponse.status == 200;
   return res.send({ postSuccess: postSuccess });
 }
+
+export const config = {
+  api: {
+    bodyParser: {
+      // If the limit is changed here, the limit in jobApplicationForm.jsx should be changed accordingly
+      sizeLimit: "3mb",
+    },
+  },
+}
