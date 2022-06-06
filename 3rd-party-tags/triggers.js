@@ -11,3 +11,10 @@ export const marketoScriptReady = (setTriggered) => {
   };
   window.addEventListener("marketoScriptReady", updateTriggeredStatus);
 };
+
+export const marketoFormSuccess = (setTriggered) => {
+  const updateTriggeredStatus = () => {
+    setTriggered(true);
+  }
+  window.addEventListener("marketoFormSuccess", updateTriggeredStatus);
+}

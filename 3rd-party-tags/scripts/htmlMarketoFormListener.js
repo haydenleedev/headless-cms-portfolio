@@ -47,6 +47,7 @@ const htmlMarketoFormListener = `
           });
 
           form.onSuccess(function (values, followUpUrl) {
+            window.dispatchEvent(new CustomEvent("marketoFormSuccess"));
             dataLayer.push({
               event: "marketo.success",
               "marketo.form_id": form_id,

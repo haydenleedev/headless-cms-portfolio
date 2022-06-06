@@ -6,7 +6,7 @@ import { setCookie } from "../utils/cookies";
 import { useContext } from "react";
 import GlobalContext from "../context";
 import { formatPageTitle } from "../utils/convert";
-import { Tags } from "../3rd-party-scripts/tags";
+import { Tags } from "../3rd-party-tags/tags";
 
 const SEO = ({ title, description, keywords, metaHTML, url }) => {
   const [scrolled, setScrolled] = useState(false);
