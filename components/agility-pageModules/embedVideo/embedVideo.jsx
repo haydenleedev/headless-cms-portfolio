@@ -16,6 +16,8 @@ const EmbedVideo = ({ module, customData }) => {
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields.narrowContainer);
+  const wideContainer = boolean(fields.widerContainer);
+  const disableBorder = boolean(fields.disableBorder);
   let videoSrc;
   let isYouTubeVideo = false;
   if (fields.videoURL.href.includes("youtube.com")) {
@@ -143,9 +145,7 @@ const EmbedVideo = ({ module, customData }) => {
           }`}
           id={fields.id ? fields.id : null}
         >
-          <div
-            className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
-          >
+          <div className={`container ${narrowContainer ? "max-width-narrow" : ""}  ${wideContainer ? "max-width-brand" : ""}`}>
             <div className={style.content}>
               {heading && (
                 <div className={style.heading}>
@@ -158,7 +158,7 @@ const EmbedVideo = ({ module, customData }) => {
                   dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                 ></div>
               )}
-              <div className={style.embed}>
+              <div className={`${style.embed} ${disableBorder ? "" : style.border}`}>
                 <div className={style.iframeWrapper}>
                   <iframe
                     id="video-player"
