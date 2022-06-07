@@ -6,7 +6,6 @@ import {
   thirtySecondTimer,
 } from "./triggers";
 import htmlMarketoFormListener from "./scripts/htmlMarketoFormListener";
-import ax from "./scripts/ax";
 import g2Crowd from "./scripts/g2Crowd";
 import marketoAsynchMunchkin from "./scripts/marketoAsynchMunchkin";
 
@@ -18,7 +17,6 @@ export const Tags = () => {
         scriptId="htmlMarketoFormListener"
         triggerInitializer={marketoScriptReady}
       />
-      <ScriptTag script={ax} scriptId="ax" />
       <ScriptTag script={g2Crowd} scriptId="g2Crowd" />
       <ScriptTag
         script={marketoAsynchMunchkin}
