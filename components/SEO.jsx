@@ -93,15 +93,52 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
 
         {/* TODO: add Canonical url */}
       </Head>
+      <>
+        {/* Global site tag (gtag.js) - Google Analytics */}
+        <Script
+          id="google-analytics-global-site-tag"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}`}
+        />
+        <Script
+          id="google-analytics-datalayer"
+          dangerouslySetInnerHTML={{
+            __html: `
+                if (!window.googleAnalyticsTagLoaded) {
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}');
+                  window.googleAnalyticsTagLoaded = true;
+               }
+        `,
+          }}
+        />
+        {/* Global site tag (gtag.js) - Google Ads */}
+        {/* <Script
+        id="google-ads-global-site-tag"
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ADS_MEASUREMENT_ID}`}
+        />
+        <Script id="google-ads-global-site-tag-datalayer">
+          {`
+                if (!window.googleAdsTagLoaded) {
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ADS_MEASUREMENT_ID}');
+                  window.googleAdsTagLoaded = true;
+                }
+              `}
+        </Script> */}
+      </>
       {timerExpired && (
         <>
-          <Script id="google-tag-manager">
+          {/* <Script id="google-tag-manager">
             {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
-          </Script>
+          </Script> */}
           <Script id="bombora">
             {/* Bombora Tag */}
             {`
