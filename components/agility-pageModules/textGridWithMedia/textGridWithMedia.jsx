@@ -15,7 +15,9 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemShadow = boolean(fields?.itemShadow);
   const roundCorners = boolean(fields?.roundCorners);
   const itemImagesAtTop = fields.itemStyle == null;
-
+  const brandWidth = boolean(fields?.brandWidth);
+  const limitHeight = boolean(fields?.limitItemHeight);
+  const heightMax = boolean(fields?.imageHeightMax);
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -60,19 +62,30 @@ const TextGridWithMedia = ({ module, customData }) => {
           fields.itemStyle === "imgBottom" && "justify-content-flex-end"
         }
           ${
-            fields.itemStyle == "logoLeft" ||
-            fields.itemStyle == "mediumLogoLeft"
+            brandWidth && itemsWithSanitizedHTML?.length < 2
               ? ""
               : `
-                flex-direction-column
-                ${
-                  fields.itemImageSize
-                    ? style[`textItemWith${fields.itemImageSize}Media`]
-                    : ""
+              ${`grid-column ${columnSizeClassname}`}
+              ${style.textItem} ${
+                  fields.itemStyle === "imgBottom" &&
+                  style["justify-content-flex-end"]
                 }
-                ${itemShadow ? "card-shadow" : ""}
-                ${roundCorners ? "border-radius-1" : ""}`
-          }`}
+              ${
+                fields.itemStyle == "logoLeft" ||
+                fields.itemStyle == "mediumLogoLeft"
+                  ? ""
+                  : `
+                    flex-direction-column
+                    ${
+                      fields.itemImageSize
+                        ? style[`textItemWith${fields.itemImageSize}Media`]
+                        : ""
+                    }
+                    ${itemShadow ? "card-shadow" : ""}
+                    ${roundCorners ? "border-radius-1" : ""}`
+              }`
+          }
+        `}
         key={data.contentID}
         data-animate="true"
       >
@@ -85,6 +98,8 @@ const TextGridWithMedia = ({ module, customData }) => {
           <div
             className={`
               ${style.textItemMedia}
+              ${heightMax ? style.height100 : ""}
+              ${!limitHeight ? "" : style.adjustHeight}
               ${mediaIsSvg(itemFields.media) ? style.textItemSvgMedia : ""}
               ${
                 itemImagesAtTop
@@ -163,12 +178,12 @@ const TextGridWithMedia = ({ module, customData }) => {
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
-      <div className={`container `}>
+      <div className={`container ${brandWidth ? "max-width-brand" : ""}`}>
         {heading.text && (
           <div
             className={`${style.heading} ${
               narrowContainer ? "max-width-narrow" : ""
-            }`}
+            }  `}
           >
             <Heading {...heading} />
             {fields.subtitle && <p>{fields.subtitle}</p>}
@@ -191,8 +206,11 @@ const TextGridWithMedia = ({ module, customData }) => {
             ${style.grid}
             ${narrowContainer ? "max-width-narrow" : ""}
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
+<<<<<<< HEAD
             ${fields.itemStyle == "imgBottom" ? "mb-4" : ""}
             mt-4
+=======
+>>>>>>> brand
             `}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {

@@ -4,6 +4,7 @@ import { getModule } from "../components/agility-pageModules";
 import agility from "@agility/content-fetch";
 import Layout from "../components/layout/layout";
 import Navbar from "../components/layout/navbar/navbar";
+import BrandNavbar from "../components/layout/brandNavbar/brandNavbar";
 import Footer from "../components/layout/footer/footer";
 import GlobalMessage from "../components/layout/globalMessage/globalMessage";
 import GlobalSettings from "../components/layout/globalSettings";
@@ -26,6 +27,7 @@ export async function getStaticProps({
 
   const globalComponents = {
     navbar: Navbar,
+    brandNavbar: BrandNavbar,
     globalMessage: GlobalMessage,
     footer: Footer,
     globalSettings: GlobalSettings,

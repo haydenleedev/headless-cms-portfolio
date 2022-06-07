@@ -2,6 +2,7 @@
 Becomes a nightmare to manage if they're all named index.jsx... */
 import Footer from "./footer/footer";
 import Navbar from "./navbar/navbar";
+import BrandNavbar from "./brandNavbar/brandNavbar";
 import GlobalMessage from "./globalMessage/globalMessage";
 import SEO from "../SEO";
 import { getPageTemplate } from "../agility-pageTemplates";
@@ -11,7 +12,8 @@ import Error from "next/error";
 import Head from "next/head";
 import { addDataLayerEventTriggers } from "../../utils/dataLayer";
 import { useEffect } from "react";
-
+import BrandFooter from "./brandFooter/brandFooter";
+import ScrollToTop from "../scrollToTop/scrollToTop";
 const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -69,13 +71,10 @@ const Layout = (props) => {
       return <Error statusCode={404} />;
     }
   }
-
   const AgilityPageTemplate = getPageTemplate(pageTemplateName);
-
   if (dynamicPageItem?.seo?.metaDescription) {
     page.seo.metaDescription = dynamicPageItem.seo.metaDescription;
   }
-
   return (
     <>
       {page && sitemapNode && (
@@ -91,11 +90,22 @@ const Layout = (props) => {
       {!isPreview && (
         <>
           <GlobalMessage {...props}></GlobalMessage>
-          <Navbar {...props}></Navbar>
-          <main>
+          {pageTemplateName === "BrandTemplate" ? (
+            <>  
+            <BrandNavbar {...props} />
+            <main className="brand">
+              <ScrollToTop />
             {children ? children : <AgilityPageTemplate {...props} />}
           </main>
+          <BrandFooter {...props} />
+          </>
+          ) : (
+            <>
+         <Navbar {...props}></Navbar>
+          <main>{children ? children : <AgilityPageTemplate {...props} />}</main>
           <Footer {...props}></Footer>
+            </>
+          )}
         </>
       )}
     </>

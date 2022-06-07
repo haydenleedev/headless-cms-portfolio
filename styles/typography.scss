@@ -253,7 +253,16 @@ input[type="number"]::-webkit-inner-spin-button {
   font-weight: 600;
   white-space: nowrap;
 }
-
+.simple-dark{
+  border: unset;
+  background: unset;
+  color: $color-navy;
+  padding: inherit;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
 /* This class is a wrapper that applies a standard typography for pure html content in 
 blog posts or anywhere where html is rendered */
 .content {
@@ -478,4 +487,58 @@ mark {
 
 .text-decoration-underline {
   text-decoration: underline;
+}
+
+//This class is used to wrap brand template content to apply brand spceific typography
+.brand {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Montserrat","DM Sans", sans-serif;
+    letter-spacing: -0.03em;
+  }
+  h1{
+    @include desktop{
+      font-size:6rem;
+    }
+    line-height:1;
+  }
+  h2{
+    @include mobile{
+      font-size: 2rem;
+    }
+  }
+  p {
+    font-size:1rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+  }
+}
+.list-checkmark{
+    list-style-type: none;
+    position:relative;
+    margin-left:-1rem;
+    &::before{
+      content: '\2713';
+    display: inline-block;
+    font-weight: 700;
+    position:absolute;
+    left:-1.3rem;
+    }
+}
+.list-crossmark{
+  list-style-type: none;
+  position:relative;
+  margin-left:-1rem;
+  &::before{
+    content: 'X';
+  display: inline-block;
+  font-weight: 700;
+  position:absolute;
+  left:-1.3rem;
+  }
 }
