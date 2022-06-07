@@ -5,7 +5,11 @@ import { useState } from "react";
 import { boolean } from "../../../utils/validation";
 import { Form, FormWrapper } from "../../form";
 import AgilityLink from "../../agilityLink";
-import { convertUJETLinksToHttps, resolveCategory, sanitizeHtmlConfig } from "../../../utils/convert";
+import {
+  convertUJETLinksToHttps,
+  resolveCategory,
+  sanitizeHtmlConfig,
+} from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
@@ -154,7 +158,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       </div>
                     </div>
                   </div>
-                  {resource.link.text && resource.link.href && (
+                  {resource.link?.text && resource.link?.href && (
                     <div className="container">
                       <p className={style.alternateLink}>
                         <h2 className="heading-6">
@@ -212,7 +216,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           formLoaded={formLoaded}
                           formID={resource.marketoFormID}
                         />
-                        {resource.link.href && (
+                        {resource.link?.href && resource.link?.text && (
                           <div className="mt-4 align-center">
                             <p>
                               {resource.footerText
@@ -253,7 +257,8 @@ ResourceContent.getCustomInitialProps = async function ({
   languageCode,
 }) {
   const api = agility;
-  const accordionItemsData = dynamicPageItem.fields.accordionItems?.referencename
+  const accordionItemsData = dynamicPageItem.fields.accordionItems
+    ?.referencename
     ? await api.getContentList({
         referenceName: dynamicPageItem.fields.accordionItems.referencename,
         languageCode,
