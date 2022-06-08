@@ -7,7 +7,14 @@ import { useContext } from "react";
 import GlobalContext from "../context";
 import { formatPageTitle } from "../utils/convert";
 
-const SEO = ({ title, description, keywords, metaHTML, url }) => {
+const SEO = ({
+  title,
+  description,
+  keywords,
+  metaHTML,
+  url,
+  pageTemplateName,
+}) => {
   const [scrolled, setScrolled] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
   // setup and parse additional header markup
@@ -81,18 +88,20 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
 
         {/* TODO: add Canonical url */}
       </Head>
-      {timerExpired && (
+      {pageTemplateName !== "BrandTemplate" && (
         <>
-          <Script id="google-tag-manager">
-            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          {timerExpired && (
+            <>
+              <Script id="google-tag-manager">
+                {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
-          </Script>
-          <Script id="bombora">
-            {/* Bombora Tag */}
-            {`
+              </Script>
+              <Script id="bombora">
+                {/* Bombora Tag */}
+                {`
               //informer
               (function(f,i,c){var a=decodeURIComponent,e="",l="",o="||",g=";;",h="split",b="length",j="indexOf",k=0,n="localStorage",m="_ccmdt";f[c]=f[c]||{};function d(q){var p;if(f[n]){return f[n][q]||""}else{p=i.cookie.match(q+"=([^;]*)");return(p&&p[1])||""}}f[c].us={};e=a(d(m))[h](o);k=e[b];if(k>0){while(k--){l=e[k][h]("=");if(l[b]>1){if(l[1][j](g)>-1){f[c].us[l[0]]=l[1][h](g);f[c].us[l[0]].pop()}else{f[c].us[l[0]]=l[1]}}}}})(window,document,"_ml");
 
@@ -128,9 +137,9 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
                 s.parentNode.insertBefore(mltag, s);
               })();
             `}
-          </Script>
-          <Script id="6sense">
-            {`
+              </Script>
+              <Script id="6sense">
+                {`
               window._6si = window._6si || [];
               window._6si.push(['enableEventTracking', true]);
               window._6si.push(['setToken', '${process.env.NEXT_PUBLIC_SIXSENSE_TOKEN}']);
@@ -144,20 +153,20 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
                 s.parentNode.insertBefore(gd, s);
               })();
             `}
-          </Script>
-          {/* <Script
+              </Script>
+              {/* <Script
             id="google-optimize"
             src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
             strategy="lazyOnload"
           /> */}
-          <Script id="ax" strategy="afterInteractive">
-            {`
+              <Script id="ax" strategy="afterInteractive">
+                {`
           _atrk_opts = { atrk_acct:"xw4cw1Y1Mn20Io", domain:"ujet.cx",dynamic: true};
           (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
         `}
-          </Script>
-          <Script id="g2Crowd" strategy="afterInteractive">
-            {`
+              </Script>
+              <Script id="g2Crowd" strategy="afterInteractive">
+                {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
             u = 'https://tracking.g2crowd.com/attribution_tracking/conversions/' + c + '.js?p=' + encodeURI(p) + '&e=' + id;
@@ -168,9 +177,9 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             d.getElementsByTagName('head')[0].appendChild(i);
           }("1136", document.location.href, document));
         `}
-          </Script>
-          <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
-            {`
+              </Script>
+              <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
+                {`
           (function() {
             var didInit = false;
             function initMunchkin() {
@@ -192,26 +201,26 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
             document.getElementsByTagName('head')[0].appendChild(s);
           })();
           `}
-          </Script>
-        </>
-      )}
-      {/* Load Qualified script after user starts scrolling */}
-      {scrolled && (
-        <>
-          {/* Qualified Script */}
-          <Script id="qualified" strategy="lazyOnload">
-            {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+              </Script>
+            </>
+          )}
+          {/* Load Qualified script after user starts scrolling */}
+          {scrolled && (
+            <>
+              {/* Qualified Script */}
+              <Script id="qualified" strategy="lazyOnload">
+                {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
-          </Script>
-          <Script
-            id="qualified-src"
-            async
-            src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-            strategy="lazyOnload"
-          />
-        </>
-      )}
-      {/* <Script
+              </Script>
+              <Script
+                id="qualified-src"
+                async
+                src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+                strategy="lazyOnload"
+              />
+            </>
+          )}
+          {/* <Script
         id="onetrust"
         src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
         charSet="UTF-8"
@@ -222,6 +231,8 @@ const SEO = ({ title, description, keywords, metaHTML, url }) => {
       <Script id="optanon-wrapper">
         {`function OptanonWrapper() { }`}
       </Script> */}
+        </>
+      )}
     </>
   );
 };

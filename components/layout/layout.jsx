@@ -136,6 +136,7 @@ const Layout = (props) => {
           keywords={page.seo.metaKeywords}
           metaHTML={page.seo.metaHTML}
           url={siteUrl + sitemapNode.path}
+          pageTemplateName={pageTemplateName}
         />
       )}
       {isPreview && <p>Loading preview mode...</p>}
