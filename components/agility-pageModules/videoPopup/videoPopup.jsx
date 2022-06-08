@@ -41,6 +41,7 @@ const VideoPopup = ({ module, customData }) => {
             <div
               className={style.playButtonWrapper}
               role="button"
+              aria-label="Open video modal"
               tabIndex={0}
               onClick={() => {
                 setModalActive(true);
