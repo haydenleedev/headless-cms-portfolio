@@ -202,25 +202,5 @@ export const addDataLayerEventTriggers = (router) => {
         breakpoint.triggered = false;
       });
     });
-    // Click triggers
-    window.addEventListener("click", (e) => {
-      if (e.target.nodeName === "A") {
-        linkClickEvent({ linkText: e.target.innerHTML });
-        if (e.target.href.includes("tel:")) {
-          phoneNumberClickEvent({ linkText: e.target.innerHTML });
-        } else if (e.target.href.includes(process.env.NEXT_PUBLIC_SITE_URL)) {
-          internalLinkClickEvent({ linkText: e.target.innerHTML });
-        }
-      } else if (e.target.parentNode.nodeName === "A") {
-        linkClickEvent({ linkText: e.target.innerHTML });
-        if (
-          e.target.parentNode.href.includes(process.env.NEXT_PUBLIC_SITE_URL)
-        ) {
-          internalLinkClickEvent({ linkText: e.target.innerHTML });
-        }
-      } else {
-        elementClickEvent({ elementClasses: e.target.className });
-      }
-    });
   }
 };

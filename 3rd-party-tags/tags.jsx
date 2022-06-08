@@ -1,13 +1,15 @@
 import Script from "next/script";
 import { useState, useEffect } from "react";
 import {
+  elementClick,
+  linkClick,
   marketoFormSuccess,
   marketoScriptReady,
-  thirtySecondTimer,
 } from "./triggers";
 import htmlMarketoFormListener from "./scripts/htmlMarketoFormListener";
 import g2Crowd from "./scripts/g2Crowd";
 import marketoAsynchMunchkin from "./scripts/marketoAsynchMunchkin";
+import { elementClickEvent, linkClickEvent } from "../utils/dataLayer";
 
 export const Tags = () => {
   return (
@@ -29,6 +31,14 @@ export const Tags = () => {
         }
         triggerInitializer={marketoFormSuccess}
       />
+      <AnalyticsTag
+        generateEvent={elementClickEvent}
+        triggerInitializer={elementClick}
+      />
+      <AnalyticsTag
+        generateEvent={linkClickEvent}
+        triggerInitializer={linkClick}
+      />
     </>
   );
 };
@@ -39,17 +49,17 @@ const ScriptTag = ({
   scriptStrategy,
   triggerInitializer,
 }) => {
-  const [triggered, setTriggered] = useState(false);
+  const [eventStatus, setEventStatus] = useState({});
   useEffect(() => {
     if (triggerInitializer) {
-      triggerInitializer(setTriggered);
+      triggerInitializer(setEventStatus);
     } else {
       setTimeout(() => {
-        setTriggered(true);
+        setEventStatus({ triggered: true });
       }, 0);
     }
   }, []);
-  return triggered ? (
+  return eventStatus.triggered ? (
     <Script id={scriptId} strategy={scriptStrategy || "afterInteractive"}>
       {script}
     </Script>
@@ -57,22 +67,40 @@ const ScriptTag = ({
 };
 
 const PixelTag = ({ src, triggerInitializer }) => {
-  const [triggered, setTriggered] = useState(false);
+  const [eventStatus, setEventStatus] = useState(false);
   useEffect(() => {
     if (triggerInitializer) {
-      triggerInitializer(setTriggered);
+      triggerInitializer(setEventStatus);
     } else {
       setTimeout(() => {
-        setTriggered(true);
+        setEventStatus({ triggered: true });
       }, 0);
     }
   }, []);
 
   useEffect(() => {
-    if (triggered) {
+    if (eventStatus.triggered) {
       const pixel = new Image();
       pixel.src = src;
     }
-  }, [triggered]);
+  }, [eventStatus]);
+  return null;
+};
+
+const AnalyticsTag = ({ generateEvent, triggerInitializer }) => {
+  const [eventStatus, setEventStatus] = useState({});
+  useEffect(() => {
+    if (triggerInitializer) {
+      triggerInitializer(setEventStatus);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (eventStatus.triggered) {
+      generateEvent(eventStatus.details);
+      setEventStatus({});
+    }
+  }, [eventStatus]);
+
   return null;
 };
