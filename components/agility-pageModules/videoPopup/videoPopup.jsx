@@ -34,7 +34,7 @@ const VideoPopup = ({ module, customData }) => {
           ></div>
         )}
         <div className={style.autoplayVideoWrapper}>
-          <video className="video" autoPlay muted loop playsInline>
+          <video className="video display-block" autoPlay muted loop playsInline>
             <source src={fields.video.url} type={`video/${mediaType}`} />
           </video>
           <div className={style.playButtonOverlay}>
