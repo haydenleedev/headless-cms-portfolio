@@ -122,6 +122,14 @@
       > video {
         height: 100%;
       }
+      div:global(.unsupported-video) {
+        p {
+          color: $color-white;
+        }
+        > div {
+          padding: 12.5%;
+        }
+      }
     }
     @keyframes fadein {
       0% {
