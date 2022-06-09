@@ -3,9 +3,6 @@ import GenericCard from "../../genericCard/genericCard";
 import style from "./blankCards.module.scss";
 import Heading from "../heading";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import AgilityLink from "../../agilityLink";
-import { AgilityImage } from "@agility/nextjs";
-import { renderHTML } from "@agility/nextjs";
 const BlankCards = ({ module }) => {
   const { fields } = module;
   const cards = fields.cards;
@@ -44,39 +41,39 @@ const BlankCards = ({ module }) => {
         {fields.description && (
           <p className={style.description}>{fields.description}</p>
         )}
-        <div className={`${style.cardGrid} ${!brand ? style.leftMargin : ""}`}>
+        <div className={style.cardGrid}>
           {cards?.map((card, index) => {
-              return (
-                <div
-                  key={`card${index}`}
-                  className={`
+            return (
+              <div
+                key={`card${index}`}
+                className={`
                     ${
                       cards.length < maxCardsPerRow
                         ? style[`flexBasis${cards.length}`]
                         : style[`flexBasis${maxCardsPerRow}`]
                     } ${index % maxCardsPerRow == 0 ? "ml-0" : ""} ${
-                    index + 1 > (numberOfRows - 1) * maxCardsPerRow ? "mb-0" : ""
-                  }`}
-                >
-                  <GenericCard
-                    brandLayout={brand ? true : false}
-                    link={card.fields.link}
-                    title={card.fields.title}
-                    image={card.fields.image}
-                    ariaTitle={card.fields.title}
-                    description={card.fields.description}
-                    smallImage={smallImage}
-                    text={card.fields.text}
-                    textAlignment={fields.textAlignment}
-                    imageWrapperClasses={card.fields.imageWrapperClasses}
-                    configuration={{
-                      iconStyleImage: boolean(card.fields.useImageAsIcon),
-                      descriptionAlignment: fields.textAlignment,
-                    }}
-                  />
-                </div>
-              );
-            })}
+                  index + 1 > (numberOfRows - 1) * maxCardsPerRow ? "mb-0" : ""
+                }`}
+              >
+                <GenericCard
+                  brandLayout={brand ? true : false}
+                  link={card.fields.link}
+                  title={card.fields.title}
+                  image={card.fields.image}
+                  ariaTitle={card.fields.title}
+                  description={card.fields.description}
+                  smallImage={smallImage}
+                  text={card.fields.text}
+                  textAlignment={fields.textAlignment}
+                  imageWrapperClasses={card.fields.imageWrapperClasses}
+                  configuration={{
+                    iconStyleImage: boolean(card.fields.useImageAsIcon),
+                    descriptionAlignment: fields.textAlignment,
+                  }}
+                />
+              </div>
+            );
+          })}
 
           {fillCards.length > 0 &&
             fillRow === true &&
