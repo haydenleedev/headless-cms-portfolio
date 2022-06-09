@@ -81,72 +81,78 @@ const TextWithMedia = ({ module, customData }) => {
               : mediaLeft
               ? style.mediaLeft
               : style.mediaRight
-          } ${mobilePositionTop ? style.mediaTop : style.mediaBottom}${fullPageWidth ? style.fullPageWidthContent : ""} ${
-            brandWidth ? style.brandWidthContent : ""
-          }`}
+          } ${mobilePositionTop ? style.mediaTop : style.mediaBottom}${
+            fullPageWidth ? style.fullPageWidthContent : ""
+          } ${brandWidth ? style.brandWidthContent : ""}`}
         >
-          <div
-            className={`${style.textContent} ${
-              fullPageWidth ? style.fullPageWidthTextContent : ""
-            } ${brandWidth ? style.brandWidthTextContent : ""} ${
-              style[`textContentBasis${fields.textWidthPercentage || 50}`]
-            } ${textContentVerticalAlignment}`}
-            style={increaseHeight ? {height: fields.media.height*.7}:{}}
-          >
+          {(fields.text ||
+            heading.text ||
+            (fields.link && !fields.linkPosition)) && (
             <div
-              className={`${
-                columnLayout
-                  ? "justify-content-center align-items-center"
-                  : mediaLeft
-                  ? "justify-content-flex-end align-items-flex-start"
-                  : "justify-content-flex-start align-items-flex-start"
-              }`}
+              className={`${style.textContent} ${
+                fullPageWidth ? style.fullPageWidthTextContent : ""
+              } ${brandWidth ? style.brandWidthTextContent : ""} ${
+                style[`textContentBasis${fields.textWidthPercentage || 50}`]
+              } ${textContentVerticalAlignment}`}
+              style={
+                increaseHeight ? { height: fields.media.height * 0.7 } : {}
+              }
             >
-              {!headingOnTop && heading.text && (
-                <div
-                  className={
-                    columnLayout
-                      ? "heading"
-                      : brandWidth
-                      ? style.brandHeading
-                      : style.heading
-                  }
-                >
-                  <Heading {...heading} />
-                </div>
-              )}
-              {fields.text && (
-                <div
-                  className={`${style.html} content ${
-                    headingSizeforTextArea ? headingSizeforTextArea : ""
-                  }`}
-                  dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                ></div>
-              )}
-              {fields.link && !fields.linkPosition && (
-                <AgilityLink
-                  agilityLink={fields.link}
-                  className={`${
-                    !columnLayout && !fields.linkClasses ? "small" : ""
-                  } cyan outlined ${style.link} ${
-                    fields.linkClasses ? fields.linkClasses : ""
-                  } ${
-                    fields.linkStyle ? fields.linkStyle : "button pl-4 pr-4"
-                  }`}
-                  ariaLabel={`Navigate to page ` + fields.link.href}
-                  title={`Navigate to page ` + fields.link.href}
-                >
-                  {fields.link.text}
-                </AgilityLink>
-              )}
+              <div
+                className={`${
+                  columnLayout
+                    ? "justify-content-center align-items-center"
+                    : mediaLeft
+                    ? "justify-content-flex-end align-items-flex-start"
+                    : "justify-content-flex-start align-items-flex-start"
+                }`}
+              >
+                {!headingOnTop && heading.text && (
+                  <div
+                    className={
+                      columnLayout
+                        ? "heading"
+                        : brandWidth
+                        ? style.brandHeading
+                        : style.heading
+                    }
+                  >
+                    <Heading {...heading} />
+                  </div>
+                )}
+                {fields.text && (
+                  <div
+                    className={`${style.html} content ${
+                      headingSizeforTextArea ? headingSizeforTextArea : ""
+                    }`}
+                    dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+                  ></div>
+                )}
+                {fields.link && !fields.linkPosition && (
+                  <AgilityLink
+                    agilityLink={fields.link}
+                    className={`${
+                      !columnLayout && !fields.linkClasses ? "small" : ""
+                    } cyan outlined ${style.link} ${
+                      fields.linkClasses ? fields.linkClasses : ""
+                    } ${
+                      fields.linkStyle ? fields.linkStyle : "button pl-4 pr-4"
+                    }`}
+                    ariaLabel={`Navigate to page ` + fields.link.href}
+                    title={`Navigate to page ` + fields.link.href}
+                  >
+                    {fields.link.text}
+                  </AgilityLink>
+                )}
+              </div>
             </div>
-          </div>
+          )}
           <div
             className={`${style.media} ${fields.roundMediaCorners} ${
               fullPageWidth ? style.fullPageWidthMedia : ""
-            } ${
-              brandWidth ? style.brandWidthMedia : ""
-            } ${!columnLayout ? style.posAbsolute : ""} ${mediaVerticalAlignment} ${
+            } ${brandWidth ? style.brandWidthMedia : ""} ${
+              !columnLayout ? style.posAbsolute : ""
+            } ${mediaVerticalAlignment} ${
               style[
                 `mediaBasis${100 - parseInt(fields.textWidthPercentage) || 50}`
               ]
@@ -268,30 +274,31 @@ const TextWithMedia = ({ module, customData }) => {
     >
       <div className={style.mediaBackground}>
         {fields.media && !fields.testimonial && (
-          <Media media={fields.media} title={fields.mediaTitle} height="100%" width="100%" />
+          <Media
+            media={fields.media}
+            title={fields.mediaTitle}
+            height="100%"
+            width="100%"
+          />
         )}
       </div>
-      <div className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
-          fullPageWidth ? "max-width-unset padding-unset" : ""
-        } ${brandWidth ? "max-width-brand" : ""}`}>
       <div
-          className={`${style.content}`}
-        >
+        className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
+          fullPageWidth ? "max-width-unset padding-unset" : ""
+        } ${brandWidth ? "max-width-brand" : ""}`}
+      >
+        <div className={`${style.content}`}>
           <div
-            className={`${style.backgroundTextContent} ${style.backgroundPadding} ${
-              fullPageWidth ? style.fullPageWidthTextContent : ""
-            } ${brandWidth ? style.brandWidthTextContent : ""} ${
-              style[`textContentBasis${fields.textWidthPercentage || 50}`]
-            }`}
+            className={`${style.backgroundTextContent} ${
+              style.backgroundPadding
+            } ${fullPageWidth ? style.fullPageWidthTextContent : ""} ${
+              brandWidth ? style.brandWidthTextContent : ""
+            } ${style[`textContentBasis${fields.textWidthPercentage || 50}`]}`}
           >
-            <div
-            >
+            <div>
               {!headingOnTop && heading.text && (
                 <div
-                  className={brandWidth
-                      ? style.brandHeading
-                      : style.heading
-                  }
+                  className={brandWidth ? style.brandHeading : style.heading}
                 >
                   <Heading {...heading} />
                 </div>
@@ -308,7 +315,7 @@ const TextWithMedia = ({ module, customData }) => {
                 <AgilityLink
                   agilityLink={fields.link}
                   className={`${
-                   !fields.linkClasses ? "small" : ""
+                    !fields.linkClasses ? "small" : ""
                   } cyan outlined ${style.link} ${
                     fields.linkClasses ? fields.linkClasses : ""
                   } ${
@@ -427,7 +434,7 @@ const TextWithMedia = ({ module, customData }) => {
             </AgilityLink>
           )}
         </div>
-        </div>
+      </div>
     </section>
   );
 };
