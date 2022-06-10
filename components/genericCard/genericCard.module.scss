@@ -42,7 +42,7 @@
     .imageWrapper {
       transition: padding 0.3s;
       flex-grow: 1;
-      max-height: 22.5rem;
+      flex: 0 0 22.5rem;
       overflow: hidden;
       border-top-left-radius: 1rem;
       border-top-right-radius: 1rem;
@@ -57,27 +57,25 @@
         }
       }
       @include desktop() {
-        max-height: initial;
+        flex: 0 0 auto;
       }
       &.smallerSize {
         padding: 5rem;
         @include desktop() {
-          padding: 5rem;
           margin-bottom: 0;
-          max-height: 80%;
+          flex: 0 0 80%;
           &:hover {
             padding: 4.3rem;
           }
         }
       }
       &.normalSize {
-        padding: 1rem;
+        padding: 2.5rem;
         @include desktop() {
-          padding: 1.5rem;
           margin-bottom: 0;
-          max-height: 80%;
+          flex: 0 0 80%;
           &:hover {
-            padding: 0.7rem;
+            padding: 1.75rem;
           }
         }
       }
