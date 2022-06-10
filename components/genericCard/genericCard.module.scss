@@ -3,115 +3,144 @@
 
 //These are used for Brand layout styling
 .cardWrapper {
-    height:20rem;
-    .card {
-        background:White;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        border-radius: 1rem;
-        .imageWrapper {
-          transition: padding 0.3s;
-          flex-grow: 1;
-          max-height: 22.5rem;
-          overflow: hidden;
-          border-top-left-radius: 1rem;
-          border-top-right-radius: 1rem;
-          $image-wrapper-height: 10.625rem;
-          > span {
-            max-height: 100% !important;
-            height: 100% !important;
-            font-size: 0;
-            img {
-              justify-self: center;
-              align-self: center;
-            }
-          }
-          @include desktop() {
-            max-height: initial;
-          }
-          &.smallerSize {
-            padding: 5rem;
-            @include desktop() {
-              padding: 5rem;
-              margin-bottom: 0;
-              max-height: 80%;
-              &:hover {
-                padding: 4.3rem;
-              }
-            }
-          }
-          &.normalSize {
-            padding: 1rem;
-            @include desktop() {
-              padding: 1.5rem;
-              margin-bottom: 0;
-              max-height: 80%;
-              &:hover {
-                padding: 0.7rem;
-              }
-            }
-          }
-        }
-       
-        .textContent {
-          margin-top: 0;
-          display: flex;
-          flex-direction: column;
-          padding: 1rem 1.5rem 1.5rem 1.5rem;
-          &:not(.imageCardTextContent) {
-            height: 100%;
-          }
-          .title {
-            font-size: 1rem;
-            font-weight: 600;
-            &:not(:only-child) {
-              flex-basis: 60%;
-            }
-          }
-          .titleWithIcon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            gap: 0.75rem;
-            .title {
-              text-align: center;
-              font-size: 1.5rem;
-            }
-            .iconWrapper {
-              height: 100%;
-              flex-grow: 1;
-              flex-basis: 40%;
-              > span {
-                height: 100% !important;
-                width: 100% !important;
-              }
-            }
-            @include desktop() {
-              padding-top: 1.5rem;
-            }
-          }
-        }
-        .linkText {
-          padding-top: 0;
-          margin-top: -0.5rem;
-          font-size: 1.2rem;
-          font-weight: 700;
-          color: $color-navy;
+  height: 20rem;
+  @supports #{"\selector(*:focus-visible)"} {
+    &:not(:focus-visible) {
+      .card {
+        outline: none !important;
+      }
+    }
+    &:focus-visible {
+      outline: none !important;
+      .card {
+        @include outline();
+      }
+    }
+  }
+  @supports #{"\not selector(*:focus-visible)"} {
+    &:focus {
+      outline: none !important;
+      .card {
+        @include outline();
+      }
+    }
+  }
+  @media (any-pointer: coarse) {
+    &:hover {
+      outline: none !important;
+      .card {
+        @include outline();
+      }
+    }
+  }
+  .card {
+    background: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    .imageWrapper {
+      transition: padding 0.3s;
+      flex-grow: 1;
+      max-height: 22.5rem;
+      overflow: hidden;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      $image-wrapper-height: 10.625rem;
+      > span {
+        max-height: 100% !important;
+        height: 100% !important;
+        font-size: 0;
+        img {
+          justify-self: center;
           align-self: center;
-          transition: opacity 0.3s;
-          &:hover {
-            text-decoration: underline;
-            opacity: 0.7;
-          }
-        }
-        margin-top: auto;
-        span {
-          position: relative;
-          display: flex;
-          align-items: center;
-          display: flex;
         }
       }
+      @include desktop() {
+        max-height: initial;
+      }
+      &.smallerSize {
+        padding: 5rem;
+        @include desktop() {
+          padding: 5rem;
+          margin-bottom: 0;
+          max-height: 80%;
+          &:hover {
+            padding: 4.3rem;
+          }
+        }
+      }
+      &.normalSize {
+        padding: 1rem;
+        @include desktop() {
+          padding: 1.5rem;
+          margin-bottom: 0;
+          max-height: 80%;
+          &:hover {
+            padding: 0.7rem;
+          }
+        }
+      }
+    }
+
+    .textContent {
+      margin-top: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem 1.5rem 1.5rem 1.5rem;
+      &:not(.imageCardTextContent) {
+        height: 100%;
+      }
+      .title {
+        font-size: 1rem;
+        font-weight: 600;
+        &:not(:only-child) {
+          flex-basis: 60%;
+        }
+      }
+      .titleWithIcon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 0.75rem;
+        .title {
+          text-align: center;
+          font-size: 1.5rem;
+        }
+        .iconWrapper {
+          height: 100%;
+          flex-grow: 1;
+          flex-basis: 40%;
+          > span {
+            height: 100% !important;
+            width: 100% !important;
+          }
+        }
+        @include desktop() {
+          padding-top: 1.5rem;
+        }
+      }
+    }
+    .linkText {
+      padding-top: 0;
+      margin-top: -0.5rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: $color-navy;
+      align-self: center;
+      transition: opacity 0.3s;
+      &:hover {
+        text-decoration: underline;
+        opacity: 0.7;
+      }
+    }
+    margin-top: auto;
+    span {
+      position: relative;
+      display: flex;
+      align-items: center;
+      display: flex;
+    }
+  }
 }

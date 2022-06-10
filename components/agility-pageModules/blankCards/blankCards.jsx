@@ -56,7 +56,7 @@ const BlankCards = ({ module }) => {
                 }`}
               >
                 <GenericCard
-                  brandLayout={brand ? true : false}
+                  brandLayout={brand}
                   link={card.fields.link}
                   title={card.fields.title}
                   image={card.fields.image}
