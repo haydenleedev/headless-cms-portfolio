@@ -63,7 +63,7 @@ const RenderGenericCard = ({ properties }) => {
                 smallImage ? style.smallerSize : style.normalSize
               } ${
                 brandLayout
-                  ? style.imageWrapper
+                  ? `${style.imageWrapper} ${imageWrapperClasses?.match(/bg-*/) ? style.colorCardImageWrapper : ""}`
                   : `genericCard__image ${
                       configuration?.imageHeight
                         ? `genericCard__image--${configuration?.imageHeight}`

@@ -3,7 +3,7 @@
 
 //These are used for Brand layout styling
 .cardWrapper {
-  height: 20rem;
+  height: 100%;
   @supports #{"\selector(*:focus-visible)"} {
     &:not(:focus-visible) {
       .card {
@@ -59,23 +59,28 @@
       @include desktop() {
         flex: 0 0 auto;
       }
-      &.smallerSize {
-        padding: 5rem;
-        @include desktop() {
-          margin-bottom: 0;
-          flex: 0 0 80%;
-          &:hover {
-            padding: 4.3rem;
+      &.colorCardImageWrapper {
+        flex: 0 0 10rem;
+      }
+      &:not(.colorCardImageWrapper) {
+        &.smallerSize {
+          padding: 5rem;
+          @include desktop() {
+            margin-bottom: 0;
+            flex: 0 0 24.75rem;
+            &:hover {
+              padding: 4.3rem;
+            }
           }
         }
-      }
-      &.normalSize {
-        padding: 2.5rem;
-        @include desktop() {
-          margin-bottom: 0;
-          flex: 0 0 80%;
-          &:hover {
-            padding: 1.75rem;
+        &.normalSize {
+          padding: 2.5rem;
+          @include desktop() {
+            margin-bottom: 0;
+            flex: 0 0 24.75rem;
+            &:hover {
+              padding: 1.75rem;
+            }
           }
         }
       }
@@ -83,6 +88,7 @@
 
     .textContent {
       margin-top: 0;
+      flex-grow: 1;
       display: flex;
       flex-direction: column;
       padding: 1rem 1.5rem 1.5rem 1.5rem;
