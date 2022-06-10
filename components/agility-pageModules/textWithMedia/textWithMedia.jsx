@@ -6,6 +6,7 @@ import AgilityLink from "../../agilityLink";
 import Heading from "../heading";
 import Media from "../media";
 import style from "./textWithMedia.module.scss";
+import { isMobile } from "../../../utils/responsivity";
 
 const TextWithMedia = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
@@ -95,7 +96,7 @@ const TextWithMedia = ({ module, customData }) => {
                 style[`textContentBasis${fields.textWidthPercentage || 50}`]
               } ${textContentVerticalAlignment}`}
               style={
-                increaseHeight ? { height: fields.media.height * 0.7 } : {}
+                !isMobile() && increaseHeight ? { height: fields.media.height * 0.7 } : {}
               }
             >
               <div
