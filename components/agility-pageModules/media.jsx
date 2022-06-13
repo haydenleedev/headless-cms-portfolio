@@ -48,6 +48,7 @@ const Media = ({ media, title }) => {
               <video
                 className="video"
                 autoPlay
+                playsInline
                 muted
                 loop
                 controls

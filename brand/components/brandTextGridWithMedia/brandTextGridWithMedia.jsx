@@ -1,13 +1,13 @@
-import Heading from "../heading";
-import Media from "../media";
+import Heading from "../../../components/agility-pageModules/heading";
+import Media from "../../../components/agility-pageModules/media";
 import { boolean, mediaIsSvg } from "../../../utils/validation";
-import style from "./textGridWithMedia.module.scss";
-import AgilityLink from "../../agilityLink";
+import style from "./brandTextGridWithMedia.module.scss";
+import AgilityLink from "../../../components/agilityLink";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useIntersectionObserver } from "../../../utils/hooks";
 
-const TextGridWithMedia = ({ module, customData }) => {
+const BrandTextGridWithMedia = ({ module, customData }) => {
   const { itemsWithSanitizedHTML } = customData;
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
@@ -15,7 +15,9 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemShadow = boolean(fields?.itemShadow);
   const roundCorners = boolean(fields?.roundCorners);
   const itemImagesAtTop = fields.itemStyle == null;
-
+  const brandWidth = boolean(fields?.brandWidth);
+  const limitHeight = boolean(fields?.limitItemHeight);
+  const heightMax = boolean(fields?.imageHeightMax);
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -55,24 +57,31 @@ const TextGridWithMedia = ({ module, customData }) => {
     return (
       <div
         className={`
-          ${`grid-column ${columnSizeClassname}`}
-          ${style.textItem} ${
-          fields.itemStyle === "imgBottom" && "justify-content-flex-end"
-        }
           ${
-            fields.itemStyle == "logoLeft" ||
-            fields.itemStyle == "mediumLogoLeft"
+            brandWidth && itemsWithSanitizedHTML?.length < 2
               ? ""
               : `
-                flex-direction-column
-                ${
-                  fields.itemImageSize
-                    ? style[`textItemWith${fields.itemImageSize}Media`]
-                    : ""
+              ${`grid-column ${columnSizeClassname}`}
+              ${style.textItem} ${
+                  fields.itemStyle === "imgBottom" &&
+                  style["justify-content-flex-end"]
                 }
-                ${itemShadow ? "card-shadow" : ""}
-                ${roundCorners ? "border-radius-1" : ""}`
-          }`}
+              ${
+                fields.itemStyle == "logoLeft" ||
+                fields.itemStyle == "mediumLogoLeft"
+                  ? ""
+                  : `
+                    flex-direction-column
+                    ${
+                      fields.itemImageSize
+                        ? style[`textItemWith${fields.itemImageSize}Media`]
+                        : ""
+                    }
+                    ${itemShadow ? "card-shadow" : ""}
+                    ${roundCorners ? "border-radius-1" : ""}`
+              }`
+          }
+        `}
         key={data.contentID}
         data-animate="true"
       >
@@ -85,6 +94,8 @@ const TextGridWithMedia = ({ module, customData }) => {
           <div
             className={`
               ${style.textItemMedia}
+              ${heightMax ? style.height100 : ""}
+              ${!limitHeight ? "" : style.adjustHeight}
               ${mediaIsSvg(itemFields.media) ? style.textItemSvgMedia : ""}
               ${
                 itemImagesAtTop
@@ -103,48 +114,44 @@ const TextGridWithMedia = ({ module, customData }) => {
             <Media media={itemFields.media} />
           </div>
         )}
-        {(itemFields.text ||
-          itemFields.secondText ||
-          (heading.text && fields.itemStyle !== "imgBottom")) && (
-          <div
-            className={`${
-              style.textItemTextContent
-            } d-flex flex-direction-column ${
-              fields.flexAlignItems ? fields.flexAlignItems : ""
-            }`}
-          >
-            {heading.text && fields.itemStyle !== "imgBottom" && (
-              <div className={style.textItemHeading}>
-                <Heading {...heading} />
-              </div>
-            )}
-            {(itemFields.text || itemFields.secondText) && (
-              <div className={style.textItemContentWrapper}>
-                {itemFields.text && (
-                  <div
-                    className={`content ${style.content}`}
-                    dangerouslySetInnerHTML={renderHTML(itemFields.text)}
-                  ></div>
-                )}
-                {itemFields.secondText && (
-                  <div
-                    className={`content ${style.content} ${style.textItemSecondText}`}
-                    dangerouslySetInnerHTML={renderHTML(itemFields.secondText)}
-                  ></div>
-                )}
-              </div>
-            )}
-            {itemFields.link && itemFields.link.text && (
-              <span
-                className={`${
-                  fields.linkStyle ? fields.linkStyle : style.rightArrow2
-                }`}
-              >
-                {itemFields.link.text}
-              </span>
-            )}
-          </div>
-        )}
+        <div
+          className={`${
+            style.textItemTextContent
+          } d-flex flex-direction-column ${
+            fields.flexAlignItems ? fields.flexAlignItems : ""
+          }`}
+        >
+          {heading.text && fields.itemStyle !== "imgBottom" && (
+            <div className={style.textItemHeading}>
+              <Heading {...heading} />
+            </div>
+          )}
+          {(itemFields.text || itemFields.secondText) && (
+            <div className={style.textItemContentWrapper}>
+              {itemFields.text && (
+                <div
+                  className={`content ${style.content}`}
+                  dangerouslySetInnerHTML={renderHTML(itemFields.text)}
+                ></div>
+              )}
+              {itemFields.secondText && (
+                <div
+                  className={`content ${style.content} ${style.textItemSecondText}`}
+                  dangerouslySetInnerHTML={renderHTML(itemFields.secondText)}
+                ></div>
+              )}
+            </div>
+          )}
+          {itemFields.link && itemFields.link.text && (
+            <span
+              className={`${
+                fields.linkStyle ? fields.linkStyle : style.rightArrow2
+              }`}
+            >
+              {itemFields.link.text}
+            </span>
+          )}
+        </div>
       </div>
     );
   };
@@ -163,12 +170,12 @@ const TextGridWithMedia = ({ module, customData }) => {
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
-      <div className={`container `}>
+      <div className={`container ${brandWidth ? "max-width-brand" : ""}`}>
         {heading.text && (
           <div
             className={`${style.heading} ${
               narrowContainer ? "max-width-narrow" : ""
-            }`}
+            }  `}
           >
             <Heading {...heading} />
             {fields.subtitle && <p>{fields.subtitle}</p>}
@@ -191,16 +198,6 @@ const TextGridWithMedia = ({ module, customData }) => {
             ${style.grid}
             ${narrowContainer ? "max-width-narrow" : ""}
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
-<<<<<<< HEAD
-<<<<<<< HEAD
-            ${fields.itemStyle == "imgBottom" ? "mb-4" : ""}
-            mt-4
-=======
->>>>>>> brand
-=======
-            ${fields.itemStyle == "imgBottom" ? "mb-4" : ""}
-            mt-4
->>>>>>> brand
             `}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {
@@ -243,7 +240,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   );
 };
 
-TextGridWithMedia.getCustomInitialProps = async function ({ item }) {
+BrandTextGridWithMedia.getCustomInitialProps = async function ({ item }) {
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
@@ -258,4 +255,4 @@ TextGridWithMedia.getCustomInitialProps = async function ({ item }) {
   };
 };
 
-export default TextGridWithMedia;
+export default BrandTextGridWithMedia;

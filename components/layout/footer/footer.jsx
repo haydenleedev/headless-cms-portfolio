@@ -197,7 +197,6 @@ const Footer = ({ globalData }) => {
             {/* <button id="ot-sdk-btn" className="ot-sdk-show-settings">
               Cookie Settings
             </button> */}
-
             {/* <div id="teconsent"></div>
             <div className={style.trusteLinks}>
               <a

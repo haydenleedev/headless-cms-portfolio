@@ -1,14 +1,14 @@
-import Heading from "../heading";
-import style from "./firstFold.module.scss";
-import Media from "../media";
+import Heading from "../../../components/agility-pageModules/heading";
+import style from "./brandFirstFold.module.scss";
+import Media from "../../../components/agility-pageModules/media";
 import { boolean } from "../../../utils/validation";
-import AgilityLink from "../../agilityLink";
+import AgilityLink from "../../../components/agilityLink";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import CustomSVG from "../../customSVG/customSVG";
+import CustomSVG from "../../../components/customSVG/customSVG";
 import { useIntersectionObserver } from "../../../utils/hooks";
 
-const FirstFold = ({ module, customData }) => {
+const BrandFirstFold = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
@@ -17,7 +17,8 @@ const FirstFold = ({ module, customData }) => {
   const narrowContainer = boolean(fields?.narrowContainer);
   const fixedMediaHeight = fields?.fixedMediaHeight;
   const layout = fields.layout;
-
+  //If link classes contain a simple link class, remove button type styling
+  const simpleLink = fields?.linkClasses?.includes("simple");
   fields.logos?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -51,9 +52,15 @@ const FirstFold = ({ module, customData }) => {
       <div className={style.linkWrapper}>
         <AgilityLink
           agilityLink={link}
-          className={`button ${
+          className={`
+        ${
+          !simpleLink
+            ? `button
+          ${
             primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
-          } ${fields.linkClasses ? fields.linkClasses : ""}`}
+          }`
+            : ""
+        } ${fields.linkClasses ? fields.linkClasses : ""}`}
           ariaLabel={`Navigate to page ` + link.href}
           title={`Navigate to page ` + link.href}
         >
@@ -88,7 +95,7 @@ const FirstFold = ({ module, customData }) => {
               : style.textContent
           } ${narrowContainer ? "max-width-narrow" : ""}`}
         >
-          <div className={style.heading}>
+          <div className={`${style.heading}`}>
             <Heading {...heading}></Heading>
           </div>
           {sanitizedHtml && (
@@ -145,7 +152,9 @@ const FirstFold = ({ module, customData }) => {
         ref={intersectionRef}
       >
         <div
-          className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
+          className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
+            layout === "brand" ? "max-width-brand" : ""
+          }`}
         >
           <div
             className={
@@ -159,9 +168,13 @@ const FirstFold = ({ module, customData }) => {
             <div
               className={`${style.textContent} ${
                 style[`textContentBasis${fields.textWidthPercentage || 50}`]
-              }`}
+              } ${layout == "brand" ? style.brandAlign : ""}`}
             >
-              <div className={style.heading}>
+              <div
+                className={`${style.heading} ${
+                  layout == "brand" ? style.brandHeading : ""
+                }`}
+              >
                 <Heading {...heading}></Heading>
               </div>
               {sanitizedHtml && (
@@ -269,6 +282,8 @@ const FirstFold = ({ module, customData }) => {
             {fields.media && !fields.customSVG && !fields.imageLink && (
               <div
                 className={`${style.image} ${
+                  layout === "brand" ? style.brandimage : ""
+                } ${
                   fields.circularImage
                     ? style.circularImage
                     : style.removeCircular
@@ -307,7 +322,7 @@ const FirstFold = ({ module, customData }) => {
                   fixedMediaHeight
                     ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
                     : ""
-                } ${style[fields.mediaVerticalAlignment]} ${
+                }  ${style[fields.mediaVerticalAlignment]} ${
                   fields.mediaClasses ? fields.mediaClasses : ""
                 }`}
                 ariaLabel={`Navigate to page ` + fields.imageLink.href}
@@ -331,7 +346,7 @@ const FirstFold = ({ module, customData }) => {
   }
 };
 
-FirstFold.getCustomInitialProps = async function ({ item }) {
+BrandFirstFold.getCustomInitialProps = async function ({ item }) {
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
 
@@ -344,4 +359,4 @@ FirstFold.getCustomInitialProps = async function ({ item }) {
   };
 };
 
-export default FirstFold;
+export default BrandFirstFold;
