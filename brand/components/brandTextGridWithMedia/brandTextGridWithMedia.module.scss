@@ -1,0 +1,291 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
+.textGridWithMedia {
+  $smaller-gap: 1rem;
+  $larger-gap: 2rem;
+  .heading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 2rem 0;
+    margin: 3rem auto 1rem auto;
+    text-align: center;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-bottom: 1rem;
+    }
+  }
+  @mixin grid-item-vertical-gap($gap) {
+    &:not(:only-child) {
+      &:not(:first-child) {
+        // Use margin-top on mobile, as margin-bottom cannot be overridden due to mb-0 having the !important property
+        margin-top: $gap;
+        @include tablet() {
+          margin-top: 0;
+        }
+      }
+      @include tablet() {
+        margin-bottom: $gap;
+      }
+    }
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .grid {
+      @include desktop {
+        margin-top: 4rem;
+      }
+      .gridItem {
+        min-width: 0;
+        min-height: max-content;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 100%;
+        @include grid-item-vertical-gap($smaller-gap);
+      }
+      &.hasLargerGap .gridItem {
+        @include grid-item-vertical-gap($larger-gap);
+      }
+      @include tablet {
+        .gridItem + .gridItem {
+          margin-left: $smaller-gap;
+        }
+        &.hasLargerGap .gridItem + .gridItem {
+          margin-left: $larger-gap;
+        }
+        .gridItem {
+          &.is-1 {
+            flex-basis: 100%;
+          }
+          &.is-2 {
+            flex-basis: calc(50% - calc((1 / 2) * $smaller-gap));
+          }
+          &.is-3 {
+            flex-basis: calc(33.3333% - calc((2 / 3) * $smaller-gap));
+          }
+          &.is-4 {
+            flex-basis: calc(25% - calc((3 / 4) * $smaller-gap));
+          }
+        }
+        &.hasLargerGap {
+          .gridItem {
+            &.is-1 {
+              flex-basis: 100%;
+            }
+            &.is-2 {
+              flex-basis: calc(50% - calc((1 / 2) * $larger-gap));
+            }
+            &.is-3 {
+              flex-basis: calc(33.3333% - calc((2 / 3) * $larger-gap));
+            }
+            &.is-4 {
+              flex-basis: calc(25% - calc((3 / 4) * $larger-gap));
+            }
+          }
+        }
+      }
+      p {
+        padding-bottom: 1rem;
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+      span.rightArrow {
+        font-weight: 600;
+        color: $color-darkblue;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        &:after {
+          content: ">";
+          margin-left: 0.5rem;
+          font-size: 1rem;
+          display: inline-block;
+        }
+      }
+    }
+    .mediaContainer {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      &.svgMediaContainer {
+        > span {
+          height: 100%;
+          img {
+            height: 100% !important;
+            position: relative !important;
+          }
+        }
+      }
+    }
+  }
+  .textItem {
+    display: flex;
+    padding: 1.5rem;
+    /* height: 100%; */
+    overflow: hidden;
+  }
+  &:not(.logoLeftHeaderRight) {
+    .textItem {
+      .textItemMedia {
+        max-width: 7.5rem;
+        height: 7.5rem;
+        & > span {
+          &:only-child {
+            height: 100% !important;
+            img {
+              margin: 0 !important;
+              width: 100% !important;
+              object-fit: contain;
+              height: unset !important;
+              min-height: unset !important;
+            }
+          }
+        }
+        &.textItemMediaTop {
+          > span:only-child {
+            display: flex !important;
+            align-items: center !important;
+            img {
+              position: relative !important;
+            }
+          }
+        }
+      }
+      &:not(.textItemWithSmallMedia):not(.textItemWithLargeMedia) {
+        .textItemMedia {
+          margin-bottom: 1.5rem;
+        }
+      }
+      &.textItemWithLargeMedia {
+        padding: 0;
+
+        .textItemMedia {
+          overflow: hidden;
+          max-width: 100% !important;
+          height: 14rem;
+          &.height100 {
+            height: 100% !important;
+          }
+          &.adjustHeight {
+            @include mobile {
+              height: initial;
+            }
+          }
+          & > span:only-child img {
+            min-width: 100% !important;
+            object-fit: cover;
+            margin: unset !important;
+          }
+          .content,
+          span.rightArrow {
+            padding: 0 1.5rem;
+          }
+        }
+        .textItemTextContent {
+          padding: 1.5rem;
+        }
+      }
+      &.textItemWithSmallMedia {
+        .textItemMedia {
+          max-width: 5.625rem;
+          height: 5.625rem;
+        }
+      }
+    }
+  }
+  .textItemHeading {
+    margin-bottom: 0.625rem;
+  }
+  .textItemContentWrapper {
+    display: flex;
+    flex-direction: column;
+    .textItemSecondText:not(:only-child) * {
+      margin-top: 0.5rem;
+    }
+  }
+  &.logoLeftHeaderRight {
+    &.medium {
+      .textItem {
+        .textItemMedia {
+          flex: 1 0 3.75rem;
+        }
+      }
+    }
+    .content {
+      line-height: 1.3rem;
+      align-items: stretch;
+      .grid {
+        margin-top: 0 !important;
+        grid-gap: 0;
+        display: grid;
+        grid-template-columns: 1fr;
+        .gridItem {
+          margin-left: 0;
+        }
+        @media (min-width: 25.5rem) {
+          grid-template-columns: 1fr 1fr;
+          .gridItem {
+            margin-top: 0 !important;
+          }
+        }
+        @include desktop() {
+          display: flex;
+          .gridItem {
+            margin-left: $smaller-gap;
+          }
+          &.hasLargerGap .gridItem {
+            margin-left: $larger-gap;
+          }
+        }
+      }
+    }
+    .textItem {
+      .textItemMedia {
+        align-self: center;
+        height: initial !important;
+        flex: 1 0 1.75rem;
+        margin-right: 0.8rem !important;
+        img {
+          height: initial !important;
+        }
+        &.textItemSvgMedia {
+          > span > span {
+            // This is needed to prevent oversized images on older versions of Safari
+            height: 0 !important;
+          }
+          img {
+            position: unset !important;
+          }
+        }
+        & > * {
+          font-size: 1rem;
+        }
+      }
+      .textItemHeading {
+        width: 100%;
+      }
+      .textItemHeading > * {
+        font-size: 1rem;
+      }
+      @include desktop() {
+        padding: 1.5rem 0;
+      }
+    }
+  }
+}
+.justify-content-flex-end {
+  justify-content: flex-end;
+  &.textItem {
+    height: 100%;
+  }
+}
