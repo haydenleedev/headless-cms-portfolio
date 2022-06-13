@@ -15,9 +15,7 @@ const TextGridWithMedia = ({ module, customData }) => {
   const itemShadow = boolean(fields?.itemShadow);
   const roundCorners = boolean(fields?.roundCorners);
   const itemImagesAtTop = fields.itemStyle == null;
-  const brandWidth = boolean(fields?.brandWidth);
-  const limitHeight = boolean(fields?.limitItemHeight);
-  const heightMax = boolean(fields?.imageHeightMax);
+
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -57,31 +55,24 @@ const TextGridWithMedia = ({ module, customData }) => {
     return (
       <div
         className={`
+          ${`grid-column ${columnSizeClassname}`}
+          ${style.textItem} ${
+          fields.itemStyle === "imgBottom" && "justify-content-flex-end"
+        }
           ${
-            brandWidth && itemsWithSanitizedHTML?.length < 2
+            fields.itemStyle == "logoLeft" ||
+            fields.itemStyle == "mediumLogoLeft"
               ? ""
               : `
-              ${`grid-column ${columnSizeClassname}`}
-              ${style.textItem} ${
-                  fields.itemStyle === "imgBottom" &&
-                  style["justify-content-flex-end"]
+                flex-direction-column
+                ${
+                  fields.itemImageSize
+                    ? style[`textItemWith${fields.itemImageSize}Media`]
+                    : ""
                 }
-              ${
-                fields.itemStyle == "logoLeft" ||
-                fields.itemStyle == "mediumLogoLeft"
-                  ? ""
-                  : `
-                    flex-direction-column
-                    ${
-                      fields.itemImageSize
-                        ? style[`textItemWith${fields.itemImageSize}Media`]
-                        : ""
-                    }
-                    ${itemShadow ? "card-shadow" : ""}
-                    ${roundCorners ? "border-radius-1" : ""}`
-              }`
-          }
-        `}
+                ${itemShadow ? "card-shadow" : ""}
+                ${roundCorners ? "border-radius-1" : ""}`
+          }`}
         key={data.contentID}
         data-animate="true"
       >
@@ -94,8 +85,6 @@ const TextGridWithMedia = ({ module, customData }) => {
           <div
             className={`
               ${style.textItemMedia}
-              ${heightMax ? style.height100 : ""}
-              ${!limitHeight ? "" : style.adjustHeight}
               ${mediaIsSvg(itemFields.media) ? style.textItemSvgMedia : ""}
               ${
                 itemImagesAtTop
@@ -114,44 +103,48 @@ const TextGridWithMedia = ({ module, customData }) => {
             <Media media={itemFields.media} />
           </div>
         )}
-        <div
-          className={`${
-            style.textItemTextContent
-          } d-flex flex-direction-column ${
-            fields.flexAlignItems ? fields.flexAlignItems : ""
-          }`}
-        >
-          {heading.text && fields.itemStyle !== "imgBottom" && (
-            <div className={style.textItemHeading}>
-              <Heading {...heading} />
-            </div>
-          )}
-          {(itemFields.text || itemFields.secondText) && (
-            <div className={style.textItemContentWrapper}>
-              {itemFields.text && (
-                <div
-                  className={`content ${style.content}`}
-                  dangerouslySetInnerHTML={renderHTML(itemFields.text)}
-                ></div>
-              )}
-              {itemFields.secondText && (
-                <div
-                  className={`content ${style.content} ${style.textItemSecondText}`}
-                  dangerouslySetInnerHTML={renderHTML(itemFields.secondText)}
-                ></div>
-              )}
-            </div>
-          )}
-          {itemFields.link && itemFields.link.text && (
-            <span
-              className={`${
-                fields.linkStyle ? fields.linkStyle : style.rightArrow2
-              }`}
-            >
-              {itemFields.link.text}
-            </span>
-          )}
-        </div>
+        {(itemFields.text ||
+          itemFields.secondText ||
+          (heading.text && fields.itemStyle !== "imgBottom")) && (
+          <div
+            className={`${
+              style.textItemTextContent
+            } d-flex flex-direction-column ${
+              fields.flexAlignItems ? fields.flexAlignItems : ""
+            }`}
+          >
+            {heading.text && fields.itemStyle !== "imgBottom" && (
+              <div className={style.textItemHeading}>
+                <Heading {...heading} />
+              </div>
+            )}
+            {(itemFields.text || itemFields.secondText) && (
+              <div className={style.textItemContentWrapper}>
+                {itemFields.text && (
+                  <div
+                    className={`content ${style.content}`}
+                    dangerouslySetInnerHTML={renderHTML(itemFields.text)}
+                  ></div>
+                )}
+                {itemFields.secondText && (
+                  <div
+                    className={`content ${style.content} ${style.textItemSecondText}`}
+                    dangerouslySetInnerHTML={renderHTML(itemFields.secondText)}
+                  ></div>
+                )}
+              </div>
+            )}
+            {itemFields.link && itemFields.link.text && (
+              <span
+                className={`${
+                  fields.linkStyle ? fields.linkStyle : style.rightArrow2
+                }`}
+              >
+                {itemFields.link.text}
+              </span>
+            )}
+          </div>
+        )}
       </div>
     );
   };
@@ -170,12 +163,12 @@ const TextGridWithMedia = ({ module, customData }) => {
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
-      <div className={`container ${brandWidth ? "max-width-brand" : ""}`}>
+      <div className={`container `}>
         {heading.text && (
           <div
             className={`${style.heading} ${
               narrowContainer ? "max-width-narrow" : ""
-            }  `}
+            }`}
           >
             <Heading {...heading} />
             {fields.subtitle && <p>{fields.subtitle}</p>}
@@ -198,6 +191,8 @@ const TextGridWithMedia = ({ module, customData }) => {
             ${style.grid}
             ${narrowContainer ? "max-width-narrow" : ""}
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
+            ${fields.itemStyle == "imgBottom" ? "mb-4" : ""}
+            mt-4
             `}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {

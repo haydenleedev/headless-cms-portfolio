@@ -17,8 +17,7 @@ const FirstFold = ({ module, customData }) => {
   const narrowContainer = boolean(fields?.narrowContainer);
   const fixedMediaHeight = fields?.fixedMediaHeight;
   const layout = fields.layout;
-  //If link classes contain a simple link class, remove button type styling
-  const simpleLink = fields?.linkClasses?.includes("simple");
+
   fields.logos?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -50,17 +49,16 @@ const FirstFold = ({ module, customData }) => {
     const link = primary ? fields.primaryLink : fields.secondaryLink;
     return link?.href && link?.text ? (
       <div className={style.linkWrapper}>
-         <AgilityLink
-        agilityLink={link}
-        className={`
-        ${!simpleLink ? `button 
-          ${primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
-    }` : ""} ${fields.linkClasses ? fields.linkClasses : ""}`}
-        ariaLabel={`Navigate to page ` + link.href}
-        title={`Navigate to page ` + link.href}
-      >
-        {link.text}
-      </AgilityLink>
+        <AgilityLink
+          agilityLink={link}
+          className={`button ${
+            primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
+          } ${fields.linkClasses ? fields.linkClasses : ""}`}
+          ariaLabel={`Navigate to page ` + link.href}
+          title={`Navigate to page ` + link.href}
+        >
+          {link.text}
+        </AgilityLink>
       </div>
     ) : null;
   };
@@ -90,7 +88,7 @@ const FirstFold = ({ module, customData }) => {
               : style.textContent
           } ${narrowContainer ? "max-width-narrow" : ""}`}
         >
-          <div className={`${style.heading}`}>
+          <div className={style.heading}>
             <Heading {...heading}></Heading>
           </div>
           {sanitizedHtml && (
@@ -147,7 +145,7 @@ const FirstFold = ({ module, customData }) => {
         ref={intersectionRef}
       >
         <div
-          className={`container ${narrowContainer ? "max-width-narrow" : ""} ${layout === "brand" ? "max-width-brand" : ""}`}
+          className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
         >
           <div
             className={
@@ -161,9 +159,9 @@ const FirstFold = ({ module, customData }) => {
             <div
               className={`${style.textContent} ${
                 style[`textContentBasis${fields.textWidthPercentage || 50}`]
-              } ${layout == "brand" ? style.brandAlign : ""}`}
+              }`}
             >
-              <div className={`${style.heading} ${layout == "brand" ? style.brandHeading : ""}`}>
+              <div className={style.heading}>
                 <Heading {...heading}></Heading>
               </div>
               {sanitizedHtml && (
@@ -264,13 +262,13 @@ const FirstFold = ({ module, customData }) => {
                 </div>
               )}
               <div className={style.links}>
-              <FirstFoldLink primary />
+                <FirstFoldLink primary />
                 <FirstFoldLink />
               </div>
             </div>
             {fields.media && !fields.customSVG && !fields.imageLink && (
               <div
-                className={`${style.image} ${layout === "brand" ? style.brandimage : ""} ${
+                className={`${style.image} ${
                   fields.circularImage
                     ? style.circularImage
                     : style.removeCircular
@@ -309,7 +307,7 @@ const FirstFold = ({ module, customData }) => {
                   fixedMediaHeight
                     ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
                     : ""
-                }  ${style[fields.mediaVerticalAlignment]} ${
+                } ${style[fields.mediaVerticalAlignment]} ${
                   fields.mediaClasses ? fields.mediaClasses : ""
                 }`}
                 ariaLabel={`Navigate to page ` + fields.imageLink.href}

@@ -44,14 +44,8 @@
     border-radius: 50%;
   }
   .heading {
-    max-width: 39.5rem;
+    max-width: 37.5rem;
     margin-top: 1rem;
-  }
-  .brandHeading {
-    margin-left: -.1rem;
-    @include desktop{
-      margin-left:-.2rem;
-    }
   }
   .textContent {
     display: flex;
@@ -64,10 +58,6 @@
     // Overflow fallback for Safari
     overflow: hidden;
     overflow: clip;
-    &.brandAlign {
-      text-align: left;
-      align-items: flex-start;
-    }
     &.textContentBasis30 {
       flex-basis: 30%;
     }
@@ -86,8 +76,8 @@
   }
   .text {
     margin-top: 1rem;
-    
   }
+
   .image {
     display: flex;
     justify-content: center;
