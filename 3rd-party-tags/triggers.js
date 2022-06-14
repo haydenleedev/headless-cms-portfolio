@@ -67,3 +67,10 @@ export const phoneNumberClick = (setEventStatus) => {
     }
   });
 };
+
+export const youTubeActivity = (setEventStatus) => {
+  const updateTriggeredStatus = (e) => {
+    setEventStatus({ triggered: true, details: { action: e.detail.action } });
+  };
+  window.addEventListener("youTubeActivity", updateTriggeredStatus);
+};

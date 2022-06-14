@@ -5,11 +5,16 @@ import {
   linkClick,
   marketoFormSuccess,
   marketoScriptReady,
+  youTubeActivity,
 } from "./triggers";
 import htmlMarketoFormListener from "./scripts/htmlMarketoFormListener";
 import g2Crowd from "./scripts/g2Crowd";
 import marketoAsynchMunchkin from "./scripts/marketoAsynchMunchkin";
-import { elementClickEvent, linkClickEvent } from "../utils/dataLayer";
+import {
+  elementClickEvent,
+  linkClickEvent,
+  youTubeActivityEvent,
+} from "../utils/dataLayer";
 
 export const Tags = () => {
   return (
@@ -38,6 +43,10 @@ export const Tags = () => {
       <AnalyticsTag
         generateEvent={linkClickEvent}
         triggerInitializer={linkClick}
+      />
+      <AnalyticsTag
+        generateEvent={youTubeActivityEvent}
+        triggerInitializer={youTubeActivity}
       />
     </>
   );
