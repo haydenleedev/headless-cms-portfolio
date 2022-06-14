@@ -70,6 +70,12 @@ const Layout = (props) => {
     }
   }
 
+  // Temporarily return 404 on brand pages to avoid build issues
+  if (pageTemplateName === "BrandTemplate") {
+    return (
+      <Error statusCode={404} />
+    )
+  }
   const AgilityPageTemplate = getPageTemplate(pageTemplateName);
 
   if (dynamicPageItem?.seo?.metaDescription) {
