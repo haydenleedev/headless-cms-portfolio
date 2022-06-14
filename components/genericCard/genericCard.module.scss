@@ -64,12 +64,12 @@
       }
       &:not(.colorCardImageWrapper) {
         &.smallerSize {
-          padding: 5rem;
+          padding: 2rem;
+          flex: 0 0 14rem;
           @include desktop() {
             margin-bottom: 0;
-            flex: 0 0 24.75rem;
             &:hover {
-              padding: 4.3rem;
+              padding: 1.5rem;
             }
           }
         }
