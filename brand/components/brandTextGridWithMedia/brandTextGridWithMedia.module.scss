@@ -46,11 +46,17 @@
         margin-top: 4rem;
       }
       .gridItem {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         min-width: 0;
         min-height: max-content;
         flex-grow: 0;
         flex-shrink: 0;
         flex-basis: 100%;
+        .textItem {
+          flex-basis: auto;
+        }
         @include grid-item-vertical-gap($smaller-gap);
       }
       &.hasLargerGap .gridItem {
