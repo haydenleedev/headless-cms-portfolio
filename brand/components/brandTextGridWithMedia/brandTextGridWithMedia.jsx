@@ -15,7 +15,6 @@ const BrandTextGridWithMedia = ({ module, customData }) => {
   const itemShadow = boolean(fields?.itemShadow);
   const roundCorners = boolean(fields?.roundCorners);
   const itemImagesAtTop = fields.itemStyle == null;
-  const brandWidth = boolean(fields?.brandWidth);
   const limitHeight = boolean(fields?.limitItemHeight);
   const heightMax = boolean(fields?.imageHeightMax);
   itemsWithSanitizedHTML.sort(function (a, b) {
@@ -58,7 +57,7 @@ const BrandTextGridWithMedia = ({ module, customData }) => {
       <div
         className={`
           ${
-            brandWidth && itemsWithSanitizedHTML?.length < 2
+            itemsWithSanitizedHTML?.length < 2
               ? ""
               : `
               ${`grid-column ${columnSizeClassname}`}
@@ -170,7 +169,7 @@ const BrandTextGridWithMedia = ({ module, customData }) => {
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
-      <div className={`container ${brandWidth ? "max-width-brand" : ""}`}>
+      <div className="container max-width-brand">
         {heading.text && (
           <div
             className={`${style.heading} ${

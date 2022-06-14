@@ -7,7 +7,6 @@ const BrandBlankCards = ({ module }) => {
   const { fields } = module;
   const cards = fields.cards;
   const heading = JSON.parse(fields.heading);
-  const brand = fields.layout == "brand";
   const smallImage = boolean(fields.smallerImage);
   cards?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -26,7 +25,7 @@ const BrandBlankCards = ({ module }) => {
   return (
     <section className={`section  ${fields.classes ? fields.classes : ""}`}>
       <div
-        className={`container ${brand ? "max-width-brand" : ""} ${
+        className={`container max-width-brand ${
           style.containerPosition
         }`}
       >
@@ -56,7 +55,7 @@ const BrandBlankCards = ({ module }) => {
                 }`}
               >
                 <GenericCard
-                  brandLayout={brand}
+                  brandLayout
                   link={card.fields.link}
                   title={card.fields.title}
                   image={card.fields.image}

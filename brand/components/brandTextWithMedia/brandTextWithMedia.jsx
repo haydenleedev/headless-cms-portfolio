@@ -17,7 +17,6 @@ const BrandTextWithMedia = ({ module, customData }) => {
   const mobilePositionTop = fields.mobileMediaPosition == "top";
   const narrowContainer = fields.containerWidth == "narrow";
   const fullPageWidth = fields.containerWidth == "fullPageWidth";
-  const brandWidth = fields.containerWidth == "brand";
   const columnLayout = fields.layout == "column";
   const mediaLeft = fields.layout == "mediaLeft";
   const background = fields.layout == "background";
@@ -58,19 +57,15 @@ const BrandTextWithMedia = ({ module, customData }) => {
       ref={intersectionRef}
     >
       <div
-        className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
-          fullPageWidth ? "max-width-unset padding-unset" : ""
-        } ${brandWidth ? "max-width-brand" : ""}`}
+        className={`container max-width-brand ${
+          narrowContainer ? "max-width-narrow" : ""
+        } ${fullPageWidth ? "max-width-unset padding-unset" : ""}`}
       >
         {headingOnTop && heading.text && (
           <div
-            className={`${
-              columnLayout
-                ? "heading"
-                : brandWidth
-                ? style.brandHeading
-                : style.heading
-            } ${fields.headingAlignment}`}
+            className={`${columnLayout ? "heading" : style.brandHeading} ${
+              fields.headingAlignment
+            }`}
           >
             <Heading {...heading} />
           </div>
@@ -84,7 +79,7 @@ const BrandTextWithMedia = ({ module, customData }) => {
               : style.mediaRight
           } ${mobilePositionTop ? style.mediaTop : style.mediaBottom}${
             fullPageWidth ? style.fullPageWidthContent : ""
-          } ${brandWidth ? style.brandWidthContent : ""}`}
+          } ${style.brandWidthContent}`}
         >
           {(fields.text ||
             heading.text ||
@@ -92,7 +87,7 @@ const BrandTextWithMedia = ({ module, customData }) => {
             <div
               className={`${style.textContent} ${
                 fullPageWidth ? style.fullPageWidthTextContent : ""
-              } ${brandWidth ? style.brandWidthTextContent : ""} ${
+              } ${style.brandWidthTextContent} ${
                 style[`textContentBasis${fields.textWidthPercentage || 50}`]
               } ${textContentVerticalAlignment}`}
               style={
@@ -112,13 +107,7 @@ const BrandTextWithMedia = ({ module, customData }) => {
               >
                 {!headingOnTop && heading.text && (
                   <div
-                    className={
-                      columnLayout
-                        ? "heading"
-                        : brandWidth
-                        ? style.brandHeading
-                        : style.heading
-                    }
+                    className={columnLayout ? "heading" : style.brandHeading}
                   >
                     <Heading {...heading} />
                   </div>
@@ -153,7 +142,7 @@ const BrandTextWithMedia = ({ module, customData }) => {
           <div
             className={`${style.media} ${fields.roundMediaCorners} ${
               fullPageWidth ? style.fullPageWidthMedia : ""
-            } ${brandWidth ? style.brandWidthMedia : ""} ${
+            } ${style.brandWidthMedia} ${
               !columnLayout ? style.posAbsolute : ""
             } ${mediaVerticalAlignment} ${
               style[
@@ -286,23 +275,21 @@ const BrandTextWithMedia = ({ module, customData }) => {
         )}
       </div>
       <div
-        className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
-          fullPageWidth ? "max-width-unset padding-unset" : ""
-        } ${brandWidth ? "max-width-brand" : ""}`}
+        className={`container max-width-brand ${
+          narrowContainer ? "max-width-narrow" : ""
+        } ${fullPageWidth ? "max-width-unset padding-unset" : ""}`}
       >
         <div className={`${style.content}`}>
           <div
             className={`${style.backgroundTextContent} ${
               style.backgroundPadding
             } ${fullPageWidth ? style.fullPageWidthTextContent : ""} ${
-              brandWidth ? style.brandWidthTextContent : ""
+              style.brandWidthTextContent
             } ${style[`textContentBasis${fields.textWidthPercentage || 50}`]}`}
           >
             <div>
               {!headingOnTop && heading.text && (
-                <div
-                  className={brandWidth ? style.brandHeading : style.heading}
-                >
+                <div className={style.brandHeading}>
                   <Heading {...heading} />
                 </div>
               )}
@@ -335,9 +322,7 @@ const BrandTextWithMedia = ({ module, customData }) => {
           <div
             className={`${style.media} ${
               fullPageWidth ? style.fullPageWidthMedia : ""
-            } ${
-              brandWidth ? style.brandWidthMedia : ""
-            } ${mediaVerticalAlignment} ${
+            } ${style.brandWidthMedia} ${mediaVerticalAlignment} ${
               style[
                 `mediaBasis${100 - parseInt(fields.textWidthPercentage) || 50}`
               ]
