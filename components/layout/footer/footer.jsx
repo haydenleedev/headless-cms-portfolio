@@ -186,18 +186,17 @@ const Footer = ({ globalData }) => {
             /> */}
             {/* "In order to generate the required GTM events you must add the
             following code to every page on which the CM is deployed" */}
-            <Script
+            {/* <Script
               id="gtmEventsScript"
               strategy="lazyOnload"
               dangerouslySetInnerHTML={renderHTML(
                 `var __dispatched__ = {}; var __i__ = self.postMessage && setInterval(function() { if (self.PrivacyManagerAPI && __i__) { var apiObject = { PrivacyManagerAPI: { action: "getConsentDecision", timestamp: new Date().getTime(), self: self.location.host } }; self.top.postMessage(JSON.stringify(apiObject), "*"); __i__ = clearInterval(__i__); } }, 50); self.addEventListener("message", function(e, d) { try { if (e.data && (d = JSON.parse(e.data)) && (d = d.PrivacyManagerAPI) && d.capabilities && d.action == "getConsentDecision") { var newDecision = self.PrivacyManagerAPI.callApi("getGDPRConsentDecision", self.location.host).consentDecision; newDecision && newDecision.forEach(function(label) { if (!__dispatched__[label]) { self.dataLayer && self.dataLayer.push({ "event": "GDPR Pref Allows "+label}); __dispatched__[label] = 1; } }); } } catch (xx){ } });`
               )}
-            />
+            /> */}
             {/* <div id="ot-sdk-cookie-policy"></div> */}
             {/* <button id="ot-sdk-btn" className="ot-sdk-show-settings">
               Cookie Settings
             </button> */}
-
             {/* <div id="teconsent"></div>
             <div className={style.trusteLinks}>
               <a

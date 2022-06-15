@@ -5,7 +5,7 @@ import style from "./blankCards.module.scss";
 const BlankCards = ({ module }) => {
   const { fields } = module;
   const cards = fields.cards;
-  cards.sort(function (a, b) {
+  cards?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
   const maxCardsPerRow =
@@ -14,12 +14,12 @@ const BlankCards = ({ module }) => {
     fields.maxCardsPerRow <= 4
       ? parseInt(fields.maxCardsPerRow)
       : 4;
-  const numberOfRows = Math.ceil(cards.length / maxCardsPerRow);
+  const numberOfRows = Math.ceil(cards?.length / maxCardsPerRow);
   return (
     <section className="section">
       <div className="container">
         <div className={style.cardGrid}>
-          {cards.map((card, index) => {
+          {cards?.map((card, index) => {
             return (
               <div
                 key={`card${index}`}

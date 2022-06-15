@@ -12,6 +12,7 @@ $color-darkgray: #777;
 $color-darkmedium: #bbb;
 $color-darkmediumgray: #bbb;
 $color-mediumgray: #e5e5e5;
+$color-lightmedium:#f2f4ff;
 $color-lightgray: #f6f6f6;
 $color-red: #ff0000; // Use for Error messages and Error selectors
 $color-lightred: #ffe7e7;
@@ -22,8 +23,12 @@ $color-darkpurple: #14012b;
 $color-lightpurple: #9b58ea;
 $color-mediumpurple: #6e0bdc;
 
+
 .bg-paleblue {
   background-color: #f0f6ff !important; // $color-paleblue: not pale enough...;
+}
+.bg-palelightblue{
+  background-color:#e1ecfe !important;
 }
 .bg-skyblue-light {
   background-color: $color-paleblue;
@@ -60,6 +65,9 @@ $color-mediumpurple: #6e0bdc;
 }
 .bg-darkmedium {
   background-color: $color-darkmedium !important;
+}
+.bg-lightmedium{
+  background-color: $color-lightmedium !important;
 }
 .bg-mediumgray {
   background-color: $color-mediumgray !important;
