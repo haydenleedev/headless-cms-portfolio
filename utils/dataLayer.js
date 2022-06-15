@@ -83,78 +83,6 @@ export const marketoScriptReadyEvent = (data) => {
 
 export const addDataLayerEventTriggers = (router) => {
   if (typeof window !== "undefined") {
-    // Scroll triggers
-    const scrollBreakpoints = [
-      {
-        threshold: 25,
-        triggered: false,
-      },
-      {
-        threshold: 50,
-        triggered: false,
-      },
-      {
-        threshold: 75,
-        triggered: false,
-      },
-      {
-        // 98 is used here as mobile browsers sometimes have trouble reaching 99-100
-        threshold: 98,
-        reportValue: 100,
-        triggered: false,
-      },
-    ];
-    let scrolling = false;
-    const triggerPreviousScrollBreakpoints = (currentIndex) => {
-      for (let i = 0; i < currentIndex; i++) {
-        if (!scrollBreakpoints[i].triggered) {
-          scrollBreakpoints[i].triggered = true;
-          scrollDepthEvent({ scrollDepth: scrollBreakpoints[i].threshold });
-        }
-      }
-    };
-    window.addEventListener("scroll", () => {
-      if (
-        !scrolling &&
-        !scrollBreakpoints[scrollBreakpoints.length - 1].triggered
-      ) {
-        scrolling = true;
-        setTimeout(() => {
-          let scrollPercentage =
-            (document.scrollingElement.scrollTop /
-              (document.scrollingElement.scrollHeight -
-                document.scrollingElement.clientHeight)) *
-            100;
-          scrolling = false;
-          for (let i = 0; i < scrollBreakpoints.length; i++) {
-            if (i < scrollBreakpoints.length - 1) {
-              if (
-                scrollPercentage >= scrollBreakpoints[i].threshold &&
-                scrollPercentage < scrollBreakpoints[i + 1].threshold &&
-                !scrollBreakpoints[i].triggered
-              ) {
-                scrollBreakpoints[i].triggered = true;
-                if (i > 0) {
-                  triggerPreviousScrollBreakpoints(i);
-                }
-                scrollDepthEvent({
-                  scrollDepth: scrollBreakpoints[i].threshold,
-                });
-              }
-            } else if (
-              scrollPercentage >= scrollBreakpoints[i].threshold &&
-              !scrollBreakpoints[i].triggered
-            ) {
-              scrollBreakpoints[i].triggered = true;
-              triggerPreviousScrollBreakpoints(i);
-              scrollDepthEvent({
-                scrollDepth: scrollBreakpoints[i].reportValue,
-              });
-            }
-          }
-        }, 500);
-      }
-    });
     // Regular timer triggers
     setTimeout(() => {
       thirtySecondTimerEvent({});
@@ -197,10 +125,6 @@ export const addDataLayerEventTriggers = (router) => {
         setSiteSectionTimeout(url);
       }
       previousPath = url;
-      // Reset scroll triggers
-      scrollBreakpoints.forEach((breakpoint) => {
-        breakpoint.triggered = false;
-      });
     });
   }
 };

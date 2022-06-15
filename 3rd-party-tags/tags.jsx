@@ -1,11 +1,12 @@
 import Script from "next/script";
-import { useState, useEffect } from "react";
+import { Component, useState, useEffect } from "react";
 import {
   elementClick,
   linkClick,
   marketoFormSuccess,
   marketoScriptReady,
   youTubeActivity,
+  scrollDepth,
 } from "./triggers";
 import htmlMarketoFormListener from "./scripts/htmlMarketoFormListener";
 import g2Crowd from "./scripts/g2Crowd";
@@ -14,6 +15,7 @@ import {
   elementClickEvent,
   linkClickEvent,
   youTubeActivityEvent,
+  scrollDepthEvent,
 } from "../utils/dataLayer";
 
 export const Tags = () => {
@@ -47,6 +49,10 @@ export const Tags = () => {
       <AnalyticsTag
         generateEvent={youTubeActivityEvent}
         triggerInitializer={youTubeActivity}
+      />
+      <AnalyticsTag
+        generateEvent={scrollDepthEvent}
+        triggerInitializer={scrollDepth}
       />
     </>
   );
@@ -96,20 +102,27 @@ const PixelTag = ({ src, triggerInitializer }) => {
   return null;
 };
 
-const AnalyticsTag = ({ generateEvent, triggerInitializer }) => {
-  const [eventStatus, setEventStatus] = useState({});
-  useEffect(() => {
-    if (triggerInitializer) {
-      triggerInitializer(setEventStatus);
+class AnalyticsTag extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      eventStatus: {},
+    };
+  }
+  updateEventStatus = (newStatus) => {
+    this.setState({ eventStatus: newStatus }, () => {
+      if (this.state.eventStatus.triggered) {
+        this.props.generateEvent(this.state.eventStatus.details);
+        this.setState({ eventStatus: {} });
+      }
+    });
+  };
+  render() {
+    return null;
+  }
+  componentDidMount() {
+    if (this.props.triggerInitializer) {
+      this.props.triggerInitializer(this.updateEventStatus);
     }
-  }, []);
-
-  useEffect(() => {
-    if (eventStatus.triggered) {
-      generateEvent(eventStatus.details);
-      setEventStatus({});
-    }
-  }, [eventStatus]);
-
-  return null;
-};
+  }
+}
