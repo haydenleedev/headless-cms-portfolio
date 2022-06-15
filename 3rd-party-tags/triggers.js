@@ -2,8 +2,14 @@ import { Router } from "next/router";
 
 export const thirtySecondTimer = (setEventStatus) => {
   setTimeout(() => {
-    setEventStatus({ triggered: true });
+    setEventStatus({ triggered: true, details: { seconds: 30 } });
   }, 30000);
+};
+
+export const sixtySecondTimer = (setEventStatus) => {
+  setTimeout(() => {
+    setEventStatus({ triggered: true, details: { seconds: 60 } });
+  }, 60000);
 };
 
 export const marketoScriptReady = (setEventStatus) => {

@@ -7,6 +7,7 @@ import {
   marketoScriptReady,
   youTubeActivity,
   scrollDepth,
+  sixtySecondTimer,
 } from "./triggers";
 import htmlMarketoFormListener from "./scripts/htmlMarketoFormListener";
 import g2Crowd from "./scripts/g2Crowd";
@@ -16,6 +17,7 @@ import {
   linkClickEvent,
   youTubeActivityEvent,
   scrollDepthEvent,
+  engagedUserTimerEvent,
 } from "../utils/dataLayer";
 
 export const Tags = () => {
@@ -54,10 +56,13 @@ export const Tags = () => {
         generateEvent={scrollDepthEvent}
         triggerInitializer={scrollDepth}
       />
+      <AnalyticsTag
+        generateEvent={engagedUserTimerEvent}
+        triggerInitializer={sixtySecondTimer}
+      />
     </>
   );
 };
-
 const ScriptTag = ({
   script,
   scriptId,

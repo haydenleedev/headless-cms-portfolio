@@ -5,10 +5,10 @@ export const thirtySecondTimerEvent = (data) => {
   });
 };
 
-export const sixtySecondTimerEvent = (data) => {
+export const engagedUserTimerEvent = (data) => {
   gtag("event", "Timer", {
     event_category: "Engaged User",
-    event_label: "60 Seconds",
+    event_label: `${data.seconds} Seconds`,
   });
 };
 
@@ -54,7 +54,7 @@ export const pathChangeEvent = (data) => {
   // });
 };
 
-export const siteSectionTimerEvent = (data) => {
+export const engagedUserSiteSectionTimerEvent = (data) => {
   gtag("event", "Site Section Timer", {
     event_category: "Engaged User",
     event_label: data.siteSection,
@@ -83,20 +83,13 @@ export const marketoScriptReadyEvent = (data) => {
 
 export const addDataLayerEventTriggers = (router) => {
   if (typeof window !== "undefined") {
-    // Regular timer triggers
-    setTimeout(() => {
-      thirtySecondTimerEvent({});
-    }, 30000);
-    setTimeout(() => {
-      sixtySecondTimerEvent({});
-    }, 60000);
     // Router triggers
     let previousPath = router.asPath;
     let siteSectionTimeout;
     router.events.on("routeChangeComplete", (url) => {
       const setSiteSectionTimeout = () => {
         siteSectionTimeout = setTimeout(() => {
-          siteSectionTimerEvent({ siteSection: getSiteSection(url) });
+          engagedUserSiteSectionTimerEvent({ siteSection: getSiteSection(url) });
         }, 30000);
       };
       const getSiteSection = (path) => {
