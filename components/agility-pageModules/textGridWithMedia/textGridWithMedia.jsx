@@ -57,7 +57,7 @@ const TextGridWithMedia = ({ module, customData }) => {
         className={`
           ${`grid-column ${columnSizeClassname}`}
           ${style.textItem} ${
-          fields.itemStyle === "imgBottom" && "justify-content-flex-end"
+          fields.itemStyle === "imgBottom" && style["justify-content-flex-end"]
         }
           ${
             fields.itemStyle == "logoLeft" ||
@@ -103,48 +103,44 @@ const TextGridWithMedia = ({ module, customData }) => {
             <Media media={itemFields.media} />
           </div>
         )}
-        {(itemFields.text ||
-          itemFields.secondText ||
-          (heading.text && fields.itemStyle !== "imgBottom")) && (
-          <div
-            className={`${
-              style.textItemTextContent
-            } d-flex flex-direction-column ${
-              fields.flexAlignItems ? fields.flexAlignItems : ""
-            }`}
-          >
-            {heading.text && fields.itemStyle !== "imgBottom" && (
-              <div className={style.textItemHeading}>
-                <Heading {...heading} />
-              </div>
-            )}
-            {(itemFields.text || itemFields.secondText) && (
-              <div className={style.textItemContentWrapper}>
-                {itemFields.text && (
-                  <div
-                    className={`content ${style.content}`}
-                    dangerouslySetInnerHTML={renderHTML(itemFields.text)}
-                  ></div>
-                )}
-                {itemFields.secondText && (
-                  <div
-                    className={`content ${style.content} ${style.textItemSecondText}`}
-                    dangerouslySetInnerHTML={renderHTML(itemFields.secondText)}
-                  ></div>
-                )}
-              </div>
-            )}
-            {itemFields.link && itemFields.link.text && (
-              <span
-                className={`${
-                  fields.linkStyle ? fields.linkStyle : style.rightArrow2
-                }`}
-              >
-                {itemFields.link.text}
-              </span>
-            )}
-          </div>
-        )}
+        <div
+          className={`${
+            style.textItemTextContent
+          } d-flex flex-direction-column ${
+            fields.flexAlignItems ? fields.flexAlignItems : ""
+          }`}
+        >
+          {heading.text && fields.itemStyle !== "imgBottom" && (
+            <div className={style.textItemHeading}>
+              <Heading {...heading} />
+            </div>
+          )}
+          {(itemFields.text || itemFields.secondText) && (
+            <div className={style.textItemContentWrapper}>
+              {itemFields.text && (
+                <div
+                  className={`content ${style.content}`}
+                  dangerouslySetInnerHTML={renderHTML(itemFields.text)}
+                ></div>
+              )}
+              {itemFields.secondText && (
+                <div
+                  className={`content ${style.content} ${style.textItemSecondText}`}
+                  dangerouslySetInnerHTML={renderHTML(itemFields.secondText)}
+                ></div>
+              )}
+            </div>
+          )}
+          {itemFields.link && itemFields.link.text && (
+            <span
+              className={`${
+                fields.linkStyle ? fields.linkStyle : style.rightArrow2
+              }`}
+            >
+              {itemFields.link.text}
+            </span>
+          )}
+        </div>
       </div>
     );
   };
@@ -191,16 +187,7 @@ const TextGridWithMedia = ({ module, customData }) => {
             ${style.grid}
             ${narrowContainer ? "max-width-narrow" : ""}
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
-<<<<<<< HEAD
-<<<<<<< HEAD
-            ${fields.itemStyle == "imgBottom" ? "mb-4" : ""}
             mt-4
-=======
->>>>>>> brand
-=======
-            ${fields.itemStyle == "imgBottom" ? "mb-4" : ""}
-            mt-4
->>>>>>> brand
             `}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {

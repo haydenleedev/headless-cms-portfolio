@@ -15,7 +15,6 @@ module.exports = {
           ],
           destination: "/blog/:path*",
         },
-        { source: "/brand", destination: "/brand/home" },
       ],
     };
   },

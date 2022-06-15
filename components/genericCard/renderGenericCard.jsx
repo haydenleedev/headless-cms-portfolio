@@ -1,7 +1,5 @@
 import { AgilityImage } from "@agility/nextjs";
 import { toDate, resolveCategory } from "../../utils/convert";
-import style from "./genericCard.module.scss";
-import { renderHTML } from "@agility/nextjs";
 
 const RenderGenericCard = ({ properties }) => {
   const {
@@ -13,16 +11,11 @@ const RenderGenericCard = ({ properties }) => {
     newsSite,
     podcast,
     description,
-    text,
-    textAlignment,
     link,
     overrideCategory,
-    brandLayout,
-    smallImage,
-    imageWrapperClasses,
   } = properties;
   return (
-    <div className={`${brandLayout ? style.card : "genericCard"}`}>
+    <div className="genericCard">
       {(image || configuration?.defaultImage) && (
         <>
           {configuration?.iconStyleImage ? (
@@ -59,27 +52,13 @@ const RenderGenericCard = ({ properties }) => {
             </div>
           ) : (
             <div
-              className={`${imageWrapperClasses} ${
-                smallImage ? style.smallerSize : style.normalSize
-              } ${
-                brandLayout
-                  ? `${style.imageWrapper} ${imageWrapperClasses?.match(/bg-*/) ? style.colorCardImageWrapper : ""}`
-                  : `genericCard__image ${
-                      configuration?.imageHeight
-                        ? `genericCard__image--${configuration?.imageHeight}`
-                        : ""
-                    }`
+              className={`genericCard__image ${
+                configuration?.imageHeight
+                  ? `genericCard__image--${configuration?.imageHeight}`
+                  : ""
               }`}
             >
-              {brandLayout ? (
-               <AgilityImage
-               src={image.url}
-               width={0}
-               height={0}
-               layout="responsive"
-               objectFit="contain"
-             />
-              ) : image && image.pixelWidth ? (
+              {image && image.pixelWidth ? (
                 <AgilityImage
                   src={image.url}
                   alt={image.label || ""}
@@ -101,10 +80,7 @@ const RenderGenericCard = ({ properties }) => {
           )}
         </>
       )}
-      <div className={`${brandLayout ? style.textContent : "genericCard__textContent"}
-      ${
-       image && !configuration?.iconStyleImage && brandLayout && style.imageCardTextContent
-      }`}>
+      <div className="genericCard__textContent">
         {date && (
           <p className="genericCard__textContent--date">{toDate(date)}</p>
         )}
@@ -129,13 +105,13 @@ const RenderGenericCard = ({ properties }) => {
         )}
         {title && !configuration?.iconStyleImage && (
           <p
-            className={`${brandLayout ? style.title : `genericCard__textContent--title ${
+            className={`genericCard__textContent--title ${
               configuration?.emphasizedTitle
                 ? "genericCard__textContent--titleEmphasized"
                 : !date && !category && !overrideCategory && !newsSite
                 ? "pt-2"
                 : ""
-            }`}`}
+            }`}
           >
             {title}
           </p>
@@ -153,17 +129,9 @@ const RenderGenericCard = ({ properties }) => {
             {description}
           </p>
         )}
-          {text && (
-              <div
-                dangerouslySetInnerHTML={renderHTML(text)}
-                className={
-                  textAlignment == "left" ? "align-left" : "align-center"
-                }
-              />
-            )}
         {link && (
-          <p className={brandLayout ? style.linkText : "genericCard__textContent--link"}>
-            <span>{brandLayout ? link.text : "Read more"}</span>
+          <p className="genericCard__textContent--link">
+            <span>Read more</span>
           </p>
         )}
       </div>

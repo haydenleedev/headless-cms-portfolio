@@ -39,7 +39,6 @@ import ScriptLoader from "./scriptLoader/scriptLoader";
 import Accordion from "./accordion/accordion";
 import BlankCards from "./blankCards/blankCards";
 import SecondaryNav from "./secondaryNav/secondaryNav";
-import TwoTextColumns from "./twoTextColumns/twoTextColumns";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -55,13 +54,6 @@ import AcknowledgePageContent from "./acknowledgePageContent/acknowledgePageCont
 import GlossaryPageContent from "./glossaryPageContent/glossaryPageContent";
 import ShopErrorPageContent from "./shopErrorPageContent/shopErrorPageContent";
 import JobOpeningList from "./jobOpeningList/jobOpeningList";
-import VideoPopup from "./videoPopup/videoPopup";
-import BrandFirstFold from "../../brand/components/brandFirstFold/brandFirstFold";
-import BrandTextWithMedia from "../../brand/components/brandTextWithMedia/brandTextWithMedia";
-import BrandTwoTextColumns from "../../brand/components/brandTwoTextColumns/brandTwoTextColumns";
-import BrandBlankCards from "../../brand/components/brandBlankCards/brandBlankCards";
-import BrandVideoPopup from "../../brand/components/brandVideoPopup/brandVideoPopup";
-import BrandTextGridWithMedia from "../../brand/components/brandTextGridWithMedia/brandTextGridWithMedia";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -73,7 +65,6 @@ const allModules = [
   { name: "PressReleaseContent", module: PressReleaseContent },
   { name: "OverrideSEO", module: OverrideSEO },
   { name: "TextWithMedia", module: TextWithMedia },
-  { name: "TwoTextColumns", module: TwoTextColumns },
   { name: "TextGridWithMedia", module: TextGridWithMedia },
   { name: "ClientTestimonial", module: ClientTestimonial },
   { name: "ResourceList", module: ResourceList },
@@ -117,14 +108,7 @@ const allModules = [
   { name: "BlankCards", module: BlankCards },
   { name: "SecondaryNav", module: SecondaryNav },
   { name: "ShopErrorPageContent", module: ShopErrorPageContent },
-  { name: "JobOpeningList", module: JobOpeningList },
-  { name: "VideoPopup", module: VideoPopup },
-  { name: "BrandFirstFold", module: BrandFirstFold },
-  { name: "BrandTextGridWithMedia", module: BrandTextGridWithMedia },
-  { name: "BrandTextWithMedia", module: BrandTextWithMedia },
-  { name: "BrandTwoTextColumns", module: BrandTwoTextColumns },
-  { name: "BrandBlankCards", module: BrandBlankCards },
-  { name: "BrandVideoPopup", module: BrandVideoPopup },
+  { name: "JobOpeningList", module: JobOpeningList }
 ];
 
 export const getModule = (moduleName) => {
