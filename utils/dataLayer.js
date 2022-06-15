@@ -81,6 +81,13 @@ export const marketoScriptReadyEvent = (data) => {
   // });
 };
 
+export const marketoFormInViewEvent = (data) => {
+  gtag("event", "Form Visible", {
+    event_category: "Marketo Form",
+    event_label: window.location.href
+  });
+}
+
 export const addDataLayerEventTriggers = (router) => {
   if (typeof window !== "undefined") {
     // Router triggers

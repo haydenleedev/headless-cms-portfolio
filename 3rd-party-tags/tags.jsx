@@ -8,6 +8,7 @@ import {
   youTubeActivity,
   scrollDepth,
   sixtySecondTimer,
+  marketoFormInView,
 } from "./triggers";
 import htmlMarketoFormListener from "./scripts/htmlMarketoFormListener";
 import g2Crowd from "./scripts/g2Crowd";
@@ -18,6 +19,7 @@ import {
   youTubeActivityEvent,
   scrollDepthEvent,
   engagedUserTimerEvent,
+  marketoFormInViewEvent,
 } from "../utils/dataLayer";
 
 export const Tags = () => {
@@ -59,6 +61,10 @@ export const Tags = () => {
       <AnalyticsTag
         generateEvent={engagedUserTimerEvent}
         triggerInitializer={sixtySecondTimer}
+      />
+      <AnalyticsTag
+        generateEvent={marketoFormInViewEvent}
+        triggerInitializer={marketoFormInView}
       />
     </>
   );

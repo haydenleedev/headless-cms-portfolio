@@ -20,10 +20,19 @@ export const marketoScriptReady = (setEventStatus) => {
   window.addEventListener("marketoScriptReady", updateTriggeredStatus);
 };
 
+export const marketoFormInView = (setEventStatus) => {
+  const updateTriggeredStatus = () => {
+    setEventStatus({ triggered: true });
+  };
+  // This event is dispatched from htmlMarketoFormListener.js
+  window.addEventListener("marketoFormInView", updateTriggeredStatus);
+};
+
 export const marketoFormSuccess = (setEventStatus) => {
   const updateTriggeredStatus = () => {
     setEventStatus({ triggered: true });
   };
+  // This event is dispatched from htmlMarketoFormListener.js
   window.addEventListener("marketoFormSuccess", updateTriggeredStatus);
 };
 
