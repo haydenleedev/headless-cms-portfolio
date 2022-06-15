@@ -85,6 +85,18 @@ export const phoneNumberClick = (setEventStatus) => {
   });
 };
 
+export const verticalPageView = (setEventStatus) => {
+  Router.events.on("routeChangeComplete", (url) => {
+    const verticalPageRegex =
+      /(.*)ujet-for-financial-services(.*)|(.*)ujet-for-healthcare(.*)|(.*)ujet-for-on-demand-services(.*)|(.*)contact-center-software-integrations(.*)|(.*)ujet-for-retail(.*)/;
+    if (verticalPageRegex.test(url)) {
+      setEventStatus({
+        triggered: true,
+      });
+    }
+  });
+};
+
 export const youTubeActivity = (setEventStatus) => {
   const updateTriggeredStatus = (e) => {
     setEventStatus({ triggered: true, details: { action: e.detail.action } });

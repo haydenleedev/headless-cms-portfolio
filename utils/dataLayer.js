@@ -84,9 +84,16 @@ export const marketoScriptReadyEvent = (data) => {
 export const marketoFormInViewEvent = (data) => {
   gtag("event", "Form Visible", {
     event_category: "Marketo Form",
-    event_label: window.location.href
+    event_label: window.location.href,
   });
-}
+};
+
+export const verticalPageViewEvent = (data) => {
+  gtag("event", "Vertical Page View", {
+    event_category: "Page View",
+    event_label: window.location.href,
+  });
+};
 
 export const addDataLayerEventTriggers = (router) => {
   if (typeof window !== "undefined") {
@@ -96,7 +103,9 @@ export const addDataLayerEventTriggers = (router) => {
     router.events.on("routeChangeComplete", (url) => {
       const setSiteSectionTimeout = () => {
         siteSectionTimeout = setTimeout(() => {
-          engagedUserSiteSectionTimerEvent({ siteSection: getSiteSection(url) });
+          engagedUserSiteSectionTimerEvent({
+            siteSection: getSiteSection(url),
+          });
         }, 30000);
       };
       const getSiteSection = (path) => {
