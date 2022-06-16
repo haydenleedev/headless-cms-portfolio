@@ -830,6 +830,11 @@
     "permanent": true
   },
   {
+    "source": "/socialreports",
+    "destination": "https://datastudio.google.com/reporting/3fd23f9d-8268-40c4-821b-c2ebb89f94a8/page/eVtuC",
+    "permanent": true
+  },
+  {
     "source": "/resources",
     "destination": "/archives",
     "permanent": true
