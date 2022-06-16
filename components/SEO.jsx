@@ -7,7 +7,14 @@ import { useContext } from "react";
 import GlobalContext from "../context";
 import { formatPageTitle } from "../utils/convert";
 
-const SEO = ({ title, description, keywords, metaHTML, url }) => {
+const SEO = ({
+  title,
+  description,
+  keywords,
+  metaHTML,
+  url,
+  pageTemplateName,
+}) => {
   const [scrolled, setScrolled] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
   // setup and parse additional header markup
