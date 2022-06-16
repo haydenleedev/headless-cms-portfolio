@@ -88,6 +88,13 @@ export const marketoFormInViewEvent = (data) => {
   });
 };
 
+export const marketoFormSubmissionEvent = (data) => {
+  gtag("event", "Form Submission", {
+    event_category: "Marketo Form",
+    event_label: window.location.href,
+  });
+};
+
 export const verticalPageViewEvent = (data) => {
   gtag("event", "Vertical Page View", {
     event_category: "Page View",

@@ -41,6 +41,7 @@ const htmlMarketoFormListener = `
                 window.mktoSubmitPixelLoaded = true;
               };
             }
+            window.dispatchEvent(new CustomEvent("marketoFormSubmit"));
             dataLayer.push({
               event: "marketo.submit",
               "marketo.form_id": form_id,

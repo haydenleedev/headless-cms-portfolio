@@ -28,6 +28,14 @@ export const marketoFormInView = (setEventStatus) => {
   window.addEventListener("marketoFormInView", updateTriggeredStatus);
 };
 
+export const marketoFormSubmission = (setEventStatus) => {
+  const updateTriggeredStatus = () => {
+    setEventStatus({ triggered: true });
+  };
+  // This event is dispatched from htmlMarketoFormListener.js
+  window.addEventListener("marketoFormSubmit", updateTriggeredStatus);
+};
+
 export const marketoFormSuccess = (setEventStatus) => {
   const updateTriggeredStatus = () => {
     setEventStatus({ triggered: true });

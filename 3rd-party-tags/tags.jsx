@@ -10,6 +10,7 @@ import {
   sixtySecondTimer,
   marketoFormInView,
   verticalPageView,
+  marketoFormSubmission,
 } from "./triggers";
 import htmlMarketoFormListener from "./scripts/htmlMarketoFormListener";
 import g2Crowd from "./scripts/g2Crowd";
@@ -22,6 +23,7 @@ import {
   engagedUserTimerEvent,
   marketoFormInViewEvent,
   verticalPageViewEvent,
+  marketoFormSubmissionEvent,
 } from "../utils/dataLayer";
 
 export const Tags = () => {
@@ -72,9 +74,14 @@ export const Tags = () => {
         generateEvent={verticalPageViewEvent}
         triggerInitializer={verticalPageView}
       />
+      <AnalyticsTag
+        generateEvent={marketoFormSubmissionEvent}
+        triggerInitializer={marketoFormSubmission}
+      />
     </>
   );
 };
+
 const ScriptTag = ({
   script,
   scriptId,
