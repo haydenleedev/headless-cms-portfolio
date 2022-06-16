@@ -1,0 +1,51 @@
+@import "../../styles/settings/mixins";
+@import "../../styles/settings/colors";
+@import "../../styles/settings/variables";
+
+.scrollToTopButton {
+  display:block;
+  transition: opacity 0.7s;
+  position: fixed;
+  left: -121417px;
+  transform: rotate(-90deg);
+  color: $color-black;
+  background:transparent;
+display:flex;
+flex-direction: row-reverse;
+  border: 0;
+  cursor: pointer;
+  opacity: 1;
+  font-weight: 700 !important;
+  font-size: $size-2;
+  &.hidden {
+    opacity: 0;
+  }
+  @include desktop {
+    left: 1rem;
+    top: 45vh;
+    z-index: 2;
+  }
+  .progressBarWrapper{
+    //Used to increase progressbar hitbox
+    position: fixed;
+    width:10vh;
+    height:1.05vw;
+    left: -6rem;
+        top:0;
+    .progressBarContainer {
+      display:block;
+      background: $color-paleblue;
+      width: 7vh;
+      position: fixed;
+      height: 0.10rem;
+      z-index: 2;
+      left:-121417px;
+      transform: rotate(180deg);
+      @include desktop {
+        left: -5rem;
+        top: .55vw;
+      }
+    }
+  }
+  
+}
