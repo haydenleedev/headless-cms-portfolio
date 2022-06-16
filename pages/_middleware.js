@@ -32,23 +32,23 @@ export async function middleware(req) {
     return NextResponse.redirect(redirectUrl);
   }
 
+  // Redirect buy.ujet.cx
+  const buyUrl = "buy.ujet.cx";
+  if (url.includes(buyUrl)) {
+    const redirectUrl = "https://ujet.cx/shop";
+    return NextResponse.redirect(redirectUrl);
+  }
+
   // Redirect brand.ujet.cx
   const brandUrl = "brand.ujet.cx";
   const brandUrlRegex = new RegExp(`/(${brandUrl})/`);
 
   if (url.includes(brandUrl)) {
-    const brandSlug = url.replace(/en-US/g, "").split(brandUrlRegex)[2];
+    const postSlug = url.replace(/en-US/g, "").split(brandUrlRegex)[2];
     const redirectUrl = "https://ujet.cx/brand";
-    if (brandSlug) {
-      return NextResponse.redirect(`${redirectUrl}/${brandSlug}`);
+    if (postSlug) {
+      return NextResponse.redirect(`${redirectUrl}/${postSlug}`);
     }
-    return NextResponse.redirect(redirectUrl);
-  }
-
-  // Redirect buy.ujet.cx
-  const buyUrl = "buy.ujet.cx";
-  if (url.includes(buyUrl)) {
-    const redirectUrl = "https://ujet.cx/shop";
     return NextResponse.redirect(redirectUrl);
   }
 
