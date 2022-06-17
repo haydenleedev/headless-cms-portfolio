@@ -3,12 +3,13 @@ import GenericCard from "../../../components/genericCard/genericCard";
 import style from "./brandBlankCards.module.scss";
 import Heading from "../../../components/agility-pageModules/heading";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-const BrandBlankCards = ({ module }) => {
+
+const BrandBlankCards = ({ module, customData }) => {
   const { fields } = module;
-  const cards = fields.cardItems;
+  const cardsWithSanitizedHtml = customData;
   const heading = JSON.parse(fields.heading);
   const smallImage = boolean(fields.smallerImage);
-  cards?.sort(function (a, b) {
+  cardsWithSanitizedHtml?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
   const maxCardsPerRow =
@@ -17,10 +18,13 @@ const BrandBlankCards = ({ module }) => {
     fields.maxCardsPerRow <= 4
       ? parseInt(fields.maxCardsPerRow)
       : 4;
-  const numberOfRows = Math.ceil(cards?.length / maxCardsPerRow);
+  const numberOfRows = Math.ceil(
+    cardsWithSanitizedHtml?.length / maxCardsPerRow
+  );
   const fillRow = boolean(fields.fillRow);
   const fillAmount =
-    fields.maxCardsPerRow - (cards?.length % fields.maxCardsPerRow);
+    fields.maxCardsPerRow -
+    (cardsWithSanitizedHtml?.length % fields.maxCardsPerRow);
   const fillCards = fillAmount > 0 && new Array(fillAmount).fill("");
   return (
     <section className={`section  ${fields.classes ? fields.classes : ""}`}>
@@ -37,14 +41,14 @@ const BrandBlankCards = ({ module }) => {
           <p className={style.description}>{fields.description}</p>
         )}
         <div className={style.cardGrid}>
-          {cards?.map((card, index) => {
+          {cardsWithSanitizedHtml?.map((card, index) => {
             return (
               <div
                 key={`card${index}`}
                 className={`
                     ${
-                      cards.length < maxCardsPerRow
-                        ? style[`flexBasis${cards.length}`]
+                      cardsWithSanitizedHtml.length < maxCardsPerRow
+                        ? style[`flexBasis${cardsWithSanitizedHtml.length}`]
                         : style[`flexBasis${maxCardsPerRow}`]
                     } ${index % maxCardsPerRow == 0 ? "ml-0" : ""} ${
                   index + 1 > (numberOfRows - 1) * maxCardsPerRow ? "mb-0" : ""
@@ -89,15 +93,17 @@ const BrandBlankCards = ({ module }) => {
 };
 
 BrandBlankCards.getCustomInitialProps = async function ({ item }) {
-  const items = item.fields.cards;
+  const items = item.fields.cardItems;
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
   items?.length > 0 &&
     items.forEach((item) => {
       item.fields.text = item.fields.text ? cleanHtml(item.fields.text) : null;
+      item.fields.description = item.fields.description
+        ? cleanHtml(item.fields.description)
+        : null;
     });
-
   return items;
 };
 
