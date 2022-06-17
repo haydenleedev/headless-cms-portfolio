@@ -191,16 +191,8 @@ const TextGridWithMedia = ({ module, customData }) => {
             ${style.grid}
             ${narrowContainer ? "max-width-narrow" : ""}
             ${fields.itemGapSize === " small-gap" ? "" : style.hasLargerGap}
-<<<<<<< HEAD
-<<<<<<< HEAD
             ${fields.itemStyle == "imgBottom" ? "mb-4" : ""}
             mt-4
-=======
->>>>>>> brand
-=======
-            ${fields.itemStyle == "imgBottom" ? "mb-4" : ""}
-            mt-4
->>>>>>> brand
             `}
           >
             {itemsWithSanitizedHTML?.map((textItem, index) => {
