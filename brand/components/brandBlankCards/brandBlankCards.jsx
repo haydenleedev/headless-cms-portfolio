@@ -5,7 +5,7 @@ import Heading from "../../../components/agility-pageModules/heading";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 const BrandBlankCards = ({ module }) => {
   const { fields } = module;
-  const cards = fields.cards;
+  const cards = fields.cardItems;
   const heading = JSON.parse(fields.heading);
   const smallImage = boolean(fields.smallerImage);
   cards?.sort(function (a, b) {
@@ -24,11 +24,7 @@ const BrandBlankCards = ({ module }) => {
   const fillCards = fillAmount > 0 && new Array(fillAmount).fill("");
   return (
     <section className={`section  ${fields.classes ? fields.classes : ""}`}>
-      <div
-        className={`container max-width-brand ${
-          style.containerPosition
-        }`}
-      >
+      <div className={`container max-width-brand ${style.containerPosition}`}>
         <div
           className={`${style.headingContainer} ${
             "flex-direction-" + fields.subtitlePosition
