@@ -284,6 +284,10 @@
   object-fit: fill !important;
 }
 
+.object-fit-contain img {
+  object-fit: contain !important;
+}
+
 .wrap {
   @include siteWidth();
   margin: 0 auto;
