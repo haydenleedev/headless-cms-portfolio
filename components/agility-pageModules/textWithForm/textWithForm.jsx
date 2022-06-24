@@ -7,6 +7,7 @@ import StarRating from "../../starRating/starRating";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import Heading from "../heading";
+import { postRequest } from "../../../shop/lib/api";
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards } = customData;
@@ -146,6 +147,21 @@ TextWithForm.getCustomInitialProps = async function ({
   item,
 }) {
   const api = agility;
+
+  // serverless
+  const pardotResponse = await fetch(
+    `${
+      process.env.NEXT_PUBLIC_API_URL
+      // TODO: add the form ID based on field in module, similar how marketo form ID is set. (or use marketo form field but rename)
+      // Hardcoded ID is for testing only
+    }/api/getPardotForm?formId=${`986641`}`
+  );
+
+  const pardotFormData = await pardotResponse.json();
+
+  console.log("<<<<<<<< Pardot form data: ", pardotFormData);
+  // TODO: parse pardot form HTML if it's possible. Might not be in case it's returned only inside the embed iFrame...
+
   let featuredAwards = await api.getContentList({
     referenceName: "featuredawards",
     languageCode,

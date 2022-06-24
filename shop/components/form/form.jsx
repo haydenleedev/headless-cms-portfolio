@@ -9,6 +9,7 @@ import { formatPhoneNumber, formatWebsite } from "../../utils/formatData";
 import Link from "next/link";
 import GlobalContext from "../../../context";
 import AgilityLink from "../../../components/agilityLink";
+
 class ContactForm extends Component {
   static contextType = GlobalContext;
   constructor(props) {
