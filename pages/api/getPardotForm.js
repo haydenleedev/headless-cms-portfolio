@@ -22,7 +22,6 @@ export default async function handler(req, res) {
     });
 
     // const pardotOAuthToken = await tokenResponse.json();
-
     tokenResponse = await tokenResponse.json();
     const token = tokenResponse.access_token;
 
@@ -32,7 +31,8 @@ export default async function handler(req, res) {
       {
         method: "GET",
         headers: {
-          Authorization: "Bearer " + token,
+          "Authorization": "Bearer " + token,
+          "Pardot-Business-Unit-Id": process.env.PARDOT_BUSINESS_UNIT_ID
         },
       }
     );
