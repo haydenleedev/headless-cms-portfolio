@@ -25,22 +25,50 @@ export default async function handler(req, res) {
     tokenResponse = await tokenResponse.json();
     const token = tokenResponse.access_token;
 
-    // TODO: missing Business Unit ID header, should find it in Salesforce / Pardot dashboard
-    var formResponse = await fetch(
-      `https://pi.pardot.com/api/v5/objects/forms/${formId}?fields=id,name,isDeleted,thankYouContent,submitButtonText,campaign.name,createdBy.username,updatedBy.username,createdAt,updatedAt`,
+    // Form
+    // var formResponse = await fetch(
+    //   `https://pi.pardot.com/api/v5/objects/forms/${formId}?fields=id,name,isDeleted,thankYouContent,submitButtonText,campaign.name,createdBy.username,updatedBy.username,createdAt,updatedAt,embedCode,layoutTemplateId`,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       Authorization: "Bearer " + token,
+    //       "Pardot-Business-Unit-Id": process.env.PARDOT_BUSINESS_UNIT_ID,
+    //     },
+    //   }
+    // );
+
+    // formResponse = await formResponse.json();
+
+    // Layout template
+    // var layoutTemplateResponse = await fetch(
+    //   `https://pi.pardot.com/api/v5/objects/layout-templates/${formResponse.layoutTemplateId}?fields=name,layoutContent,formContent`,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       Authorization: "Bearer " + token,
+    //       "Pardot-Business-Unit-Id": process.env.PARDOT_BUSINESS_UNIT_ID,
+    //     },
+    //   }
+    // );
+
+    // layoutTemplateResponse = await layoutTemplateResponse.json();
+
+    // Form handler fields
+    var formHandlerFieldsResponse = await fetch(
+      `https://pi.pardot.com/api/v5/objects/form-handler-fields?fields=id,name,dataFormat,isRequired,prospectApiFieldId,isMaintainInitialValue,errorMessage,formHandlerId&orderBy=ID`,
       {
         method: "GET",
         headers: {
-          "Authorization": "Bearer " + token,
-          "Pardot-Business-Unit-Id": process.env.PARDOT_BUSINESS_UNIT_ID
+          Authorization: "Bearer " + token,
+          "Pardot-Business-Unit-Id": process.env.PARDOT_BUSINESS_UNIT_ID,
         },
       }
     );
 
-    formResponse = await formResponse.json();
+    formHandlerFieldsResponse = await formHandlerFieldsResponse.json();
 
     console.timeEnd("getPardotForm");
-    res.status(200).json({ form: formResponse });
+    res.status(200).json({ formHandlerFieldsResponse });
   } catch (error) {
     res.status(500).json({ error: error });
   }

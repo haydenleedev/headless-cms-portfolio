@@ -1,59 +1,82 @@
-import { useEffect, useRef, useState } from "react";
+// import { useEffect, useRef, useState } from "react";
 
-const getGormField = () => {
-  switch (field.type) {
+const getGormField = (field) => {
+  console.log("Getting form field for: ", field.dataFormat);
+  switch (field.dataFormat) {
     case "email":
-      <div>
-        <label htmlFor="email">
-          <span className="">*</span> {field.label}
-        </label>
-        <input name="email" id="email" autoComplete="email" maxLength="50" />
-      </div>;
+      return (
+        <div>
+          <label htmlFor={field.id}>
+            <span className="">*</span> {field.name}
+          </label>
+          <input
+            name={field.name}
+            id={field.id}
+            autoComplete="email"
+            maxLength="50"
+            required={field.isRequired}
+          />
+        </div>
+      );
     case "phone":
-      <div>
-        <label htmlFor="phone">
-          <span className="">*</span> {field.label}
-        </label>
-        <input name="phone" id="phone" title="Phone Number"></input>
-      </div>;
+      return (
+        <div>
+          <label htmlFor={field.id}>
+            <span className="">*</span> {field.name}
+          </label>
+          <input name="phone" id="phone" title="Phone Number"></input>
+        </div>
+      );
     case "text":
-      <div>
-        <label htmlFor={field.id}>
-          <span className="">*</span> {field.label}
-        </label>
-        <input
-          type="text"
-          name={field.name}
-          id={field.id}
-          autoComplete={field.id}
-          maxLength="50"
-        />
-      </div>;
-    case "select":
-      <div>
-        <label htmlFor={field.id}>
-          <span className="">*</span> {field.label}
-        </label>
-        <select
-          name={field.name}
-          id={field.id}
-          title="State"
-          aria-labelledby="LblState InstructState"
-          aria-invalid="true"
-        >
-          {field.options?.map((option) => (
-            <option value={option.value}>{option.label}</option>
-          ))}
-        </select>
-      </div>;
+      return (
+        <div>
+          <label htmlFor={field.id}>
+            <span className="">*</span> {field.name}
+          </label>
+          <input
+            name={field.name}
+            id={field.id}
+            maxLength="50"
+            required={field.isRequired}
+          />
+        </div>
+      );
+    // case "select":
+    //   <div>
+    //     <label htmlFor={field.id}>
+    //       <span className="">*</span> {field.name}
+    //     </label>
+    //     <select
+    //       name={field.name}
+    //       id={field.id}
+    //       title="State"
+    //       aria-labelledby="LblState InstructState"
+    //       aria-invalid="true"
+    //     >
+    //       {field.options?.map((option) => (
+    //         <option value={option.value}>{option.label}</option>
+    //       ))}
+    //     </select>
+    //   </div>;
     default:
-      break;
+      return (
+        <div>
+          <label htmlFor={field.id}>
+            <span className="">*</span> {field.name}
+          </label>
+          <input
+            name={field.name}
+            id={field.id}
+            maxLength="50"
+            required={field.isRequired}
+          />
+        </div>
+      );
   }
 };
 
 const RenderFormFields = ({ fields }) => {
-  fields = [];
-  return fields.map((field) => getGormField(field.type));
+  return fields.map((field) => getGormField(field));
 };
 
 export default RenderFormFields;

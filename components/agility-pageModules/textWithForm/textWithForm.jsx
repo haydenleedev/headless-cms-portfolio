@@ -8,9 +8,11 @@ import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import Heading from "../heading";
 import { postRequest } from "../../../shop/lib/api";
+import RenderFormFields from "../../form/renderFormFields";
 
 const TextWithForm = ({ module, customData }) => {
-  const { sanitizedHtml, featuredAwards } = customData;
+  const { sanitizedHtml, featuredAwards, pardotFormData } = customData;
+  console.log(pardotFormData);
   const { fields } = module;
   const [formLoaded, setFormLoaded] = useState(false);
   const narrowContainer = boolean(fields?.narrowContainer);
@@ -105,11 +107,20 @@ const TextWithForm = ({ module, customData }) => {
               <div
                 className={`${style.sideWrapper} ${style["bg-skyblue-light"]}`}
               >
-                <Form
+                <form
+                  action="https://info.ujet.cx/l/986641/2022-06-29/k12n5"
+                  method="post"
+                >
+                  <RenderFormFields
+                    fields={pardotFormData.formHandlerFieldsResponse.values}
+                  ></RenderFormFields>
+                  <input type="submit" value="submit" required="required" />
+                </form>
+                {/* <Form
                   submitButtonText={fields.formSubmitText}
                   formLoaded={formLoaded}
                   formID={fields.marketoFormID}
-                />
+                /> */}
               </div>
             </aside>
           </div>
@@ -154,12 +165,12 @@ TextWithForm.getCustomInitialProps = async function ({
       process.env.NEXT_PUBLIC_API_URL
       // TODO: add the form ID based on field in module, similar how marketo form ID is set. (or use marketo form field but rename)
       // Hardcoded ID is for testing only
-    }/api/getPardotForm?formId=${`986641`}`
+    }/api/getPardotForm?formId=${`10981`}`
   );
 
   const pardotFormData = await pardotResponse.json();
 
-  console.log("<<<<<<<< Pardot form data: ", pardotFormData);
+  // console.log("<<<<<<<< Pardot form data: ", JSON.stringify(pardotFormData));
   // TODO: parse pardot form HTML if it's possible. Might not be in case it's returned only inside the embed iFrame...
 
   let featuredAwards = await api.getContentList({
@@ -182,6 +193,7 @@ TextWithForm.getCustomInitialProps = async function ({
   return {
     sanitizedHtml,
     featuredAwards,
+    pardotFormData,
   };
 };
 
