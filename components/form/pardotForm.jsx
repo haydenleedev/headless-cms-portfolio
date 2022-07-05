@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { formatPhoneNumber } from "../../shop/utils/formatData";
 import { countries, states } from "./selectFieldOptions";
+import style from "./form.module.scss";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -149,6 +150,28 @@ class PardotForm extends Component {
             </div>
           );
         })}
+        {/* START: Honeypot */}
+        <label className={style.removehoney} htmlFor="honeyname"></label>
+        <input
+          className={style.removehoney}
+          autoComplete="off"
+          type="text"
+          id="honeyname"
+          name="honeyname"
+          tabIndex="-1"
+          aria-hidden="true"
+        />
+        <label className={style.removehoney} htmlFor="honeyemail"></label>
+        <input
+          className={style.removehoney}
+          autoComplete="off"
+          type="email"
+          id="honeyemail"
+          name="honeyemail"
+          tabIndex="-1"
+          aria-hidden="true"
+        />
+        {/* END: Honeypot */}
         <input type="submit" value="submit" required="required" />
       </form>
     );
