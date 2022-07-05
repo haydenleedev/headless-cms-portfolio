@@ -1,12 +1,23 @@
-import { Component } from "react";
+import React, { Component } from "react";
+import { formatPhoneNumber } from "../../shop/utils/formatData";
 import { countries, states } from "./selectFieldOptions";
 
 class PardotForm extends Component {
   constructor(props) {
     super(props);
+    this.phoneNumberFormatter = this.phoneNumberFormatter.bind(this);
+    this.phoneFieldRef = React.createRef();
     this.state = {
       errors: [],
     };
+  }
+
+  phoneNumberFormatter() {
+    if (this.phoneFieldRef.current) {
+      this.phoneFieldRef.current.value = formatPhoneNumber(
+        this.phoneFieldRef.current.value
+      );
+    }
   }
 
   isHiddenField(field) {
@@ -40,6 +51,8 @@ class PardotForm extends Component {
   generateInputElement(field) {
     if (this.isSelectField(field)) {
       field.dataFormat = "select";
+    } else if (field.name.toLowerCase().includes("phone")) {
+      field.dataFormat = "phone";
     }
     switch (field.dataFormat) {
       case "email":
@@ -58,9 +71,12 @@ class PardotForm extends Component {
           <input
             name={field.name}
             id={field.id}
-            type="phone"
+            type="text"
             title={field.name}
             hidden={this.isHiddenField(field)}
+            onBlur={this.phoneNumberFormatter}
+            onKeyDown={this.phoneNumberFormatter}
+            ref={this.phoneFieldRef.current ? null : this.phoneFieldRef}
           />
         );
       case "number":
