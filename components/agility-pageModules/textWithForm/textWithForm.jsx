@@ -1,14 +1,12 @@
 import { useState } from "react";
 import style from "./textWithForm.module.scss";
-import { Form, FormWrapper } from "../../form";
+import { FormWrapper } from "../../form";
 import { boolean } from "../../../utils/validation";
 import Media from "../media";
 import StarRating from "../../starRating/starRating";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import Heading from "../heading";
-import { postRequest } from "../../../shop/lib/api";
-import RenderFormFields from "../../form/renderFormFields";
 import PardotForm from "../../form/pardotForm";
 
 const TextWithForm = ({ module, customData }) => {
