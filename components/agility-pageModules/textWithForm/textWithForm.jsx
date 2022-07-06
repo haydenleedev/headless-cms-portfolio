@@ -9,6 +9,7 @@ import { sanitizeHtmlConfig } from "../../../utils/convert";
 import Heading from "../heading";
 import { postRequest } from "../../../shop/lib/api";
 import RenderFormFields from "../../form/renderFormFields";
+import PardotForm from "../../form/pardotForm";
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards, pardotFormData } = customData;
@@ -107,20 +108,9 @@ const TextWithForm = ({ module, customData }) => {
               <div
                 className={`${style.sideWrapper} ${style["bg-skyblue-light"]}`}
               >
-                <form
-                  action="https://info.ujet.cx/l/986641/2022-06-29/k12n5"
-                  method="post"
-                >
-                  <RenderFormFields
-                    fields={pardotFormData.formHandlerFieldsResponse.values}
-                  ></RenderFormFields>
-                  <input type="submit" value="submit" required="required" />
-                </form>
-                {/* <Form
-                  submitButtonText={fields.formSubmitText}
-                  formLoaded={formLoaded}
-                  formID={fields.marketoFormID}
-                /> */}
+                <PardotForm
+                  fieldData={pardotFormData.formHandlerFieldsResponse.values}
+                />
               </div>
             </aside>
           </div>
