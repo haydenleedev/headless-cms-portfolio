@@ -136,7 +136,8 @@ class PardotForm extends Component {
         ref={(form) => (this.form = form)}
       >
         {this.props.fieldData.map((field, index) => {
-          return (
+          // Temporary filtering
+          return field.formHandlerId == 3568 ? (
             <div
               key={`formField${index}`}
               className={this.isHiddenField(field) ? "display-none" : ""}
@@ -163,7 +164,7 @@ class PardotForm extends Component {
                 />
               )}
             </div>
-          );
+          ) : null;
         })}
         {/* START: Honeypot */}
         <label className={style.removehoney} htmlFor="honeyname"></label>
