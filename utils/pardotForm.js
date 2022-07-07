@@ -89,6 +89,18 @@ export const addGaData = (gaDataAdded, updateGaDataAdded, formEmailInput) => {
     meta.id = "ga-cookie-datetime";
     head.appendChild(meta);
     setFormInputValue(meta.name, meta.content);
+
+    // Values based on URL parameters
+    setFormInputValue(
+      "Current Lead Program 2",
+      getUrlParamValue("clp", "Website")
+    );
+    setFormInputValue("utm_asset", getUrlParamValue("utm_asset"));
+    setFormInputValue("utm_campaign", getUrlParamValue("utm_campaign"));
+    setFormInputValue("utm_source", getUrlParamValue("utm_source"));
+    setFormInputValue("utm_medium", getUrlParamValue("utm_medium"));
+    setFormInputValue("utm_term", getUrlParamValue("utm_term"));
+
     // Flag done so we don't run it again
     updateGaDataAdded(true);
   }
@@ -112,5 +124,11 @@ export const addGaData = (gaDataAdded, updateGaDataAdded, formEmailInput) => {
         element.value = value;
       }
     });
+  }
+  function getUrlParamValue(paramName, defaultValue = "") {
+    const url = new URL(window.location.href);
+    const urlParams = new URLSearchParams(url.search);
+    const urlParamValue = urlParams.get(paramName);
+    return urlParamValue || defaultValue;
   }
 };
