@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { formatPhoneNumber } from "../../shop/utils/formatData";
-import { countries, states } from "./selectFieldOptions";
 import style from "./form.module.scss";
 import FormError from "./formError";
 import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
-import { addGaData } from "../../utils/pardotForm";
+import PardotFormField from "./pardotFormField";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -64,20 +63,6 @@ class PardotForm extends Component {
     return false;
   }
 
-  isSelectField(field) {
-    const selectFields = [
-      { regex: /country/, options: countries },
-      { regex: /state/, options: states },
-    ];
-    for (let i = 0; i < selectFields.length; i++) {
-      if (selectFields[i].regex.test(String(field.name).toLocaleLowerCase())) {
-        field.options = selectFields[i].options;
-        return true;
-      }
-    }
-    return false;
-  }
-
   handleSubmit(e) {
     if (
       !this.onSubmitValidate() ||
@@ -85,116 +70,6 @@ class PardotForm extends Component {
       this.form.honeyemail.value
     ) {
       e.preventDefault();
-    }
-  }
-
-  generateInputElement(field, index) {
-    if (this.isSelectField(field)) {
-      field.dataFormat = "select";
-    } else if (field.name.toLowerCase().includes("phone")) {
-      field.dataFormat = "phone";
-    }
-    switch (field.dataFormat) {
-      case "email":
-        return (
-          <input
-            hidden={this.isHiddenField(field)}
-            name={field.name}
-            id={field.id}
-            autoComplete="email"
-            maxLength="50"
-            onBlur={() => {
-              this.validate();
-            }}
-            onChange={() => this.updateTouched(index)}
-            onInput={() => {
-              addGaData(
-                this.gaDataAdded.current,
-                this.updateGaDataAdded,
-                // At the time of writing multiple email fields exist for some reason
-                this.form["Email"][0]
-              );
-            }}
-            ref={this.fieldRefs[index]}
-          />
-        );
-      case "phone":
-        return (
-          <input
-            name={field.name}
-            id={field.id}
-            type="text"
-            title={field.name}
-            hidden={this.isHiddenField(field)}
-            onBlur={() => {
-              this.phoneNumberFormatter();
-              this.validate();
-            }}
-            onChange={() => this.updateTouched(index)}
-            onKeyDown={this.phoneNumberFormatter}
-            ref={this.fieldRefs[index]}
-          />
-        );
-      case "number":
-        return (
-          <input
-            name={field.name}
-            id={field.id}
-            type="number"
-            title={field.name}
-            hidden={this.isHiddenField(field)}
-            onBlur={() => {
-              this.validate();
-            }}
-            onChange={() => this.updateTouched(index)}
-            ref={this.fieldRefs[index]}
-          />
-        );
-      case "text":
-        return (
-          <input
-            name={field.name}
-            id={field.id}
-            maxLength="50"
-            hidden={this.isHiddenField(field)}
-            onBlur={() => {
-              this.validate();
-            }}
-            onChange={() => this.updateTouched(index)}
-            ref={this.fieldRefs[index]}
-          />
-        );
-      case "select":
-        return (
-          <>
-            {field.options.length > 0 ? (
-              <select ref={this.fieldRefs[index]} name={field.name}>
-                {field.options.map((option, index) => {
-                  return (
-                    <option
-                      key={`selectOption${index}`}
-                      value={index == 0 ? "" : option}
-                      label={option}
-                    ></option>
-                  );
-                })}
-              </select>
-            ) : null}
-          </>
-        );
-      default:
-        return (
-          <input
-            name={field.name}
-            id={field.id}
-            maxLength="50"
-            onBlur={() => {
-              this.validate();
-            }}
-            onChange={() => this.updateTouched(index)}
-            ref={this.fieldRefs[index]}
-          />
-        );
     }
   }
 
@@ -269,7 +144,17 @@ class PardotForm extends Component {
               <label htmlFor={field.id}>
                 {field.isRequired && <span className="">*</span>} {field.name}
               </label>
-              {this.generateInputElement(field, index)}
+              <PardotFormField
+                field={field}
+                isHiddenField={this.isHiddenField(field)}
+                fieldRef={this.fieldRefs[index]}
+                validate={this.validate}
+                updateTouched={() => {
+                  this.updateTouched(index);
+                }}
+                gaDataAdded={this.gaDataAdded.current}
+                updateGaDataAdded={this.updateGaDataAdded}
+              />
               {this.state.errors[index] && (
                 <FormError
                   message={this.getErrorMessage(
