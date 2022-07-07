@@ -4,10 +4,13 @@ import { countries, states } from "./selectFieldOptions";
 import style from "./form.module.scss";
 import FormError from "./formError";
 import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
+import { addGaData } from "../../utils/pardotForm";
 
 class PardotForm extends Component {
   constructor(props) {
     super(props);
+    this.gaDataAdded = React.createRef(false);
+    this.updateGaDataAdded = this.updateGaDataAdded.bind(this);
     this.phoneNumberFormatter = this.phoneNumberFormatter.bind(this);
     this.validate = this.validate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,6 +45,10 @@ class PardotForm extends Component {
     const touched = this.state.touched;
     touched[index] = true;
     this.setState({ touched: touched });
+  }
+
+  updateGaDataAdded(newValue) {
+    this.gaDataAdded.current = newValue;
   }
 
   isHiddenField(field) {
@@ -100,6 +107,14 @@ class PardotForm extends Component {
               this.validate();
             }}
             onChange={() => this.updateTouched(index)}
+            onInput={() => {
+              addGaData(
+                this.gaDataAdded.current,
+                this.updateGaDataAdded,
+                // At the time of writing multiple email fields exist for some reason
+                this.form["Email"][0]
+              );
+            }}
             ref={this.fieldRefs[index]}
           />
         );
@@ -117,7 +132,6 @@ class PardotForm extends Component {
             }}
             onChange={() => this.updateTouched(index)}
             onKeyDown={this.phoneNumberFormatter}
-            // ref={this.phoneFieldRef.current ? null : this.phoneFieldRef}
             ref={this.fieldRefs[index]}
           />
         );
