@@ -1,25 +1,18 @@
-import { useState } from "react";
-import { Form, FormWrapper } from "../form";
+import PardotForm from "../form/pardotForm";
 
-const Subscribe = ({}) => {
-  const [formLoaded, setFormLoaded] = useState(false);
-  const NEWSLETTER_FORM_ID = "mktoForm_1024";
-  const handleSetFormLoaded = () => {
-    setFormLoaded(true);
-  };
+const Subscribe = ({ pardotFormData }) => {
+  const NEWSLETTER_FORM_ID = 3568; // Replace this with an appropriate ID later
   return (
-    <FormWrapper
-      handleSetFormLoaded={handleSetFormLoaded}
-      formID={NEWSLETTER_FORM_ID}
-    >
-      <div className="subscribe-blog">
-        <span className="subscribe-blog--heading">Subscribe</span>
-        <p className="subscribe-blog--title">
-          The best customer experience content delivered right to your inbox.
-        </p>
-        <Form formLoaded={formLoaded} formID={NEWSLETTER_FORM_ID} />
-      </div>
-    </FormWrapper>
+    <div className="subscribe-blog">
+      <span className="subscribe-blog--heading">Subscribe</span>
+      <p className="subscribe-blog--title">
+        The best customer experience content delivered right to your inbox.
+      </p>
+      <PardotForm
+        fieldData={pardotFormData.formHandlerFieldsResponse.values}
+        formHandlerID={NEWSLETTER_FORM_ID}
+      />
+    </div>
   );
 };
 

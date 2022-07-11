@@ -4,13 +4,16 @@ import style from "./blogPostContent.module.scss";
 import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
-import { convertUJETLinksToHttps, sanitizeHtmlConfig } from "../../../utils/convert";
+import {
+  convertUJETLinksToHttps,
+  sanitizeHtmlConfig,
+} from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article, blogPosting } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
-  const { relatedBlogPosts, sanitizedHtml } = customData;
+  const { relatedBlogPosts, sanitizedHtml, pardotFormData } = customData;
   const blogPost = dynamicPageItem.fields;
   const url = process.env.NEXT_PUBLIC_SITE_URL + "/blog/" + blogPost.slug;
   const dateStr = new Date(blogPost.date).toLocaleDateString("en-US", {
@@ -163,13 +166,12 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
           }),
         ]}
       />
-      <Breadcrumbs breadcrumbs={
-          [
-            { name: "Home", path: "/" },
-            { name: "Blog", path: "/blog" },
-            { name: blogPost.title }
-          ]
-        }
+      <Breadcrumbs
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: blogPost.title },
+        ]}
       />
       <section className={`section ${style.blogPostContent}`}>
         <div className={`container ${style.container}`}>
@@ -182,14 +184,14 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
               </small>
               {blogPost.image && (
                 <div className={style.blogPostImage}>
-                    <AgilityImage
-                      src={blogPost.image.url}
-                      alt={blogPost.image.label || null}
-                      width={blogPost.image.pixelWidth}
-                      height={blogPost.image.pixelHeight}
-                      objectFit="cover"
-                      layout="responsive"
-                    />
+                  <AgilityImage
+                    src={blogPost.image.url}
+                    alt={blogPost.image.label || null}
+                    width={blogPost.image.pixelWidth}
+                    height={blogPost.image.pixelHeight}
+                    objectFit="cover"
+                    layout="responsive"
+                  />
                 </div>
               )}
               <article
@@ -205,7 +207,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
             </div>
           </div>
           <div>
-            <Subscribe></Subscribe>
+            <Subscribe pardotFormData={pardotFormData} />
             <Link href="/request-a-demo">
               <a
                 className={`button outlined cyan ${style.requestDemo}`}
@@ -282,16 +284,30 @@ BlogPostContent.getCustomInitialProps = async ({
         };
       });
 
+    // serverless
+    const pardotResponse = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_API_URL
+        // TODO: add the form ID based on field in module, similar how marketo form ID is set. (or use marketo form field but rename)
+        // Hardcoded ID is for testing only
+      }/api/getPardotForm?formId=${`10981`}`
+    );
+
+    const pardotFormData = await pardotResponse.json();
+
     const sanitizeHtml = (await import("sanitize-html")).default;
 
     // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
     const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-    const sanitizedHtml = convertUJETLinksToHttps(cleanHtml(dynamicPageItem.fields.content));
+    const sanitizedHtml = convertUJETLinksToHttps(
+      cleanHtml(dynamicPageItem.fields.content)
+    );
 
     return {
       relatedBlogPosts,
       sanitizedHtml,
+      pardotFormData,
     };
   } catch (error) {
     if (console) console.error(error);
