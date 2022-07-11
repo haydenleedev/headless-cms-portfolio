@@ -11,7 +11,6 @@ import PardotForm from "../../form/pardotForm";
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards, pardotFormData } = customData;
-  console.log(pardotFormData);
   const { fields } = module;
   const [formLoaded, setFormLoaded] = useState(false);
   const narrowContainer = boolean(fields?.narrowContainer);
@@ -108,6 +107,7 @@ const TextWithForm = ({ module, customData }) => {
               >
                 <PardotForm
                   fieldData={pardotFormData.formHandlerFieldsResponse.values}
+                  formHandlerID={fields.pardotFormID}
                 />
               </div>
             </aside>
