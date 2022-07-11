@@ -37,17 +37,17 @@ export const addGaData = (gaDataAdded, updateGaDataAdded, formEmailInput) => {
             "Fri, 31 Dec 9999 23:59:59 GMT"
           );
         }
-        setFormInputValue(meta.name, meta.content);
+        setFormInputValue("ga_user_id", meta.content);
       } else if (meta.name === "ga_cookie_id__c") {
         if (userIdCookie) {
-          setFormInputValue(meta.name, userIdCookie);
+          setFormInputValue("ga_cookie_id", userIdCookie);
           meta.content = userIdCookie;
         } else {
-          setFormInputValue(meta.name, gaCookieIdCValue);
+          setFormInputValue("ga_cookie_id", gaCookieIdCValue);
           meta.content = gaCookieIdCValue;
         }
       } else {
-        setFormInputValue(meta.name, meta.content);
+        setFormInputValue("ga_cookie_id", meta.content);
       }
       head.appendChild(meta);
     });
@@ -67,28 +67,28 @@ export const addGaData = (gaDataAdded, updateGaDataAdded, formEmailInput) => {
     meta.content = date;
     meta.id = "ga-date";
     head.appendChild(meta);
-    setFormInputValue(meta.name, meta.content);
+    setFormInputValue("ga_date", meta.content);
 
     var meta = document.createElement("meta");
     meta.name = "ga_cookie_date__c";
     meta.content = getCookie("ga_cookie_date");
     meta.id = "ga-cookie-date";
     head.appendChild(meta);
-    setFormInputValue(meta.name, meta.content);
+    setFormInputValue("ga_cookie_date", meta.content);
 
     var meta = document.createElement("meta");
     meta.name = "ga_datetime__c";
     meta.content = date;
     meta.id = "ga-datetime";
     head.appendChild(meta);
-    setFormInputValue(meta.name, meta.content);
+    setFormInputValue("ga_datetime", meta.content);
 
     var meta = document.createElement("meta");
     meta.name = "ga_cookie_datetime__c";
     meta.content = getCookie("ga_cookie_date");
     meta.id = "ga-cookie-datetime";
     head.appendChild(meta);
-    setFormInputValue(meta.name, meta.content);
+    setFormInputValue("ga_cookie_datetime", meta.content);
 
     // Values based on URL parameters
     setFormInputValue(
@@ -117,7 +117,7 @@ export const addGaData = (gaDataAdded, updateGaDataAdded, formEmailInput) => {
     .replace("@", "TrQ")
     .replace(".", "OPt");
   emailMeta.content = formattedEmailValue;
-  setFormInputValue(emailMeta.name, formattedEmailValue);
+  setFormInputValue("ga_em_id", formattedEmailValue);
   function setFormInputValue(inputName, value) {
     document.getElementsByName(inputName).forEach((element) => {
       if (element.nodeName === "INPUT") {
