@@ -90,6 +90,8 @@ export const addGaData = (gaDataAdded, updateGaDataAdded, formEmailInput) => {
     head.appendChild(meta);
     setFormInputValue("ga_cookie_datetime", meta.content);
 
+    setFormInputValue("Current Lead Source 2", "MKTG");
+
     // Values based on URL parameters
     setFormInputValue(
       "Current Lead Program 2",
