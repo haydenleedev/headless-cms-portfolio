@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { FormLoader } from "../agility-pageModules/textWithForm/textWithForm";
 
 const Form = ({ submitButtonText, formLoaded, formID }) => {
   const formRef = useRef(null);
@@ -43,7 +42,6 @@ const Form = ({ submitButtonText, formLoaded, formID }) => {
         ref={formRef}
         className={`marketoForm ${formLoaded ? "is-hidden" : ""}`}
       ></form>
-      {loaderVisible && <FormLoader />}
     </>
   ) : null;
 };
