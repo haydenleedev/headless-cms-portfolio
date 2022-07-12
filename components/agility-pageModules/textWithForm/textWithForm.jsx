@@ -8,7 +8,8 @@ import Heading from "../heading";
 import PardotForm from "../../form/pardotForm";
 
 const TextWithForm = ({ module, customData }) => {
-  const { sanitizedHtml, featuredAwards, pardotFormData } = customData;
+  const { sanitizedHtml, featuredAwards, pardotFormData, formConfiguration } =
+    customData;
   const { fields } = module;
   const narrowContainer = boolean(fields?.narrowContainer);
   const columnLayout = fields.layout == "column";
@@ -95,6 +96,7 @@ const TextWithForm = ({ module, customData }) => {
               <PardotForm
                 fieldData={pardotFormData.formHandlerFieldsResponse.values}
                 formHandlerID={fields.pardotFormID}
+                config={formConfiguration}
               />
             </div>
           </aside>
@@ -136,6 +138,12 @@ TextWithForm.getCustomInitialProps = async function ({
   });
   featuredAwards = featuredAwards.items[0].fields.awards;
 
+  const formConfiguration = await api.getContentList({
+    referenceName: "formconfiguration",
+    expandAllContentLinks: true,
+    languageCode,
+  });
+
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
@@ -146,6 +154,7 @@ TextWithForm.getCustomInitialProps = async function ({
     sanitizedHtml,
     featuredAwards,
     pardotFormData,
+    formConfiguration,
   };
 };
 

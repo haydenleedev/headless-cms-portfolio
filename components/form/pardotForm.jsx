@@ -4,6 +4,8 @@ import style from "./form.module.scss";
 import FormError from "./formError";
 import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
 import PardotFormField from "./pardotFormField";
+import { getCookie, setCookie } from "../../utils/cookies";
+import { getFormStep } from "../../utils/pardotForm";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -15,9 +17,25 @@ class PardotForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTouched = this.updateTouched.bind(this);
     this.phoneFieldRef = React.createRef();
+    // TODO: add logic for differentiating between form types
+    this.formType = "contactUs";
+    this.currentStep = getFormStep(this.formType);
+    this.currentStepFields = [];
+    this.stepFields = props.config.items[0].fields;
+    this.stepFields[`${this.formType}Step${this.currentStep}Fields`]?.forEach(
+      (item) => {
+        this.currentStepFields.push(item.fields.name);
+      }
+    );
     this.filteredFieldData = this.props.fieldData.filter((field) => {
-      return field.formHandlerId == this.props.formHandlerID;
+      return (
+        field.formHandlerId == this.props.formHandlerID &&
+        (this.currentStepFields.includes(field.name) ||
+          field.name == "Email" ||
+          this.isHiddenField(field))
+      );
     });
+
     this.fieldRefs = Array(this.filteredFieldData.length)
       .fill(0)
       .map(() => {
@@ -73,6 +91,14 @@ class PardotForm extends Component {
       this.form.honeyemail.value
     ) {
       e.preventDefault();
+    } else {
+      if (!getCookie(`${this.formType}Submit${this.currentStep}`)) {
+        setCookie(
+          `${this.formType}Submit${this.currentStep}`,
+          true,
+          "Fri, 31 Dec 9999 23:59:59 GMT"
+        );
+      }
     }
   }
 
@@ -132,7 +158,7 @@ class PardotForm extends Component {
   }
 
   render() {
-    return (
+    return this.stepFields[`${this.formType}Step${this.currentStep}Fields`] ? (
       <form
         action="https://info.ujet.cx/l/986641/2022-06-29/k12n5"
         method="post"
@@ -191,7 +217,7 @@ class PardotForm extends Component {
         {/* END: Honeypot */}
         <input type="submit" value="submit" required="required" />
       </form>
-    );
+    ) : null;
   }
 }
 

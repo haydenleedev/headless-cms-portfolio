@@ -134,3 +134,19 @@ export const addGaData = (gaDataAdded, updateGaDataAdded, formEmailInput) => {
     return urlParamValue || defaultValue;
   }
 };
+
+export const getFormStep = (formType) => {
+  let currentStep = 1;
+  if (typeof document !== "undefined") {
+    document.cookie.split(/; */).forEach((cookie) => {
+      const cookieName = cookie.split("=")[0];
+      if (cookieName.includes(`${formType}Submit`)) {
+        const step = cookieName.split(`${formType}Submit`)[1];
+        if (step >= currentStep) {
+          currentStep = parseInt(step) + 1;
+        }
+      }
+    });
+  }
+  return currentStep;
+};
