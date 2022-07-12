@@ -37,7 +37,7 @@ export default async function getPardotForm() {
     formHandlerFieldsResponse = await formHandlerFieldsResponse.json();
 
     console.timeEnd("getPardotForm");
-    return formHandlerFieldsResponse;
+    return JSON.stringify(formHandlerFieldsResponse);
   } catch (error) {
     return error;
   }

@@ -289,8 +289,8 @@ BlogPostContent.getCustomInitialProps = async ({
         };
       });
 
-    // serverless
-    const pardotResponse = await getPardotForm();
+    let pardotResponse = await getPardotForm();
+    pardotResponse = JSON.parse(pardotResponse);
 
     const pardotFormData = pardotResponse;
 

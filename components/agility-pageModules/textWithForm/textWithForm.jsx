@@ -114,8 +114,8 @@ TextWithForm.getCustomInitialProps = async function ({
 }) {
   const api = agility;
 
-  // serverless
-  const pardotResponse = await getPardotForm();
+  let pardotResponse = await getPardotForm();
+  pardotResponse = JSON.parse(pardotResponse);
 
   const pardotFormData = pardotResponse;
 
