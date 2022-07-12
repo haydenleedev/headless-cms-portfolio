@@ -94,7 +94,7 @@ const TextWithForm = ({ module, customData }) => {
               className={`${style.sideWrapper} ${style["bg-skyblue-light"]}`}
             >
               <PardotForm
-                fieldData={pardotFormData.formHandlerFieldsResponse.values}
+                fieldData={pardotFormData?.formHandlerFieldsResponse?.values}
                 formHandlerID={fields.pardotFormID}
                 config={formConfiguration}
               />
