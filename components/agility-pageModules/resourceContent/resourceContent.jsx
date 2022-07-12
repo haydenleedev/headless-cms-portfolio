@@ -19,8 +19,12 @@ import Accordion from "../accordion/accordion";
 import PardotForm from "../../form/pardotForm";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
-  const { sanitizedHtml, accordionItemsWithSanitizedHTML, pardotFormData } =
-    customData;
+  const {
+    sanitizedHtml,
+    accordionItemsWithSanitizedHTML,
+    pardotFormData,
+    formConfiguration,
+  } = customData;
   const resource = dynamicPageItem.fields;
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
   const { asPath } = useRouter();
@@ -147,6 +151,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         fieldData={
                           pardotFormData?.formHandlerFieldsResponse?.values
                         }
+                        config={formConfiguration}
                       />
                     </div>
                   </div>
@@ -210,6 +215,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         fieldData={
                           pardotFormData?.formHandlerFieldsResponse?.values
                         }
+                        config={formConfiguration}
                       />
                       {resource.link?.href && resource.link?.text && (
                         <div className="mt-4 align-center">
@@ -272,6 +278,12 @@ ResourceContent.getCustomInitialProps = async function ({
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
 
+  const formConfiguration = await api.getContentList({
+    referenceName: "formconfiguration",
+    expandAllContentLinks: true,
+    languageCode,
+  });
+
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
   const accordionItemsWithSanitizedHTML = accordionItemsData?.items
     ? accordionItemsData.items.map((item) => {
@@ -287,6 +299,7 @@ ResourceContent.getCustomInitialProps = async function ({
     sanitizedHtml,
     accordionItemsWithSanitizedHTML,
     pardotFormData,
+    formConfiguration,
   };
 };
 

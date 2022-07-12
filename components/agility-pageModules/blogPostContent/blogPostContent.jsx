@@ -207,7 +207,10 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
             </div>
           </div>
           <div>
-            <Subscribe pardotFormData={pardotFormData} />
+            <Subscribe
+              pardotFormData={pardotFormData}
+              formConfiguration={formConfiguration}
+            />
             <Link href="/request-a-demo">
               <a
                 className={`button outlined cyan ${style.requestDemo}`}
@@ -304,10 +307,17 @@ BlogPostContent.getCustomInitialProps = async ({
       cleanHtml(dynamicPageItem.fields.content)
     );
 
+    const formConfiguration = await api.getContentList({
+      referenceName: "formconfiguration",
+      expandAllContentLinks: true,
+      languageCode,
+    });
+
     return {
       relatedBlogPosts,
       sanitizedHtml,
       pardotFormData,
+      formConfiguration,
     };
   } catch (error) {
     if (console) console.error(error);

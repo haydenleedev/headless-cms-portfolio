@@ -1,6 +1,6 @@
 import PardotForm from "../form/pardotForm";
 
-const Subscribe = ({ pardotFormData }) => {
+const Subscribe = ({ pardotFormData, formConfiguration }) => {
   const NEWSLETTER_FORM_ID = 3568; // Replace this with an appropriate ID later
   return (
     <div className="subscribe-blog">
@@ -11,6 +11,7 @@ const Subscribe = ({ pardotFormData }) => {
       <PardotForm
         fieldData={pardotFormData?.formHandlerFieldsResponse?.values}
         formHandlerID={NEWSLETTER_FORM_ID}
+        config={formConfiguration}
       />
     </div>
   );
