@@ -145,7 +145,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
                         fieldData={
-                          pardotFormData.formHandlerFieldsResponse.values
+                          pardotFormData?.formHandlerFieldsResponse?.values
                         }
                       />
                     </div>
@@ -208,7 +208,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
                         fieldData={
-                          pardotFormData.formHandlerFieldsResponse.values
+                          pardotFormData?.formHandlerFieldsResponse?.values
                         }
                       />
                       {resource.link?.href && resource.link?.text && (
