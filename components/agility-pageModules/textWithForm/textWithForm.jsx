@@ -6,6 +6,7 @@ import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import Heading from "../heading";
 import PardotForm from "../../form/pardotForm";
+import getPardotForm from "../../../utils/getPardotForm";
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards, pardotFormData, formConfiguration } =
@@ -94,7 +95,7 @@ const TextWithForm = ({ module, customData }) => {
               className={`${style.sideWrapper} ${style["bg-skyblue-light"]}`}
             >
               <PardotForm
-                fieldData={pardotFormData?.formHandlerFieldsResponse?.values}
+                fieldData={pardotFormData?.values}
                 formHandlerID={fields.pardotFormID}
                 config={formConfiguration}
               />
@@ -114,15 +115,9 @@ TextWithForm.getCustomInitialProps = async function ({
   const api = agility;
 
   // serverless
-  const pardotResponse = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_API_URL
-      // TODO: add the form ID based on field in module, similar how marketo form ID is set. (or use marketo form field but rename)
-      // Hardcoded ID is for testing only
-    }/api/getPardotForm?formId=${`10981`}`
-  );
+  const pardotResponse = await getPardotForm();
 
-  const pardotFormData = await pardotResponse.json();
+  const pardotFormData = pardotResponse;
 
   // console.log("<<<<<<<< Pardot form data: ", JSON.stringify(pardotFormData));
   // TODO: parse pardot form HTML if it's possible. Might not be in case it's returned only inside the embed iFrame...

@@ -11,9 +11,11 @@ import {
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article, blogPosting } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
+import getPardotForm from "../../../utils/getPardotForm";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
-  const { relatedBlogPosts, sanitizedHtml, pardotFormData } = customData;
+  const { relatedBlogPosts, sanitizedHtml, pardotFormData, formConfiguration } =
+    customData;
   const blogPost = dynamicPageItem.fields;
   const url = process.env.NEXT_PUBLIC_SITE_URL + "/blog/" + blogPost.slug;
   const dateStr = new Date(blogPost.date).toLocaleDateString("en-US", {
@@ -288,15 +290,9 @@ BlogPostContent.getCustomInitialProps = async ({
       });
 
     // serverless
-    const pardotResponse = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_API_URL
-        // TODO: add the form ID based on field in module, similar how marketo form ID is set. (or use marketo form field but rename)
-        // Hardcoded ID is for testing only
-      }/api/getPardotForm?formId=${`10981`}`
-    );
+    const pardotResponse = await getPardotForm();
 
-    const pardotFormData = await pardotResponse.json();
+    const pardotFormData = pardotResponse;
 
     const sanitizeHtml = (await import("sanitize-html")).default;
 

@@ -17,6 +17,7 @@ import EmbedVideo from "../embedVideo/embedVideo";
 import Script from "next/script";
 import Accordion from "../accordion/accordion";
 import PardotForm from "../../form/pardotForm";
+import getPardotForm from "../../../utils/getPardotForm";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
   const {
@@ -148,9 +149,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       )}
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
-                        fieldData={
-                          pardotFormData?.formHandlerFieldsResponse?.values
-                        }
+                        fieldData={pardotFormData?.values}
                         config={formConfiguration}
                       />
                     </div>
@@ -212,9 +211,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       )}
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
-                        fieldData={
-                          pardotFormData?.formHandlerFieldsResponse?.values
-                        }
+                        fieldData={pardotFormData?.values}
                         config={formConfiguration}
                       />
                       {resource.link?.href && resource.link?.text && (
@@ -259,15 +256,9 @@ ResourceContent.getCustomInitialProps = async function ({
   const api = agility;
 
   // serverless
-  const pardotResponse = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_API_URL
-      // TODO: add the form ID based on field in module, similar how marketo form ID is set. (or use marketo form field but rename)
-      // Hardcoded ID is for testing only
-    }/api/getPardotForm?formId=${`10981`}`
-  );
+  const pardotResponse = await getPardotForm();
 
-  const pardotFormData = await pardotResponse.json();
+  const pardotFormData = pardotResponse;
   const accordionItemsData = dynamicPageItem.fields.accordionItems
     ?.referencename
     ? await api.getContentList({

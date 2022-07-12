@@ -9,7 +9,7 @@ const Subscribe = ({ pardotFormData, formConfiguration }) => {
         The best customer experience content delivered right to your inbox.
       </p>
       <PardotForm
-        fieldData={pardotFormData?.formHandlerFieldsResponse?.values}
+        fieldData={pardotFormData?.values}
         formHandlerID={NEWSLETTER_FORM_ID}
         config={formConfiguration}
       />
