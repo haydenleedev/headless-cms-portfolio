@@ -290,6 +290,7 @@ BlogPostContent.getCustomInitialProps = async ({
       });
 
     let pardotResponse = await getPardotForm();
+    console.log("pardotResponse:", pardotResponse);
     pardotResponse = JSON.parse(pardotResponse);
 
     const pardotFormData = pardotResponse;
