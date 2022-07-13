@@ -40,5 +40,6 @@ export default async function getPardotForm() {
     return JSON.stringify(formHandlerFieldsResponse);
   } catch (error) {
     if (console) console.error(error);
+    return JSON.stringify({});
   }
 }
