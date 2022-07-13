@@ -27,7 +27,7 @@ class PardotForm extends Component {
         this.currentStepFields.push(item.fields.name);
       }
     );
-    this.filteredFieldData = this.props.fieldData.filter((field) => {
+    this.filteredFieldData = this.props.fieldData?.filter((field) => {
       return (
         field.formHandlerId == this.props.formHandlerID &&
         (this.currentStepFields.includes(field.name) ||
@@ -36,7 +36,7 @@ class PardotForm extends Component {
       );
     });
 
-    this.fieldRefs = Array(this.filteredFieldData.length)
+    this.fieldRefs = Array(this.filteredFieldData?.length)
       .fill(0)
       .map(() => {
         return React.createRef();
@@ -49,8 +49,8 @@ class PardotForm extends Component {
       },
     ];
     this.state = {
-      errors: Array(this.filteredFieldData.length).fill(false),
-      touched: Array(this.filteredFieldData.length).fill(false),
+      errors: Array(this.filteredFieldData?.length).fill(false),
+      touched: Array(this.filteredFieldData?.length).fill(false),
     };
   }
 
@@ -120,7 +120,7 @@ class PardotForm extends Component {
     this.fieldRefs.forEach((fieldRef, index) => {
       if (touched[index] == true) {
         if (
-          this.filteredFieldData[index].isRequired &&
+          this.filteredFieldData[index]?.isRequired &&
           !fieldRef.current.value
         ) {
           errors[index] = true;
@@ -139,7 +139,7 @@ class PardotForm extends Component {
             default:
               if (
                 !Boolean(fieldRef.current.value) &&
-                this.filteredFieldData[index].isRequired
+                this.filteredFieldData[index]?.isRequired
               ) {
                 errors[index] = true;
               }
@@ -167,7 +167,7 @@ class PardotForm extends Component {
         }}
         ref={(form) => (this.form = form)}
       >
-        {this.filteredFieldData.map((field, index) => {
+        {this.filteredFieldData?.map((field, index) => {
           return (
             <div
               key={`formField${index}`}
