@@ -24,7 +24,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
     day: "numeric",
   });
 
-  const articleText = sanitizedHtml.replace(/<[^>]+>/g, "");
+  const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
 
   // trick for getting non-duplicate keywords out from blog post categories
   const keywords = Array.from(
