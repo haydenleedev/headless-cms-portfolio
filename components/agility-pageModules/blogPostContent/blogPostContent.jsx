@@ -15,7 +15,7 @@ import getPardotForm from "../../../utils/getPardotForm";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const { relatedBlogPosts, sanitizedHtml, pardotFormData, formConfiguration } =
-    customData;
+    customData || {};
   const blogPost = dynamicPageItem.fields;
   const url = process.env.NEXT_PUBLIC_SITE_URL + "/blog/" + blogPost.slug;
   const dateStr = new Date(blogPost.date).toLocaleDateString("en-US", {
