@@ -6,11 +6,10 @@ import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import Heading from "../heading";
 import PardotForm from "../../form/pardotForm";
-import getPardotForm from "../../../utils/getPardotForm";
+import pardotFormData from "../../../data/pardotFormData.json";
 
 const TextWithForm = ({ module, customData }) => {
-  const { sanitizedHtml, featuredAwards, pardotFormData, formConfiguration } =
-    customData;
+  const { sanitizedHtml, featuredAwards, formConfiguration } = customData;
   const { fields } = module;
   const narrowContainer = boolean(fields?.narrowContainer);
   const columnLayout = fields.layout == "column";
@@ -95,7 +94,7 @@ const TextWithForm = ({ module, customData }) => {
               className={`${style.sideWrapper} ${style["bg-skyblue-light"]}`}
             >
               <PardotForm
-                fieldData={pardotFormData?.values}
+                fieldData={pardotFormData}
                 formHandlerID={fields.pardotFormID}
                 config={formConfiguration}
               />
@@ -113,11 +112,6 @@ TextWithForm.getCustomInitialProps = async function ({
   item,
 }) {
   const api = agility;
-
-  let pardotResponse = await getPardotForm();
-  pardotResponse = JSON.parse(pardotResponse);
-
-  const pardotFormData = pardotResponse;
 
   // console.log("<<<<<<<< Pardot form data: ", JSON.stringify(pardotFormData));
   // TODO: parse pardot form HTML if it's possible. Might not be in case it's returned only inside the embed iFrame...
@@ -148,7 +142,6 @@ TextWithForm.getCustomInitialProps = async function ({
   return {
     sanitizedHtml,
     featuredAwards,
-    pardotFormData,
     formConfiguration,
   };
 };

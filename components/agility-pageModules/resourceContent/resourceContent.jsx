@@ -17,15 +17,11 @@ import EmbedVideo from "../embedVideo/embedVideo";
 import Script from "next/script";
 import Accordion from "../accordion/accordion";
 import PardotForm from "../../form/pardotForm";
-import getPardotForm from "../../../utils/getPardotForm";
+import pardotFormData from "../../../data/pardotFormData.json";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
-  const {
-    sanitizedHtml,
-    accordionItemsWithSanitizedHTML,
-    pardotFormData,
-    formConfiguration,
-  } = customData;
+  const { sanitizedHtml, accordionItemsWithSanitizedHTML, formConfiguration } =
+    customData;
   const resource = dynamicPageItem.fields;
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
   const { asPath } = useRouter();
@@ -149,7 +145,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       )}
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
-                        fieldData={pardotFormData?.values}
+                        fieldData={pardotFormData}
                         config={formConfiguration}
                       />
                     </div>
@@ -211,7 +207,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       )}
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
-                        fieldData={pardotFormData?.values}
+                        fieldData={pardotFormData}
                         config={formConfiguration}
                       />
                       {resource.link?.href && resource.link?.text && (
@@ -255,10 +251,6 @@ ResourceContent.getCustomInitialProps = async function ({
 }) {
   const api = agility;
 
-  let pardotResponse = await getPardotForm();
-  pardotResponse = JSON.parse(pardotResponse);
-
-  const pardotFormData = pardotResponse;
   const accordionItemsData = dynamicPageItem.fields.accordionItems
     ?.referencename
     ? await api.getContentList({
@@ -289,7 +281,6 @@ ResourceContent.getCustomInitialProps = async function ({
   return {
     sanitizedHtml,
     accordionItemsWithSanitizedHTML,
-    pardotFormData,
     formConfiguration,
   };
 };

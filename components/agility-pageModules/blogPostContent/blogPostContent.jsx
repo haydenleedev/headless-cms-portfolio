@@ -11,10 +11,9 @@ import {
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article, blogPosting } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
-import getPardotForm from "../../../utils/getPardotForm";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
-  const { relatedBlogPosts, sanitizedHtml, pardotFormData, formConfiguration } =
+  const { relatedBlogPosts, sanitizedHtml, formConfiguration } =
     customData || {};
   const blogPost = dynamicPageItem.fields;
   const url = process.env.NEXT_PUBLIC_SITE_URL + "/blog/" + blogPost.slug;
@@ -209,10 +208,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
             </div>
           </div>
           <div>
-            <Subscribe
-              pardotFormData={pardotFormData}
-              formConfiguration={formConfiguration}
-            />
+            <Subscribe formConfiguration={formConfiguration} />
             <Link href="/request-a-demo">
               <a
                 className={`button outlined cyan ${style.requestDemo}`}
@@ -289,11 +285,6 @@ BlogPostContent.getCustomInitialProps = async ({
         };
       });
 
-    let pardotResponse = await getPardotForm();
-    pardotResponse = JSON.parse(pardotResponse);
-
-    const pardotFormData = pardotResponse;
-
     const sanitizeHtml = (await import("sanitize-html")).default;
 
     // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
@@ -312,7 +303,6 @@ BlogPostContent.getCustomInitialProps = async ({
     return {
       relatedBlogPosts,
       sanitizedHtml,
-      pardotFormData,
       formConfiguration,
     };
   } catch (error) {
