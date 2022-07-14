@@ -37,6 +37,7 @@ class PardotForm extends Component {
     this.currentStep = getFormStep(this.formType);
     this.currentStepFields = [];
     this.stepFields = this.props.config?.items[0].fields || {};
+    console.log(this.stepFields);
     this.stepFields[`${this.formType}Step${this.currentStep}Fields`]?.forEach(
       (item) => {
         this.currentStepFields.push(item.fields.name);
