@@ -34,6 +34,7 @@ require("dotenv").config();
         req.on("error", reject);
         if (body) {
           req.write(body);
+          console.error(body);
         }
         req.end();
       });
