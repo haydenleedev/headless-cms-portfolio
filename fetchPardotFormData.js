@@ -83,7 +83,6 @@ require("dotenv").config();
           console.error(err);
           throw err;
         }
-        console.log(formHandlerFieldsResponse.values);
         console.info("Pardot form data written to file");
       }
     );
