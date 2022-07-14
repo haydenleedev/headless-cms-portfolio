@@ -31,7 +31,10 @@ require("dotenv").config();
             });
           }
         );
-        req.on("error", reject);
+        req.on("error", (error) => {
+          console.error(error.message);
+          reject();
+        });
         if (body) {
           req.write(body);
         }
