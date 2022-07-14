@@ -18,16 +18,6 @@ class PardotForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTouched = this.updateTouched.bind(this);
     this.phoneFieldRef = React.createRef();
-    // TODO: add logic for differentiating between form types
-    this.formType = "contactUs";
-    this.currentStep = getFormStep(this.formType);
-    this.currentStepFields = [];
-    this.stepFields = props.config?.items[0].fields || {};
-    this.stepFields[`${this.formType}Step${this.currentStep}Fields`]?.forEach(
-      (item) => {
-        this.currentStepFields.push(item.fields.name);
-      }
-    );
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
       {
@@ -38,10 +28,21 @@ class PardotForm extends Component {
     this.state = {
       errors: [],
       touched: [],
+      mounted: false,
     };
   }
 
   componentDidMount() {
+    // TODO: add logic for differentiating between form types
+    this.formType = "contactUs";
+    this.currentStep = getFormStep(this.formType);
+    this.currentStepFields = [];
+    this.stepFields = this.props.config?.items[0].fields || {};
+    this.stepFields[`${this.formType}Step${this.currentStep}Fields`]?.forEach(
+      (item) => {
+        this.currentStepFields.push(item.fields.name);
+      }
+    );
     this.fieldData = pardotFormData.filter((field) => {
       return (
         field.formHandlerId == this.props.formHandlerID &&
@@ -58,6 +59,7 @@ class PardotForm extends Component {
     this.setState({
       errors: Array(this.fieldData.length).fill(false),
       touched: Array(this.fieldData.length).fill(false),
+      mounted: true,
     });
   }
 
@@ -162,7 +164,8 @@ class PardotForm extends Component {
   }
 
   render() {
-    return this.stepFields[`${this.formType}Step${this.currentStep}Fields`] ? (
+    return this.state.mounted &&
+      this.stepFields[`${this.formType}Step${this.currentStep}Fields`] ? (
       <form
         action="https://info.ujet.cx/l/986641/2022-06-29/k12n5"
         method="post"
