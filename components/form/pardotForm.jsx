@@ -36,8 +36,6 @@ class PardotForm extends Component {
       );
     });
 
-    console.log(this.filteredFieldData);
-
     this.fieldRefs = Array(this.filteredFieldData?.length)
       .fill(0)
       .map(() => {
