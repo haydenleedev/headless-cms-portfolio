@@ -28,7 +28,6 @@ class PardotForm extends Component {
     this.state = {
       errors: [],
       touched: [],
-      mounted: false,
     };
   }
 
@@ -59,7 +58,6 @@ class PardotForm extends Component {
     this.setState({
       errors: Array(this.fieldData.length).fill(false),
       touched: Array(this.fieldData.length).fill(false),
-      mounted: true,
     });
   }
 
@@ -164,8 +162,7 @@ class PardotForm extends Component {
   }
 
   render() {
-    return this.state.mounted &&
-      this.stepFields[`${this.formType}Step${this.currentStep}Fields`] ? (
+    return (
       <form
         action="https://info.ujet.cx/l/986641/2022-06-29/k12n5"
         method="post"
@@ -224,7 +221,7 @@ class PardotForm extends Component {
         {/* END: Honeypot */}
         <input type="submit" value="submit" required="required" />
       </form>
-    ) : null;
+    );
   }
 }
 
