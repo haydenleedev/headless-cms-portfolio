@@ -27,20 +27,6 @@ class PardotForm extends Component {
         this.currentStepFields.push(item.fields.name);
       }
     );
-    this.filteredFieldData = this.props.fieldData?.filter((field) => {
-      return (
-        field.formHandlerId == this.props.formHandlerID &&
-        (this.currentStepFields.includes(field.name) ||
-          field.name == "Email" ||
-          this.isHiddenField(field))
-      );
-    });
-
-    this.fieldRefs = Array(this.filteredFieldData?.length)
-      .fill(0)
-      .map(() => {
-        return React.createRef();
-      });
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
       {
@@ -49,9 +35,29 @@ class PardotForm extends Component {
       },
     ];
     this.state = {
-      errors: Array(this.filteredFieldData?.length).fill(false),
-      touched: Array(this.filteredFieldData?.length).fill(false),
+      errors: [],
+      touched: [],
     };
+  }
+
+  componentDidMount() {
+    this.fieldData = this.props.fieldData?.filter((field) => {
+      return (
+        field.formHandlerId == this.props.formHandlerID &&
+        (this.currentStepFields.includes(field.name) ||
+          field.name == "Email" ||
+          this.isHiddenField(field))
+      );
+    });
+    this.fieldRefs = Array(this.fieldData.length)
+      .fill(0)
+      .map(() => {
+        return React.createRef();
+      });
+    this.setState({
+      errors: Array(this.fieldData.length).fill(false),
+      touched: Array(this.fieldData.length).fill(false),
+    });
   }
 
   phoneNumberFormatter() {
@@ -119,10 +125,7 @@ class PardotForm extends Component {
     const errors = Array(this.fieldRefs.length).fill(false);
     this.fieldRefs.forEach((fieldRef, index) => {
       if (touched[index] == true) {
-        if (
-          this.filteredFieldData[index]?.isRequired &&
-          !fieldRef.current.value
-        ) {
+        if (this.fieldData[index]?.isRequired && !fieldRef.current.value) {
           errors[index] = true;
         } else if (fieldRef.current.value) {
           switch (fieldRef.current.name) {
@@ -139,7 +142,7 @@ class PardotForm extends Component {
             default:
               if (
                 !Boolean(fieldRef.current.value) &&
-                this.filteredFieldData[index]?.isRequired
+                this.fieldData[index]?.isRequired
               ) {
                 errors[index] = true;
               }
@@ -167,7 +170,7 @@ class PardotForm extends Component {
         }}
         ref={(form) => (this.form = form)}
       >
-        {this.filteredFieldData?.map((field, index) => {
+        {this.fieldData?.map((field, index) => {
           return (
             <div
               key={`formField${index}`}
