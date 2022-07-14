@@ -80,6 +80,7 @@ require("dotenv").config();
       JSON.stringify(formHandlerFieldsResponse.values),
       (err) => {
         if (err) throw err;
+        console.log(formHandlerFieldsResponse.values);
         console.info("Pardot form data written to file");
       }
     );
