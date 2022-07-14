@@ -92,7 +92,7 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
         />
       )}
       {canonicalURL && <link rel="canonical" href={canonicalURL} />}
-      {blockIndexing && <meta name="robots" content="noindex" />}
+      {blockIndexing && <meta name="robots" content="noindex, nofollow" />}
       {/* Any content-based additional schemas e.g. blogPosting type */}
       {additionalSchemas &&
         additionalSchemas.map((schema, index) => (
