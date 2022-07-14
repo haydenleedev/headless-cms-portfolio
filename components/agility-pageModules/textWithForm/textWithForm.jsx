@@ -6,7 +6,6 @@ import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import Heading from "../heading";
 import PardotForm from "../../form/pardotForm";
-import pardotFormData from "../../../data/pardotFormData.json";
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards, formConfiguration } = customData;
@@ -94,7 +93,6 @@ const TextWithForm = ({ module, customData }) => {
               className={`${style.sideWrapper} ${style["bg-skyblue-light"]}`}
             >
               <PardotForm
-                fieldData={pardotFormData}
                 formHandlerID={fields.pardotFormID}
                 config={formConfiguration}
               />

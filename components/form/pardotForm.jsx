@@ -6,6 +6,7 @@ import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
 import PardotFormField from "./pardotFormField";
 import { getCookie, setCookie } from "../../utils/cookies";
 import { getFormStep } from "../../utils/pardotForm";
+import pardotFormData from "../../data/pardotFormData.json";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class PardotForm extends Component {
   }
 
   componentDidMount() {
-    this.fieldData = this.props.fieldData?.filter((field) => {
+    this.fieldData = pardotFormData.filter((field) => {
       return (
         field.formHandlerId == this.props.formHandlerID &&
         (this.currentStepFields.includes(field.name) ||

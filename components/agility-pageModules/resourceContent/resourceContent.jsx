@@ -17,7 +17,6 @@ import EmbedVideo from "../embedVideo/embedVideo";
 import Script from "next/script";
 import Accordion from "../accordion/accordion";
 import PardotForm from "../../form/pardotForm";
-import pardotFormData from "../../../data/pardotFormData.json";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, accordionItemsWithSanitizedHTML, formConfiguration } =
@@ -145,7 +144,6 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       )}
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
-                        fieldData={pardotFormData}
                         config={formConfiguration}
                       />
                     </div>
@@ -207,7 +205,6 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       )}
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
-                        fieldData={pardotFormData}
                         config={formConfiguration}
                       />
                       {resource.link?.href && resource.link?.text && (
