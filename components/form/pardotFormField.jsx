@@ -1,6 +1,7 @@
 import { formatPhoneNumber } from "../../shop/utils/formatData";
 import { addGaData } from "../../utils/pardotForm";
 import { countries, states } from "./selectFieldOptions";
+import style from "./form.module.scss";
 
 const PardotFormField = ({
   field,
@@ -108,7 +109,15 @@ const PardotFormField = ({
       return (
         <>
           {field.options.length > 0 ? (
-            <select ref={fieldRef} name={field.name}>
+            <select
+              ref={fieldRef}
+              name={field.name}
+              className={`${
+                (field.name.toLowerCase() === "country" || "state") &&
+                style["form-select"]
+              }
+              }`}
+            >
               {field.options.map((option, index) => {
                 return (
                   <option

@@ -26,6 +26,7 @@
 
 .required {
   color: $color-red;
+  padding-right: toRem(5);
 }
 .booleancheckbox {
   cursor: pointer;
@@ -148,6 +149,8 @@
   select {
     border: toRem(2) solid $color-red !important;
     background-color: $color-lightred !important;
+    height: 3rem;
+    padding: 1.25rem 0.9375rem;
     &:focus {
       @include outline();
       outline-color: $color-red !important;

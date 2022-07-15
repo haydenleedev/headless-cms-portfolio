@@ -197,9 +197,14 @@ class PardotForm extends Component {
               key={`formField${index}`}
               className={this.isHiddenField(field) ? "display-none" : ""}
             >
-              <label htmlFor={field.id}>
-                {field.isRequired && <span className="">*</span>} {field.name}
-              </label>
+              {!this.isHiddenField(field) && (
+                <label htmlFor={field.id}>
+                  {field.isRequired && (
+                    <span className={style.required}>*</span>
+                  )}{" "}
+                  {field.name}
+                </label>
+              )}
               <PardotFormField
                 field={field}
                 isHiddenField={this.isHiddenField(field)}
@@ -239,7 +244,14 @@ class PardotForm extends Component {
           aria-hidden="true"
         />
         {/* END: Honeypot */}
-        <input type="submit" value="submit" required="required" />
+        <div className={`layout mt-4`}>
+          <input
+            type="submit"
+            className={`button orange`}
+            value={this.props.submit}
+            required="required"
+          />
+        </div>
       </form>
     );
   }
