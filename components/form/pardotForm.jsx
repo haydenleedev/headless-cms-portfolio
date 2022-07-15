@@ -34,22 +34,28 @@ class PardotForm extends Component {
   componentDidMount() {
     // TODO: add logic for differentiating between form types
     this.formType = "contactUs";
-    this.currentStep = getFormStep(this.formType);
-    this.currentStepFields = [];
-    this.stepFields = this.props.config?.items[0].fields || {};
-    this.stepFields[`${this.formType}Step${this.currentStep}Fields`]?.forEach(
-      (item) => {
-        this.currentStepFields.push(item.fields.name);
-      }
-    );
-    this.fieldData = pardotFormData.filter((field) => {
-      return (
-        field.formHandlerId == this.props.formHandlerID &&
-        (this.currentStepFields.includes(field.name) ||
-          field.name == "Email" ||
-          this.isHiddenField(field))
+    if (this.props.stepsEnabled) {
+      this.currentStep = getFormStep(this.formType);
+      this.currentStepFields = [];
+      this.stepFields = this.props.config?.items[0].fields || {};
+      this.stepFields[`${this.formType}Step${this.currentStep}Fields`]?.forEach(
+        (item) => {
+          this.currentStepFields.push(item.fields.name);
+        }
       );
-    });
+      this.fieldData = pardotFormData.filter((field) => {
+        return (
+          field.formHandlerId == this.props.formHandlerID &&
+          (this.currentStepFields.includes(field.name) ||
+            field.name == "Email" ||
+            this.isHiddenField(field))
+        );
+      });
+    } else {
+      this.fieldData = pardotFormData.filter((field) => {
+        return field.formHandlerId == this.props.formHandlerID;
+      });
+    }
     this.fieldRefs = Array(this.fieldData.length)
       .fill(0)
       .map(() => {

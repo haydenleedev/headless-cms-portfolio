@@ -95,6 +95,7 @@ const TextWithForm = ({ module, customData }) => {
               <PardotForm
                 formHandlerID={fields.pardotFormID}
                 config={formConfiguration}
+                stepsEnabled={fields.formStepsEnabled}
               />
             </div>
           </aside>
