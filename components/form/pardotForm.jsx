@@ -174,7 +174,7 @@ class PardotForm extends Component {
   render() {
     return (
       <form
-        action="https://info.ujet.cx/l/986641/2022-06-29/k12n5"
+        action={this.props.action}
         method="post"
         onSubmit={(e) => {
           this.handleSubmit(e);
