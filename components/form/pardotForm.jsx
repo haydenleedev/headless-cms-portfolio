@@ -34,7 +34,17 @@ class PardotForm extends Component {
   componentDidMount() {
     // TODO: add logic for differentiating between form types
     this.formType = "contactUs";
-    if (pardotFormData.length > 0) {
+    let emailFieldExists = false;
+    for (let i = 0; i < pardotFormData.length; i++) {
+      if (
+        pardotFormData[i].formHandlerId == this.props.formHandlerID &&
+        pardotFormData[i].name == "Email"
+      ) {
+        emailFieldExists = true;
+        break;
+      }
+    }
+    if (pardotFormData.length > 0 || !emailFieldExists) {
       if (this.props.stepsEnabled) {
         this.currentStep = getFormStep(this.formType);
         this.currentStepFields = [];
