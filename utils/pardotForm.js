@@ -1,5 +1,6 @@
 import { getCookie, setCookie } from "./cookies";
 import { generateUUID } from "./generic";
+import fallBackPardotFormData from "../data/fallbackPardotFormData.json";
 
 const gaMeta = [
   {
@@ -149,4 +150,14 @@ export const getFormStep = (formType) => {
     });
   }
   return currentStep;
+};
+
+export const getFallbackFieldData = (formID) => {
+  const fields = [];
+  fallBackPardotFormData.forEach((field) => {
+    if (field.formHandlerId == formID) {
+      fields.push(field);
+    }
+  });
+  return fields;
 };

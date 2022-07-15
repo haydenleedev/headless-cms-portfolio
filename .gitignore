@@ -44,3 +44,4 @@ env.local
 # /data
 /data/*
 !/data/redirects.json
+!/data/fallbackPardotFormData.json

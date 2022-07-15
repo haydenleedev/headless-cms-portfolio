@@ -63,7 +63,7 @@ require("dotenv").config();
     const tokenResponse = JSON.parse(authResponse.toString());
     const token = tokenResponse.access_token;
 
-    const formHandlerFieldsResponse = await httpsRequest(
+    let formHandlerFieldsResponse = await httpsRequest(
       {
         hostname: "pi.pardot.com",
         path: "/api/v5/objects/form-handler-fields?fields=id,name,dataFormat,isRequired,prospectApiFieldId,isMaintainInitialValue,errorMessage,formHandlerId&orderBy=ID",
@@ -74,16 +74,28 @@ require("dotenv").config();
       },
       "GET"
     );
+    if (formHandlerFieldsResponse instanceof Buffer) {
+      formHandlerFieldsResponse = formHandlerFieldsResponse.toString();
+    }
+    const formFieldFetchError =
+      typeof formHandlerFieldsResponse !== "object" ||
+      !formHandlerFieldsResponse?.values;
 
     fs.writeFile(
       "./data/pardotFormData.json",
-      JSON.stringify(formHandlerFieldsResponse.values),
+      formFieldFetchError
+        ? JSON.stringify([])
+        : JSON.stringify(formHandlerFieldsResponse.values),
       (err) => {
         if (err) {
           console.error(err);
           throw err;
         }
-        console.info("Pardot form data written to file");
+        console.info(
+          formFieldFetchError
+            ? "No form field data received from API. Empty array written to file."
+            : "Pardot form data written to file"
+        );
       }
     );
   } catch (error) {

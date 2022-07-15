@@ -5,7 +5,7 @@ import FormError from "./formError";
 import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
 import PardotFormField from "./pardotFormField";
 import { getCookie, setCookie } from "../../utils/cookies";
-import { getFormStep } from "../../utils/pardotForm";
+import { getFallbackFieldData, getFormStep } from "../../utils/pardotForm";
 import pardotFormData from "../../data/pardotFormData.json";
 
 class PardotForm extends Component {
@@ -34,27 +34,31 @@ class PardotForm extends Component {
   componentDidMount() {
     // TODO: add logic for differentiating between form types
     this.formType = "contactUs";
-    if (this.props.stepsEnabled) {
-      this.currentStep = getFormStep(this.formType);
-      this.currentStepFields = [];
-      this.stepFields = this.props.config?.items[0].fields || {};
-      this.stepFields[`${this.formType}Step${this.currentStep}Fields`]?.forEach(
-        (item) => {
+    if (pardotFormData.length > 0) {
+      if (this.props.stepsEnabled) {
+        this.currentStep = getFormStep(this.formType);
+        this.currentStepFields = [];
+        this.stepFields = this.props.config?.items[0].fields || {};
+        this.stepFields[
+          `${this.formType}Step${this.currentStep}Fields`
+        ]?.forEach((item) => {
           this.currentStepFields.push(item.fields.name);
-        }
-      );
-      this.fieldData = pardotFormData.filter((field) => {
-        return (
-          field.formHandlerId == this.props.formHandlerID &&
-          (this.currentStepFields.includes(field.name) ||
-            field.name == "Email" ||
-            this.isHiddenField(field))
-        );
-      });
+        });
+        this.fieldData = pardotFormData.filter((field) => {
+          return (
+            field.formHandlerId == this.props.formHandlerID &&
+            (this.currentStepFields.includes(field.name) ||
+              field.name == "Email" ||
+              this.isHiddenField(field))
+          );
+        });
+      } else {
+        this.fieldData = pardotFormData.filter((field) => {
+          return field.formHandlerId == this.props.formHandlerID;
+        });
+      }
     } else {
-      this.fieldData = pardotFormData.filter((field) => {
-        return field.formHandlerId == this.props.formHandlerID;
-      });
+      this.fieldData = getFallbackFieldData(this.props.formHandlerID);
     }
     this.fieldRefs = Array(this.fieldData.length)
       .fill(0)
