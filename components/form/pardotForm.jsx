@@ -195,6 +195,7 @@ class PardotForm extends Component {
         onSubmit={(e) => {
           this.handleSubmit(e);
         }}
+        className={style.pardotForm}
         ref={(form) => (this.form = form)}
       >
         {this.fieldData?.map((field, index) => {

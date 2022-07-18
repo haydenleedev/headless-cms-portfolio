@@ -24,6 +24,13 @@
   }
 }
 
+.pardotForm {
+  input,
+  select {
+    @include focus-visible-touch-outlines();
+  }
+}
+
 .required {
   color: $color-red;
   padding-right: toRem(5);
