@@ -29,6 +29,9 @@
   select {
     @include focus-visible-touch-outlines();
   }
+  input[type="submit"] {
+    cursor: pointer;
+  }
 }
 
 .required {
