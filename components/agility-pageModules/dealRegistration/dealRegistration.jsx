@@ -8,9 +8,6 @@ import {
 } from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
-import FirstFold from "../firstFold/firstFold";
-import EmbedVideo from "../embedVideo/embedVideo";
-import Script from "next/script";
 import PardotForm from "../../form/pardotForm";
 
 const DealRegistration = ({ dynamicPageItem, customData }) => {
@@ -38,115 +35,83 @@ const DealRegistration = ({ dynamicPageItem, customData }) => {
           }),
         ]}
       />
-      <Script
-        id="google-optimize"
-        src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
-        strategy="lazyOnload"
-      />
-      {deal.videoURL ? (
-        <>
-          <FirstFold
-            module={{
-              fields: {
-                heading: JSON.stringify({
-                  type: "h1",
-                  color: "text-navy",
-                  text: deal.title,
-                  classes: "heading-4 mb-2",
-                }),
-                classes: "pb-0",
-                narrowContainer: "true",
-              },
-            }}
-            customData={{ sanitizedHtml: sanitizedHtml }}
-          />
-          <EmbedVideo
-            module={{
-              fields: { videoURL: deal.videoURL, classes: "pt-0" },
-            }}
-            customData={{ sanitizedHtml: sanitizedHtml }}
-          />
-        </>
-      ) : (
-        <>
-          {boolean(deal.alternateLayout) ? (
-            <>
-              <section className={style.alternateHeader}>
-                <div className={style.alternateHeaderContainer}>
-                  <div className={`container ${style.alternateHeaderTitle}`}>
-                    <p className={style.category}>Deal Registration</p>
-                    <span className={style.hr}></span>
-                    <h1 className={`${style.title} heading-5`}>{deal.title}</h1>
-                  </div>
-                  <div className={style.alternateHeaderColumns}>
-                    <div className={style.sideColumn}></div>
-                    <div className={style.imageColumn}>
-                      <AgilityImage
-                        src={deal.image.url}
-                        alt={deal.image.label || null}
-                        width={deal.image.pixelWidth}
-                        height={deal.image.pixelHeight}
-                        objectFit="cover"
-                      />
-                    </div>
+
+      <>
+        {boolean(deal.alternateLayout) ? (
+          <>
+            <section className={style.alternateHeader}>
+              <div className={style.alternateHeaderContainer}>
+                <div className={`container ${style.alternateHeaderTitle}`}>
+                  <p className={style.category}>Deal Registration</p>
+                  <span className={style.hr}></span>
+                  <h1 className={`${style.title} heading-5`}>{deal.title}</h1>
+                </div>
+                <div className={style.alternateHeaderColumns}>
+                  <div className={style.sideColumn}></div>
+                  <div className={style.imageColumn}>
+                    <AgilityImage
+                      src={deal.image.url}
+                      alt={deal.image.label || null}
+                      width={deal.image.pixelWidth}
+                      height={deal.image.pixelHeight}
+                      objectFit="cover"
+                    />
                   </div>
                 </div>
-              </section>
+              </div>
+            </section>
 
-              <section className="section">
-                <div className={`container ${style.alternateContent}`}>
-                  <div className="columns repeat-2">
+            <section className="section">
+              <div className={`container ${style.alternateContent}`}>
+                <div className="columns repeat-2">
+                  <div
+                    className="content"
+                    dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+                  />
+                  <div className={`bg-skyblue-light`}>
+                    {/\S/.test(deal.formTitle) && (
+                      <h2 className={`${style.formTitle} heading-6`}>
+                        {deal.formTitle || "Lead Information"}
+                      </h2>
+                    )}
+                    <PardotForm
+                      formHandlerID={deal.pardotFormID}
+                      config={formConfiguration}
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+          </>
+        ) : (
+          <>
+            <section className="section">
+              <div className="container">
+                <div className={style.columns}>
+                  <div className={style.content}>
+                    <h1 className="heading-5">{deal.title}</h1>
                     <div
-                      className="content"
+                      className="content mt-4"
                       dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                     />
-                    <div className={`bg-skyblue-light`}>
-                      {/\S/.test(deal.formTitle) && (
-                        <h2 className={`${style.formTitle} heading-6`}>
-                          {deal.formTitle || "Lead Information"}
-                        </h2>
-                      )}
-                      <PardotForm
-                        formHandlerID={deal.pardotFormID}
-                        config={formConfiguration}
-                      />
-                    </div>
+                  </div>
+                  <div className={`${deal.formBackgroundColor} ${style.form}`}>
+                    {/\S/.test(deal.formTitle) && (
+                      <h2 className={`${style.formTitle} heading-6`}>
+                        {deal.formTitle || "Lead Information"}
+                      </h2>
+                    )}
+                    <PardotForm
+                      formHandlerID={deal.pardotFormID}
+                      config={formConfiguration}
+                    />
                   </div>
                 </div>
-              </section>
-            </>
-          ) : (
-            <>
-              <section className="section">
-                <div className="container">
-                  <div className={style.columns}>
-                    <div className={style.content}>
-                      <h1 className="heading-5">{deal.title}</h1>
-                      <div
-                        className="content mt-4"
-                        dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                      />
-                    </div>
-                    <div
-                      className={`${deal.formBackgroundColor} ${style.form}`}
-                    >
-                      {/\S/.test(deal.formTitle) && (
-                        <h2 className={`${style.formTitle} heading-6`}>
-                          {deal.formTitle || "Lead Information"}
-                        </h2>
-                      )}
-                      <PardotForm
-                        formHandlerID={deal.pardotFormID}
-                        config={formConfiguration}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </>
-          )}
-        </>
-      )}
+              </div>
+            </section>
+          </>
+        )}
+      </>
     </>
   );
 };
