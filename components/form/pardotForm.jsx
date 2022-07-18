@@ -17,6 +17,7 @@ class PardotForm extends Component {
     this.validate = this.validate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTouched = this.updateTouched.bind(this);
+    this.updateStateFieldVisible = this.updateStateFieldVisible.bind(this);
     this.phoneFieldRef = React.createRef();
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
@@ -28,6 +29,7 @@ class PardotForm extends Component {
     this.state = {
       errors: [],
       touched: [],
+      stateFieldVisible: false,
     };
   }
 
@@ -96,6 +98,10 @@ class PardotForm extends Component {
 
   updateGaDataAdded(newValue) {
     this.gaDataAdded.current = newValue;
+  }
+
+  updateStateFieldVisible(newValue) {
+    this.setState({ stateFieldVisible: newValue });
   }
 
   isHiddenField(field) {
@@ -192,7 +198,9 @@ class PardotForm extends Component {
         ref={(form) => (this.form = form)}
       >
         {this.fieldData?.map((field, index) => {
-          return (
+          return field.name.toLowerCase() != "state" ||
+            (field.name.toLowerCase() == "state" &&
+              this.state.stateFieldVisible) ? (
             <div
               key={`formField${index}`}
               className={this.isHiddenField(field) ? "display-none" : ""}
@@ -215,12 +223,13 @@ class PardotForm extends Component {
                 }}
                 gaDataAdded={this.gaDataAdded.current}
                 updateGaDataAdded={this.updateGaDataAdded}
+                updateStateFieldVisible={this.updateStateFieldVisible}
               />
               {this.state.errors[index] && (
                 <FormError message={this.getErrorMessage(field.name)} />
               )}
             </div>
-          );
+          ) : null;
         })}
         {/* START: Honeypot */}
         <label className={style.removehoney} htmlFor="honeyname"></label>

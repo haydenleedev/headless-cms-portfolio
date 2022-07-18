@@ -11,6 +11,7 @@ const PardotFormField = ({
   updateTouched,
   gaDataAdded,
   updateGaDataAdded,
+  updateStateFieldVisible,
 }) => {
   if (isSelectField(field)) {
     field.dataFormat = "select";
@@ -117,6 +118,11 @@ const PardotFormField = ({
                 style["form-select"]
               }
               }`}
+              onChange={(e) => {
+                if (field.name.toLowerCase() == "country") {
+                  updateStateFieldVisible(e.target.value == "United States");
+                }
+              }}
             >
               {field.options.map((option, index) => {
                 return (
