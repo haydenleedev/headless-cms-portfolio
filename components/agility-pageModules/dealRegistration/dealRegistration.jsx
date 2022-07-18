@@ -1,6 +1,7 @@
 import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
 import style from "./dealRegistration.module.scss";
+import { boolean } from "../../../utils/validation";
 import {
   convertUJETLinksToHttps,
   sanitizeHtmlConfig,
