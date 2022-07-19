@@ -94,17 +94,34 @@ const PardotFormField = ({
       );
     case "text":
       return (
-        <input
-          name={field.name}
-          id={field.id}
-          maxLength="50"
-          hidden={isHiddenField}
-          onBlur={() => {
-            validate();
-          }}
-          onChange={updateTouched}
-          ref={fieldRef}
-        />
+        <>
+          {field.name.toLowerCase() === "additional details" ? (
+            <textarea
+              name={field.name}
+              id={field.id}
+              maxLength="32768"
+              rows="3"
+              hidden={isHiddenField}
+              onBlur={() => {
+                validate();
+              }}
+              onChange={updateTouched}
+              ref={fieldRef}
+            ></textarea>
+          ) : (
+            <input
+              name={field.name}
+              id={field.id}
+              maxLength="50"
+              hidden={isHiddenField}
+              onBlur={() => {
+                validate();
+              }}
+              onChange={updateTouched}
+              ref={fieldRef}
+            />
+          )}
+        </>
       );
     case "select":
       return (

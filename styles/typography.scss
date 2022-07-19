@@ -182,7 +182,8 @@ em {
 
 form {
   input:not([type="checkbox"], [type="submit"]),
-  select {
+  select,
+  textarea {
     background: $color-white;
     color: $color-black;
     width: 100%;

@@ -234,12 +234,21 @@ class PardotForm extends Component {
               }
             >
               {!this.isHiddenField(field) && (
-                <label htmlFor={field.id}>
-                  {field.isRequired && (
-                    <span className={style.required}>*</span>
-                  )}{" "}
-                  {field.name}
-                </label>
+                <>
+                  {field.name.toLowerCase() === "partner full name" && (
+                    <p
+                      className={`heading-6 ${style["pt-3"]} ${style["mt-3"]} ${style["pb-2"]} ${style["bt-1"]}`}
+                    >
+                      Your Information
+                    </p>
+                  )}
+                  <label htmlFor={field.id}>
+                    {field.isRequired && (
+                      <span className={style.required}>*</span>
+                    )}{" "}
+                    {field.name}
+                  </label>
+                </>
               )}
               <PardotFormField
                 field={field}
