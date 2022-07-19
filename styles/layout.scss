@@ -262,14 +262,14 @@
 /*
   <<<<<<<<<<<<<<<<GENERIC HELPER CLASSES>>>>>>>>>>>>>>>>>
 */
-.semi-bold{
-  font-weight:600;
+.semi-bold {
+  font-weight: 600;
 }
 .bold {
   font-weight: bold;
 }
-.extra-bold{
-  font-weight:800;
+.extra-bold {
+  font-weight: 800;
 }
 .b-r-30px {
   border-radius: toRem(30);
@@ -405,13 +405,13 @@
   overflow-wrap: break-word;
 }
 
-.reduce-list-padding-mobile{
-  @include mobile{
-    ul{
-      padding-lefT:0 ;
-      margin-lefT:0;
-      li{
-        margin-lefT:1.5rem;
+.reduce-list-padding-mobile {
+  @include mobile {
+    ul {
+      padding-left: 0;
+      margin-left: 0;
+      li {
+        margin-left: 1.5rem;
       }
     }
   }
@@ -659,8 +659,8 @@
 .max-width-narrow {
   @include narrowWidth();
 }
-.max-width-brand{
-    max-width:$brand;
+.max-width-brand {
+  max-width: $brand;
 }
 .qmax-width-tablet {
   max-width: $tablet;
