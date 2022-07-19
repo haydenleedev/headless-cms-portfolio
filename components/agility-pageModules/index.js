@@ -119,6 +119,7 @@ const allModules = [
   { name: "ShopErrorPageContent", module: ShopErrorPageContent },
   { name: "JobOpeningList", module: JobOpeningList },
   { name: "VideoPopup", module: VideoPopup },
+  { name: "DealRegistration", module: Placeholder },
   { name: "BrandFirstFold", module: BrandFirstFold },
   { name: "BrandTextGridWithMedia", module: BrandTextGridWithMedia },
   { name: "BrandTextWithMedia", module: BrandTextWithMedia },
