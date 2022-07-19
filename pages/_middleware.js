@@ -10,9 +10,15 @@ export async function middleware(req) {
     "/CER",
   ];
 
+  const clientIPCookieName = "client_ip";
+
+  const redirectWithIpCookie = (url) => {
+    return NextResponse.redirect(url).cookie(clientIPCookieName, req.ip);
+  };
+
   // Redirect uppercase urls to lowercase based on the array above
   if (uppercaseRedirects.includes(req.nextUrl.pathname)) {
-    return NextResponse.redirect(
+    return redirectWithIpCookie(
       `${req.nextUrl.origin}${req.nextUrl.pathname.toLowerCase()}`
     );
   }
@@ -27,16 +33,16 @@ export async function middleware(req) {
     const postSlug = url.replace(/en-US/g, "").split(blogUrlRegex)[2];
     const redirectUrl = "https://ujet.cx/blog";
     if (postSlug) {
-      return NextResponse.redirect(`${redirectUrl}/${postSlug}`);
+      return redirectWithIpCookie(`${redirectUrl}/${postSlug}`);
     }
-    return NextResponse.redirect(redirectUrl);
+    return redirectWithIpCookie(redirectUrl);
   }
 
   // Redirect buy.ujet.cx
   const buyUrl = "buy.ujet.cx";
   if (url.includes(buyUrl)) {
     const redirectUrl = "https://ujet.cx/shop";
-    return NextResponse.redirect(redirectUrl);
+    return redirectWithIpCookie(redirectUrl);
   }
 
   // Redirect brand.ujet.cx
@@ -47,11 +53,11 @@ export async function middleware(req) {
     const postSlug = url.replace(/en-US/g, "").split(brandUrlRegex)[2];
     const redirectUrl = "https://ujet.cx/brand";
     if (postSlug) {
-      return NextResponse.redirect(`${redirectUrl}/${postSlug}`);
+      return redirectWithIpCookie(`${redirectUrl}/${postSlug}`);
     }
-    return NextResponse.redirect(redirectUrl);
+    return redirectWithIpCookie(redirectUrl);
   }
 
   // All other cases do nothing
-  return NextResponse.next();
+  return NextResponse.next().cookie(clientIPCookieName, req.ip);
 }
