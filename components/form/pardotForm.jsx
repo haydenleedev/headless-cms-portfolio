@@ -125,6 +125,9 @@ class PardotForm extends Component {
     ) {
       e.preventDefault();
     } else {
+      if (this.form["Country"].value != "United States") {
+        this.form["State"].value = "";
+      }
       if (!getCookie(`${this.formType}Submit${this.currentStep}`)) {
         setCookie(
           `${this.formType}Submit${this.currentStep}`,
@@ -152,7 +155,12 @@ class PardotForm extends Component {
     const errors = Array(this.fieldRefs.length).fill(false);
     this.fieldRefs.forEach((fieldRef, index) => {
       if (touched[index] == true) {
-        if (this.fieldData[index]?.isRequired && !fieldRef.current.value) {
+        if (
+          (this.fieldData[index]?.isRequired ||
+            (this.state.stateFieldVisible &&
+              fieldRef.current.name == "State")) &&
+          !fieldRef.current.value
+        ) {
           errors[index] = true;
         } else if (fieldRef.current.value) {
           switch (fieldRef.current.name) {
@@ -199,12 +207,16 @@ class PardotForm extends Component {
         ref={(form) => (this.form = form)}
       >
         {this.fieldData?.map((field, index) => {
-          return field.name.toLowerCase() != "state" ||
-            (field.name.toLowerCase() == "state" &&
-              this.state.stateFieldVisible) ? (
+          return (
             <div
               key={`formField${index}`}
-              className={this.isHiddenField(field) ? "display-none" : ""}
+              className={
+                this.isHiddenField(field) ||
+                (field.name.toLowerCase() == "state" &&
+                  !this.state.stateFieldVisible)
+                  ? "display-none"
+                  : ""
+              }
             >
               {!this.isHiddenField(field) && (
                 <label htmlFor={field.id}>
@@ -230,7 +242,7 @@ class PardotForm extends Component {
                 <FormError message={this.getErrorMessage(field.name)} />
               )}
             </div>
-          ) : null;
+          );
         })}
         {/* START: Honeypot */}
         <label className={style.removehoney} htmlFor="honeyname"></label>

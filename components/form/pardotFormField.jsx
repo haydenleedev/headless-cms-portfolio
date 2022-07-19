@@ -123,6 +123,9 @@ const PardotFormField = ({
                   updateStateFieldVisible(e.target.value == "United States");
                 }
               }}
+              onBlur={() => {
+                validate();
+              }}
             >
               {field.options.map((option, index) => {
                 return (
