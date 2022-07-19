@@ -128,7 +128,10 @@ class PardotForm extends Component {
       if (this.form["Country"].value != "United States") {
         this.form["State"].value = "";
       }
-      if (!getCookie(`${this.formType}Submit${this.currentStep}`)) {
+      if (
+        this.props.stepsEnabled &&
+        !getCookie(`${this.formType}Submit${this.currentStep}`)
+      ) {
         setCookie(
           `${this.formType}Submit${this.currentStep}`,
           true,
