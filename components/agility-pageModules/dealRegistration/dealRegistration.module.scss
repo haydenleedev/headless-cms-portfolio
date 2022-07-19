@@ -32,9 +32,6 @@
       grid-column: 1 / -1;
       text-align: center;
     }
-    @include desktop() {
-      grid-template-columns: 1fr 1fr;
-    }
   }
   .formTitle {
     color: $color-black;

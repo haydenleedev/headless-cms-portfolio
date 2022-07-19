@@ -74,9 +74,12 @@ const DealRegistration = ({ dynamicPageItem, customData }) => {
                         {deal.formTitle || "Lead Information"}
                       </h2>
                     )}
+
                     <PardotForm
-                      formHandlerID={deal.pardotFormID}
+                      formHandlerID={fields.pardotFormID}
                       config={formConfiguration}
+                      action={fields.formAction}
+                      submit={fields.formSubmitText}
                     />
                   </div>
                 </div>

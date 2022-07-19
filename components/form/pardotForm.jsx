@@ -106,11 +106,23 @@ class PardotForm extends Component {
 
   isHiddenField(field) {
     // Blacklist hidden fields from Pardot form handler fields
-    const hiddenFields = [/ga_/, /utm_/, /current lead/, /hidden/, /hide/];
+    const hiddenFields = [
+      /ga_/,
+      /utm_/,
+      /current lead/,
+      /hidden/,
+      /hide/,
+      /partner country/,
+      /partner company/,
+      /alliance referral/,
+    ];
 
     // Check whether form field is blacklisted
     if (
-      hiddenFields.some((re) => re.test(String(field.name).toLocaleLowerCase()))
+      hiddenFields.some((re) =>
+        re.test(String(field.name).toLocaleLowerCase())
+      ) ||
+      String(field.name).toLocaleLowerCase() === "partner"
     ) {
       return true;
     }
