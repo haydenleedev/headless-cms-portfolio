@@ -150,11 +150,18 @@ class PardotForm extends Component {
         emailField.name = "";
         fallbackEmailField.name = "Email";
       }
-      if (
-        this.form["Country"]?.value != "United States" &&
-        this.form["State"]
-      ) {
-        this.form["State"].value = "";
+      if (!this.state.stateFieldVisible) {
+        [...document.querySelectorAll("[name*=State], [name*=state]")].forEach(
+          (element) => {
+            if (
+              this.form.contains(element) &&
+              !this.isHiddenField(element) &&
+              ["SELECT", "INPUT"].includes(element.nodeName)
+            ) {
+              element.value = "";
+            }
+          }
+        );
       }
       if (
         this.props.stepsEnabled &&
@@ -189,7 +196,8 @@ class PardotForm extends Component {
         if (
           (this.fieldData[index]?.isRequired ||
             (this.state.stateFieldVisible &&
-              fieldRef.current.name == "State")) &&
+              fieldRef.current.name.toLowerCase().match(/state/) &&
+              !this.isHiddenField(fieldRef.current))) &&
           !fieldRef.current.value
         ) {
           errors[index] = true;
@@ -243,7 +251,7 @@ class PardotForm extends Component {
               key={`formField${index}`}
               className={
                 this.isHiddenField(field) ||
-                (field.name.toLowerCase() == "state" &&
+                (field.name.toLowerCase().match(/state/) &&
                   !this.state.stateFieldVisible)
                   ? "display-none"
                   : ""

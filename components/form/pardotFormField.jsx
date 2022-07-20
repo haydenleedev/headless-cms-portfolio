@@ -136,7 +136,7 @@ const PardotFormField = ({
               }
               }`}
               onChange={(e) => {
-                if (field.name.toLowerCase() == "country") {
+                if (field.name.toLowerCase().match(/country/)) {
                   updateStateFieldVisible(e.target.value == "United States");
                 }
               }}
