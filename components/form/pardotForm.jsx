@@ -34,6 +34,7 @@ class PardotForm extends Component {
   }
 
   componentDidMount() {
+    this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     // TODO: add logic for differentiating between form types
     this.formType = "contactUs";
     let emailFieldExists = false;
@@ -137,7 +138,22 @@ class PardotForm extends Component {
     ) {
       e.preventDefault();
     } else {
-      if (this.form["Country"].value != "United States") {
+      if (this.isDealRegistrationForm && !this.form["Email"].value) {
+        const splitEmail = this.form["Partner Email"].value.split(/(@)/);
+        const date = new Date();
+        const timestampedEmail = `${splitEmail[0]}+ex${date.getTime()}${
+          splitEmail[1]
+        }${splitEmail[2]}`;
+        const fallbackEmailField = this.form["fallbackemail"];
+        fallbackEmailField.value = timestampedEmail;
+        const emailField = this.form["Email"];
+        emailField.name = "";
+        fallbackEmailField.name = "Email";
+      }
+      if (
+        this.form["Country"]?.value != "United States" &&
+        this.form["State"]
+      ) {
         this.form["State"].value = "";
       }
       if (
@@ -268,6 +284,9 @@ class PardotForm extends Component {
             </div>
           );
         })}
+        {this.isDealRegistrationForm && (
+          <input name="fallbackemail" className="display-none" />
+        )}
         {/* START: Honeypot */}
         <label className={style.removehoney} htmlFor="honeyname"></label>
         <input
