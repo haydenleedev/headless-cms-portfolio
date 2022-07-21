@@ -59,12 +59,17 @@ class PardotForm extends Component {
           this.currentStepFields.push(item.fields.name);
         });
         this.fieldData = pardotFormData.filter((field) => {
-          return (
+          if (
             field.formHandlerId == this.props.formHandlerID &&
             (this.currentStepFields.includes(field.name) ||
               field.name == "Email" ||
               this.isHiddenField(field))
-          );
+          ) {
+            if (!this.isHiddenField(field)) {
+              field.isRequired = true;
+            }
+            return field;
+          }
         });
       } else {
         this.fieldData = pardotFormData.filter((field) => {
