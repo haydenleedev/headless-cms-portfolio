@@ -34,6 +34,7 @@ class PardotForm extends Component {
   }
 
   componentDidMount() {
+    this.form.style.display = "";
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     // TODO: add logic for differentiating between form types
     this.formType = "contactUs";
@@ -236,96 +237,106 @@ class PardotForm extends Component {
 
   render() {
     return (
-      <form
-        action={this.props.action}
-        method="post"
-        onSubmit={(e) => {
-          this.handleSubmit(e);
-        }}
-        className={style.pardotForm}
-        ref={(form) => (this.form = form)}
-      >
-        {this.fieldData?.map((field, index) => {
-          return (
-            <div
-              key={`formField${index}`}
-              className={
-                this.isHiddenField(field) ||
-                (field.name.toLowerCase().match(/state/) &&
-                  !this.state.stateFieldVisible)
-                  ? "display-none"
-                  : ""
-              }
-            >
-              {!this.isHiddenField(field) && (
-                <>
-                  {field.name.toLowerCase() === "partner full name" && (
-                    <p
-                      className={`heading-6 ${style["pt-3"]} ${style["mt-3"]} ${style["pb-2"]} ${style["bt-1"]}`}
-                    >
-                      Your Information
-                    </p>
-                  )}
-                  <label htmlFor={field.id}>
-                    {field.isRequired && (
-                      <span className={style.required}>*</span>
-                    )}{" "}
-                    {field.name}
-                  </label>
-                </>
-              )}
-              <PardotFormField
-                field={field}
-                isHiddenField={this.isHiddenField(field)}
-                fieldRef={this.fieldRefs[index]}
-                validate={this.validate}
-                updateTouched={() => {
-                  this.updateTouched(index);
-                }}
-                gaDataAdded={this.gaDataAdded.current}
-                updateGaDataAdded={this.updateGaDataAdded}
-                updateStateFieldVisible={this.updateStateFieldVisible}
-              />
-              {this.state.errors[index] && (
-                <FormError message={this.getErrorMessage(field.name)} />
-              )}
-            </div>
-          );
-        })}
-        {this.isDealRegistrationForm && (
-          <input name="fallbackemail" className="display-none" />
-        )}
-        {/* START: Honeypot */}
-        <label className={style.removehoney} htmlFor="honeyname"></label>
-        <input
-          className={style.removehoney}
-          autoComplete="off"
-          type="text"
-          id="honeyname"
-          name="honeyname"
-          tabIndex="-1"
-          aria-hidden="true"
-        />
-        <label className={style.removehoney} htmlFor="honeyemail"></label>
-        <input
-          className={style.removehoney}
-          autoComplete="off"
-          type="email"
-          id="honeyemail"
-          name="honeyemail"
-          tabIndex="-1"
-          aria-hidden="true"
-        />
-        {/* END: Honeypot */}
-        <div className={`layout mt-4`}>
+      <>
+        <form
+          action={this.props.action}
+          method="post"
+          onSubmit={(e) => {
+            this.handleSubmit(e);
+          }}
+          className={style.pardotForm}
+          // Hide the form for users with JS disabled
+          // display: none is removed in componentDidMount for users with JS enabled
+          style={{ display: "none" }}
+          ref={(form) => (this.form = form)}
+        >
+          {this.fieldData?.map((field, index) => {
+            return (
+              <div
+                key={`formField${index}`}
+                className={
+                  this.isHiddenField(field) ||
+                  (field.name.toLowerCase().match(/state/) &&
+                    !this.state.stateFieldVisible)
+                    ? "display-none"
+                    : ""
+                }
+              >
+                {!this.isHiddenField(field) && (
+                  <>
+                    {field.name.toLowerCase() === "partner full name" && (
+                      <p
+                        className={`heading-6 ${style["pt-3"]} ${style["mt-3"]} ${style["pb-2"]} ${style["bt-1"]}`}
+                      >
+                        Your Information
+                      </p>
+                    )}
+                    <label htmlFor={field.id}>
+                      {field.isRequired && (
+                        <span className={style.required}>*</span>
+                      )}{" "}
+                      {field.name}
+                    </label>
+                  </>
+                )}
+                <PardotFormField
+                  field={field}
+                  isHiddenField={this.isHiddenField(field)}
+                  fieldRef={this.fieldRefs[index]}
+                  validate={this.validate}
+                  updateTouched={() => {
+                    this.updateTouched(index);
+                  }}
+                  gaDataAdded={this.gaDataAdded.current}
+                  updateGaDataAdded={this.updateGaDataAdded}
+                  updateStateFieldVisible={this.updateStateFieldVisible}
+                />
+                {this.state.errors[index] && (
+                  <FormError message={this.getErrorMessage(field.name)} />
+                )}
+              </div>
+            );
+          })}
+          {this.isDealRegistrationForm && (
+            <input name="fallbackemail" className="display-none" />
+          )}
+          {/* START: Honeypot */}
+          <label className={style.removehoney} htmlFor="honeyname"></label>
           <input
-            type="submit"
-            className={`button orange`}
-            value={this.props.submit}
-            required="required"
+            className={style.removehoney}
+            autoComplete="off"
+            type="text"
+            id="honeyname"
+            name="honeyname"
+            tabIndex="-1"
+            aria-hidden="true"
           />
-        </div>
-      </form>
+          <label className={style.removehoney} htmlFor="honeyemail"></label>
+          <input
+            className={style.removehoney}
+            autoComplete="off"
+            type="email"
+            id="honeyemail"
+            name="honeyemail"
+            tabIndex="-1"
+            aria-hidden="true"
+          />
+          {/* END: Honeypot */}
+          <div className={`layout mt-4`}>
+            <input
+              type="submit"
+              className={`button orange`}
+              value={this.props.submit}
+              required="required"
+            />
+          </div>
+        </form>
+        <noscript>
+          <p>
+            <strong>Please enable JavaScript to use the contact form.</strong>
+          </p>
+        </noscript>
+      </>
     );
   }
 }
