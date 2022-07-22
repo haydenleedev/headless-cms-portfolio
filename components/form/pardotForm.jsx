@@ -136,7 +136,20 @@ class PardotForm extends Component {
     return false;
   }
 
-  handleSubmit(e) {
+  async handleSubmit(e) {
+    // POST data to Google sheets without form validation here for testing purposes
+    const clientIP = getCookie("client_ip");
+    const clientCountry = getCookie("client_country");
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/saveClientData`, {
+      method: "POST",
+      body: JSON.stringify({
+        ip: clientIP && clientIP !== "undefined" ? clientIP : "Unknown",
+        country:
+          clientCountry && clientCountry !== "undefined"
+            ? clientCountry
+            : "Unknown",
+      }),
+    });
     if (
       !this.onSubmitValidate() ||
       this.form.honeyname.value ||
