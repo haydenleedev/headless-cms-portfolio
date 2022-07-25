@@ -12,6 +12,8 @@ const PardotFormField = ({
   gaDataAdded,
   updateGaDataAdded,
   updateStateFieldVisible,
+  updateSelectedCountry,
+  usPhoneFormat,
 }) => {
   if (isSelectField(field)) {
     field.dataFormat = "select";
@@ -68,12 +70,24 @@ const PardotFormField = ({
           type="text"
           title={field.name}
           hidden={isHiddenField}
+          maxLength={usPhoneFormat ? null : 15}
           onBlur={() => {
-            phoneNumberFormatter();
+            if (usPhoneFormat) {
+              phoneNumberFormatter();
+            }
             validate();
           }}
-          onChange={updateTouched}
-          onKeyDown={phoneNumberFormatter}
+          onChange={() => {
+            updateTouched();
+            if (!usPhoneFormat) {
+              validate();
+            }
+          }}
+          onKeyDown={() => {
+            if (usPhoneFormat) {
+              phoneNumberFormatter();
+            }
+          }}
           ref={fieldRef}
         />
       );
@@ -138,6 +152,7 @@ const PardotFormField = ({
               onChange={(e) => {
                 if (field.name.toLowerCase().match(/country/)) {
                   updateStateFieldVisible(e.target.value == "United States");
+                  updateSelectedCountry(e.target.value);
                 }
               }}
               onBlur={() => {

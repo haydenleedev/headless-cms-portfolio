@@ -5,7 +5,11 @@ import FormError from "./formError";
 import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
 import PardotFormField from "./pardotFormField";
 import { getCookie, setCookie } from "../../utils/cookies";
-import { getFallbackFieldData, getFormStep } from "../../utils/pardotForm";
+import {
+  getFallbackFieldData,
+  getFormStep,
+  isNonUsPhoneNumber,
+} from "../../utils/pardotForm";
 import pardotFormData from "../../data/pardotFormData.json";
 
 class PardotForm extends Component {
@@ -13,12 +17,12 @@ class PardotForm extends Component {
     super(props);
     this.gaDataAdded = React.createRef(false);
     this.updateGaDataAdded = this.updateGaDataAdded.bind(this);
-    this.phoneNumberFormatter = this.phoneNumberFormatter.bind(this);
+    this.updateSelectedCountry = this.updateSelectedCountry.bind(this);
     this.validate = this.validate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTouched = this.updateTouched.bind(this);
     this.updateStateFieldVisible = this.updateStateFieldVisible.bind(this);
-    this.phoneFieldRef = React.createRef();
+
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
       {
@@ -30,6 +34,8 @@ class PardotForm extends Component {
       errors: [],
       touched: [],
       stateFieldVisible: false,
+      selectedCountry: "",
+      usPhoneFormat: true,
     };
   }
 
@@ -90,13 +96,6 @@ class PardotForm extends Component {
     });
   }
 
-  phoneNumberFormatter() {
-    const phoneField = this.form["Phone Number"];
-    if (phoneField) {
-      phoneField.value = formatPhoneNumber(phoneField.value);
-    }
-  }
-
   updateTouched(index) {
     const touched = this.state.touched;
     touched[index] = true;
@@ -109,6 +108,38 @@ class PardotForm extends Component {
 
   updateStateFieldVisible(newValue) {
     this.setState({ stateFieldVisible: newValue });
+  }
+
+  updateSelectedCountry(newValue) {
+    const previousCountry = this.state.selectedCountry;
+    const phoneField = this.form["Phone Number"];
+    this.setState({ selectedCountry: newValue }, () => {
+      if (phoneField) {
+        const usPhoneFormatCountries = ["United States", "Canada"];
+        if (
+          (usPhoneFormatCountries.includes(this.state.selectedCountry) ||
+            !this.state.selectedCountry) &&
+          !usPhoneFormatCountries.includes(previousCountry) &&
+          previousCountry
+        ) {
+          this.setState({ usPhoneFormat: true }, () => {
+            phoneField.value = formatPhoneNumber(
+              phoneField.value.replace(/\D/g, "")
+            );
+            this.validate();
+          });
+        } else if (
+          !usPhoneFormatCountries.includes(this.state.selectedCountry) &&
+          this.state.selectedCountry &&
+          (usPhoneFormatCountries.includes(previousCountry) || !previousCountry)
+        ) {
+          this.setState({ usPhoneFormat: false }, () => {
+            phoneField.value = phoneField.value.replace(/\D/g, "");
+            this.validate();
+          });
+        }
+      }
+    });
   }
 
   isHiddenField(field) {
@@ -138,6 +169,7 @@ class PardotForm extends Component {
 
   async handleSubmit(e) {
     // POST data to Google sheets without form validation here for testing purposes
+    e.preventDefault();
     const clientIP = getCookie("client_ip");
     const clientCountry = getCookie("client_country");
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/saveClientData`, {
@@ -223,7 +255,11 @@ class PardotForm extends Component {
         } else if (fieldRef.current.value) {
           switch (fieldRef.current.name) {
             case "Phone Number":
-              if (!isPhoneNumber(formatPhoneNumber(fieldRef.current.value))) {
+              if (this.state.usPhoneFormat) {
+                if (!isPhoneNumber(formatPhoneNumber(fieldRef.current.value))) {
+                  errors[index] = true;
+                }
+              } else if (!isNonUsPhoneNumber(fieldRef.current.value)) {
                 errors[index] = true;
               }
               break;
@@ -308,6 +344,8 @@ class PardotForm extends Component {
                   gaDataAdded={this.gaDataAdded.current}
                   updateGaDataAdded={this.updateGaDataAdded}
                   updateStateFieldVisible={this.updateStateFieldVisible}
+                  updateSelectedCountry={this.updateSelectedCountry}
+                  usPhoneFormat={this.state.usPhoneFormat}
                 />
                 {this.state.errors[index] && (
                   <FormError message={this.getErrorMessage(field.name)} />

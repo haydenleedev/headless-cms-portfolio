@@ -161,3 +161,13 @@ export const getFallbackFieldData = (formID) => {
   });
   return fields;
 };
+
+export const isNonUsPhoneNumber = (phoneNumber) => {
+  for (let i = 0; i < phoneNumber.length; i++) {
+    const char = phoneNumber[i];
+    if (!char.match(/[0-9]/) && ![" ", "+", "-", "(", ")"].includes(char)) {
+      return false;
+    }
+  }
+  return true;
+};
