@@ -189,17 +189,17 @@ class PardotForm extends Component {
     ) {
       e.preventDefault();
     } else {
-      if (this.isDealRegistrationForm && !this.form["Email"].value) {
-        const splitEmail = this.form["Partner Email"].value.split(/(@)/);
+      if (this.isDealRegistrationForm && this.form["Email"].value) {
+        const splitEmail = this.form["Email"].value.split(/(@)/);
         const date = new Date();
         const timestampedEmail = `${splitEmail[0]}+ex${date.getTime()}${
           splitEmail[1]
         }${splitEmail[2]}`;
-        const fallbackEmailField = this.form["fallbackemail"];
-        fallbackEmailField.value = timestampedEmail;
-        const emailField = this.form["Email"];
-        emailField.name = "";
-        fallbackEmailField.name = "Email";
+        // Set hidden email field's name to "Email" to prevent users from seeing the timestamped email
+        const hiddenEmailField = this.form["hiddenemail"];
+        hiddenEmailField.value = timestampedEmail;
+        this.form["Email"].name = "";
+        hiddenEmailField.name = "Email";
       }
       if (!this.state.stateFieldVisible) {
         [...document.querySelectorAll("[name*=State], [name*=state]")].forEach(
@@ -354,7 +354,7 @@ class PardotForm extends Component {
             );
           })}
           {this.isDealRegistrationForm && (
-            <input name="fallbackemail" className="display-none" />
+            <input name="hiddenemail" className="display-none" />
           )}
           {/* START: Honeypot */}
           <label className={style.removehoney} htmlFor="honeyname"></label>
