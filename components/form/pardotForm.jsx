@@ -55,7 +55,7 @@ class PardotForm extends Component {
         break;
       }
     }
-    if (pardotFormData.length > 0 || !emailFieldExists) {
+    if (pardotFormData.length > 0 && emailFieldExists) {
       if (this.props.stepsEnabled) {
         this.currentStep = getFormStep(this.formType);
         this.currentStepFields = [];
