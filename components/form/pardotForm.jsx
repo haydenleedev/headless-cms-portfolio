@@ -11,6 +11,7 @@ import {
   isNonUsPhoneNumber,
 } from "../../utils/pardotForm";
 import pardotFormData from "../../data/pardotFormData.json";
+import Router from "next/router";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -22,7 +23,6 @@ class PardotForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTouched = this.updateTouched.bind(this);
     this.updateStateFieldVisible = this.updateStateFieldVisible.bind(this);
-
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
       {
@@ -42,6 +42,7 @@ class PardotForm extends Component {
   componentDidMount() {
     this.form.style.display = "";
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
+    this.pagePath = Router.asPath;
     // TODO: add logic for differentiating between form types
     this.formType = "contactUs";
     let emailFieldExists = false;
@@ -355,6 +356,21 @@ class PardotForm extends Component {
           })}
           {this.isDealRegistrationForm && (
             <input name="hiddenemail" className="display-none" />
+          )}
+          {this.pagePath?.includes("/resources/") && (
+            <>
+              <input name="Asset_URL" type="hidden" value={this.pagePath} />
+              <input
+                name="Asset_Type"
+                className="display-none"
+                value={this.pagePath.split("/resources/")[1].split("/")[0]}
+              />
+              <input
+                name="Asset_Title"
+                className="display-none"
+                value={document.getElementsByTagName("h1")[0].textContent}
+              />
+            </>
           )}
           {/* START: Honeypot */}
           <label className={style.removehoney} htmlFor="honeyname"></label>
