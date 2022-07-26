@@ -1,6 +1,11 @@
 import { formatPhoneNumber } from "../../shop/utils/formatData";
 import { addGaData } from "../../utils/pardotForm";
-import { countries, states } from "./selectFieldOptions";
+import {
+  countries,
+  crmSolutions,
+  employees,
+  states,
+} from "./selectFieldOptions";
 import style from "./form.module.scss";
 
 const PardotFormField = ({
@@ -24,6 +29,8 @@ const PardotFormField = ({
     const selectFields = [
       { regex: /country/, options: countries },
       { regex: /state/, options: states },
+      { regex: /employees/, options: employees },
+      { regex: /current crm solution/, options: crmSolutions },
     ];
     for (let i = 0; i < selectFields.length; i++) {
       if (selectFields[i].regex.test(String(field.name).toLocaleLowerCase())) {
@@ -52,12 +59,7 @@ const PardotFormField = ({
           }}
           onChange={updateTouched}
           onInput={() => {
-            addGaData(
-              gaDataAdded,
-              updateGaDataAdded,
-              // At the time of writing multiple email fields exist for some reason
-              fieldRef.current
-            );
+            addGaData(gaDataAdded, updateGaDataAdded, fieldRef.current);
           }}
           ref={fieldRef}
         />

@@ -308,3 +308,35 @@ export const states = [
   "West Virginia",
   "Wyoming",
 ];
+
+export const employees = [
+  "# of Employees",
+  "0-49",
+  "50-200",
+  "201-500",
+  "501-1,000",
+  "1,001-2,000",
+  "2,001-5,000",
+  "5,000+",
+];
+
+export const crmSolutions = [
+  "Current CRM Solution",
+  "Not Yet Verified",
+  "None",
+  "Base",
+  "Copper",
+  "Freshworks",
+  "HelpScout",
+  "Highrise CRM",
+  "Home Grown",
+  "Intercom",
+  "Kustomer",
+  "Microsoft Dynamics",
+  "Oracle Right Now",
+  "Pipedrive",
+  "Salesforce",
+  "Zendesk",
+  "Zoho",
+  "Other",
+];
