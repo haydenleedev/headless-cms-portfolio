@@ -144,6 +144,8 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       )}
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
+                        action={resource.formAction}
+                        stepsEnabled={fields.formStepsEnabled}
                         config={formConfiguration}
                       />
                     </div>
@@ -205,6 +207,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       )}
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
+                        stepsEnabled={resource.formStepsEnabled}
                         config={formConfiguration}
                       />
                       {resource.link?.href && resource.link?.text && (
