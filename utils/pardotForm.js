@@ -18,7 +18,12 @@ const gaMeta = [
 ];
 const userIdCookie = getCookie("ga_user_id");
 
-export const addGaData = (gaDataAdded, updateGaDataAdded, formEmailInput) => {
+export const addGaData = (
+  gaDataAdded,
+  updateGaDataAdded,
+  formEmailInput,
+  isDealRegistrationForm
+) => {
   if (!gaDataAdded) {
     // Loop and append randomized UID
     const UUID = generateUUID();
@@ -91,12 +96,17 @@ export const addGaData = (gaDataAdded, updateGaDataAdded, formEmailInput) => {
     head.appendChild(meta);
     setFormInputValue("ga_cookie_datetime", meta.content);
 
-    setFormInputValue("Current Lead Source 2", "MKTG");
+    setFormInputValue(
+      "Current Lead Source 2",
+      isDealRegistrationForm ? "ALLIANCES" : "MKTG"
+    );
 
     // Values based on URL parameters
     setFormInputValue(
       "Current Lead Program 2",
-      getUrlParamValue("clp", "Website")
+      isDealRegistrationForm
+        ? "Deal_Registration"
+        : getUrlParamValue("clp", "Website")
     );
     setFormInputValue("utm_asset", getUrlParamValue("utm_asset"));
     setFormInputValue("utm_campaign", getUrlParamValue("utm_campaign"));

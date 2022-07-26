@@ -11,6 +11,7 @@ import style from "./form.module.scss";
 const PardotFormField = ({
   field,
   isHiddenField,
+  isDealRegistrationField,
   fieldRef,
   validate,
   updateTouched,
@@ -26,6 +27,8 @@ const PardotFormField = ({
     field.dataFormat = "phone";
   } else if (field.name.toLowerCase().includes("# of licenses")) {
     field.dataFormat = "number";
+  } else if (field.name.toLowerCase().includes("email")) {
+    field.dataFormat = "email";
   }
   function isSelectField(field) {
     const selectFields = [
@@ -61,7 +64,12 @@ const PardotFormField = ({
           }}
           onChange={updateTouched}
           onInput={() => {
-            addGaData(gaDataAdded, updateGaDataAdded, fieldRef.current);
+            addGaData(
+              gaDataAdded,
+              updateGaDataAdded,
+              fieldRef.current,
+              isDealRegistrationField
+            );
           }}
           ref={fieldRef}
         />
