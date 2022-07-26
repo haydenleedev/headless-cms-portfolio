@@ -254,28 +254,34 @@ class PardotForm extends Component {
         ) {
           errors[index] = true;
         } else if (fieldRef.current.value) {
-          switch (fieldRef.current.name) {
-            case "Phone Number":
-              if (this.state.usPhoneFormat) {
-                if (!isPhoneNumber(formatPhoneNumber(fieldRef.current.value))) {
+          if (fieldRef.current.type == "number" && fieldRef.current.value < 1) {
+            errors[index] = true;
+          } else {
+            switch (fieldRef.current.name) {
+              case "Phone Number":
+                if (this.state.usPhoneFormat) {
+                  if (
+                    !isPhoneNumber(formatPhoneNumber(fieldRef.current.value))
+                  ) {
+                    errors[index] = true;
+                  }
+                } else if (!isNonUsPhoneNumber(fieldRef.current.value)) {
                   errors[index] = true;
                 }
-              } else if (!isNonUsPhoneNumber(fieldRef.current.value)) {
-                errors[index] = true;
-              }
-              break;
-            case "Email":
-              if (!isEmail(fieldRef.current.value)) {
-                errors[index] = true;
-              }
-              break;
-            default:
-              if (
-                !Boolean(fieldRef.current.value) &&
-                this.fieldData[index]?.isRequired
-              ) {
-                errors[index] = true;
-              }
+                break;
+              case "Email":
+                if (!isEmail(fieldRef.current.value)) {
+                  errors[index] = true;
+                }
+                break;
+              default:
+                if (
+                  !Boolean(fieldRef.current.value) &&
+                  this.fieldData[index]?.isRequired
+                ) {
+                  errors[index] = true;
+                }
+            }
           }
         }
       }

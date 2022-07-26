@@ -24,6 +24,8 @@ const PardotFormField = ({
     field.dataFormat = "select";
   } else if (field.name.toLowerCase().includes("phone")) {
     field.dataFormat = "phone";
+  } else if (field.name.toLowerCase().includes("# of licenses")) {
+    field.dataFormat = "number";
   }
   function isSelectField(field) {
     const selectFields = [
