@@ -101,6 +101,28 @@ export const addGaData = (
       isDealRegistrationForm ? "ALLIANCES" : "MKTG"
     );
 
+    // Asset Data Values
+    let getAssetUrl = window.location.href.split("?")[0];
+
+    const getAssetType = (url) => {
+      if (url.includes("/resources/ebooks/")) {
+        return "ebooks";
+      } else if (url.includes("/resources/reports/")) {
+        return "Report";
+      } else if (url.includes("/resources/guides/")) {
+        return "Guide";
+      } else if (url.includes("/resources/white-papers/")) {
+        return "White Paper";
+      } else if (url.includes("/resources/webinars/")) {
+        return "Webinar";
+      } else if (url.includes("/resources/videos/")) {
+        return "Webinar";
+      } else if (url.includes("/integrations/")) {
+        return "Datasheet";
+      }
+      return false;
+    };
+
     // Values based on URL parameters
     setFormInputValue(
       "Current Lead Program 2",
@@ -114,6 +136,7 @@ export const addGaData = (
     setFormInputValue("utm_medium", getUrlParamValue("utm_medium"));
     setFormInputValue("utm_term", getUrlParamValue("utm_term"));
 
+    setFormInputValue("Asset Type", getAssetType(window.location.href));
     setFormInputValue("Asset URL", getAssetUrl);
 
     // Flag done so we don't run it again
