@@ -154,6 +154,7 @@ class PardotForm extends Component {
       /partner country/,
       /partner company/,
       /alliance referral/,
+      /asset /,
     ];
 
     // Check whether form field is blacklisted

@@ -114,6 +114,8 @@ export const addGaData = (
     setFormInputValue("utm_medium", getUrlParamValue("utm_medium"));
     setFormInputValue("utm_term", getUrlParamValue("utm_term"));
 
+    setFormInputValue("Asset URL", getAssetUrl);
+
     // Flag done so we don't run it again
     updateGaDataAdded(true);
   }
