@@ -6,10 +6,13 @@ import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import Heading from "../heading";
 import PardotForm from "../../form/pardotForm";
+import { useContext, useEffect } from "react";
+import GlobalContext from "../../../context";
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards, formConfiguration } = customData;
   const { fields } = module;
+  const { campaignScriptIDRef } = useContext(GlobalContext);
   const narrowContainer = boolean(fields?.narrowContainer);
   const columnLayout = fields.layout == "column";
   const formLeft = fields.layout == "formLeft";
@@ -24,6 +27,10 @@ const TextWithForm = ({ module, customData }) => {
   fields.featuredAwards?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
+
+  useEffect(() => {
+    campaignScriptIDRef.current = fields.campaignTrackingID;
+  }, []);
 
   return (
     <section
