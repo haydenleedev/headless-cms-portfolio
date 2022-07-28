@@ -101,27 +101,43 @@ export const addGaData = (
       isDealRegistrationForm ? "ALLIANCES" : "MKTG"
     );
 
-    // Asset Data Values
+    // Get Asset Type for all forms for Resources pages
     let getAssetUrl = window.location.href.split("?")[0];
+    let setAssetType;
+    const resourceUrl = [
+      { path: "/resources/ebooks/", type: "eBook" },
+      { path: "/resources/reports/", type: "Report" },
+      { path: "/resources/guides/", type: "Guide" },
+      { path: "/resources/white-papers/", type: "White Paper" },
+      { path: "/resources/webinars/", type: "Webinar" },
+      { path: "/resources/videos/", type: "Webinar" },
+      { path: "/integrations/", type: "Datasheet" },
+    ];
 
-    const getAssetType = (url) => {
-      if (url.includes("/resources/ebooks/")) {
-        return "ebooks";
-      } else if (url.includes("/resources/reports/")) {
-        return "Report";
-      } else if (url.includes("/resources/guides/")) {
-        return "Guide";
-      } else if (url.includes("/resources/white-papers/")) {
-        return "White Paper";
-      } else if (url.includes("/resources/webinars/")) {
-        return "Webinar";
-      } else if (url.includes("/resources/videos/")) {
-        return "Webinar";
-      } else if (url.includes("/integrations/")) {
-        return "Datasheet";
-      }
-      return false;
+    const getAssetType = (pageUrl) => {
+      resourceUrl.map((url) => {
+        if (pageUrl.includes(url.path)) {
+          setAssetType = url.type;
+        }
+      });
+      return setAssetType;
     };
+
+    // Get Asset Title for all forms for Resources pages
+    if (document.querySelector("h1")) {
+      const hTitle = document.querySelector("h1").innerText;
+      let setAssetTitle;
+      const getAssetTitle = (pageUrl) => {
+        resourceUrl.map((url) => {
+          if (pageUrl.includes(url.path)) {
+            setAssetTitle = hTitle;
+          }
+        });
+        return setAssetTitle;
+      };
+
+      setFormInputValue("Asset Title", getAssetTitle(window.location.href));
+    }
 
     // Values based on URL parameters
     setFormInputValue(
