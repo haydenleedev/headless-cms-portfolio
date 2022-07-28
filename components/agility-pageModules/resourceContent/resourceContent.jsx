@@ -145,6 +145,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       <PardotForm
                         formHandlerID={resource.pardotFormID}
                         action={resource.formAction}
+                        submit={
+                          resource.formSubmitText
+                            ? resource.formSubmitText
+                            : "Download Now"
+                        }
                         stepsEnabled={resource.formStepsEnabled}
                         config={formConfiguration}
                       />
@@ -209,6 +214,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         formHandlerID={resource.pardotFormID}
                         action={resource.formAction}
                         stepsEnabled={resource.formStepsEnabled}
+                        submit={
+                          resource.formSubmitText
+                            ? resource.formSubmitText
+                            : "Download Now"
+                        }
                         config={formConfiguration}
                       />
                       {resource.link?.href && resource.link?.text && (
