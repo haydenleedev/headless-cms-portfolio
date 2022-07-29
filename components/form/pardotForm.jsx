@@ -86,6 +86,7 @@ class PardotForm extends Component {
     } else {
       this.fieldData = getFallbackFieldData(this.props.formHandlerID);
     }
+    this.fieldData = this.reorderFieldData(this.fieldData);
     this.fieldRefs = Array(this.fieldData.length)
       .fill(0)
       .map(() => {
@@ -95,6 +96,24 @@ class PardotForm extends Component {
       errors: Array(this.fieldData.length).fill(false),
       touched: Array(this.fieldData.length).fill(false),
     });
+  }
+
+  reorderFieldData(fieldData) {
+    const fieldOrder = [/first name/, /last name/, /email/, /phone/, /country/];
+    const orderedFieldData = [];
+    fieldOrder.forEach((fieldRegex) => {
+      fieldData.forEach((field) => {
+        if (fieldRegex.test(field.name.toLowerCase())) {
+          orderedFieldData.push(field);
+        }
+      });
+    });
+    fieldData.forEach((field) => {
+      if (!orderedFieldData.includes(field)) {
+        orderedFieldData.push(field);
+      }
+    });
+    return orderedFieldData;
   }
 
   updateTouched(index) {
