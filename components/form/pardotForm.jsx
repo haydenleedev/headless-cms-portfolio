@@ -55,6 +55,7 @@ class PardotForm extends Component {
         break;
       }
     }
+
     if (pardotFormData.length > 0 && emailFieldExists) {
       if (this.props.stepsEnabled) {
         this.currentStep = getFormStep(this.formType);
@@ -79,10 +80,14 @@ class PardotForm extends Component {
           }
         });
       } else {
+        // else if(this.props.stepsEnabled) {
         this.fieldData = pardotFormData.filter((field) => {
+          if (!this.isHiddenField(field) && !this.isDealRegistrationForm) {
+            field.isRequired = true;
+          }
           return field.formHandlerId == this.props.formHandlerID;
         });
-      }
+      } // END if(this.props.stepsEnabled) {
     } else {
       this.fieldData = getFallbackFieldData(this.props.formHandlerID);
     }
@@ -98,6 +103,7 @@ class PardotForm extends Component {
     });
   }
 
+  // Reordering each field
   reorderFieldData(fieldData) {
     const fieldOrder = [/first name/, /last name/, /email/, /phone/, /country/];
     const orderedFieldData = [];

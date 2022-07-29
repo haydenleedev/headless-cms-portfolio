@@ -104,7 +104,7 @@ export const addGaData = (
     // Get Asset Type for all forms for Resources pages
     let getAssetUrl = window.location.href.split("?")[0];
     let setAssetType;
-    const resourceUrl = [
+    const resourceTypesByPaths = [
       { path: "/resources/ebooks/", type: "eBook" },
       { path: "/resources/reports/", type: "Report" },
       { path: "/resources/guides/", type: "Guide" },
@@ -115,7 +115,7 @@ export const addGaData = (
     ];
 
     const getAssetType = (pageUrl) => {
-      resourceUrl.map((url) => {
+      resourceTypesByPaths.map((url) => {
         if (pageUrl.includes(url.path)) {
           setAssetType = url.type;
         }
@@ -128,7 +128,7 @@ export const addGaData = (
       const hTitle = document.querySelector("h1").innerText;
       let setAssetTitle;
       const getAssetTitle = (pageUrl) => {
-        resourceUrl.map((url) => {
+        resourceTypesByPaths.map((url) => {
           if (pageUrl.includes(url.path)) {
             setAssetTitle = hTitle;
           }
