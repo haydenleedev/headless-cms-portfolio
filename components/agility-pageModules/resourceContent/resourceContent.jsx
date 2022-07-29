@@ -17,6 +17,8 @@ import EmbedVideo from "../embedVideo/embedVideo";
 import Script from "next/script";
 import Accordion from "../accordion/accordion";
 import PardotForm from "../../form/pardotForm";
+import { useContext, useEffect } from "react";
+import GlobalContext from "../../../context";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, accordionItemsWithSanitizedHTML, formConfiguration } =
@@ -24,6 +26,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   const resource = dynamicPageItem.fields;
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
   const { asPath } = useRouter();
+  const { campaignScriptIDRef } = useContext(GlobalContext);
   let resourceCategory;
   // Integrations are not under /resources/
   if (asPath.includes("/resources/")) {
@@ -32,6 +35,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     resourceCategory = asPath.split("/")[1];
   }
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
+
+  useEffect(() => {
+    campaignScriptIDRef.current = resource.campaignTrackingID;
+  }, []);
+
   return (
     <>
       <OverrideSEO
