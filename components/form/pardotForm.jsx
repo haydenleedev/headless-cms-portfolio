@@ -45,7 +45,7 @@ class PardotForm extends Component {
     this.form.style.display = "";
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     this.pagePath = Router.asPath;
-    switch (this.props.formHandlerID) {
+    switch (parseInt(this.props.formHandlerID)) {
       case 3658:
         this.formType = "landingPage";
         break;
