@@ -116,7 +116,16 @@ class PardotForm extends Component {
 
   // Reordering each field
   reorderFieldData(fieldData) {
-    const fieldOrder = [/first name/, /last name/, /email/, /phone/, /country/];
+    const fieldOrder = this.isDealRegistrationForm
+      ? [
+          /first name/,
+          /last name/,
+          /(^(?=.*email)(?!.*partner).*)\w+/,
+          /(^(?=.*phonel)(?!.*partner).*)\w+/,
+          /country/,
+          /state/,
+        ]
+      : [/first name/, /last name/, /email/, /phone/, /country/, /state/];
     const orderedFieldData = [];
     fieldOrder.forEach((fieldRegex) => {
       fieldData.forEach((field) => {
