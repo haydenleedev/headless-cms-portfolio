@@ -45,8 +45,17 @@ class PardotForm extends Component {
     this.form.style.display = "";
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     this.pagePath = Router.asPath;
-    // TODO: add logic for differentiating between form types
-    this.formType = "contactUs";
+    switch (this.props.formHandlerID) {
+      case 3658:
+        this.formType = "landingPage";
+        break;
+      case 3568:
+        this.formType = "contactUs";
+        break;
+      case 3571:
+        this.formType = "dealRegistration";
+        break;
+    }
     let emailFieldExists = false;
     for (let i = 0; i < pardotFormData.length; i++) {
       if (
