@@ -12,10 +12,12 @@ import {
 } from "../../utils/pardotForm";
 import pardotFormData from "../../data/pardotFormData.json";
 import Router from "next/router";
+import { boolean } from "../../utils/validation";
 
 class PardotForm extends Component {
   constructor(props) {
     super(props);
+    this.stepsEnabled = boolean(this.props.stepsEnabled);
     this.gaDataAdded = React.createRef(false);
     this.updateGaDataAdded = this.updateGaDataAdded.bind(this);
     this.updateSelectedCountry = this.updateSelectedCountry.bind(this);
@@ -57,7 +59,7 @@ class PardotForm extends Component {
     }
 
     if (pardotFormData.length > 0 && emailFieldExists) {
-      if (this.props.stepsEnabled) {
+      if (this.stepsEnabled) {
         this.currentStep = getFormStep(this.formType);
         this.currentStepFields = [];
         this.stepFields = this.props.config?.items[0].fields || {};
@@ -80,14 +82,14 @@ class PardotForm extends Component {
           }
         });
       } else {
-        // else if(this.props.stepsEnabled) {
+        // else if(this.stepsEnabled) {
         this.fieldData = pardotFormData.filter((field) => {
           if (!this.isHiddenField(field) && !this.isDealRegistrationForm) {
             field.isRequired = true;
           }
           return field.formHandlerId == this.props.formHandlerID;
         });
-      } // END if(this.props.stepsEnabled) {
+      } // END if(this.stepsEnabled) {
     } else {
       this.fieldData = getFallbackFieldData(this.props.formHandlerID);
     }
@@ -242,7 +244,7 @@ class PardotForm extends Component {
         );
       }
       if (
-        this.props.stepsEnabled &&
+        this.stepsEnabled &&
         !getCookie(`${this.formType}Submit${this.currentStep}`)
       ) {
         setCookie(
