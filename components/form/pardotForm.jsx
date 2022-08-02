@@ -215,20 +215,6 @@ class PardotForm extends Component {
   }
 
   async handleSubmit(e) {
-    // POST data to Google sheets without form validation here for testing purposes
-    // e.preventDefault();
-    // const clientIP = getCookie("client_ip");
-    // const clientCountry = getCookie("client_country");
-    // await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/saveClientData`, {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     ip: clientIP && clientIP !== "undefined" ? clientIP : "Unknown",
-    //     country:
-    //       clientCountry && clientCountry !== "undefined"
-    //         ? clientCountry
-    //         : "Unknown",
-    //   }),
-    // });
     if (
       !this.onSubmitValidate() ||
       this.form.honeyname.value ||
@@ -271,6 +257,20 @@ class PardotForm extends Component {
           "Fri, 31 Dec 9999 23:59:59 GMT"
         );
       }
+      const clientIP = getCookie("client_ip");
+      const clientCountry = getCookie("client_country");
+      const clientData = {
+        ip: clientIP && clientIP !== "undefined" ? clientIP : "Unknown",
+        country:
+          clientCountry && clientCountry !== "undefined"
+            ? clientCountry
+            : "Unknown",
+        email: this.form["Email"]?.value,
+      };
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/saveClientData`, {
+        method: "POST",
+        body: JSON.stringify(clientData),
+      });
     }
   }
 
