@@ -292,7 +292,8 @@ class PardotForm extends Component {
     this.fieldRefs.forEach((fieldRef, index) => {
       if (touched[index] == true) {
         if (
-          (this.fieldData[index]?.isRequired ||
+          ((this.fieldData[index]?.isRequired &&
+            !fieldRef.current.name.toLowerCase().match(/state/)) ||
             (this.state.stateFieldVisible &&
               fieldRef.current.name.toLowerCase().match(/state/) &&
               !this.isHiddenField(fieldRef.current))) &&
