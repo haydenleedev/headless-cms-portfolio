@@ -20,6 +20,12 @@ const PardotFormField = ({
   updateStateFieldVisible,
   updateSelectedCountry,
   usPhoneFormat,
+  isPartnerCompanyName,
+  isPartnerCompanyCountry,
+  isPartnerCompanyState,
+  isPartnerCompanyCity,
+  isAllianceReferralCompany,
+  isPartner,
 }) => {
   if (isSelectField(field)) {
     field.dataFormat = "select";
@@ -32,8 +38,8 @@ const PardotFormField = ({
   }
   function isSelectField(field) {
     const selectFields = [
-      { regex: /country/, options: countries },
-      { regex: /state/, options: states },
+      { regex: /(^country|^company hq country)/, options: countries },
+      { regex: /(^state|^company hq state)/, options: states },
       { regex: /employees/, options: employees },
       { regex: /current crm solution/, options: crmSolutions },
     ];
@@ -45,6 +51,28 @@ const PardotFormField = ({
     }
     return false;
   }
+  let fieldName;
+  function renderPartnerProps() {
+    const predefinedFields = [
+      { name: "Partner Company Name", fieldOption: isPartnerCompanyName },
+      { name: "Partner Country", fieldOption: isPartnerCompanyCountry },
+      { name: "Partner Company State", fieldOption: isPartnerCompanyState },
+      { name: "Partner Company City", fieldOption: isPartnerCompanyCity },
+      {
+        name: "Alliance Referral Company",
+        fieldOption: isAllianceReferralCompany,
+      },
+      { name: "Partner", fieldOption: isPartner },
+    ];
+
+    for (let i = 0; i < predefinedFields.length; i++) {
+      if (predefinedFields[i].name === String(field.name)) {
+        fieldName = predefinedFields[i].fieldOption;
+      }
+    }
+    return fieldName;
+  }
+
   function phoneNumberFormatter() {
     if (field.name.toLowerCase().includes("phone")) {
       fieldRef.current.value = formatPhoneNumber(fieldRef.current.value);
@@ -109,6 +137,7 @@ const PardotFormField = ({
           name={field.name}
           id={field.id}
           type="number"
+          min="0"
           title={field.name}
           hidden={isHiddenField}
           onBlur={() => {
@@ -145,6 +174,7 @@ const PardotFormField = ({
               }}
               onChange={updateTouched}
               ref={fieldRef}
+              value={renderPartnerProps()}
             />
           )}
         </>
@@ -159,7 +189,6 @@ const PardotFormField = ({
               className={`${
                 (field.name.toLowerCase() === "country" || "state") &&
                 style["form-select"]
-              }
               }`}
               onChange={(e) => {
                 if (field.name.toLowerCase().match(/country/)) {

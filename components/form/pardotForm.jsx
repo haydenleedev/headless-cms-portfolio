@@ -25,6 +25,7 @@ class PardotForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTouched = this.updateTouched.bind(this);
     this.updateStateFieldVisible = this.updateStateFieldVisible.bind(this);
+
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
       {
@@ -120,8 +121,13 @@ class PardotForm extends Component {
       ? [
           /first name/,
           /last name/,
-          /(^(?=.*email)(?!.*partner).*)\w+/,
-          /(^(?=.*phonel)(?!.*partner).*)\w+/,
+          /*  /(^(?=.*email)(?!.*partner).*)\w+/,
+          /(^(?=.*phonel)(?!.*partner).*)\w+/, */
+          /job/,
+          /^email/,
+          /^phone/,
+          /^company name/,
+          /employees/,
           /country/,
           /state/,
         ]
@@ -199,6 +205,7 @@ class PardotForm extends Component {
       /partner country/,
       /partner company/,
       /alliance referral/,
+
       /asset /,
     ];
 
@@ -213,6 +220,32 @@ class PardotForm extends Component {
     }
     return false;
   }
+
+  // START: Define specific field values for deal registration pages
+  isPartnerPredefinedField(field, fieldValue) {
+    let partnerFieldValue;
+    const predefinedValues = [
+      { name: "Partner Country", value: this.props.partnerCompanyCountry },
+      { name: "Partner Company Name", value: this.props.partnerCompanyName },
+      {
+        name: "Partner Company State",
+        value: this.props.partnerCompanyCountry,
+      },
+      { name: "Partner Company City", value: this.props.partnerCompanyCountry },
+      {
+        name: "Alliance Referral Company",
+        value: this.props.partnerCompanyCountry,
+      },
+      { name: "Partner", value: this.props.partnerCompanyCountry },
+    ];
+    predefinedValues.map((item) => {
+      if (String(item.name) === String(field.name)) {
+        partnerFieldValue = fieldValue;
+      }
+    });
+    return partnerFieldValue;
+  }
+  // END: Define specific field values for deal registration pages
 
   async handleSubmit(e) {
     // POST data to Google sheets without form validation here for testing purposes
@@ -400,6 +433,30 @@ class PardotForm extends Component {
                   updateStateFieldVisible={this.updateStateFieldVisible}
                   updateSelectedCountry={this.updateSelectedCountry}
                   usPhoneFormat={this.state.usPhoneFormat}
+                  isPartnerCompanyName={this.isPartnerPredefinedField(
+                    field,
+                    this.props.partnerCompanyName
+                  )}
+                  isPartnerCompanyCountry={this.isPartnerPredefinedField(
+                    field,
+                    this.props.partnerCompanyCountry
+                  )}
+                  isPartnerCompanyState={this.isPartnerPredefinedField(
+                    field,
+                    this.props.partnerCompanyState
+                  )}
+                  isPartnerCompanyCity={this.isPartnerPredefinedField(
+                    field,
+                    this.props.partnerCompanyCity
+                  )}
+                  isAllianceReferralCompany={this.isPartnerPredefinedField(
+                    field,
+                    this.props.allianceReferralCompany
+                  )}
+                  isPartner={this.isPartnerPredefinedField(
+                    field,
+                    this.props.partner
+                  )}
                 />
                 {this.state.errors[index] && (
                   <FormError message={this.getErrorMessage(field.name)} />

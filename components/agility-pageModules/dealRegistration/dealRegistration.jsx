@@ -76,10 +76,18 @@ const DealRegistration = ({ dynamicPageItem, customData }) => {
                     )}
 
                     <PardotForm
-                      formHandlerID={fields.pardotFormID}
+                      formHandlerID={deal.pardotFormID}
                       config={formConfiguration}
-                      action={fields.formAction}
-                      submit={fields.formSubmitText}
+                      action={deal.formAction}
+                      submit={
+                        deal.formSubmitText ? deal.formSubmitText : "Submit"
+                      }
+                      partnerCompanyCountry={deal.partnerCompanyCountry}
+                      partnerCompanyName={deal.partnerCompanyName}
+                      partnerCompanyState={deal.partnerCompanyState}
+                      partnerCompanyCity={deal.partnerCompanyCity}
+                      allianceReferralCompany={deal.allianceReferralCompany}
+                      partner={deal.partner}
                     />
                   </div>
                 </div>
@@ -107,6 +115,14 @@ const DealRegistration = ({ dynamicPageItem, customData }) => {
                     <PardotForm
                       formHandlerID={deal.pardotFormID}
                       config={formConfiguration}
+                      action={deal.formAction}
+                      submit={deal.formSubmitText}
+                      partnerCompanyCountry={deal.partnerCompanyCountry}
+                      partnerCompanyName={deal.partnerCompanyName}
+                      partnerCompanyState={deal.partnerCompanyState}
+                      partnerCompanyCity={deal.partnerCompanyCity}
+                      allianceReferralCompany={deal.allianceReferralCompany}
+                      partner={deal.partner}
                     />
                   </div>
                 </div>
