@@ -104,29 +104,31 @@ const ChannelRequest = ({ dynamicPageItem, customData }) => {
               <div className="container">
                 <div className={style.columns}>
                   <div className={style.content}>
-                    <h1 className="heading-5">{deal.title}</h1>
+                    <h1 className="heading-5">{channel.title}</h1>
                     <div
                       className="content mt-4"
                       dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                     />
                   </div>
-                  <div className={`${deal.formBackgroundColor} ${style.form}`}>
-                    {/\S/.test(deal.formTitle) && (
+                  <div
+                    className={`${channel.formBackgroundColor} ${style.form}`}
+                  >
+                    {/\S/.test(channel.formTitle) && (
                       <h2 className={`${style.formTitle} heading-6`}>
-                        {deal.formTitle || "Lead Information"}
+                        {channel.formTitle || "Lead Information"}
                       </h2>
                     )}
                     <PardotForm
-                      formHandlerID={deal.pardotFormID}
+                      formHandlerID={channel.pardotFormID}
                       config={formConfiguration}
-                      action={deal.formAction}
-                      submit={deal.formSubmitText}
-                      partnerCompanyCountry={deal.partnerCompanyCountry}
-                      partnerCompanyName={deal.partnerCompanyName}
-                      partnerCompanyState={deal.partnerCompanyState}
-                      partnerCompanyCity={deal.partnerCompanyCity}
-                      allianceReferralCompany={deal.allianceReferralCompany}
-                      partner={deal.partner}
+                      action={channel.formAction}
+                      submit={channel.formSubmitText}
+                      partnerCompanyCountry={channel.partnerCompanyCountry}
+                      partnerCompanyName={channel.partnerCompanyName}
+                      partnerCompanyState={channel.partnerCompanyState}
+                      partnerCompanyCity={channel.partnerCompanyCity}
+                      allianceReferralCompany={channel.allianceReferralCompany}
+                      partner={channel.partner}
                     />
                   </div>
                 </div>
