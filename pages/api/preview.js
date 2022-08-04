@@ -37,16 +37,25 @@ export default async (req, res) => {
 
   //TODO: these kinds of dynamic links should work by default (even outside of preview)
   if (req.query.ContentID) {
-    let dynamicPath = await getDynamicPageURL({
-      contentID: req.query.ContentID,
-      preview: true,
-      slug: req.query.slug,
-    });
     if (req.query.slug.includes("/resources/")) {
-      dynamicPath = dynamicPath.split("/resources/")[1].split("/")[1];
-      previewUrl = `${req.query.slug.split(/\/(?=[^\/]+$)/)[0]}/${dynamicPath}`;
-    } else if (dynamicPath) {
-      previewUrl = dynamicPath;
+      // Use the resource item's slug for the preview URL
+      // This is to make previews work correctly for resource items that also have separate pages with corresponding slugs (e.g. webinars)
+      const resourceItem = await api.getContentItem({
+        contentID: req.query.ContentID,
+        languageCode: "en-us",
+      });
+      previewUrl = `${req.query.slug.split(/\/(?=[^\/]+$)/)[0]}/${
+        resourceItem.fields.slug
+      }`;
+    } else {
+      const dynamicPath = await getDynamicPageURL({
+        contentID: req.query.ContentID,
+        preview: true,
+        slug: req.query.slug,
+      });
+      if (dynamicPath) {
+        previewUrl = dynamicPath;
+      }
     }
   }
 
