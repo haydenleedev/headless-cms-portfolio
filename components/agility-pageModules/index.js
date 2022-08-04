@@ -120,6 +120,8 @@ const allModules = [
   { name: "JobOpeningList", module: JobOpeningList },
   { name: "VideoPopup", module: VideoPopup },
   { name: "DealRegistration", module: Placeholder },
+  { name: "ChannelRequest", module: Placeholder },
+
   { name: "BrandFirstFold", module: BrandFirstFold },
   { name: "BrandTextGridWithMedia", module: BrandTextGridWithMedia },
   { name: "BrandTextWithMedia", module: BrandTextWithMedia },
