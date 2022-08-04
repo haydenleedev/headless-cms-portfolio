@@ -225,18 +225,16 @@ class PardotForm extends Component {
   isPartnerPredefinedField(field, fieldValue) {
     let partnerFieldValue;
     const predefinedValues = [
-      { name: "Partner Country", value: this.props.partnerCompanyCountry },
-      { name: "Partner Company Name", value: this.props.partnerCompanyName },
+      { name: "Partner Country" },
+      { name: "Partner Company Name" },
       {
         name: "Partner Company State",
-        value: this.props.partnerCompanyCountry,
       },
-      { name: "Partner Company City", value: this.props.partnerCompanyCountry },
+      { name: "Partner Company City" },
       {
         name: "Alliance Referral Company",
-        value: this.props.partnerCompanyCountry,
       },
-      { name: "Partner", value: this.props.partnerCompanyCountry },
+      { name: "Partner" },
     ];
     predefinedValues.map((item) => {
       if (String(item.name) === String(field.name)) {
