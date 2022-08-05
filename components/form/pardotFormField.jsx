@@ -5,6 +5,7 @@ import {
   crmSolutions,
   employees,
   states,
+  preferredMasterAgent,
 } from "./selectFieldOptions";
 import style from "./form.module.scss";
 
@@ -29,6 +30,8 @@ const PardotFormField = ({
 }) => {
   if (isSelectField(field)) {
     field.dataFormat = "select";
+  } else if (isAdditionalSelectField(field)) {
+    field.dataFormat = "select";
   } else if (field.name.toLowerCase().includes("phone")) {
     field.dataFormat = "phone";
   } else if (field.name.toLowerCase().includes("# of licenses")) {
@@ -42,6 +45,7 @@ const PardotFormField = ({
       { regex: /(^state|^company hq state)/, options: states },
       { regex: /employees/, options: employees },
       { regex: /current crm solution/, options: crmSolutions },
+      { regex: /preferred master agent/, options: preferredMasterAgent },
     ];
     for (let i = 0; i < selectFields.length; i++) {
       if (selectFields[i].regex.test(String(field.name).toLocaleLowerCase())) {
@@ -51,6 +55,28 @@ const PardotFormField = ({
     }
     return false;
   }
+
+  // Partner company country and partner company state field need to be select type for other forms except for deal registration form
+  function isAdditionalSelectField(field) {
+    const selectFields = [
+      {
+        regex: /(^partner company country|^partner country)/,
+        options: countries,
+      },
+      { regex: /^partner company state/, options: states },
+    ];
+    for (let i = 0; i < selectFields.length; i++) {
+      if (
+        selectFields[i].regex.test(String(field.name).toLocaleLowerCase()) &&
+        !isDealRegistrationField
+      ) {
+        field.options = selectFields[i].options;
+        return true;
+      }
+    }
+    return false;
+  }
+
   let fieldName;
   function renderPartnerProps() {
     const predefinedFields = [

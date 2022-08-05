@@ -340,3 +340,16 @@ export const crmSolutions = [
   "Zoho",
   "Other",
 ];
+
+export const preferredMasterAgent = [
+  "Preferred Master Agent",
+  "Appsmart",
+  "Avant",
+  "Intelisys",
+  "Jenne",
+  "PlanetOne",
+  "Sandler Partners",
+  "TCG",
+  "Telarus",
+  "Undecided",
+];

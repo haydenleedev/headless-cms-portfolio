@@ -86,12 +86,6 @@ const ChannelRequest = ({ dynamicPageItem, customData }) => {
                           ? channel.formSubmitText
                           : "Submit"
                       }
-                      partnerCompanyCountry={channel.partnerCompanyCountry}
-                      partnerCompanyName={channel.partnerCompanyName}
-                      partnerCompanyState={channel.partnerCompanyState}
-                      partnerCompanyCity={channel.partnerCompanyCity}
-                      allianceReferralCompany={channel.allianceReferralCompany}
-                      partner={channel.partner}
                     />
                   </div>
                 </div>
@@ -123,12 +117,6 @@ const ChannelRequest = ({ dynamicPageItem, customData }) => {
                       config={formConfiguration}
                       action={channel.formAction}
                       submit={channel.formSubmitText}
-                      partnerCompanyCountry={channel.partnerCompanyCountry}
-                      partnerCompanyName={channel.partnerCompanyName}
-                      partnerCompanyState={channel.partnerCompanyState}
-                      partnerCompanyCity={channel.partnerCompanyCity}
-                      allianceReferralCompany={channel.allianceReferralCompany}
-                      partner={channel.partner}
                     />
                   </div>
                 </div>
