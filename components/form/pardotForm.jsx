@@ -52,7 +52,7 @@ class PardotForm extends Component {
         this.formType = "landingPage";
         break;
       case 3568:
-        this.formType = "contactSales";
+        this.formType = "contactUs";
         break;
       case 3709:
         this.formType = "channelRequest";
@@ -64,18 +64,28 @@ class PardotForm extends Component {
         this.formType = "dealRegistration";
         break;
     }
-    let emailFieldExists = false;
+
     for (let i = 0; i < pardotFormData.length; i++) {
       if (
-        pardotFormData[i].formHandlerId == this.props.formHandlerID &&
-        pardotFormData[i].name == "Email"
+        pardotFormData[i].formHandlerID == parseInt(this.props.formHandlerID)
       ) {
+        this.fieldData = pardotFormData[i].fieldData;
+        break;
+      }
+    }
+    if (!this.fieldData) {
+      this.fieldData = [];
+    }
+
+    let emailFieldExists = false;
+    for (let i = 0; i < this.fieldData.length; i++) {
+      if (this.fieldData[i].name == "Email") {
         emailFieldExists = true;
         break;
       }
     }
 
-    if (pardotFormData.length > 0 && emailFieldExists) {
+    if (this.fieldData.length > 0 && emailFieldExists) {
       if (this.stepsEnabled) {
         this.currentStep = getFormStep(this.formType);
         this.currentStepFields = [];
@@ -85,12 +95,11 @@ class PardotForm extends Component {
         ]?.forEach((item) => {
           this.currentStepFields.push(item.fields.name);
         });
-        this.fieldData = pardotFormData.filter((field) => {
+        this.fieldData = this.fieldData.filter((field) => {
           if (
-            field.formHandlerId == this.props.formHandlerID &&
-            (this.currentStepFields.includes(field.name) ||
-              field.name == "Email" ||
-              this.isHiddenField(field))
+            this.currentStepFields.includes(field.name) ||
+            field.name == "Email" ||
+            this.isHiddenField(field)
           ) {
             if (!this.isHiddenField(field)) {
               field.isRequired = true;
@@ -100,11 +109,10 @@ class PardotForm extends Component {
         });
       } else {
         // else if(this.stepsEnabled) {
-        this.fieldData = pardotFormData.filter((field) => {
+        this.fieldData.forEach((field) => {
           if (!this.isHiddenField(field) && !this.isDealRegistrationForm) {
             field.isRequired = true;
           }
-          return field.formHandlerId == this.props.formHandlerID;
         });
       } // END if(this.stepsEnabled) {
     } else {

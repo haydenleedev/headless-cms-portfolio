@@ -63,10 +63,10 @@ require("dotenv").config();
     const tokenResponse = JSON.parse(authResponse.toString());
     const token = tokenResponse.access_token;
 
-    let formHandlerFieldsResponse = await httpsRequest(
+    let formHandlers = await httpsRequest(
       {
-        hostname: "pi.pardot.com",
-        path: "/api/v5/objects/form-handler-fields?fields=id,name,dataFormat,isRequired,prospectApiFieldId,isMaintainInitialValue,errorMessage,formHandlerId&orderBy=ID",
+        hostname: `pi.pardot.com`,
+        path: "/api/v5/objects/form-handlers?fields=id",
         headers: {
           Authorization: "Bearer " + token,
           "Pardot-Business-Unit-Id": process.env.PARDOT_BUSINESS_UNIT_ID,
@@ -74,18 +74,32 @@ require("dotenv").config();
       },
       "GET"
     );
-    if (formHandlerFieldsResponse instanceof Buffer) {
-      formHandlerFieldsResponse = formHandlerFieldsResponse.toString();
+    const formFieldData = [];
+    let formFieldFetchError = false;
+    for (let i = 0; i < formHandlers.values.length; i++) {
+      let formHandlerFields = await httpsRequest(
+        {
+          hostname: `pi.pardot.com`,
+          path: `/api/v5/objects/form-handler-fields?fields=id,name,dataFormat,isRequired,prospectApiFieldId,isMaintainInitialValue,errorMessage&formHandlerid=${formHandlers.values[i].id}`,
+          headers: {
+            Authorization: "Bearer " + token,
+            "Pardot-Business-Unit-Id": process.env.PARDOT_BUSINESS_UNIT_ID,
+          },
+        },
+        "GET"
+      );
+      if (typeof formHandlerFields !== "object" || !formHandlerFields?.values) {
+        formFieldFetchError = true;
+        break;
+      }
+      formFieldData.push({
+        formHandlerID: formHandlers.values[i].id,
+        fieldData: formHandlerFields.values,
+      });
     }
-    const formFieldFetchError =
-      typeof formHandlerFieldsResponse !== "object" ||
-      !formHandlerFieldsResponse?.values;
-
     fs.writeFile(
       "./data/pardotFormData.json",
-      formFieldFetchError
-        ? JSON.stringify([])
-        : JSON.stringify(formHandlerFieldsResponse.values),
+      formFieldFetchError ? JSON.stringify([]) : JSON.stringify(formFieldData),
       (err) => {
         if (err) {
           console.error(err);
@@ -93,7 +107,7 @@ require("dotenv").config();
         }
         console.info(
           formFieldFetchError
-            ? "No form field data received from API. Empty array written to file."
+            ? "Something went wrong while fetching data from the Pardot API. Empty array written to file."
             : "Pardot form data written to file"
         );
       }
