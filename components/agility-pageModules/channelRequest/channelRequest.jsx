@@ -36,95 +36,32 @@ const ChannelRequest = ({ dynamicPageItem, customData }) => {
         ]}
       />
 
-      <>
-        {boolean(channel.alternateLayout) ? (
-          <>
-            <section className={style.alternateHeader}>
-              <div className={style.alternateHeaderContainer}>
-                <div className={`container ${style.alternateHeaderTitle}`}>
-                  <p className={style.category}>Channel Registration</p>
-                  <span className={style.hr}></span>
-                  <h1 className={`${style.title} heading-5`}>
-                    {channel.title}
-                  </h1>
-                </div>
-                <div className={style.alternateHeaderColumns}>
-                  <div className={style.sideColumn}></div>
-                  <div className={style.imageColumn}>
-                    <AgilityImage
-                      src={channel.image.url}
-                      alt={channel.image.label || null}
-                      width={channel.image.pixelWidth}
-                      height={channel.image.pixelHeight}
-                      objectFit="cover"
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <section className="section">
-              <div className={`container ${style.alternateContent}`}>
-                <div className="columns repeat-2">
-                  <div
-                    className="content"
-                    dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                  />
-                  <div className={`bg-skyblue-light`}>
-                    {/\S/.test(channel.formTitle) && (
-                      <h2 className={`${style.formTitle} heading-6`}>
-                        {channel.formTitle || "Lead Information"}
-                      </h2>
-                    )}
-
-                    <PardotForm
-                      formHandlerID={channel.pardotFormID}
-                      config={formConfiguration}
-                      action={channel.formAction}
-                      submit={
-                        channel.formSubmitText
-                          ? channel.formSubmitText
-                          : "Submit"
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
-          </>
-        ) : (
-          <>
-            <section className="section">
-              <div className="container">
-                <div className={style.columns}>
-                  <div className={style.content}>
-                    <h1 className="heading-5">{channel.title}</h1>
-                    <div
-                      className="content mt-4"
-                      dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                    />
-                  </div>
-                  <div
-                    className={`${channel.formBackgroundColor} ${style.form}`}
-                  >
-                    {/\S/.test(channel.formTitle) && (
-                      <h2 className={`${style.formTitle} heading-6`}>
-                        {channel.formTitle || "Lead Information"}
-                      </h2>
-                    )}
-                    <PardotForm
-                      formHandlerID={channel.pardotFormID}
-                      config={formConfiguration}
-                      action={channel.formAction}
-                      submit={channel.formSubmitText}
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
-          </>
-        )}
-      </>
+      <section className="section">
+        <div className="container">
+          <div className={style.columns}>
+            <div className={style.content}>
+              <h1 className="heading-6">{channel.title}</h1>
+              <div
+                className="content mt-4"
+                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+              />
+            </div>
+            <div className={`${channel.formBackgroundColor} ${style.form}`}>
+              {/\S/.test(channel.formTitle) && (
+                <h2 className={`${style.formTitle} heading-6`}>
+                  {channel.formTitle || "Partner Information"}
+                </h2>
+              )}
+              <PardotForm
+                formHandlerID={channel.pardotFormID}
+                config={formConfiguration}
+                action={channel.formAction}
+                submit={channel.formSubmitText}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };
