@@ -45,14 +45,19 @@ class PardotForm extends Component {
   componentDidMount() {
     this.form.style.display = "";
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
-    this.isChannelRequestForm = this.props.formHandlerID === 3709;
     this.pagePath = Router.asPath;
     switch (parseInt(this.props.formHandlerID)) {
       case 3658:
         this.formType = "landingPage";
         break;
       case 3568:
-        this.formType = "contactUs";
+        this.formType = "contactSales";
+        break;
+      case 3709:
+        this.formType = "channelRequest";
+        break;
+      case 3715:
+        this.formType = "blogSubscription";
         break;
       case 3571:
         this.formType = "dealRegistration";
@@ -118,12 +123,24 @@ class PardotForm extends Component {
 
   // Reordering each field
   reorderFieldData(fieldData) {
-    const fieldOrder = this.isDealRegistrationForm
-      ? [
+    let fieldOrder;
+    switch (this.formType) {
+      case "contactSales":
+        fieldOrder = [
           /first name/,
           /last name/,
-          /*  /(^(?=.*email)(?!.*partner).*)\w+/,
-          /(^(?=.*phonel)(?!.*partner).*)\w+/, */
+          /email/,
+          /job/,
+          /company/,
+          /# of agents/,
+          /phone/,
+          /country/,
+        ];
+        break;
+      case "dealRegistration":
+        fieldOrder = [
+          /first name/,
+          /last name/,
           /job/,
           /^email/,
           /^phone/,
@@ -131,8 +148,45 @@ class PardotForm extends Component {
           /employees/,
           /country/,
           /state/,
-        ]
-      : [/first name/, /last name/, /email/, /phone/, /country/, /state/];
+        ];
+        break;
+      case "channelRequest":
+        fieldOrder = [
+          /first name/,
+          /last name/,
+          /job/,
+          /^company name/,
+          /^email/,
+          /^phone/,
+          /company hq country/,
+          /company hq state/,
+          /company hq city/,
+          /employees/,
+          /solution pain point/,
+          /current crm solution/,
+          /current contact center solution software/,
+          /# of licenses/,
+          /additional details/,
+          /partner full name/,
+          /partner title/,
+          /partner email/,
+          /partner phone/,
+          /partner country/,
+        ];
+        break;
+      case "blogSubscription":
+        fieldOrder = [/email/, /country/];
+        break;
+      default:
+        fieldOrder = [
+          /first name/,
+          /last name/,
+          /email/,
+          /phone/,
+          /country/,
+          /state/,
+        ];
+    }
     const orderedFieldData = [];
     fieldOrder.forEach((fieldRegex) => {
       fieldData.forEach((field) => {
