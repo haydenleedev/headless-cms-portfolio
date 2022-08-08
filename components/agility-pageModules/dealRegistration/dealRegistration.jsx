@@ -1,5 +1,6 @@
 import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
+import Media from "../media";
 import style from "./dealRegistration.module.scss";
 import { boolean } from "../../../utils/validation";
 import {
@@ -36,101 +37,55 @@ const DealRegistration = ({ dynamicPageItem, customData }) => {
         ]}
       />
 
-      <>
-        {boolean(deal.alternateLayout) ? (
-          <>
-            <section className={style.alternateHeader}>
-              <div className={style.alternateHeaderContainer}>
-                <div className={`container ${style.alternateHeaderTitle}`}>
-                  <p className={style.category}>Deal Registration</p>
-                  <span className={style.hr}></span>
-                  <h1 className={`${style.title} heading-5`}>{deal.title}</h1>
-                </div>
-                <div className={style.alternateHeaderColumns}>
-                  <div className={style.sideColumn}></div>
-                  <div className={style.imageColumn}>
-                    <AgilityImage
-                      src={deal.image.url}
-                      alt={deal.image.label || null}
-                      width={deal.image.pixelWidth}
-                      height={deal.image.pixelHeight}
-                      objectFit="cover"
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
+      <section className="section">
+        <div className="container">
+          <div className={style.columns}>
+            <div className={style.content}>
+              <div className="align-center">
+                <img
+                  className={style.logo}
+                  src="https://ujet.cx/_next/static/media/ujet-logo.ebf9b2e5.svg"
+                  width="200"
+                  height="62"
+                  alt="Ujet logo"
+                />
 
-            <section className="section">
-              <div className={`container ${style.alternateContent}`}>
-                <div className="columns repeat-2">
-                  <div
-                    className="content"
-                    dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                  />
-                  <div className={`bg-skyblue-light`}>
-                    {/\S/.test(deal.formTitle) && (
-                      <h2 className={`${style.formTitle} heading-6`}>
-                        {deal.formTitle || "Lead Information"}
-                      </h2>
-                    )}
+                <h1 className="heading-3">
+                  <span className={style.visuallyHidden}>{deal.title} </span>
+                  Deal Registration
+                </h1>
+                <div className={`${style.logoImage} align-center mr-auto`}>
+                  <Media media={deal.image} />
+                </div>
+              </div>
 
-                    <PardotForm
-                      formHandlerID={deal.pardotFormID}
-                      config={formConfiguration}
-                      action={deal.formAction}
-                      submit={
-                        deal.formSubmitText ? deal.formSubmitText : "Submit"
-                      }
-                      partnerCompanyCountry={deal.partnerCompanyCountry}
-                      partnerCompanyName={deal.partnerCompanyName}
-                      partnerCompanyState={deal.partnerCompanyState}
-                      partnerCompanyCity={deal.partnerCompanyCity}
-                      allianceReferralCompany={deal.allianceReferralCompany}
-                      partner={deal.partner}
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
-          </>
-        ) : (
-          <>
-            <section className="section">
-              <div className="container">
-                <div className={style.columns}>
-                  <div className={style.content}>
-                    <h1 className="heading-5">{deal.title}</h1>
-                    <div
-                      className="content mt-4"
-                      dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                    />
-                  </div>
-                  <div className={`${deal.formBackgroundColor} ${style.form}`}>
-                    {/\S/.test(deal.formTitle) && (
-                      <h2 className={`${style.formTitle} heading-6`}>
-                        {deal.formTitle || "Lead Information"}
-                      </h2>
-                    )}
-                    <PardotForm
-                      formHandlerID={deal.pardotFormID}
-                      config={formConfiguration}
-                      action={deal.formAction}
-                      submit={deal.formSubmitText}
-                      partnerCompanyCountry={deal.partnerCompanyCountry}
-                      partnerCompanyName={deal.partnerCompanyName}
-                      partnerCompanyState={deal.partnerCompanyState}
-                      partnerCompanyCity={deal.partnerCompanyCity}
-                      allianceReferralCompany={deal.allianceReferralCompany}
-                      partner={deal.partner}
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
-          </>
-        )}
-      </>
+              <div
+                className="content mt-4"
+                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+              />
+            </div>
+            <div className={`${deal.formBackgroundColor} ${style.form}`}>
+              {/\S/.test(deal.formTitle) && (
+                <h2 className={`${style.formTitle} heading-6`}>
+                  {deal.formTitle || "Lead Information"}
+                </h2>
+              )}
+              <PardotForm
+                formHandlerID={deal.pardotFormID}
+                config={formConfiguration}
+                action={deal.formAction}
+                submit={deal.formSubmitText}
+                partnerCompanyCountry={deal.partnerCompanyCountry}
+                partnerCompanyName={deal.partnerCompanyName}
+                partnerCompanyState={deal.partnerCompanyState}
+                partnerCompanyCity={deal.partnerCompanyCity}
+                allianceReferralCompany={deal.allianceReferralCompany}
+                partner={deal.partner}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

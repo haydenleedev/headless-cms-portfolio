@@ -154,3 +154,22 @@
 .mktoButtonRow {
   text-align: center;
 }
+
+.logoImage {
+  display: inline-block;
+  max-width: toRem(250);
+  padding-top: toRem(10);
+}
+.visuallyHidden {
+  position: absolute;
+  clip: rect(1px, 1px, 1px, 1px);
+  -webkit-clip-path: inset(0px 0px 99.9% 99.9%);
+  clip-path: inset(0px 0px 99.9% 99.9%);
+  overflow: hidden;
+  height: 1px;
+  width: 1px;
+  padding: 0;
+  border: 0;
+  top: 50%;
+  left: -50%;
+}
