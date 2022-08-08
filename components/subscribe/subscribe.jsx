@@ -13,8 +13,9 @@ const Subscribe = ({ formConfiguration }) => {
       <PardotForm
         formHandlerID={NEWSLETTER_FORM_ID}
         action={NEWSLETTER_FORM_ACTION}
-        submit={"Subscribe to UJET Blog"}
+        submit="Subscribe to UJET Blog"
         config={formConfiguration}
+        btnColor="navy"
       />
     </div>
   );

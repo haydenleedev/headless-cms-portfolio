@@ -505,7 +505,9 @@ class PardotForm extends Component {
           <div className={`layout mt-4`}>
             <input
               type="submit"
-              className={`button orange`}
+              className={`button ${
+                this.props.btnColor ? this.props.btnColor : "orange"
+              }`}
               value={this.props.submit}
               required="required"
             />
