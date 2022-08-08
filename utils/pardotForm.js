@@ -313,6 +313,19 @@ export const reorderFieldData = (fieldData, formType) => {
         /promo code/,
       ];
       break;
+    case "webinar":
+      fieldOrder = [
+        /first name/,
+        /last name/,
+        /email/,
+        /phone/,
+        /job/,
+        /company/,
+        /# of agents/,
+        /country/,
+        /state/,
+      ];
+      break;
     case "blogSubscription":
       fieldOrder = [/email/, /country/];
       break;

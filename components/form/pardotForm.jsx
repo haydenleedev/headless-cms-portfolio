@@ -60,6 +60,9 @@ class PardotForm extends Component {
       case 3709:
         this.formType = "channelRequest";
         break;
+      case 3712:
+        this.formType = "webinar";
+        break;
       case 3715:
         this.formType = "blogSubscription";
         break;
