@@ -274,6 +274,19 @@ export const reorderFieldData = (fieldData, formType) => {
         /state/,
       ];
       break;
+    case "landingPage":
+      fieldOrder = [
+        /first name/,
+        /last name/,
+        /email/,
+        /phone/,
+        /job/,
+        /company/,
+        /# of agents/,
+        /country/,
+        /state/,
+      ];
+      break;
     case "channelRequest":
       fieldOrder = [
         /first name/,
