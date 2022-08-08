@@ -245,3 +245,84 @@ export const getCampaignScript = (customPICid) => {
     return scriptTag;
   }
 };
+
+export const reorderFieldData = (fieldData, formType) => {
+  let fieldOrder;
+  switch (formType) {
+    case "contactSales":
+      fieldOrder = [
+        /first name/,
+        /last name/,
+        /email/,
+        /job/,
+        /company/,
+        /# of agents/,
+        /phone/,
+        /country/,
+      ];
+      break;
+    case "dealRegistration":
+      fieldOrder = [
+        /first name/,
+        /last name/,
+        /job/,
+        /^email/,
+        /^phone/,
+        /^company name/,
+        /employees/,
+        /country/,
+        /state/,
+      ];
+      break;
+    case "channelRequest":
+      fieldOrder = [
+        /first name/,
+        /last name/,
+        /job/,
+        /^company name/,
+        /^email/,
+        /^phone/,
+        /company hq country/,
+        /company hq state/,
+        /company hq city/,
+        /employees/,
+        /solution pain point/,
+        /current crm solution/,
+        /current contact center solution software/,
+        /# of licenses/,
+        /additional details/,
+        /partner full name/,
+        /partner title/,
+        /partner email/,
+        /partner phone/,
+        /partner country/,
+      ];
+      break;
+    case "blogSubscription":
+      fieldOrder = [/email/, /country/];
+      break;
+    default:
+      fieldOrder = [
+        /first name/,
+        /last name/,
+        /email/,
+        /phone/,
+        /country/,
+        /state/,
+      ];
+  }
+  const orderedFieldData = [];
+  fieldOrder.forEach((fieldRegex) => {
+    fieldData.forEach((field) => {
+      if (fieldRegex.test(field.name.toLowerCase())) {
+        orderedFieldData.push(field);
+      }
+    });
+  });
+  fieldData.forEach((field) => {
+    if (!orderedFieldData.includes(field)) {
+      orderedFieldData.push(field);
+    }
+  });
+  return orderedFieldData;
+};
