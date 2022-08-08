@@ -334,7 +334,7 @@ export const reorderFieldData = (fieldData, formType) => {
         /first name/,
         /last name/,
         /job/,
-        /partner area/,
+        /partner area of interest/,
         /company/,
         /email/,
         /phone/,

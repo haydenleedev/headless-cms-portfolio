@@ -353,3 +353,13 @@ export const preferredMasterAgent = [
   "Telarus",
   "Undecided",
 ];
+
+export const partnerAreaOfInterest = [
+  "Partner Area of Interest",
+  "Cloud Distributor",
+  "Reseller Partner",
+  "Referral Partner",
+  "Delivery Partner",
+  "Alliance Partner",
+  "Technology Partner",
+];
