@@ -286,7 +286,7 @@ export const reorderFieldData = (fieldData, formType) => {
         /company hq state/,
         /company hq city/,
         /employees/,
-        /solution pain point/,
+        /channel pain point/,
         /current crm solution/,
         /current contact center solution software/,
         /# of licenses/,
@@ -296,6 +296,8 @@ export const reorderFieldData = (fieldData, formType) => {
         /partner email/,
         /partner phone/,
         /partner country/,
+        /preferred master agent/,
+        /promo code/,
       ];
       break;
     case "blogSubscription":
