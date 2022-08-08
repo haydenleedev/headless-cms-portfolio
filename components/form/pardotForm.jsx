@@ -48,11 +48,14 @@ class PardotForm extends Component {
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     this.pagePath = Router.asPath;
     switch (parseInt(this.props.formHandlerID)) {
-      case 3658:
-        this.formType = "landingPage";
-        break;
       case 3568:
         this.formType = "contactUs";
+        break;
+      case 3571:
+        this.formType = "dealRegistration";
+        break;
+      case 3658:
+        this.formType = "landingPage";
         break;
       case 3709:
         this.formType = "channelRequest";
@@ -60,8 +63,8 @@ class PardotForm extends Component {
       case 3715:
         this.formType = "blogSubscription";
         break;
-      case 3571:
-        this.formType = "dealRegistration";
+      case 3721:
+        this.formType = "googleContact";
         break;
     }
 

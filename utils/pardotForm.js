@@ -249,7 +249,7 @@ export const getCampaignScript = (customPICid) => {
 export const reorderFieldData = (fieldData, formType) => {
   let fieldOrder;
   switch (formType) {
-    case "contactSales":
+    case "contactUs":
       fieldOrder = [
         /first name/,
         /last name/,
@@ -300,6 +300,20 @@ export const reorderFieldData = (fieldData, formType) => {
       break;
     case "blogSubscription":
       fieldOrder = [/email/, /country/];
+      break;
+    case "googleContact":
+      fieldOrder = [
+        /first name/,
+        /last name/,
+        /email/,
+        /job/,
+        /company/,
+        /# of agents/,
+        /phone/,
+        /country/,
+        /state/,
+        /city/,
+      ];
       break;
     default:
       fieldOrder = [
