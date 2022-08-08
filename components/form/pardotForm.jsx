@@ -66,6 +66,9 @@ class PardotForm extends Component {
       case 3715:
         this.formType = "blogSubscription";
         break;
+      case 3718:
+        this.formType = "partnerRequest";
+        break;
       case 3721:
         this.formType = "googleContact";
         break;

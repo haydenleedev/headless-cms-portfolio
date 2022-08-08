@@ -329,6 +329,19 @@ export const reorderFieldData = (fieldData, formType) => {
     case "blogSubscription":
       fieldOrder = [/email/, /country/];
       break;
+    case "partnerRequest":
+      fieldOrder = [
+        /first name/,
+        /last name/,
+        /job/,
+        /partner area/,
+        /company/,
+        /email/,
+        /phone/,
+        /country/,
+        /state/,
+      ];
+      break;
     case "googleContact":
       fieldOrder = [
         /first name/,
