@@ -43,6 +43,7 @@ class PardotForm extends Component {
       partnerStateFieldVisible: false,
       selectedCountry: "",
       usPhoneFormat: true,
+      timestampedEmail: false,
     };
   }
 
@@ -76,6 +77,12 @@ class PardotForm extends Component {
         this.formType = "googleContact";
         break;
     }
+
+    this.setState({
+      timestampedEmail: ["dealRegistration", "channelRequest"].includes(
+        this.formType
+      ),
+    });
 
     for (let i = 0; i < pardotFormData.length; i++) {
       if (
@@ -259,7 +266,7 @@ class PardotForm extends Component {
     ) {
       e.preventDefault();
     } else {
-      if (this.isDealRegistrationForm && this.form["Email"].value) {
+      if (this.state.timestampedEmail && this.form["Email"].value) {
         const splitEmail = this.form["Email"].value.split(/(@)/);
         const date = new Date();
         const timestampedEmail = `${splitEmail[0]}+ex${date.getTime()}${
@@ -490,7 +497,7 @@ class PardotForm extends Component {
               </div>
             );
           })}
-          {this.isDealRegistrationForm && (
+          {this.state.timestampedEmail && (
             <input name="hiddenemail" className="display-none" />
           )}
           {this.pagePath?.includes("/resources/") && (
