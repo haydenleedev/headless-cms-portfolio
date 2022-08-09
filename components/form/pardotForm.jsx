@@ -270,17 +270,25 @@ class PardotForm extends Component {
         this.form["Email"].name = "";
         hiddenEmailField.name = "Email";
       }
-      if (!this.state.stateFieldVisible) {
-        const stateField = this.form["Company HQ State"];
-        if (stateField && !this.isHiddenField(stateField)) {
-          stateField.value = "";
-        }
-      }
-      if (!this.state.partnerStateFieldVisible) {
-        const partnerStateField = this.form["Partner Company State"];
-        if (partnerStateField && !this.isHiddenField(partnerStateField)) {
-          partnerStateField.value = "";
-        }
+      if (
+        !this.state.stateFieldVisible ||
+        !this.state.partnerStateFieldVisible
+      ) {
+        [...document.querySelectorAll("[name*=State], [name*=state]")].forEach(
+          (element) => {
+            if (this.form.contains(element) && !this.isHiddenField(element)) {
+              if (
+                ((!this.state.stateFieldVisible &&
+                  !element.name.toLowerCase().match(/partner/)) ||
+                  (!this.state.partnerStateFieldVisible &&
+                    element.name.toLowerCase().match(/partner/))) &&
+                ["SELECT", "INPUT"].includes(element.nodeName)
+              ) {
+                element.value = "";
+              }
+            }
+          }
+        );
       }
       if (
         this.stepsEnabled &&
@@ -406,10 +414,11 @@ class PardotForm extends Component {
                 key={`formField${index}`}
                 className={
                   this.isHiddenField(field) ||
-                  (field.name.toLowerCase().match(/company hq state/) &&
-                    !this.state.stateFieldVisible) ||
-                  (field.name.toLowerCase().match(/partner company state/) &&
-                    !this.state.partnerStateFieldVisible)
+                  (field.name.toLowerCase().match(/state/) &&
+                    ((!field.name.toLowerCase().match(/partner/) &&
+                      !this.state.stateFieldVisible) ||
+                      (field.name.toLowerCase().match(/partner/) &&
+                        !this.state.partnerStateFieldVisible)))
                     ? "display-none"
                     : ""
                 }

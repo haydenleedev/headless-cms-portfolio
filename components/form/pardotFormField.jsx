@@ -220,7 +220,10 @@ const PardotFormField = ({
                 style["form-select"]
               }`}
               onChange={(e) => {
-                if (field.name.toLowerCase().match(/company hq country/)) {
+                if (
+                  field.name.toLowerCase().match(/country/) &&
+                  !field.name.toLowerCase().match(/partner/)
+                ) {
                   updateStateFieldVisible(e.target.value == "United States");
                   updateSelectedCountry(e.target.value);
                 } else if (field.name.toLowerCase().match(/partner country/)) {
