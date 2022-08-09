@@ -406,6 +406,7 @@ class PardotForm extends Component {
             if (
               this.firstPartnerFieldIndex.current === null &&
               field.name.toLowerCase().match(/partner/) &&
+              !field.name.toLowerCase().match(/partner area of interest/) &&
               !this.isHiddenField(field)
             ) {
               this.firstPartnerFieldIndex.current = index;
