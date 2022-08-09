@@ -29,6 +29,7 @@ const PardotFormField = ({
   isPartnerCompanyCity,
   isAllianceReferralCompany,
   isPartner,
+  isContactType,
 }) => {
   if (isSelectField(field)) {
     field.dataFormat = "select";
@@ -203,7 +204,11 @@ const PardotFormField = ({
               }}
               onChange={updateTouched}
               ref={fieldRef}
-              value={renderPartnerProps()}
+              value={
+                field.name.toLowerCase() === "contact_type"
+                  ? isContactType
+                  : renderPartnerProps()
+              }
             />
           )}
         </>

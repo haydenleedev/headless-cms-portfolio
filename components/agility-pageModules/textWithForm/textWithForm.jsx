@@ -115,6 +115,9 @@ const TextWithForm = ({ module, customData }) => {
                     : "Request a Demo"
                 }
                 stepsEnabled={fields.formStepsEnabled}
+                contactType={
+                  fields.contactType ? fields.contactType : "request_a_demo"
+                }
               />
             </div>
           </aside>

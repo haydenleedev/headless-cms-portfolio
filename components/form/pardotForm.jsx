@@ -466,6 +466,7 @@ class PardotForm extends Component {
                   }
                   updateSelectedCountry={this.updateSelectedCountry}
                   usPhoneFormat={this.state.usPhoneFormat}
+                  isContactType={this.props.contactType}
                   isPartnerCompanyName={this.isPartnerPredefinedField(
                     field,
                     this.props.partnerCompanyName
