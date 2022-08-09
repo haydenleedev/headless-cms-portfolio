@@ -202,6 +202,7 @@ class PardotForm extends Component {
       /hide/,
       /alliance referral/,
       /asset /,
+      /contact_type/,
     ];
 
     const partialHiddenFields = [/partner country/, /partner company/];
