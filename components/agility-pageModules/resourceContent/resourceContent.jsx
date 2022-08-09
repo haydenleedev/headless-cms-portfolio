@@ -36,6 +36,28 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   }
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
 
+  // Predefine defalut Pardot form handler ID
+  let pardotDefaultFormID;
+  const getPardotDefaultFormID = (resourceCategory) => {
+    if (String(resourceCategory).toLowerCase === "videos" || "webinars") {
+      pardotDefaultFormID = "3712";
+    } else {
+      pardotDefaultFormID = "3658";
+    }
+    return pardotDefaultFormID;
+  };
+
+  // Predefine default Pardot form action value
+  let pardotDefaultAction;
+  const getPardotDefaultAction = (resourceCategory) => {
+    if (String(resourceCategory).toLowerCase === "videos" || "webinars") {
+      pardotDefaultAction = "https://info.ujet.cx/l/986641/2022-08-05/kgtbn";
+    } else {
+      pardotDefaultAction = "https://info.ujet.cx/l/986641/2022-07-26/kdq1r";
+    }
+    return pardotDefaultAction;
+  };
+
   useEffect(() => {
     campaignScriptIDRef.current = resource.campaignTrackingID;
   }, []);
@@ -151,8 +173,16 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         </h2>
                       )}
                       <PardotForm
-                        formHandlerID={resource.pardotFormID}
-                        action={resource.formAction}
+                        formHandlerID={
+                          resource.pardotFormID
+                            ? resource.pardotFormID
+                            : getPardotDefaultFormID(resourceCategory)
+                        }
+                        action={
+                          resource.formAction
+                            ? resource.formAction
+                            : getPardotDefaultAction(resourceCategory)
+                        }
                         submit={
                           resource.formSubmitText
                             ? resource.formSubmitText
@@ -219,8 +249,16 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         </h2>
                       )}
                       <PardotForm
-                        formHandlerID={resource.pardotFormID}
-                        action={resource.formAction}
+                        formHandlerID={
+                          resource.pardotFormID
+                            ? resource.pardotFormID
+                            : getPardotDefaultFormID(resourceCategory)
+                        }
+                        action={
+                          resource.formAction
+                            ? resource.formAction
+                            : getPardotDefaultAction(resourceCategory)
+                        }
                         stepsEnabled={resource.formStepsEnabled}
                         submit={
                           resource.formSubmitText

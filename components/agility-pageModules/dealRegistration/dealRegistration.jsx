@@ -71,9 +71,13 @@ const DealRegistration = ({ dynamicPageItem, customData }) => {
                 </h2>
               )}
               <PardotForm
-                formHandlerID={deal.pardotFormID}
+                formHandlerID={deal.pardotFormID ? deal.pardotFormID : "3571"}
                 config={formConfiguration}
-                action={deal.formAction}
+                action={
+                  deal.formAction
+                    ? deal.formAction
+                    : "https://info.ujet.cx/l/986641/2022-07-06/k38vn"
+                }
                 submit={deal.formSubmitText}
                 partnerCompanyCountry={deal.partnerCompanyCountry}
                 partnerCompanyName={deal.partnerCompanyName}

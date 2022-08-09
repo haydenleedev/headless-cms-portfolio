@@ -53,9 +53,15 @@ const ChannelRequest = ({ dynamicPageItem, customData }) => {
                 </h2>
               )}
               <PardotForm
-                formHandlerID={channel.pardotFormID}
+                formHandlerID={
+                  channel.pardotFormID ? channel.pardotFormID : "3709"
+                }
                 config={formConfiguration}
-                action={channel.formAction}
+                action={
+                  channel.formAction
+                    ? channel.formAction
+                    : "https://info.ujet.cx/l/986641/2022-08-04/kffw5"
+                }
                 submit={channel.formSubmitText}
               />
             </div>

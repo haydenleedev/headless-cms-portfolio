@@ -100,9 +100,15 @@ const TextWithForm = ({ module, customData }) => {
               className={`${style.sideWrapper} ${style["bg-skyblue-light"]}`}
             >
               <PardotForm
-                formHandlerID={fields.pardotFormID}
+                formHandlerID={
+                  fields.pardotFormID ? fields.pardotFormID : "3568"
+                }
                 config={formConfiguration}
-                action={fields.formAction}
+                action={
+                  fields.formAction
+                    ? fields.formAction
+                    : "https://info.ujet.cx/l/986641/2022-06-29/k12n5"
+                }
                 submit={
                   fields.formSubmitText
                     ? fields.formSubmitText
