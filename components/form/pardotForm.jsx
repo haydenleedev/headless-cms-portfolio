@@ -20,6 +20,7 @@ class PardotForm extends Component {
     super(props);
     this.stepsEnabled = boolean(this.props.stepsEnabled);
     this.gaDataAdded = React.createRef(false);
+    this.firstPartnerFieldIndex = React.createRef(null);
     this.updateGaDataAdded = this.updateGaDataAdded.bind(this);
     this.updateSelectedCountry = this.updateSelectedCountry.bind(this);
     this.validate = this.validate.bind(this);
@@ -28,7 +29,6 @@ class PardotForm extends Component {
     this.updateStateFieldVisible = this.updateStateFieldVisible.bind(this);
     this.updatePartnerStateFieldVisible =
       this.updatePartnerStateFieldVisible.bind(this);
-
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
       {
@@ -394,6 +394,13 @@ class PardotForm extends Component {
           ref={(form) => (this.form = form)}
         >
           {this.fieldData?.map((field, index) => {
+            if (
+              this.firstPartnerFieldIndex.current === null &&
+              field.name.toLowerCase().match(/partner/) &&
+              !this.isHiddenField(field)
+            ) {
+              this.firstPartnerFieldIndex.current = index;
+            }
             return (
               <div
                 key={`formField${index}`}
@@ -409,7 +416,7 @@ class PardotForm extends Component {
               >
                 {!this.isHiddenField(field) && (
                   <>
-                    {field.name.toLowerCase() === "partner full name" && (
+                    {index == this.firstPartnerFieldIndex.current && (
                       <p
                         className={`heading-6 ${style["pt-3"]} ${style["mt-3"]} ${style["pb-2"]} ${style["bt-1"]}`}
                       >
