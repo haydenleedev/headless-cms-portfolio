@@ -20,6 +20,7 @@ const PardotFormField = ({
   gaDataAdded,
   updateGaDataAdded,
   updateStateFieldVisible,
+  updatePartnerStateFieldVisible,
   updateSelectedCountry,
   usPhoneFormat,
   isPartnerCompanyName,
@@ -219,9 +220,13 @@ const PardotFormField = ({
                 style["form-select"]
               }`}
               onChange={(e) => {
-                if (field.name.toLowerCase().match(/country/)) {
+                if (field.name.toLowerCase().match(/company hq country/)) {
                   updateStateFieldVisible(e.target.value == "United States");
                   updateSelectedCountry(e.target.value);
+                } else if (field.name.toLowerCase().match(/partner country/)) {
+                  updatePartnerStateFieldVisible(
+                    e.target.value == "United States"
+                  );
                 }
               }}
               onBlur={() => {

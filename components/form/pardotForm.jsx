@@ -26,6 +26,8 @@ class PardotForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateTouched = this.updateTouched.bind(this);
     this.updateStateFieldVisible = this.updateStateFieldVisible.bind(this);
+    this.updatePartnerStateFieldVisible =
+      this.updatePartnerStateFieldVisible.bind(this);
 
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
@@ -38,6 +40,7 @@ class PardotForm extends Component {
       errors: [],
       touched: [],
       stateFieldVisible: false,
+      partnerStateFieldVisible: false,
       selectedCountry: "",
       usPhoneFormat: true,
     };
@@ -153,6 +156,10 @@ class PardotForm extends Component {
     this.setState({ stateFieldVisible: newValue });
   }
 
+  updatePartnerStateFieldVisible(newValue) {
+    this.setState({ partnerStateFieldVisible: newValue });
+  }
+
   updateSelectedCountry(newValue) {
     const previousCountry = this.state.selectedCountry;
     const phoneField = this.form["Phone Number"];
@@ -264,17 +271,16 @@ class PardotForm extends Component {
         hiddenEmailField.name = "Email";
       }
       if (!this.state.stateFieldVisible) {
-        [...document.querySelectorAll("[name*=State], [name*=state]")].forEach(
-          (element) => {
-            if (
-              this.form.contains(element) &&
-              !this.isHiddenField(element) &&
-              ["SELECT", "INPUT"].includes(element.nodeName)
-            ) {
-              element.value = "";
-            }
-          }
-        );
+        const stateField = this.form["Company HQ State"];
+        if (stateField && !this.isHiddenField(stateField)) {
+          stateField.value = "";
+        }
+      }
+      if (!this.state.partnerStateFieldVisible) {
+        const partnerStateField = this.form["Partner Company State"];
+        if (partnerStateField && !this.isHiddenField(partnerStateField)) {
+          partnerStateField.value = "";
+        }
       }
       if (
         this.stepsEnabled &&
@@ -393,8 +399,10 @@ class PardotForm extends Component {
                 key={`formField${index}`}
                 className={
                   this.isHiddenField(field) ||
-                  (field.name.toLowerCase().match(/state/) &&
-                    !this.state.stateFieldVisible)
+                  (field.name.toLowerCase().match(/company hq state/) &&
+                    !this.state.stateFieldVisible) ||
+                  (field.name.toLowerCase().match(/partner company state/) &&
+                    !this.state.partnerStateFieldVisible)
                     ? "display-none"
                     : ""
                 }
@@ -428,6 +436,9 @@ class PardotForm extends Component {
                   gaDataAdded={this.gaDataAdded.current}
                   updateGaDataAdded={this.updateGaDataAdded}
                   updateStateFieldVisible={this.updateStateFieldVisible}
+                  updatePartnerStateFieldVisible={
+                    this.updatePartnerStateFieldVisible
+                  }
                   updateSelectedCountry={this.updateSelectedCountry}
                   usPhoneFormat={this.state.usPhoneFormat}
                   isPartnerCompanyName={this.isPartnerPredefinedField(
