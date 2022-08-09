@@ -193,12 +193,11 @@ class PardotForm extends Component {
       /current lead/,
       /hidden/,
       /hide/,
-      /partner company/,
       /alliance referral/,
       /asset /,
     ];
 
-    const partialHiddenFields = [/partner country/];
+    const partialHiddenFields = [/partner country/, /partner company/];
 
     // Check whether form field is blacklisted
     if (
