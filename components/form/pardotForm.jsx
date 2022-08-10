@@ -453,6 +453,7 @@ class PardotForm extends Component {
                   field={field}
                   isHiddenField={this.isHiddenField(field)}
                   isDealRegistrationField={this.isDealRegistrationForm}
+                  formType={this.formType}
                   fieldRef={this.fieldRefs[index]}
                   validate={this.validate}
                   updateTouched={() => {

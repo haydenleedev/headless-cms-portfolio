@@ -14,6 +14,7 @@ const PardotFormField = ({
   field,
   isHiddenField,
   isDealRegistrationField,
+  formType,
   fieldRef,
   validate,
   updateTouched,
@@ -126,7 +127,8 @@ const PardotFormField = ({
               gaDataAdded,
               updateGaDataAdded,
               fieldRef.current,
-              isDealRegistrationField
+              isDealRegistrationField,
+              formType
             );
           }}
           ref={fieldRef}

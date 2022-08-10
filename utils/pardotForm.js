@@ -22,7 +22,8 @@ export const addGaData = (
   gaDataAdded,
   updateGaDataAdded,
   formEmailInput,
-  isDealRegistrationForm
+  isDealRegistrationForm,
+  formType
 ) => {
   if (!gaDataAdded) {
     // Loop and append randomized UID
@@ -96,11 +97,6 @@ export const addGaData = (
     head.appendChild(meta);
     setFormInputValue("ga_cookie_datetime", meta.content);
 
-    setFormInputValue(
-      "Current Lead Source 2",
-      isDealRegistrationForm ? "ALLIANCES" : "MKTG"
-    );
-
     // Get Asset Type for all forms for Resources pages
     let getAssetUrl = window.location.href.split("?")[0];
     let setAssetType;
@@ -140,12 +136,6 @@ export const addGaData = (
     }
 
     // Values based on URL parameters
-    setFormInputValue(
-      "Current Lead Program 2",
-      isDealRegistrationForm
-        ? "Deal_Registration"
-        : getUrlParamValue("clp", "Website")
-    );
     setFormInputValue("utm_asset", getUrlParamValue("utm_asset"));
     setFormInputValue("utm_campaign", getUrlParamValue("utm_campaign"));
     setFormInputValue("utm_source", getUrlParamValue("utm_source"));
@@ -154,6 +144,42 @@ export const addGaData = (
 
     setFormInputValue("Asset Type", getAssetType(window.location.href));
     setFormInputValue("Asset URL", getAssetUrl);
+
+    // CLP & CLS default values
+    let clpDefaultValue;
+    let clsDefaultValue;
+    switch (formType) {
+      case "dealRegistration":
+        clpDefaultValue = "Deal_Registration";
+        clsDefaultValue = "ALLIANCES";
+        break;
+      case "channelRequest":
+        clpDefaultValue = "Deal_Registration";
+        clsDefaultValue = "CHANNEL";
+        break;
+      case "partnerRequest":
+        clpDefaultValue = "Request to Partner";
+        clsDefaultValue = "CHANNEL";
+        break;
+      case "googleContact":
+        clpDefaultValue = "Partner_Program";
+        clsDefaultValue = "ALLIANCES";
+        break;
+    }
+    if (clpDefaultValue) {
+      setFormInputValue("Current Lead Program 2", clpDefaultValue, false);
+    } else {
+      setFormInputValue(
+        "Current Lead Program 2",
+        getUrlParamValue("clp", "Website"),
+        false
+      );
+    }
+    if (clsDefaultValue) {
+      setFormInputValue("Current Lead Source 2", clsDefaultValue, false);
+    } else {
+      setFormInputValue("Current Lead Source 2", "MKTG", false);
+    }
 
     // Flag done so we don't run it again
     updateGaDataAdded(true);
@@ -172,9 +198,13 @@ export const addGaData = (
     .replace(".", "OPt");
   emailMeta.content = formattedEmailValue;
   setFormInputValue("ga_em_id", formattedEmailValue);
-  function setFormInputValue(inputName, value) {
+
+  function setFormInputValue(inputName, value, replace = true) {
     document.getElementsByName(inputName).forEach((element) => {
-      if (element.nodeName === "INPUT") {
+      if (
+        element.nodeName === "INPUT" &&
+        (replace || (!replace && !element.value))
+      ) {
         element.value = value;
       }
     });
