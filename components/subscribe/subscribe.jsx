@@ -1,7 +1,7 @@
 import PardotForm from "../form/pardotForm";
 
 const Subscribe = ({ formConfiguration }) => {
-  const NEWSLETTER_FORM_ID = 3715; // Replace this with an appropriate ID later
+  const NEWSLETTER_FORM_ID = 3715;
   const NEWSLETTER_FORM_ACTION =
     "https://info.ujet.cx/l/986641/2022-08-05/kgtbr";
   return (
