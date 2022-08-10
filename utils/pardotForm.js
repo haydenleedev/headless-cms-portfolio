@@ -137,8 +137,19 @@ export const addGaData = (
 
     // Values based on URL parameters
     setFormInputValue("utm_asset", getUrlParamValue("utm_asset"));
-    setFormInputValue("utm_campaign", getUrlParamValue("utm_campaign"));
-    setFormInputValue("utm_source", getUrlParamValue("utm_source"));
+    const utmCampaignValue = getUrlParamValue("utm_campaign");
+    const isGoogleContactForm = formType == "googleContact";
+    if (utmCampaignValue) {
+      setFormInputValue("utm_campaign", utmCampaignValue);
+    } else if (!utmCampaignValue && isGoogleContactForm) {
+      setFormInputValue("utm_campaign", "gmp_contact_sales");
+    }
+    const utmSourceValue = getUrlParamValue("utm_source");
+    if (utmSourceValue) {
+      setFormInputValue("utm_source", utmSourceValue);
+    } else if (!utmSourceValue && isGoogleContactForm) {
+      setFormInputValue("utm_source", "google_marketplace");
+    }
     setFormInputValue("utm_medium", getUrlParamValue("utm_medium"));
     setFormInputValue("utm_term", getUrlParamValue("utm_term"));
 
