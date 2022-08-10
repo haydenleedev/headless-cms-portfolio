@@ -37,25 +37,29 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
 
   // Predefine defalut Pardot form handler ID
-  let pardotDefaultFormID;
   const getPardotDefaultFormID = (resourceCategory) => {
-    if (String(resourceCategory).toLowerCase === "videos" || "webinars") {
-      pardotDefaultFormID = "3712";
+    const lowerCaseResourceCategory = String(resourceCategory).toLowerCase();
+    if (
+      lowerCaseResourceCategory === "videos" ||
+      lowerCaseResourceCategory === "webinars"
+    ) {
+      return "3712";
     } else {
-      pardotDefaultFormID = "3658";
+      return "3658";
     }
-    return pardotDefaultFormID;
   };
 
   // Predefine default Pardot form action value
-  let pardotDefaultAction;
   const getPardotDefaultAction = (resourceCategory) => {
-    if (String(resourceCategory).toLowerCase === "videos" || "webinars") {
-      pardotDefaultAction = "https://info.ujet.cx/l/986641/2022-08-05/kgtbn";
+    const lowerCaseResourceCategory = String(resourceCategory).toLowerCase();
+    if (
+      lowerCaseResourceCategory === "videos" ||
+      lowerCaseResourceCategory === "webinars"
+    ) {
+      return "https://info.ujet.cx/l/986641/2022-08-05/kgtbn";
     } else {
-      pardotDefaultAction = "https://info.ujet.cx/l/986641/2022-07-26/kdq1r";
+      return "https://info.ujet.cx/l/986641/2022-07-26/kdq1r";
     }
-    return pardotDefaultAction;
   };
 
   useEffect(() => {
