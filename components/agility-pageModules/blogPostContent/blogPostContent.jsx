@@ -4,13 +4,17 @@ import style from "./blogPostContent.module.scss";
 import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
-import { convertUJETLinksToHttps, sanitizeHtmlConfig } from "../../../utils/convert";
+import {
+  convertUJETLinksToHttps,
+  sanitizeHtmlConfig,
+} from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article, blogPosting } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
-  const { relatedBlogPosts, sanitizedHtml } = customData;
+  const { relatedBlogPosts, sanitizedHtml, formConfiguration } =
+    customData || {};
   const blogPost = dynamicPageItem.fields;
   const url = process.env.NEXT_PUBLIC_SITE_URL + "/blog/" + blogPost.slug;
   const dateStr = new Date(blogPost.date).toLocaleDateString("en-US", {
@@ -19,7 +23,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
     day: "numeric",
   });
 
-  const articleText = sanitizedHtml.replace(/<[^>]+>/g, "");
+  const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
 
   // trick for getting non-duplicate keywords out from blog post categories
   const keywords = Array.from(
@@ -140,7 +144,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
             headline: blogPost.title,
             image: blogPost?.image?.url,
             keywords,
-            wordcount: articleText.split(" ").length,
+            wordcount: articleText?.split(" ").length,
             url,
             datePublished: blogPost.date,
             dateModified: dynamicPageItem.properties.modified,
@@ -152,7 +156,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
             headline: blogPost.title,
             image: blogPost?.image?.url,
             keywords,
-            wordcount: articleText.split(" ").length,
+            wordcount: articleText?.split(" ").length,
             url,
             datePublished: blogPost.date,
             dateModified: dynamicPageItem.properties.modified,
@@ -163,13 +167,12 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
           }),
         ]}
       />
-      <Breadcrumbs breadcrumbs={
-          [
-            { name: "Home", path: "/" },
-            { name: "Blog", path: "/blog" },
-            { name: blogPost.title }
-          ]
-        }
+      <Breadcrumbs
+        breadcrumbs={[
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: blogPost.title },
+        ]}
       />
       <section className={`section ${style.blogPostContent}`}>
         <div className={`container ${style.container}`}>
@@ -182,14 +185,14 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
               </small>
               {blogPost.image && (
                 <div className={style.blogPostImage}>
-                    <AgilityImage
-                      src={blogPost.image.url}
-                      alt={blogPost.image.label || null}
-                      width={blogPost.image.pixelWidth}
-                      height={blogPost.image.pixelHeight}
-                      objectFit="cover"
-                      layout="responsive"
-                    />
+                  <AgilityImage
+                    src={blogPost.image.url}
+                    alt={blogPost.image.label || null}
+                    width={blogPost.image.pixelWidth}
+                    height={blogPost.image.pixelHeight}
+                    objectFit="cover"
+                    layout="responsive"
+                  />
                 </div>
               )}
               <article
@@ -205,7 +208,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
             </div>
           </div>
           <div>
-            <Subscribe></Subscribe>
+            <Subscribe formConfiguration={formConfiguration} />
             <Link href="/request-a-demo">
               <a
                 className={`button outlined cyan ${style.requestDemo}`}
@@ -287,11 +290,20 @@ BlogPostContent.getCustomInitialProps = async ({
     // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
     const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-    const sanitizedHtml = convertUJETLinksToHttps(cleanHtml(dynamicPageItem.fields.content));
+    const sanitizedHtml = convertUJETLinksToHttps(
+      cleanHtml(dynamicPageItem.fields.content)
+    );
+
+    const formConfiguration = await api.getContentList({
+      referenceName: "formconfiguration",
+      expandAllContentLinks: true,
+      languageCode,
+    });
 
     return {
       relatedBlogPosts,
       sanitizedHtml,
+      formConfiguration,
     };
   } catch (error) {
     if (console) console.error(error);
