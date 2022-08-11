@@ -10,9 +10,19 @@ export async function middleware(req) {
     "/CER",
   ];
 
+  const clientIPCookieName = "client_ip";
+  const clientCountryCookieName = "client_country";
+
+  const redirectWithCookies = (url) => {
+    const redirectResponse = NextResponse.redirect(url);
+    redirectResponse.cookie(clientIPCookieName, req.ip);
+    redirectResponse.cookie(clientCountryCookieName, req.geo.country);
+    return redirectResponse;
+  };
+
   // Redirect uppercase urls to lowercase based on the array above
   if (uppercaseRedirects.includes(req.nextUrl.pathname)) {
-    return NextResponse.redirect(
+    return redirectWithCookies(
       `${req.nextUrl.origin}${req.nextUrl.pathname.toLowerCase()}`
     );
   }
@@ -27,16 +37,16 @@ export async function middleware(req) {
     const postSlug = url.replace(/en-US/g, "").split(blogUrlRegex)[2];
     const redirectUrl = "https://ujet.cx/blog";
     if (postSlug) {
-      return NextResponse.redirect(`${redirectUrl}/${postSlug}`);
+      return redirectWithCookies(`${redirectUrl}/${postSlug}`);
     }
-    return NextResponse.redirect(redirectUrl);
+    return redirectWithCookies(redirectUrl);
   }
 
   // Redirect buy.ujet.cx
   const buyUrl = "buy.ujet.cx";
   if (url.includes(buyUrl)) {
     const redirectUrl = "https://ujet.cx/shop";
-    return NextResponse.redirect(redirectUrl);
+    return redirectWithCookies(redirectUrl);
   }
 
   // Redirect brand.ujet.cx
@@ -47,11 +57,14 @@ export async function middleware(req) {
     const postSlug = url.replace(/en-US/g, "").split(brandUrlRegex)[2];
     const redirectUrl = "https://ujet.cx/brand";
     if (postSlug) {
-      return NextResponse.redirect(`${redirectUrl}/${postSlug}`);
+      return redirectWithCookies(`${redirectUrl}/${postSlug}`);
     }
-    return NextResponse.redirect(redirectUrl);
+    return redirectWithCookies(redirectUrl);
   }
 
   // All other cases do nothing
-  return NextResponse.next();
+  const response = NextResponse.next();
+  response.cookie(clientIPCookieName, req.ip);
+  response.cookie(clientCountryCookieName, req.geo.country);
+  return response;
 }

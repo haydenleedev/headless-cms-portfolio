@@ -180,18 +180,23 @@ em {
   font-style: italic;
 }
 
-select {
-  height: toRem(44);
-}
+form {
+  input:not([type="checkbox"], [type="submit"]),
+  select,
+  textarea {
+    background: $color-white;
+    color: $color-black;
+    width: 100%;
+    padding: toRem(9) toRem(10);
+    border-radius: 0.2rem;
+    border: 0.1rem solid $color-darkgray;
+    line-height: 1.375;
+    min-height: toRem(46);
+  }
 
-form input:not([type="checkbox"], [type="submit"]),
-select {
-  background: $color-white;
-  color: $color-black;
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 0.2rem;
-  border: 0.1rem solid $color-darkgray;
+  input[type="number"] {
+    padding: toRem(9) toRem(14);
+  }
 }
 
 label {
@@ -253,7 +258,7 @@ input[type="number"]::-webkit-inner-spin-button {
   font-weight: 600;
   white-space: nowrap;
 }
-.simple-dark{
+.simple-dark {
   border: unset;
   background: unset;
   color: $color-navy;
@@ -497,48 +502,48 @@ mark {
   h4,
   h5,
   h6 {
-    font-family: "Montserrat","DM Sans", sans-serif;
+    font-family: "Montserrat", "DM Sans", sans-serif;
     letter-spacing: -0.03em;
   }
-  h1{
-    @include desktop{
-      font-size:6rem;
+  h1 {
+    @include desktop {
+      font-size: 6rem;
     }
-    line-height:1;
+    line-height: 1;
   }
-  h2{
-    @include mobile{
+  h2 {
+    @include mobile {
       font-size: 2rem;
     }
   }
   p {
-    font-size:1rem;
+    font-size: 1rem;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
       Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol";
   }
 }
-.list-checkmark{
-    list-style-type: none;
-    position:relative;
-    margin-left:-1rem;
-    &::before{
-      content: '\2713';
+.list-checkmark {
+  list-style-type: none;
+  position: relative;
+  margin-left: -1rem;
+  &::before {
+    content: "\2713";
     display: inline-block;
     font-weight: 700;
-    position:absolute;
-    left:-1.3rem;
-    }
+    position: absolute;
+    left: -1.3rem;
+  }
 }
-.list-crossmark{
+.list-crossmark {
   list-style-type: none;
-  position:relative;
-  margin-left:-1rem;
-  &::before{
-    content: 'X';
-  display: inline-block;
-  font-weight: 700;
-  position:absolute;
-  left:-1.3rem;
+  position: relative;
+  margin-left: -1rem;
+  &::before {
+    content: "X";
+    display: inline-block;
+    font-weight: 700;
+    position: absolute;
+    left: -1.3rem;
   }
 }
