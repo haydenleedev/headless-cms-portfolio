@@ -221,7 +221,7 @@ export const countries = [
   "Sweden",
   "Switzerland",
   "Syria",
-  "Taiwan, Province of China",
+  "Taiwan",
   "Tajikistan",
   "Tanzania, United Republic of",
   "Thailand",
