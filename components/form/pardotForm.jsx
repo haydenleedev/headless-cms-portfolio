@@ -14,6 +14,7 @@ import {
 import pardotFormData from "../../data/pardotFormData.json";
 import Router from "next/router";
 import { boolean } from "../../utils/validation";
+import { countries } from "./selectFieldOptions";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -42,7 +43,11 @@ class PardotForm extends Component {
       stateFieldVisible: false,
       partnerStateFieldVisible: false,
       selectedCountry: "",
+      selectedPartnerCountry: this.props.partnerCompanyCountry,
       usPhoneFormat: true,
+      partnerUsPhoneFormat:
+        this.props.partnerCompanyCountry == "United States" ||
+        !this.props.partnerCompanyCountry,
       timestampedEmail: false,
     };
   }
@@ -167,30 +172,46 @@ class PardotForm extends Component {
     this.setState({ partnerStateFieldVisible: newValue });
   }
 
-  updateSelectedCountry(newValue) {
-    const previousCountry = this.state.selectedCountry;
-    const phoneField = this.form["Phone Number"];
-    this.setState({ selectedCountry: newValue }, () => {
+  updateSelectedCountry(newCountryValue, isPartnerCountry) {
+    const previousCountry = isPartnerCountry
+      ? this.state.selectedPartnerCountry
+      : this.state.selectedCountry;
+    const phoneField = isPartnerCountry
+      ? this.form["Partner Phone Number"]
+      : this.form["Phone Number"];
+    const countryStateObj = isPartnerCountry
+      ? { selectedPartnerCountry: newCountryValue }
+      : { selectedCountry: newCountryValue };
+    this.setState(countryStateObj, () => {
       if (phoneField) {
         const usPhoneFormatCountries = ["United States", "Canada"];
+        const selectedCountry = isPartnerCountry
+          ? this.state.selectedPartnerCountry
+          : this.state.selectedCountry;
         if (
-          (usPhoneFormatCountries.includes(this.state.selectedCountry) ||
-            !this.state.selectedCountry) &&
+          (usPhoneFormatCountries.includes(newCountryValue) ||
+            !newCountryValue) &&
           !usPhoneFormatCountries.includes(previousCountry) &&
           previousCountry
         ) {
-          this.setState({ usPhoneFormat: true }, () => {
+          const phoneFormatStateObj = isPartnerCountry
+            ? { partnerUsPhoneFormat: true }
+            : { usPhoneFormat: true };
+          this.setState(phoneFormatStateObj, () => {
             phoneField.value = formatPhoneNumber(
               phoneField.value.replace(/\D/g, "")
             );
             this.validate();
           });
         } else if (
-          !usPhoneFormatCountries.includes(this.state.selectedCountry) &&
-          this.state.selectedCountry &&
+          !usPhoneFormatCountries.includes(newCountryValue) &&
+          selectedCountry &&
           (usPhoneFormatCountries.includes(previousCountry) || !previousCountry)
         ) {
-          this.setState({ usPhoneFormat: false }, () => {
+          const phoneFormatStateObj = isPartnerCountry
+            ? { partnerUsPhoneFormat: false }
+            : { usPhoneFormat: false };
+          this.setState(phoneFormatStateObj, () => {
             phoneField.value = phoneField.value.replace(/\D/g, "");
             this.validate();
           });
@@ -466,7 +487,11 @@ class PardotForm extends Component {
                     this.updatePartnerStateFieldVisible
                   }
                   updateSelectedCountry={this.updateSelectedCountry}
-                  usPhoneFormat={this.state.usPhoneFormat}
+                  usPhoneFormat={
+                    field.name.toLowerCase().match(/partner phone/)
+                      ? this.state.partnerUsPhoneFormat
+                      : this.state.usPhoneFormat
+                  }
                   isContactType={this.props.contactType}
                   isPartnerCompanyName={this.isPartnerPredefinedField(
                     field,

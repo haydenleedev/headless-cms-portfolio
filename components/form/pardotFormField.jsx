@@ -227,16 +227,18 @@ const PardotFormField = ({
                 style["form-select"]
               }`}
               onChange={(e) => {
-                if (
-                  field.name.toLowerCase().match(/country/) &&
-                  !field.name.toLowerCase().match(/partner/)
-                ) {
-                  updateStateFieldVisible(e.target.value == "United States");
-                  updateSelectedCountry(e.target.value);
-                } else if (field.name.toLowerCase().match(/partner country/)) {
-                  updatePartnerStateFieldVisible(
-                    e.target.value == "United States"
-                  );
+                if (field.name.toLowerCase().match(/country/)) {
+                  const isPartnerCountry = field.name
+                    .toLowerCase()
+                    .match(/partner/);
+                  updateSelectedCountry(e.target.value, isPartnerCountry);
+                  if (isPartnerCountry) {
+                    updatePartnerStateFieldVisible(
+                      e.target.value == "United States"
+                    );
+                  } else {
+                    updateStateFieldVisible(e.target.value == "United States");
+                  }
                 }
               }}
               onBlur={() => {
