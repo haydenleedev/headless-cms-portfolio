@@ -8,7 +8,7 @@ export default async function handler(req, res) {
         event: {
           token: parsedBody.token,
           siteKey: "6LcCUkQhAAAAALRJTYiLND_SN9Ja4B_xJ9Hq7TbK",
-          expectedAction: "TEST",
+          expectedAction: "FORM_SUBMISSION",
         },
       }),
     }

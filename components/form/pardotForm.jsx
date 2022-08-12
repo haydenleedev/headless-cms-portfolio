@@ -297,7 +297,7 @@ class PardotForm extends Component {
             grecaptcha.enterprise.ready(async () => {
               const token = await grecaptcha.enterprise.execute(
                 process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY,
-                { action: "TEST" }
+                { action: "FORM_SUBMISSION" }
               );
               const assessment = await fetch(
                 `${process.env.NEXT_PUBLIC_SITE_URL}/api/createRecaptchaAssessment`,
