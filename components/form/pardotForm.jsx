@@ -14,13 +14,13 @@ import {
 import pardotFormData from "../../data/pardotFormData.json";
 import Router from "next/router";
 import { boolean } from "../../utils/validation";
-import { countries } from "./selectFieldOptions";
 
 class PardotForm extends Component {
   constructor(props) {
     super(props);
     this.stepsEnabled = boolean(this.props.stepsEnabled);
     this.gaDataAdded = React.createRef(false);
+    this.assessmentCreatedRef = React.createRef(false);
     this.firstPartnerFieldIndex = React.createRef(null);
     this.updateGaDataAdded = this.updateGaDataAdded.bind(this);
     this.updateSelectedCountry = this.updateSelectedCountry.bind(this);
@@ -49,6 +49,8 @@ class PardotForm extends Component {
         this.props.partnerCompanyCountry == "United States" ||
         !this.props.partnerCompanyCountry,
       timestampedEmail: false,
+      submitInProgress: false,
+      unacceptableAssessmentScore: false,
     };
   }
 
@@ -280,13 +282,47 @@ class PardotForm extends Component {
   // END: Define specific field values for deal registration pages
 
   async handleSubmit(e) {
+    e.preventDefault();
     if (
-      !this.onSubmitValidate() ||
-      this.form.honeyname.value ||
-      this.form.honeyemail.value
+      this.onSubmitValidate() &&
+      !this.form.honeyname.value &&
+      !this.form.honeyemail.value &&
+      !this.state.submitInProgress &&
+      !this.assessmentCreatedRef.current
     ) {
-      e.preventDefault();
-    } else {
+      const getAssessment = () => {
+        this.setState({ submitInProgress: true });
+        if (!this.assessmentCreatedRef.current) {
+          return new Promise((resolve) => {
+            grecaptcha.enterprise.ready(async () => {
+              const token = await grecaptcha.enterprise.execute(
+                process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY,
+                { action: "TEST" }
+              );
+              const assessment = await fetch(
+                `${process.env.NEXT_PUBLIC_SITE_URL}/api/createRecaptchaAssessment`,
+                {
+                  method: "POST",
+                  body: JSON.stringify({ token: token }),
+                }
+              );
+              const assessmentJSON = await assessment.json();
+              this.assessmentCreatedRef.current = true;
+              return resolve(assessmentJSON.isAcceptableScore);
+            });
+          });
+        } else {
+          return false;
+        }
+      };
+      const isAcceptableScore = await getAssessment();
+      if (!isAcceptableScore) {
+        this.setState({
+          submitInProgress: false,
+          unacceptableAssessmentScore: true,
+        });
+        return;
+      }
       if (this.state.timestampedEmail && this.form["Email"].value) {
         const splitEmail = this.form["Email"].value.split(/(@)/);
         const date = new Date();
@@ -343,6 +379,7 @@ class PardotForm extends Component {
         method: "POST",
         body: JSON.stringify(clientData),
       });
+      this.form.submit();
     }
   }
 
@@ -564,15 +601,26 @@ class PardotForm extends Component {
             aria-hidden="true"
           />
           {/* END: Honeypot */}
-          <div className={`layout mt-4`}>
+          <div
+            className={`layout mt-4 d-flex flex-direction-column align-items-center`}
+          >
             <input
               type="submit"
               className={`button ${
                 this.props.btnColor ? this.props.btnColor : "orange"
               }`}
-              value={this.props.submit}
+              value={
+                this.state.submitInProgress
+                  ? "Please wait..."
+                  : this.props.submit
+              }
               required="required"
             />
+            {this.state.unacceptableAssessmentScore && (
+              <FormError
+                message={"Something went wrong. Please try again later."}
+              />
+            )}
           </div>
         </form>
         <noscript>
