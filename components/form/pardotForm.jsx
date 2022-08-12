@@ -405,6 +405,11 @@ class PardotForm extends Component {
             !fieldRef.current.name.toLowerCase().match(/state/)) ||
             (this.state.stateFieldVisible &&
               fieldRef.current.name.toLowerCase().match(/state/) &&
+              !fieldRef.current.name.toLowerCase().match(/partner/) &&
+              !this.isHiddenField(fieldRef.current)) ||
+            (this.state.partnerStateFieldVisible &&
+              fieldRef.current.name.toLowerCase().match(/state/) &&
+              fieldRef.current.name.toLowerCase().match(/partner/) &&
               !this.isHiddenField(fieldRef.current))) &&
           !fieldRef.current.value
         ) {
