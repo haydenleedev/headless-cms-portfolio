@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       }),
     }
   );
-  const assessmentJSON = await assessment.json();
-  const isAcceptableScore = assessmentJSON.riskAnalysis.score >= 0.9;
+  const assessmentJSON = await assessment?.json();
+  const isAcceptableScore = assessmentJSON?.riskAnalysis?.score >= 0.9;
   return res.send({ isAcceptableScore: isAcceptableScore });
 }
