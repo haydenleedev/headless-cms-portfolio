@@ -298,8 +298,9 @@ export const reorderFieldData = (fieldData, formType) => {
         /job/,
         /company/,
         /# of agents/,
-        /phone/,
         /country/,
+        /state/,
+        /phone/,
       ];
       break;
     case "dealRegistration":
@@ -308,11 +309,11 @@ export const reorderFieldData = (fieldData, formType) => {
         /last name/,
         /job/,
         /^email/,
-        /^phone/,
         /^company name/,
         /employees/,
         /country/,
         /state/,
+        /^phone/,
       ];
       break;
     case "landingPage":
@@ -320,12 +321,12 @@ export const reorderFieldData = (fieldData, formType) => {
         /first name/,
         /last name/,
         /email/,
-        /phone/,
         /job/,
         /company/,
         /# of agents/,
         /country/,
         /state/,
+        /phone/,
       ];
       break;
     case "channelRequest":
@@ -335,10 +336,10 @@ export const reorderFieldData = (fieldData, formType) => {
         /job/,
         /^company name/,
         /^email/,
-        /^phone/,
         /company hq country/,
         /company hq state/,
         /company hq city/,
+        /^phone/,
         /employees/,
         /channel pain point/,
         /current crm solution/,
@@ -349,10 +350,10 @@ export const reorderFieldData = (fieldData, formType) => {
         /partner full name/,
         /partner title/,
         /partner email/,
-        /partner phone/,
         /partner country/,
         /partner company state/,
         /partner company city/,
+        /partner phone/,
         /preferred master agent/,
         /promo code/,
       ];
@@ -362,12 +363,13 @@ export const reorderFieldData = (fieldData, formType) => {
         /first name/,
         /last name/,
         /email/,
-        /phone/,
+
         /job/,
         /company/,
         /# of agents/,
         /country/,
         /state/,
+        /phone/,
       ];
       break;
     case "blogSubscription":
@@ -381,9 +383,10 @@ export const reorderFieldData = (fieldData, formType) => {
         /partner area of interest/,
         /company/,
         /email/,
-        /phone/,
+
         /country/,
         /state/,
+        /phone/,
       ];
       break;
     case "googleContact":
@@ -394,10 +397,11 @@ export const reorderFieldData = (fieldData, formType) => {
         /job/,
         /company/,
         /# of agents/,
-        /phone/,
+
         /country/,
         /state/,
         /city/,
+        /phone/,
       ];
       break;
     default:
@@ -405,9 +409,10 @@ export const reorderFieldData = (fieldData, formType) => {
         /first name/,
         /last name/,
         /email/,
-        /phone/,
+
         /country/,
         /state/,
+        /phone/,
       ];
   }
   const orderedFieldData = [];
