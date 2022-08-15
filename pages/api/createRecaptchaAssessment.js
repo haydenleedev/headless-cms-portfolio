@@ -7,13 +7,13 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         event: {
           token: parsedBody.token,
-          siteKey: "6LcCUkQhAAAAALRJTYiLND_SN9Ja4B_xJ9Hq7TbK",
+          siteKey: process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY,
           expectedAction: "FORM_SUBMISSION",
         },
       }),
     }
   );
-  const assessmentJSON = await assessment.json();
-  const isAcceptableScore = assessmentJSON.riskAnalysis.score >= 0.3;
+  const assessmentJSON = await assessment?.json();
+  const isAcceptableScore = assessmentJSON?.riskAnalysis?.score >= 0.3;
   return res.send({ isAcceptableScore: isAcceptableScore });
 }
