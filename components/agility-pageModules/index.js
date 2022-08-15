@@ -56,6 +56,8 @@ import GlossaryPageContent from "./glossaryPageContent/glossaryPageContent";
 import ShopErrorPageContent from "./shopErrorPageContent/shopErrorPageContent";
 import JobOpeningList from "./jobOpeningList/jobOpeningList";
 import VideoPopup from "./videoPopup/videoPopup";
+import DealRegistration from "./dealRegistration/dealRegistration";
+import ChannelRequest from "./channelRequest/channelRequest";
 import BrandFirstFold from "../../brand/components/brandFirstFold/brandFirstFold";
 import BrandTextWithMedia from "../../brand/components/brandTextWithMedia/brandTextWithMedia";
 import BrandTwoTextColumns from "../../brand/components/brandTwoTextColumns/brandTwoTextColumns";
@@ -119,6 +121,8 @@ const allModules = [
   { name: "ShopErrorPageContent", module: ShopErrorPageContent },
   { name: "JobOpeningList", module: JobOpeningList },
   { name: "VideoPopup", module: VideoPopup },
+  { name: "DealRegistration", module: DealRegistration },
+  { name: "ChannelRequest", module: ChannelRequest },
   { name: "BrandFirstFold", module: BrandFirstFold },
   { name: "BrandTextGridWithMedia", module: BrandTextGridWithMedia },
   { name: "BrandTextWithMedia", module: BrandTextWithMedia },

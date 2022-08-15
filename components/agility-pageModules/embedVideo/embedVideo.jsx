@@ -9,6 +9,7 @@ import {
 import { renderHTML } from "@agility/nextjs";
 import Script from "next/script";
 import { useEffect } from "react";
+import { youTubeActivityEvent } from "../../../utils/dataLayer";
 
 const EmbedVideo = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
@@ -70,44 +71,24 @@ const EmbedVideo = ({ module, customData }) => {
           arraysAreEqual(playerStateSequence, [2, 3, 1]) ||
           arraysAreEqual(playerStateSequence, [3, 1])
         ) {
-          window.dispatchEvent(
-            new CustomEvent("youTubeActivity", {
-              detail: { action: "Seek" },
-            })
-          );
+          youTubeActivityEvent({ action: "Seek" });
           playerStateSequence = [];
         } else if (
           arraysAreEqual(playerStateSequence, [-1, 3, 1]) ||
           arraysAreEqual(playerStateSequence, [1, 3, 1])
         ) {
-          window.dispatchEvent(
-            new CustomEvent("youTubeActivity", {
-              detail: { action: "Video start" },
-            })
-          );
+          youTubeActivityEvent({ action: "Video start" });
           playerStateSequence = [];
         } else {
           clearTimeout(timer);
           if (playerState !== 3) {
             let timeout = setTimeout(() => {
               if (playerState == 0) {
-                window.dispatchEvent(
-                  new CustomEvent("youTubeActivity", {
-                    detail: { action: "Video end" },
-                  })
-                );
+                youTubeActivityEvent({ action: "Video end" });
               } else if (playerState == 1) {
-                window.dispatchEvent(
-                  new CustomEvent("youTubeActivity", {
-                    detail: { action: "Play" },
-                  })
-                );
+                youTubeActivityEvent({ action: "Play" });
               } else if (playerState == 2) {
-                window.dispatchEvent(
-                  new CustomEvent("youTubeActivity", {
-                    detail: { action: "Pause" },
-                  })
-                );
+                youTubeActivityEvent({ action: "Pause" });
               }
               playerStateSequence = [];
             }, 250);
@@ -135,13 +116,9 @@ const EmbedVideo = ({ module, customData }) => {
                       previousVideoTime
                   ) == 0
                 ) {
-                  window.dispatchEvent(
-                    new CustomEvent("youTubeActivity", {
-                      detail: {
-                        action: `Playback percentage: ${playbackPercentages[i].percentage}`,
-                      },
-                    })
-                  );
+                  youTubeActivityEvent({
+                    action: `Playback percentage: ${playbackPercentages[i].percentage}`,
+                  });
                   playbackPercentages[i].played = true;
                 }
               }

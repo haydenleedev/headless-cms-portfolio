@@ -37,6 +37,7 @@ const GlobalContextWrapper = ({ children }) => {
     navbarRef: useRef(),
     updateFormData,
     resetData,
+    campaignScriptIDRef: useRef(null),
   };
   return (
     <GlobalContext.Provider value={context}>

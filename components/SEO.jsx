@@ -1,12 +1,13 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { breadcrumbs, organization, webSite } from "../schema";
 import Script from "next/script";
-import { setCookie } from "../utils/cookies";
+import { getCookie, setCookie } from "../utils/cookies";
 import { useContext } from "react";
 import GlobalContext from "../context";
 import { formatPageTitle } from "../utils/convert";
-import { Tags } from "../3rd-party-tags/tags";
+import { useRouter } from "next/router";
+import { getCampaignScript } from "../utils/pardotForm";
 
 const SEO = ({
   title,
@@ -18,20 +19,25 @@ const SEO = ({
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
+  const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
   const qualifiedSrc = "https://js.qualified.com/qualified.js?token=";
-  setCookie(
-    "ga_cookie_date",
-    new Date().toUTCString(),
-    "Fri, 31 Dec 9999 23:59:59 GMT"
-  );
-  const { globalSettings } = useContext(GlobalContext);
+  if (!getCookie("ga_cookie_date")) {
+    setCookie(
+      "ga_cookie_date",
+      new Date().toUTCString(),
+      "Fri, 31 Dec 9999 23:59:59 GMT"
+    );
+  }
+  const { globalSettings, campaignScriptIDRef } = useContext(GlobalContext);
   const suffixedMetaTitle = formatPageTitle(
     title,
     globalSettings?.fields?.pageTitleSuffix
   );
+  const router = useRouter();
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(true);
@@ -44,7 +50,25 @@ const SEO = ({
     setTimeout(() => {
       setTimerExpired(true);
     }, 0);
+
+    router.events.on("routeChangeStart", () => {
+      campaignScriptIDRef.current = null;
+      clearTimeout(campaignScriptAppendTimeout.current);
+      if (document.getElementById("campaignScript")) {
+        document.head.removeChild(document.getElementById("campaignScript"));
+      }
+    });
+    router.events.on("routeChangeComplete", async () => {
+      campaignScriptAppendTimeout.current = setTimeout(() => {
+        const scriptElements = document.head.getElementsByTagName("script");
+        document.head.insertBefore(
+          getCampaignScript(campaignScriptIDRef.current),
+          scriptElements[scriptElements.length - 1].nextSibling
+        );
+      }, 2000);
+    });
   }, []);
+
   return (
     <>
       <Head>
@@ -100,58 +124,20 @@ const SEO = ({
 
         {/* TODO: add Canonical url */}
       </Head>
-      <>
-        {pageTemplateName !== "BrandTemplate" && (
-          <>
+      {pageTemplateName !== "BrandTemplate" && (
+        <>
+          {timerExpired && (
             <>
-              {/* Global site tag (gtag.js) - Google Analytics */}
-              <Script
-                id="google-analytics-global-site-tag"
-                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}`}
-              />
-              <Script
-                id="google-analytics-datalayer"
-                dangerouslySetInnerHTML={{
-                  __html: `
-                if (!window.googleAnalyticsTagLoaded) {
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}');
-                  window.googleAnalyticsTagLoaded = true;
-               }
-        `,
-                }}
-              />
-              {/* Global site tag (gtag.js) - Google Ads */}
-              {/* <Script
-        id="google-ads-global-site-tag"
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ADS_MEASUREMENT_ID}`}
-        />
-        <Script id="google-ads-global-site-tag-datalayer">
-          {`
-                if (!window.googleAdsTagLoaded) {
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ADS_MEASUREMENT_ID}');
-                  window.googleAdsTagLoaded = true;
-                }
-              `}
-        </Script> */}
-            </>
-            {timerExpired && (
-              <>
-                {/* <Script id="google-tag-manager">
-            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              <Script id="google-tag-manager">
+                {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
-          </Script> */}
-                <Script id="bombora">
-                  {/* Bombora Tag */}
-                  {`
+              </Script>
+              {/* <Script id="bombora"> */}
+              {/* Bombora Tag */}
+              {/* {`
               //informer
               (function(f,i,c){var a=decodeURIComponent,e="",l="",o="||",g=";;",h="split",b="length",j="indexOf",k=0,n="localStorage",m="_ccmdt";f[c]=f[c]||{};function d(q){var p;if(f[n]){return f[n][q]||""}else{p=i.cookie.match(q+"=([^;]*)");return(p&&p[1])||""}}f[c].us={};e=a(d(m))[h](o);k=e[b];if(k>0){while(k--){l=e[k][h]("=");if(l[b]>1){if(l[1][j](g)>-1){f[c].us[l[0]]=l[1][h](g);f[c].us[l[0]].pop()}else{f[c].us[l[0]]=l[1]}}}}})(window,document,"_ml");
 
@@ -186,9 +172,9 @@ const SEO = ({
                 mltag.src = 'https://ml314.com/tag.aspx?' + cd.getDate() + cd.getMonth() + cd.getFullYear();
                 s.parentNode.insertBefore(mltag, s);
               })();
-            `}
-                </Script>
-                {/* <Script id="6sense2">
+            `} */}
+              {/* </Script> */}
+              {/* <Script id="6sense2">
             {`
               window._6si = window._6si || [];
               window._6si.push(['enableEventTracking', true]);
@@ -205,8 +191,8 @@ const SEO = ({
             `}
           </Script> */}
 
-                <Script id="6sense">
-                  {`
+              <Script id="6sense">
+                {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
               if (a === '') {
@@ -304,44 +290,88 @@ const SEO = ({
               s.parentNode.insertBefore(gd, s);
               })();
           `}
-                </Script>
+              </Script>
 
-                {/* <Script
+              {/* <Script
             id="google-optimize"
             src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
             strategy="lazyOnload"
           /> */}
-                <Tags />
-              </>
-            )}
-            {/* Load Qualified script after user starts scrolling */}
-            {scrolled && (
-              <>
-                {/* Qualified Script */}
-                <Script id="qualified" strategy="lazyOnload">
-                  {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+              {/* <Script id="ax" strategy="afterInteractive">
+            {`
+          _atrk_opts = { atrk_acct:"xw4cw1Y1Mn20Io", domain:"ujet.cx",dynamic: true};
+          (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+        `}
+          </Script> */}
+              <Script id="g2Crowd" strategy="afterInteractive">
+                {`
+          (function (c, p, d, u, id, i) {
+            id = ''; // Optional Custom ID for user in your system
+            u = 'https://tracking.g2crowd.com/attribution_tracking/conversions/' + c + '.js?p=' + encodeURI(p) + '&e=' + id;
+            i = document.createElement('script');
+            i.type = 'application/javascript';
+            i.async = true;
+            i.src = u;
+            d.getElementsByTagName('head')[0].appendChild(i);
+          }("1136", document.location.href, document));
+        `}
+              </Script>
+              <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
+                {`
+          (function() {
+            var didInit = false;
+            function initMunchkin() {
+              if(didInit === false) {
+                didInit = true;
+                Munchkin.init('205-VHT-559');
+              }
+            }
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = '//munchkin.marketo.net/munchkin.js';
+            s.onreadystatechange = function() {
+              if (this.readyState == 'complete' || this.readyState == 'loaded') {
+                initMunchkin();
+              }
+            };
+            s.onload = initMunchkin;
+            document.getElementsByTagName('head')[0].appendChild(s);
+          })();
+          `}
+              </Script>
+              <Script
+                src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY}`}
+              />
+            </>
+          )}
+          {/* Load Qualified script after user starts scrolling */}
+          {scrolled && (
+            <>
+              {/* Qualified Script */}
+              <Script id="qualified" strategy="lazyOnload">
+                {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
-                </Script>
-                <Script
-                  id="qualified-src"
-                  async
-                  src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-                  strategy="lazyOnload"
-                />
-              </>
-            )}
-          </>
-        )}
-      </>
-      <Script
-        id="onetrust"
-        src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
-        charSet="UTF-8"
-        strategy="beforeInteractive"
-        data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
-      />
+              </Script>
+              <Script
+                id="qualified-src"
+                async
+                src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+                strategy="lazyOnload"
+              />
+            </>
+          )}
+          <Script
+            id="onetrust"
+            src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+            charSet="UTF-8"
+            strategy="beforeInteractive"
+            data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
+          />
 
-      <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
+          <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
+        </>
+      )}
     </>
   );
 };
