@@ -117,7 +117,7 @@ const PardotFormField = ({
           name={field.name}
           id={field.id}
           autoComplete="email"
-          maxLength="50"
+          maxLength="200"
           onBlur={() => {
             validate();
           }}
@@ -186,7 +186,7 @@ const PardotFormField = ({
             <textarea
               name={field.name}
               id={field.id}
-              maxLength="32768"
+              maxLength="132768"
               rows="3"
               hidden={isHiddenField}
               onBlur={() => {
@@ -199,7 +199,7 @@ const PardotFormField = ({
             <input
               name={field.name}
               id={field.id}
-              maxLength="50"
+              maxLength="200"
               hidden={isHiddenField}
               onBlur={() => {
                 validate();
@@ -263,7 +263,7 @@ const PardotFormField = ({
         <input
           name={field.name}
           id={field.id}
-          maxLength="50"
+          maxLength="200"
           onBlur={() => {
             validate();
           }}
