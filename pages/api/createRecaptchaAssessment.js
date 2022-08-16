@@ -15,5 +15,6 @@ export default async function handler(req, res) {
   );
   const assessmentJSON = await assessment?.json();
   const isAcceptableScore = assessmentJSON?.riskAnalysis?.score >= 0.3;
+  console.log(assessmentJSON.riskAnalysis.score);
   return res.send({ isAcceptableScore: isAcceptableScore });
 }

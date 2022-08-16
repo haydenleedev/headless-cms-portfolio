@@ -136,14 +136,67 @@ export const addGaData = (
     }
 
     // Values based on URL parameters
-    setFormInputValue("utm_asset", getUrlParamValue("utm_asset"));
+
     const utmCampaignValue = getUrlParamValue("utm_campaign");
     const isGoogleContactForm = formType == "googleContact";
+
+    const isChannelRequestForm = getAssetUrl.includes(
+      "/channel/channel-request"
+    );
+    const isContactSalesForm = getAssetUrl.includes("/contact-sales");
+
+    const utmDefault = [
+      { slug: "google", utmDefault: "deal_reg_google_mp" },
+      { slug: "kustomer", utmDefault: "deal_reg_google_kustomer" },
+      { slug: "playvox", utmDefault: "deal_reg_google_playvox" },
+      { slug: "acqueon", utmDefault: "deal_reg_google_acqueon" },
+      { slug: "aws", utmDefault: "deal_reg_google_aws" },
+      { slug: "calabrio", utmDefault: "deal_reg_google_calabrio" },
+      { slug: "intercom", utmDefault: "deal_reg_google_intercom" },
+      { slug: "observe-ai", utmDefault: "deal_reg_google_observe" },
+      { slug: "oracle", utmDefault: "deal_reg_google_oracle" },
+      { slug: "successkpi", utmDefault: "deal_reg_google_successKPI" },
+      { slug: "zendesk", utmDefault: "deal_reg_google_zendesk" },
+    ];
+
+    let utmDefalutResult;
+
+    function getUtmDefaultValue(url) {
+      utmDefault.map((item) => {
+        if (url.includes("/deal-registration/" + item.slug)) {
+          utmDefalutResult = item.utmDefault;
+        }
+      });
+      return utmDefalutResult;
+    }
+
     if (utmCampaignValue) {
       setFormInputValue("utm_campaign", utmCampaignValue);
     } else if (!utmCampaignValue && isGoogleContactForm) {
       setFormInputValue("utm_campaign", "gmp_contact_sales");
+    } else if (!utmCampaignValue && isChannelRequestForm) {
+      setFormInputValue("utm_campaign", "request_to_partner");
+    } else if (!utmCampaignValue && isDealRegistrationForm) {
+      setFormInputValue(
+        "utm_campaign",
+        getUtmDefaultValue(window.location.href)
+      );
     }
+
+    const utmAssetValue = getUrlParamValue("utm_asset");
+    if (utmAssetValue) {
+      setFormInputValue("utm_asset", utmAssetValue);
+    } else if (!utmAssetValue && isGoogleContactForm) {
+      setFormInputValue("utm_asset", "gmp_contact_sales");
+    } else if (!utmAssetValue && isChannelRequestForm) {
+      setFormInputValue("utm_asset", "request_to_partner");
+    } else if (!utmAssetValue && isDealRegistrationForm) {
+      setFormInputValue("utm_asset", getUtmDefaultValue(window.location.href));
+    }
+
+    console.log("utm_campaign: ", getUtmDefaultValue(window.location.href));
+    console.log("utm_asset: ", getUtmDefaultValue(window.location.href));
+
     const utmSourceValue = getUrlParamValue("utm_source");
     if (utmSourceValue) {
       setFormInputValue("utm_source", utmSourceValue);
