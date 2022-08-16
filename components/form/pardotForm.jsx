@@ -57,6 +57,13 @@ class PardotForm extends Component {
   componentDidMount() {
     this.form.style.display = "";
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
+    this.isChannelRequestForm = this.props.formHandlerID == 3709;
+    this.isContactSalesForm =
+      this.props.formHandlerID == 3568 &&
+      this.props.contactType === "contact_sales";
+    this.isRequestDemoForm =
+      this.props.formHandlerID == 3568 &&
+      this.props.contactType === "request_a_demo";
     this.pagePath = Router.asPath;
     switch (parseInt(this.props.formHandlerID)) {
       case 3568:
@@ -516,6 +523,9 @@ class PardotForm extends Component {
                   field={field}
                   isHiddenField={this.isHiddenField(field)}
                   isDealRegistrationField={this.isDealRegistrationForm}
+                  isChannelRequestForm={this.isChannelRequestForm}
+                  isContactSalesForm={this.isContactSalesForm}
+                  isRequestDemoForm={this.isRequestDemoForm}
                   formType={this.formType}
                   fieldRef={this.fieldRefs[index]}
                   validate={this.validate}

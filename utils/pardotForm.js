@@ -23,6 +23,9 @@ export const addGaData = (
   updateGaDataAdded,
   formEmailInput,
   isDealRegistrationForm,
+  isChannelRequestForm,
+  isContactSalesForm,
+  isRequestDemoForm,
   formType
 ) => {
   if (!gaDataAdded) {
@@ -140,11 +143,14 @@ export const addGaData = (
     const utmCampaignValue = getUrlParamValue("utm_campaign");
     const isGoogleContactForm = formType == "googleContact";
 
+    /*
     const isChannelRequestForm = getAssetUrl.includes(
       "/channel/channel-request"
     );
-    const isContactSalesForm = getAssetUrl.includes("/contact-sales");
+    */
+    //const isContactSalesForm = getAssetUrl.includes("/contact-sales");
 
+    // Get the default utm_campaign and utm_asset values for all Deal Registration pages when there are no utm parameters on urls.
     const utmDefault = [
       { slug: "google", utmDefault: "deal_reg_google_mp" },
       { slug: "kustomer", utmDefault: "deal_reg_google_kustomer" },
@@ -159,15 +165,14 @@ export const addGaData = (
       { slug: "zendesk", utmDefault: "deal_reg_google_zendesk" },
     ];
 
-    let utmDefalutResult;
-
-    function getUtmDefaultValue(url) {
+    let utmDealRegistrationDefalutResult;
+    function getDealRegistrationUtmDefaultValue(url) {
       utmDefault.map((item) => {
         if (url.includes("/deal-registration/" + item.slug)) {
-          utmDefalutResult = item.utmDefault;
+          utmDealRegistrationDefalutResult = item.utmDefault;
         }
       });
-      return utmDefalutResult;
+      return utmDealRegistrationDefalutResult;
     }
 
     if (utmCampaignValue) {
@@ -176,10 +181,14 @@ export const addGaData = (
       setFormInputValue("utm_campaign", "gmp_contact_sales");
     } else if (!utmCampaignValue && isChannelRequestForm) {
       setFormInputValue("utm_campaign", "request_to_partner");
+    } else if (!utmCampaignValue && isContactSalesForm) {
+      setFormInputValue("utm_campaign", "contact_sales");
+    } else if (!utmCampaignValue && isRequestDemoForm) {
+      setFormInputValue("utm_campaign", "request_demo");
     } else if (!utmCampaignValue && isDealRegistrationForm) {
       setFormInputValue(
         "utm_campaign",
-        getUtmDefaultValue(window.location.href)
+        getDealRegistrationUtmDefaultValue(window.location.href)
       );
     }
 
@@ -190,12 +199,16 @@ export const addGaData = (
       setFormInputValue("utm_asset", "gmp_contact_sales");
     } else if (!utmAssetValue && isChannelRequestForm) {
       setFormInputValue("utm_asset", "request_to_partner");
+    } else if (!utmCampaignValue && isContactSalesForm) {
+      setFormInputValue("utm_asset", "contact_sales");
+    } else if (!utmCampaignValue && isRequestDemoForm) {
+      setFormInputValue("utm_asset", "request_demo");
     } else if (!utmAssetValue && isDealRegistrationForm) {
-      setFormInputValue("utm_asset", getUtmDefaultValue(window.location.href));
+      setFormInputValue(
+        "utm_asset",
+        getDealRegistrationUtmDefaultValue(window.location.href)
+      );
     }
-
-    console.log("utm_campaign: ", getUtmDefaultValue(window.location.href));
-    console.log("utm_asset: ", getUtmDefaultValue(window.location.href));
 
     const utmSourceValue = getUrlParamValue("utm_source");
     if (utmSourceValue) {
