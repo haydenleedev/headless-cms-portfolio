@@ -57,13 +57,6 @@ class PardotForm extends Component {
   componentDidMount() {
     this.form.style.display = "";
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
-    this.isChannelRequestForm = this.props.formHandlerID == 3709;
-    this.isContactSalesForm =
-      this.props.formHandlerID == 3568 &&
-      this.props.contactType === "contact_sales";
-    this.isRequestDemoForm =
-      this.props.formHandlerID == 3568 &&
-      this.props.contactType === "request_a_demo";
     this.pagePath = Router.asPath;
     switch (parseInt(this.props.formHandlerID)) {
       case 3568:
@@ -89,6 +82,15 @@ class PardotForm extends Component {
         break;
       case 3721:
         this.formType = "googleContact";
+        break;
+    }
+
+    switch (this.props.contactType) {
+      case "request_a_demo":
+        this.contactTypeValue = "requestDemo";
+        break;
+      case "contact_sales":
+        this.contactTypeValue = "contactSales";
         break;
     }
 
@@ -523,10 +525,8 @@ class PardotForm extends Component {
                   field={field}
                   isHiddenField={this.isHiddenField(field)}
                   isDealRegistrationField={this.isDealRegistrationForm}
-                  isChannelRequestForm={this.isChannelRequestForm}
-                  isContactSalesForm={this.isContactSalesForm}
-                  isRequestDemoForm={this.isRequestDemoForm}
                   formType={this.formType}
+                  contactTypeValue={this.contactTypeValue}
                   fieldRef={this.fieldRefs[index]}
                   validate={this.validate}
                   updateTouched={() => {

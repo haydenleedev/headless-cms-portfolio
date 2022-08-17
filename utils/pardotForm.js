@@ -23,10 +23,8 @@ export const addGaData = (
   updateGaDataAdded,
   formEmailInput,
   isDealRegistrationForm,
-  isChannelRequestForm,
-  isContactSalesForm,
-  isRequestDemoForm,
-  formType
+  formType,
+  contactTypeValue
 ) => {
   if (!gaDataAdded) {
     // Loop and append randomized UID
@@ -142,13 +140,27 @@ export const addGaData = (
 
     const utmCampaignValue = getUrlParamValue("utm_campaign");
     const isGoogleContactForm = formType == "googleContact";
+    const isChannelRequestForm = formType == "channelRequest";
 
-    /*
-    const isChannelRequestForm = getAssetUrl.includes(
-      "/channel/channel-request"
-    );
-    */
-    //const isContactSalesForm = getAssetUrl.includes("/contact-sales");
+    const isContactSalesForm =
+      formType == "contactUs" && contactTypeValue == "contactSales";
+    const isRequestDemoForm =
+      formType == "contactUs" && contactTypeValue == "requestDemo";
+
+    let contactType;
+    function getContactFormType() {
+      if (document.querySelector("input[name=contact_type]")) {
+        const getContactType = document.querySelector(
+          "input[name=contact_type]"
+        );
+        if (getContactType.value === "contact_sales") {
+          contactType = "contactSales";
+        } else if (getContactType.value === "request_a_demo") {
+          contactType = "requestDemo";
+        }
+        return contactType;
+      }
+    }
 
     // Get the default utm_campaign and utm_asset values for all Deal Registration pages when there are no utm parameters on urls.
     const utmDefault = [

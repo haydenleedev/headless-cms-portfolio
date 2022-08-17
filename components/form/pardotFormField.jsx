@@ -31,6 +31,7 @@ const PardotFormField = ({
   isAllianceReferralCompany,
   isPartner,
   isContactType,
+  contactTypeValue,
 }) => {
   if (isSelectField(field)) {
     field.dataFormat = "select";
@@ -128,7 +129,8 @@ const PardotFormField = ({
               updateGaDataAdded,
               fieldRef.current,
               isDealRegistrationField,
-              formType
+              formType,
+              contactTypeValue
             );
           }}
           ref={fieldRef}
