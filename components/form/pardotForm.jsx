@@ -373,8 +373,10 @@ class PardotForm extends Component {
           clientCountry && clientCountry !== "undefined"
             ? clientCountry
             : "Unknown",
-        email: this.form["Email"]?.value,
       };
+      [...this.form.getElementsByTagName("input")].forEach((input) => {
+        clientData[input.name] = input.value;
+      });
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/saveClientData`, {
         method: "POST",
         body: JSON.stringify(clientData),

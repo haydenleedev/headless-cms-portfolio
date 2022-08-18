@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     clientData.append(key, body[key]);
   });
   const response = await fetch(
-    "https://script.google.com/macros/s/AKfycby95LtuXxBZcHePoWG51Ne5nGPUBi43sjw6fsVqT4lxmxP3t-0L2dLmhpdn-6BR5XzO/exec",
+    "https://script.google.com/macros/s/AKfycbxoTIUzoVwEmuIawEp8SFZV9-pEiKPBXPrK_UEMSLpTNBtPgdM/exec",
     {
       method: "POST",
       body: clientData,
