@@ -4,16 +4,18 @@ import style from "./form.module.scss";
 import FormError from "./formError";
 import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
 import PardotFormField from "./pardotFormField";
-import { getCookie, setCookie } from "../../utils/cookies";
+import { getCookie } from "../../utils/cookies";
 import {
+  addGaData,
   getFallbackFieldData,
-  getFormStep,
+  getFormType,
   isNonUsPhoneNumber,
   reorderFieldData,
 } from "../../utils/pardotForm";
 import pardotFormData from "../../data/pardotFormData.json";
 import Router from "next/router";
 import { boolean } from "../../utils/validation";
+import PardotFormEmailStep from "./pardotFormEmailStep";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -30,6 +32,7 @@ class PardotForm extends Component {
     this.updateStateFieldVisible = this.updateStateFieldVisible.bind(this);
     this.updatePartnerStateFieldVisible =
       this.updatePartnerStateFieldVisible.bind(this);
+    this.setFieldsToMatchStep = this.setFieldsToMatchStep.bind(this);
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
       {
@@ -51,40 +54,16 @@ class PardotForm extends Component {
       timestampedEmail: false,
       submitInProgress: false,
       unacceptableAssessmentScore: false,
+      fieldsMatchedToStep: false,
+      stepEmailFieldValue: null,
     };
   }
 
   componentDidMount() {
-    this.form.style.display = "";
+    // this.form.style.display = "";
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     this.pagePath = Router.asPath;
-    switch (parseInt(this.props.formHandlerID)) {
-      case 3568:
-        this.formType = "contactUs";
-        break;
-      case 3571:
-        this.formType = "dealRegistration";
-        break;
-      case 3658:
-        this.formType = "landingPage";
-        break;
-      case 3709:
-        this.formType = "channelRequest";
-        break;
-      case 3712:
-        this.formType = "webinar";
-        break;
-      case 3715:
-        this.formType = "blogSubscription";
-        break;
-      case 3718:
-        this.formType = "partnerRequest";
-        break;
-      case 3721:
-        this.formType = "googleContact";
-        break;
-    }
-
+    this.formType = getFormType(this.props.formHandlerID);
     this.setState({
       timestampedEmail: ["dealRegistration", "channelRequest"].includes(
         this.formType
@@ -112,35 +91,11 @@ class PardotForm extends Component {
     }
 
     if (this.fieldData.length > 0 && emailFieldExists) {
-      if (this.stepsEnabled) {
-        this.currentStep = getFormStep(this.formType);
-        this.currentStepFields = [];
-        this.stepFields = this.props.config?.items[0].fields || {};
-        this.stepFields[
-          `${this.formType}Step${this.currentStep}Fields`
-        ]?.forEach((item) => {
-          this.currentStepFields.push(item.fields.name);
-        });
-        this.fieldData = this.fieldData.filter((field) => {
-          if (
-            this.currentStepFields.includes(field.name) ||
-            field.name == "Email" ||
-            this.isHiddenField(field)
-          ) {
-            if (!this.isHiddenField(field)) {
-              field.isRequired = true;
-            }
-            return field;
-          }
-        });
-      } else {
-        // else if(this.stepsEnabled) {
-        this.fieldData.forEach((field) => {
-          if (!this.isHiddenField(field) && !this.isDealRegistrationForm) {
-            field.isRequired = true;
-          }
-        });
-      } // END if(this.stepsEnabled) {
+      this.fieldData.forEach((field) => {
+        if (!this.isHiddenField(field) && !this.isDealRegistrationForm) {
+          field.isRequired = true;
+        }
+      });
     } else {
       this.fieldData = getFallbackFieldData(this.props.formHandlerID);
     }
@@ -220,6 +175,51 @@ class PardotForm extends Component {
         }
       }
     });
+  }
+
+  setFieldsToMatchStep(step, emailFieldValue) {
+    this.currentStepFields = [];
+    this.stepFields = this.props.config?.items[0].fields || {};
+    this.stepFields[step]?.forEach((item) => {
+      this.currentStepFields.push(item.fields.name);
+    });
+    this.fieldData = this.fieldData.filter((field) => {
+      if (
+        this.currentStepFields.includes(field.name) ||
+        this.isHiddenField(field)
+      ) {
+        if (!this.isHiddenField(field)) {
+          field.isRequired = true;
+        }
+        return field;
+      }
+    });
+    this.fieldData = reorderFieldData(this.fieldData, this.formType);
+    this.fieldRefs = Array(this.fieldData.length)
+      .fill(0)
+      .map(() => {
+        return React.createRef();
+      });
+    this.setState(
+      {
+        errors: Array(this.fieldData.length).fill(false),
+        touched: Array(this.fieldData.length).fill(false),
+        fieldsMatchedToStep: true,
+        stepEmailFieldValue: emailFieldValue,
+      },
+      () => {
+        if (this.state.stepEmailFieldValue) {
+          this.form["hiddenemail"].value = this.state.stepEmailFieldValue;
+        }
+        addGaData(
+          this.gaDataAdded.current,
+          this.updateGaDataAdded,
+          this.form["hiddenemail"],
+          this.isDealRegistrationForm,
+          this.formType
+        );
+      }
+    );
   }
 
   isHiddenField(field) {
@@ -323,7 +323,9 @@ class PardotForm extends Component {
         });
         return;
       }
-      if (this.state.timestampedEmail && this.form["Email"].value) {
+      if (this.state.stepEmailFieldValue && !this.form["Email"]) {
+        this.form["hiddenemail"].name = "Email";
+      } else if (this.state.timestampedEmail && this.form["Email"].value) {
         const splitEmail = this.form["Email"].value.split(/(@)/);
         const date = new Date();
         const timestampedEmail = `${splitEmail[0]}+ex${date.getTime()}${
@@ -353,16 +355,6 @@ class PardotForm extends Component {
               }
             }
           }
-        );
-      }
-      if (
-        this.stepsEnabled &&
-        !getCookie(`${this.formType}Submit${this.currentStep}`)
-      ) {
-        setCookie(
-          `${this.formType}Submit${this.currentStep}`,
-          true,
-          "Fri, 31 Dec 9999 23:59:59 GMT"
         );
       }
       const clientIP = getCookie("client_ip");
@@ -462,174 +454,196 @@ class PardotForm extends Component {
   render() {
     return (
       <>
-        <form
-          action={this.props.action}
-          method="post"
-          onSubmit={(e) => {
-            this.handleSubmit(e);
-          }}
-          className={style.pardotForm}
-          // Hide the form for users with JS disabled
-          // display: none is removed in componentDidMount for users with JS enabled
-          style={{ display: "none" }}
-          ref={(form) => (this.form = form)}
-        >
-          {this.fieldData?.map((field, index) => {
-            if (
-              this.firstPartnerFieldIndex.current === null &&
-              field.name.toLowerCase().match(/partner/) &&
-              !field.name.toLowerCase().match(/partner area of interest/) &&
-              !this.isHiddenField(field)
-            ) {
-              this.firstPartnerFieldIndex.current = index;
-            }
-            return (
-              <div
-                key={`formField${index}`}
-                className={
-                  this.isHiddenField(field) ||
-                  (field.name.toLowerCase().match(/state/) &&
-                    ((!field.name.toLowerCase().match(/partner/) &&
-                      !this.state.stateFieldVisible) ||
-                      (field.name.toLowerCase().match(/partner/) &&
-                        !this.state.partnerStateFieldVisible)))
-                    ? "display-none"
-                    : ""
+        {this.stepsEnabled && !this.state.fieldsMatchedToStep ? (
+          <form
+            className={style.pardotForm}
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <PardotFormEmailStep
+              formHandlerID={this.props.formHandlerID}
+              stepFields={this.props.config.items[0].fields}
+              setFieldsToMatchStep={this.setFieldsToMatchStep}
+            />
+          </form>
+        ) : (
+          (!this.stepsEnabled ||
+            (this.stepsEnabled && this.state.fieldsMatchedToStep)) && (
+            <form
+              action={this.props.action}
+              method="post"
+              onSubmit={(e) => {
+                e.preventDefault();
+                this.handleSubmit(e);
+              }}
+              className={style.pardotForm}
+              // Hide the form for users with JS disabled
+              // display: none is removed in componentDidMount for users with JS enabled
+              // style={{ display: "none" }}
+              ref={(form) => (this.form = form)}
+            >
+              {this.fieldData?.map((field, index) => {
+                if (
+                  this.firstPartnerFieldIndex.current === null &&
+                  field.name.toLowerCase().match(/partner/) &&
+                  !field.name.toLowerCase().match(/partner area of interest/) &&
+                  !this.isHiddenField(field)
+                ) {
+                  this.firstPartnerFieldIndex.current = index;
                 }
-              >
-                {!this.isHiddenField(field) && (
-                  <>
-                    {index == this.firstPartnerFieldIndex.current && (
-                      <p
-                        className={`heading-6 ${style["pt-3"]} ${style["mt-3"]} ${style["pb-2"]} ${style["bt-1"]}`}
-                      >
-                        Your Information
-                      </p>
+                return (
+                  <div
+                    key={`formField${index}`}
+                    className={
+                      this.isHiddenField(field) ||
+                      (field.name.toLowerCase().match(/state/) &&
+                        ((!field.name.toLowerCase().match(/partner/) &&
+                          !this.state.stateFieldVisible) ||
+                          (field.name.toLowerCase().match(/partner/) &&
+                            !this.state.partnerStateFieldVisible)))
+                        ? "display-none"
+                        : ""
+                    }
+                  >
+                    {!this.isHiddenField(field) && (
+                      <>
+                        {index == this.firstPartnerFieldIndex.current && (
+                          <p
+                            className={`heading-6 ${style["pt-3"]} ${style["mt-3"]} ${style["pb-2"]} ${style["bt-1"]}`}
+                          >
+                            Your Information
+                          </p>
+                        )}
+                        <label htmlFor={field.id}>
+                          {field.isRequired && (
+                            <span className={style.required}>*</span>
+                          )}{" "}
+                          {field.name}
+                        </label>
+                      </>
                     )}
-                    <label htmlFor={field.id}>
-                      {field.isRequired && (
-                        <span className={style.required}>*</span>
-                      )}{" "}
-                      {field.name}
-                    </label>
-                  </>
-                )}
-                <PardotFormField
-                  field={field}
-                  isHiddenField={this.isHiddenField(field)}
-                  isDealRegistrationField={this.isDealRegistrationForm}
-                  formType={this.formType}
-                  fieldRef={this.fieldRefs[index]}
-                  validate={this.validate}
-                  updateTouched={() => {
-                    this.updateTouched(index);
-                  }}
-                  gaDataAdded={this.gaDataAdded.current}
-                  updateGaDataAdded={this.updateGaDataAdded}
-                  updateStateFieldVisible={this.updateStateFieldVisible}
-                  updatePartnerStateFieldVisible={
-                    this.updatePartnerStateFieldVisible
+                    <PardotFormField
+                      field={field}
+                      isHiddenField={this.isHiddenField(field)}
+                      isDealRegistrationField={this.isDealRegistrationForm}
+                      formType={this.formType}
+                      fieldRef={this.fieldRefs[index]}
+                      validate={this.validate}
+                      updateTouched={() => {
+                        this.updateTouched(index);
+                      }}
+                      gaDataAdded={this.gaDataAdded.current}
+                      updateGaDataAdded={this.updateGaDataAdded}
+                      updateStateFieldVisible={this.updateStateFieldVisible}
+                      updatePartnerStateFieldVisible={
+                        this.updatePartnerStateFieldVisible
+                      }
+                      updateSelectedCountry={this.updateSelectedCountry}
+                      usPhoneFormat={
+                        field.name.toLowerCase().match(/partner phone/)
+                          ? this.state.partnerUsPhoneFormat
+                          : this.state.usPhoneFormat
+                      }
+                      isContactType={this.props.contactType}
+                      isPartnerCompanyName={this.isPartnerPredefinedField(
+                        field,
+                        this.props.partnerCompanyName
+                      )}
+                      isPartnerCompanyCountry={this.isPartnerPredefinedField(
+                        field,
+                        this.props.partnerCompanyCountry
+                      )}
+                      isPartnerCompanyState={this.isPartnerPredefinedField(
+                        field,
+                        this.props.partnerCompanyState
+                      )}
+                      isPartnerCompanyCity={this.isPartnerPredefinedField(
+                        field,
+                        this.props.partnerCompanyCity
+                      )}
+                      isAllianceReferralCompany={this.isPartnerPredefinedField(
+                        field,
+                        this.props.allianceReferralCompany
+                      )}
+                      isPartner={this.isPartnerPredefinedField(
+                        field,
+                        this.props.partner
+                      )}
+                    />
+                    {this.state.errors[index] && (
+                      <FormError message={this.getErrorMessage(field.name)} />
+                    )}
+                  </div>
+                );
+              })}
+
+              {(this.state.timestampedEmail ||
+                this.state.stepEmailFieldValue) && (
+                <input name="hiddenemail" className="display-none" />
+              )}
+              {this.pagePath?.includes("/resources/") && (
+                <>
+                  <input name="Asset_URL" type="hidden" value={this.pagePath} />
+                  <input
+                    name="Asset_Type"
+                    className="display-none"
+                    value={this.pagePath.split("/resources/")[1].split("/")[0]}
+                  />
+                  <input
+                    name="Asset_Title"
+                    className="display-none"
+                    value={document.getElementsByTagName("h1")[0].textContent}
+                  />
+                </>
+              )}
+              {/* START: Honeypot */}
+              <label className={style.removehoney} htmlFor="honeyname"></label>
+              <input
+                className={style.removehoney}
+                autoComplete="off"
+                type="text"
+                id="honeyname"
+                name="honeyname"
+                tabIndex="-1"
+                aria-hidden="true"
+              />
+              <label className={style.removehoney} htmlFor="honeyemail"></label>
+              <input
+                className={style.removehoney}
+                autoComplete="off"
+                type="email"
+                id="honeyemail"
+                name="honeyemail"
+                tabIndex="-1"
+                aria-hidden="true"
+              />
+              {/* END: Honeypot */}
+
+              <div
+                className={`layout mt-4 d-flex flex-direction-column align-items-center`}
+              >
+                <input
+                  type="submit"
+                  className={`button ${
+                    this.props.btnColor ? this.props.btnColor : "orange"
+                  }`}
+                  value={
+                    this.state.submitInProgress
+                      ? "Please wait..."
+                      : this.props.submit
                   }
-                  updateSelectedCountry={this.updateSelectedCountry}
-                  usPhoneFormat={
-                    field.name.toLowerCase().match(/partner phone/)
-                      ? this.state.partnerUsPhoneFormat
-                      : this.state.usPhoneFormat
-                  }
-                  isContactType={this.props.contactType}
-                  isPartnerCompanyName={this.isPartnerPredefinedField(
-                    field,
-                    this.props.partnerCompanyName
-                  )}
-                  isPartnerCompanyCountry={this.isPartnerPredefinedField(
-                    field,
-                    this.props.partnerCompanyCountry
-                  )}
-                  isPartnerCompanyState={this.isPartnerPredefinedField(
-                    field,
-                    this.props.partnerCompanyState
-                  )}
-                  isPartnerCompanyCity={this.isPartnerPredefinedField(
-                    field,
-                    this.props.partnerCompanyCity
-                  )}
-                  isAllianceReferralCompany={this.isPartnerPredefinedField(
-                    field,
-                    this.props.allianceReferralCompany
-                  )}
-                  isPartner={this.isPartnerPredefinedField(
-                    field,
-                    this.props.partner
-                  )}
+                  required="required"
                 />
-                {this.state.errors[index] && (
-                  <FormError message={this.getErrorMessage(field.name)} />
+                {this.state.unacceptableAssessmentScore && (
+                  <FormError
+                    message={"Something went wrong. Please try again later."}
+                  />
                 )}
               </div>
-            );
-          })}
-          {this.state.timestampedEmail && (
-            <input name="hiddenemail" className="display-none" />
-          )}
-          {this.pagePath?.includes("/resources/") && (
-            <>
-              <input name="Asset_URL" type="hidden" value={this.pagePath} />
-              <input
-                name="Asset_Type"
-                className="display-none"
-                value={this.pagePath.split("/resources/")[1].split("/")[0]}
-              />
-              <input
-                name="Asset_Title"
-                className="display-none"
-                value={document.getElementsByTagName("h1")[0].textContent}
-              />
-            </>
-          )}
-          {/* START: Honeypot */}
-          <label className={style.removehoney} htmlFor="honeyname"></label>
-          <input
-            className={style.removehoney}
-            autoComplete="off"
-            type="text"
-            id="honeyname"
-            name="honeyname"
-            tabIndex="-1"
-            aria-hidden="true"
-          />
-          <label className={style.removehoney} htmlFor="honeyemail"></label>
-          <input
-            className={style.removehoney}
-            autoComplete="off"
-            type="email"
-            id="honeyemail"
-            name="honeyemail"
-            tabIndex="-1"
-            aria-hidden="true"
-          />
-          {/* END: Honeypot */}
-          <div
-            className={`layout mt-4 d-flex flex-direction-column align-items-center`}
-          >
-            <input
-              type="submit"
-              className={`button ${
-                this.props.btnColor ? this.props.btnColor : "orange"
-              }`}
-              value={
-                this.state.submitInProgress
-                  ? "Please wait..."
-                  : this.props.submit
-              }
-              required="required"
-            />
-            {this.state.unacceptableAssessmentScore && (
-              <FormError
-                message={"Something went wrong. Please try again later."}
-              />
-            )}
-          </div>
-        </form>
+            </form>
+          )
+        )}
         <noscript>
           <p>
             <strong>Please enable JavaScript to use the contact form.</strong>

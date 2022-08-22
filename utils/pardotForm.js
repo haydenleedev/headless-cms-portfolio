@@ -228,20 +228,25 @@ export const addGaData = (
   }
 };
 
-export const getFormStep = (formType) => {
-  let currentStep = 1;
-  if (typeof document !== "undefined") {
-    document.cookie.split(/; */).forEach((cookie) => {
-      const cookieName = cookie.split("=")[0];
-      if (cookieName.includes(`${formType}Submit`)) {
-        const step = cookieName.split(`${formType}Submit`)[1];
-        if (step >= currentStep) {
-          currentStep = parseInt(step) + 1;
-        }
-      }
-    });
+export const getFormType = (formHandlerID) => {
+  switch (parseInt(formHandlerID)) {
+    case 3568:
+      return "contactUs";
+    case 3571:
+      return "dealRegistration";
+    case 3658:
+      return "landingPage";
+    case 3709:
+      return "channelRequest";
+    case 3712:
+      return "webinar";
+    case 3715:
+      return "blogSubscription";
+    case 3718:
+      return "partnerRequest";
+    case 3721:
+      return "googleContact";
   }
-  return currentStep;
 };
 
 export const getFallbackFieldData = (formID) => {
