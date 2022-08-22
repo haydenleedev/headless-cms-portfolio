@@ -9,6 +9,7 @@ import {
   addGaData,
   getFallbackFieldData,
   getFormType,
+  isHiddenField,
   isNonUsPhoneNumber,
   reorderFieldData,
 } from "../../utils/pardotForm";
@@ -93,7 +94,10 @@ class PardotForm extends Component {
 
     if (this.fieldData.length > 0 && emailFieldExists) {
       this.fieldData.forEach((field) => {
-        if (!this.isHiddenField(field) && !this.isDealRegistrationForm) {
+        if (
+          !isHiddenField(field, this.isDealRegistrationForm) &&
+          !this.isDealRegistrationForm
+        ) {
           field.isRequired = true;
         }
       });
@@ -188,9 +192,9 @@ class PardotForm extends Component {
     this.fieldData = this.fieldData.filter((field) => {
       if (
         this.currentStepFields.includes(field.name) ||
-        this.isHiddenField(field)
+        isHiddenField(field, this.isDealRegistrationForm)
       ) {
-        if (!this.isHiddenField(field)) {
+        if (!isHiddenField(field, this.isDealRegistrationForm)) {
           field.isRequired = true;
         }
         return field;
@@ -223,41 +227,6 @@ class PardotForm extends Component {
         }
       }
     );
-  }
-
-  isHiddenField(field) {
-    // Blacklist hidden fields from Pardot form handler fields
-    const hiddenFields = [
-      /ga_/,
-      /utm_/,
-      /current lead/,
-      /hidden/,
-      /hide/,
-      /alliance referral/,
-      /asset /,
-      /contact_type/,
-    ];
-
-    const partialHiddenFields = [/partner country/, /partner company/];
-
-    // Check whether form field is blacklisted
-    if (
-      partialHiddenFields.some(
-        (re) =>
-          re.test(String(field.name).toLocaleLowerCase()) &&
-          this.isDealRegistrationForm
-      )
-    ) {
-      return true;
-    } else if (
-      hiddenFields.some((re) =>
-        re.test(String(field.name).toLocaleLowerCase())
-      ) ||
-      String(field.name).toLocaleLowerCase() === "partner"
-    ) {
-      return true;
-    }
-    return false;
   }
 
   // START: Define specific field values for deal registration pages
@@ -346,7 +315,10 @@ class PardotForm extends Component {
       ) {
         [...document.querySelectorAll("[name*=State], [name*=state]")].forEach(
           (element) => {
-            if (this.form.contains(element) && !this.isHiddenField(element)) {
+            if (
+              this.form.contains(element) &&
+              !isHiddenField(element, this.isDealRegistrationForm)
+            ) {
               if (
                 ((!this.state.stateFieldVisible &&
                   !element.name.toLowerCase().match(/partner/)) ||
@@ -403,11 +375,11 @@ class PardotForm extends Component {
             (this.state.stateFieldVisible &&
               fieldRef.current.name.toLowerCase().match(/state/) &&
               !fieldRef.current.name.toLowerCase().match(/partner/) &&
-              !this.isHiddenField(fieldRef.current)) ||
+              !isHiddenField(fieldRef.current, this.isDealRegistrationForm)) ||
             (this.state.partnerStateFieldVisible &&
               fieldRef.current.name.toLowerCase().match(/state/) &&
               fieldRef.current.name.toLowerCase().match(/partner/) &&
-              !this.isHiddenField(fieldRef.current))) &&
+              !isHiddenField(fieldRef.current, this.isDealRegistrationForm))) &&
           !fieldRef.current.value
         ) {
           errors[index] = true;
@@ -496,7 +468,7 @@ class PardotForm extends Component {
                     !field.name
                       .toLowerCase()
                       .match(/partner area of interest/) &&
-                    !this.isHiddenField(field)
+                    !isHiddenField(field, this.isDealRegistrationForm)
                   ) {
                     this.firstPartnerFieldIndex.current = index;
                   }
@@ -504,7 +476,7 @@ class PardotForm extends Component {
                     <div
                       key={`formField${index}`}
                       className={
-                        this.isHiddenField(field) ||
+                        isHiddenField(field, this.isDealRegistrationForm) ||
                         (field.name.toLowerCase().match(/state/) &&
                           ((!field.name.toLowerCase().match(/partner/) &&
                             !this.state.stateFieldVisible) ||
@@ -514,7 +486,7 @@ class PardotForm extends Component {
                           : ""
                       }
                     >
-                      {!this.isHiddenField(field) && (
+                      {!isHiddenField(field, this.isDealRegistrationForm) && (
                         <>
                           {index == this.firstPartnerFieldIndex.current && (
                             <p
@@ -533,7 +505,6 @@ class PardotForm extends Component {
                       )}
                       <PardotFormField
                         field={field}
-                        isHiddenField={this.isHiddenField(field)}
                         isDealRegistrationField={this.isDealRegistrationForm}
                         formType={this.formType}
                         fieldRef={this.fieldRefs[index]}

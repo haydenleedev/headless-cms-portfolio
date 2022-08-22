@@ -22,7 +22,6 @@ export const addGaData = (
   gaDataAdded,
   updateGaDataAdded,
   formEmailInput,
-  isDealRegistrationForm,
   formType
 ) => {
   if (!gaDataAdded) {
@@ -267,6 +266,41 @@ export const isNonUsPhoneNumber = (phoneNumber) => {
     }
   }
   return true;
+};
+
+export const isHiddenField = (field, isDealRegistrationField = false) => {
+  // Blacklist hidden fields from Pardot form handler fields
+  const hiddenFields = [
+    /ga_/,
+    /utm_/,
+    /current lead/,
+    /hidden/,
+    /hide/,
+    /alliance referral/,
+    /asset /,
+    /contact_type/,
+  ];
+
+  const partialHiddenFields = [/partner country/, /partner company/];
+
+  // Check whether form field is blacklisted
+  if (
+    partialHiddenFields.some(
+      (re) =>
+        re.test(String(field.name).toLocaleLowerCase()) &&
+        isDealRegistrationField
+    )
+  ) {
+    return true;
+  } else if (
+    hiddenFields.some((re) =>
+      re.test(String(field.name).toLocaleLowerCase())
+    ) ||
+    String(field.name).toLocaleLowerCase() === "partner"
+  ) {
+    return true;
+  }
+  return false;
 };
 
 export const getCampaignScript = (customPICid) => {

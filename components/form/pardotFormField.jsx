@@ -1,5 +1,5 @@
 import { formatPhoneNumber } from "../../shop/utils/formatData";
-import { addGaData } from "../../utils/pardotForm";
+import { addGaData, isHiddenField } from "../../utils/pardotForm";
 import {
   countries,
   crmSolutions,
@@ -12,7 +12,6 @@ import style from "./form.module.scss";
 
 const PardotFormField = ({
   field,
-  isHiddenField,
   isDealRegistrationField,
   formType,
   fieldRef,
@@ -113,7 +112,7 @@ const PardotFormField = ({
     case "email":
       return (
         <input
-          hidden={isHiddenField}
+          hidden={isHiddenField(field, isDealRegistrationField)}
           name={field.name}
           id={field.id}
           autoComplete="email"
@@ -141,7 +140,7 @@ const PardotFormField = ({
           id={field.id}
           type="text"
           title={field.name}
-          hidden={isHiddenField}
+          hidden={isHiddenField(field, isDealRegistrationField)}
           maxLength={usPhoneFormat ? null : 15}
           onBlur={() => {
             if (usPhoneFormat) {
@@ -171,7 +170,7 @@ const PardotFormField = ({
           type="number"
           min="0"
           title={field.name}
-          hidden={isHiddenField}
+          hidden={isHiddenField(field, isDealRegistrationField)}
           onBlur={() => {
             validate();
           }}
@@ -188,7 +187,7 @@ const PardotFormField = ({
               id={field.id}
               maxLength="32768"
               rows="3"
-              hidden={isHiddenField}
+              hidden={isHiddenField(field, isDealRegistrationField)}
               onBlur={() => {
                 validate();
               }}
@@ -200,7 +199,7 @@ const PardotFormField = ({
               name={field.name}
               id={field.id}
               maxLength="50"
-              hidden={isHiddenField}
+              hidden={isHiddenField(field, isDealRegistrationField)}
               onBlur={() => {
                 validate();
               }}
