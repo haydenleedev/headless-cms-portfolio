@@ -62,6 +62,29 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     }
   };
 
+  // Get Asset Type
+
+  let setAssetType;
+  let referenceNameValue = dynamicPageItem.properties.referenceName;
+  const resourceTypesByNames = [
+    { referenceName: "ebooks", type: "eBook" },
+    { referenceName: "reports", type: "Report" },
+    { referenceName: "guides", type: "Guide" },
+    { referenceName: "whitepapers", type: "White Paper" },
+    { referenceName: "videos", type: "Webinar" },
+    { referenceName: "webinars", type: "Webinar" },
+    { referenceName: "integrations", type: "Datasheet" },
+  ];
+
+  const getAssetType = () => {
+    resourceTypesByNames.map((item) => {
+      if (item.referenceName == dynamicPageItem.properties.referenceName) {
+        setAssetType = item.type;
+      }
+    });
+    return setAssetType ? setAssetType : null;
+  };
+
   useEffect(() => {
     campaignScriptIDRef.current = resource.campaignTrackingID;
   }, []);
@@ -195,6 +218,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         stepsEnabled={resource.formStepsEnabled}
                         config={formConfiguration}
                         assetTitle={resource.title ? resource.title : null}
+                        assetType={getAssetType()}
                       />
                     </div>
                   </div>
@@ -272,6 +296,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         }
                         config={formConfiguration}
                         assetTitle={resource.title ? resource.title : null}
+                        assetType={getAssetType()}
                       />
                       {resource.link?.href && resource.link?.text && (
                         <div className="mt-4 align-center">

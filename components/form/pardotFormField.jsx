@@ -34,6 +34,7 @@ const PardotFormField = ({
   contactTypeValue,
   isRecordTypeId,
   isAssetTitle,
+  isAssetType,
 }) => {
   if (isSelectField(field)) {
     field.dataFormat = "select";
@@ -217,6 +218,8 @@ const PardotFormField = ({
                   ? isRecordTypeId
                   : field.name.toLowerCase() === "asset title"
                   ? isAssetTitle
+                  : field.name.toLowerCase() === "asset type"
+                  ? isAssetType
                   : renderPartnerProps()
               }
             />
