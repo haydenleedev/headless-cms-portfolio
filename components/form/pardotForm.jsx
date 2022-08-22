@@ -242,6 +242,7 @@ class PardotForm extends Component {
       /alliance referral/,
       /asset /,
       /contact_type/,
+      /lead record type/,
     ];
 
     const partialHiddenFields = [/partner country/, /partner company/];
@@ -569,6 +570,7 @@ class PardotForm extends Component {
                     field,
                     this.props.partner
                   )}
+                  isRecordTypeId={this.props.recordTypeId}
                 />
                 {this.state.errors[index] && (
                   <FormError message={this.getErrorMessage(field.name)} />

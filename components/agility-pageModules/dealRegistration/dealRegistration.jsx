@@ -85,6 +85,7 @@ const DealRegistration = ({ dynamicPageItem, customData }) => {
                 partnerCompanyCity={deal.partnerCompanyCity}
                 allianceReferralCompany={deal.allianceReferralCompany}
                 partner={deal.partner}
+                recordTypeId="0121I0000007LYlQAM"
               />
             </div>
           </div>
