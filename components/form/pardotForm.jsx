@@ -60,7 +60,11 @@ class PardotForm extends Component {
   }
 
   componentDidMount() {
-    // this.form.style.display = "";
+    if (this.stepsEnabled && this.stepForm) {
+      this.stepForm.style.display = "";
+    } else if (!this.stepsEnabled && this.form) {
+      this.form.style.display = "";
+    }
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     this.pagePath = Router.asPath;
     this.formType = getFormType(this.props.formHandlerID);
@@ -457,6 +461,10 @@ class PardotForm extends Component {
         {this.stepsEnabled && !this.state.fieldsMatchedToStep ? (
           <form
             className={style.pardotForm}
+            ref={(form) => (this.stepForm = form)}
+            // Hide the form for users with JS disabled
+            // display: none is removed in componentDidMount for users with JS enabled
+            style={{ display: "none" }}
             onSubmit={(e) => {
               e.preventDefault();
             }}
@@ -480,7 +488,7 @@ class PardotForm extends Component {
               className={style.pardotForm}
               // Hide the form for users with JS disabled
               // display: none is removed in componentDidMount for users with JS enabled
-              // style={{ display: "none" }}
+              style={{ display: "none" }}
               ref={(form) => (this.form = form)}
             >
               {this.fieldData?.map((field, index) => {
