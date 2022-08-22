@@ -523,6 +523,7 @@ class PardotForm extends Component {
                   </>
                 )}
                 <PardotFormField
+                  isAssetTitle={this.props.assetTitle}
                   field={field}
                   isHiddenField={this.isHiddenField(field)}
                   isDealRegistrationField={this.isDealRegistrationForm}

@@ -194,6 +194,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         }
                         stepsEnabled={resource.formStepsEnabled}
                         config={formConfiguration}
+                        assetTitle={resource.title ? resource.title : null}
                       />
                     </div>
                   </div>
@@ -270,6 +271,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             : "Download Now"
                         }
                         config={formConfiguration}
+                        assetTitle={resource.title ? resource.title : null}
                       />
                       {resource.link?.href && resource.link?.text && (
                         <div className="mt-4 align-center">

@@ -120,22 +120,6 @@ export const addGaData = (
       return setAssetType;
     };
 
-    // Get Asset Title for all forms for Resources pages
-    if (document.querySelector("h1")) {
-      const hTitle = document.querySelector("h1").innerText;
-      let setAssetTitle;
-      const getAssetTitle = (pageUrl) => {
-        resourceTypesByPaths.map((url) => {
-          if (pageUrl.includes(url.path)) {
-            setAssetTitle = hTitle;
-          }
-        });
-        return setAssetTitle;
-      };
-
-      setFormInputValue("Asset Title", getAssetTitle(window.location.href));
-    }
-
     // Values based on URL parameters
 
     const utmCampaignValue = getUrlParamValue("utm_campaign");
