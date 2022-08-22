@@ -23,12 +23,7 @@ const PardotFormField = ({
   updatePartnerStateFieldVisible,
   updateSelectedCountry,
   usPhoneFormat,
-  isPartnerCompanyName,
-  isPartnerCompanyCountry,
-  isPartnerCompanyState,
-  isPartnerCompanyCity,
-  isAllianceReferralCompany,
-  isPartner,
+  partnerFieldProperties,
   isContactType,
 }) => {
   if (isSelectField(field)) {
@@ -79,28 +74,6 @@ const PardotFormField = ({
       }
     }
     return false;
-  }
-
-  let fieldName;
-  function renderPartnerProps() {
-    const predefinedFields = [
-      { name: "Partner Company Name", fieldOption: isPartnerCompanyName },
-      { name: "Partner Country", fieldOption: isPartnerCompanyCountry },
-      { name: "Partner Company State", fieldOption: isPartnerCompanyState },
-      { name: "Partner Company City", fieldOption: isPartnerCompanyCity },
-      {
-        name: "Alliance Referral Company",
-        fieldOption: isAllianceReferralCompany,
-      },
-      { name: "Partner", fieldOption: isPartner },
-    ];
-
-    for (let i = 0; i < predefinedFields.length; i++) {
-      if (predefinedFields[i].name === String(field.name)) {
-        fieldName = predefinedFields[i].fieldOption;
-      }
-    }
-    return fieldName;
   }
 
   function phoneNumberFormatter() {
@@ -208,7 +181,7 @@ const PardotFormField = ({
               value={
                 field.name.toLowerCase() === "contact_type"
                   ? isContactType
-                  : renderPartnerProps()
+                  : partnerFieldProperties?.value
               }
             />
           )}

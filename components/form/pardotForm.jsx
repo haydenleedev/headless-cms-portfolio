@@ -230,26 +230,24 @@ class PardotForm extends Component {
   }
 
   // START: Define specific field values for deal registration pages
-  isPartnerPredefinedField(field, fieldValue) {
-    let partnerFieldValue;
-    const predefinedValues = [
-      { name: "Partner Country" },
-      { name: "Partner Company Name" },
-      {
-        name: "Partner Company State",
-      },
-      { name: "Partner Company City" },
+  getPartnerFieldProperties(field) {
+    const partnerFieldData = [
+      { name: "Partner Country", value: this.props.partnerCompanyCountry },
+      { name: "Partner Company Name", value: this.props.partnerCompanyName },
+      { name: "Partner Company State", value: this.props.partnerCompanyState },
+      { name: "Partner Company City", value: this.props.partnerCompanyCity },
       {
         name: "Alliance Referral Company",
+        value: this.props.allianceReferralCompany,
       },
-      { name: "Partner" },
+      { name: "Partner", value: this.props.partner },
     ];
-    predefinedValues.map((item) => {
-      if (String(item.name) === String(field.name)) {
-        partnerFieldValue = fieldValue;
+    for (let i = 0; i < partnerFieldData.length; i++) {
+      if (field.name == partnerFieldData[i].name) {
+        return partnerFieldData[i];
       }
-    });
-    return partnerFieldValue;
+    }
+    return null;
   }
   // END: Define specific field values for deal registration pages
 
@@ -525,29 +523,8 @@ class PardotForm extends Component {
                             : this.state.usPhoneFormat
                         }
                         isContactType={this.props.contactType}
-                        isPartnerCompanyName={this.isPartnerPredefinedField(
-                          field,
-                          this.props.partnerCompanyName
-                        )}
-                        isPartnerCompanyCountry={this.isPartnerPredefinedField(
-                          field,
-                          this.props.partnerCompanyCountry
-                        )}
-                        isPartnerCompanyState={this.isPartnerPredefinedField(
-                          field,
-                          this.props.partnerCompanyState
-                        )}
-                        isPartnerCompanyCity={this.isPartnerPredefinedField(
-                          field,
-                          this.props.partnerCompanyCity
-                        )}
-                        isAllianceReferralCompany={this.isPartnerPredefinedField(
-                          field,
-                          this.props.allianceReferralCompany
-                        )}
-                        isPartner={this.isPartnerPredefinedField(
-                          field,
-                          this.props.partner
+                        partnerFieldProperties={this.getPartnerFieldProperties(
+                          field
                         )}
                       />
                       {this.state.errors[index] && (
