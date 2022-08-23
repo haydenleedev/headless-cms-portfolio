@@ -53,8 +53,8 @@ class PardotForm extends Component {
         this.props.partnerCompanyCountry == "United States" ||
         !this.props.partnerCompanyCountry,
       timestampedEmail: false,
-      submitInProgress: false,
-      unacceptableAssessmentScore: false,
+      submissionInProgress: false,
+      formSubmissionAllowed: true,
       fieldsMatchedToStep: false,
       stepEmailFieldValue: null,
       finalStepSubmitted: false,
@@ -257,11 +257,12 @@ class PardotForm extends Component {
       this.onSubmitValidate() &&
       !this.form.honeyname.value &&
       !this.form.honeyemail.value &&
-      !this.state.submitInProgress &&
-      !this.assessmentCreatedRef.current
+      !this.state.submissionInProgress &&
+      !this.assessmentCreatedRef.current &&
+      this.state.formSubmissionAllowed
     ) {
+      this.setState({ submissionInProgress: true });
       const getAssessment = () => {
-        this.setState({ submitInProgress: true });
         if (!this.assessmentCreatedRef.current) {
           return new Promise((resolve) => {
             grecaptcha.enterprise.ready(async () => {
@@ -285,11 +286,26 @@ class PardotForm extends Component {
           return false;
         }
       };
+      const blocklistResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/checkFormBlocklist`,
+        {
+          method: "POST",
+          body: JSON.stringify({ ip: getCookie("client_ip") }),
+        }
+      );
+      const blocklistResponseJSON = await blocklistResponse.json();
+      if (!blocklistResponseJSON.submissionAllowed) {
+        this.setState({
+          submissionInProgress: false,
+          formSubmissionAllowed: false,
+        });
+        return;
+      }
       const isAcceptableScore = await getAssessment();
       if (!isAcceptableScore) {
         this.setState({
-          submitInProgress: false,
-          unacceptableAssessmentScore: true,
+          submissionInProgress: false,
+          formSubmissionAllowed: false,
         });
         return;
       }
@@ -597,13 +613,13 @@ class PardotForm extends Component {
                       this.props.btnColor ? this.props.btnColor : "orange"
                     }`}
                     value={
-                      this.state.submitInProgress
+                      this.state.submissionInProgress
                         ? "Please wait..."
                         : this.props.submit
                     }
                     required="required"
                   />
-                  {this.state.unacceptableAssessmentScore && (
+                  {!this.state.formSubmissionAllowed && (
                     <FormError
                       message={"Something went wrong. Please try again later."}
                     />
