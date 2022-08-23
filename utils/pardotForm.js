@@ -22,9 +22,7 @@ export const addGaData = (
   gaDataAdded,
   updateGaDataAdded,
   formEmailInput,
-  isDealRegistrationForm,
-  formType,
-  contactTypeValue
+  formType
 ) => {
   if (!gaDataAdded) {
     // Loop and append randomized UID
@@ -120,92 +118,31 @@ export const addGaData = (
       return setAssetType;
     };
 
-    // Values based on URL parameters
+    // Get Asset Title for all forms for Resources pages
+    if (document.querySelector("h1")) {
+      const hTitle = document.querySelector("h1").innerText;
+      let setAssetTitle;
+      const getAssetTitle = (pageUrl) => {
+        resourceTypesByPaths.map((url) => {
+          if (pageUrl.includes(url.path)) {
+            setAssetTitle = hTitle;
+          }
+        });
+        return setAssetTitle;
+      };
 
+      setFormInputValue("Asset Title", getAssetTitle(window.location.href));
+    }
+
+    // Values based on URL parameters
+    setFormInputValue("utm_asset", getUrlParamValue("utm_asset"));
     const utmCampaignValue = getUrlParamValue("utm_campaign");
     const isGoogleContactForm = formType == "googleContact";
-    const isChannelRequestForm = formType == "channelRequest";
-
-    const isContactSalesForm =
-      formType == "contactUs" && contactTypeValue == "contactSales";
-    const isRequestDemoForm =
-      formType == "contactUs" && contactTypeValue == "requestDemo";
-
-    let contactType;
-    function getContactFormType() {
-      if (document.querySelector("input[name=contact_type]")) {
-        const getContactType = document.querySelector(
-          "input[name=contact_type]"
-        );
-        if (getContactType.value === "contact_sales") {
-          contactType = "contactSales";
-        } else if (getContactType.value === "request_a_demo") {
-          contactType = "requestDemo";
-        }
-        return contactType;
-      }
-    }
-
-    // Get the default utm_campaign and utm_asset values for all Deal Registration pages when there are no utm parameters on urls.
-    const utmDefault = [
-      { slug: "google", utmDefault: "deal_reg_google_mp" },
-      { slug: "kustomer", utmDefault: "deal_reg_google_kustomer" },
-      { slug: "playvox", utmDefault: "deal_reg_google_playvox" },
-      { slug: "acqueon", utmDefault: "deal_reg_google_acqueon" },
-      { slug: "aws", utmDefault: "deal_reg_google_aws" },
-      { slug: "calabrio", utmDefault: "deal_reg_google_calabrio" },
-      { slug: "intercom", utmDefault: "deal_reg_google_intercom" },
-      { slug: "observe-ai", utmDefault: "deal_reg_google_observe" },
-      { slug: "oracle", utmDefault: "deal_reg_google_oracle" },
-      { slug: "successkpi", utmDefault: "deal_reg_google_successKPI" },
-      { slug: "zendesk", utmDefault: "deal_reg_google_zendesk" },
-    ];
-
-    let utmDealRegistrationDefalutResult;
-    function getDealRegistrationUtmDefaultValue(url) {
-      utmDefault.map((item) => {
-        if (url.includes("/deal-registration/" + item.slug)) {
-          utmDealRegistrationDefalutResult = item.utmDefault;
-        }
-      });
-      return utmDealRegistrationDefalutResult;
-    }
-
     if (utmCampaignValue) {
       setFormInputValue("utm_campaign", utmCampaignValue);
     } else if (!utmCampaignValue && isGoogleContactForm) {
       setFormInputValue("utm_campaign", "gmp_contact_sales");
-    } else if (!utmCampaignValue && isChannelRequestForm) {
-      setFormInputValue("utm_campaign", "request_to_partner");
-    } else if (!utmCampaignValue && isContactSalesForm) {
-      setFormInputValue("utm_campaign", "contact_sales");
-    } else if (!utmCampaignValue && isRequestDemoForm) {
-      setFormInputValue("utm_campaign", "request_demo");
-    } else if (!utmCampaignValue && isDealRegistrationForm) {
-      setFormInputValue(
-        "utm_campaign",
-        getDealRegistrationUtmDefaultValue(window.location.href)
-      );
     }
-
-    const utmAssetValue = getUrlParamValue("utm_asset");
-    if (utmAssetValue) {
-      setFormInputValue("utm_asset", utmAssetValue);
-    } else if (!utmAssetValue && isGoogleContactForm) {
-      setFormInputValue("utm_asset", "gmp_contact_sales");
-    } else if (!utmAssetValue && isChannelRequestForm) {
-      setFormInputValue("utm_asset", "request_to_partner");
-    } else if (!utmCampaignValue && isContactSalesForm) {
-      setFormInputValue("utm_asset", "contact_sales");
-    } else if (!utmCampaignValue && isRequestDemoForm) {
-      setFormInputValue("utm_asset", "request_demo");
-    } else if (!utmAssetValue && isDealRegistrationForm) {
-      setFormInputValue(
-        "utm_asset",
-        getDealRegistrationUtmDefaultValue(window.location.href)
-      );
-    }
-
     const utmSourceValue = getUrlParamValue("utm_source");
     if (utmSourceValue) {
       setFormInputValue("utm_source", utmSourceValue);
@@ -290,20 +227,25 @@ export const addGaData = (
   }
 };
 
-export const getFormStep = (formType) => {
-  let currentStep = 1;
-  if (typeof document !== "undefined") {
-    document.cookie.split(/; */).forEach((cookie) => {
-      const cookieName = cookie.split("=")[0];
-      if (cookieName.includes(`${formType}Submit`)) {
-        const step = cookieName.split(`${formType}Submit`)[1];
-        if (step >= currentStep) {
-          currentStep = parseInt(step) + 1;
-        }
-      }
-    });
+export const getFormType = (formHandlerID) => {
+  switch (parseInt(formHandlerID)) {
+    case 3568:
+      return "contactUs";
+    case 3571:
+      return "dealRegistration";
+    case 3658:
+      return "landingPage";
+    case 3709:
+      return "channelRequest";
+    case 3712:
+      return "webinar";
+    case 3715:
+      return "blogSubscription";
+    case 3718:
+      return "partnerRequest";
+    case 3721:
+      return "googleContact";
   }
-  return currentStep;
 };
 
 export const getFallbackFieldData = (formID) => {
@@ -324,6 +266,41 @@ export const isNonUsPhoneNumber = (phoneNumber) => {
     }
   }
   return true;
+};
+
+export const isHiddenField = (field, isDealRegistrationField = false) => {
+  // Blacklist hidden fields from Pardot form handler fields
+  const hiddenFields = [
+    /ga_/,
+    /utm_/,
+    /current lead/,
+    /hidden/,
+    /hide/,
+    /alliance referral/,
+    /asset /,
+    /contact_type/,
+  ];
+
+  const partialHiddenFields = [/partner country/, /partner company/];
+
+  // Check whether form field is blacklisted
+  if (
+    partialHiddenFields.some(
+      (re) =>
+        re.test(String(field.name).toLocaleLowerCase()) &&
+        isDealRegistrationField
+    )
+  ) {
+    return true;
+  } else if (
+    hiddenFields.some((re) =>
+      re.test(String(field.name).toLocaleLowerCase())
+    ) ||
+    String(field.name).toLocaleLowerCase() === "partner"
+  ) {
+    return true;
+  }
+  return false;
 };
 
 export const getCampaignScript = (customPICid) => {

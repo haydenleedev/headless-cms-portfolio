@@ -1,5 +1,5 @@
 import { formatPhoneNumber } from "../../shop/utils/formatData";
-import { addGaData } from "../../utils/pardotForm";
+import { addGaData, isHiddenField } from "../../utils/pardotForm";
 import {
   countries,
   crmSolutions,
@@ -12,7 +12,6 @@ import style from "./form.module.scss";
 
 const PardotFormField = ({
   field,
-  isHiddenField,
   isDealRegistrationField,
   formType,
   fieldRef,
@@ -24,17 +23,8 @@ const PardotFormField = ({
   updatePartnerStateFieldVisible,
   updateSelectedCountry,
   usPhoneFormat,
-  isPartnerCompanyName,
-  isPartnerCompanyCountry,
-  isPartnerCompanyState,
-  isPartnerCompanyCity,
-  isAllianceReferralCompany,
-  isPartner,
+  partnerFieldProperties,
   isContactType,
-  contactTypeValue,
-  isRecordTypeId,
-  isAssetTitle,
-  isAssetType,
 }) => {
   if (isSelectField(field)) {
     field.dataFormat = "select";
@@ -86,28 +76,6 @@ const PardotFormField = ({
     return false;
   }
 
-  let fieldName;
-  function renderPartnerProps() {
-    const predefinedFields = [
-      { name: "Partner Company Name", fieldOption: isPartnerCompanyName },
-      { name: "Partner Country", fieldOption: isPartnerCompanyCountry },
-      { name: "Partner Company State", fieldOption: isPartnerCompanyState },
-      { name: "Partner Company City", fieldOption: isPartnerCompanyCity },
-      {
-        name: "Alliance Referral Company",
-        fieldOption: isAllianceReferralCompany,
-      },
-      { name: "Partner", fieldOption: isPartner },
-    ];
-
-    for (let i = 0; i < predefinedFields.length; i++) {
-      if (predefinedFields[i].name === String(field.name)) {
-        fieldName = predefinedFields[i].fieldOption;
-      }
-    }
-    return fieldName;
-  }
-
   function phoneNumberFormatter() {
     if (field.name.toLowerCase().includes("phone")) {
       fieldRef.current.value = formatPhoneNumber(fieldRef.current.value);
@@ -117,11 +85,11 @@ const PardotFormField = ({
     case "email":
       return (
         <input
-          hidden={isHiddenField}
+          hidden={isHiddenField(field, isDealRegistrationField)}
           name={field.name}
           id={field.id}
           autoComplete="email"
-          maxLength="200"
+          maxLength="50"
           onBlur={() => {
             validate();
           }}
@@ -132,8 +100,7 @@ const PardotFormField = ({
               updateGaDataAdded,
               fieldRef.current,
               isDealRegistrationField,
-              formType,
-              contactTypeValue
+              formType
             );
           }}
           ref={fieldRef}
@@ -146,7 +113,7 @@ const PardotFormField = ({
           id={field.id}
           type="text"
           title={field.name}
-          hidden={isHiddenField}
+          hidden={isHiddenField(field, isDealRegistrationField)}
           maxLength={usPhoneFormat ? null : 15}
           onBlur={() => {
             if (usPhoneFormat) {
@@ -176,7 +143,7 @@ const PardotFormField = ({
           type="number"
           min="0"
           title={field.name}
-          hidden={isHiddenField}
+          hidden={isHiddenField(field, isDealRegistrationField)}
           onBlur={() => {
             validate();
           }}
@@ -191,9 +158,9 @@ const PardotFormField = ({
             <textarea
               name={field.name}
               id={field.id}
-              maxLength="132768"
+              maxLength="32768"
               rows="3"
-              hidden={isHiddenField}
+              hidden={isHiddenField(field, isDealRegistrationField)}
               onBlur={() => {
                 validate();
               }}
@@ -204,8 +171,8 @@ const PardotFormField = ({
             <input
               name={field.name}
               id={field.id}
-              maxLength="200"
-              hidden={isHiddenField}
+              maxLength="50"
+              hidden={isHiddenField(field, isDealRegistrationField)}
               onBlur={() => {
                 validate();
               }}
@@ -214,13 +181,7 @@ const PardotFormField = ({
               value={
                 field.name.toLowerCase() === "contact_type"
                   ? isContactType
-                  : field.name.toLowerCase() === "lead record type"
-                  ? isRecordTypeId
-                  : field.name.toLowerCase() === "asset title"
-                  ? isAssetTitle
-                  : field.name.toLowerCase() === "asset type"
-                  ? isAssetType
-                  : renderPartnerProps()
+                  : partnerFieldProperties?.value
               }
             />
           )}
@@ -274,7 +235,7 @@ const PardotFormField = ({
         <input
           name={field.name}
           id={field.id}
-          maxLength="200"
+          maxLength="50"
           onBlur={() => {
             validate();
           }}

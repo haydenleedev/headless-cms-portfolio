@@ -18,10 +18,11 @@ const htmlMarketoFormListener = `
           });
 
           _.onElementAppear($form[0], 100, function () {
-            dataLayer.push({
-              event: "marketo.in_view",
-              "marketo.form_id": form_id,
-            });
+            window.dispatchEvent(new CustomEvent("marketoFormInView"));
+            // dataLayer.push({
+            //   event: "marketo.in_view",
+            //   "marketo.form_id": form_id,
+            // });
           });
 
           form.onSubmit(function () {
@@ -40,6 +41,7 @@ const htmlMarketoFormListener = `
                 window.mktoSubmitPixelLoaded = true;
               };
             }
+            window.dispatchEvent(new CustomEvent("marketoFormSubmit"));
             dataLayer.push({
               event: "marketo.submit",
               "marketo.form_id": form_id,
@@ -48,13 +50,12 @@ const htmlMarketoFormListener = `
 
           form.onSuccess(function (values, followUpUrl) {
             window.dispatchEvent(new CustomEvent("marketoFormSuccess"));
-            dataLayer.push({
-              event: "marketo.success",
-              "marketo.form_id": form_id,
-              "marketo.form_values": values,
-              "marketo.follow_up_url": followUpUrl,
-            });
-
+            // dataLayer.push({
+            //   event: "marketo.success",
+            //   "marketo.form_id": form_id,
+            //   "marketo.form_values": values,
+            //   "marketo.follow_up_url": followUpUrl,
+            // });
             // if({{Debug Mode}}){
             if (DEBUG_MODE) {
               console.log(values);
