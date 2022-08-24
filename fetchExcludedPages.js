@@ -61,14 +61,13 @@ const getExcludedPages = async () => {
   });
   Object.keys(allPages).forEach((key) => {
     if (
-      !allPages[key].visible.sitemap &&
-      !excludedPages.includes(allPages[key].path) &&
-      !(
-        // Always display blog posts, press releases, integrations and resources in the sitemap
-        allPages[key].path.match(
+      allPages[key].path.match(/\/resources\/videos-thank-you\//) ||
+      (!allPages[key].visible.sitemap &&
+        !excludedPages.includes(allPages[key].path) &&
+        // Always display blog posts, press releases, integrations and resources (except thank you videos) in the sitemap
+        !allPages[key].path.match(
           /\/blog\/|\/press-releases\/|\/resources\/|\/integrations\//
-        )
-      )
+        ))
     ) {
       excludedPages.push(allPages[key].path);
     }
