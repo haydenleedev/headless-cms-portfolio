@@ -8,6 +8,7 @@ export async function middleware(req) {
     "/archive/01June2019-privacy-notice",
     "/archive/policy-prior-to-01-June-2019",
     "/CER",
+    "/resources/videos/level-up-your-CX-vid-lp",
   ];
 
   // Redirect uppercase urls to lowercase based on the array above
