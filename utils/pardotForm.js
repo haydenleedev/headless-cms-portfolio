@@ -396,6 +396,7 @@ export const reorderFieldData = (fieldData, formType) => {
         /employees/,
         /country/,
         /state/,
+        /city/,
         /^phone/,
       ];
       break;
@@ -428,7 +429,7 @@ export const reorderFieldData = (fieldData, formType) => {
         /current crm solution/,
         /current contact center solution software/,
         /# of licenses/,
-        /additional details/,
+        /opportunity details/,
         /partner company name/,
         /partner full name/,
         /partner title/,

@@ -524,13 +524,18 @@ class PardotForm extends Component {
                             {field.isRequired && (
                               <span className={style.required}>*</span>
                             )}{" "}
-                            {field.name}
+                            {field.name.toLowerCase() === "company"
+                              ? "Company Name"
+                              : field.name.toLowerCase() === "email"
+                              ? "Work Email"
+                              : field.name}
                           </label>
                         </>
                       )}
                       <PardotFormField
                         isAssetTitle={this.props.assetTitle}
                         isAssetType={this.props.assetType}
+                        isAssetUrl={this.pagePath}
                         contactTypeValue={this.contactTypeValue}
                         isRecordTypeId={this.props.recordTypeId}
                         field={field}
@@ -569,27 +574,7 @@ class PardotForm extends Component {
                   this.state.stepEmailFieldValue) && (
                   <input name="hiddenemail" className="display-none" />
                 )}
-                {this.pagePath?.includes("/resources/") && (
-                  <>
-                    <input
-                      name="Asset_URL"
-                      type="hidden"
-                      value={this.pagePath}
-                    />
-                    <input
-                      name="Asset_Type"
-                      className="display-none"
-                      value={
-                        this.pagePath.split("/resources/")[1].split("/")[0]
-                      }
-                    />
-                    <input
-                      name="Asset_Title"
-                      className="display-none"
-                      value={document.getElementsByTagName("h1")[0].textContent}
-                    />
-                  </>
-                )}
+
                 {/* START: Honeypot */}
                 <label
                   className={style.removehoney}
