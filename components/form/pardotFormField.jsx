@@ -29,6 +29,7 @@ const PardotFormField = ({
   isRecordTypeId,
   isAssetTitle,
   isAssetType,
+  isAssetUrl,
 }) => {
   if (isSelectField(field)) {
     field.dataFormat = "select";
@@ -159,7 +160,8 @@ const PardotFormField = ({
     case "text":
       return (
         <>
-          {field.name.toLowerCase() === "additional details" ? (
+          {field.name.toLowerCase() === "additional details" ||
+          field.name.toLowerCase() === "opportunity details" ? (
             <textarea
               name={field.name}
               id={field.id}
@@ -192,6 +194,8 @@ const PardotFormField = ({
                   ? isAssetTitle
                   : field.name.toLowerCase() === "asset type"
                   ? isAssetType
+                  : field.name.toLowerCase() === "asset url"
+                  ? isAssetUrl
                   : partnerFieldProperties?.value
               }
             />
