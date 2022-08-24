@@ -64,6 +64,7 @@ class PardotForm extends Component {
 
   componentDidMount() {
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
+    this.isChannelRequestForm = this.props.formHandlerID == 3709;
 
     // Pass different value to contact_type for contact sales form
     switch (this.props.contactType) {
@@ -511,13 +512,20 @@ class PardotForm extends Component {
                           : ""
                       }
                     >
-                      {!isHiddenField(field, this.isDealRegistrationForm) && (
+                      {!isHiddenField(
+                        field,
+                        this.isDealRegistrationForm === true
+                      ) && (
                         <>
                           {index == this.firstPartnerFieldIndex.current && (
                             <p
                               className={`heading-6 ${style["pt-3"]} ${style["mt-3"]} ${style["pb-2"]} ${style["bt-1"]}`}
                             >
-                              Your Information
+                              {this.isDealRegistrationForm
+                                ? "Your Information"
+                                : this.isChannelRequestForm
+                                ? "Partner Information"
+                                : null}
                             </p>
                           )}
                           <label htmlFor={field.id}>
