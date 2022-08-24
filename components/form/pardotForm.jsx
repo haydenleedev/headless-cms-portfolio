@@ -64,6 +64,17 @@ class PardotForm extends Component {
 
   componentDidMount() {
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
+
+    // Pass different value to contact_type for contact sales form
+    switch (this.props.contactType) {
+      case "request_a_demo":
+        this.contactTypeValue = "requestDemo";
+        break;
+      case "contact_sales":
+        this.contactTypeValue = "contactSales";
+        break;
+    }
+
     this.pagePath = Router.asPath;
     this.formType = getFormType(this.props.formHandlerID);
     this.setState({
@@ -518,6 +529,10 @@ class PardotForm extends Component {
                         </>
                       )}
                       <PardotFormField
+                        isAssetTitle={this.props.assetTitle}
+                        isAssetType={this.props.assetType}
+                        contactTypeValue={this.contactTypeValue}
+                        isRecordTypeId={this.props.recordTypeId}
                         field={field}
                         isDealRegistrationField={this.isDealRegistrationForm}
                         formType={this.formType}

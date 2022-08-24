@@ -22,7 +22,9 @@ export const addGaData = (
   gaDataAdded,
   updateGaDataAdded,
   formEmailInput,
-  formType
+  isDealRegistrationForm,
+  formType,
+  contactTypeValue
 ) => {
   if (!gaDataAdded) {
     // Loop and append randomized UID
@@ -98,51 +100,92 @@ export const addGaData = (
 
     // Get Asset Type for all forms for Resources pages
     let getAssetUrl = window.location.href.split("?")[0];
-    let setAssetType;
-    const resourceTypesByPaths = [
-      { path: "/resources/ebooks/", type: "eBook" },
-      { path: "/resources/reports/", type: "Report" },
-      { path: "/resources/guides/", type: "Guide" },
-      { path: "/resources/white-papers/", type: "White Paper" },
-      { path: "/resources/webinars/", type: "Webinar" },
-      { path: "/resources/videos/", type: "Webinar" },
-      { path: "/integrations/", type: "Datasheet" },
-    ];
-
-    const getAssetType = (pageUrl) => {
-      resourceTypesByPaths.map((url) => {
-        if (pageUrl.includes(url.path)) {
-          setAssetType = url.type;
-        }
-      });
-      return setAssetType;
-    };
-
-    // Get Asset Title for all forms for Resources pages
-    if (document.querySelector("h1")) {
-      const hTitle = document.querySelector("h1").innerText;
-      let setAssetTitle;
-      const getAssetTitle = (pageUrl) => {
-        resourceTypesByPaths.map((url) => {
-          if (pageUrl.includes(url.path)) {
-            setAssetTitle = hTitle;
-          }
-        });
-        return setAssetTitle;
-      };
-
-      setFormInputValue("Asset Title", getAssetTitle(window.location.href));
-    }
 
     // Values based on URL parameters
-    setFormInputValue("utm_asset", getUrlParamValue("utm_asset"));
     const utmCampaignValue = getUrlParamValue("utm_campaign");
     const isGoogleContactForm = formType == "googleContact";
+    const isChannelRequestForm = formType == "channelRequest";
+
+    const isContactSalesForm =
+      formType == "contactUs" && contactTypeValue == "contactSales";
+    const isRequestDemoForm =
+      formType == "contactUs" && contactTypeValue == "requestDemo";
+
+    let contactType;
+    function getContactFormType() {
+      if (document.querySelector("input[name=contact_type]")) {
+        const getContactType = document.querySelector(
+          "input[name=contact_type]"
+        );
+        if (getContactType.value === "contact_sales") {
+          contactType = "contactSales";
+        } else if (getContactType.value === "request_a_demo") {
+          contactType = "requestDemo";
+        }
+        return contactType;
+      }
+    }
+
+    // Get the default utm_campaign and utm_asset values for all Deal Registration pages when there are no utm parameters on urls.
+    const utmDefault = [
+      { slug: "google", utmDefault: "deal_reg_google_mp" },
+      { slug: "kustomer", utmDefault: "deal_reg_google_kustomer" },
+      { slug: "playvox", utmDefault: "deal_reg_google_playvox" },
+      { slug: "acqueon", utmDefault: "deal_reg_google_acqueon" },
+      { slug: "aws", utmDefault: "deal_reg_google_aws" },
+      { slug: "calabrio", utmDefault: "deal_reg_google_calabrio" },
+      { slug: "intercom", utmDefault: "deal_reg_google_intercom" },
+      { slug: "observe-ai", utmDefault: "deal_reg_google_observe" },
+      { slug: "oracle", utmDefault: "deal_reg_google_oracle" },
+      { slug: "successkpi", utmDefault: "deal_reg_google_successKPI" },
+      { slug: "zendesk", utmDefault: "deal_reg_google_zendesk" },
+    ];
+
+    let utmDealRegistrationDefalutResult;
+    function getDealRegistrationUtmDefaultValue(url) {
+      utmDefault.map((item) => {
+        if (url.includes("/deal-registration/" + item.slug)) {
+          utmDealRegistrationDefalutResult = item.utmDefault;
+        }
+      });
+      return utmDealRegistrationDefalutResult;
+    }
+
     if (utmCampaignValue) {
       setFormInputValue("utm_campaign", utmCampaignValue);
     } else if (!utmCampaignValue && isGoogleContactForm) {
       setFormInputValue("utm_campaign", "gmp_contact_sales");
+    } else if (!utmCampaignValue && isChannelRequestForm) {
+      setFormInputValue("utm_campaign", "request_to_partner");
+    } else if (!utmCampaignValue && isContactSalesForm) {
+      setFormInputValue("utm_campaign", "contact_sales");
+    } else if (!utmCampaignValue && isRequestDemoForm) {
+      setFormInputValue("utm_campaign", "request_demo");
+    } else if (!utmCampaignValue && isDealRegistrationForm) {
+      setFormInputValue(
+        "utm_campaign",
+        getDealRegistrationUtmDefaultValue(window.location.href)
+      );
     }
+
+    const utmAssetValue = getUrlParamValue("utm_asset");
+    if (utmAssetValue) {
+      setFormInputValue("utm_asset", utmAssetValue);
+    } else if (!utmAssetValue && isGoogleContactForm) {
+      setFormInputValue("utm_asset", "gmp_contact_sales");
+    } else if (!utmAssetValue && isChannelRequestForm) {
+      setFormInputValue("utm_asset", "request_to_partner");
+    } else if (!utmCampaignValue && isContactSalesForm) {
+      setFormInputValue("utm_asset", "contact_sales");
+    } else if (!utmCampaignValue && isRequestDemoForm) {
+      setFormInputValue("utm_asset", "request_demo");
+    } else if (!utmAssetValue && isDealRegistrationForm) {
+      setFormInputValue(
+        "utm_asset",
+        getDealRegistrationUtmDefaultValue(window.location.href)
+      );
+    }
+
     const utmSourceValue = getUrlParamValue("utm_source");
     if (utmSourceValue) {
       setFormInputValue("utm_source", utmSourceValue);
@@ -152,7 +195,7 @@ export const addGaData = (
     setFormInputValue("utm_medium", getUrlParamValue("utm_medium"));
     setFormInputValue("utm_term", getUrlParamValue("utm_term"));
 
-    setFormInputValue("Asset Type", getAssetType(window.location.href));
+    /* setFormInputValue("Asset Type", getAssetType(window.location.href)); */
     setFormInputValue("Asset URL", getAssetUrl);
 
     // CLP & CLS default values
@@ -279,6 +322,7 @@ export const isHiddenField = (field, isDealRegistrationField = false) => {
     /alliance referral/,
     /asset /,
     /contact_type/,
+    /lead record type/,
   ];
 
   const partialHiddenFields = [/partner country/, /partner company/];
