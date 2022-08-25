@@ -61,7 +61,7 @@ const getExcludedPages = async () => {
   });
   Object.keys(allPages).forEach((key) => {
     if (
-      allPages[key].path.match(/\/resources\/videos-thank-you\//) ||
+      allPages[key].path.match(/\/resources\/videos-thank-you/) ||
       (!allPages[key].visible.sitemap &&
         !excludedPages.includes(allPages[key].path) &&
         // Always display blog posts, press releases, integrations and resources (except thank you videos) in the sitemap
