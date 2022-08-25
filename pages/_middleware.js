@@ -22,7 +22,14 @@ export async function middleware(req) {
   };
 
   // Redirect uppercase urls to lowercase based on the array above
-  if (uppercaseRedirects.includes(req.nextUrl.pathname)) {
+  // Content item uppercase urls are also redirected
+  if (
+    uppercaseRedirects.includes(req.nextUrl.pathname) ||
+    (req.nextUrl.pathname.match(
+      /\/resources\/|\/blog\/|\/press-releases\/|\/channel\/|\/deal-registration\/|\/integrations\//
+    ) &&
+      req.nextUrl.pathname !== req.nextUrl.pathname.toLowerCase())
+  ) {
     return redirectWithCookies(
       `${req.nextUrl.origin}${req.nextUrl.pathname.toLowerCase()}`
     );
