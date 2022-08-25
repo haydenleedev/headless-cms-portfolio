@@ -24,7 +24,7 @@ class PardotFormEmailStep extends Component {
   async updateCurrentStep() {
     this.setState({ stepFetchInProgress: true });
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/getSubmittedPardotFields`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/getSubmittedPardotFields`,
       {
         method: "POST",
         body: JSON.stringify({

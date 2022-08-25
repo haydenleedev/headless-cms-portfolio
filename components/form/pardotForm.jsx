@@ -283,7 +283,7 @@ class PardotForm extends Component {
                 { action: "FORM_SUBMISSION" }
               );
               const assessment = await fetch(
-                `${process.env.NEXT_PUBLIC_SITE_URL}/api/createRecaptchaAssessment`,
+                `${process.env.NEXT_PUBLIC_API_URL}/api/createRecaptchaAssessment`,
                 {
                   method: "POST",
                   body: JSON.stringify({ token: token }),
