@@ -94,7 +94,7 @@ const PardotFormField = ({
           name={field.name}
           id={field.id}
           autoComplete="email"
-          maxLength="50"
+          maxLength="255"
           onBlur={() => {
             validate();
           }}
@@ -120,7 +120,7 @@ const PardotFormField = ({
           type="text"
           title={field.name}
           hidden={isHiddenField(field, isDealRegistrationField)}
-          maxLength={usPhoneFormat ? null : 15}
+          maxLength={usPhoneFormat ? null : 20}
           onBlur={() => {
             if (usPhoneFormat) {
               phoneNumberFormatter();
@@ -165,7 +165,7 @@ const PardotFormField = ({
             <textarea
               name={field.name}
               id={field.id}
-              maxLength="32768"
+              maxLength="232768"
               rows="3"
               hidden={isHiddenField(field, isDealRegistrationField)}
               onBlur={() => {
@@ -178,7 +178,7 @@ const PardotFormField = ({
             <input
               name={field.name}
               id={field.id}
-              maxLength="50"
+              maxLength="255"
               hidden={isHiddenField(field, isDealRegistrationField)}
               onBlur={() => {
                 validate();
@@ -250,7 +250,7 @@ const PardotFormField = ({
         <input
           name={field.name}
           id={field.id}
-          maxLength="50"
+          maxLength="255"
           onBlur={() => {
             validate();
           }}
