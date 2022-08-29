@@ -108,7 +108,9 @@ class PardotForm extends Component {
       this.fieldData.forEach((field) => {
         if (
           !isHiddenField(field, this.isDealRegistrationForm) &&
-          !this.isDealRegistrationForm
+          !this.isDealRegistrationForm &&
+          !isHiddenField(field, this.isChannelRequestForm) &&
+          !this.isChannelRequestForm
         ) {
           field.isRequired = true;
         }
