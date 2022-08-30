@@ -841,62 +841,62 @@
   },
   {
     "source": "/integrations/assembled-data-sheet-lp",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/resources/reports/g2-contact-center-operations-software-report",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/resources/reports/top-strategic-technology-trends-for-2021-report-lp",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/resources/reports/contact-center-ai-2020-survey-report-lp",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/resources/webinars/destinationcrm-cloud-contact-center-solutions",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/resources/webinars/transforming-your-contact-center-into-an-employer-of-choice-wbn-lp",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/integrations/assembled-data-sheet-lp",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/resources/reports/g2-contact-center-operations-software-report",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/resources/reports/top-strategic-technology-trends-for-2021-report-lp",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/resources/reports/contact-center-ai-2020-survey-report-lp",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/resources/webinars/destinationcrm-cloud-contact-center-solutions",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   },
   {
     "source": "/resources/webinars/transforming-your-contact-center-into-an-employer-of-choice-wbn-lp",
-    "destination": "/resources/",
+    "destination": "/archives?type=resources",
     "permanent": true
   }
 ]
