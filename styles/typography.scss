@@ -180,23 +180,20 @@ em {
   font-style: italic;
 }
 
-form {
-  input:not([type="checkbox"], [type="submit"]),
-  select,
-  textarea {
-    background: $color-white;
-    color: $color-black;
-    width: 100%;
-    padding: toRem(9) toRem(10);
-    border-radius: 0.2rem;
-    border: 0.1rem solid $color-darkgray;
-    line-height: 1.375;
-    min-height: toRem(46);
-  }
-
-  input[type="number"] {
-    padding: toRem(9) toRem(14);
-  }
+form input:not([type="checkbox"], [type="submit"]),
+select,
+textarea {
+  background: $color-white;
+  color: $color-black;
+  width: 100%;
+  padding: toRem(9) toRem(10);
+  border-radius: 0.2rem;
+  border: 0.1rem solid $color-darkgray;
+  line-height: 1.375;
+  min-height: toRem(46);
+}
+input[type="number"] {
+  padding: toRem(9) toRem(14);
 }
 
 textarea {
