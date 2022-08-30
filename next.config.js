@@ -1,4 +1,5 @@
 const redirects = require("./data/redirects.json");
+const marketoRedirects = require("./data/marketoRedirects.json");
 const agilityRedirects = require("./data/agilityRedirects.json");
 
 module.exports = {
@@ -21,6 +22,9 @@ module.exports = {
   },
   async redirects() {
     agilityRedirects.forEach((redirect) => {
+      redirects.push(redirect);
+    });
+    marketoRedirects.forEach((redirect) => {
       redirects.push(redirect);
     });
     return redirects;
