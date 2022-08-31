@@ -40,15 +40,32 @@ export async function middleware(req) {
     return null;
   };
 
-  const marketoRedirUrl = getCorrectMarketoUrlCase(marketoRedirects);
-  const marketoLpRedirUrl = getCorrectMarketoUrlCase(marketoLpRedirects);
-  const marketoEmailRedirUrl = getCorrectMarketoUrlCase(marketoEmailRedirects);
-  if (marketoRedirUrl) {
-    return redirectWithCookies(marketoRedirUrl);
-  } else if (marketoLpRedirUrl) {
-    return redirectWithCookies(marketoLpRedirUrl);
-  } else if (marketoEmailRedirUrl) {
-    return redirectWithCookies(marketoEmailRedirUrl);
+  // Skip checking certain non-page urls to reduce unnecessary looping through json file contents
+  const mktoLpCheckExclusions = [
+    "/fonts/Galano%20Grotesque.woff2",
+    "/fonts/arrow-down.ttf",
+    "/fonts/Galano%20Grotesque%20Bold.woff2",
+    "/fonts/Galano%20Grotesque%20Italic.woff2",
+    "/favicon.ico",
+  ];
+
+  if (req.nextUrl.pathname.match(/\/rs\/205-VHT-559\//)) {
+    const marketoRedirUrl = getCorrectMarketoUrlCase(marketoRedirects);
+    if (marketoRedirUrl) {
+      return redirectWithCookies(marketoRedirUrl);
+    }
+  } else if (req.nextUrl.pathname.match(/MjA1LVZIVC01NTkAAA/)) {
+    const marketoEmailRedirUrl = getCorrectMarketoUrlCase(
+      marketoEmailRedirects
+    );
+    if (marketoEmailRedirUrl) {
+      return redirectWithCookies(marketoEmailRedirUrl);
+    }
+  } else if (!mktoLpCheckExclusions.includes(req.nextUrl.pathname)) {
+    const marketoLpRedirUrl = getCorrectMarketoUrlCase(marketoLpRedirects);
+    if (marketoLpRedirUrl) {
+      return redirectWithCookies(marketoLpRedirUrl);
+    }
   }
 
   // Redirect uppercase urls to lowercase based on the array above
