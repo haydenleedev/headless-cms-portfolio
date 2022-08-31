@@ -24,23 +24,29 @@ export async function middleware(req) {
     return redirectResponse;
   };
 
-  const correctMarketoUrlCase = (redirects) => {
+  const getCorrectMarketoUrlCase = (redirects) => {
     for (let i = 0; i < redirects.length; i++) {
       if (
         redirects[i].source.toLowerCase() ===
           req.nextUrl.pathname.toLowerCase() &&
         redirects[i].source !== req.nextUrl.pathname
       ) {
-        return redirectWithCookies(
-          `${req.nextUrl.origin}${redirects[i].source}`
-        );
+        return `${req.nextUrl.origin}${redirects[i].source}`;
       }
     }
+    return null;
   };
 
-  correctMarketoUrlCase(marketoRedirects);
-  correctMarketoUrlCase(marketoLpRedirects);
-  correctMarketoUrlCase(marketoEmailRedirects);
+  const marketoRedirUrl = getCorrectMarketoUrlCase(marketoRedirects);
+  const marketoLpRedirUrl = getCorrectMarketoUrlCase(marketoLpRedirects);
+  const marketoEmailRedirUrl = getCorrectMarketoUrlCase(marketoEmailRedirects);
+  if (marketoRedirUrl) {
+    return redirectWithCookies(marketoRedirUrl);
+  } else if (marketoLpRedirUrl) {
+    return redirectWithCookies(marketoLpRedirUrl);
+  } else if (marketoEmailRedirUrl) {
+    return redirectWithCookies(marketoEmailRedirUrl);
+  }
 
   // Redirect uppercase urls to lowercase based on the array above
   // Content item uppercase urls are also redirected
