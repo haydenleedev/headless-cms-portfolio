@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+import marketoRedirects from "../data/marketoRedirects.json";
+import marketoLpRedirects from "../data/marketoLpRedirects.json";
+import marketoEmailRedirects from "../data/marketoEmailRedirects.json";
 
 export async function middleware(req) {
   // Have the uppercase redirect urls in an array, since redirecting all uppercase urls
@@ -20,6 +23,50 @@ export async function middleware(req) {
     redirectResponse.cookie(clientCountryCookieName, req.geo.country);
     return redirectResponse;
   };
+
+  const getCorrectMarketoUrlCase = (redirects) => {
+    for (let i = 0; i < redirects.length; i++) {
+      if (
+        redirects[i].source.toLowerCase().replaceAll("\\", "") ===
+          req.nextUrl.pathname.toLowerCase() &&
+        redirects[i].source.replaceAll("\\", "") !== req.nextUrl.pathname
+      ) {
+        return `${req.nextUrl.origin}${redirects[i].source.replaceAll(
+          "\\",
+          ""
+        )}`;
+      }
+    }
+    return null;
+  };
+
+  // Skip checking certain non-page urls to reduce unnecessary looping through json file contents
+  const mktoLpCheckExclusions = [
+    "/fonts/Galano%20Grotesque.woff2",
+    "/fonts/arrow-down.ttf",
+    "/fonts/Galano%20Grotesque%20Bold.woff2",
+    "/fonts/Galano%20Grotesque%20Italic.woff2",
+    "/favicon.ico",
+  ];
+
+  if (req.nextUrl.pathname.toLowerCase().match(/\/rs\/205-vht-559\//)) {
+    const marketoRedirUrl = getCorrectMarketoUrlCase(marketoRedirects);
+    if (marketoRedirUrl) {
+      return redirectWithCookies(marketoRedirUrl);
+    }
+  } else if (req.nextUrl.pathname.toLowerCase().match(/mja1lvzivc01ntkaaa/)) {
+    const marketoEmailRedirUrl = getCorrectMarketoUrlCase(
+      marketoEmailRedirects
+    );
+    if (marketoEmailRedirUrl) {
+      return redirectWithCookies(marketoEmailRedirUrl);
+    }
+  } else if (!mktoLpCheckExclusions.includes(req.nextUrl.pathname)) {
+    const marketoLpRedirUrl = getCorrectMarketoUrlCase(marketoLpRedirects);
+    if (marketoLpRedirUrl) {
+      return redirectWithCookies(marketoLpRedirUrl);
+    }
+  }
 
   // Redirect uppercase urls to lowercase based on the array above
   // Content item uppercase urls are also redirected
