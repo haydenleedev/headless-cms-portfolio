@@ -210,11 +210,6 @@
     "permanent": true
   },
   {
-    "source": "/calabrio-alliance-referral.html",
-    "destination": "/archives?type=resources",
-    "permanent": true
-  },
-  {
     "source": "/genesyspureconnect-ujet-g2-comparison-google_lp.html",
     "destination": "/archives?type=resources",
     "permanent": true
@@ -821,11 +816,6 @@
   },
   {
     "source": "/OA-2020-06-StateofCXSurvey2020-LinkedIn_LP-ThankYou.html",
-    "destination": "/archives?type=resources",
-    "permanent": true
-  },
-  {
-    "source": "/OA-2021-04AwarenessProgram_LP.html",
     "destination": "/archives?type=resources",
     "permanent": true
   },
