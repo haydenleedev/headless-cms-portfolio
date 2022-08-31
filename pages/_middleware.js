@@ -27,13 +27,13 @@ export async function middleware(req) {
   const getCorrectMarketoUrlCase = (redirects) => {
     for (let i = 0; i < redirects.length; i++) {
       if (
-        redirects[i].source.toLowerCase().replaceAll("\\", "") ===
-          req.nextUrl.pathname.toLowerCase() &&
-        redirects[i].source.replaceAll("\\", "") !== req.nextUrl.pathname
+        encodeURI(redirects[i].source.toLowerCase().replaceAll("\\", "")) ===
+          encodeURI(req.nextUrl.pathname.toLowerCase()) &&
+        encodeURI(redirects[i].source.replaceAll("\\", "")) !==
+          encodeURI(req.nextUrl.pathname)
       ) {
-        return `${req.nextUrl.origin}${redirects[i].source.replaceAll(
-          "\\",
-          ""
+        return `${req.nextUrl.origin}${encodeURI(
+          redirects[i].source.replaceAll("\\", "")
         )}`;
       }
     }
