@@ -1,5 +1,10 @@
 [
   {
+    "source": "/UnsubscribePage.html",
+    "destination": "https://info.ujet.cx/unsubscribe/u/986641",
+    "permanent": true
+  },
+  {
     "source": "/rs/205-VHT-559/images/david.png",
     "destination": "https://info.ujet.cx/l/986641/2022-08-30/klybc/986641/1661868103hr7TDEbu/david.png",
     "permanent": true
