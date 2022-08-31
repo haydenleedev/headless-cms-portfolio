@@ -1,11 +1,13 @@
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { breadcrumbs, organization, webSite } from "../schema";
 import Script from "next/script";
-import { setCookie } from "../utils/cookies";
+import { getCookie, setCookie } from "../utils/cookies";
 import { useContext } from "react";
 import GlobalContext from "../context";
 import { formatPageTitle } from "../utils/convert";
+import { useRouter } from "next/router";
+import { getCampaignScript } from "../utils/pardotForm";
 
 const SEO = ({
   title,
@@ -17,20 +19,25 @@ const SEO = ({
 }) => {
   const [scrolled, setScrolled] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
+  const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
   const qualifiedSrc = "https://js.qualified.com/qualified.js?token=";
-  setCookie(
-    "ga_cookie_date",
-    new Date().toUTCString(),
-    "Fri, 31 Dec 9999 23:59:59 GMT"
-  );
-  const { globalSettings } = useContext(GlobalContext);
+  if (!getCookie("ga_cookie_date")) {
+    setCookie(
+      "ga_cookie_date",
+      new Date().toUTCString(),
+      "Fri, 31 Dec 9999 23:59:59 GMT"
+    );
+  }
+  const { globalSettings, campaignScriptIDRef } = useContext(GlobalContext);
   const suffixedMetaTitle = formatPageTitle(
     title,
     globalSettings?.fields?.pageTitleSuffix
   );
+  const router = useRouter();
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(true);
@@ -43,7 +50,25 @@ const SEO = ({
     setTimeout(() => {
       setTimerExpired(true);
     }, 0);
+
+    router.events.on("routeChangeStart", () => {
+      campaignScriptIDRef.current = null;
+      clearTimeout(campaignScriptAppendTimeout.current);
+      if (document.getElementById("campaignScript")) {
+        document.head.removeChild(document.getElementById("campaignScript"));
+      }
+    });
+    router.events.on("routeChangeComplete", async () => {
+      campaignScriptAppendTimeout.current = setTimeout(() => {
+        const scriptElements = document.head.getElementsByTagName("script");
+        document.head.insertBefore(
+          getCampaignScript(campaignScriptIDRef.current),
+          scriptElements[scriptElements.length - 1].nextSibling
+        );
+      }, 2000);
+    });
   }, []);
+
   return (
     <>
       <Head>
@@ -315,6 +340,9 @@ const SEO = ({
           })();
           `}
               </Script>
+              <Script
+                src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY}`}
+              />
             </>
           )}
           {/* Load Qualified script after user starts scrolling */}

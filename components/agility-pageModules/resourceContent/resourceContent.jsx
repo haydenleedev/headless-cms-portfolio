@@ -1,9 +1,7 @@
 import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
 import style from "./resourceContent.module.scss";
-import { useState } from "react";
 import { boolean } from "../../../utils/validation";
-import { Form, FormWrapper } from "../../form";
 import AgilityLink from "../../agilityLink";
 import {
   convertUJETLinksToHttps,
@@ -18,17 +16,17 @@ import FirstFold from "../firstFold/firstFold";
 import EmbedVideo from "../embedVideo/embedVideo";
 import Script from "next/script";
 import Accordion from "../accordion/accordion";
+import PardotForm from "../../form/pardotForm";
+import { useContext, useEffect } from "react";
+import GlobalContext from "../../../context";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
-  const { sanitizedHtml, accordionItemsWithSanitizedHTML } = customData;
-  const [formLoaded, setFormLoaded] = useState(false);
+  const { sanitizedHtml, accordionItemsWithSanitizedHTML, formConfiguration } =
+    customData;
   const resource = dynamicPageItem.fields;
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
-  const handleSetFormLoaded = () => {
-    setFormLoaded(true);
-  };
-
   const { asPath } = useRouter();
+  const { campaignScriptIDRef } = useContext(GlobalContext);
   let resourceCategory;
   // Integrations are not under /resources/
   if (asPath.includes("/resources/")) {
@@ -37,6 +35,60 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     resourceCategory = asPath.split("/")[1];
   }
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
+
+  // Predefine defalut Pardot form handler ID
+  const getPardotDefaultFormID = (resourceCategory) => {
+    const lowerCaseResourceCategory = String(resourceCategory).toLowerCase();
+    if (
+      lowerCaseResourceCategory === "videos" ||
+      lowerCaseResourceCategory === "webinars"
+    ) {
+      return "3712";
+    } else {
+      return "3658";
+    }
+  };
+
+  // Predefine default Pardot form action value
+  const getPardotDefaultAction = (resourceCategory) => {
+    const lowerCaseResourceCategory = String(resourceCategory).toLowerCase();
+    if (
+      lowerCaseResourceCategory === "videos" ||
+      lowerCaseResourceCategory === "webinars"
+    ) {
+      return "https://info.ujet.cx/l/986641/2022-08-05/kgtbn";
+    } else {
+      return "https://info.ujet.cx/l/986641/2022-07-26/kdq1r";
+    }
+  };
+
+  // Get Asset Type
+
+  let setAssetType;
+  let referenceNameValue = dynamicPageItem.properties.referenceName;
+  const resourceTypesByNames = [
+    { referenceName: "ebooks", type: "eBook" },
+    { referenceName: "reports", type: "Report" },
+    { referenceName: "guides", type: "Guide" },
+    { referenceName: "whitepapers", type: "White Paper" },
+    { referenceName: "videos", type: "Webinar" },
+    { referenceName: "webinars", type: "Webinar" },
+    { referenceName: "integrations", type: "Datasheet" },
+  ];
+
+  const getAssetType = () => {
+    resourceTypesByNames.map((item) => {
+      if (item.referenceName == dynamicPageItem.properties.referenceName) {
+        setAssetType = item.type;
+      }
+    });
+    return setAssetType ? setAssetType : null;
+  };
+
+  useEffect(() => {
+    campaignScriptIDRef.current = resource.campaignTrackingID;
+  }, []);
+
   return (
     <>
       <OverrideSEO
@@ -87,157 +139,186 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
         </>
       ) : (
         <>
-          <FormWrapper
-            handleSetFormLoaded={handleSetFormLoaded}
-            formID={resource.marketoFormID}
-          >
-            {boolean(resource.alternateLayout) ? (
-              <>
-                <section className={style.alternateHeader}>
-                  <div className={style.alternateHeaderContainer}>
-                    <div className={`container ${style.alternateHeaderTitle}`}>
-                      <p className={style.category}>
-                        {resolveCategory(
-                          dynamicPageItem.properties.referenceName
-                        )}
-                      </p>
-                      <span className={style.hr}></span>
-                      <h1 className={`${style.title} heading-5`}>
-                        {resource.title}
-                      </h1>
-                    </div>
-                    <div className={style.alternateHeaderColumns}>
-                      <div className={style.sideColumn}></div>
-                      <div className={style.imageColumn}>
-                        <AgilityImage
-                          src={resource.image.url}
-                          alt={resource.image.label || null}
-                          width={resource.image.pixelWidth}
-                          height={resource.image.pixelHeight}
-                          objectFit="cover"
-                        />
-                      </div>
+          {boolean(resource.alternateLayout) ? (
+            <>
+              <section className={style.alternateHeader}>
+                <div className={style.alternateHeaderContainer}>
+                  <div className={`container ${style.alternateHeaderTitle}`}>
+                    <p className={style.category}>
+                      {resolveCategory(
+                        dynamicPageItem.properties.referenceName
+                      )}
+                    </p>
+                    <span className={style.hr}></span>
+                    <h1 className={`${style.title} heading-5`}>
+                      {resource.title}
+                    </h1>
+                  </div>
+                  <div className={style.alternateHeaderColumns}>
+                    <div className={style.sideColumn}></div>
+                    <div className={style.imageColumn}>
+                      <AgilityImage
+                        src={resource.image.url}
+                        alt={resource.image.label || null}
+                        width={resource.image.pixelWidth}
+                        height={resource.image.pixelHeight}
+                        objectFit="cover"
+                      />
                     </div>
                   </div>
-                </section>
-                <Breadcrumbs
-                  breadcrumbs={[
-                    { name: "Home", path: "/" },
-                    { name: "Resources", path: "/resources" },
-                    {
-                      name: resourceCategory.replace(/-/g, " "),
-                      path: `/archives?type=resources&categories=${resourceCategory.replace(
-                        /-/g,
-                        ""
-                      )}`,
-                    },
-                    { name: resource.title },
-                  ]}
-                  className={"pt-3 pb-6 mb-5"}
-                />
-                <section className="section">
-                  <div className={`container ${style.alternateContent}`}>
-                    <div className="columns repeat-2">
+                </div>
+              </section>
+              <Breadcrumbs
+                breadcrumbs={[
+                  { name: "Home", path: "/" },
+                  { name: "Resources", path: "/resources" },
+                  {
+                    name: resourceCategory.replace(/-/g, " "),
+                    path: `/archives?type=resources&categories=${resourceCategory.replace(
+                      /-/g,
+                      ""
+                    )}`,
+                  },
+                  { name: resource.title },
+                ]}
+                className={"pt-3 pb-6 mb-5"}
+              />
+              <section className="section">
+                <div className={`container ${style.alternateContent}`}>
+                  <div className="columns repeat-2">
+                    <div
+                      className="content"
+                      dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+                    />
+                    <div
+                      className={`bg-skyblue-light  ${style.marketoResource}`}
+                    >
+                      {/\S/.test(resource.formTitle) && (
+                        <h2 className={`${style.formTitle} heading-6`}>
+                          {resource.formTitle ||
+                            "Fill out the form to download the the resource today!"}
+                        </h2>
+                      )}
+                      <PardotForm
+                        formHandlerID={
+                          resource.pardotFormID
+                            ? resource.pardotFormID
+                            : getPardotDefaultFormID(resourceCategory)
+                        }
+                        action={
+                          resource.formAction
+                            ? resource.formAction
+                            : getPardotDefaultAction(resourceCategory)
+                        }
+                        submit={
+                          resource.formSubmitText
+                            ? resource.formSubmitText
+                            : "Download Now"
+                        }
+                        stepsEnabled={resource.formStepsEnabled}
+                        config={formConfiguration}
+                        assetTitle={resource.title ? resource.title : null}
+                        assetType={getAssetType()}
+                      />
+                    </div>
+                  </div>
+                </div>
+                {resource.link?.text && resource.link?.href && (
+                  <div className="container">
+                    <p className={style.alternateLink}>
+                      <h2 className="heading-6">
+                        {resource.footerText
+                          ? resource.footerText
+                          : "Want to learn more about UJET?"}
+                      </h2>
+                      <AgilityLink
+                        agilityLink={resource.link}
+                        className="link ml-2"
+                      >
+                        {resource.link.text}
+                      </AgilityLink>
+                    </p>
+                  </div>
+                )}
+              </section>
+            </>
+          ) : (
+            <>
+              <Breadcrumbs
+                breadcrumbs={[
+                  { name: "Home", path: "/" },
+                  { name: "Resources", path: "/resources" },
+                  {
+                    name: resourceCategory.replace(/-/g, " "),
+                    path: `/archives?type=resources&categories=${resourceCategory.replace(
+                      /-/g,
+                      ""
+                    )}`,
+                  },
+                  { name: resource.title },
+                ]}
+              />
+              <section className="section">
+                <div className="container">
+                  <div className={style.columns}>
+                    <div className={style.content}>
+                      <h1 className="heading-5">{resource.title}</h1>
                       <div
-                        className="content"
+                        className="content mt-4"
                         dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                       />
-                      <div
-                        className={`bg-skyblue-light  ${style.marketoResource}`}
-                      >
-                        {/\S/.test(resource.formTitle) && (
-                          <h2 className={`${style.formTitle} heading-6`}>
-                            {resource.formTitle ||
-                              "Fill out the form to download the the resource today!"}
-                          </h2>
-                        )}
-                        <Form
-                          formLoaded={formLoaded}
-                          formID={resource.marketoFormID}
-                        />
-                      </div>
                     </div>
-                  </div>
-                  {resource.link?.text && resource.link?.href && (
-                    <div className="container">
-                      <p className={style.alternateLink}>
-                        <h2 className="heading-6">
-                          {resource.footerText
-                            ? resource.footerText
-                            : "Want to learn more about UJET?"}
+                    <div
+                      className={`${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`}
+                    >
+                      {/\S/.test(resource.formTitle) && (
+                        <h2 className={`${style.formTitle} heading-6`}>
+                          {resource.formTitle ||
+                            "Fill out the form to download the the resource today!"}
                         </h2>
-                        <AgilityLink
-                          agilityLink={resource.link}
-                          className="link ml-2"
-                        >
-                          {resource.link.text}
-                        </AgilityLink>
-                      </p>
-                    </div>
-                  )}
-                </section>
-              </>
-            ) : (
-              <>
-                <Breadcrumbs
-                  breadcrumbs={[
-                    { name: "Home", path: "/" },
-                    { name: "Resources", path: "/resources" },
-                    {
-                      name: resourceCategory.replace(/-/g, " "),
-                      path: `/archives?type=resources&categories=${resourceCategory.replace(
-                        /-/g,
-                        ""
-                      )}`,
-                    },
-                    { name: resource.title },
-                  ]}
-                />
-                <section className="section">
-                  <div className="container">
-                    <div className={style.columns}>
-                      <div className={style.content}>
-                        <h1 className="heading-5">{resource.title}</h1>
-                        <div
-                          className="content mt-4"
-                          dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                        />
-                      </div>
-                      <div
-                        className={`${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`}
-                      >
-                        {/\S/.test(resource.formTitle) && (
-                          <h2 className={`${style.formTitle} heading-6`}>
-                            {resource.formTitle ||
-                              "Fill out the form to download the the resource today!"}
-                          </h2>
-                        )}
-                        <Form
-                          formLoaded={formLoaded}
-                          formID={resource.marketoFormID}
-                        />
-                        {resource.link?.href && resource.link?.text && (
-                          <div className="mt-4 align-center">
-                            <p>
-                              {resource.footerText
-                                ? resource.footerText
-                                : "Want to learn more about UJET?"}
-                            </p>
-                            <AgilityLink
-                              className="text-decoration-underline"
-                              agilityLink={resource.link}
-                            >
-                              {resource.link.text}
-                            </AgilityLink>
-                          </div>
-                        )}
-                      </div>
+                      )}
+                      <PardotForm
+                        formHandlerID={
+                          resource.pardotFormID
+                            ? resource.pardotFormID
+                            : getPardotDefaultFormID(resourceCategory)
+                        }
+                        action={
+                          resource.formAction
+                            ? resource.formAction
+                            : getPardotDefaultAction(resourceCategory)
+                        }
+                        stepsEnabled={resource.formStepsEnabled}
+                        submit={
+                          resource.formSubmitText
+                            ? resource.formSubmitText
+                            : "Download Now"
+                        }
+                        config={formConfiguration}
+                        assetTitle={resource.title ? resource.title : null}
+                        assetType={getAssetType()}
+                      />
+                      {resource.link?.href && resource.link?.text && (
+                        <div className="mt-4 align-center">
+                          <p>
+                            {resource.footerText
+                              ? resource.footerText
+                              : "Want to learn more about UJET?"}
+                          </p>
+                          <AgilityLink
+                            className="text-decoration-underline"
+                            agilityLink={resource.link}
+                          >
+                            {resource.link.text}
+                          </AgilityLink>
+                        </div>
+                      )}
                     </div>
                   </div>
-                </section>
-              </>
-            )}
-          </FormWrapper>
+                </div>
+              </section>
+            </>
+          )}
           {accordionItemsWithSanitizedHTML && (
             <Accordion
               customData={{
@@ -257,6 +338,7 @@ ResourceContent.getCustomInitialProps = async function ({
   languageCode,
 }) {
   const api = agility;
+
   const accordionItemsData = dynamicPageItem.fields.accordionItems
     ?.referencename
     ? await api.getContentList({
@@ -266,6 +348,12 @@ ResourceContent.getCustomInitialProps = async function ({
     : null;
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
+
+  const formConfiguration = await api.getContentList({
+    referenceName: "formconfiguration",
+    expandAllContentLinks: true,
+    languageCode,
+  });
 
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
   const accordionItemsWithSanitizedHTML = accordionItemsData?.items
@@ -281,6 +369,7 @@ ResourceContent.getCustomInitialProps = async function ({
   return {
     sanitizedHtml,
     accordionItemsWithSanitizedHTML,
+    formConfiguration,
   };
 };
 
