@@ -49,12 +49,12 @@ export async function middleware(req) {
     "/favicon.ico",
   ];
 
-  if (req.nextUrl.pathname.match(/\/rs\/205-VHT-559\//)) {
+  if (req.nextUrl.pathname.toLowerCase().match(/\/rs\/205-vht-559\//)) {
     const marketoRedirUrl = getCorrectMarketoUrlCase(marketoRedirects);
     if (marketoRedirUrl) {
       return redirectWithCookies(marketoRedirUrl);
     }
-  } else if (req.nextUrl.pathname.match(/MjA1LVZIVC01NTkAAA/)) {
+  } else if (req.nextUrl.pathname.toLowerCase().match(/mja1lvzivc01ntkaaa/)) {
     const marketoEmailRedirUrl = getCorrectMarketoUrlCase(
       marketoEmailRedirects
     );
