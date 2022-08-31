@@ -49,7 +49,10 @@ export async function middleware(req) {
     "/favicon.ico",
   ];
 
-  if (req.nextUrl.pathname.toLowerCase().match(/\/rs\/205-vht-559\//)) {
+  if (
+    req.nextUrl.pathname.toLowerCase().match(/\/rs\/205-vht-559\//) ||
+    req.nextUrl.pathname.toLowerCase() === "/unsubscribepage.html"
+  ) {
     const marketoRedirUrl = getCorrectMarketoUrlCase(marketoRedirects);
     if (marketoRedirUrl) {
       return redirectWithCookies(marketoRedirUrl);
