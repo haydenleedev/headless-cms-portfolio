@@ -29,7 +29,7 @@ export async function middleware(req) {
       if (
         redirects[i].source.toLowerCase().replaceAll("\\\\", "") ===
           req.nextUrl.pathname.toLowerCase() &&
-        redirects[i].source !== req.nextUrl.pathname
+        redirects[i].source.replaceAll("\\\\", "") !== req.nextUrl.pathname
       ) {
         return `${req.nextUrl.origin}${redirects[i].source}`;
       }
