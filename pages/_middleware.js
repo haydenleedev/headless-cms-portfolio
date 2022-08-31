@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import marketoLpRedirects from "../data/marketoLpRedirects.json";
 
 export async function middleware(req) {
   // Have the uppercase redirect urls in an array, since redirecting all uppercase urls
@@ -21,10 +22,22 @@ export async function middleware(req) {
     return redirectResponse;
   };
 
+  const mktoLpRedirectSources = [];
+  marketoLpRedirects.forEach((lpRedirect) => {
+    if (!mktoLpRedirectSources.includes(lpRedirect.source)) {
+      mktoLpRedirectSources.push(lpRedirect.source.toLowerCase());
+    }
+  });
+
   // Redirect uppercase urls to lowercase based on the array above
   // Content item uppercase urls are also redirected
   if (
     uppercaseRedirects.includes(req.nextUrl.pathname) ||
+    (mktoLpRedirectSources.includes(req.nextUrl.pathname.toLowerCase()) &&
+      req.nextUrl.pathname !== req.nextUrl.pathname.toLowerCase()) ||
+    req.nextUrl.pathname.match(
+      /\/rs\/205-VHT-559\/|http:\/\/click.ujet.co\/MjA1LVZIVC01NTkAA/
+    ) ||
     (req.nextUrl.pathname.match(
       /\/resources\/|\/blog\/|\/press-releases\/|\/channel\/|\/deal-registration\/|\/integrations\//
     ) &&
