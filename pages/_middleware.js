@@ -22,19 +22,22 @@ export async function middleware(req) {
     return redirectResponse;
   };
 
-  const mktoLpRedirectSources = [];
-  marketoLpRedirects.forEach((lpRedirect) => {
-    if (!mktoLpRedirectSources.includes(lpRedirect.source)) {
-      mktoLpRedirectSources.push(lpRedirect.source.toLowerCase());
+  for (let i = 0; i < marketoLpRedirects.length; i++) {
+    if (
+      marketoLpRedirects[i].source.toLowerCase() ===
+        req.nextUrl.pathname.toLowerCase() &&
+      marketoLpRedirects[i].source !== req.nextUrl.pathname
+    ) {
+      return redirectWithCookies(
+        `${req.nextUrl.origin}${marketoLpRedirects[i].source}`
+      );
     }
-  });
+  }
 
   // Redirect uppercase urls to lowercase based on the array above
   // Content item uppercase urls are also redirected
   if (
     uppercaseRedirects.includes(req.nextUrl.pathname) ||
-    (mktoLpRedirectSources.includes(req.nextUrl.pathname.toLowerCase()) &&
-      req.nextUrl.pathname !== req.nextUrl.pathname.toLowerCase()) ||
     req.nextUrl.pathname.match(
       /\/rs\/205-VHT-559\/|http:\/\/click.ujet.co\/MjA1LVZIVC01NTkAA/
     ) ||
