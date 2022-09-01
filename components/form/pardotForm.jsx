@@ -17,6 +17,7 @@ import pardotFormData from "../../data/pardotFormData.json";
 import Router from "next/router";
 import { boolean } from "../../utils/validation";
 import PardotFormEmailStep from "./pardotFormEmailStep";
+import HoneypotFields from "./honeypotFields";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -599,36 +600,7 @@ class PardotForm extends Component {
                   this.state.stepEmailFieldValue) && (
                   <input name="hiddenemail" className="display-none" />
                 )}
-
-                {/* START: Honeypot */}
-                <label
-                  className={style.removehoney}
-                  htmlFor="honeyname"
-                ></label>
-                <input
-                  className={style.removehoney}
-                  autoComplete="off"
-                  type="text"
-                  id="honeyname"
-                  name="honeyname"
-                  tabIndex="-1"
-                  aria-hidden="true"
-                />
-                <label
-                  className={style.removehoney}
-                  htmlFor="honeyemail"
-                ></label>
-                <input
-                  className={style.removehoney}
-                  autoComplete="off"
-                  type="email"
-                  id="honeyemail"
-                  name="honeyemail"
-                  tabIndex="-1"
-                  aria-hidden="true"
-                />
-                {/* END: Honeypot */}
-
+                <HoneypotFields />
                 <div
                   className={`layout mt-4 d-flex flex-direction-column align-items-center`}
                 >
