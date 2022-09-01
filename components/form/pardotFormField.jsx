@@ -21,7 +21,7 @@ const PardotFormField = ({
   updateGaDataAdded,
   updateStateFieldVisible,
   updatePartnerStateFieldVisible,
-  updateSelectedCountry,
+  handleCountryChange,
   usPhoneFormat,
   partnerFieldProperties,
   isContactType,
@@ -218,7 +218,7 @@ const PardotFormField = ({
                   const isPartnerCountry = field.name
                     .toLowerCase()
                     .match(/partner/);
-                  updateSelectedCountry(e.target.value, isPartnerCountry);
+                  handleCountryChange(e.target.value, isPartnerCountry);
                   if (isPartnerCountry) {
                     updatePartnerStateFieldVisible(
                       e.target.value == "United States"
