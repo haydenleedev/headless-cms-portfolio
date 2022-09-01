@@ -22,18 +22,23 @@ class PardotForm extends Component {
   constructor(props) {
     super(props);
     this.stepsEnabled = boolean(this.props.stepsEnabled);
-    this.gaDataAdded = React.createRef(false);
+
+    // Refs are used for these values instead of state because they need to be updated synchronously
     this.assessmentCreatedRef = React.createRef(false);
     this.firstPartnerFieldIndex = React.createRef(null);
-    this.updateGaDataAdded = this.updateGaDataAdded.bind(this);
-    this.updateSelectedCountry = this.updateSelectedCountry.bind(this);
-    this.validate = this.validate.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.gaDataAdded = React.createRef(false);
+
+    // Bind value of this to state setters and some other functions to allow PardotFormField to access this component's values
     this.updateTouched = this.updateTouched.bind(this);
     this.updateStateFieldVisible = this.updateStateFieldVisible.bind(this);
     this.updatePartnerStateFieldVisible =
       this.updatePartnerStateFieldVisible.bind(this);
     this.setFieldsToMatchStep = this.setFieldsToMatchStep.bind(this);
+    this.updateGaDataAdded = this.updateGaDataAdded.bind(this);
+    this.updateSelectedCountry = this.updateSelectedCountry.bind(this);
+    this.validate = this.validate.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
       {
@@ -84,6 +89,7 @@ class PardotForm extends Component {
       ),
     });
 
+    // Get field data corresponding to the form handler ID
     for (let i = 0; i < pardotFormData.length; i++) {
       if (
         pardotFormData[i].formHandlerID == parseInt(this.props.formHandlerID)
@@ -161,6 +167,7 @@ class PardotForm extends Component {
       : { selectedCountry: newCountryValue };
     this.setState(countryStateObj, () => {
       if (phoneField) {
+        // Change the phone field formatting when switching to a country that uses different formatting than the previous country
         const usPhoneFormatCountries = ["United States", "Canada"];
         const selectedCountry = isPartnerCountry
           ? this.state.selectedPartnerCountry
@@ -323,6 +330,7 @@ class PardotForm extends Component {
         });
         return;
       }
+      // Set hidden email field's name to "Email" to include the email step value in the form submission
       if (this.state.stepEmailFieldValue && !this.form["Email"]) {
         this.form["hiddenemail"].name = "Email";
       } else if (this.state.timestampedEmail && this.form["Email"].value) {
@@ -337,6 +345,8 @@ class PardotForm extends Component {
         this.form["Email"].name = "";
         hiddenEmailField.name = "Email";
       }
+      // Clear state field values if United States was not the selected country
+      // This is for cases where the user first chooses US as their country and also chooses a state, and then changes the country
       if (
         !this.state.stateFieldVisible ||
         !this.state.partnerStateFieldVisible
@@ -397,6 +407,7 @@ class PardotForm extends Component {
     const errors = Array(this.fieldRefs.length).fill(false);
     this.fieldRefs.forEach((fieldRef, index) => {
       if (touched[index] == true) {
+        // Prevent submission if a visible required field does not have a value
         if (
           ((this.fieldData[index]?.isRequired &&
             !fieldRef.current.name.toLowerCase().match(/state/)) ||
