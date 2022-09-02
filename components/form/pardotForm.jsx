@@ -69,6 +69,9 @@ class PardotForm extends Component {
   }
 
   componentDidMount() {
+    // Variables that are initialized here could be moved to the constructor so that all variables are initialized before the first render
+    // It would also improve readability slightly
+
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     this.isChannelRequestForm = this.props.formHandlerID == 3709;
 
@@ -157,6 +160,7 @@ class PardotForm extends Component {
     this.setState({ partnerStateFieldVisible: newValue });
   }
 
+  // This function could be split into smaller functions to reduce repetition
   handleCountryChange(newCountryValue, isPartnerCountry) {
     const previousCountry = isPartnerCountry
       ? this.state.selectedPartnerCountry
@@ -169,11 +173,11 @@ class PardotForm extends Component {
       : { selectedCountry: newCountryValue };
     this.setState(countryStateObj, () => {
       if (phoneField) {
-        // Change the phone field formatting when switching to a country that uses different formatting than the previous country
         const usPhoneFormatCountries = ["United States", "Canada"];
         const selectedCountry = isPartnerCountry
           ? this.state.selectedPartnerCountry
           : this.state.selectedCountry;
+        // Switch to US phone no. formatting if the previous country did not use it
         if (
           (usPhoneFormatCountries.includes(newCountryValue) ||
             !newCountryValue) &&
@@ -189,7 +193,9 @@ class PardotForm extends Component {
             );
             this.validate();
           });
-        } else if (
+        }
+        // Switch to non-US phone no. formatting if the previous country did not use it
+        else if (
           !usPhoneFormatCountries.includes(newCountryValue) &&
           selectedCountry &&
           (usPhoneFormatCountries.includes(previousCountry) || !previousCountry)
@@ -206,6 +212,7 @@ class PardotForm extends Component {
     });
   }
 
+  // Update this.fieldData to only contain the fields that are used in the current step and hidden fields
   setFieldsToMatchStep(step, emailFieldValue) {
     this.currentStepFields = [];
     this.stepFields = this.props.config?.items[0].fields || {};
@@ -517,6 +524,7 @@ class PardotForm extends Component {
                     this.firstPartnerFieldIndex.current = index;
                   }
                   return (
+                    // Perhaps this div could be moved to pardotFormField.jsx as it is the fields' container
                     <div
                       key={`formField${index}`}
                       className={

@@ -18,10 +18,12 @@ const gaMeta = [
 ];
 const userIdCookie = getCookie("ga_user_id");
 
+// This function could be split into smaller parts and/or renamed (it does more than just add GA data)
 export const addGaData = (
   gaDataAdded,
   updateGaDataAdded,
   formEmailInput,
+  // isDealRegistrationForm could be moved to variable inside this function by checking the value of the formType prop
   isDealRegistrationForm,
   formType,
   contactTypeValue
@@ -112,6 +114,7 @@ export const addGaData = (
       formType == "contactUs" && contactTypeValue == "requestDemo";
 
     let contactType;
+    // If there is no future use for this currently unused function, it should be removed
     function getContactFormType() {
       if (document.querySelector("input[name=contact_type]")) {
         const getContactType = document.querySelector(
@@ -151,6 +154,7 @@ export const addGaData = (
       return utmDealRegistrationDefalutResult;
     }
 
+    // Every else if statement in this part has the condition !utmCampaignValue
     if (utmCampaignValue) {
       setFormInputValue("utm_campaign", utmCampaignValue);
     } else if (!utmCampaignValue && isGoogleContactForm) {
@@ -167,7 +171,26 @@ export const addGaData = (
         getDealRegistrationUtmDefaultValue(window.location.href)
       );
     }
-
+    // This part could be easier to read in this format:
+    // if (utmCampaignValue) {
+    //   setFormInputValue("utm_campaign", utmCampaignValue);
+    // } else {
+    //   if (isGoogleContactForm) {
+    //     setFormInputValue("utm_campaign", "gmp_contact_sales");
+    //   } else if (isChannelRequestForm) {
+    //     setFormInputValue("utm_campaign", "request_to_partner");
+    //   } else if (isContactSalesForm) {
+    //     setFormInputValue("utm_campaign", "contact_sales");
+    //   } else if (isRequestDemoForm) {
+    //     setFormInputValue("utm_campaign", "request_demo");
+    //   } else if (isDealRegistrationForm) {
+    //     setFormInputValue(
+    //       "utm_campaign",
+    //       getDealRegistrationUtmDefaultValue(window.location.href)
+    //     );
+    //   }
+    // }
+    // The same idea can be applied to the part below
     const utmAssetValue = getUrlParamValue("utm_asset");
     if (utmAssetValue) {
       setFormInputValue("utm_asset", utmAssetValue);

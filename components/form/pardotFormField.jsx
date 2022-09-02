@@ -24,13 +24,16 @@ const PardotFormField = ({
   handleCountryChange,
   usPhoneFormat,
   partnerFieldProperties,
-  isContactType,
   contactTypeValue,
+  // These four props whose name start with "is" could be combined into one prop similarly to partnerFieldProperties
+  // Their names also make it sound like they are boolean values (they are actually strings used as hidden field values)
+  isContactType,
   isRecordTypeId,
   isAssetTitle,
   isAssetType,
   isAssetUrl,
 }) => {
+  // Manually set data format for certain fields, as they are not set correctly in Pardot
   if (isSelectField(field)) {
     field.dataFormat = "select";
   } else if (isAdditionalSelectField(field)) {
@@ -42,6 +45,8 @@ const PardotFormField = ({
   } else if (field.name.toLowerCase().includes("email")) {
     field.dataFormat = "email";
   }
+  // This function could be renamed and/or split into smaller parts
+  // Currently it not only checks whether the field is a select field, but also adds the options to the field
   function isSelectField(field) {
     const selectFields = [
       { regex: /(^country|^company hq country)/, options: countries },
@@ -61,6 +66,8 @@ const PardotFormField = ({
   }
 
   // Partner company country and partner company state field need to be select type for other forms except for deal registration form
+  // This function could be renamed and/or split into smaller parts
+  // Currently it not only checks whether the field is a select field, but also adds the options to the field
   function isAdditionalSelectField(field) {
     const selectFields = [
       {
