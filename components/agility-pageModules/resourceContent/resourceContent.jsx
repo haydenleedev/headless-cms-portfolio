@@ -219,6 +219,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         config={formConfiguration}
                         assetTitle={resource.title ? resource.title : null}
                         assetType={getAssetType()}
+                        narrowFields={true}
                       />
                     </div>
                   </div>
@@ -297,6 +298,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         config={formConfiguration}
                         assetTitle={resource.title ? resource.title : null}
                         assetType={getAssetType()}
+                        narrowFields={true}
                       />
                       {resource.link?.href && resource.link?.text && (
                         <div className="mt-4 align-center">

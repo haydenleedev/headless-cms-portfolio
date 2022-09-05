@@ -23,6 +23,7 @@ class PardotForm extends Component {
   constructor(props) {
     super(props);
     this.stepsEnabled = boolean(this.props.stepsEnabled);
+    this.narrowFieldCount = 0;
 
     // Refs are used for these values instead of state because they need to be updated synchronously
     this.assessmentCreatedRef = React.createRef(false);
@@ -508,7 +509,9 @@ class PardotForm extends Component {
                   e.preventDefault();
                   this.handleSubmit(e);
                 }}
-                className={style.pardotForm}
+                className={`${style.pardotForm} ${
+                  this.props.narrowFields ? style.narrowFields : ""
+                }`}
                 style={{ display: this.state.clientJSEnabled ? "" : "none" }}
                 ref={(form) => (this.form = form)}
               >
@@ -523,11 +526,20 @@ class PardotForm extends Component {
                   ) {
                     this.firstPartnerFieldIndex.current = index;
                   }
+                  const isFullWidthSelectField =
+                    field.name.toLowerCase().match(/country/) ||
+                    field.name.toLowerCase().match(/state/);
+                  if (
+                    !isFullWidthSelectField &&
+                    !isHiddenField(field, this.isDealRegistrationForm)
+                  ) {
+                    this.narrowFieldCount++;
+                  }
                   return (
                     // Perhaps this div could be moved to pardotFormField.jsx as it is the fields' container
                     <div
                       key={`formField${index}`}
-                      className={
+                      className={`${
                         isHiddenField(field, this.isDealRegistrationForm) ||
                         (field.name.toLowerCase().match(/state/) &&
                           ((!field.name.toLowerCase().match(/partner/) &&
@@ -535,8 +547,15 @@ class PardotForm extends Component {
                             (field.name.toLowerCase().match(/partner/) &&
                               !this.state.partnerStateFieldVisible)))
                           ? "display-none"
-                          : ""
-                      }
+                          : `${style.visibleField} ${
+                              // Only add right margin to fields that are on the left side (next to another field)
+                              isFullWidthSelectField
+                                ? style.fullWidthField
+                                : this.narrowFieldCount % 2 != 0
+                                ? style.fieldWithGap
+                                : ""
+                            }`
+                      }`}
                     >
                       {!isHiddenField(
                         field,
