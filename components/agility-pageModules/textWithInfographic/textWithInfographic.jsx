@@ -33,6 +33,10 @@ const TextWithInfographic = ({ module, customData }) => {
       : null
   );
 
+  fields.items.sort(function (a, b) {
+    return a.properties.itemOrder - b.properties.itemOrder;
+  });
+
   return (
     <section
       className={`section ${style.textWithInfographic} ${
