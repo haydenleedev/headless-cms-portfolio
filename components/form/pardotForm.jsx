@@ -85,7 +85,11 @@ class PardotForm extends Component {
         break;
     }
 
-    this.pagePath = Router.asPath;
+    const stripQueryStringAndHashFromPath = (url) => {
+      return url.split("?")[0].split("#")[0];
+    };
+
+    this.pagePath = stripQueryStringAndHashFromPath(window.location.href);
     this.formType = getFormType(this.props.formHandlerID);
     this.setState({
       includeTimeStampInEmailAddress: [
