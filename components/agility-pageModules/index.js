@@ -64,6 +64,7 @@ import BrandTwoTextColumns from "../../brand/components/brandTwoTextColumns/bran
 import BrandBlankCards from "../../brand/components/brandBlankCards/brandBlankCards";
 import BrandVideoPopup from "../../brand/components/brandVideoPopup/brandVideoPopup";
 import BrandTextGridWithMedia from "../../brand/components/brandTextGridWithMedia/brandTextGridWithMedia";
+import TextWithInfographic from "./textWithInfographic/textWithInfographic";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -75,6 +76,7 @@ const allModules = [
   { name: "PressReleaseContent", module: PressReleaseContent },
   { name: "OverrideSEO", module: OverrideSEO },
   { name: "TextWithMedia", module: TextWithMedia },
+  { name: "TextWithInfographic", module: TextWithInfographic },
   { name: "TwoTextColumns", module: TwoTextColumns },
   { name: "TextGridWithMedia", module: TextGridWithMedia },
   { name: "ClientTestimonial", module: ClientTestimonial },
