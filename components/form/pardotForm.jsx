@@ -292,6 +292,9 @@ class PardotForm extends Component {
       !this.assessmentCreatedRef.current &&
       this.state.submissionAllowed
     ) {
+      window.dataLayer?.push({
+        event: "pardotFormSubmit",
+      });
       this.setState({ submissionInProgress: true });
       const getAssessment = () => {
         if (!this.assessmentCreatedRef.current) {
@@ -398,6 +401,9 @@ class PardotForm extends Component {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/saveClientData`, {
         method: "POST",
         body: JSON.stringify(clientData),
+      });
+      window.dataLayer?.push({
+        event: "pardotFormSuccess",
       });
       this.form.submit();
     }
