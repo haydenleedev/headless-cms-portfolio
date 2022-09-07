@@ -118,7 +118,6 @@ const TextWithForm = ({ module, customData }) => {
                 contactType={
                   fields.contactType ? fields.contactType : "request_a_demo"
                 }
-                narrowFields={!columnLayout}
               />
             </div>
           </aside>
