@@ -1,0 +1,155 @@
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/colors";
+
+.textWithInfographic {
+  .heading {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    @include desktop() {
+      margin-top: initial;
+      margin-bottom: 2rem;
+    }
+  }
+  .content {
+    display: flex;
+    $gap: 3.5rem;
+    &.columnLayout {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .textContent:not(:only-child) {
+        margin-bottom: $gap;
+      }
+    }
+    &.infographicLeft {
+      flex-direction: row-reverse;
+      .textContent:not(:only-child) {
+        margin-left: $gap;
+      }
+    }
+    &.infographicRight {
+      flex-direction: row;
+      .textContent:not(:only-child) {
+        margin-right: $gap;
+      }
+    }
+    @include touch() {
+      flex-direction: column !important;
+      .textContent:not(:only-child) {
+        margin: $gap 0 0 0 !important;
+      }
+    }
+  }
+  .textContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &.textContentBasis30 {
+      flex-basis: 30%;
+    }
+    &.textContentBasis40 {
+      flex-basis: 40%;
+    }
+    &.textContentBasis50 {
+      flex-basis: 50%;
+    }
+    &.textContentBasis60 {
+      flex-basis: 60%;
+    }
+    &.textContentBasis70 {
+      flex-basis: 70%;
+    }
+    .html {
+      margin-bottom: 2rem;
+      p {
+        margin-bottom: 2rem;
+        margin-top: 0.5rem;
+        display: block;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      ul {
+        li {
+          margin-top: 0.25rem;
+        }
+      }
+      a {
+        //text-decoration: unset;
+        color: $color-darkblue;
+      }
+    }
+    .link {
+      margin-top: unset;
+      border-radius: 3em;
+      border-width: 0.15em;
+    }
+  }
+  .infographic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+
+    // Vertical align conf
+    &.infoBasis30 {
+      flex-basis: 30%;
+    }
+    &.infoBasis40 {
+      flex-basis: 40%;
+    }
+    &.infoBasis50 {
+      flex-basis: 50%;
+    }
+    &.infoBasis60 {
+      flex-basis: 60%;
+    }
+    &.infoBasis70 {
+      flex-basis: 70%;
+    }
+
+    .items {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 100%;
+      gap: 3rem;
+      padding-left: unset;
+      li {
+        display: grid;
+        grid-template-columns: 0.25fr 1fr;
+        gap: 2rem;
+        & > * {
+          margin: auto 0;
+        }
+        .infographicIcon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.15rem;
+          border-radius: 50%;
+          overflow: hidden;
+          box-shadow: 0 0 1rem -0.25rem $color-darkmediumgray;
+          width: max-content;
+          & > span {
+            max-width: 2.75rem !important;
+            min-height: 2.75rem !important;
+            display: flex !important;
+            align-items: center !important;
+          }
+          &.svgMediaContainer {
+            img {
+              position: relative !important;
+              height: 100% !important;
+            }
+          }
+          @include tablet() {
+            & > span {
+              max-width: 3.5rem !important;
+              min-height: 3.5rem !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

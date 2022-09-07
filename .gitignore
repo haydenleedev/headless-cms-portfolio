@@ -38,6 +38,11 @@ env.local
 
 # Generated build time
 /public/sitemap.xml
+/public/sitemap_index.xml
+/public/page_sitemap.xml
+/public/blog_post_sitemap.xml
+/public/press_release_sitemap.xml
+/public/resource_sitemap.xml
 /data/excludedPages.json
 /data/agilityRedirects.json
 

@@ -17,23 +17,29 @@ import pardotFormData from "../../data/pardotFormData.json";
 import Router from "next/router";
 import { boolean } from "../../utils/validation";
 import PardotFormEmailStep from "./pardotFormEmailStep";
+import HoneypotFields from "./honeypotFields";
 
 class PardotForm extends Component {
   constructor(props) {
     super(props);
     this.stepsEnabled = boolean(this.props.stepsEnabled);
-    this.gaDataAdded = React.createRef(false);
+
+    // Refs are used for these values instead of state because they need to be updated synchronously
     this.assessmentCreatedRef = React.createRef(false);
     this.firstPartnerFieldIndex = React.createRef(null);
-    this.updateGaDataAdded = this.updateGaDataAdded.bind(this);
-    this.updateSelectedCountry = this.updateSelectedCountry.bind(this);
-    this.validate = this.validate.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.gaDataAdded = React.createRef(false);
+
+    // Bind value of this to state setters and some other functions to allow PardotFormField to access this component's values
     this.updateTouched = this.updateTouched.bind(this);
     this.updateStateFieldVisible = this.updateStateFieldVisible.bind(this);
     this.updatePartnerStateFieldVisible =
       this.updatePartnerStateFieldVisible.bind(this);
+    this.updateGaDataAdded = this.updateGaDataAdded.bind(this);
     this.setFieldsToMatchStep = this.setFieldsToMatchStep.bind(this);
+    this.handleCountryChange = this.handleCountryChange.bind(this);
+    this.validate = this.validate.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
       {
@@ -52,9 +58,9 @@ class PardotForm extends Component {
       partnerUsPhoneFormat:
         this.props.partnerCompanyCountry == "United States" ||
         !this.props.partnerCompanyCountry,
-      timestampedEmail: false,
+      includeTimeStampInEmailAddress: false,
       submissionInProgress: false,
-      formSubmissionAllowed: true,
+      submissionAllowed: true,
       fieldsMatchedToStep: false,
       stepEmailFieldValue: null,
       finalStepSubmitted: false,
@@ -63,6 +69,9 @@ class PardotForm extends Component {
   }
 
   componentDidMount() {
+    // Variables that are initialized here could be moved to the constructor so that all variables are initialized before the first render
+    // It would also improve readability slightly
+
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     this.isChannelRequestForm = this.props.formHandlerID == 3709;
 
@@ -79,11 +88,13 @@ class PardotForm extends Component {
     this.pagePath = Router.asPath;
     this.formType = getFormType(this.props.formHandlerID);
     this.setState({
-      timestampedEmail: ["dealRegistration", "channelRequest"].includes(
-        this.formType
-      ),
+      includeTimeStampInEmailAddress: [
+        "dealRegistration",
+        "channelRequest",
+      ].includes(this.formType),
     });
 
+    // Get field data corresponding to the form handler ID
     for (let i = 0; i < pardotFormData.length; i++) {
       if (
         pardotFormData[i].formHandlerID == parseInt(this.props.formHandlerID)
@@ -149,7 +160,8 @@ class PardotForm extends Component {
     this.setState({ partnerStateFieldVisible: newValue });
   }
 
-  updateSelectedCountry(newCountryValue, isPartnerCountry) {
+  // This function could be split into smaller functions to reduce repetition
+  handleCountryChange(newCountryValue, isPartnerCountry) {
     const previousCountry = isPartnerCountry
       ? this.state.selectedPartnerCountry
       : this.state.selectedCountry;
@@ -165,6 +177,7 @@ class PardotForm extends Component {
         const selectedCountry = isPartnerCountry
           ? this.state.selectedPartnerCountry
           : this.state.selectedCountry;
+        // Switch to US phone no. formatting if the previous country did not use it
         if (
           (usPhoneFormatCountries.includes(newCountryValue) ||
             !newCountryValue) &&
@@ -180,7 +193,9 @@ class PardotForm extends Component {
             );
             this.validate();
           });
-        } else if (
+        }
+        // Switch to non-US phone no. formatting if the previous country did not use it
+        else if (
           !usPhoneFormatCountries.includes(newCountryValue) &&
           selectedCountry &&
           (usPhoneFormatCountries.includes(previousCountry) || !previousCountry)
@@ -197,6 +212,7 @@ class PardotForm extends Component {
     });
   }
 
+  // Update this.fieldData to only contain the fields that are used in the current step and hidden fields
   setFieldsToMatchStep(step, emailFieldValue) {
     this.currentStepFields = [];
     this.stepFields = this.props.config?.items[0].fields || {};
@@ -273,8 +289,11 @@ class PardotForm extends Component {
       !this.form.honeyemail.value &&
       !this.state.submissionInProgress &&
       !this.assessmentCreatedRef.current &&
-      this.state.formSubmissionAllowed
+      this.state.submissionAllowed
     ) {
+      window.dataLayer?.push({
+        event: "pardotFormSubmit",
+      });
       this.setState({ submissionInProgress: true });
       const getAssessment = () => {
         if (!this.assessmentCreatedRef.current) {
@@ -311,7 +330,7 @@ class PardotForm extends Component {
       if (!blocklistResponseJSON.submissionAllowed) {
         this.setState({
           submissionInProgress: false,
-          formSubmissionAllowed: false,
+          submissionAllowed: false,
         });
         return;
       }
@@ -319,13 +338,17 @@ class PardotForm extends Component {
       if (!isAcceptableScore) {
         this.setState({
           submissionInProgress: false,
-          formSubmissionAllowed: false,
+          submissionAllowed: false,
         });
         return;
       }
+      // Set hidden email field's name to "Email" to include the email step value in the form submission
       if (this.state.stepEmailFieldValue && !this.form["Email"]) {
         this.form["hiddenemail"].name = "Email";
-      } else if (this.state.timestampedEmail && this.form["Email"].value) {
+      } else if (
+        this.state.includeTimeStampInEmailAddress &&
+        this.form["Email"].value
+      ) {
         const splitEmail = this.form["Email"].value.split(/(@)/);
         const date = new Date();
         const timestampedEmail = `${splitEmail[0]}+ex${date.getTime()}${
@@ -337,6 +360,8 @@ class PardotForm extends Component {
         this.form["Email"].name = "";
         hiddenEmailField.name = "Email";
       }
+      // Clear state field values if United States was not the selected country
+      // This is for cases where the user first chooses US as their country and also chooses a state, and then changes the country
       if (
         !this.state.stateFieldVisible ||
         !this.state.partnerStateFieldVisible
@@ -376,6 +401,9 @@ class PardotForm extends Component {
         method: "POST",
         body: JSON.stringify(clientData),
       });
+      window.dataLayer?.push({
+        event: "pardotFormSuccess",
+      });
       this.form.submit();
     }
   }
@@ -397,6 +425,7 @@ class PardotForm extends Component {
     const errors = Array(this.fieldRefs.length).fill(false);
     this.fieldRefs.forEach((fieldRef, index) => {
       if (touched[index] == true) {
+        // Prevent submission if a visible required field does not have a value
         if (
           ((this.fieldData[index]?.isRequired &&
             !fieldRef.current.name.toLowerCase().match(/state/)) ||
@@ -501,6 +530,7 @@ class PardotForm extends Component {
                     this.firstPartnerFieldIndex.current = index;
                   }
                   return (
+                    // Perhaps this div could be moved to pardotFormField.jsx as it is the fields' container
                     <div
                       key={`formField${index}`}
                       className={
@@ -562,7 +592,7 @@ class PardotForm extends Component {
                         updatePartnerStateFieldVisible={
                           this.updatePartnerStateFieldVisible
                         }
-                        updateSelectedCountry={this.updateSelectedCountry}
+                        handleCountryChange={this.handleCountryChange}
                         usPhoneFormat={
                           field.name.toLowerCase().match(/partner phone/)
                             ? this.state.partnerUsPhoneFormat
@@ -580,40 +610,11 @@ class PardotForm extends Component {
                   );
                 })}
 
-                {(this.state.timestampedEmail ||
+                {(this.state.includeTimeStampInEmailAddress ||
                   this.state.stepEmailFieldValue) && (
                   <input name="hiddenemail" className="display-none" />
                 )}
-
-                {/* START: Honeypot */}
-                <label
-                  className={style.removehoney}
-                  htmlFor="honeyname"
-                ></label>
-                <input
-                  className={style.removehoney}
-                  autoComplete="off"
-                  type="text"
-                  id="honeyname"
-                  name="honeyname"
-                  tabIndex="-1"
-                  aria-hidden="true"
-                />
-                <label
-                  className={style.removehoney}
-                  htmlFor="honeyemail"
-                ></label>
-                <input
-                  className={style.removehoney}
-                  autoComplete="off"
-                  type="email"
-                  id="honeyemail"
-                  name="honeyemail"
-                  tabIndex="-1"
-                  aria-hidden="true"
-                />
-                {/* END: Honeypot */}
-
+                <HoneypotFields />
                 <div
                   className={`layout mt-4 d-flex flex-direction-column align-items-center`}
                 >
@@ -629,7 +630,7 @@ class PardotForm extends Component {
                     }
                     required="required"
                   />
-                  {!this.state.formSubmissionAllowed && (
+                  {!this.state.submissionAllowed && (
                     <FormError
                       message={"Something went wrong. Please try again later."}
                     />
