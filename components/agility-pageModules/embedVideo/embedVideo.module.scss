@@ -3,10 +3,41 @@
 
 .embedVideo {
   .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    &.column {
+      flex-direction: column;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    &.embedRight,
+    &.embedLeft {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      @include desktop() {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+
+      .embed {
+        display: flex;
+        align-items: center;
+        .iframeWrapper {
+          width: 100%;
+        }
+      }
+    }
+    &.embedLeft {
+      @include desktop() {
+        .embed {
+          order: -1;
+        }
+        .text {
+          margin-left: 2rem;
+        }
+      }
+    }
 
     .embed {
       width: 100%;
@@ -14,6 +45,10 @@
       box-shadow: -0.0625rem 0 0.75rem 0.5rem rgb(0 0 0 / 15%);
       background-color: $color-white;
       border-radius: 0.85rem;
+      &.disableBorder {
+        box-shadow: unset;
+        padding: unset;
+      }
       .iframeWrapper {
         iframe {
           width: 100%;
