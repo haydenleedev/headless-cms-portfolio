@@ -125,14 +125,20 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          padding: 1.15rem;
+          padding: 1.5rem;
           border-radius: 50%;
           overflow: hidden;
           box-shadow: 0 0 1rem -0.25rem $color-darkmediumgray;
           width: max-content;
+          img {
+            object-fit: contain !important;
+          }
           & > span {
             max-width: 2.75rem !important;
+            max-height: 2.75rem !important;
+            min-width: 2.75rem !important;
             min-height: 2.75rem !important;
+            width: 100%;
             display: flex !important;
             align-items: center !important;
           }
@@ -140,12 +146,6 @@
             img {
               position: relative !important;
               height: 100% !important;
-            }
-          }
-          @include tablet() {
-            & > span {
-              max-width: 3.5rem !important;
-              min-height: 3.5rem !important;
             }
           }
         }
