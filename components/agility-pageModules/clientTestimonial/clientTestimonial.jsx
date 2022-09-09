@@ -28,7 +28,7 @@ const ClientTestimonial = ({ module }) => {
     <section
       className={`section ${style.clientTestimonial} ${
         fields.classes ? fields.classes : ""
-      } ${fields.backgroundColor ? fields.backgroundColor : ""}`}
+      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >

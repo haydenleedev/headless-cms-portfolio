@@ -8,7 +8,7 @@ const TestimonialList = ({ module }) => {
       className={`section ${style.testimonialList} ${
         fields.classes ? fields.classes : "bg-lightgray"
       } ${fields.renderAs === "slider" ? style.translateSliderControls : ""} ${
-        fields.backgroundColor ? fields.backgroundColor : ""
+        fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
       id={fields.id ? fields.id : null}
     >

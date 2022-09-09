@@ -22,7 +22,7 @@ const LogosList = ({ module, customData }) => {
     <section
       className={`section ${style.logosList} ${
         fields.classes ? fields.classes : ""
-      } ${fields.backgroundColor ? fields.backgroundColor : ""}`}
+      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
     >
       <div className="container padding-unset">

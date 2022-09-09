@@ -15,7 +15,7 @@ const PressReleaseList = ({ module }) => {
   return (
     <section
       className={`section newsList ${fields.classes ? fields.classes : ""} ${
-        fields.backgroundColor ? fields.backgroundColor : ""
+        fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
       id={fields.id ? fields.id : null}
     >

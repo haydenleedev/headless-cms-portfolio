@@ -33,7 +33,7 @@ const BrandTwoTextColumns = ({ module, customData }) => {
   return (
     <section
       className={`section ${fields.classes ? fields.classes : ""} ${
-        fields.backgroundColor ? fields.backgroundColor : ""
+        fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}

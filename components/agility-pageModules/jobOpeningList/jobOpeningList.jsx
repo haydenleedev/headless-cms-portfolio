@@ -152,7 +152,7 @@ const JobOpeningList = ({ module, customData }) => {
       {jobListData.length > 0 && (
         <section
           className={`section ${style.jobOpeningList} ${
-            fields.backgroundColor ? fields.backgroundColor : ""
+            fields?.backgroundColor ? fields?.backgroundColor : ""
           }`}
         >
           {heading?.text && (

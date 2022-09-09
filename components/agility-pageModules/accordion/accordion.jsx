@@ -43,7 +43,7 @@ const Accordion = ({ module, customData }) => {
   return (
     <section
       className={`section ${
-        fields.backgroundColor ? fields.backgroundColor : ""
+        fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
     >
       <div className="container max-width-narrow mb-3">
