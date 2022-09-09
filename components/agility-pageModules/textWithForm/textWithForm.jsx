@@ -36,7 +36,7 @@ const TextWithForm = ({ module, customData }) => {
     <section
       className={`section ${style.textWithForm} ${
         fields.classes ? fields.classes : ""
-      }`}
+      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
     >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
@@ -118,7 +118,6 @@ const TextWithForm = ({ module, customData }) => {
                 contactType={
                   fields.contactType ? fields.contactType : "request_a_demo"
                 }
-                narrowFields={!columnLayout}
               />
             </div>
           </aside>

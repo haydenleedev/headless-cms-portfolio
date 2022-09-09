@@ -76,7 +76,9 @@ const FirstFold = ({ module, customData }) => {
       <section
         className={`section ${style.firstFoldAlternate} ${
           layout == "customerStory" ? "mb-6" : ""
-        } ${fields.classes ? fields.classes : ""}`}
+        } ${fields.classes ? fields.classes : ""} ${
+          fields?.backgroundColor ? fields?.backgroundColor : ""
+        }`}
         id={fields.id ? fields.id : null}
       >
         {fields.media && (
@@ -114,7 +116,7 @@ const FirstFold = ({ module, customData }) => {
       <section
         className={`section ${style.softwareIntegration}${
           fields.classes ? " " + fields.classes : ""
-        }`}
+        } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
         id={fields.id ? fields.id : null}
       >
         <div
@@ -147,7 +149,7 @@ const FirstFold = ({ module, customData }) => {
       <section
         className={`section ${style.firstFold} ${
           fields.classes ? fields.classes : ""
-        }`}
+        } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
         id={fields.id ? fields.id : null}
         ref={intersectionRef}
       >

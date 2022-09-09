@@ -43,7 +43,7 @@ const ContentList = ({ module }) => {
     <section
       className={`section ${style.contentList} ${
         fields.classes ? fields.classes : ""
-      }`}
+      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
     >
       <nav className="container" aria-label="content list">
