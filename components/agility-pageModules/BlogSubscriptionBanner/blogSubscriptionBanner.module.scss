@@ -1,0 +1,66 @@
+@import "~/styles/settings/mixins";
+@import "~/styles/settings/colors";
+
+.blogSubscriptionBanner {
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    @include tablet() {
+      gap: 2rem;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .textContent {
+      @include tablet() {
+        padding-top: 2rem;
+      }
+      .heading {
+        text-align: left;
+      }
+      .text {
+        text-align: left;
+      }
+    }
+    .form {
+      label,
+      legend,
+      input,
+      select {
+        color: inherit;
+      }
+      label {
+        & > span {
+          color: inherit;
+        }
+      }
+      input,
+      select {
+        border: 0.125rem solid $color-white;
+        border-radius: 0.5rem;
+      }
+      select {
+        background-color: transparent;
+      }
+      input {
+        &:not([type="submit"]) {
+          background-color: transparent;
+        }
+      }
+      form {
+        & > div {
+          &:last-child {
+            align-items: flex-end !important;
+            input[type="submit"] {
+              border-radius: 3rem;
+              border: unset;
+              &:hover {
+                background-color: $color-white;
+                color: $color-navy;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
