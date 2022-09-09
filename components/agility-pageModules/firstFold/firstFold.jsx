@@ -16,6 +16,7 @@ const FirstFold = ({ module, customData }) => {
   const noImageLayout = !fields.media && !fields.customSVG;
   const narrowContainer = boolean(fields?.narrowContainer);
   const fixedMediaHeight = fields?.fixedMediaHeight;
+  const linksStyle = fields?.linksStyle;
   const layout = fields.layout;
 
   fields.logos?.sort(function (a, b) {
@@ -51,9 +52,15 @@ const FirstFold = ({ module, customData }) => {
       <div className={style.linkWrapper}>
         <AgilityLink
           agilityLink={link}
-          className={`button ${
+          className={`${
+            linksStyle === "button"
+              ? "button"
+              : "cyan outlined chevron-after w-600"
+          } ${
             primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
-          } ${fields.linkClasses ? fields.linkClasses : ""}`}
+          } ${fields.linkClasses ? fields.linkClasses : ""} ${
+            style[linksStyle]
+          }`}
           ariaLabel={`Navigate to page ` + link.href}
           title={`Navigate to page ` + link.href}
         >
@@ -69,7 +76,9 @@ const FirstFold = ({ module, customData }) => {
       <section
         className={`section ${style.firstFoldAlternate} ${
           layout == "customerStory" ? "mb-6" : ""
-        } ${fields.classes ? fields.classes : ""}`}
+        } ${fields.classes ? fields.classes : ""} ${
+          fields?.backgroundColor ? fields?.backgroundColor : ""
+        }`}
         id={fields.id ? fields.id : null}
       >
         {fields.media && (
@@ -107,7 +116,7 @@ const FirstFold = ({ module, customData }) => {
       <section
         className={`section ${style.softwareIntegration}${
           fields.classes ? " " + fields.classes : ""
-        }`}
+        } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
         id={fields.id ? fields.id : null}
       >
         <div
@@ -140,7 +149,7 @@ const FirstFold = ({ module, customData }) => {
       <section
         className={`section ${style.firstFold} ${
           fields.classes ? fields.classes : ""
-        }`}
+        } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
         id={fields.id ? fields.id : null}
         ref={intersectionRef}
       >
