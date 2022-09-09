@@ -29,7 +29,7 @@ const BrandBlankCards = ({ module, customData }) => {
   return (
     <section
       className={`section  ${fields.classes ? fields.classes : ""} ${
-        fields.backgroundColor ? fields.backgroundColor : ""
+        fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
     >
       <div className={`container max-width-brand ${style.containerPosition}`}>

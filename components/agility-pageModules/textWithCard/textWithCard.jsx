@@ -14,7 +14,7 @@ const TextWithCard = ({ module, customData }) => {
   return (
     <section
       className={`section ${
-        fields.backgroundColor ? fields.backgroundColor : ""
+        fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
     >
       <div className="container">

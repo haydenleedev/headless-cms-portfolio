@@ -23,7 +23,7 @@ const ResourceList = ({ module, customData }) => {
   return (
     <section
       className={`section ${style.resourceList} ${
-        fields.backgroundColor ? fields.backgroundColor : ""
+        fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
       id={fields.id ? fields.id : null}
     >

@@ -22,7 +22,7 @@ const CallToAction = ({ module, customData }) => {
         bannerLayout ? style.bannerLayout : ""
       } ${fields.classes ? fields.classes : ""} ${
         itemContentRight ? style.alignRight : style.alignLeft
-      } ${fields.backgroundColor ? fields.backgroundColor : ""}`}
+      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
     >
       {fields.backgroundImage && (

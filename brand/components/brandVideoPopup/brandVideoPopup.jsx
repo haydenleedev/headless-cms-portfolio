@@ -17,7 +17,7 @@ const BrandVideoPopup = ({ module, customData }) => {
   const mediaType = mediaName?.split(".")[1];
   return (
     <section
-      className={fields.backgroundColor ? fields.backgroundColor : "" || null}
+      className={fields?.backgroundColor ? fields?.backgroundColor : "" || null}
     >
       <div
         className={`container ${style.content} ${
