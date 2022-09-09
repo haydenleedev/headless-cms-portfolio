@@ -136,6 +136,8 @@ const TextWithMedia = ({ module, customData }) => {
               data-animate="true"
               className={`${fields.mediaClass ? fields.mediaClass : "null"} ${
                 mediaIsSvg(fields.media) ? style.svgMediaContainer : ""
+              } ${
+                fields.roundMediaCorners ? fields.roundMediaCorners : "null"
               }`}
             >
               {fields.media && !fields.testimonial && (
