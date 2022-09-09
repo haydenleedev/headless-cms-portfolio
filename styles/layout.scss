@@ -300,15 +300,18 @@
 }
 
 .border-radius-1,
-.border-radius-1 > span > img {
+.border-radius-1 > span > img,
+.border-radius-1 > div span img {
   border-radius: 1rem;
 }
 .border-radius-1-5,
-.border-radius-1-5 > span > img {
+.border-radius-1-5 > span > img,
+.border-radius-1-5 > div span img {
   border-radius: 1.5rem;
 }
 .border-radius-2,
-.border-radius-2 > span > img {
+.border-radius-2 > span > img,
+.border-radius-2 > div span img {
   border-radius: 2rem;
 }
 
