@@ -6,7 +6,7 @@
     "dev": "node ./fetchAgilityRedirects && node ./fetchExcludedPages.js && node ./fetchArchivesPageData.js && node ./fetchPardotFormData && next dev -p 3009",
     "build": "node ./fetchAgilityRedirects && node ./fetchExcludedPages.js && node ./fetchArchivesPageData.js && node ./fetchPardotFormData && next build",
     "start": "next start",
-    "postbuild": "node ./sitemap.js",
+    "postbuild": "next-sitemap",
     "lint": "next lint"
   },
   "dependencies": {
