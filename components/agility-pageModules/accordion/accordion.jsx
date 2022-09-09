@@ -41,7 +41,11 @@ const Accordion = ({ module, customData }) => {
   }, []);
 
   return (
-    <section className="section">
+    <section
+      className={`section ${
+        fields.backgroundColor ? fields.backgroundColor : ""
+      }`}
+    >
       <div className="container max-width-narrow mb-3">
         {heading?.text ? (
           <div className={`heading ${fields?.headingAlignment}`}>

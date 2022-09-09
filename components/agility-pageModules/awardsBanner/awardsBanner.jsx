@@ -11,8 +11,10 @@ const AwardsBanner = ({ module, customData }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const columnLayout = boolean(fields?.columnLayout);
   const textCenterJustification = boolean(fields?.textCenterJustification);
-  let awardColumnCount = fields.awardColumnCount > 1 ? fields.awardColumnCount : 7;
-  const displayedAwardCount = fields.displayedAwardCount > 1 ? fields.displayedAwardCount : 7;
+  let awardColumnCount =
+    fields.awardColumnCount > 1 ? fields.awardColumnCount : 7;
+  const displayedAwardCount =
+    fields.displayedAwardCount > 1 ? fields.displayedAwardCount : 7;
   if (displayedAwardCount < awardColumnCount) {
     awardColumnCount = displayedAwardCount;
   }
@@ -25,7 +27,7 @@ const AwardsBanner = ({ module, customData }) => {
     <section
       className={`section ${style.awardsBanner} ${
         fields.classes ? fields.classes : ""
-      }`}
+      } ${fields.backgroundColor ? fields.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
     >
       {fields.backgroundImage && (

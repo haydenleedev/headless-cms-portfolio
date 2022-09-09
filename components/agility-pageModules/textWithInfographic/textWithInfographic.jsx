@@ -41,7 +41,7 @@ const TextWithInfographic = ({ module, customData }) => {
     <section
       className={`section ${style.textWithInfographic} ${
         fields.classes ? fields.classes : ""
-      }`}
+      } ${fields.backgroundColor ? fields.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >

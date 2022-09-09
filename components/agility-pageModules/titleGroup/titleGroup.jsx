@@ -29,7 +29,9 @@ const TitleGroup = ({ module }) => {
 
   return (
     <section
-      className={`section ${fields.classes ? fields.classes : ""}`}
+      className={`section ${fields.classes ? fields.classes : ""} ${
+        fields.backgroundColor ? fields.backgroundColor : ""
+      }`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >

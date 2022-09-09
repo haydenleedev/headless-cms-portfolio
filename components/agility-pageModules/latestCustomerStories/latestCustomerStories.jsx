@@ -29,7 +29,9 @@ const LatestCustomerStories = ({ module, customData }) => {
 
   return (
     <section
-      className={`section ${style.latestCustomerStories}`}
+      className={`section ${style.latestCustomerStories} ${
+        fields.backgroundColor ? fields.backgroundColor : ""
+      }`}
       id={fields.id ? fields.id : null}
     >
       <div className="container">

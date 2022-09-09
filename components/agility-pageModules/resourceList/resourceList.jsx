@@ -22,7 +22,9 @@ const ResourceList = ({ module, customData }) => {
   }
   return (
     <section
-      className={`section ${style.resourceList}`}
+      className={`section ${style.resourceList} ${
+        fields.backgroundColor ? fields.backgroundColor : ""
+      }`}
       id={fields.id ? fields.id : null}
     >
       <nav className="container" aria-label="resource list">

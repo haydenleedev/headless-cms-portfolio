@@ -48,7 +48,7 @@ const TextWithMedia = ({ module, customData }) => {
     <section
       className={`section ${style.textWithMedia} ${
         fields.classes ? fields.classes : ""
-      }`}
+      } ${fields.backgroundColor ? fields.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >

@@ -159,7 +159,7 @@ const TextGridWithMedia = ({ module, customData }) => {
           : fields.itemStyle == "mediumLogoLeft"
           ? style.logoLeftHeaderRight + " " + style.medium
           : ""
-      }`}
+      } ${fields.backgroundColor ? fields.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >

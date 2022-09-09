@@ -16,7 +16,9 @@ const BrandVideoPopup = ({ module, customData }) => {
   mediaName = mediaName ? mediaName[mediaName.length - 1] : null;
   const mediaType = mediaName?.split(".")[1];
   return (
-    <section className={`section ${style.null}`}>
+    <section
+      className={fields.backgroundColor ? fields.backgroundColor : "" || null}
+    >
       <div
         className={`container ${style.content} ${
           narrowContainer ? "max-width-narrow" : ""

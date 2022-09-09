@@ -150,7 +150,11 @@ const JobOpeningList = ({ module, customData }) => {
   return (
     <>
       {jobListData.length > 0 && (
-        <section className={`section ${style.jobOpeningList}`}>
+        <section
+          className={`section ${style.jobOpeningList} ${
+            fields.backgroundColor ? fields.backgroundColor : ""
+          }`}
+        >
           {heading?.text && (
             <div className="heading mb-3">
               <Heading {...heading} />
