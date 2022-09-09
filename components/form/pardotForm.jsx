@@ -23,7 +23,6 @@ class PardotForm extends Component {
   constructor(props) {
     super(props);
     this.stepsEnabled = boolean(this.props.stepsEnabled);
-    this.narrowFieldCount = 0;
     this.formInViewEventPushed = false;
 
     // Refs are used for these values instead of state because they need to be updated synchronously
@@ -52,8 +51,6 @@ class PardotForm extends Component {
     this.state = {
       errors: [],
       touched: [],
-      rightMarginFieldIndices: [],
-      fullWidthFieldIndices: [],
       stateFieldVisible: false,
       partnerStateFieldVisible: false,
       selectedCountry: "",
@@ -148,45 +145,6 @@ class PardotForm extends Component {
       touched: Array(this.fieldData.length).fill(false),
       clientJSEnabled: true,
     });
-
-    const rightMarginFieldIndices = [];
-    const fullWidthFieldIndices = [];
-    const visibleFullWidthFields = [];
-    // Narrow fields are split into smaller groups by using the select fields as separators
-    // This is done to allow lone fields to use 100% of their rows' width
-    const separatedVisibleNarrowFields = [[]];
-    this.fieldData.forEach((field) => {
-      if (!isHiddenField(field, this.isDealRegistrationForm)) {
-        if (field.dataFormat == "select") {
-          visibleFullWidthFields.push(field);
-          separatedVisibleNarrowFields.push([]);
-          fullWidthFieldIndices.push(this.fieldData.indexOf(field));
-        } else {
-          separatedVisibleNarrowFields[
-            separatedVisibleNarrowFields.length - 1
-          ].push(field);
-        }
-      }
-    });
-
-    separatedVisibleNarrowFields.forEach((fieldArray) => {
-      fieldArray.forEach((field, index) => {
-        if (index % 2 == 0) {
-          rightMarginFieldIndices.push(this.fieldData.indexOf(field));
-        }
-      });
-      if (fieldArray.length % 2 != 0) {
-        fullWidthFieldIndices.push(
-          this.fieldData.indexOf(fieldArray[fieldArray.length - 1])
-        );
-        rightMarginFieldIndices.pop();
-      }
-    });
-    this.setState({
-      rightMarginFieldIndices: rightMarginFieldIndices,
-      fullWidthFieldIndices: fullWidthFieldIndices,
-    });
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -581,9 +539,7 @@ class PardotForm extends Component {
                   e.preventDefault();
                   this.handleSubmit(e);
                 }}
-                className={`${style.pardotForm} ${
-                  this.props.narrowFields ? style.narrowFields : ""
-                }`}
+                className={style.pardotForm}
                 style={{ display: this.state.clientJSEnabled ? "" : "none" }}
                 ref={(form) => (this.form = form)}
               >
@@ -610,15 +566,7 @@ class PardotForm extends Component {
                             (field.name.toLowerCase().match(/partner/) &&
                               !this.state.partnerStateFieldVisible)))
                           ? "display-none"
-                          : `${style.visibleField} ${
-                              this.state.rightMarginFieldIndices.includes(index)
-                                ? style.fieldWithRightMargin
-                                : this.state.fullWidthFieldIndices.includes(
-                                    index
-                                  )
-                                ? style.fullWidthField
-                                : ""
-                            }`
+                          : ""
                       }
                     >
                       {!isHiddenField(

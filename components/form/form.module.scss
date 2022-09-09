@@ -32,26 +32,6 @@
   input[type="submit"] {
     cursor: pointer;
   }
-  &.narrowFields {
-    display: flex;
-    flex-wrap: wrap;
-    > div {
-      flex-basis: 100%;
-    }
-    @include desktop() {
-      $field-gap: 1rem;
-      > .visibleField {
-        flex: 0 0 calc(50% - ($field-gap / 2));
-        &.fieldWithRightMargin {
-          margin-right: $field-gap;
-        }
-      }
-      > div:last-of-type,
-      .fullWidthField {
-        flex-basis: 100%;
-      }
-    }
-  }
 }
 
 .required {
