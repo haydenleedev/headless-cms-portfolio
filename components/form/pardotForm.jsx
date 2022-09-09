@@ -202,7 +202,11 @@ class PardotForm extends Component {
         threshold: 0.2,
       }
     );
-    observer.observe(this.form);
+    if (this.stepsEnabled) {
+      observer.observe(this.stepForm);
+    } else {
+      observer.observe(this.form);
+    }
   }
 
   updateTouched(index) {
