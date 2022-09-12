@@ -120,7 +120,7 @@
           a {
             @include desktop {
               display: block;
-              padding: 0 .75rem;
+              padding: 0 0.75rem;
               overflow: hidden;
             }
 
@@ -136,7 +136,7 @@
         background: white;
         flex-direction: column;
         align-items: flex-start;
-        justify-content: start;
+        justify-content: flex-start;
         width: 90vw;
         height: 100%;
         margin-top: 0;
@@ -181,18 +181,18 @@
   @include desktop {
     top: 3.5rem;
   }
-  .closeMenu{
+  .closeMenu {
     position: absolute;
     color: $color-navy;
     height: 1rem;
     width: 75%;
     left: 0rem;
-    top:0;
+    top: 0;
     font-size: 1.2rem;
-    font-weight:700;
+    font-weight: 700;
   }
-  .hide{
-    left:  -2147483647px !important;
+  .hide {
+    left: -2147483647px !important;
   }
   span {
     position: absolute;
