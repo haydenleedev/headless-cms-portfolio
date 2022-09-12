@@ -429,7 +429,22 @@ class PardotForm extends Component {
       window.dataLayer?.push({
         event: "pardotFormSuccess",
       });
-      this.form.submit();
+      if (this.props.customAction) {
+        const formData = new FormData(this.form);
+        const formObject = Object.fromEntries(formData.entries());
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/ajaxRequestPardot`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              endpoint: this.props.action,
+              formObject,
+            }),
+          }
+        );
+        const data = await response.json();
+        this.props.customAction(data.success);
+      } else this.form.submit();
     }
   }
 
@@ -533,8 +548,8 @@ class PardotForm extends Component {
               this.state.fieldsMatchedToStep &&
               !this.state.finalStepSubmitted) ? (
               <form
-                action={this.props.action}
-                method="post"
+                action={this.props.customAction ? null : this.props.action}
+                method={this.props.customAction ? null : "post"}
                 onSubmit={(e) => {
                   e.preventDefault();
                   this.handleSubmit(e);

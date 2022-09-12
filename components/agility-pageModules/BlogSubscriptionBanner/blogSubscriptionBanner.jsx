@@ -3,14 +3,21 @@ import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./blogSubscriptionBanner.module.scss";
 import Heading from "../heading";
 import { renderHTML } from "@agility/nextjs";
+import { useState } from "react";
 
 const BlogSubscriptionBanner = ({ module, customData }) => {
+  const [successView, setSuccessView] = useState(null);
   const { sanitizedHtml } = customData;
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const NEWSLETTER_FORM_ID = 3715;
   const NEWSLETTER_FORM_ACTION =
     "https://info.ujet.cx/l/986641/2022-08-05/kgtbr";
+
+  const customAction = (success) => {
+    if (success) setSuccessView("Thank you! You have been subscribed.");
+    else setSuccessView("An unexpected error occured. Please try again later.");
+  };
   return (
     <section
       className={`section ${style.blogSubscriptionBanner} ${
@@ -32,12 +39,19 @@ const BlogSubscriptionBanner = ({ module, customData }) => {
           )}
         </div>
         <div className={style.form}>
-          <PardotForm
-            formHandlerID={NEWSLETTER_FORM_ID}
-            action={NEWSLETTER_FORM_ACTION}
-            submit={fields.submitButtonText}
-            btnColor="orange"
-          />
+          {successView ? (
+            <div className={`${style.success} fadeIn`}>
+              <p className="heading-5">Thank you! You have been subscribed.</p>
+            </div>
+          ) : (
+            <PardotForm
+              formHandlerID={NEWSLETTER_FORM_ID}
+              action={NEWSLETTER_FORM_ACTION}
+              customAction={customAction}
+              submit={fields.submitButtonText}
+              btnColor="orange"
+            />
+          )}
         </div>
       </div>
     </section>

@@ -22,31 +22,31 @@
       }
     }
     .form {
-      label,
-      legend,
-      input,
-      select {
-        color: inherit;
-      }
-      label {
-        & > span {
+      form {
+        label,
+        legend,
+        input,
+        select {
           color: inherit;
         }
-      }
-      input,
-      select {
-        border: 0.125rem solid $color-white;
-        border-radius: 0.5rem;
-      }
-      select {
-        background-color: transparent;
-      }
-      input {
-        &:not([type="submit"]) {
+        label {
+          & > span {
+            color: inherit;
+          }
+        }
+        input,
+        select {
+          border: 0.125rem solid $color-white;
+          border-radius: 0.5rem;
+        }
+        select {
           background-color: transparent;
         }
-      }
-      form {
+        input {
+          &:not([type="submit"]) {
+            background-color: transparent;
+          }
+        }
         & > div {
           &:last-child {
             align-items: flex-end !important;
@@ -60,6 +60,9 @@
             }
           }
         }
+      }
+      .success {
+        padding: 3rem;
       }
     }
   }
