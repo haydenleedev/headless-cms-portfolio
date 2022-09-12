@@ -53,9 +53,9 @@ const FirstFold = ({ module, customData }) => {
         <AgilityLink
           agilityLink={link}
           className={`${
-            linksStyle === "button"
-              ? "button"
-              : "cyan outlined chevron-after w-600"
+            linksStyle === "textWithArrow"
+              ? "cyan outlined chevron-after w-600 mt-2"
+              : "button mt-2"
           } ${
             primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
           } ${fields.linkClasses ? fields.linkClasses : ""} ${
