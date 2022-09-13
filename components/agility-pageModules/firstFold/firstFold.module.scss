@@ -162,6 +162,19 @@
     .primaryLink,
     .secondaryLink {
       width: 100%;
+      &.button {
+        margin-top: 1rem;
+        margin-bottom: 1.2rem;
+        padding: 0.5em 2em;
+        border-radius: 3em;
+        border-width: 0.15em;
+      }
+      &.textWithArrow {
+        display: block;
+        margin: 1rem 0 0 0;
+        padding: unset;
+        font-size: 1.1rem;
+      }
     }
     .linkWrapper:first-child:not(:only-child) {
       margin: 0 0 0.5rem 0;
@@ -174,22 +187,6 @@
     }
   }
 
-  .primaryLink,
-  .secondaryLink {
-    &.button {
-      margin-top: 1rem;
-      margin-bottom: 1.2rem;
-      padding: 0.5em 2em;
-      border-radius: 3em;
-      border-width: 0.15em;
-    }
-    &.textWithArrow {
-      display: block;
-      margin: 1rem 0 0 0;
-      padding: unset;
-      font-size: 1.1rem;
-    }
-  }
   .imageLink {
     display: block;
   }
