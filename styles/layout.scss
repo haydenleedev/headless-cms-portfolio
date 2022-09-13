@@ -456,8 +456,11 @@
   }
 }
 
-.mt--navbar-height { // helper class to fix the top offset when TransparentizeNavbar module is added to page
-  margin-top: calc(0rem - ($navbar-height + $navbar-secondary-height)) !important;
+.mt--navbar-height {
+  // helper class to fix the top offset when TransparentizeNavbar module is added to page
+  margin-top: calc(
+    0rem - ($navbar-height + $navbar-secondary-height)
+  ) !important;
 }
 
 .mb-0 {
