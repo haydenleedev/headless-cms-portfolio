@@ -28,6 +28,7 @@ const ClientTestimonial = ({ module }) => {
     <section
       className={`section ${style.clientTestimonial} ${
         fields.classes ? fields.classes : ""
+      } ${fields?.backgroundColor ? fields?.backgroundColor : ""
       } ${fields.testimonialStyle === "logo-left-text-right" ?
         style.logoOnLeft : ""
       } ${fields.testimonialStyle === "text-left-logo-right" ?
