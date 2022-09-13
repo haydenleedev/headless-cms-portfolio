@@ -16,7 +16,7 @@ const FirstFold = ({ module, customData }) => {
   const noImageLayout = !fields.media && !fields.customSVG;
   const narrowContainer = boolean(fields?.narrowContainer);
   const fixedMediaHeight = fields?.fixedMediaHeight;
-  const linksStyle = fields?.linksStyle;
+  const linksStyle = fields?.linksStyle || "button";
   const layout = fields.layout;
 
   fields.logos?.sort(function (a, b) {
