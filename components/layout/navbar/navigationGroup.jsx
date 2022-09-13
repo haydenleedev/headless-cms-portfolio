@@ -32,8 +32,6 @@ export const NavigationGroup = ({
     }
   };
 
-  console.log(navigationGroup.fields?.columns?.[0]?.fields?.links?.length)
-
   return (
     <li
       // If no columns, just render a link without dropdown effects
