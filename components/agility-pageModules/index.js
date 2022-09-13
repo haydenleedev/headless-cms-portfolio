@@ -65,6 +65,7 @@ import BrandBlankCards from "../../brand/components/brandBlankCards/brandBlankCa
 import BrandVideoPopup from "../../brand/components/brandVideoPopup/brandVideoPopup";
 import BrandTextGridWithMedia from "../../brand/components/brandTextGridWithMedia/brandTextGridWithMedia";
 import TextWithInfographic from "./textWithInfographic/textWithInfographic";
+import BlogSubscriptionBanner from "./BlogSubscriptionBanner/blogSubscriptionBanner";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -125,6 +126,7 @@ const allModules = [
   { name: "VideoPopup", module: VideoPopup },
   { name: "DealRegistration", module: DealRegistration },
   { name: "ChannelRequest", module: ChannelRequest },
+  { name: "BlogSubscriptionBanner", module: BlogSubscriptionBanner },
   { name: "BrandFirstFold", module: BrandFirstFold },
   { name: "BrandTextGridWithMedia", module: BrandTextGridWithMedia },
   { name: "BrandTextWithMedia", module: BrandTextWithMedia },

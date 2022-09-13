@@ -23,6 +23,7 @@ class PardotForm extends Component {
   constructor(props) {
     super(props);
     this.stepsEnabled = boolean(this.props.stepsEnabled);
+    this.formInViewEventPushed = false;
 
     // Refs are used for these values instead of state because they need to be updated synchronously
     this.assessmentCreatedRef = React.createRef(false);
@@ -144,6 +145,26 @@ class PardotForm extends Component {
       touched: Array(this.fieldData.length).fill(false),
       clientJSEnabled: true,
     });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !this.formInViewEventPushed) {
+            this.formInViewEventPushed = true;
+            window.dataLayer?.push({
+              event: "pardotFormInView",
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+    if (this.stepsEnabled) {
+      observer.observe(this.stepForm);
+    } else {
+      observer.observe(this.form);
+    }
   }
 
   updateTouched(index) {

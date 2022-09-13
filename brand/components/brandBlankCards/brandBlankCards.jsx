@@ -27,7 +27,11 @@ const BrandBlankCards = ({ module, customData }) => {
     (cardsWithSanitizedHtml?.length % fields.maxCardsPerRow);
   const fillCards = fillAmount > 0 && new Array(fillAmount).fill("");
   return (
-    <section className={`section  ${fields.classes ? fields.classes : ""}`}>
+    <section
+      className={`section  ${fields.classes ? fields.classes : ""} ${
+        fields?.backgroundColor ? fields?.backgroundColor : ""
+      }`}
+    >
       <div className={`container max-width-brand ${style.containerPosition}`}>
         <div
           className={`${style.headingContainer} ${

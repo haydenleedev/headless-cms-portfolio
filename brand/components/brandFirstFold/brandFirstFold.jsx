@@ -73,7 +73,7 @@ const BrandFirstFold = ({ module, customData }) => {
     <section
       className={`section ${style.firstFold} ${
         fields.classes ? fields.classes : ""
-      }`}
+      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >

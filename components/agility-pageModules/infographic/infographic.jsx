@@ -45,7 +45,7 @@ const Infographic = ({ module }) => {
     <section
       className={`section ${style.infographic} ${
         fields.classes ? fields.classes : ""
-      }`}
+      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
     >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>

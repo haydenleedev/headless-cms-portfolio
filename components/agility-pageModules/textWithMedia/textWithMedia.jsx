@@ -48,7 +48,7 @@ const TextWithMedia = ({ module, customData }) => {
     <section
       className={`section ${style.textWithMedia} ${
         fields.classes ? fields.classes : ""
-      }`}
+      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
@@ -136,6 +136,8 @@ const TextWithMedia = ({ module, customData }) => {
               data-animate="true"
               className={`${fields.mediaClass ? fields.mediaClass : "null"} ${
                 mediaIsSvg(fields.media) ? style.svgMediaContainer : ""
+              } ${
+                fields.roundMediaCorners ? fields.roundMediaCorners : "null"
               }`}
             >
               {fields.media && !fields.testimonial && (

@@ -10,7 +10,7 @@ const TableWithHeading = ({ module }) => {
   });
 
   return (
-    <section>
+    <section className={fields?.backgroundColor ? fields?.backgroundColor : ""}>
       <div className="container d-flex flex-direction-column align-items-center">
         {heading.text && <Heading {...heading} />}
         {fields.tableCells && (

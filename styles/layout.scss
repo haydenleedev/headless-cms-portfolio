@@ -300,15 +300,18 @@
 }
 
 .border-radius-1,
-.border-radius-1 > span > img {
+.border-radius-1 > span > img,
+.border-radius-1 > div span img {
   border-radius: 1rem;
 }
 .border-radius-1-5,
-.border-radius-1-5 > span > img {
+.border-radius-1-5 > span > img,
+.border-radius-1-5 > div span img {
   border-radius: 1.5rem;
 }
 .border-radius-2,
-.border-radius-2 > span > img {
+.border-radius-2 > span > img,
+.border-radius-2 > div span img {
   border-radius: 2rem;
 }
 
@@ -576,6 +579,9 @@
 }
 .pt-0 {
   padding-top: 0 !important;
+}
+.pt-1px {
+  padding-top: 1px !important;
 }
 .pt-2 {
   padding-top: $size-2 !important;

@@ -7,10 +7,16 @@ const TextWithCard = ({ module, customData }) => {
   const sanitizedHtml = customData.sanitizedHtml;
   const sanitizedCardHtml = customData.sanitizedCardHtml;
   const { fields } = module;
-  const heading = fields.textContentHeading ? JSON.parse(fields.textContentHeading) : null;
+  const heading = fields.textContentHeading
+    ? JSON.parse(fields.textContentHeading)
+    : null;
   const cardFields = fields.card?.fields;
   return (
-    <section className="section">
+    <section
+      className={`section ${
+        fields?.backgroundColor ? fields?.backgroundColor : ""
+      }`}
+    >
       <div className="container">
         <div className={style.content}>
           {fields.card && (

@@ -13,7 +13,9 @@ const NewsList = ({ module }) => {
     : fields.newsArticles.slice(0, limit);
   return (
     <section
-      className={`section newsList ${fields.classes ? fields.classes : ""}`}
+      className={`section newsList ${fields.classes ? fields.classes : ""} ${
+        fields?.backgroundColor ? fields?.backgroundColor : ""
+      }`}
       id={fields.id ? fields.id : null}
     >
       <nav className="container newsList__container" aria-label="news list">
