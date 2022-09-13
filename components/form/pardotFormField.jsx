@@ -32,6 +32,7 @@ const PardotFormField = ({
   isAssetTitle,
   isAssetType,
   isAssetUrl,
+  isContactField,
 }) => {
   // Manually set data format for certain fields, as they are not set correctly in Pardot
   if (isSelectField(field)) {
@@ -93,6 +94,16 @@ const PardotFormField = ({
       fieldRef.current.value = formatPhoneNumber(fieldRef.current.value);
     }
   }
+
+  const pasteBlocker = (e) => {
+    if (isContactField) {
+      e.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   switch (field.dataFormat) {
     case "email":
       return (
@@ -106,6 +117,7 @@ const PardotFormField = ({
             validate();
           }}
           onChange={updateTouched}
+          onPaste={pasteBlocker}
           onInput={() => {
             addGaData(
               gaDataAdded,
@@ -140,6 +152,7 @@ const PardotFormField = ({
               validate();
             }
           }}
+          onPaste={pasteBlocker}
           onKeyDown={() => {
             if (usPhoneFormat) {
               phoneNumberFormatter();
@@ -191,6 +204,7 @@ const PardotFormField = ({
                 validate();
               }}
               onChange={updateTouched}
+              onPaste={pasteBlocker}
               ref={fieldRef}
               value={
                 field.name.toLowerCase() === "contact_type"
@@ -262,6 +276,7 @@ const PardotFormField = ({
             validate();
           }}
           onChange={() => this.updateTouched(index)}
+          onPaste={pasteBlocker}
           ref={fieldRef}
         />
       );

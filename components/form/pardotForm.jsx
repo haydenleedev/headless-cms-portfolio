@@ -75,6 +75,7 @@ class PardotForm extends Component {
 
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     this.isChannelRequestForm = this.props.formHandlerID == 3709;
+    this.isContactForm = this.props.formHandlerID == 3568;
 
     // Pass different value to contact_type for contact sales form
     switch (this.props.contactType) {
@@ -620,6 +621,7 @@ class PardotForm extends Component {
                         isRecordTypeId={this.props.recordTypeId}
                         field={field}
                         isDealRegistrationField={this.isDealRegistrationForm}
+                        isContactField={this.isContactForm}
                         formType={this.formType}
                         fieldRef={this.fieldRefs[index]}
                         validate={this.validate}
