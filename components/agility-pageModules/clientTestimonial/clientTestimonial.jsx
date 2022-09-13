@@ -30,9 +30,9 @@ const ClientTestimonial = ({ module }) => {
         fields.classes ? fields.classes : ""
       } ${fields?.backgroundColor ? fields?.backgroundColor : ""
       } ${fields.testimonialStyle === "logo-left-text-right" ?
-        style.logoOnLeft : ""
+        `pb-6 ${style.logoOnLeft}` : ""
       } ${fields.testimonialStyle === "text-left-logo-right" ?
-        `${style.logoOnLeft} ${style.logoOnRight}` : ""
+        `pb-6 ${style.logoOnLeft} ${style.logoOnRight}` : ""
       }`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
