@@ -32,13 +32,15 @@ export const NavigationGroup = ({
     }
   };
 
+  console.log(navigationGroup.fields?.columns?.[0]?.fields?.links?.length)
+
   return (
     <li
       // If no columns, just render a link without dropdown effects
       className={`${
         secondaryNavigation ? style.navbarSecondaryMobileLinks : ""
       } ${
-        !navigationGroup.fields.columns
+        (!navigationGroup.fields.columns || !navigationGroup.fields.columns?.[0]?.fields?.links)
           ? style.noDropdown
           : `${style.hasDropdown} ${
               activeNavigationItem === `navigation-group-${index}`

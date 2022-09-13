@@ -73,6 +73,7 @@ const MainNavigation = ({
                   {navbarData.fields.navbarSecondary?.map((link, i) => {
                     const linkData = {
                       fields: {
+                        columns: [{ fields: { links: link.fields.navbarSecondarySublist } }],
                         mainLink: {
                           fields: {
                             internalTitle: link.fields.text,
