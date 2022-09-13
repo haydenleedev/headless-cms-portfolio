@@ -10,7 +10,9 @@ const TransparentizeNavbar = () => {
     // but ONLY if this module is placed on top of the page module list
     if (moduleRef.current && !moduleRef.current.previousSibling) {
       const nextSiblingModule = moduleRef.current.nextSibling;
+      const followingSiblingModule = nextSiblingModule.nextSibling; // sibling after nextSiblingModule
       nextSiblingModule.classList.add("transparentized-navbar-transform");
+      followingSiblingModule.classList.add("mt--navbar-height");
     }
   }, [moduleRef.current]);
   return <section data-transparent-navbar="true" ref={moduleRef}></section>;
