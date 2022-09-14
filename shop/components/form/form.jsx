@@ -274,13 +274,12 @@ class ContactForm extends Component {
                   id="email"
                   autoComplete="email"
                   maxLength="50"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.email = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 />
                 {this.state.errors.email && (
                   <FormErrors message="Please enter a valid company email" />
@@ -302,16 +301,13 @@ class ContactForm extends Component {
                   name="phone"
                   id="phone"
                   title="Phone Number"
-                  onBlur={() => {
-                    this.phoneNumberFormatter();
-                    this.validate();
-                  }}
                   onKeyDown={this.phoneNumberFormatter}
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.phone = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.phoneNumberFormatter();
+                    this.validate();
                   }}
                 ></input>
                 {this.state.errors.phone && (
@@ -339,13 +335,12 @@ class ContactForm extends Component {
                   id="firstName"
                   autoComplete="firstName"
                   maxLength="50"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.firstName = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 />
                 {this.state.errors.firstName && (
                   <FormErrors message="Please enter your first name" />
@@ -369,13 +364,12 @@ class ContactForm extends Component {
                   id="lastName"
                   autoComplete="lastName"
                   maxLength="50"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.lastName = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 />
                 {this.state.errors.lastName && (
                   <FormErrors message="Please enter your last name" />
@@ -402,13 +396,12 @@ class ContactForm extends Component {
                   id="companyName"
                   autoComplete="companyName"
                   maxLength="50"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.companyName = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 />
                 {this.state.errors.companyName && (
                   <FormErrors message="Please enter your company name" />
@@ -432,11 +425,11 @@ class ContactForm extends Component {
                   id="jobTitle"
                   autoComplete="jobTitle"
                   maxLength="50"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.jobTitle = true;
                     this.setState({ touched: touch });
-                    this.validate;
+                    this.validate();
                   }}
                 />
                 {this.state.errors.jobTitle && (
@@ -464,13 +457,12 @@ class ContactForm extends Component {
                   id="website"
                   autoComplete="website"
                   maxLength="50"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.website = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 />
                 {this.state.errors.website && (
                   <FormErrors message="Please enter your company website url" />
@@ -497,13 +489,12 @@ class ContactForm extends Component {
                   id="employees"
                   min="1"
                   autoComplete="employees"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.employees = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 />
                 {this.state.errors.employees && (
                   <FormErrors message="Please enter a number of employees" />
@@ -529,13 +520,12 @@ class ContactForm extends Component {
                   id="billingStreet"
                   autoComplete="billingStreet"
                   maxLength="50"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.street = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 />
                 {this.state.errors.street && (
                   <FormErrors message="Please enter your billing street" />
@@ -559,13 +549,12 @@ class ContactForm extends Component {
                   id="billingCity"
                   autoComplete="billingCity"
                   maxLength="50"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.city = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 />
                 {this.state.errors.city && (
                   <FormErrors message="Please enter your billing city" />
@@ -592,13 +581,12 @@ class ContactForm extends Component {
                   title="State"
                   aria-labelledby="LblState InstructState"
                   aria-invalid="true"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.state = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 >
                   <option value="">State (Company HQ)</option>
                   <option value="Alaska">Alaska</option>
@@ -678,13 +666,12 @@ class ContactForm extends Component {
                   autoComplete="billingCountry"
                   maxLength="50"
                   disabled
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.country = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 />
                 {this.state.errors.country && (
                   <FormErrors message="Please select your billing country" />
@@ -711,13 +698,12 @@ class ContactForm extends Component {
                   autoComplete="billingZip"
                   maxLength="50"
                   min="0"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.zipCode = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                 />
                 {this.state.errors.zipCode && (
                   <FormErrors message="Please enter a zip code" />
@@ -756,13 +742,12 @@ class ContactForm extends Component {
                   name="permission"
                   type="checkbox"
                   id="permission"
-                  onChange={() => {
+                  onBlur={() => {
                     const touch = this.state.touched;
                     touch.permission = true;
                     this.setState({ touched: touch });
-                    /* this.validate(); */
+                    this.validate();
                   }}
-                  onBlur={() => this.validate()}
                   onKeyPress={(e) => {
                     if (e.key === "Enter") {
                       e.target.checked = !e.target.checked;
