@@ -33,6 +33,7 @@ const PardotFormField = ({
   isAssetType,
   isAssetUrl,
   isContactField,
+  setPasteError,
 }) => {
   // Manually set data format for certain fields, as they are not set correctly in Pardot
   if (isSelectField(field)) {
@@ -98,6 +99,7 @@ const PardotFormField = ({
   const pasteBlocker = (e) => {
     if (isContactField) {
       e.preventDefault();
+      setPasteError(true);
       return false;
     } else {
       return true;
@@ -116,8 +118,12 @@ const PardotFormField = ({
           onBlur={() => {
             updateTouched();
             validate();
+            setPasteError(false);
           }}
           onPaste={pasteBlocker}
+          onKeyDown={(e) => {
+            if (e.code !== "Tab") setPasteError(false);
+          }}
           onInput={() => {
             addGaData(
               gaDataAdded,
@@ -145,12 +151,14 @@ const PardotFormField = ({
             if (usPhoneFormat) {
               phoneNumberFormatter();
             } else validate();
+            setPasteError(false);
           }}
           onPaste={pasteBlocker}
           onKeyDown={() => {
             if (usPhoneFormat) {
               phoneNumberFormatter();
             }
+            setPasteError(false);
           }}
           ref={fieldRef}
         />
@@ -167,6 +175,10 @@ const PardotFormField = ({
           onBlur={() => {
             updateTouched();
             validate();
+            setPasteError(false);
+          }}
+          onKeyDown={(e) => {
+            if (e.code !== "Tab") setPasteError(false);
           }}
           ref={fieldRef}
         />
@@ -185,6 +197,10 @@ const PardotFormField = ({
               onBlur={() => {
                 updateTouched();
                 validate();
+                setPasteError(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.code !== "Tab") setPasteError(false);
               }}
               ref={fieldRef}
             ></textarea>
@@ -197,6 +213,10 @@ const PardotFormField = ({
               onBlur={() => {
                 updateTouched();
                 validate();
+                setPasteError(false);
+              }}
+              onKeyDown={(e) => {
+                if (e.code !== "Tab") setPasteError(false);
               }}
               onPaste={pasteBlocker}
               ref={fieldRef}
@@ -243,6 +263,7 @@ const PardotFormField = ({
                   }
                 }
                 validate();
+                setPasteError(false);
               }}
             >
               {field.options.map((option, index) => {
@@ -267,6 +288,10 @@ const PardotFormField = ({
           onBlur={() => {
             this.updateTouched(index);
             validate();
+            setPasteError(false);
+          }}
+          onKeyDown={(e) => {
+            if (e.code !== "Tab") setPasteError(false);
           }}
           onPaste={pasteBlocker}
           ref={fieldRef}
