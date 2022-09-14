@@ -16,7 +16,7 @@
       grid-template-columns: 1fr;
       gap: 1rem;
       @include desktop() {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 3fr 4fr;
         gap: 2rem;
       }
 
@@ -30,11 +30,19 @@
     }
     &.embedLeft {
       @include desktop() {
+        grid-template-columns: 4fr 3fr;
         .embed {
           order: -1;
         }
         .text {
           margin-left: 2rem;
+
+          p {
+            font-size: 1rem;
+          }
+          .text {
+            margin-left: 0;
+          }
         }
       }
     }
