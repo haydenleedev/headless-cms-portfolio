@@ -21,8 +21,8 @@ const BlogSubscriptionBanner = ({ module, customData }) => {
   return (
     <section
       className={`section ${style.blogSubscriptionBanner} ${
-        fields?.backgroundColor ? fields?.backgroundColor : ""
-      }`}
+        fields.classes ? fields.classes : ""
+      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
     >
       <div className={`container ${style.content}`}>
         <div className={style.textContent}>
