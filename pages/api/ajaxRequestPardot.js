@@ -1,20 +1,23 @@
-import FormData from "form-data";
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
 // This api endpoint is used to prevent CORS error with sending a request to the pardot endpoint.
 export default async function handler(req, res) {
   try {
     const parsedBody = JSON.parse(req.body);
-    const formData = new FormData();
-    for (let key in parsedBody.formObject) {
-      formData.append(key, parsedBody.formObject[key]);
-    }
+    const formBody = Object.keys(parsedBody.formObject)
+      .map(
+        (key) =>
+          encodeURIComponent(key) +
+          "=" +
+          encodeURIComponent(parsedBody.formObject[key])
+      )
+      .join("&");
     if ((parsedBody.enpoint, parsedBody.formObject)) {
       const response = await fetch(parsedBody.endpoint, {
         method: "POST",
-        body: formData,
+        body: formBody,
         headers: {
-          "Content-Type": "multipart/formdata",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       });
       if (response.error) res.status(200).json({ success: false });
