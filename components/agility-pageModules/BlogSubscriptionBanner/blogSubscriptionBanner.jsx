@@ -18,9 +18,17 @@ const BlogSubscriptionBanner = ({ module, customData }) => {
     if (success) setSuccessView("Thank you! You have been subscribed.");
     else setSuccessView("An unexpected error occured. Please try again later.");
   };
+
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
-      className={`section ${style.blogSubscriptionBanner} ${
+      className={`section ${mtValue} ${mbValue} ${ptValue} ${pbValue}
+      ${style.blogSubscriptionBanner} ${
         fields.classes ? fields.classes : ""
       } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
     >

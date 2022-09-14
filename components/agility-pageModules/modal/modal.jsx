@@ -11,6 +11,12 @@ const Modal = ({ module, customData }) => {
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <>
       <div className={style.backdrop}>
@@ -19,7 +25,7 @@ const Modal = ({ module, customData }) => {
         </span>
       </div>
 
-      <div className={`${style.modal} ${style.narrow}`}>
+      <div className={`${style.modal} ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${style.narrow}`}>
         <button
           type="button"
           className={style.close}

@@ -147,11 +147,18 @@ const JobOpeningList = ({ module, customData }) => {
     setPages(pagesCopy);
   }, [currentSortProperty]);
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <>
       {jobListData.length > 0 && (
         <section
-          className={`section ${style.jobOpeningList} ${
+          className={`section ${style.jobOpeningList}
+          ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
             fields?.backgroundColor ? fields?.backgroundColor : ""
           }`}
         >

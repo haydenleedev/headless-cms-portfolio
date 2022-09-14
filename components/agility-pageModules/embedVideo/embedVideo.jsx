@@ -136,11 +136,18 @@ const EmbedVideo = ({ module, customData }) => {
     window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
   };
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <>
       {videoSrc && (
         <section
-          className={`section ${style.embedVideo} ${
+          className={`section ${style.embedVideo}
+          ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
             fields.classes ? fields.classes : ""
           } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
           id={fields.id ? fields.id : null}
