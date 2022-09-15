@@ -27,9 +27,16 @@ const LatestCustomerStories = ({ module, customData }) => {
           .slice(0, count)
       : customerStories.slice(0, count);
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
-      className={`section ${style.latestCustomerStories} ${
+      className={`section ${style.latestCustomerStories}
+      ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
       id={fields.id ? fields.id : null}

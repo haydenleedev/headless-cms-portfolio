@@ -11,9 +11,16 @@ const TextWithCard = ({ module, customData }) => {
     ? JSON.parse(fields.textContentHeading)
     : null;
   const cardFields = fields.card?.fields;
+
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
-      className={`section ${
+      className={`section ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
     >

@@ -39,9 +39,16 @@ const ContentList = ({ module }) => {
     }
   };
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
-      className={`section ${style.contentList} ${
+      className={`section ${mtValue} ${mbValue} ${ptValue} ${pbValue}
+      ${style.contentList} ${
         fields.classes ? fields.classes : ""
       } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}

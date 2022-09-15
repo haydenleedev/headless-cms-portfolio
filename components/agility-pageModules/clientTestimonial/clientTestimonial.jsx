@@ -24,11 +24,23 @@ const ClientTestimonial = ({ module }) => {
       : null
   );
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
       className={`section ${style.clientTestimonial} ${
+        fields?.backgroundColor ? fields?.backgroundColor : ""
+      } ${fields.testimonialStyle === "logo-left-text-right" ?
+        `pb-6 ${style.logoOnLeft}` : ""
+      } ${fields.testimonialStyle === "text-left-logo-right" ?
+        `pb-6 ${style.logoOnLeft} ${style.logoOnRight}` : ""
+      } ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         fields.classes ? fields.classes : ""
-      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
+      }`}
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >

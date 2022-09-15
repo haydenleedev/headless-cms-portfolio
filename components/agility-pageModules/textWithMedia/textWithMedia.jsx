@@ -44,9 +44,16 @@ const TextWithMedia = ({ module, customData }) => {
     return "";
   };
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
-      className={`section ${style.textWithMedia} ${
+      className={`section ${style.textWithMedia}
+      ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         fields.classes ? fields.classes : ""
       } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}

@@ -46,6 +46,12 @@ const FirstFold = ({ module, customData }) => {
     return "";
   };
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   const FirstFoldLink = ({ primary }) => {
     const link = primary ? fields.primaryLink : fields.secondaryLink;
     return link?.href && link?.text ? (
@@ -74,7 +80,8 @@ const FirstFold = ({ module, customData }) => {
   if (layout == "alternateLayout" || layout == "customerStory") {
     return (
       <section
-        className={`section ${style.firstFoldAlternate} ${
+        className={`section ${style.firstFoldAlternate}
+        ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
           layout == "customerStory" ? "mb-6" : ""
         } ${fields.classes ? fields.classes : ""} ${
           fields?.backgroundColor ? fields?.backgroundColor : ""
@@ -114,7 +121,8 @@ const FirstFold = ({ module, customData }) => {
   } else if (layout == "softwareIntegration") {
     return (
       <section
-        className={`section ${style.softwareIntegration}${
+        className={`section ${mtValue} ${mbValue} ${ptValue} ${pbValue}
+        ${style.softwareIntegration}${
           fields.classes ? " " + fields.classes : ""
         } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
         id={fields.id ? fields.id : null}
@@ -147,7 +155,8 @@ const FirstFold = ({ module, customData }) => {
     return (
       // default firstFold layout
       <section
-        className={`section ${style.firstFold} ${
+        className={`section ${style.firstFold}
+        ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
           fields.classes ? fields.classes : ""
         } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
         id={fields.id ? fields.id : null}

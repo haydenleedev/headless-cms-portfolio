@@ -40,11 +40,17 @@ const Accordion = ({ module, customData }) => {
     };
   }, []);
 
+  // Margins & Paddings
+  const mtValue = fields?.marginTop ? fields.marginTop : '';
+  const mbValue = fields?.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields?.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields?.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
       className={`section ${
         fields?.backgroundColor ? fields?.backgroundColor : ""
-      }`}
+      } ${mtValue} ${mbValue} ${ptValue} ${pbValue}`}
     >
       <div className="container max-width-narrow mb-3">
         {heading?.text ? (

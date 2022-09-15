@@ -180,3 +180,48 @@
     display: block;
   }
 }
+
+// Testimonial Style: Logo on left and text on right
+@include desktop() {
+  .clientTestimonial.logoOnLeft {
+    .content .textContent {
+      display: flex;
+      align-items: center;
+      flex-direction: row-reverse;
+      gap: 2em;
+      .companyName {
+        display: none;
+      }
+      .quote {
+        padding: 0 2.5rem;
+        font-weight: 400;
+        font-size: 1.65rem;
+      }
+    }
+    .normal {
+      max-width: 100%;
+    }
+    .quote,
+    .client {
+      flex: 1;
+    }
+    .client {
+      display: flex;
+      flex-direction: column;
+      .logo {
+        order: 1;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      & > * {
+        order: 2;
+      }
+    }
+
+    &.logoOnRight {
+      .textContent {
+        flex-direction: row;
+      }
+    }
+  }
+}

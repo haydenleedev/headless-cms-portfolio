@@ -38,7 +38,7 @@ export const NavigationGroup = ({
       className={`${
         secondaryNavigation ? style.navbarSecondaryMobileLinks : ""
       } ${
-        !navigationGroup.fields.columns
+        (!navigationGroup.fields.columns || !navigationGroup.fields.columns?.[0]?.fields?.links)
           ? style.noDropdown
           : `${style.hasDropdown} ${
               activeNavigationItem === `navigation-group-${index}`

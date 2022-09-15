@@ -9,6 +9,12 @@ const RichTextArea = ({ module, customData }) => {
     ? `align-${fields.contentHorizontalAlignment}`
     : "";
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
+
   let containerWidthClass = style.content;
   if (fields.containerWidth == "narrow") {
     containerWidthClass += " max-width-narrow";
@@ -18,9 +24,11 @@ const RichTextArea = ({ module, customData }) => {
 
   return (
     <section
-      className={`section ${style.richTextArea} ${
-        fields.classes ? fields.classes : ""
-      }`}
+      className={`section ${
+        style.richTextArea
+      } ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
+        fields?.backgroundColor ? fields?.backgroundColor : ""
+      } ${fields.classes ? fields.classes : ""}`}
       id={fields.id ? fields.id : null}
     >
       <div

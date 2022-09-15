@@ -9,8 +9,17 @@ const TableWithHeading = ({ module }) => {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
-    <section className={fields?.backgroundColor ? fields?.backgroundColor : ""}>
+    <section className={`
+      ${fields?.backgroundColor ? fields?.backgroundColor : ""}
+      ${mtValue} ${mbValue} ${ptValue} ${pbValue}
+    `}>
       <div className="container d-flex flex-direction-column align-items-center">
         {heading.text && <Heading {...heading} />}
         {fields.tableCells && (
