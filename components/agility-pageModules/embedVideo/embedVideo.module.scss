@@ -27,6 +27,11 @@
           width: 100%;
         }
       }
+      .text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
     }
     &.embedLeft {
       @include desktop() {

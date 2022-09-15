@@ -19,10 +19,40 @@
       }
       .text {
         text-align: left;
+        display: flex;
+        justify-content: flex-start;
       }
     }
     .form {
+      @include desktop() {
+        display: flex;
+        align-items: center;
+      }
       form {
+        @include desktop() {
+          width: 100%;
+          display: flex;
+          align-items: flex-end;
+          & > div {
+            &:first-child {
+              width: 100%;
+              position: relative;
+              flex-basis: 100%;
+              & > label {
+                padding-top: unset;
+                padding-bottom: 0.125rem;
+              }
+              & > div {
+                &:last-child {
+                  position: absolute;
+                }
+              }
+            }
+            &:last-child {
+              margin: 0 0 0.2rem 1rem !important;
+            }
+          }
+        }
         label,
         legend,
         input,
@@ -49,7 +79,7 @@
         }
         & > div {
           &:last-child {
-            align-items: flex-end !important;
+            align-items: flex-start !important;
             input[type="submit"] {
               border-radius: 3rem;
               border: unset;
