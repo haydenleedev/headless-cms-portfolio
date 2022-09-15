@@ -180,16 +180,6 @@
         }
         .textItemTextContent {
           padding: 1.5rem;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          .textItemContentWrapper {
-            height: 100%;
-            .textItemSecondText {
-              margin-top: auto;
-            }
-          }
         }
       }
       &.textItemWithSmallMedia {
