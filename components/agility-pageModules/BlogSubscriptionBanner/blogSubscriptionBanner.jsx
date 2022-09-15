@@ -4,6 +4,7 @@ import style from "./blogSubscriptionBanner.module.scss";
 import Heading from "../heading";
 import { renderHTML } from "@agility/nextjs";
 import { useState } from "react";
+import Image from "next/image";
 
 const BlogSubscriptionBanner = ({ module, customData }) => {
   const [successView, setSuccessView] = useState(null);
@@ -20,17 +21,17 @@ const BlogSubscriptionBanner = ({ module, customData }) => {
   };
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section
       className={`section ${mtValue} ${mbValue} ${ptValue} ${pbValue}
-      ${style.blogSubscriptionBanner} ${
-        fields.classes ? fields.classes : ""
-      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
+      ${style.blogSubscriptionBanner} ${fields.classes ? fields.classes : ""} ${
+        fields?.backgroundColor ? fields?.backgroundColor : ""
+      }`}
     >
       <div className={`container ${style.content}`}>
         <div className={style.textContent}>
@@ -49,7 +50,10 @@ const BlogSubscriptionBanner = ({ module, customData }) => {
         <div className={style.form}>
           {successView ? (
             <div className={`${style.success} fadeIn`}>
-              <p className="heading-5">Thank you! You have been subscribed.</p>
+              <Image src="/success-blue.png" height={54} width={54} />
+              <p className="heading-6">
+                Thank you!<br></br> You have been subscribed.
+              </p>
             </div>
           ) : (
             <PardotForm

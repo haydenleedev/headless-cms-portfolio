@@ -11,9 +11,9 @@
       grid-template-columns: repeat(2, 1fr);
     }
     .textContent {
-      @include tablet() {
-        padding-top: 2rem;
-      }
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       .heading {
         text-align: left;
       }
@@ -62,7 +62,14 @@
         }
       }
       .success {
-        padding: 3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        p {
+          margin-top: 1rem;
+        }
       }
     }
   }
