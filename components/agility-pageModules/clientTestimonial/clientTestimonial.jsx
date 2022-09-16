@@ -125,23 +125,48 @@ const ClientTestimonial = ({ module }) => {
                       }`}
                     >
                       {fields.testimonial.fields.text}
+                      {(fields.testimonialStyle === "text-left-logo-right" ||
+                      fields.testimonialStyle === "logo-left-text-right") &&
+                        <>
+                          {fields.testimonial.fields.name && (
+                            <span className={style.clientName}>
+                              {fields.testimonial.fields.name}
+                            </span>
+                          )}
+                          {fields.testimonial.fields.jobTitle && (
+                            <span className={style.jobTitle}>
+                              {fields.testimonial.fields.jobTitle}
+                            </span>
+                          )}
+                          {fields.testimonial.fields.companyName && (
+                            <p className={style.companyName}>
+                              {fields.testimonial.fields.companyName}
+                            </p>
+                          )}
+                        </>
+                      }
                     </p>
                     <div className={style.client}>
-                      {fields.testimonial.fields.name && (
-                        <p className={style.clientName}>
-                          {fields.testimonial.fields.name}
-                        </p>
-                      )}
-                      {fields.testimonial.fields.jobTitle && (
-                        <p className={style.jobTitle}>
-                          {fields.testimonial.fields.jobTitle}
-                        </p>
-                      )}
-                      {fields.testimonial.fields.companyName && (
-                        <p className={style.companyName}>
-                          {fields.testimonial.fields.companyName}
-                        </p>
-                      )}
+                      {fields.testimonialStyle !== "text-left-logo-right" &&
+                      fields.testimonialStyle !== "logo-left-text-right" &&
+                        <>
+                          {fields.testimonial.fields.name && (
+                            <p className={style.clientName}>
+                              {fields.testimonial.fields.name}
+                            </p>
+                          )}
+                          {fields.testimonial.fields.jobTitle && (
+                            <p className={style.jobTitle}>
+                              {fields.testimonial.fields.jobTitle}
+                            </p>
+                          )}
+                          {fields.testimonial.fields.companyName && (
+                            <p className={style.companyName}>
+                              {fields.testimonial.fields.companyName}
+                            </p>
+                          )}
+                        </>
+                      }
                       {fields.testimonial.fields.logo && (
                         <div
                           className={`${style.logo}${
