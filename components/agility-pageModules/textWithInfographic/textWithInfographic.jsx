@@ -14,8 +14,7 @@ const TextWithInfographic = ({ module, customData }) => {
 
   //configuration options
   const narrowContainer = fields.containerWidth == "narrow";
-  const columnLayout = fields.layout == "column";
-  const infographicLeft = fields.layout == "infographicLeft";
+  const layout = fields.layout || "infographicRight";
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {
@@ -38,10 +37,10 @@ const TextWithInfographic = ({ module, customData }) => {
   });
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section
@@ -53,34 +52,31 @@ const TextWithInfographic = ({ module, customData }) => {
       ref={intersectionRef}
     >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
-        <div
-          className={`${style.content} ${
-            columnLayout
-              ? style.columnLayout
-              : infographicLeft
-              ? style.infographicLeft
-              : style.infographicRight
-          }`}
-        >
+        {(layout === "columnTop" || layout === "columnBottom") && (
+          <div
+            className={`${style.heading} ${
+              layout === "columnTop" || layout === "columnBottom"
+                ? "align-center"
+                : ""
+            }`}
+          >
+            <Heading {...heading} />
+          </div>
+        )}
+        <div className={`${style.content} ${style[layout]}`}>
           <div
             className={`${style.textContent} ${
               style[`textContentBasis${fields.textWidthPercentage || 50}`]
             }`}
           >
-            <div
-              className={`${
-                columnLayout
-                  ? "justify-content-center align-items-center"
-                  : infographicLeft
-                  ? "justify-content-flex-end align-items-flex-start"
-                  : "justify-content-flex-start align-items-flex-start"
-              }`}
-            >
-              {heading.text && (
-                <div className={columnLayout ? "heading" : style.heading}>
-                  <Heading {...heading} />
-                </div>
-              )}
+            <div className={style.text}>
+              {heading.text &&
+                layout !== "columnTop" &&
+                layout !== "columnBottom" && (
+                  <div className={style.heading}>
+                    <Heading {...heading} />
+                  </div>
+                )}
               {fields.text && (
                 <div
                   className={style.html}
@@ -91,7 +87,11 @@ const TextWithInfographic = ({ module, customData }) => {
                 <AgilityLink
                   agilityLink={fields.link}
                   className={`${
-                    !columnLayout && !fields.linkClasses ? "small" : ""
+                    layout !== "columnTop" &&
+                    layout !== "columnBottom" &&
+                    !fields.linkClasses
+                      ? "small"
+                      : ""
                   } cyan outlined ${style.link} ${
                     fields.linkClasses ? fields.linkClasses : ""
                   } ${
@@ -114,7 +114,14 @@ const TextWithInfographic = ({ module, customData }) => {
             `}
           >
             {fields.items && fields.items.length > 0 && (
-              <ul className={style.items} data-animate="true">
+              <ul
+                className={`${style.items} ${
+                  layout === "columnTop" || layout === "columnBottom"
+                    ? style.columnItems
+                    : ""
+                }`}
+                data-animate="true"
+              >
                 {fields.items.map((item) => (
                   <li key={item.contentID}>
                     <div className="d-flex justify-content-center">

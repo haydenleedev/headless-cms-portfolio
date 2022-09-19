@@ -12,7 +12,7 @@ const EventsPageContent = ({ module, customData }) => {
     .filter(
       (event) =>
         toPacificTimeMilliseconds(new Date()) <
-        toPacificTimeMilliseconds(new Date(event.fields.startTime))
+        toPacificTimeMilliseconds(new Date(event.fields.endTime))
     )
     .reverse();
   const { fields } = module;
@@ -85,7 +85,7 @@ EventsPageContent.getCustomInitialProps = async function ({
   const events = await api.getContentList({
     referenceName: "events",
     languageCode,
-    take: 50,
+    take: 250,
     sort: "fields.startTime",
     direction: "desc",
   });
