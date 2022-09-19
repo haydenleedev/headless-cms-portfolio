@@ -78,6 +78,8 @@ class PardotForm extends Component {
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     this.isChannelRequestForm = this.props.formHandlerID == 3709;
     this.isContactForm = this.props.formHandlerID == 3568;
+    this.isLandingPageOrWebinarForm =
+      this.props.formHandlerID == 3658 || this.props.formHandlerID == 3712;
 
     // Pass different value to contact_type for contact sales form
     switch (this.props.contactType) {
@@ -633,6 +635,11 @@ class PardotForm extends Component {
                         field={field}
                         isDealRegistrationField={this.isDealRegistrationForm}
                         isContactField={this.isContactForm}
+                        isLandingPageOrWebinarField={
+                          this.isLandingPageOrWebinarForm
+                        }
+                        isUtmCampaign={this.props.utmCampaign}
+                        isUtmAsset={this.props.utmAsset}
                         formType={this.formType}
                         fieldRef={this.fieldRefs[index]}
                         validate={this.validate}

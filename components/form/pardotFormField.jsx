@@ -34,6 +34,9 @@ const PardotFormField = ({
   isAssetUrl,
   isContactField,
   setPasteError,
+  isUtmCampaign,
+  isUtmAsset,
+  isLandingPageOrWebinarField,
 }) => {
   // Manually set data format for certain fields, as they are not set correctly in Pardot
   if (isSelectField(field)) {
@@ -231,6 +234,12 @@ const PardotFormField = ({
                   ? isAssetType
                   : field.name.toLowerCase() === "asset url"
                   ? isAssetUrl
+                  : field.name.toLowerCase() === "utm_campaign" &&
+                    isLandingPageOrWebinarField
+                  ? isUtmCampaign
+                  : field.name.toLowerCase() === "utm_asset" &&
+                    isLandingPageOrWebinarField
+                  ? isUtmAsset
                   : partnerFieldProperties?.value
               }
             />

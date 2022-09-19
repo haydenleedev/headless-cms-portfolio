@@ -1,5 +1,6 @@
 import { getCookie, setCookie } from "./cookies";
 import { generateUUID } from "./generic";
+import { getUrlParamValue } from "./getUrlParamValue";
 import fallBackPardotFormData from "../data/fallbackPardotFormData.json";
 
 const gaMeta = [
@@ -154,7 +155,7 @@ export const addGaData = (
       return utmDealRegistrationDefalutResult;
     }
 
-    // Every else if statement in this part has the condition !utmCampaignValue
+    // Set the default utm_campaign values if statement in this part has the condition !utmCampaignValue
     if (utmCampaignValue) {
       setFormInputValue("utm_campaign", utmCampaignValue);
     } else if (!utmCampaignValue && isGoogleContactForm) {
@@ -190,7 +191,8 @@ export const addGaData = (
     //     );
     //   }
     // }
-    // The same idea can be applied to the part below
+
+    // Set the default utm_asset values if the parameter value doesn't exist in the url.
     const utmAssetValue = getUrlParamValue("utm_asset");
     if (utmAssetValue) {
       setFormInputValue("utm_asset", utmAssetValue);
@@ -209,6 +211,7 @@ export const addGaData = (
       );
     }
 
+    // Set the default utm_source values
     const utmSourceValue = getUrlParamValue("utm_source");
     if (utmSourceValue) {
       setFormInputValue("utm_source", utmSourceValue);
@@ -285,12 +288,12 @@ export const addGaData = (
       }
     });
   }
-  function getUrlParamValue(paramName, defaultValue = "") {
+  /* function getUrlParamValue(paramName, defaultValue = "") {
     const url = new URL(window.location.href);
     const urlParams = new URLSearchParams(url.search);
     const urlParamValue = urlParams.get(paramName);
     return urlParamValue || defaultValue;
-  }
+  } */
 };
 
 export const getFormType = (formHandlerID) => {
