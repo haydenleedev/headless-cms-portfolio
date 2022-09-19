@@ -319,6 +319,7 @@ class PardotForm extends Component {
       !this.assessmentCreatedRef.current &&
       this.state.submissionAllowed
     ) {
+      const formData = new FormData(this.form);
       window.dataLayer?.push({
         event: "pardotFormSubmit",
       });
@@ -347,11 +348,15 @@ class PardotForm extends Component {
           return false;
         }
       };
+      const emailDomain = formData.get("Email")?.split?.("@")?.[1];
       const blocklistResponse = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/checkFormBlocklist`,
         {
           method: "POST",
-          body: JSON.stringify({ ip: getCookie("client_ip") }),
+          body: JSON.stringify({
+            ip: getCookie("client_ip"),
+            domain: emailDomain,
+          }),
         }
       );
       const blocklistResponseJSON = await blocklistResponse.json();
@@ -433,7 +438,6 @@ class PardotForm extends Component {
         event: "pardotFormSuccess",
       });
       if (this.props.customAction) {
-        const formData = new FormData(this.form);
         const formObject = Object.fromEntries(formData.entries());
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/api/ajaxRequestPardot`,
