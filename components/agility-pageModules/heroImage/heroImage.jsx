@@ -11,9 +11,16 @@ const HeroImage = ({ module, narrowHeight, customData }) => {
   const containerWidth = fields.width == "container";
   const narrowContainer = fields.width == "narrow";
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
-      className={`section ${style.heroImage} ${
+      className={`section ${style.heroImage}
+      ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         narrowHeight ? style.heroImageNarrowHeight : ""
       } ${
         containerWidth || narrowContainer

@@ -149,9 +149,16 @@ const TextGridWithMedia = ({ module, customData }) => {
     );
   };
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
-      className={`section ${style.textGridWithMedia} ${
+      className={`section ${style.textGridWithMedia}
+      ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         fields.classes ? fields.classes : ""
       } ${
         fields.itemStyle == "logoLeft"

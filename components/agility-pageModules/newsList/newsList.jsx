@@ -11,9 +11,18 @@ const NewsList = ({ module }) => {
   const articles = fields.highlightedNewsArticles
     ? fields.highlightedNewsArticles
     : fields.newsArticles.slice(0, limit);
+
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
-      className={`section newsList ${fields.classes ? fields.classes : ""} ${
+      className={`section newsList
+      ${mtValue} ${mbValue} ${ptValue} ${pbValue}
+       ${fields.classes ? fields.classes : ""} ${
         fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
       id={fields.id ? fields.id : null}

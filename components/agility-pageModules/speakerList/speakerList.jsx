@@ -9,9 +9,16 @@ const SpeakerList = ({ module }) => {
   const numberOfColumns = 3;
   const numberOfRows = Math.ceil(fields.speakers.length / numberOfColumns);
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
     <section
-      className={`section ${style.speakerList} ${
+      className={`section ${style.speakerList}
+      ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         fields.classes ? fields.classes : ""
       }`}
       id={fields.id ? fields.id : null}
@@ -23,7 +30,7 @@ const SpeakerList = ({ module }) => {
         <div className={`grid-columns ${style.content}`}>
           {fields.speakers.map((speaker, index) => (
             <div
-              className={`grid-column is-4 ${style.speaker}               ${
+              className={`grid-column is-4 ${style.speaker} ${
                 index % numberOfColumns == 0 ? "ml-0" : ""
               }
               ${

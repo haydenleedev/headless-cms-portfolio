@@ -100,9 +100,15 @@
         }
       }
       &.itemColumnLargeTitleLayout {
+        grid-template-rows: 0.3fr 0.7fr;
         grid-template-areas:
           "image image"
           "text text";
+        .itemMedia {
+          img {
+            max-width: 5rem !important;
+          }
+        }
         @include tablet() {
           border-right: 0.1rem solid $color-gray;
           &:last-child {
@@ -220,6 +226,7 @@
         align-items: flex-start;
         &.align-items-center {
           align-items: center;
+          text-align: center;
         }
         .itemDescription {
           color: $color-darkblue;

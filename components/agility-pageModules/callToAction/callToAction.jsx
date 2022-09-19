@@ -16,9 +16,16 @@ const CallToAction = ({ module, customData }) => {
   const itemContentRight = boolean(fields?.itemContentRight);
   const textLeftJustification = boolean(fields?.textLeftJustification);
 
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
+
   return (
     <section
-      className={`section ${style.callToAction} ${
+      className={`section ${style.callToAction} 
+      ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         bannerLayout ? style.bannerLayout : ""
       } ${fields.classes ? fields.classes : ""} ${
         itemContentRight ? style.alignRight : style.alignLeft
@@ -53,8 +60,8 @@ const CallToAction = ({ module, customData }) => {
           )}
           <AgilityLink
             agilityLink={fields.link}
-            className={`button cyan outlined ${style.link} ${
-              fields.linkClasses ? fields.linkClasses : ""
+            className={`button ${style.link} ${
+              fields.linkClasses ? fields.linkClasses : "cyan outlined"
             }`}
             ariaLabel={`Navigate to page ` + fields.link.href}
             title={`Navigate to page ` + fields.link.href}

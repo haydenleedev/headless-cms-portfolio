@@ -32,6 +32,8 @@ const PardotFormField = ({
   isAssetTitle,
   isAssetType,
   isAssetUrl,
+  isContactField,
+  setPasteError,
 }) => {
   // Manually set data format for certain fields, as they are not set correctly in Pardot
   if (isSelectField(field)) {
@@ -93,6 +95,17 @@ const PardotFormField = ({
       fieldRef.current.value = formatPhoneNumber(fieldRef.current.value);
     }
   }
+
+  const pasteBlocker = (e) => {
+    if (isContactField) {
+      e.preventDefault();
+      setPasteError(true);
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   switch (field.dataFormat) {
     case "email":
       return (
@@ -103,9 +116,14 @@ const PardotFormField = ({
           autoComplete="email"
           maxLength="255"
           onBlur={() => {
+            updateTouched();
             validate();
+            setPasteError(false);
           }}
-          onChange={updateTouched}
+          onPaste={pasteBlocker}
+          onKeyDown={(e) => {
+            if (e.code !== "Tab") setPasteError(false);
+          }}
           onInput={() => {
             addGaData(
               gaDataAdded,
@@ -129,21 +147,18 @@ const PardotFormField = ({
           hidden={isHiddenField(field, isDealRegistrationField)}
           maxLength={usPhoneFormat ? null : 20}
           onBlur={() => {
+            updateTouched();
             if (usPhoneFormat) {
               phoneNumberFormatter();
-            }
-            validate();
+            } else validate();
+            setPasteError(false);
           }}
-          onChange={() => {
-            updateTouched();
-            if (!usPhoneFormat) {
-              validate();
-            }
-          }}
+          onPaste={pasteBlocker}
           onKeyDown={() => {
             if (usPhoneFormat) {
               phoneNumberFormatter();
             }
+            setPasteError(false);
           }}
           ref={fieldRef}
         />
@@ -158,9 +173,13 @@ const PardotFormField = ({
           title={field.name}
           hidden={isHiddenField(field, isDealRegistrationField)}
           onBlur={() => {
+            updateTouched();
             validate();
+            setPasteError(false);
           }}
-          onChange={updateTouched}
+          onKeyDown={(e) => {
+            if (e.code !== "Tab") setPasteError(false);
+          }}
           ref={fieldRef}
         />
       );
@@ -176,9 +195,13 @@ const PardotFormField = ({
               rows="3"
               hidden={isHiddenField(field, isDealRegistrationField)}
               onBlur={() => {
+                updateTouched();
                 validate();
+                setPasteError(false);
               }}
-              onChange={updateTouched}
+              onKeyDown={(e) => {
+                if (e.code !== "Tab") setPasteError(false);
+              }}
               ref={fieldRef}
             ></textarea>
           ) : (
@@ -188,9 +211,14 @@ const PardotFormField = ({
               maxLength="255"
               hidden={isHiddenField(field, isDealRegistrationField)}
               onBlur={() => {
+                updateTouched();
                 validate();
+                setPasteError(false);
               }}
-              onChange={updateTouched}
+              onKeyDown={(e) => {
+                if (e.code !== "Tab") setPasteError(false);
+              }}
+              onPaste={pasteBlocker}
               ref={fieldRef}
               value={
                 field.name.toLowerCase() === "contact_type"
@@ -220,7 +248,7 @@ const PardotFormField = ({
                 (field.name.toLowerCase() === "country" || "state") &&
                 style["form-select"]
               }`}
-              onChange={(e) => {
+              onBlur={(e) => {
                 if (field.name.toLowerCase().match(/country/)) {
                   const isPartnerCountry = field.name
                     .toLowerCase()
@@ -234,9 +262,8 @@ const PardotFormField = ({
                     updateStateFieldVisible(e.target.value == "United States");
                   }
                 }
-              }}
-              onBlur={() => {
                 validate();
+                setPasteError(false);
               }}
             >
               {field.options.map((option, index) => {
@@ -259,9 +286,14 @@ const PardotFormField = ({
           id={field.id}
           maxLength="255"
           onBlur={() => {
+            this.updateTouched(index);
             validate();
+            setPasteError(false);
           }}
-          onChange={() => this.updateTouched(index)}
+          onKeyDown={(e) => {
+            if (e.code !== "Tab") setPasteError(false);
+          }}
+          onPaste={pasteBlocker}
           ref={fieldRef}
         />
       );

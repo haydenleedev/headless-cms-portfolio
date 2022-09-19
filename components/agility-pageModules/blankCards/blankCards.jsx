@@ -18,8 +18,15 @@ const BlankCards = ({ module, customData }) => {
   const numberOfRows = Math.ceil(
     cardsWithSanitizedHtml?.length / maxCardsPerRow
   );
+
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : '';
+  const mbValue = fields.marginBottom ? fields.marginBottom : '';
+  const ptValue = fields.paddingTop ? fields.paddingTop : '';
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+
   return (
-    <section className="section">
+    <section className={`section ${mtValue} ${mbValue} ${ptValue} ${pbValue}`}>
       <div className="container">
         <div className={style.cardGrid}>
           {cardsWithSanitizedHtml?.map((card, index) => {

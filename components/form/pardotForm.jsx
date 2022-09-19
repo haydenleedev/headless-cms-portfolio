@@ -40,6 +40,7 @@ class PardotForm extends Component {
     this.handleCountryChange = this.handleCountryChange.bind(this);
     this.validate = this.validate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.setPasteError = this.setPasteError.bind(this);
 
     this.errorMessages = [
       { field: "Email", message: "Please enter a valid email" },
@@ -66,6 +67,7 @@ class PardotForm extends Component {
       stepEmailFieldValue: null,
       finalStepSubmitted: false,
       clientJSEnabled: false,
+      pasteError: null,
     };
   }
 
@@ -75,6 +77,7 @@ class PardotForm extends Component {
 
     this.isDealRegistrationForm = this.props.formHandlerID == 3571;
     this.isChannelRequestForm = this.props.formHandlerID == 3709;
+    this.isContactForm = this.props.formHandlerID == 3568;
 
     // Pass different value to contact_type for contact sales form
     switch (this.props.contactType) {
@@ -429,7 +432,22 @@ class PardotForm extends Component {
       window.dataLayer?.push({
         event: "pardotFormSuccess",
       });
-      this.form.submit();
+      if (this.props.customAction) {
+        const formData = new FormData(this.form);
+        const formObject = Object.fromEntries(formData.entries());
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/api/ajaxRequestPardot`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              endpoint: this.props.action,
+              formObject,
+            }),
+          }
+        );
+        const data = await response.json();
+        this.props.customAction(data.success);
+      } else this.form.submit();
     }
   }
 
@@ -508,6 +526,15 @@ class PardotForm extends Component {
     return flag;
   }
 
+  setPasteError(boolean, index) {
+    const errors = { ...this.state.errors };
+    errors[index] = boolean;
+    if (boolean) {
+      this.setState({ pasteError: { index, msg: "Can not paste" }, errors });
+    } else {
+      this.setState({ pasteError: null });
+    }
+  }
   render() {
     return (
       <>
@@ -533,8 +560,8 @@ class PardotForm extends Component {
               this.state.fieldsMatchedToStep &&
               !this.state.finalStepSubmitted) ? (
               <form
-                action={this.props.action}
-                method="post"
+                action={this.props.customAction ? null : this.props.action}
+                method={this.props.customAction ? null : "post"}
                 onSubmit={(e) => {
                   e.preventDefault();
                   this.handleSubmit(e);
@@ -605,6 +632,7 @@ class PardotForm extends Component {
                         isRecordTypeId={this.props.recordTypeId}
                         field={field}
                         isDealRegistrationField={this.isDealRegistrationForm}
+                        isContactField={this.isContactForm}
                         formType={this.formType}
                         fieldRef={this.fieldRefs[index]}
                         validate={this.validate}
@@ -627,9 +655,19 @@ class PardotForm extends Component {
                         partnerFieldProperties={this.getPartnerFieldProperties(
                           field
                         )}
+                        setPasteError={(boolean) =>
+                          this.setPasteError(boolean, index)
+                        }
                       />
                       {this.state.errors[index] && (
-                        <FormError message={this.getErrorMessage(field.name)} />
+                        <FormError
+                          message={
+                            this.state.pasteError &&
+                            this.state.pasteError.index === index
+                              ? this.state.pasteError.msg
+                              : this.getErrorMessage(field.name)
+                          }
+                        />
                       )}
                     </div>
                   );
