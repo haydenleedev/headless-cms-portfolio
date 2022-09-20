@@ -89,6 +89,11 @@
     color: white;
   }
 
+  &.navy {
+    background-color: $color-navy;
+    color: white;
+  }
+
   &.small {
     padding: 0.25rem 1.5rem;
     font-weight: 600;

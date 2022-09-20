@@ -4,9 +4,16 @@ import Media from "../media";
 import { boolean } from "../../../utils/validation";
 import AgilityLink from "../../agilityLink";
 import { renderHTML } from "@agility/nextjs";
-import { sanitizeHtmlConfig } from "../../../utils/convert";
+import {
+  sanitizeHtmlConfig,
+  vimeoLinkToEmbed,
+  youTubeVideoLinkToEmbed,
+} from "../../../utils/convert";
 import CustomSVG from "../../customSVG/customSVG";
 import { useIntersectionObserver } from "../../../utils/hooks";
+import { useEffect } from "react";
+import { youTubeActivityEvent } from "../../../utils/dataLayer";
+import Script from "next/script";
 
 const FirstFold = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
@@ -18,6 +25,123 @@ const FirstFold = ({ module, customData }) => {
   const fixedMediaHeight = fields?.fixedMediaHeight;
   const linksStyle = fields?.linksStyle || "button";
   const layout = fields.layout;
+  let videoSrc;
+  let isYouTubeVideo = false;
+  if (fields?.videoURL?.href?.includes?.("youtube.com")) {
+    videoSrc = youTubeVideoLinkToEmbed(fields.videoURL.href);
+    isYouTubeVideo = true;
+  } else if (fields?.videoURL?.href?.includes?.("vimeo.com")) {
+    videoSrc = vimeoLinkToEmbed(fields.videoURL.href);
+  }
+
+  useEffect(() => {
+    // Add player listeners if the YouTube API script was already loaded
+    if (window.YT?.Player) {
+      handleAPIScriptLoad(true);
+    }
+  }, []);
+
+  const handleAPIScriptLoad = (manuallyCallAPIReady) => {
+    let player;
+    if (manuallyCallAPIReady == true) {
+      onYouTubeIframeAPIReady();
+    }
+    function onYouTubeIframeAPIReady() {
+      const playbackPercentages = [
+        {
+          percentage: 10,
+          played: false,
+        },
+        {
+          percentage: 25,
+          played: false,
+        },
+        {
+          percentage: 50,
+          played: false,
+        },
+        {
+          percentage: 75,
+          played: false,
+        },
+        {
+          percentage: 90,
+          played: false,
+        },
+      ];
+      let playerStateSequence = [];
+      let timer = null;
+      let previousVideoTime = null;
+      player = new window.YT.Player("video-player");
+      player.addEventListener("onStateChange", (e) => {
+        const playerState = e.data;
+        playerStateSequence = [...playerStateSequence, playerState];
+        if (
+          arraysAreEqual(playerStateSequence, [2, 3, 1]) ||
+          arraysAreEqual(playerStateSequence, [3, 1])
+        ) {
+          youTubeActivityEvent({ action: "Seek" });
+          playerStateSequence = [];
+        } else if (
+          arraysAreEqual(playerStateSequence, [-1, 3, 1]) ||
+          arraysAreEqual(playerStateSequence, [1, 3, 1])
+        ) {
+          youTubeActivityEvent({ action: "Video start" });
+          playerStateSequence = [];
+        } else {
+          clearTimeout(timer);
+          if (playerState !== 3) {
+            let timeout = setTimeout(() => {
+              if (playerState == 0) {
+                youTubeActivityEvent({ action: "Video end" });
+              } else if (playerState == 1) {
+                youTubeActivityEvent({ action: "Play" });
+              } else if (playerState == 2) {
+                youTubeActivityEvent({ action: "Pause" });
+              }
+              playerStateSequence = [];
+            }, 250);
+            timer = timeout;
+          }
+        }
+      });
+      player.addEventListener("onReady", () => {
+        setInterval(() => {
+          const timeChangeSeconds = Math.round(
+            player.getCurrentTime() - previousVideoTime
+          );
+          let playbackPercentage =
+            (player.getCurrentTime() / player.getDuration()) * 100;
+          if (timeChangeSeconds > 0 && timeChangeSeconds <= 1) {
+            for (let i = 0; i < playbackPercentages.length; i++) {
+              if (
+                playbackPercentage >= playbackPercentages[i].percentage &&
+                !playbackPercentages[i].played
+              ) {
+                if (
+                  Math.round(
+                    (playbackPercentages[i].percentage / 100) *
+                      player.getDuration() -
+                      previousVideoTime
+                  ) == 0
+                ) {
+                  youTubeActivityEvent({
+                    action: `Playback percentage: ${playbackPercentages[i].percentage}`,
+                  });
+                  playbackPercentages[i].played = true;
+                }
+              }
+            }
+          }
+          previousVideoTime = player.getCurrentTime();
+        }, 1000);
+      });
+      const arraysAreEqual = (firstArr, secondArr) => {
+        return firstArr.toString() == secondArr.toString();
+      };
+    }
+    window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+  };
 
   fields.logos?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -47,10 +171,23 @@ const FirstFold = ({ module, customData }) => {
   };
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
+
+  const getLinksStyle = () => {
+    switch (linksStyle) {
+      case "textWithArrow":
+        return "chevron-after w-600 mt-2";
+      case "buttonNavy":
+        return "button navy mt-2";
+      case "buttonOrange":
+        return "button orange mt-2";
+      default:
+        return "button cyan outlined mt-2";
+    }
+  };
 
   const FirstFoldLink = ({ primary }) => {
     const link = primary ? fields.primaryLink : fields.secondaryLink;
@@ -58,12 +195,8 @@ const FirstFold = ({ module, customData }) => {
       <div className={style.linkWrapper}>
         <AgilityLink
           agilityLink={link}
-          className={`${
-            linksStyle === "textWithArrow"
-              ? "cyan outlined chevron-after w-600 mt-2"
-              : "button mt-2"
-          } ${
-            primary ? `cyan outlined ${style.primaryLink}` : style.secondaryLink
+          className={`${getLinksStyle()} ${
+            primary ? `${style.primaryLink}` : style.secondaryLink
           } ${fields.linkClasses ? fields.linkClasses : ""} ${
             style[linksStyle]
           }`}
@@ -154,197 +287,235 @@ const FirstFold = ({ module, customData }) => {
   } else {
     return (
       // default firstFold layout
-      <section
-        className={`section ${style.firstFold}
+      <>
+        <section
+          className={`section ${style.firstFold}
         ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
-          fields.classes ? fields.classes : ""
-        } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
-        id={fields.id ? fields.id : null}
-        ref={intersectionRef}
-      >
-        <div
-          className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
+            fields.classes ? fields.classes : ""
+          } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
+          id={fields.id ? fields.id : null}
+          ref={intersectionRef}
         >
           <div
-            className={
-              noImageLayout
-                ? style.noImageLayout
-                : `${style.defaultLayout} ${
-                    fields.layout == "imageLeft" ? style.imageLeft : ""
-                  } ${uncenteredVertically ? "align-items-unset" : ""}`
-            }
+            className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
           >
             <div
-              className={`${style.textContent} ${
-                style[`textContentBasis${fields.textWidthPercentage || 50}`]
-              }`}
+              className={
+                noImageLayout
+                  ? style.noImageLayout
+                  : `${style.defaultLayout} ${
+                      fields.layout == "imageLeft" ? style.imageLeft : ""
+                    } ${uncenteredVertically ? "align-items-unset" : ""}`
+              }
             >
-              <div className={style.heading}>
-                <Heading {...heading}></Heading>
-              </div>
-              {sanitizedHtml && (
-                <div
-                  className={`content ${style.text}`}
-                  dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                ></div>
-              )}
-              {fields.logos && (
-                <div className={`grid-columns ${style.logoGridColumns}`}>
-                  {fields.logos.map((logo) => (
-                    <div
-                      key={logo.contentID}
-                      className={`grid-column is-${
-                        fields.logos.length >= 6 ? 6 : fields.logos.length
-                      } ${style.logoGridColumn}`}
-                      data-animate="true"
-                    >
-                      <Media media={logo.fields.logo} />
-                    </div>
-                  ))}
+              <div
+                className={`${style.textContent} ${
+                  style[`textContentBasis${fields.textWidthPercentage || 50}`]
+                }`}
+              >
+                <div className={style.heading}>
+                  <Heading {...heading}></Heading>
                 </div>
-              )}
-              {fields.testimonial && (
-                <div
-                  className={`${style.testimonial} ${testimonialStyle(
-                    fields.testimonialStyle
-                  )}`}
-                  data-animate={
-                    fields.testimonialStyle === "quote" ? true : false
-                  }
-                >
-                  {fields.testimonialStyle === "comment" ? (
-                    <div className={style.testimonialIcon}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 47 47"
-                        width="100"
-                        height="100"
+                {sanitizedHtml && (
+                  <div
+                    className={`content ${style.text}`}
+                    dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+                  ></div>
+                )}
+                {fields.logos && (
+                  <div className={`grid-columns ${style.logoGridColumns}`}>
+                    {fields.logos.map((logo) => (
+                      <div
+                        key={logo.contentID}
+                        className={`grid-column is-${
+                          fields.logos.length >= 6 ? 6 : fields.logos.length
+                        } ${style.logoGridColumn}`}
+                        data-animate="true"
                       >
-                        <g
-                          stroke="#FFF"
-                          strokeWidth="2"
-                          fill="none"
-                          fillRule="evenodd"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+                        <Media media={logo.fields.logo} />
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {fields.testimonial && (
+                  <div
+                    className={`${style.testimonial} ${testimonialStyle(
+                      fields.testimonialStyle
+                    )}`}
+                    data-animate={
+                      fields.testimonialStyle === "quote" ? true : false
+                    }
+                  >
+                    {fields.testimonialStyle === "comment" ? (
+                      <div className={style.testimonialIcon}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 47 47"
+                          width="100"
+                          height="100"
                         >
-                          <path d="M22 37c-1.656 0-3-1.344-3-3V19c0-1.656 1.344-3 3-3h21c1.656 0 3 1.344 3 3v15c0 1.656-1.344 3-3 3h-3v9l-9-9h-9z"></path>
-                          <path d="M13 25l-6 6v-9H4c-1.656 0-3-1.344-3-3V4c0-1.656 1.344-3 3-3h21c1.656 0 3 1.344 3 3v6"></path>
-                        </g>
-                      </svg>
-                    </div>
-                  ) : (
-                    <div className={style.testimonialIcon}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="36.5"
-                        height="28.4"
-                        viewBox="0 0 36.5 28.4"
-                      >
-                        <defs>
-                          <style>{`.p{fill:#3398dc;}`}</style>
-                        </defs>
-                        <path
-                          className="p"
-                          d="M13.1.2C4.7,3.8,0,10.1,0,17.8S3.4,28.4,8.8,28.4s7.3-2.8,7.3-6.9-2.8-6.4-6.9-6.4H7.9c.6-4.1,3.3-7.2,8.2-9.5l.5-.3L13.5,0Z"
-                        ></path>
-                        <path
-                          className="p"
-                          d="M36,5.7l.5-.3L33.4,0,33,.2c-8.5,3.6-13.1,9.9-13.1,17.6s3.4,10.6,8.8,10.6S36,25.6,36,21.5s-2.8-6.4-6.9-6.4H27.8C28.4,11.1,31.1,8,36,5.7Z"
-                        ></path>
-                      </svg>
-                    </div>
-                  )}
-                  <p>{fields.testimonial.fields.text}</p>
-                  <div className={style.testimonialDetails}>
-                    <div>
-                      {fields.testimonial.fields.companyName && (
-                        <p>{fields.testimonial.fields.companyName}</p>
-                      )}
-                      {fields.testimonial.fields.name && (
-                        <p>{fields.testimonial.fields.name}</p>
-                      )}
-                      {fields.testimonial.fields.jobTitle && (
-                        <p>{fields.testimonial.fields.jobTitle}</p>
-                      )}
-                    </div>
-                    {fields.testimonial.fields.image && (
-                      <div className={style.testimonialImage}>
-                        <Media media={fields.testimonial.fields.image} />
+                          <g
+                            stroke="#FFF"
+                            strokeWidth="2"
+                            fill="none"
+                            fillRule="evenodd"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M22 37c-1.656 0-3-1.344-3-3V19c0-1.656 1.344-3 3-3h21c1.656 0 3 1.344 3 3v15c0 1.656-1.344 3-3 3h-3v9l-9-9h-9z"></path>
+                            <path d="M13 25l-6 6v-9H4c-1.656 0-3-1.344-3-3V4c0-1.656 1.344-3 3-3h21c1.656 0 3 1.344 3 3v6"></path>
+                          </g>
+                        </svg>
+                      </div>
+                    ) : (
+                      <div className={style.testimonialIcon}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="36.5"
+                          height="28.4"
+                          viewBox="0 0 36.5 28.4"
+                        >
+                          <defs>
+                            <style>{`.p{fill:#3398dc;}`}</style>
+                          </defs>
+                          <path
+                            className="p"
+                            d="M13.1.2C4.7,3.8,0,10.1,0,17.8S3.4,28.4,8.8,28.4s7.3-2.8,7.3-6.9-2.8-6.4-6.9-6.4H7.9c.6-4.1,3.3-7.2,8.2-9.5l.5-.3L13.5,0Z"
+                          ></path>
+                          <path
+                            className="p"
+                            d="M36,5.7l.5-.3L33.4,0,33,.2c-8.5,3.6-13.1,9.9-13.1,17.6s3.4,10.6,8.8,10.6S36,25.6,36,21.5s-2.8-6.4-6.9-6.4H27.8C28.4,11.1,31.1,8,36,5.7Z"
+                          ></path>
+                        </svg>
                       </div>
                     )}
+                    <p>{fields.testimonial.fields.text}</p>
+                    <div className={style.testimonialDetails}>
+                      <div>
+                        {fields.testimonial.fields.companyName && (
+                          <p>{fields.testimonial.fields.companyName}</p>
+                        )}
+                        {fields.testimonial.fields.name && (
+                          <p>{fields.testimonial.fields.name}</p>
+                        )}
+                        {fields.testimonial.fields.jobTitle && (
+                          <p>{fields.testimonial.fields.jobTitle}</p>
+                        )}
+                      </div>
+                      {fields.testimonial.fields.image && (
+                        <div className={style.testimonialImage}>
+                          <Media media={fields.testimonial.fields.image} />
+                        </div>
+                      )}
+                    </div>
+                    {fields.testimonial.fields.logo && (
+                      <Media media={fields.testimonial.fields.logo} />
+                    )}
                   </div>
-                  {fields.testimonial.fields.logo && (
-                    <Media media={fields.testimonial.fields.logo} />
-                  )}
+                )}
+                <div className={style.links}>
+                  <FirstFoldLink primary />
+                  <FirstFoldLink />
                 </div>
+              </div>
+              {(fields.media || fields.videoURL) &&
+                !fields.customSVG &&
+                !fields.imageLink && (
+                  <div
+                    className={`${style.image} ${
+                      boolean(fields.circularImage)
+                        ? style.circularImage
+                        : style.removeCircular
+                    } ${
+                      fields.imageBottomMargin ? fields.imageBottomMargin : ""
+                    } ${fields.imageTopMargin ? fields.imageTopMargin : ""} ${
+                      fields.linkClasses ? fields.linkClasses : ""
+                    } ${
+                      style[
+                        `mediaBasis${
+                          100 - parseInt(fields.textWidthPercentage) || 50
+                        }`
+                      ]
+                    } ${
+                      fixedMediaHeight
+                        ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
+                        : ""
+                    } ${style[fields.mediaVerticalAlignment]} ${
+                      fields.mediaClasses ? fields.mediaClasses : ""
+                    }`}
+                    data-animate="true"
+                  >
+                    {fields.videoURL ? (
+                      <div className={style.iframeWrapper}>
+                        <iframe
+                          id="video-player"
+                          type="text/html"
+                          src={videoSrc}
+                          frameBorder="0"
+                          allow="fullscreen;"
+                        />
+                      </div>
+                    ) : (
+                      <Media media={fields.media} title={fields.mediaTitle} />
+                    )}
+                  </div>
+                )}
+              {(fields.media || fields.videoURL) &&
+                !fields.customSVG &&
+                fields.imageLink && (
+                  <AgilityLink
+                    agilityLink={fields.imageLink}
+                    className={`${style.imageLink} ${
+                      fields.imageBottomMargin ? fields.imageBottomMargin : ""
+                    } ${fields.linkClasses ? fields.linkClasses : ""} ${
+                      style[
+                        `mediaBasis${
+                          100 - parseInt(fields.textWidthPercentage) || 50
+                        }`
+                      ]
+                    } ${
+                      fixedMediaHeight
+                        ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
+                        : ""
+                    } ${style[fields.mediaVerticalAlignment]} ${
+                      fields.mediaClasses ? fields.mediaClasses : ""
+                    }`}
+                    ariaLabel={`Navigate to page ` + fields.imageLink.href}
+                    title={`Navigate to page ` + fields.imageLink.href}
+                  >
+                    <div className={style.image} data-animate="true">
+                      {fields.videoURL ? (
+                        <div className={style.iframeWrapper}>
+                          <iframe
+                            id="video-player"
+                            type="text/html"
+                            src={videoSrc}
+                            frameBorder="0"
+                            allow="fullscreen;"
+                          />
+                        </div>
+                      ) : (
+                        <Media media={fields.media} title={fields.mediaTitle} />
+                      )}
+                    </div>
+                  </AgilityLink>
+                )}
+              {fields.customSVG && (
+                <CustomSVG
+                  svgInput={fields.customSVG}
+                  svgClasses={fields.customSVGClasses}
+                />
               )}
-              <div className={style.links}>
-                <FirstFoldLink primary />
-                <FirstFoldLink />
-              </div>
             </div>
-            {fields.media && !fields.customSVG && !fields.imageLink && (
-              <div
-                className={`${style.image} ${
-                  fields.circularImage
-                    ? style.circularImage
-                    : style.removeCircular
-                } ${fields.imageBottomMargin ? fields.imageBottomMargin : ""} ${
-                  fields.imageTopMargin ? fields.imageTopMargin : ""
-                } ${fields.linkClasses ? fields.linkClasses : ""} ${
-                  style[
-                    `mediaBasis${
-                      100 - parseInt(fields.textWidthPercentage) || 50
-                    }`
-                  ]
-                } ${
-                  fixedMediaHeight
-                    ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
-                    : ""
-                } ${style[fields.mediaVerticalAlignment]} ${
-                  fields.mediaClasses ? fields.mediaClasses : ""
-                }`}
-                data-animate="true"
-              >
-                <Media media={fields.media} title={fields.mediaTitle} />
-              </div>
-            )}
-            {fields.media && !fields.customSVG && fields.imageLink && (
-              <AgilityLink
-                agilityLink={fields.imageLink}
-                className={`${style.imageLink} ${
-                  fields.imageBottomMargin ? fields.imageBottomMargin : ""
-                } ${fields.linkClasses ? fields.linkClasses : ""} ${
-                  style[
-                    `mediaBasis${
-                      100 - parseInt(fields.textWidthPercentage) || 50
-                    }`
-                  ]
-                } ${
-                  fixedMediaHeight
-                    ? style[`defaultLayoutFixedHeight${fixedMediaHeight}`]
-                    : ""
-                } ${style[fields.mediaVerticalAlignment]} ${
-                  fields.mediaClasses ? fields.mediaClasses : ""
-                }`}
-                ariaLabel={`Navigate to page ` + fields.imageLink.href}
-                title={`Navigate to page ` + fields.imageLink.href}
-              >
-                <div className={style.image} data-animate="true">
-                  <Media media={fields.media} title={fields.mediaTitle} />
-                </div>
-              </AgilityLink>
-            )}
-            {fields.customSVG && (
-              <CustomSVG
-                svgInput={fields.customSVG}
-                svgClasses={fields.customSVGClasses}
-              />
-            )}
           </div>
-        </div>
-      </section>
+        </section>
+        {isYouTubeVideo && (
+          <Script
+            src="https://www.youtube.com/iframe_api"
+            onLoad={handleAPIScriptLoad}
+          />
+        )}
+      </>
     );
   }
 };
