@@ -423,6 +423,8 @@ const FirstFold = ({ module, customData }) => {
                 !fields.imageLink && (
                   <div
                     className={`${style.image} ${
+                      fields.videoURL ? style.isVideo : ""
+                    } ${
                       boolean(fields.circularImage)
                         ? style.circularImage
                         : style.removeCircular
@@ -483,7 +485,12 @@ const FirstFold = ({ module, customData }) => {
                     ariaLabel={`Navigate to page ` + fields.imageLink.href}
                     title={`Navigate to page ` + fields.imageLink.href}
                   >
-                    <div className={style.image} data-animate="true">
+                    <div
+                      className={`${style.image} ${
+                        fields.videoURL ? style.isVideo : ""
+                      }`}
+                      data-animate="true"
+                    >
                       {fields.videoURL ? (
                         <div className={style.iframeWrapper}>
                           <iframe
