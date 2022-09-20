@@ -143,6 +143,20 @@ const ClientTestimonial = ({ module }) => {
                               {fields.testimonial.fields.companyName}
                             </p>
                           )}
+                          {fields.link && (
+                            <AgilityLink
+                              agilityLink={fields.link}
+                              className={`button ${
+                                fields.cTALinkColor ? fields.cTALinkColor : "white"
+                              } ${
+                                fields.cTALinkSize ? fields.cTALinkSize : "small"
+                              } ${style.link}`}
+                              ariaLabel={`Navigate to page ` + fields.link.href}
+                              title={`Navigate to page ` + fields.link.href}
+                            >
+                              {fields.link.text}
+                            </AgilityLink>
+                          )}
                         </>
                       }
                     </p>
@@ -179,7 +193,8 @@ const ClientTestimonial = ({ module }) => {
                         </div>
                       )}
                     </div>
-                    {fields.link && (
+                    {fields.link && fields.testimonialStyle !== "text-left-logo-right" &&
+                      fields.testimonialStyle !== "logo-left-text-right" && (
                       <AgilityLink
                         agilityLink={fields.link}
                         className={`button ${
