@@ -30,6 +30,7 @@
       }
       form {
         @include desktop() {
+          position: relative;
           width: 100%;
           display: flex;
           align-items: flex-end;
@@ -86,6 +87,16 @@
               &:hover {
                 background-color: $color-white;
                 color: $color-navy;
+              }
+            }
+            @include desktop() {
+              & > div {
+                &:only-of-type {
+                  position: absolute;
+                  left: 0;
+                  bottom: 0;
+                  transform: translateY(150%);
+                }
               }
             }
           }

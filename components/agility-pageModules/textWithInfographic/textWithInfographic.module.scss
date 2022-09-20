@@ -13,12 +13,26 @@
   .content {
     display: flex;
     $gap: 3.5rem;
-    &.columnLayout {
+    &.columnTop {
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+      .textContent {
+        .text {
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+    &.columnBottom {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      .textContent:not(:only-child) {
-        margin-bottom: $gap;
+      .textContent {
+        .text {
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
     &.infographicLeft {
@@ -26,11 +40,23 @@
       .textContent:not(:only-child) {
         margin-left: $gap;
       }
+      .textContent {
+        .text {
+          justify-content: flex-end;
+          align-items: flex-start;
+        }
+      }
     }
     &.infographicRight {
       flex-direction: row;
       .textContent:not(:only-child) {
         margin-right: $gap;
+      }
+      .textContent {
+        .text {
+          justify-content: flex-start;
+          align-items: flex-start;
+        }
       }
     }
     @include touch() {
@@ -40,6 +66,14 @@
       }
     }
   }
+  /* 
+              <div
+              className={`${
+                columnLayout
+                  ? "justify-content-center align-items-center"
+                  : infographicLeft
+                  ? "justify-content-flex-end align-items-flex-start"
+                  : "justify-content-flex-start align-items-flex-start" */
   .textContent {
     display: flex;
     flex-direction: column;
@@ -58,6 +92,10 @@
     }
     &.textContentBasis70 {
       flex-basis: 70%;
+    }
+    .text {
+      display: flex;
+      flex-direction: column;
     }
     .html {
       margin-bottom: 2rem;
@@ -114,6 +152,13 @@
       grid-template-columns: 100%;
       gap: 3rem;
       padding-left: unset;
+      &.columnItems {
+        @include desktop() {
+          gap: 1rem;
+          grid-template-columns: repeat(3, 1fr);
+          margin-bottom: 2rem;
+        }
+      }
       li {
         display: grid;
         grid-template-columns: 0.25fr 1fr;

@@ -19,6 +19,7 @@ import Accordion from "../accordion/accordion";
 import PardotForm from "../../form/pardotForm";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
+import { getUrlParamValue } from "../../../utils/getUrlParamValue";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, accordionItemsWithSanitizedHTML, formConfiguration } =
@@ -83,6 +84,25 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
       }
     });
     return setAssetType ? setAssetType : null;
+  };
+
+  // Set utm_campaign and utm_asset values from the url if the values exist.  If there's no parameters, then get the default values from "resource.uTMCampaignAsset".
+  const utmCampaignValue = getUrlParamValue("utm_campaign");
+  const utmAssetValue = getUrlParamValue("utm_asset");
+
+  const setUtmCampaignValue = (url) => {
+    if (utmCampaignValue) {
+      return utmCampaignValue;
+    } else {
+      return resource.uTMCampaignAsset ? resource.uTMCampaignAsset : null;
+    }
+  };
+  const setUtmAssetValue = (url) => {
+    if (utmAssetValue) {
+      return utmAssetValue;
+    } else {
+      return resource.uTMCampaignAsset ? resource.uTMCampaignAsset : null;
+    }
   };
 
   useEffect(() => {
@@ -219,6 +239,14 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         config={formConfiguration}
                         assetTitle={resource.title ? resource.title : null}
                         assetType={getAssetType()}
+                        utmCampaign={
+                          typeof window !== "undefined" &&
+                          setUtmCampaignValue(window.location.href)
+                        }
+                        utmAsset={
+                          typeof window !== "undefined" &&
+                          setUtmAssetValue(window.location.href)
+                        }
                       />
                     </div>
                   </div>
@@ -288,15 +316,23 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             ? resource.formAction
                             : getPardotDefaultAction(resourceCategory)
                         }
-                        stepsEnabled={resource.formStepsEnabled}
                         submit={
                           resource.formSubmitText
                             ? resource.formSubmitText
                             : "Download Now"
                         }
+                        stepsEnabled={resource.formStepsEnabled}
                         config={formConfiguration}
                         assetTitle={resource.title ? resource.title : null}
                         assetType={getAssetType()}
+                        utmCampaign={
+                          typeof window !== "undefined" &&
+                          setUtmCampaignValue(window.location.href)
+                        }
+                        utmAsset={
+                          typeof window !== "undefined" &&
+                          setUtmAssetValue(window.location.href)
+                        }
                       />
                       {resource.link?.href && resource.link?.text && (
                         <div className="mt-4 align-center">

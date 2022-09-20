@@ -184,34 +184,49 @@
 // Testimonial Style: Logo on left and text on right
 @include desktop() {
   .clientTestimonial.logoOnLeft {
+    .link {
+      margin-top: 2em;
+      margin-bottom: 0;
+    }
     .content .textContent {
       display: flex;
       align-items: center;
       flex-direction: row-reverse;
-      gap: 2em;
+      gap: 5em;
       .companyName {
         display: none;
       }
       .quote {
-        padding: 0 2.5rem;
         font-weight: 400;
-        font-size: 1.65rem;
+        font-size: 1.4rem;
+        text-align: left;
+        flex: 3;
+        padding: 0;
+        line-height: 1.4em;
+        .clientName {
+          display: block;
+          margin-top: 1.2em;
+          font-size: 1.1rem;
+          line-height: 1.1em;
+        }
+        .jobTitle {
+          font-size: 1rem;
+          display: block;
+          font-style: italic;
+          margin-top: 0;
+        }
       }
     }
     .normal {
       max-width: 100%;
     }
-    .quote,
     .client {
       flex: 1;
-    }
-    .client {
       display: flex;
       flex-direction: column;
       .logo {
         order: 1;
         margin: 0 auto;
-        padding: 0 2rem;
       }
       & > * {
         order: 2;
@@ -223,5 +238,21 @@
         flex-direction: row;
       }
     }
+  }
+}
+.clientTestimonial.logoOnLeft {
+  .clientName {
+    display: block;
+    margin-top: 2em;
+    font-size: 1.1rem;
+    line-height: 1.2em;
+    font-weight: 400;
+  }
+  .jobTitle, .companyName {
+    font-size: 1rem;
+    display: block;
+    margin-top: 0.4em;
+    font-style: italic;
+    font-weight: 400;
   }
 }
