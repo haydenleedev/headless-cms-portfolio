@@ -70,3 +70,28 @@
     }
   }
 }
+
+// Border options
+.borders,
+.bordersPadding {
+  .logo {
+    outline: 1px solid #e2e2e2;
+    min-height: 10.25rem;
+  }
+  .list {
+    justify-content: center;
+  }
+}
+.bordersPadding.logosList {
+  .list {
+    gap: 1.5em;
+  }
+  .logo {
+    @include mobile() {
+      flex-basis: calc(50% - 1.5rem);
+    }
+    @include desktop() {
+      flex-basis: calc(20% - 1.5rem);
+    }
+  }
+}
