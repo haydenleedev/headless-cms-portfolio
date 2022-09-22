@@ -2,8 +2,7 @@
 @import "../../../styles/settings/mixins";
 
 .caseStudyDownloadPrompt {
-  background-color: $color-skyblue;
-  color: $color-white;
+  color: $color-navy;
   padding: 7rem 0;
   .content {
     display: flex;
@@ -16,10 +15,10 @@
       align-items: center;
       &:first-child {
         padding-bottom: 3rem;
-        border-bottom: 0.1rem solid $color-white;
+        border-bottom: 0.1rem solid $color-navy;
 
         @include desktop() {
-          border-right: 0.1rem solid $color-white;
+          border-right: 0.1rem solid $color-navy;
           border-bottom: unset;
           padding: 0 3rem;
         }
