@@ -5,7 +5,7 @@ import style from "./latestCustomerStories.module.scss";
 import { useRouter } from "next/router";
 import AgilityLink from "../../agilityLink";
 import GenericCard from "../../genericCard/genericCard";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 const LatestCustomerStories = ({ module, customData }) => {
   const router = useRouter();
@@ -33,6 +33,8 @@ const LatestCustomerStories = ({ module, customData }) => {
   const ptValue = fields.paddingTop ? fields.paddingTop : '';
   const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
 
+  const [amountOfPostsToShow, setAmountOfPostsToShow] = useState(3)
+
   return (
     <section
       className={`section ${style.latestCustomerStories}
@@ -55,51 +57,60 @@ const LatestCustomerStories = ({ module, customData }) => {
           className={`columns repeat-3 ${style.content}`}
           aria-label="customer stories navigation"
         >
-          {stories.map((story) => {
+          {stories.map((story, i) => {
             const heading = JSON.parse(story.fields.heading);
             return (
-              <Fragment key={story.contentID}>
-                {cardStyle ? (
-                  <GenericCard
-                    link={story.fields.link}
-                    image={story.fields.image}
-                    title={heading.text}
-                    ariaTitle={`${heading.text} customer story`}
-                    description={story.fields.description}
-                    configuration={{
-                      imageHeight: "tall",
-                      emphasizedTitle: true,
-                    }}
-                  />
-                ) : (
-                  <AgilityLink
-                    agilityLink={story.fields.link}
-                    ariaLabel={`Navigate to ${heading.text} customer story`}
-                  >
-                    <div className={style.story}>
-                      <div>
-                        <div className={style.storyImage}>
-                          <Media media={story.fields.image} />
+              i + 1 <= amountOfPostsToShow &&
+                <Fragment key={story.contentID}>
+                  {cardStyle ? (
+                    <GenericCard
+                      link={story.fields.link}
+                      image={story.fields.image}
+                      title={heading.text}
+                      ariaTitle={`${heading.text} customer story`}
+                      description={story.fields.description}
+                      configuration={{
+                        imageHeight: "tall",
+                        emphasizedTitle: true,
+                      }}
+                    />
+                  ) : (
+                    <AgilityLink
+                      agilityLink={story.fields.link}
+                      ariaLabel={`Navigate to ${heading.text} customer story`}
+                    >
+                      <div className={style.story}>
+                        <div>
+                          <div className={style.storyImage}>
+                            <Media media={story.fields.image} />
+                          </div>
+                          <div className={style.storyTitle}>
+                            <Heading {...heading} />
+                          </div>
+                          <p className={style.storyDescription}>
+                            {story.fields.description}
+                          </p>
                         </div>
-                        <div className={style.storyTitle}>
-                          <Heading {...heading} />
+                        <div className="d-flex align-items-center justify-content-flex-start">
+                          <p className={style.storyLink}>
+                            {story.fields.link.text}
+                          </p>
                         </div>
-                        <p className={style.storyDescription}>
-                          {story.fields.description}
-                        </p>
                       </div>
-                      <div className="d-flex align-items-center justify-content-flex-start">
-                        <p className={style.storyLink}>
-                          {story.fields.link.text}
-                        </p>
-                      </div>
-                    </div>
-                  </AgilityLink>
-                )}
-              </Fragment>
+                    </AgilityLink>
+                  )}
+                </Fragment>
             );
           })}
         </nav>
+        {amountOfPostsToShow < stories.length &&
+          <button
+            className={`button orange ${style.loadMoreButton}`}
+            onClick={(e) => {e.stopPropagation();setAmountOfPostsToShow(amountOfPostsToShow + 3);}}
+          >
+            View More Customer Stories
+          </button>
+        }
       </div>
     </section>
   );
