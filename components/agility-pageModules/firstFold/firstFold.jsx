@@ -21,7 +21,7 @@ const FirstFold = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
   const uncenteredVertically = boolean(fields.uncenteredVertically);
   const noImageLayout =
-    !fields.media && !fields.customSVG && !fields.videoURL.href;
+    !fields.media && !fields.customSVG && !fields.videoURL?.href;
   const narrowContainer = boolean(fields?.narrowContainer);
   const fixedMediaHeight = fields?.fixedMediaHeight;
   const linksStyle = fields?.linksStyle || "button";
