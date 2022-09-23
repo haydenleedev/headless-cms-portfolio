@@ -569,6 +569,10 @@ class PardotForm extends Component {
                             (field.name.toLowerCase().match(/partner/) &&
                               !this.state.partnerStateFieldVisible)))
                           ? "display-none"
+                          : this.state.errors[index]
+                          ? style.error
+                          : this.state.touched[index]
+                          ? style.valid
                           : ""
                       }
                     >

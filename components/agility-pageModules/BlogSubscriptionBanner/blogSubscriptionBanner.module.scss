@@ -71,11 +71,11 @@
           border-radius: 0.5rem;
         }
         select {
-          background-color: transparent;
+          background-color: transparent !important;
         }
         input {
           &:not([type="submit"]) {
-            background-color: transparent;
+            background-color: transparent !important;
           }
         }
         & > div {
