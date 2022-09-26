@@ -39,8 +39,11 @@ export default async function handler(req, res) {
     const isBlacklisted = await client.query(
       Let(
         {
-          matchIP: Match(Index("ip_address_by_value"), parsedBody.check.ip),
-          matchDomain: Match(Index("domain_by_value"), parsedBody.check.domain),
+          matchIP: Match(Index("ip_addresses_by_value"), parsedBody.check.ip),
+          matchDomain: Match(
+            Index("domains_by_value"),
+            parsedBody.check.domain
+          ),
         },
         If(
           Or(IsNonEmpty(Var("matchIP")), IsNonEmpty(Var("matchDomain"))),
@@ -89,7 +92,7 @@ export default async function handler(req, res) {
       Let(
         {
           isPreviouslySubmitted: Match(
-            Index("form_submission_by_email"),
+            Index("form_submissions_by_email"),
             parsedBody.client["Email"]
           ),
         },
