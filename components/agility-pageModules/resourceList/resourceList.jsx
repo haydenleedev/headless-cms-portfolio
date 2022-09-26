@@ -22,14 +22,16 @@ const ResourceList = ({ module, customData }) => {
   }
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section
-      className={`section ${style.resourceList}
+      className={`section ${fields.classes ? fields.classes : ""} ${
+        style.resourceList
+      }
       ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
