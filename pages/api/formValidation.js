@@ -1,27 +1,60 @@
+import { Client, query } from "faunadb";
+
 export default async function handler(req, res) {
   try {
     console.time("formValidation: total time");
     // parsedBody structure: {check: {ip: "", domain: ""}, client: {}, token: "" }
     const parsedBody = JSON.parse(req.body);
+
+    // Reference: https://docs.fauna.com/fauna/current/api/fql/
+    const {
+      Let,
+      IsNonEmpty,
+      Or,
+      Create,
+      Get,
+      Index,
+      Match,
+      Var,
+      Map,
+      Update,
+      Collection,
+      Select,
+      Paginate,
+      Lambda,
+      If,
+    } = query;
+
+    if (!parsedBody.client || !parsedBody.check || !parsedBody.token) {
+      throw new Error("Invalid request body!");
+    }
+
+    const client = new Client({
+      endpoint: "https://db.us.fauna.com",
+      secret: process.env.FAUNA_SERVER_SECRET,
+    });
     // check IP/domain blocklist first
-    const blockCheckData = new URLSearchParams();
-    blockCheckData.append("ip", parsedBody.check.ip);
-    blockCheckData.append("domain", parsedBody.check.domain);
     console.time("formValidation: block check");
-    let blockCheckResponse = await fetch(
-      "https://script.google.com/macros/s/AKfycbw2L1DpM7EWcBR1BWEFon_FvYHX8TbRrdTH585k-kPiaAO4hj6aaRr6p_i2A5UVM3LX/exec",
-      {
-        method: "POST",
-        body: blockCheckData,
-      }
+
+    const isBlacklisted = await client.query(
+      Let(
+        {
+          matchIP: Match(Index("ip_address_by_value"), parsedBody.check.ip),
+          matchDomain: Match(Index("domain_by_value"), parsedBody.check.domain),
+        },
+        If(
+          Or(IsNonEmpty(Var("matchIP")), IsNonEmpty(Var("matchDomain"))),
+          true,
+          false
+        )
+      )
     );
-    blockCheckResponse = await blockCheckResponse.json();
-    console.timeEnd("formValidation: block check");
-    if (blockCheckResponse.blacklisted || blockCheckResponse.error) {
+    if (isBlacklisted) {
       return res
         .status(200)
         .json({ submissionAllowed: false, reason: "Disallowed" });
     }
+    console.timeEnd("formValidation: block check");
     // if block list check was ok, proceed to creating recaptcha accessment
     console.time("formValidation: recaptcha");
     let assessment = await fetch(
@@ -45,21 +78,45 @@ export default async function handler(req, res) {
         .status(200)
         .json({ submissionAllowed: false, reason: "ReCAPTCHA failed" });
     // block list check and recaptcha assesment were ok, proceed to saving client data
-    const clientData = new URLSearchParams();
-    Object.keys(parsedBody.client).forEach((key) => {
-      clientData.append(key, parsedBody.client[key]);
-    });
     console.time("formValidation: save client data");
-    let clientDataResponse = await fetch(
-      "https://script.google.com/macros/s/AKfycbwS8kFTFhN4vPpykcC9LcxsCdSjxtMnWXCHwNxUsOxKOKeZo90YGDztuIeBqrIQzhWhLw/exec",
-      {
-        method: "POST",
-        body: clientData,
-      }
+
+    let clientData = parsedBody.client;
+
+    Object.keys(parsedBody.client).map((key) => {
+      if (key === "") delete clientData[key];
+    });
+    await client.query(
+      Let(
+        {
+          isPreviouslySubmitted: Match(
+            Index("form_submission_by_email"),
+            parsedBody.client["Email"]
+          ),
+        },
+        If(
+          IsNonEmpty(Var("isPreviouslySubmitted")),
+          Let(
+            {
+              found: Select(
+                ["data", 0],
+                Map(
+                  Paginate(Var("isPreviouslySubmitted"), { size: 1 }),
+                  Lambda("result", Get(Var("result")))
+                )
+              ),
+            },
+            Update(Select("ref", Var("found")), {
+              data: clientData,
+            })
+          ),
+          Create(Collection("form_submissions"), {
+            data: clientData,
+          })
+        )
+      )
     );
-    clientDataResponse = await clientDataResponse.json();
+
     console.timeEnd("formValidation: save client data");
-    console.log("Response:", clientDataResponse);
     console.timeEnd("formValidation: total time");
     return res.status(200).json({ success: true });
   } catch (error) {
