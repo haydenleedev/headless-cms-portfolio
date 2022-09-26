@@ -17,6 +17,7 @@ const TextWithMedia = ({ module, customData }) => {
   const fullPageWidth = fields.containerWidth == "fullPageWidth";
   const columnLayout = fields.layout == "column";
   const mediaLeft = fields.layout == "mediaLeft";
+  const linkBackgroundColor = fields.linkBackgroundColor || "cyan outlined";
   const headingOnTop = boolean(fields?.headingOnTop);
   const headingSizeforTextArea = fields.headingSizeforTextArea;
   const mediaVerticalAlignment = fields.mediaVerticalAlignment;
@@ -45,10 +46,10 @@ const TextWithMedia = ({ module, customData }) => {
   };
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section
@@ -116,7 +117,7 @@ const TextWithMedia = ({ module, customData }) => {
                   agilityLink={fields.link}
                   className={`${
                     !columnLayout && !fields.linkClasses ? "small" : ""
-                  } cyan outlined ${style.link} ${
+                  } ${linkBackgroundColor} ${style.link} ${
                     fields.linkClasses ? fields.linkClasses : ""
                   } ${
                     fields.linkStyle ? fields.linkStyle : "chevron-after w-600 "
@@ -234,7 +235,7 @@ const TextWithMedia = ({ module, customData }) => {
               agilityLink={fields.link}
               className={`${
                 !columnLayout && !fields.linkClasses ? "small" : ""
-              } cyan outlined ${style.link} ${
+              } ${linkBackgroundColor} ${style.link} ${
                 fields.linkClasses ? fields.linkClasses : ""
               } ${fields.linkStyle ? fields.linkStyle : "chevron-after w-600"}`}
               ariaLabel={`Navigate to page ` + fields.link.href}

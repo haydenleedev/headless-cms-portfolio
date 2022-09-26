@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     postData.append("ip", parsedBody.ip);
     postData.append("domain", parsedBody.domain);
     const response = await fetch(
-      "https://script.google.com/macros/s/AKfycby13GURhWG9DmUJk1qLy9XeITpQP_grLWJhshoLu13fgt5CGbs/exec",
+      "https://script.google.com/macros/s/AKfycbw2L1DpM7EWcBR1BWEFon_FvYHX8TbRrdTH585k-kPiaAO4hj6aaRr6p_i2A5UVM3LX/exec",
       {
         method: "POST",
         body: postData,
