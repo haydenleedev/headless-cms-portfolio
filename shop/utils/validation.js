@@ -12,6 +12,7 @@ export function isPhoneNumber(phoneNumber) {
   return phoneNumber.match(usPhoneRegex);
 }
 
+/*** Block free email domains for contact form */
 const freeEmailDomains = [
   /@gmail.com/,
   /@yahoo.com/,
@@ -19,6 +20,7 @@ const freeEmailDomains = [
   /@comcast.net/,
   /@hotmail.com/,
   /@icloud.com/,
+  /@form.us/,
 ];
 let freeEmailRegex;
 
