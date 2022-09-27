@@ -121,7 +121,6 @@
           & > span {
             min-width: 6rem;
           }
-          padding-bottom: 1rem;
         }
         .itemTextContent {
           justify-content: flex-start;
@@ -137,6 +136,8 @@
             font-weight: 400;
           }
           .itemDescription {
+            font-weight: 600;
+            font-size: 1.5rem;
             color: $color-black;
           }
           .itemDefinition {
