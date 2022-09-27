@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { formatPhoneNumber } from "../../shop/utils/formatData";
 import style from "./form.module.scss";
 import FormError from "./formError";
-import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
+import {
+  isEmail,
+  isPhoneNumber,
+  isFreeEmail,
+} from "../../shop/utils/validation";
 import PardotFormField from "./pardotFormField";
 import { getCookie } from "../../utils/cookies";
 import {
@@ -43,7 +47,7 @@ class PardotForm extends Component {
     this.setPasteError = this.setPasteError.bind(this);
 
     this.errorMessages = [
-      { field: "Email", message: "Please enter a valid email" },
+      { field: "Email", message: "Please enter a valid company email" },
       {
         field: "Phone Number",
         message: "Please enter a valid phone number",
@@ -477,6 +481,11 @@ class PardotForm extends Component {
                 break;
               case "Email":
                 if (!isEmail(fieldRef.current.value)) {
+                  errors[index] = true;
+                } else if (
+                  isFreeEmail(fieldRef.current.value) &&
+                  this.isContactForm
+                ) {
                   errors[index] = true;
                 }
                 break;
