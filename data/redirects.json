@@ -10,11 +10,6 @@
     "permanent": true
   },
   {
-    "source": "/telcopricing-test",
-    "destination": "https://assets.ujet.cx/Official%20UJET%20Telco%20Pricing.xlsx",
-    "permanent": true
-  },
-  {
     "source": "/resources/webinars/contact-center-and-cx-priorities-2021-enterprise-survey-results",
     "destination": "/resources/webinars/2021-contact-center-and-cx-priorities-wbn-lp/",
     "permanent": true
