@@ -137,7 +137,7 @@ const TextGridWithMedia = ({ module, customData }) => {
             {itemFields.link && itemFields.link.text && (
               <span
                 className={`${
-                  fields.linkStyle ? fields.linkStyle : style.rightArrow2
+                  fields.linkStyle ? fields.linkStyle : style.rightArrow
                 }`}
               >
                 {itemFields.link.text}
@@ -150,10 +150,10 @@ const TextGridWithMedia = ({ module, customData }) => {
   };
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section

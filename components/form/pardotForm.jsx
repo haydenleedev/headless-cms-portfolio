@@ -326,51 +326,37 @@ class PardotForm extends Component {
         event: "pardotFormSubmit",
       });
       this.setState({ submissionInProgress: true });
-      const getAssessment = () => {
-        if (!this.assessmentCreatedRef.current) {
-          return new Promise((resolve) => {
-            grecaptcha.enterprise.ready(async () => {
-              const token = await grecaptcha.enterprise.execute(
-                process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY,
-                { action: "FORM_SUBMISSION" }
-              );
-              const assessment = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/api/createRecaptchaAssessment`,
-                {
-                  method: "POST",
-                  body: JSON.stringify({ token: token }),
-                }
-              );
-              const assessmentJSON = await assessment.json();
-              this.assessmentCreatedRef.current = true;
-              return resolve(assessmentJSON.isAcceptableScore);
-            });
-          });
-        } else {
-          return false;
-        }
+      const token = await grecaptcha.enterprise.execute(
+        process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY,
+        { action: "FORM_SUBMISSION" }
+      );
+      const ip = getCookie("client_ip");
+      const domain = formData.get("Email")?.split?.("@")?.[1];
+      const clientCountry = getCookie("client_country");
+      const client = {
+        ip: ip && ip !== "undefined" ? ip : "Unknown",
+        country:
+          clientCountry && clientCountry !== "undefined"
+            ? clientCountry
+            : "Unknown",
       };
-      const emailDomain = formData.get("Email")?.split?.("@")?.[1];
-      const blocklistResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/checkFormBlocklist`,
+      [...this.form.getElementsByTagName("input")].forEach((input) => {
+        client[input.name] = input.value;
+      });
+      const validationBody = {
+        check: { ip, domain },
+        client,
+        token,
+      };
+      let validationResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/formValidation`,
         {
           method: "POST",
-          body: JSON.stringify({
-            ip: getCookie("client_ip"),
-            domain: emailDomain,
-          }),
+          body: JSON.stringify(validationBody),
         }
       );
-      const blocklistResponseJSON = await blocklistResponse.json();
-      if (!blocklistResponseJSON.submissionAllowed) {
-        this.setState({
-          submissionInProgress: false,
-          submissionAllowed: false,
-        });
-        return;
-      }
-      const isAcceptableScore = await getAssessment();
-      if (!isAcceptableScore) {
+      validationResponse = await validationResponse.json();
+      if (!validationResponse.success) {
         this.setState({
           submissionInProgress: false,
           submissionAllowed: false,
@@ -420,22 +406,6 @@ class PardotForm extends Component {
           }
         );
       }
-      const clientIP = getCookie("client_ip");
-      const clientCountry = getCookie("client_country");
-      const clientData = {
-        ip: clientIP && clientIP !== "undefined" ? clientIP : "Unknown",
-        country:
-          clientCountry && clientCountry !== "undefined"
-            ? clientCountry
-            : "Unknown",
-      };
-      [...this.form.getElementsByTagName("input")].forEach((input) => {
-        clientData[input.name] = input.value;
-      });
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/saveClientData`, {
-        method: "POST",
-        body: JSON.stringify(clientData),
-      });
       window.dataLayer?.push({
         event: "pardotFormSuccess",
       });
@@ -599,6 +569,10 @@ class PardotForm extends Component {
                             (field.name.toLowerCase().match(/partner/) &&
                               !this.state.partnerStateFieldVisible)))
                           ? "display-none"
+                          : this.state.errors[index]
+                          ? style.error
+                          : this.state.touched[index]
+                          ? style.valid
                           : ""
                       }
                     >
