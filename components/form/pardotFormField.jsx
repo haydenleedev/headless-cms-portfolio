@@ -151,16 +151,14 @@ const PardotFormField = ({
           maxLength={usPhoneFormat ? null : 20}
           onBlur={() => {
             updateTouched();
-            if (usPhoneFormat) {
-              phoneNumberFormatter();
-            } else validate();
+            validate();
             setPasteError(false);
           }}
           onPaste={pasteBlocker}
           onKeyDown={() => {
             if (usPhoneFormat) {
               phoneNumberFormatter();
-            }
+            } else validate();
             setPasteError(false);
           }}
           ref={fieldRef}
