@@ -457,10 +457,13 @@
 }
 
 .mt--navbar-height {
+  margin-top: 0 !important;
   // helper class to fix the top offset when TransparentizeNavbar module is added to page
-  margin-top: calc(
-    0rem - ($navbar-height + $navbar-secondary-height)
-  ) !important;
+  @include desktop() {
+    margin-top: calc(
+      0rem - ($navbar-height + $navbar-secondary-height)
+    ) !important;
+  }
 }
 
 .mb-0 {
