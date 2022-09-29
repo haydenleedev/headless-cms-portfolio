@@ -4,6 +4,7 @@ import style from "./blogPostContent.module.scss";
 import Subscribe from "../../subscribe/subscribe";
 import Link from "next/link";
 import BlogPostList from "../blogPostList/blogPostList";
+import TextWithMedia from "../textWithMedia/textWithMedia";
 import {
   convertUJETLinksToHttps,
   sanitizeHtmlConfig,
@@ -220,11 +221,37 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
           </div>
         </div>
       </section>
+      {blogPost.ctaTitle && (
+        <TextWithMedia
+          module={{
+            fields: {
+              media: blogPost.ctaImage,
+              heading: JSON.stringify({
+                type: "h2",
+                text: blogPost.ctaTitle,
+                classes: "heading-4",
+              }),
+              text: blogPost.ctaText,
+              link: blogPost.ctaLink,
+              paddingBottom: "pb-6",
+              paddingTop: "pt-6",
+              marginTop: "mt-4",
+              linkStyle: "button pl-4 pr-4",
+              linkBackgroundColor: "orange",
+              backgroundColor: "bg-paleblue",
+              mobileMediaPosition: "top",
+              mediaPadding: "0",
+            },
+          }}
+          customData={{ sanitizedHtml: blogPost.ctaText }}
+        />
+      )}
       <BlogPostList
         module={{
           fields: {
             title: "Related Articles",
             highlightedBlogPosts: relatedBlogPosts,
+            paddingTop: "pt-6",
           },
         }}
         overrideClass={style.blogPostList}
