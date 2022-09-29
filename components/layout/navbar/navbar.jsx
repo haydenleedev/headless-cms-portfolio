@@ -137,7 +137,7 @@ const Navbar = ({ globalData }) => {
 
       {/* End Navbar Secondary */}
       <nav className="container" role="navigation" aria-label="Main">
-        <Link href="https://ujet.cx">
+        <Link href="https://ujet.cx/">
           <a
             title="Navigate  to home page"
             aria-label="Navigate to home page"
