@@ -15,6 +15,7 @@ const TextWithInfographic = ({ module, customData }) => {
   //configuration options
   const narrowContainer = fields.containerWidth == "narrow";
   const layout = fields.layout || "infographicRight";
+  const itemsStyle = fields.itemsStyle || "default";
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {
@@ -119,12 +120,12 @@ const TextWithInfographic = ({ module, customData }) => {
                   layout === "columnTop" || layout === "columnBottom"
                     ? style.columnItems
                     : ""
-                }`}
+                } ${style[itemsStyle]}`}
                 data-animate="true"
               >
                 {fields.items.map((item) => (
                   <li key={item.contentID}>
-                    <div className="d-flex justify-content-center">
+                    <div className={style.itemImage}>
                       <div
                         className={`${style.infographicIcon} ${
                           mediaIsSvg(item.fields.image)
@@ -135,8 +136,13 @@ const TextWithInfographic = ({ module, customData }) => {
                         <Media media={item.fields.image} />
                       </div>
                     </div>
-                    <div>
-                      <p>{item.fields.text}</p>
+                    <div className={style.itemTextContent}>
+                      {item.fields.title && (
+                        <p className={style.itemTitle}>{item.fields.title}</p>
+                      )}
+                      <p className={style.itemDescription}>
+                        {item.fields.text}
+                      </p>
                     </div>
                   </li>
                 ))}
