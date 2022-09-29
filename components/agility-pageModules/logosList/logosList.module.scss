@@ -75,11 +75,16 @@
 .borders,
 .bordersPadding {
   .logo {
-    outline: 1px solid #e2e2e2;
+    border: 1px solid #e2e2e2;
     min-height: 10.25rem;
   }
   .list {
     justify-content: center;
+  }
+}
+.bordersPadding {
+  .logo {
+    border-radius: 0.5rem;
   }
 }
 :global(.bg-paleblue).borders,
@@ -87,7 +92,7 @@
 :global(.bg-paleblue).bordersPadding,
 :global(.bg-gradient-blue-light).bordersPadding {
   .logo {
-    outline-color: #c7c7c7;
+    border-color: #b5cae8;
   }
 }
 .bordersPadding.logosList {
