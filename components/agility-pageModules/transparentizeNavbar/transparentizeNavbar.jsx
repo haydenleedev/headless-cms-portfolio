@@ -15,7 +15,7 @@ const TransparentizeNavbar = ({ module }) => {
       const nextSiblingModule = moduleRef.current.nextSibling;
       const followingSiblingModule = nextSiblingModule.nextSibling; // sibling after nextSiblingModule
       nextSiblingModule.classList.add("transparentized-navbar-transform");
-      if (verticalOffsetFix && followingSiblingModule)
+      if (verticalOffsetFix)
         followingSiblingModule.classList.add("mt--navbar-height");
     }
   }, [moduleRef.current]);
