@@ -82,6 +82,14 @@
     justify-content: center;
   }
 }
+:global(.bg-paleblue).borders,
+:global(.bg-gradient-blue-light).borders,
+:global(.bg-paleblue).bordersPadding,
+:global(.bg-gradient-blue-light).bordersPadding {
+  .logo {
+    outline-color: #c7c7c7;
+  }
+}
 .bordersPadding.logosList {
   .list {
     gap: 1.5em;
