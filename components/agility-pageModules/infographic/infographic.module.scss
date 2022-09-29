@@ -35,6 +35,9 @@
         auto-fill,
         minmax(max(14.0625rem, 100% / 3), 1fr)
       );
+      @include desktop() {
+        row-gap: 1rem;
+      }
     }
     &.is4 {
       grid-template-columns: repeat(

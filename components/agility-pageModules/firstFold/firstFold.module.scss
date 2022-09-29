@@ -42,6 +42,18 @@
   }
   .circularImage {
     border-radius: 50%;
+    overflow: hidden;
+    img {
+      object-fit: cover !important;
+    }
+    span {
+      position: relative !important;
+      width: 100% !important;
+      span {
+        width: 100% !important;
+        position: relative !important;
+      }
+    }
   }
   .heading {
     max-width: 37.5rem;
