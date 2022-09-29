@@ -10,7 +10,7 @@ const CaseStudyDownloadPrompt = ({ module }) => {
 
   return (
     <section
-      className={`section ${style.caseStudyDownloadPrompt}`}
+      className={`section bg-paleblue ${style.caseStudyDownloadPrompt}`}
       id={fields.id ? fields.id : null}
     >
       <div className={`container ${style.content}`}>
