@@ -3,7 +3,10 @@ import style from "./navbarSecondary.module.scss";
 
 const NavbarSecondary = ({ navbarData, styleClsss }) => {
   return (
-    <nav className={`container ${styleClsss} ${style.navbarSecondary}`}>
+    <nav
+      className={`container ${styleClsss} ${style.navbarSecondary}`}
+      id="globalSecondaryNav"
+    >
       {navbarData.fields.navbarSecondary.map((item) => (
         <AgilityLink
           className={item.fields?.navbarSecondarySublist && style.hasSublist}
@@ -11,17 +14,20 @@ const NavbarSecondary = ({ navbarData, styleClsss }) => {
           key={item.contentID}
         >
           {item.fields.text}
-          {item.fields?.navbarSecondarySublist &&
+          {item.fields?.navbarSecondarySublist && (
             <ul className={style.sublist}>
               {item.fields?.navbarSecondarySublist.map((subItem, index) => (
                 <li key={index}>
-                  <AgilityLink agilityLink={subItem.fields.link} key={subItem.contentID}>
+                  <AgilityLink
+                    agilityLink={subItem.fields.link}
+                    key={subItem.contentID}
+                  >
                     {subItem.fields.text}
                   </AgilityLink>
                 </li>
               ))}
             </ul>
-          }
+          )}
         </AgilityLink>
       ))}
     </nav>
