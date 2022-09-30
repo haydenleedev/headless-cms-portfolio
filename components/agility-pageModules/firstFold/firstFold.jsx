@@ -37,7 +37,7 @@ const FirstFold = ({ module, customData }) => {
 
   useEffect(() => {
     // Add player listeners if the YouTube API script was already loaded
-    if (window.YT?.Player) {
+    if (fields?.videoURL?.href && window.YT?.Player) {
       handleAPIScriptLoad(true);
     }
   }, []);
@@ -45,9 +45,9 @@ const FirstFold = ({ module, customData }) => {
   const handleAPIScriptLoad = (manuallyCallAPIReady) => {
     let player;
     if (manuallyCallAPIReady == true) {
-      onYouTubeIframeAPIReady();
+      onYouTubeIframeAPIReadyFirstFold();
     }
-    function onYouTubeIframeAPIReady() {
+    function onYouTubeIframeAPIReadyFirstFold() {
       const playbackPercentages = [
         {
           percentage: 10,
@@ -141,7 +141,7 @@ const FirstFold = ({ module, customData }) => {
         return firstArr.toString() == secondArr.toString();
       };
     }
-    window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReadyFirstFold = onYouTubeIframeAPIReadyFirstFold;
   };
 
   fields.logos?.sort(function (a, b) {
