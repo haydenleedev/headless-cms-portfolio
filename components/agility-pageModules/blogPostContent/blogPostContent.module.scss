@@ -99,9 +99,8 @@
   background-color: $color-lightgray;
 }
 
-.stickyCtaBanner {
-  position: sticky;
-  top: calc($navbar-height + 1rem);
+.stickyCtaBanner,
+.stickyCtaBannerMobile {
   display: grid;
   grid-template-columns: 100%;
   gap: 1rem;
@@ -134,5 +133,21 @@
       }
       border-radius: 0.5rem;
     }
+  }
+}
+.stickyCtaBanner {
+  position: sticky;
+  top: calc($navbar-height + 1rem);
+  display: none;
+  @include desktop() {
+    display: grid;
+  }
+}
+.stickyCtaBannerMobile {
+  position: relative;
+  display: grid;
+  margin-top: 2rem;
+  @include desktop() {
+    display: none;
   }
 }

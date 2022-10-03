@@ -14,6 +14,7 @@ import { article, blogPosting } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 import AgilityLink from "../../agilityLink";
 import Media from "../media";
+import { useEffect } from "react";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const {
@@ -30,7 +31,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
     day: "numeric",
   });
 
-  const ctaPosition = blogPost.ctaPosition || "bottom";
+  const stickyCta = blogPost.ctaSticky;
 
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
 
@@ -204,6 +205,27 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                   />
                 </div>
               )}
+              {blogPost.ctaTitle && stickyCta && (
+                <div className={`${style.stickyCtaBannerMobile} bg-paleblue`}>
+                  <h2 className="heading-6">{blogPost.ctaTitle}</h2>
+                  <div
+                    dangerouslySetInnerHTML={renderHTML(sanitizedCtaHtml)}
+                  ></div>
+                  <div className={style.stickyCtaBannerImage}>
+                    {blogPost.ctaImage && <Media media={blogPost.ctaImage} />}
+                  </div>
+                  {blogPost.ctaLink && (
+                    <AgilityLink
+                      agilityLink={blogPost.ctaLink}
+                      className="button orange small"
+                      ariaLabel={`Navigate to page ` + blogPost.ctaLink.href}
+                      title={`Navigate to page ` + blogPost.ctaLink.href}
+                    >
+                      {blogPost.ctaLink.text}
+                    </AgilityLink>
+                  )}
+                </div>
+              )}
               <div
                 className={`content ${style.content}`}
                 dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
@@ -226,7 +248,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                 Request a DEMO
               </a>
             </Link>
-            {blogPost.ctaTitle && ctaPosition === "sticky" && (
+            {blogPost.ctaTitle && stickyCta && (
               <div className={`${style.stickyCtaBanner} bg-paleblue`}>
                 <h2 className="heading-6">{blogPost.ctaTitle}</h2>
                 <div
@@ -250,7 +272,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
           </div>
         </div>
       </section>
-      {blogPost.ctaTitle && ctaPosition === "bottom" && (
+      {blogPost.ctaTitle && (
         <TextWithMedia
           module={{
             fields: {
