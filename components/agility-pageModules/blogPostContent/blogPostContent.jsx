@@ -12,10 +12,16 @@ import {
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article, blogPosting } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
+import AgilityLink from "../../agilityLink";
+import Media from "../media";
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
-  const { relatedBlogPosts, sanitizedHtml, formConfiguration } =
-    customData || {};
+  const {
+    relatedBlogPosts,
+    sanitizedHtml,
+    formConfiguration,
+    sanitizedCtaHtml,
+  } = customData || {};
   const blogPost = dynamicPageItem.fields;
   const url = process.env.NEXT_PUBLIC_SITE_URL + "/blog/" + blogPost.slug;
   const dateStr = new Date(blogPost.date).toLocaleDateString("en-US", {
@@ -23,6 +29,8 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
     month: "long",
     day: "numeric",
   });
+
+  const ctaPosition = blogPost.ctaPosition || "bottom";
 
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
 
@@ -137,7 +145,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
   );
 
   return (
-    <>
+    <article>
       <OverrideSEO
         module={dynamicPageItem}
         additionalSchemas={[
@@ -196,10 +204,10 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                   />
                 </div>
               )}
-              <article
+              <div
                 className={`content ${style.content}`}
                 dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-              />
+              ></div>
             </div>
             <div className={style.share}>
               <ShareTwitter />
@@ -218,10 +226,31 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                 Request a DEMO
               </a>
             </Link>
+            {blogPost.ctaTitle && ctaPosition === "sticky" && (
+              <div className={`${style.stickyCtaBanner} bg-paleblue`}>
+                <h2 className="heading-6">{blogPost.ctaTitle}</h2>
+                <div
+                  dangerouslySetInnerHTML={renderHTML(sanitizedCtaHtml)}
+                ></div>
+                <div className={style.stickyCtaBannerImage}>
+                  {blogPost.ctaImage && <Media media={blogPost.ctaImage} />}
+                </div>
+                {blogPost.ctaLink && (
+                  <AgilityLink
+                    agilityLink={blogPost.ctaLink}
+                    className="button orange small"
+                    ariaLabel={`Navigate to page ` + blogPost.ctaLink.href}
+                    title={`Navigate to page ` + blogPost.ctaLink.href}
+                  >
+                    {blogPost.ctaLink.text}
+                  </AgilityLink>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </section>
-      {blogPost.ctaTitle && (
+      {blogPost.ctaTitle && ctaPosition === "bottom" && (
         <TextWithMedia
           module={{
             fields: {
@@ -257,7 +286,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
         overrideClass={style.blogPostList}
         blogPosts={relatedBlogPosts}
       ></BlogPostList>
-    </>
+    </article>
   );
 };
 
@@ -321,6 +350,10 @@ BlogPostContent.getCustomInitialProps = async ({
       cleanHtml(dynamicPageItem.fields.content)
     );
 
+    const sanitizedCtaHtml = convertUJETLinksToHttps(
+      cleanHtml(dynamicPageItem.fields.ctaText)
+    );
+
     const formConfiguration = await api.getContentList({
       referenceName: "formconfiguration",
       expandAllContentLinks: true,
@@ -331,6 +364,7 @@ BlogPostContent.getCustomInitialProps = async ({
       relatedBlogPosts,
       sanitizedHtml,
       formConfiguration,
+      sanitizedCtaHtml,
     };
   } catch (error) {
     if (console) console.error(error);
