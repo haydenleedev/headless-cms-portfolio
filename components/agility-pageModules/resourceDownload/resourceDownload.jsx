@@ -1,8 +1,6 @@
 import { renderHTML } from "@agility/nextjs";
-import { AgilityImage } from "@agility/nextjs";
 import Media from "../media";
 import style from "./resourceDownload.module.scss";
-import { boolean } from "../../../utils/validation";
 import AgilityLink from "../../agilityLink";
 import {
   convertUJETLinksToHttps,
@@ -13,7 +11,6 @@ import { article } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 import { useRouter } from "next/router";
 import Script from "next/script";
-import PardotForm from "../../form/pardotForm";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 
