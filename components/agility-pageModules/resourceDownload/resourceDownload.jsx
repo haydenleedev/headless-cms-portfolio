@@ -18,7 +18,7 @@ import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 
 const ResourceDownload = ({ dynamicPageItem, customData }) => {
-  const { sanitizedHtml, formConfiguration } = customData;
+  const { sanitizedHtml } = customData;
   const resourceDownload = dynamicPageItem.fields;
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
   const { asPath } = useRouter();
@@ -136,12 +136,6 @@ ResourceDownload.getCustomInitialProps = async function ({
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
 
-  const formConfiguration = await api.getContentList({
-    referenceName: "formconfiguration",
-    expandAllContentLinks: true,
-    languageCode,
-  });
-
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
   const sanitizedHtml = dynamicPageItem.fields.text
     ? convertUJETLinksToHttps(cleanHtml(dynamicPageItem.fields.text))
@@ -149,7 +143,6 @@ ResourceDownload.getCustomInitialProps = async function ({
 
   return {
     sanitizedHtml,
-    formConfiguration,
   };
 };
 
