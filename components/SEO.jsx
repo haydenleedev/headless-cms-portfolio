@@ -303,7 +303,7 @@ const SEO = ({
           (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
         `}
           </Script> */}
-              {/* <Script id="g2Crowd" strategy="afterInteractive">
+              <Script id="g2Crowd" strategy="afterInteractive">
                 {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
@@ -315,7 +315,7 @@ const SEO = ({
             d.getElementsByTagName('head')[0].appendChild(i);
           }("1136", document.location.href, document));
         `}
-              </Script> */}
+              </Script>
               {/*               <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
                 {`
           (function() {
@@ -346,21 +346,7 @@ const SEO = ({
             </>
           )}
           {/* Load Qualified script after user starts scrolling */}
-          {scrolled && (
-            <>
-              {/* Qualified Script */}
-              <Script id="qualified" strategy="lazyOnload">
-                {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
-          (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
-              </Script>
-              <Script
-                id="qualified-src"
-                async
-                src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-                strategy="lazyOnload"
-              />
-            </>
-          )}
+
           <Script
             id="onetrust"
             src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
