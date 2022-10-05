@@ -622,9 +622,11 @@ class PardotForm extends Component {
                         field={field}
                         isDealRegistrationField={this.isDealRegistrationForm}
                         isContactField={this.isContactForm}
-                        isLandingPageOrWebinarField={
+                        /*                         isLandingPageOrWebinarField={
                           this.isLandingPageOrWebinarForm
-                        }
+                        } */
+                        isCLPformField={this.props.clpField}
+                        isCLSformField={this.props.clsField}
                         isUtmCampaign={this.props.utmCampaign}
                         isUtmAsset={this.props.utmAsset}
                         formType={this.formType}

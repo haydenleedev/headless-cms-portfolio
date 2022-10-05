@@ -44,6 +44,7 @@ import TwoTextColumns from "./twoTextColumns/twoTextColumns";
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
 import ResourceContent from "./resourceContent/resourceContent";
+import ResourceDownload from "./resourceDownload/resourceDownload";
 import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
 import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
 import BlogPageContent from "./blogPageContent/blogPageContent";
@@ -66,6 +67,8 @@ import BrandVideoPopup from "../../brand/components/brandVideoPopup/brandVideoPo
 import BrandTextGridWithMedia from "../../brand/components/brandTextGridWithMedia/brandTextGridWithMedia";
 import TextWithInfographic from "./textWithInfographic/textWithInfographic";
 import BlogSubscriptionBanner from "./BlogSubscriptionBanner/blogSubscriptionBanner";
+import CaseStudyData from "./caseStudyData/caseStudyData";
+import CustomerStoryCards from "./customerStoryCards/customerStoryCards";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -74,6 +77,7 @@ const allModules = [
   { name: "RichTextArea", module: RichTextArea },
   { name: "BlogPostContent", module: BlogPostContent },
   { name: "ResourceContent", module: ResourceContent },
+  { name: "ResourceDownload", module: ResourceDownload },
   { name: "PressReleaseContent", module: PressReleaseContent },
   { name: "OverrideSEO", module: OverrideSEO },
   { name: "TextWithMedia", module: TextWithMedia },
@@ -127,6 +131,8 @@ const allModules = [
   { name: "DealRegistration", module: DealRegistration },
   { name: "ChannelRequest", module: ChannelRequest },
   { name: "BlogSubscriptionBanner", module: BlogSubscriptionBanner },
+  { name: "CaseStudyData", module: CaseStudyData },
+  { name: "CustomerStoryCards", module: CustomerStoryCards },
   { name: "BrandFirstFold", module: BrandFirstFold },
   { name: "BrandTextGridWithMedia", module: BrandTextGridWithMedia },
   { name: "BrandTextWithMedia", module: BrandTextWithMedia },

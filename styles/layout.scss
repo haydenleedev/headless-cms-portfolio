@@ -617,6 +617,9 @@
 .pt-1px {
   padding-top: 1px !important;
 }
+.pt-1 {
+  padding-top: $size-1 !important;
+}
 .pt-2 {
   padding-top: $size-2 !important;
 }
@@ -760,4 +763,11 @@ fieldset {
 /* GreenHouse Forms */
 .content-intro {
   margin-bottom: 2rem;
+}
+
+.imgLink {
+  &:hover img {
+    opacity: 0.7;
+    border-color: #92c0e5 !important;
+  }
 }
