@@ -346,7 +346,21 @@ const SEO = ({
             </>
           )}
           {/* Load Qualified script after user starts scrolling */}
-
+          {scrolled && (
+            <>
+              {/* Qualified Script */}
+              <Script id="qualified" strategy="lazyOnload">
+                {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+          (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
+              </Script>
+              <Script
+                id="qualified-src"
+                async
+                src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+                strategy="lazyOnload"
+              />
+            </>
+          )}
           <Script
             id="onetrust"
             src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
