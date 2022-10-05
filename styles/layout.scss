@@ -764,3 +764,10 @@ fieldset {
 .content-intro {
   margin-bottom: 2rem;
 }
+
+.imgLink {
+  &:hover img {
+    opacity: 0.7;
+    border-color: #92c0e5 !important;
+  }
+}

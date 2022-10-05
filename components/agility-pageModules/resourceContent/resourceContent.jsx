@@ -90,6 +90,9 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   const utmCampaignValue = getUrlParamValue("utm_campaign");
   const utmAssetValue = getUrlParamValue("utm_asset");
 
+  // Set clp value from the url if the value exist.  If there's no parameters, then get the default values from "resource.currentLeadProgram2".
+  const clpValue = getUrlParamValue("clp");
+
   const setUtmCampaignValue = (url) => {
     if (utmCampaignValue) {
       return utmCampaignValue;
@@ -102,6 +105,13 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
       return utmAssetValue;
     } else {
       return resource.uTMCampaignAsset ? resource.uTMCampaignAsset : null;
+    }
+  };
+  const setClpValue = (url) => {
+    if (clpValue) {
+      return clpValue;
+    } else {
+      return resource.currentLeadProgram2 ? resource.currentLeadProgram2 : null;
     }
   };
 
@@ -247,6 +257,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           typeof window !== "undefined" &&
                           setUtmAssetValue(window.location.href)
                         }
+                        clpField={
+                          typeof window !== "undefined" &&
+                          setClpValue(window.location.href)
+                        }
+                        clsField={resource.currentLeadSource2}
                       />
                     </div>
                   </div>
@@ -333,6 +348,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           typeof window !== "undefined" &&
                           setUtmAssetValue(window.location.href)
                         }
+                        clpField={
+                          typeof window !== "undefined" &&
+                          setClpValue(window.location.href)
+                        }
+                        clsField={resource.currentLeadSource2}
                       />
                       {resource.link?.href && resource.link?.text && (
                         <div className="mt-4 align-center">

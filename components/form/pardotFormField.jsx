@@ -36,7 +36,9 @@ const PardotFormField = ({
   setPasteError,
   isUtmCampaign,
   isUtmAsset,
-  isLandingPageOrWebinarField,
+  /* isLandingPageOrWebinarField, */
+  isCLPformField,
+  isCLSformField,
 }) => {
   // Manually set data format for certain fields, as they are not set correctly in Pardot
   if (isSelectField(field)) {
@@ -232,12 +234,20 @@ const PardotFormField = ({
                   ? isAssetType
                   : field.name.toLowerCase() === "asset url"
                   ? isAssetUrl
-                  : field.name.toLowerCase() === "utm_campaign" &&
+                  : /* : field.name.toLowerCase() === "utm_campaign" &&
                     isLandingPageOrWebinarField
                   ? isUtmCampaign
                   : field.name.toLowerCase() === "utm_asset" &&
                     isLandingPageOrWebinarField
+                  ? isUtmAsset */
+                  field.name.toLowerCase() === "utm_campaign"
+                  ? isUtmCampaign
+                  : field.name.toLowerCase() === "utm_asset"
                   ? isUtmAsset
+                  : field.name.toLowerCase() === "current lead program 2"
+                  ? isCLPformField
+                  : field.name.toLowerCase() === "current lead source 2"
+                  ? isCLSformField
                   : partnerFieldProperties?.value
               }
             />

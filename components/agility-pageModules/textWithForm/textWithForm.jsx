@@ -8,6 +8,7 @@ import Heading from "../heading";
 import PardotForm from "../../form/pardotForm";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
+import { getUrlParamValue } from "../../../utils/getUrlParamValue";
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards, formConfiguration } = customData;
@@ -28,15 +29,44 @@ const TextWithForm = ({ module, customData }) => {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
 
+  // Set utm_campaign and utm_asset values from the url if the values exist.  If there's no parameters, then get the default values from "fields.uTMCampaignAsset".
+  const utmCampaignValue = getUrlParamValue("utm_campaign");
+  const utmAssetValue = getUrlParamValue("utm_asset");
+
+  // Set clp value from the url if the value exist.  If there's no parameters, then get the default values from "fields.currentLeadProgram2".
+  const clpValue = getUrlParamValue("clp");
+
+  const setUtmCampaignValue = (url) => {
+    if (utmCampaignValue) {
+      return utmCampaignValue;
+    } else {
+      return fields.uTMCampaignAsset ? fields.uTMCampaignAsset : null;
+    }
+  };
+  const setUtmAssetValue = (url) => {
+    if (utmAssetValue) {
+      return utmAssetValue;
+    } else {
+      return fields.uTMCampaignAsset ? fields.uTMCampaignAsset : null;
+    }
+  };
+  const setClpValue = (url) => {
+    if (clpValue) {
+      return clpValue;
+    } else {
+      return fields.currentLeadProgram2 ? fields.currentLeadProgram2 : null;
+    }
+  };
+
   useEffect(() => {
     campaignScriptIDRef.current = fields.campaignTrackingID;
   }, []);
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section
@@ -125,6 +155,19 @@ const TextWithForm = ({ module, customData }) => {
                 contactType={
                   fields.contactType ? fields.contactType : "request_a_demo"
                 }
+                utmCampaign={
+                  typeof window !== "undefined" &&
+                  setUtmCampaignValue(window.location.href)
+                }
+                utmAsset={
+                  typeof window !== "undefined" &&
+                  setUtmAssetValue(window.location.href)
+                }
+                clpField={
+                  typeof window !== "undefined" &&
+                  setClpValue(window.location.href)
+                }
+                clsField={fields.currentLeadSource2}
               />
             </div>
           </aside>
