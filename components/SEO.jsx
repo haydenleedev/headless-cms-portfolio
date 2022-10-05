@@ -191,7 +191,7 @@ const SEO = ({
             `}
           </Script> */}
 
-              <Script id="6sense">
+              {/*  <Script id="6sense">
                 {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
@@ -290,7 +290,7 @@ const SEO = ({
               s.parentNode.insertBefore(gd, s);
               })();
           `}
-              </Script>
+              </Script> */}
 
               {/* <Script
             id="google-optimize"
