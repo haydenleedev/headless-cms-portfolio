@@ -191,7 +191,7 @@ const SEO = ({
             `}
           </Script> */}
 
-              {/* <Script id="6sense">
+              <Script id="6sense">
                 {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
@@ -290,7 +290,7 @@ const SEO = ({
               s.parentNode.insertBefore(gd, s);
               })();
           `}
-              </Script> */}
+              </Script>
 
               {/* <Script
             id="google-optimize"
@@ -303,7 +303,7 @@ const SEO = ({
           (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
         `}
           </Script> */}
-              <Script id="g2Crowd" strategy="afterInteractive">
+              {/* <Script id="g2Crowd" strategy="afterInteractive">
                 {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
@@ -315,7 +315,7 @@ const SEO = ({
             d.getElementsByTagName('head')[0].appendChild(i);
           }("1136", document.location.href, document));
         `}
-              </Script>
+              </Script> */}
               {/*               <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
                 {`
           (function() {
