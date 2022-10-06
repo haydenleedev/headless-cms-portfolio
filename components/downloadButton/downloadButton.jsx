@@ -26,15 +26,9 @@ const DownloadButton = ({
       setDownloadMessage("Download Ready!");
       setTimeout(() => {
         setProgress(0);
-        if (isMobile) {
-          setDownloadMessage(
-            "Please check the 'Downloads' folder of your device."
-          );
-        } else {
-          setDownloadMessage(
-            "If you can't see the document in your browser, please check your 'Downloads' folder."
-          );
-        }
+        setDownloadMessage(
+          "If you can't see the document in your browser, please check your 'Downloads' folder."
+        );
         document.body.addEventListener("click", resetMessage);
       }, 2000);
       clearTimeout(progressInterval);
