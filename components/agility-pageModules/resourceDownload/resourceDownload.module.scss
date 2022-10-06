@@ -29,9 +29,11 @@
   }
 }
 .thumbnailButton {
-  padding: 0 toRem(30) toRem(40) toRem(30);
-  a {
+  padding: 0 toRem(34) toRem(40) toRem(34);
+  a,
+  button {
     width: 100%;
+    font-size: toRem(22);
   }
 }
 .form {
