@@ -84,8 +84,11 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
                         >
                           <Image src="/download.svg" width={60} height={60} />
 
-                          {resourceDownload.formTitle ||
-                            "Please click to download the resource today!"}
+                          <span className="ml-2 d-flex text-20px text-darkblue w-600 line-height-1-2">
+                            {" "}
+                            {resourceDownload.formTitle ||
+                              "Please click to download the resource today!"}
+                          </span>
                         </h2>
                       )}
                       <div className={style.thumbnailWrap}>
@@ -105,7 +108,7 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
                         {resourceDownload.link?.href &&
                           resourceDownload.link?.text && (
                             <div
-                              className={`mt-4 align-center ${style.thumbnailButton}`}
+                              className={`mt-3 align-center ${style.thumbnailButton}`}
                             >
                               <AgilityLink
                                 className="button navy"
