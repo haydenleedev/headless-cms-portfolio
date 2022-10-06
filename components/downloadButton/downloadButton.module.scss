@@ -2,11 +2,16 @@
 @import "~/styles/settings/mixins";
 
 .downloadButton {
+  & > button {
+    background-color: unset;
+    border: unset;
+  }
   .progress {
     margin-top: 0.5rem;
     padding: 0 1rem;
   }
   .status {
+    color: $color-red;
     text-align: center;
     margin-top: 0.5rem;
     font-size: 1rem;

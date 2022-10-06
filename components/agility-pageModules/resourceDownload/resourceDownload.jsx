@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
+import Image from "next/image";
 
 const ResourceDownload = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;
@@ -78,7 +79,11 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
                       className={`${resourceDownload.formBackgroundColor} ${style.form}`}
                     >
                       {/\S/.test(resourceDownload.formTitle) && (
-                        <h2 className={`${style.formTitle} heading-6`}>
+                        <h2
+                          className={`${style.formTitle} heading-6 d-flex align-items-center`}
+                        >
+                          <Image src="/download.svg" width={60} height={60} />
+
                           {resourceDownload.formTitle ||
                             "Please click to download the resource today!"}
                         </h2>

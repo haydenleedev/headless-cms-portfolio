@@ -14,14 +14,28 @@ const DownloadButton = ({
   const [downloadMessage, setDownloadMessage] = useState(null);
   useEffect(() => {
     let progressInterval;
+    const isMobile =
+      /iPhone|iPad|iPod|Android|webOS|BlackBerry|Windows Phone|/i.test(
+        navigator?.userAgent
+      );
+    const resetMessage = () => {
+      setDownloadMessage(null);
+      document.body.removeEventListener("click", resetMessage);
+    };
     if (progress >= 100) {
       setDownloadMessage("Download Ready!");
       setTimeout(() => {
         setProgress(0);
-        setDownloadMessage("Please check your 'Downloads' folder.");
-        setTimeout(() => {
-          setDownloadMessage(null);
-        }, 2000);
+        if (isMobile) {
+          setDownloadMessage(
+            "Please check the 'Downloads' folder of your device."
+          );
+        } else {
+          setDownloadMessage(
+            "If you can't see the document in your browser, please check your 'Downloads' folder."
+          );
+        }
+        document.body.addEventListener("click", resetMessage);
       }, 2000);
       clearTimeout(progressInterval);
     } else if (progress > 0 && progress < 100) {
@@ -35,13 +49,13 @@ const DownloadButton = ({
   }, [progress]);
 
   const downloadResource = () => {
+    const isMobile =
+      /iPhone|iPad|iPod|Android|webOS|BlackBerry|Windows Phone|/i.test(
+        navigator?.userAgent
+      );
     setProgress(0);
     setDownloadMessage("Please wait...");
     if (url) {
-      const isMobile =
-        /iPhone|iPad|iPod|Android|webOS|BlackBerry|Windows Phone|/i.test(
-          navigator.userAgent
-        );
       const link = document.createElement("a");
       link.href = url;
       link.target = "_blank";
@@ -60,7 +74,7 @@ const DownloadButton = ({
   return (
     <div className={style.downloadButton}>
       <button
-        className={className}
+        className={`${className}`}
         onClick={downloadResource}
         disabled={loading}
         title={title}
