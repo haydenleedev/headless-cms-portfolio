@@ -1,7 +1,7 @@
 import { AgilityImage } from "@agility/nextjs";
 import { useEffect, useState } from "react";
 
-const Media = ({ media, title }) => {
+const Media = ({ media, title, nextImageProps }) => {
   const [videoDefinitelyNotSupported, setVideoDefinitelyNotSupported] =
     useState(false);
   let mediaName = media?.url?.split("/");
@@ -31,6 +31,7 @@ const Media = ({ media, title }) => {
             width={media.pixelWidth != "0" ? media.pixelWidth + "px" : "360"}
             height={media.pixelHeight}
             title={title ? title : ""}
+            {...nextImageProps}
             // Does not work well...
             // layout="responsive"
           ></AgilityImage>
