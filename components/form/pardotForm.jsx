@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { formatPhoneNumber } from "../../shop/utils/formatData";
 import style from "./form.module.scss";
 import FormError from "./formError";
-import { isEmail, isPhoneNumber } from "../../shop/utils/validation";
+import {
+  isEmail,
+  isPhoneNumber,
+  isFreeEmail,
+} from "../../shop/utils/validation";
 import PardotFormField from "./pardotFormField";
 import { getCookie } from "../../utils/cookies";
 import {
@@ -43,7 +47,7 @@ class PardotForm extends Component {
     this.setPasteError = this.setPasteError.bind(this);
 
     this.errorMessages = [
-      { field: "Email", message: "Please enter a valid email" },
+      { field: "Email", message: "Please enter a valid company email" },
       {
         field: "Phone Number",
         message: "Please enter a valid phone number",
@@ -478,6 +482,11 @@ class PardotForm extends Component {
               case "Email":
                 if (!isEmail(fieldRef.current.value)) {
                   errors[index] = true;
+                } else if (
+                  isFreeEmail(fieldRef.current.value) &&
+                  this.isContactForm
+                ) {
+                  errors[index] = true;
                 }
                 break;
               default:
@@ -613,9 +622,11 @@ class PardotForm extends Component {
                         field={field}
                         isDealRegistrationField={this.isDealRegistrationForm}
                         isContactField={this.isContactForm}
-                        isLandingPageOrWebinarField={
+                        /*                         isLandingPageOrWebinarField={
                           this.isLandingPageOrWebinarForm
-                        }
+                        } */
+                        isCLPformField={this.props.clpField}
+                        isCLSformField={this.props.clsField}
                         isUtmCampaign={this.props.utmCampaign}
                         isUtmAsset={this.props.utmAsset}
                         formType={this.formType}

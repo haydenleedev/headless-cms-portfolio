@@ -11,3 +11,28 @@ export function isWebsite(website) {
 export function isPhoneNumber(phoneNumber) {
   return phoneNumber.match(usPhoneRegex);
 }
+
+/*** Block free email domains for contact form */
+const freeEmailDomains = [
+  /@gmail.com/,
+  /@yahoo.com/,
+  /@msn.com/,
+  /@comcast.net/,
+  /@hotmail.com/,
+  /@icloud.com/,
+  /@form.us/,
+  /@outlook.com/,
+];
+let freeEmailRegex;
+
+export function isFreeEmail(email) {
+  if (
+    freeEmailDomains.some((domain) =>
+      domain.test(String(email).toLocaleLowerCase())
+    )
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}

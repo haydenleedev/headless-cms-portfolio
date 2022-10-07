@@ -66,7 +66,11 @@ const Navbar = ({ globalData }) => {
             }
           }
           if (window.innerWidth < 890) setTransparentBackground(false);
-          if (window.scrollY > firstSection.getBoundingClientRect().top) {
+          if (
+            window.scrollY >
+            firstSection.getBoundingClientRect().top +
+              document.getElementById("globalSecondaryNav").clientHeight
+          ) {
             setPageScrolled(true);
             setTransparentBackground(false);
           } else {

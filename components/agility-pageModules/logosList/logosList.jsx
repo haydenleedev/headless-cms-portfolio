@@ -19,18 +19,21 @@ const LogosList = ({ module, customData }) => {
   });
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
-
-  console.log(fields)
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section
       className={`section ${style.logosList}
-      ${fields?.borders === 'borders-between' ? style.borders :
-        fields?.borders === 'borders-between-padding' ? style.bordersPadding : ''}
+      ${
+        fields?.borders === "borders-between"
+          ? style.borders
+          : fields?.borders === "borders-between-padding"
+          ? style.bordersPadding
+          : ""
+      }
       ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         fields.classes ? fields.classes : ""
       } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}

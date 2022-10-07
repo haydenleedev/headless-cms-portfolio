@@ -3,49 +3,42 @@ import { Component, useState, useEffect } from "react";
 import {
   elementClick,
   linkClick,
-  marketoFormSuccess,
-  marketoScriptReady,
   youTubeActivity,
   scrollDepth,
   sixtySecondTimer,
-  marketoFormInView,
   verticalPageView,
-  marketoFormSubmission,
 } from "./triggers";
-import htmlMarketoFormListener from "./scripts/htmlMarketoFormListener";
 import g2Crowd from "./scripts/g2Crowd";
-import marketoAsynchMunchkin from "./scripts/marketoAsynchMunchkin";
+/* import marketoAsynchMunchkin from "./scripts/marketoAsynchMunchkin"; */
 import {
   elementClickEvent,
   linkClickEvent,
   youTubeActivityEvent,
   scrollDepthEvent,
   engagedUserTimerEvent,
-  marketoFormInViewEvent,
   verticalPageViewEvent,
-  marketoFormSubmissionEvent,
 } from "../utils/dataLayer";
 
 export const Tags = () => {
   return (
     <>
-      <ScriptTag
+      {/* <ScriptTag
         script={htmlMarketoFormListener}
         scriptId="htmlMarketoFormListener"
         triggerInitializer={marketoScriptReady}
-      />
+      /> */}
       <ScriptTag script={g2Crowd} scriptId="g2Crowd" />
-      <ScriptTag
+      {/*       <ScriptTag
         script={marketoAsynchMunchkin}
         scriptId="marketoAsyncMunchkin"
-      />
+      /> */}
       {/* LinkedIn Conversion */}
-      <PixelTag
+      {/*       <PixelTag
         src={
           "https://px.ads.linkedin.com/collect/?pid=1316394&conversionId=1966345&fmt=gif"
         }
         triggerInitializer={marketoFormSuccess}
-      />
+      /> */}
       <AnalyticsTag
         generateEvent={elementClickEvent}
         triggerInitializer={elementClick}
@@ -66,18 +59,18 @@ export const Tags = () => {
         generateEvent={engagedUserTimerEvent}
         triggerInitializer={sixtySecondTimer}
       />
-      <AnalyticsTag
+      {/*       <AnalyticsTag
         generateEvent={marketoFormInViewEvent}
         triggerInitializer={marketoFormInView}
-      />
+      /> */}
       <AnalyticsTag
         generateEvent={verticalPageViewEvent}
         triggerInitializer={verticalPageView}
       />
-      <AnalyticsTag
+      {/* <AnalyticsTag
         generateEvent={marketoFormSubmissionEvent}
         triggerInitializer={marketoFormSubmission}
-      />
+      /> */}
     </>
   );
 };

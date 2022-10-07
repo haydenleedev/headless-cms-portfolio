@@ -457,10 +457,13 @@
 }
 
 .mt--navbar-height {
+  margin-top: 0 !important;
   // helper class to fix the top offset when TransparentizeNavbar module is added to page
-  margin-top: calc(
-    0rem - ($navbar-height + $navbar-secondary-height)
-  ) !important;
+  @include desktop() {
+    margin-top: calc(
+      0rem - ($navbar-height + $navbar-secondary-height)
+    ) !important;
+  }
 }
 
 .mb-0 {
@@ -614,6 +617,9 @@
 .pt-1px {
   padding-top: 1px !important;
 }
+.pt-1 {
+  padding-top: $size-1 !important;
+}
 .pt-2 {
   padding-top: $size-2 !important;
 }
@@ -757,4 +763,29 @@ fieldset {
 /* GreenHouse Forms */
 .content-intro {
   margin-bottom: 2rem;
+}
+
+.imgLink {
+  &:hover img {
+    opacity: 0.7;
+    border-color: #92c0e5 !important;
+  }
+}
+
+.progress {
+  border-radius: 0.5rem;
+  background-color: $color-white;
+  border: 1px solid $color-gray;
+  height: 1rem;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  &--bar {
+    background-color: $color-darkblue;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
 }
