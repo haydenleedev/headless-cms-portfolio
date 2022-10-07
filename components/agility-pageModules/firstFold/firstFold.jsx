@@ -459,11 +459,7 @@ const FirstFold = ({ module, customData }) => {
                         />
                       </div>
                     ) : (
-                      <Media
-                        media={fields.media}
-                        title={fields.mediaTitle}
-                        nextImageProps={{ priority: true }}
-                      />
+                      <Media media={fields.media} title={fields.mediaTitle} />
                     )}
                   </div>
                 )}
@@ -507,11 +503,7 @@ const FirstFold = ({ module, customData }) => {
                           />
                         </div>
                       ) : (
-                        <Media
-                          media={fields.media}
-                          title={fields.mediaTitle}
-                          nextImageProps={{ priority: true }}
-                        />
+                        <Media media={fields.media} title={fields.mediaTitle} />
                       )}
                     </div>
                   </AgilityLink>
