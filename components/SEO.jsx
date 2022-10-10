@@ -18,7 +18,7 @@ const SEO = ({
   pageTemplateName,
 }) => {
   const [scrolled, setScrolled] = useState(false);
-  /*   const [timerExpired, setTimerExpired] = useState(false); */
+  const [timerExpired, setTimerExpired] = useState(false);
   const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
@@ -47,9 +47,9 @@ const SEO = ({
       window.addEventListener("scroll", handleScroll);
     }
     // Delay script loading with setTimeout
-    /*     setTimeout(() => {
+    setTimeout(() => {
       setTimerExpired(true);
-    }, 0); */
+    }, 0);
 
     router.events.on("routeChangeStart", () => {
       campaignScriptIDRef.current = null;
@@ -126,16 +126,18 @@ const SEO = ({
       </Head>
       {pageTemplateName !== "BrandTemplate" && (
         <>
-          {/*           <Script id="google-tag-manager">
-            {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          {timerExpired && (
+            <>
+              <Script id="google-tag-manager">
+                {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
-          </Script> */}
-          {/* <Script id="bombora"> */}
-          {/* Bombora Tag */}
-          {/* {`
+              </Script>
+              {/* <Script id="bombora"> */}
+              {/* Bombora Tag */}
+              {/* {`
               //informer
               (function(f,i,c){var a=decodeURIComponent,e="",l="",o="||",g=";;",h="split",b="length",j="indexOf",k=0,n="localStorage",m="_ccmdt";f[c]=f[c]||{};function d(q){var p;if(f[n]){return f[n][q]||""}else{p=i.cookie.match(q+"=([^;]*)");return(p&&p[1])||""}}f[c].us={};e=a(d(m))[h](o);k=e[b];if(k>0){while(k--){l=e[k][h]("=");if(l[b]>1){if(l[1][j](g)>-1){f[c].us[l[0]]=l[1][h](g);f[c].us[l[0]].pop()}else{f[c].us[l[0]]=l[1]}}}}})(window,document,"_ml");
 
@@ -171,8 +173,8 @@ const SEO = ({
                 s.parentNode.insertBefore(mltag, s);
               })();
             `} */}
-          {/* </Script> */}
-          {/* <Script id="6sense2">
+              {/* </Script> */}
+              {/* <Script id="6sense2">
             {`
               window._6si = window._6si || [];
               window._6si.push(['enableEventTracking', true]);
@@ -189,8 +191,8 @@ const SEO = ({
             `}
           </Script> */}
 
-          {/*           <Script id="6sense">
-            {`
+              <Script id="6sense">
+                {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
               if (a === '') {
@@ -288,21 +290,21 @@ const SEO = ({
               s.parentNode.insertBefore(gd, s);
               })();
           `}
-          </Script> */}
+              </Script>
 
-          {/* <Script
+              {/* <Script
             id="google-optimize"
             src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
             strategy="lazyOnload"
           /> */}
-          {/* <Script id="ax" strategy="afterInteractive">
+              {/* <Script id="ax" strategy="afterInteractive">
             {`
           _atrk_opts = { atrk_acct:"xw4cw1Y1Mn20Io", domain:"ujet.cx",dynamic: true};
           (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
         `}
           </Script> */}
-          {/*           <Script id="g2Crowd" strategy="afterInteractive">
-            {`
+              <Script id="g2Crowd" strategy="afterInteractive">
+                {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
             u = 'https://tracking.g2crowd.com/attribution_tracking/conversions/' + c + '.js?p=' + encodeURI(p) + '&e=' + id;
@@ -313,8 +315,8 @@ const SEO = ({
             d.getElementsByTagName('head')[0].appendChild(i);
           }("1136", document.location.href, document));
         `}
-          </Script> */}
-          {/*               <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
+              </Script>
+              {/*               <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
                 {`
           (function() {
             var didInit = false;
@@ -338,10 +340,11 @@ const SEO = ({
           })();
           `}
               </Script> */}
-          {/*           <Script
-            src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY}`}
-          /> */}
-
+              <Script
+                src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY}`}
+              />
+            </>
+          )}
           {/* Load Qualified script after user starts scrolling */}
           {scrolled && (
             <>
@@ -358,7 +361,7 @@ const SEO = ({
               />
             </>
           )}
-          {/*           <Script
+          <Script
             id="onetrust"
             src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
             charSet="UTF-8"
@@ -366,7 +369,7 @@ const SEO = ({
             data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
           />
 
-          <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script> */}
+          <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
         </>
       )}
     </>
