@@ -340,9 +340,9 @@ const SEO = ({
           })();
           `}
               </Script> */}
-              <Script
+              {/* <Script
                 src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY}`}
-              />
+              /> */}
             </>
           )}
           {/* Load Qualified script after user starts scrolling */}
