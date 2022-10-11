@@ -138,6 +138,12 @@
     padding: 1.5rem;
     height: 100%;
     overflow: hidden;
+    .objectFitContainItemImages {
+      padding: 1rem 0;
+      img {
+        object-fit: contain !important;
+      }
+    }
   }
   &:not(.logoLeftHeaderRight) {
     .textItem {

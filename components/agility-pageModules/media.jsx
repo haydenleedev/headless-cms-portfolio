@@ -1,5 +1,6 @@
 import { AgilityImage } from "@agility/nextjs";
 import { useEffect, useState } from "react";
+import Video from "../video/video";
 
 const Media = ({ media, title }) => {
   const [videoDefinitelyNotSupported, setVideoDefinitelyNotSupported] =
@@ -45,18 +46,17 @@ const Media = ({ media, title }) => {
                 </div>
               </div>
             ) : (
-              <video
+              <Video
+                src={media.url}
+                type={`video/${mediaType}`}
                 className="video"
                 autoPlay
                 playsInline
                 muted
                 loop
                 controls
-                aria-label={media.label || ""}
-              >
-                <source src={media.url} type={`video/${mediaType}`} />
-                Your browser does not support the video tag.
-              </video>
+                ariaLabel={media.label || ""}
+              />
             )}
           </>
         );

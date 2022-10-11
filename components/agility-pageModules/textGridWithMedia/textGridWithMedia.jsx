@@ -14,6 +14,10 @@ const TextGridWithMedia = ({ module, customData }) => {
   const narrowContainer = boolean(fields?.narrowContainer);
   const itemShadow = boolean(fields?.itemShadow);
   const roundCorners = boolean(fields?.roundCorners);
+  const objectFitContainItemImages = boolean(
+    fields?.objectFitContainItemImages
+  );
+
   const itemImagesAtTop = fields.itemStyle == null;
 
   itemsWithSanitizedHTML.sort(function (a, b) {
@@ -49,7 +53,7 @@ const TextGridWithMedia = ({ module, customData }) => {
       ? style[`is-${itemsWithSanitizedHTML.length}`]
       : style[`is-${columns}`];
 
-  const TextItem = ({ data }) => {
+  const TextItem = ({ data, objectFitContainItemImages }) => {
     const itemFields = data.fields;
     const heading = JSON.parse(itemFields.heading);
     return (
@@ -96,6 +100,11 @@ const TextGridWithMedia = ({ module, customData }) => {
                       fields.itemImageHorizontalAlignment || "start"
                     }`}
                   `
+                  : ""
+              }
+              ${
+                objectFitContainItemImages
+                  ? style.objectFitContainItemImages
                   : ""
               }
             `}
@@ -215,7 +224,10 @@ const TextGridWithMedia = ({ module, customData }) => {
                       ${index + 1 > (numberOfRows - 1) * columns ? "mb-0" : ""}
                     `}
                   >
-                    <TextItem data={textItem} />
+                    <TextItem
+                      data={textItem}
+                      objectFitContainItemImages={objectFitContainItemImages}
+                    />
                   </AgilityLink>
                 );
               } else {
@@ -229,7 +241,11 @@ const TextGridWithMedia = ({ module, customData }) => {
                       ${index + 1 > (numberOfRows - 1) * columns ? "mb-0" : ""}
                   `}
                   >
-                    <TextItem data={textItem} key={`textItem${index}`} />
+                    <TextItem
+                      data={textItem}
+                      key={`textItem${index}`}
+                      objectFitContainItemImages={objectFitContainItemImages}
+                    />
                   </div>
                 );
               }
