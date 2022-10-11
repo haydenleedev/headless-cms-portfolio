@@ -7,6 +7,7 @@ import {
   states,
   preferredMasterAgent,
   partnerAreaOfInterest,
+  certificationType,
 } from "./selectFieldOptions";
 import style from "./form.module.scss";
 
@@ -62,6 +63,7 @@ const PardotFormField = ({
       { regex: /current crm solution/, options: crmSolutions },
       { regex: /preferred master agent/, options: preferredMasterAgent },
       { regex: /partner area of interest/, options: partnerAreaOfInterest },
+      { regex: /certification type/, options: certificationType },
     ];
     for (let i = 0; i < selectFields.length; i++) {
       if (selectFields[i].regex.test(String(field.name).toLocaleLowerCase())) {
