@@ -137,6 +137,10 @@ const mainNavs = [
             sub_href: "/resources/#whitepapers-and-ebooks",
           },
           {
+            sub_item: "Partner Content",
+            sub_href: "/resources/#partner-content",
+          },
+          {
             sub_item: "Product Data Sheets",
             sub_href: "/resources/#integration-guides",
           },
