@@ -22,6 +22,7 @@ const freeEmailDomains = [
   /@icloud.com/,
   /@form.us/,
   /@outlook.com/,
+  /@gmail.co.za/,
 ];
 let freeEmailRegex;
 

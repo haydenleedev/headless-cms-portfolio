@@ -45,6 +45,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
       lowerCaseResourceCategory === "webinars"
     ) {
       return "3712";
+    } else if (
+      lowerCaseResourceCategory === "partnercontent" ||
+      lowerCaseResourceCategory === "partner-content"
+    ) {
+      return "3889";
     } else {
       return "3658";
     }
@@ -58,6 +63,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
       lowerCaseResourceCategory === "webinars"
     ) {
       return "https://info.ujet.cx/l/986641/2022-08-05/kgtbn";
+    } else if (
+      lowerCaseResourceCategory === "partnercontent" ||
+      lowerCaseResourceCategory === "partner-content"
+    ) {
+      return "https://info.ujet.cx/l/986641/2022-10-07/l1pj2";
     } else {
       return "https://info.ujet.cx/l/986641/2022-07-26/kdq1r";
     }
@@ -75,6 +85,8 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     { referenceName: "videos", type: "Webinar" },
     { referenceName: "webinars", type: "Webinar" },
     { referenceName: "integrations", type: "Datasheet" },
+    { referenceName: "partnercontent", type: "Partner Content" },
+    { referenceName: "partner-content", type: "Partner Content" },
   ];
 
   const getAssetType = () => {

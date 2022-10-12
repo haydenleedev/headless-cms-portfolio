@@ -41,6 +41,8 @@ export default function handler(req, res) {
         return "White Paper";
       case "integrations":
         return "Product Datasheet";
+      case "partnercontent":
+        return "Partner Content";
       case "reports":
         return "Report";
       case "blogposts":
@@ -334,6 +336,10 @@ export default function handler(req, res) {
           break;
         }
         case "whitepapers": {
+          resourceUpdate(req.body.contentID, req.body.state);
+          break;
+        }
+        case "partnercontent": {
           resourceUpdate(req.body.contentID, req.body.state);
           break;
         }
