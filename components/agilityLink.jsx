@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { hrefSelf } from "../utils/validation";
-import { useRouter } from "next/router";
+import { checkForResourceURL, hrefSelf } from "../utils/validation";
+import DownloadButton from "./downloadButton/downloadButton";
 
 // use this component instead of directly using next/link / a tag combo WHEN a link from Agility is passed!!
 // determines whether a link from agility is inner or outer
@@ -40,17 +40,20 @@ const AgilityLink = ({
   children,
   smooth = false,
 }) => {
-  const router = useRouter();
-
   const href = agilityLink?.href;
   if (!href)
     throw new Error(
       "AgilityLink: agilityLink prop must include a property called href!"
     );
+  const isResource = checkForResourceURL(href);
   const isInner = hrefSelf(href);
   const rel = isInner ? null : "noindex noreferrer nofollow";
   const target = isInner ? "_self" : "_blank";
-  return href ? (
+  return isResource ? (
+    <DownloadButton url={href} {...{ className, title, ariaLabel, onFocus }}>
+      {children}
+    </DownloadButton>
+  ) : href ? (
     <Link
       href={sanitizeHref(href)}
       as={as}
@@ -74,8 +77,7 @@ const AgilityLink = ({
             let hash;
             if (sanitizedHref[0] == "#") {
               hash = sanitizedHref;
-            }
-            else if (sanitizedHref[0] == "/") {
+            } else if (sanitizedHref[0] == "/") {
               hash = `#${sanitizedHref.split("#")[1]}`;
             }
             e.preventDefault();

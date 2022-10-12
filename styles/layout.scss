@@ -771,3 +771,21 @@ fieldset {
     border-color: #92c0e5 !important;
   }
 }
+
+.progress {
+  border-radius: 0.5rem;
+  background-color: $color-white;
+  border: 1px solid $color-gray;
+  height: 1rem;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  &--bar {
+    background-color: $color-darkblue;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+}

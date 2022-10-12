@@ -26,12 +26,16 @@
   img {
     border: toRem(4) solid $color-paleblue !important;
     border-radius: toRem(20);
+    cursor: pointer;
   }
 }
 .thumbnailButton {
-  padding: 0 toRem(30) toRem(40) toRem(30);
-  a {
+  padding: 0 toRem(34) toRem(40) toRem(34);
+  a,
+  button {
     width: 100%;
+    font-size: toRem(22);
+    cursor: pointer;
   }
 }
 .form {

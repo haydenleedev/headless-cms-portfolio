@@ -70,6 +70,8 @@ export const resolveCategory = (referenceName) => {
       return "Product Datasheet";
     case "reports":
       return "Report";
+    case "partnercontent":
+      return "Partner Content";
     case "blogposts":
       return "Blog";
     default:
@@ -92,6 +94,8 @@ export const resolveLink = (referenceName, fields) => {
       return { href: `/integrations/${fields.slug}` };
     case "whitepapers":
       return { href: `/resources/white-papers/${fields.slug}` };
+    case "partnercontent":
+      return { href: `/resources/partner-content/${fields.slug}` };
     default:
       return { href: `/resources/${referenceName}/${fields.slug}` };
   }
