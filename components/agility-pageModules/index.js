@@ -40,6 +40,7 @@ import Accordion from "./accordion/accordion";
 import BlankCards from "./blankCards/blankCards";
 import SecondaryNav from "./secondaryNav/secondaryNav";
 import TwoTextColumns from "./twoTextColumns/twoTextColumns";
+import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
@@ -139,6 +140,7 @@ const allModules = [
   { name: "BrandTwoTextColumns", module: BrandTwoTextColumns },
   { name: "BrandBlankCards", module: BrandBlankCards },
   { name: "BrandVideoPopup", module: BrandVideoPopup },
+  { name: "LoadGoogleOptimizeScript", module: LoadGoogleOptimize },
 ];
 
 export const getModule = (moduleName) => {
