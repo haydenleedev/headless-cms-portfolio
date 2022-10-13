@@ -73,6 +73,14 @@
     text-align: center;
   }
 
+  @include touch() {
+    p {
+      display: flex;
+      flex-direction: column;
+      margin: 0 auto 0 auto;
+    }
+  }
+
   @include desktop() {
     text-align: center;
   }
