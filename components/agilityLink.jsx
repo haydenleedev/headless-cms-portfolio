@@ -49,7 +49,11 @@ const AgilityLink = ({
   const isInner = hrefSelf(href);
   const rel = isInner ? null : "noindex noreferrer nofollow";
   const target = isInner ? "_self" : "_blank";
-  return href ? (
+  return isResource ? (
+    <DownloadButton url={href} {...{ className, title, ariaLabel, onFocus }}>
+      {children}
+    </DownloadButton>
+  ) : href ? (
     <Link
       href={sanitizeHref(href)}
       as={as}
