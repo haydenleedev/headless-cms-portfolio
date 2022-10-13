@@ -30,7 +30,7 @@ module.exports = {
           {
             key: "Link",
             value:
-              '<https://www.google.com/recaptcha>; rel="preconnect", <https://www.googletagmanager.com>; rel="preconnect", <https://assets.ujet.cx>; rel="preconnect", <https://cdn.cookielaw.org/scripttemplates>; rel="preconnect"',
+              '<https://www.gstatic.com>; rel="preconnect", <https://www.gstatic.com>; rel="dns-prefetch",  <https://cookies-data.onetrust.io>; rel="preconnect", <https://cookies-data.onetrust.io>; rel="dns-prefetch", <https://epsilon.6sense.com>; rel="preconnect", <https://epsilon.6sense.com>; rel="dns-prefetch", <https://assets.ujet.cx>; rel="preconnect", <https://assets.ujet.cx>; rel="dns-prefetch", <https://cdn.cookielaw.org>; rel="preconnect", <https://cdn.cookielaw.org>; rel="dns-prefetch"',
           },
         ],
       },
