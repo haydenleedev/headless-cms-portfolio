@@ -22,6 +22,20 @@ module.exports = {
       ],
     };
   },
+  headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Link",
+            value:
+              '<https://www.google.com/recaptcha>; rel="preconnect", <https://www.googletagmanager.com>; rel="preconnect", <https://assets.ujet.cx>; rel="preconnect", <https://cdn.cookielaw.org/scripttemplates>; rel="preconnect"',
+          },
+        ],
+      },
+    ];
+  },
   async redirects() {
     agilityRedirects.forEach((redirect) => {
       redirects.push(redirect);
