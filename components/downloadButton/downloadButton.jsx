@@ -66,9 +66,10 @@ const DownloadButton = ({
     }
   };
   return (
-    <div className={style.downloadButton}>
-      <button
-        className={`${className}`}
+    <div className={`${style.downloadButton} ${className}`}>
+      <div
+        className={style.innerButton}
+        role="button"
         onClick={downloadResource}
         disabled={loading}
         title={title}
@@ -76,18 +77,22 @@ const DownloadButton = ({
         onFocus={onFocus}
       >
         {children}
-      </button>
-      {loading && (
-        <div className={style.progress}>
-          <div className="progress">
-            <div
-              className="progress--bar"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
+      </div>
+      {(loading || downloadMessage) && (
+        <div className={style.loading}>
+          {loading && (
+            <div className={style.progress}>
+              <div className="progress">
+                <div
+                  className="progress--bar"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+            </div>
+          )}
+          {downloadMessage && <p className={style.status}>{downloadMessage}</p>}
         </div>
       )}
-      {downloadMessage && <p className={style.status}>{downloadMessage}</p>}
     </div>
   );
 };

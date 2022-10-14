@@ -2,18 +2,32 @@
 @import "~/styles/settings/mixins";
 
 .downloadButton {
-  & > button {
-    background-color: unset;
-    border: unset;
+  position: relative;
+  .innerButton {
+    &:hover {
+      cursor: pointer;
+    }
   }
-  .progress {
-    margin-top: 0.5rem;
-    padding: 0 1rem;
-  }
-  .status {
-    color: $color-red;
-    text-align: center;
-    margin-top: 0.5rem;
-    font-size: 1rem;
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    background-color: $color-white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    min-width: 20rem;
+    z-index: 9999;
+    transform: translate(-50%, -120%);
+    @include shadow();
+    .progress {
+      margin-top: 0.5rem;
+      padding: 0 1rem;
+    }
+    .status {
+      color: $color-red;
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
   }
 }
