@@ -1,4 +1,5 @@
 import { renderHTML } from "@agility/nextjs";
+import { useEffect } from "react";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./richTextArea.module.scss";
 
@@ -21,6 +22,21 @@ const RichTextArea = ({ module, customData }) => {
   } else if (fields.containerWidth == "fullContainerWidth") {
     containerWidthClass = style.fullContainerWidthContent;
   }
+
+  useEffect(() => {
+    const cookiePrefAnchors = document.querySelectorAll(
+      "a[href*='/cookie-preferences']"
+    );
+    const toggleCookieBanner = (e) => {
+      e.preventDefault();
+      e.target.href = "#";
+      window?.OneTrust?.ToggleInfoDisplay?.();
+    };
+
+    cookiePrefAnchors.forEach((anchor) => {
+      anchor.addEventListener("click", toggleCookieBanner);
+    });
+  }, [sanitizedHtml]);
 
   return (
     <section

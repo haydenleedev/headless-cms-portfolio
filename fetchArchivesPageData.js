@@ -39,6 +39,7 @@ const getArchivesPageContent = async () => {
         ebooks: { title: "e-Books", content: [] },
         guides: { title: "Guides", content: [] },
         integrations: { title: "Product Datasheets", content: [] },
+        partnercontent: { title: "Partner Content", content: [] },
         reports: { title: "Reports", content: [] },
         videos: { title: "Videos", content: [] },
         webinars: { title: "Webinars", content: [] },
@@ -98,6 +99,7 @@ const getArchivesPageContent = async () => {
   const webinars = await getContentList("webinars");
   const videos = await getContentList("videos");
   const whitepapers = await getContentList("whitepapers");
+  const partnercontent = await getContentList("partnercontent");
 
   // set same static images for entries in webinars & videos
   const staticWebinarCardImageUrls = [
@@ -167,6 +169,7 @@ const getArchivesPageContent = async () => {
   contentListTypes[2].categories.videos.content = [...videos];
   contentListTypes[2].categories.webinars.content = [...webinars];
   contentListTypes[2].categories.whitepapers.content = [...whitepapers];
+  contentListTypes[2].categories.partnercontent.content = [...partnercontent];
 
   // Make press releases the first content list type
   const pressReleaseType = contentListTypes[1];

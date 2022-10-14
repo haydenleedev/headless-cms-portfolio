@@ -316,7 +316,7 @@ const SEO = ({
           }("1136", document.location.href, document));
         `}
               </Script>
-              <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
+              {/*               <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
                 {`
           (function() {
             var didInit = false;
@@ -339,9 +339,10 @@ const SEO = ({
             document.getElementsByTagName('head')[0].appendChild(s);
           })();
           `}
-              </Script>
+              </Script> */}
               <Script
                 src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY}`}
+                strategy="lazyOnload"
               />
             </>
           )}

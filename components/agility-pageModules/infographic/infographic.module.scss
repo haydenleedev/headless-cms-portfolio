@@ -177,10 +177,16 @@
         .itemTextContent {
           justify-content: flex-start;
           .itemTitle {
-            font-size: 5rem;
-            margin-bottom: 1rem;
             text-align: center;
             line-height: 1.2;
+            font-size: 3rem;
+            @include desktop() {
+              font-size: 4rem;
+              margin-bottom: 1rem;
+            }
+            @include ultraLargeDesktop() {
+              font-size: 5rem;
+            }
           }
           .itemTitle,
           .itemDefinition,
@@ -194,6 +200,10 @@
           }
           .itemDefinition {
             color: $color-navy;
+            margin-bottom: 0.5rem;
+            @include desktop() {
+              margin-bottom: unset;
+            }
           }
         }
       }

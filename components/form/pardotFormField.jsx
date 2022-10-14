@@ -7,6 +7,7 @@ import {
   states,
   preferredMasterAgent,
   partnerAreaOfInterest,
+  certificationType,
 } from "./selectFieldOptions";
 import style from "./form.module.scss";
 
@@ -36,7 +37,9 @@ const PardotFormField = ({
   setPasteError,
   isUtmCampaign,
   isUtmAsset,
-  isLandingPageOrWebinarField,
+  /* isLandingPageOrWebinarField, */
+  isCLPformField,
+  isCLSformField,
 }) => {
   // Manually set data format for certain fields, as they are not set correctly in Pardot
   if (isSelectField(field)) {
@@ -60,6 +63,7 @@ const PardotFormField = ({
       { regex: /current crm solution/, options: crmSolutions },
       { regex: /preferred master agent/, options: preferredMasterAgent },
       { regex: /partner area of interest/, options: partnerAreaOfInterest },
+      { regex: /certification type/, options: certificationType },
     ];
     for (let i = 0; i < selectFields.length; i++) {
       if (selectFields[i].regex.test(String(field.name).toLocaleLowerCase())) {
@@ -232,12 +236,20 @@ const PardotFormField = ({
                   ? isAssetType
                   : field.name.toLowerCase() === "asset url"
                   ? isAssetUrl
-                  : field.name.toLowerCase() === "utm_campaign" &&
+                  : /* : field.name.toLowerCase() === "utm_campaign" &&
                     isLandingPageOrWebinarField
                   ? isUtmCampaign
                   : field.name.toLowerCase() === "utm_asset" &&
                     isLandingPageOrWebinarField
+                  ? isUtmAsset */
+                  field.name.toLowerCase() === "utm_campaign"
+                  ? isUtmCampaign
+                  : field.name.toLowerCase() === "utm_asset"
                   ? isUtmAsset
+                  : field.name.toLowerCase() === "current lead program 2"
+                  ? isCLPformField
+                  : field.name.toLowerCase() === "current lead source 2"
+                  ? isCLSformField
                   : partnerFieldProperties?.value
               }
             />

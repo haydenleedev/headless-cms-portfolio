@@ -1,6 +1,8 @@
-import { getUtilityLibrary } from "../../utils/3rdPartyScripts";
+/* import { getUtilityLibrary } from "../../utils/3rdPartyScripts"; */
 
-const htmlMarketoFormListener = `
+// deprecated
+
+/* const htmlMarketoFormListener = `
   (function (document, window, undefined) {
     var _ = ${getUtilityLibrary}();
     var dataLayer = window.dataLayer;
@@ -75,4 +77,4 @@ const htmlMarketoFormListener = `
   })(document, window);
 `;
 
-export default htmlMarketoFormListener;
+export default htmlMarketoFormListener; */

@@ -40,10 +40,12 @@ import Accordion from "./accordion/accordion";
 import BlankCards from "./blankCards/blankCards";
 import SecondaryNav from "./secondaryNav/secondaryNav";
 import TwoTextColumns from "./twoTextColumns/twoTextColumns";
+import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
 
 // Template renderers
 import BlogPostContent from "./blogPostContent/blogPostContent";
 import ResourceContent from "./resourceContent/resourceContent";
+import ResourceDownload from "./resourceDownload/resourceDownload";
 import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
 import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
 import BlogPageContent from "./blogPageContent/blogPageContent";
@@ -76,6 +78,7 @@ const allModules = [
   { name: "RichTextArea", module: RichTextArea },
   { name: "BlogPostContent", module: BlogPostContent },
   { name: "ResourceContent", module: ResourceContent },
+  { name: "ResourceDownload", module: ResourceDownload },
   { name: "PressReleaseContent", module: PressReleaseContent },
   { name: "OverrideSEO", module: OverrideSEO },
   { name: "TextWithMedia", module: TextWithMedia },
@@ -137,6 +140,7 @@ const allModules = [
   { name: "BrandTwoTextColumns", module: BrandTwoTextColumns },
   { name: "BrandBlankCards", module: BrandBlankCards },
   { name: "BrandVideoPopup", module: BrandVideoPopup },
+  { name: "LoadGoogleOptimizeScript", module: LoadGoogleOptimize },
 ];
 
 export const getModule = (moduleName) => {
