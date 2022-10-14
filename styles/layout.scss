@@ -792,3 +792,211 @@ fieldset {
     transition: width 0.1s linear;
   }
 }
+
+
+// Moved color classes here
+
+.bg-paleblue {
+  background-color: #f0f6ff !important; // $color-paleblue: not pale enough...;
+}
+.bg-palelightblue{
+  background-color:#e1ecfe !important;
+}
+.bg-skyblue-light {
+  background-color: $color-paleblue;
+}
+.bg-lightblue {
+  background-color: $color-lightblue !important;
+}
+.bg-mediumblue {
+  background-color: $color-mediumblue !important;
+}
+.bg-skyblue {
+  background-color: $color-skyblue !important;
+}
+.bg-darkblue {
+  background-color: $color-darkblue !important;
+}
+.bg-navy {
+  background-color: $color-navy !important;
+}
+.bg-orange {
+  background-color: $color-orange !important;
+}
+.bg-black {
+  background-color: $color-black !important;
+}
+.bg-white {
+  background-color: $color-white !important;
+}
+.bg-gray {
+  background-color: $color-gray !important;
+}
+.bg-darkgray {
+  background-color: $color-darkgray !important;
+}
+.bg-darkmedium {
+  background-color: $color-darkmedium !important;
+}
+.bg-lightmedium{
+  background-color: $color-lightmedium !important;
+}
+.bg-mediumgray {
+  background-color: $color-mediumgray !important;
+}
+.bg-lightgray {
+  background-color: $color-lightgray !important;
+}
+.bg-red {
+  background-color: $color-red !important;
+}
+.bg-green {
+  background-color: $color-green !important;
+}
+.bg-darkpurple {
+  background-color: $color-darkpurple !important;
+}
+.bg-lightpurple {
+  background-color: $color-lightpurple !important;
+}
+.bg-mediumpurple {
+  background-color: $color-mediumpurple !important;
+}
+.bg-gradient-blue {
+  background: linear-gradient(
+    90deg,
+    $color-skyblue,
+    $color-mediumblue
+  ) !important;
+}
+.bg-gradient-blue-light {
+  background-color: #e2eeff;
+  @media (min-width: 55.625rem) {
+    background: linear-gradient(90deg, #e2eeff, #fff 25%, #e2eeff 45%, #e2eeff);
+  }
+}
+.bg-radial-gradient-top {
+  position: relative;
+  margin-top: 1.35rem;
+  &::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    height: 1.35rem;
+    transform: translateY(-100%);
+    background: radial-gradient(
+      ellipse farthest-side at bottom center,
+      rgba(0, 0, 0, 0.08),
+      transparent
+    );
+  }
+}
+.bg-radial-gradient-bottom {
+  position: relative;
+  margin-bottom: 1.35rem;
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 1.35rem;
+    transform: translateY(100%);
+    background: radial-gradient(
+      ellipse farthest-side at top center,
+      rgba(0, 0, 0, 0.08),
+      transparent
+    );
+  }
+}
+.bg-radial-gradient {
+  height: 1.35rem;
+  background: radial-gradient(
+    ellipse farthest-side at bottom center,
+    rgba(0, 0, 0, 0.08),
+    transparent
+  );
+  position: relative;
+  margin-bottom: 1.35rem;
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 1.35rem;
+    transform: translateY(100%);
+    background: radial-gradient(
+      ellipse farthest-side at top center,
+      rgba(0, 0, 0, 0.08),
+      transparent
+    );
+  }
+}
+
+.filter-gray {
+  filter: grayscale(1) opacity(0.5);
+}
+
+.text-paleblue {
+  color: $color-paleblue;
+}
+.text-lightblue {
+  color: $color-lightblue;
+}
+.text-mediumblue {
+  color: $color-mediumblue;
+}
+.text-skyblue {
+  color: $color-skyblue;
+}
+.text-darkblue {
+  color: $color-darkblue;
+}
+.text-navy {
+  color: $color-navy;
+}
+.text-orange {
+  color: $color-orange;
+}
+.text-black {
+  color: $color-black;
+}
+.text-white {
+  color: $color-white;
+}
+.text-gray {
+  color: $color-gray;
+}
+.text-darkgray {
+  color: $color-darkgray;
+}
+.text-darkmedium {
+  color: $color-darkmedium;
+}
+.text-mediumgray {
+  color: $color-mediumgray;
+}
+.text-lightgray {
+  color: $color-lightgray;
+}
+.text-red {
+  color: $color-red;
+}
+.text-green {
+  color: $color-green;
+}
+.text-purple {
+  color: $color-purple;
+}
+.text-darkpurple {
+  color: $color-darkpurple;
+}
+.text-lightpurple {
+  color: $color-lightpurple;
+}
+.text-mediumpurple {
+  color: $color-mediumpurple;
+}
