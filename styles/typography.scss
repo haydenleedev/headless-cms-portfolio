@@ -495,7 +495,9 @@ mark {
 .text-decoration-underline {
   text-decoration: underline;
 }
-
+.text-nounderline {
+  text-decoration: none !important;
+}
 //This class is used to wrap brand template content to apply brand spceific typography
 .brand {
   h1,
