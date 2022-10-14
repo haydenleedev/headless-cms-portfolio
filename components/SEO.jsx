@@ -128,13 +128,13 @@ const SEO = ({
         <>
           {timerExpired && (
             <>
-              <Script id="google-tag-manager">
+              {/*             <Script id="google-tag-manager">
                 {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
-              </Script>
+              </Script> */}
               {/* <Script id="bombora"> */}
               {/* Bombora Tag */}
               {/* {`
@@ -191,7 +191,7 @@ const SEO = ({
             `}
           </Script> */}
 
-              <Script id="6sense">
+              {/*               <Script id="6sense">
                 {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
@@ -290,7 +290,7 @@ const SEO = ({
               s.parentNode.insertBefore(gd, s);
               })();
           `}
-              </Script>
+              </Script> */}
 
               {/* <Script
             id="google-optimize"
@@ -303,7 +303,7 @@ const SEO = ({
           (function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://certify-js.alexametrics.com/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
         `}
           </Script> */}
-              <Script id="g2Crowd" strategy="afterInteractive">
+              {/*               <Script id="g2Crowd" strategy="afterInteractive">
                 {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
@@ -315,7 +315,7 @@ const SEO = ({
             d.getElementsByTagName('head')[0].appendChild(i);
           }("1136", document.location.href, document));
         `}
-              </Script>
+              </Script> */}
               {/*               <Script id="marketoAsynchMunchkin" strategy="afterInteractive">
                 {`
           (function() {
@@ -346,7 +346,7 @@ const SEO = ({
           {scrolled && (
             <>
               {/* Qualified Script */}
-              <Script id="qualified" strategy="lazyOnload">
+              {/*               <Script id="qualified" strategy="lazyOnload">
                 {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
               </Script>
@@ -355,10 +355,10 @@ const SEO = ({
                 async
                 src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
                 strategy="lazyOnload"
-              />
+              /> */}
             </>
           )}
-          <Script
+          {/*           <Script
             id="onetrust"
             src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
             charSet="UTF-8"
@@ -366,7 +366,7 @@ const SEO = ({
             data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
           />
 
-          <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
+          <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script> */}
         </>
       )}
     </>
