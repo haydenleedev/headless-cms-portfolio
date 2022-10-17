@@ -3,21 +3,22 @@
 
 .downloadButton {
   position: relative;
+  width: 100%;
   .innerButton {
     &:hover {
       cursor: pointer;
     }
   }
   .loading {
-    position: absolute;
-    top: 0;
-    left: 50%;
     background-color: $color-white;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     min-width: 20rem;
     z-index: 9999;
-    transform: translate(-50%, -120%);
+    padding: toRem(10) toRem(40) toRem(10) toRem(40);
+    margin: toRem(20) toRem(40);
+    max-width: toRem(320);
+    border-radius: toRem(20);
     @include shadow();
     .progress {
       margin-top: 0.5rem;

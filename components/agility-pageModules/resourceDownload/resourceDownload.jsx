@@ -56,42 +56,39 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
         <>
           {
             <>
-              <Breadcrumbs
-                breadcrumbs={[
-                  { name: "Home", path: "/" },
-                  { name: "Resource Downlaod", path: "/resource-download" },
-                  { name: resourceDownload.title },
-                ]}
-              />
               <section className="section">
                 <div className="container">
                   <div
                     className={`${style.columns} max-width-narrow mr-auto ml-auto`}
                   >
-                    <div className={style.content}>
+                    {/* <div className={style.content}>
                       <h1 className="heading-5">{resourceDownload.title}</h1>
                       <div
                         className="content mt-4"
                         dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
                       />
-                    </div>
+                    </div> */}
                     <div
                       className={`${resourceDownload.formBackgroundColor} ${style.form}`}
                     >
-                      {/\S/.test(resourceDownload.formTitle) && (
-                        <h2
-                          className={`${style.formTitle} heading-6 d-flex align-items-center`}
-                        >
-                          <Image src="/download.svg" width={60} height={60} />
+                      <h1 className="heading-5 mb-3">
+                        {resourceDownload.title}
+                      </h1>
 
-                          <span className="ml-2 d-flex text-20px text-darkblue w-600 line-height-1-2">
-                            {" "}
-                            {resourceDownload.formTitle ||
-                              "Please click to download the resource today!"}
-                          </span>
-                        </h2>
-                      )}
                       <div className={style.thumbnailWrap}>
+                        {/\S/.test(resourceDownload.formTitle) && (
+                          <h2
+                            className={`${style.formTitle} heading-6 d-flex align-items-center`}
+                          >
+                            <Image src="/download.svg" width={60} height={60} />
+
+                            <span className="ml-2 d-flex text-20px text-darkblue w-600 line-height-1-2">
+                              {" "}
+                              {resourceDownload.formTitle ||
+                                "Please click to download the resource today!"}
+                            </span>
+                          </h2>
+                        )}
                         {resourceDownload.link?.href && (
                           <AgilityLink
                             className="imgLink"
@@ -102,6 +99,7 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
                                 media={resourceDownload.image}
                                 title={resourceDownload.title}
                               />
+                              <span className={style.download}>Download</span>
                             </div>
                           </AgilityLink>
                         )}
