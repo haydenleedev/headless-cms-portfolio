@@ -22,32 +22,11 @@
       #heading-value,
       #heading-color,
       #heading-size,
-      .heading-weight,
+      #heading-weight,
       #heading-classes {
         margin-top: 0.5rem;
         min-width: 300px;
         max-width: 300px;
-      }
-      .heading-weight {
-        padding-top: 1rem;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-      }
-
-      .heading-weight legend {
-        font-size: 1em;
-        margin-top: 1rem;
-      }
-
-      .heading-weight label {
-        max-width: unset;
-        min-width: unset;
-        width: max-content;
-        justify-content: flex-start;
-      }
-      .heading-weight label input {
-        width: 1.5em;
       }
     </style>
   </head>
@@ -111,31 +90,14 @@
           <option value="heading-6">Heading 6</option>
         </select>
       </label>
-      <fieldset class="heading-weight">
-        <legend><b>Font Weight</b></legend>
-        <label for="heading-bold-weight">
-          Bold
-          <input
-            id="heading-bold-weight"
-            type="radio"
-            class="form-control"
-            value="w-600"
-            name="weight"
-            data-bind="value: fieldBinding().weight"
-          />
-        </label>
-        <label for="heading-normal-weight">
-          Normal
-          <input
-            id="heading-normal-weight"
-            type="radio"
-            class="form-control"
-            value="w-400"
-            name="weight"
-            data-bind="value: fieldBinding().weight"
-          />
-        </label>
-      </fieldset>
+      <label for="heading-weight">
+        <b>Font Weight</b>
+        <select id="heading-weight" data-bind="value: fieldBinding().weight">
+          <option value=""></option>
+          <option value="w-600">Bold</option>
+          <option value="w-400">Normal</option>
+        </select>
+      </label>
       <label for="heading-classes">
         <b>CSS classes (Optional)</b>
         <input
