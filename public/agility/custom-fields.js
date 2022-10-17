@@ -30,6 +30,8 @@ var HeadingField = function () {
             self.defaultBinding = {
               type: ko.observable(null),
               color: ko.observable(null),
+              size: ko.observable(null),
+              weight: ko.observable(null),
               text: ko.observable(null),
               classes: ko.observable(null),
             };
@@ -48,6 +50,12 @@ var HeadingField = function () {
               var existingBinding = ko.mapping.fromJSON(options.fieldBinding());
               if (existingBinding.color === undefined) {
                 existingBinding.color = ko.observable(null);
+              }
+              if (existingBinding.size === undefined) {
+                existingBinding.size = ko.observable(null);
+              }
+              if (existingBinding.weight === undefined) {
+                existingBinding.weight = ko.observable(null);
               }
               self.fieldBinding(existingBinding);
             }
@@ -373,8 +381,7 @@ var SelectListFromAPICustomField = function () {
             results: results,
           };
         },
-        current: function (data) {
-        },
+        current: function (data) {},
         cache: true,
       },
       initSelection: function (element, callback) {
