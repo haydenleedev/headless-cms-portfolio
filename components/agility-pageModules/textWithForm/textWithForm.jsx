@@ -9,6 +9,7 @@ import PardotForm from "../../form/pardotForm";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
+import AgilityLink from "../../agilityLink";
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards, formConfiguration } = customData;
@@ -20,6 +21,7 @@ const TextWithForm = ({ module, customData }) => {
   const showAwards = boolean(fields?.showAwards);
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
+  const linksStyle = fields?.linksStyle || "button";
 
   fields.testimonials?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -56,6 +58,39 @@ const TextWithForm = ({ module, customData }) => {
     } else {
       return fields.currentLeadProgram2 ? fields.currentLeadProgram2 : null;
     }
+  };
+
+  const getLinksStyle = () => {
+    switch (linksStyle) {
+      case "textWithArrow":
+        return "chevron-after w-600 mt-2";
+      case "buttonNavy":
+        return "button navy mt-2";
+      case "buttonOrange":
+        return "button orange mt-2";
+      default:
+        return "button cyan outlined mt-2";
+    }
+  };
+
+  const FirstFoldLink = ({ primary }) => {
+    const link = primary ? fields.primaryLink : fields.secondaryLink;
+    return link?.href && link?.text ? (
+      <div className={style.linkWrapper}>
+        <AgilityLink
+          agilityLink={link}
+          className={`${getLinksStyle()} ${
+            primary ? `${style.primaryLink}` : style.secondaryLink
+          } ${fields.linkClasses ? fields.linkClasses : ""} ${
+            style[linksStyle]
+          }`}
+          ariaLabel={`Navigate to page ` + link.href}
+          title={`Navigate to page ` + link.href}
+        >
+          {link.text}
+        </AgilityLink>
+      </div>
+    ) : null;
   };
 
   useEffect(() => {
@@ -101,6 +136,11 @@ const TextWithForm = ({ module, customData }) => {
               className="content"
               dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
             ></div>
+
+            <div className={style.buttons}>
+              <FirstFoldLink primary />
+              <FirstFoldLink />
+            </div>
 
             {fields.testimonials && (
               <div className={`columns repeat-2 ${style.testimonials}`}>
