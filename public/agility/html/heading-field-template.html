@@ -15,12 +15,29 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        min-width: 300px;
+        max-width: 300px;
       }
       #heading-type,
       #heading-value,
       #heading-color,
+      #heading-size,
+      .heading-weight,
       #heading-classes {
         margin-top: 0.5rem;
+        min-width: 300px;
+        max-width: 300px;
+
+      }
+      .heading-weight {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
+
+      .heading-weight label {
+        max-width: unset;
+        min-width: unset;
       }
     </style>
   </head>
@@ -71,6 +88,41 @@
           <option value="text-mediumpurple">Medium Purple</option>
         </select>
       </label>
+      <label for="heading-size">
+        <b>Size</b>
+        <select id="heading-size" data-bind="value: fieldBinding().size">
+          <option value="heading-1">Heading 1</option>
+          <option value="heading-2">Heading 2</option>
+          <option value="heading-3">Heading 3</option>
+          <option value="heading-4">Heading 4</option>
+          <option value="heading-5">Heading 5</option>
+          <option value="heading-6">Heading 6</option>
+        </select>
+      </label>
+      <fieldset class="heading-weight">
+        <legend><b>Font Weight</b></legend>
+        <label for="heading-bold-weight">
+          Bold
+          <input
+            id="heading-bold-weight"
+            type="radio"
+            class="form-control"
+            value="w-600"
+            data-bind="value: fieldBinding().weight"
+            checked
+          />
+        </label>
+        <label for="heading-normal-weight">
+          Normal
+          <input
+            id="heading-normal-weight"
+            type="radio"
+            class="form-control"
+            value="w-400"
+            data-bind="value: fieldBinding().weight"
+          />
+        </label>
+      </fieldset>
       <label for="heading-classes">
         <b>CSS classes (Optional)</b>
         <input
