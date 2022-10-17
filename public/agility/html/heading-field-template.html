@@ -27,17 +27,27 @@
         margin-top: 0.5rem;
         min-width: 300px;
         max-width: 300px;
-
       }
       .heading-weight {
+        padding-top: 1rem;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 0.5rem;
       }
 
+      .heading-weight legend {
+        font-size: 1em;
+        margin-top: 1rem;
+      }
+
       .heading-weight label {
         max-width: unset;
         min-width: unset;
+        width: max-content;
+        justify-content: flex-start;
+      }
+      .heading-weight label input {
+        width: 1.5em;
       }
     </style>
   </head>
@@ -66,6 +76,7 @@
       <label for="heading-color">
         <b>Color</b>
         <select id="heading-color" data-bind="value: fieldBinding().color">
+          <option value=""></option>
           <option value="text-navy">Navy</option>
           <option value="text-paleblue">Pale Blue</option>
           <option value="text-lightblue">Light Blue</option>
@@ -91,6 +102,7 @@
       <label for="heading-size">
         <b>Size</b>
         <select id="heading-size" data-bind="value: fieldBinding().size">
+          <option value=""></option>
           <option value="heading-1">Heading 1</option>
           <option value="heading-2">Heading 2</option>
           <option value="heading-3">Heading 3</option>
