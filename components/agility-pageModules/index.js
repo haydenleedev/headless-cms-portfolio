@@ -1,44 +1,70 @@
 // All of the Agility Page Module Components that are in use in this site need to be imported into this index file.
 // Place Page Modules in allModules array below, passing in a name and the component.
+import dynamic from "next/dynamic";
 
 import FirstFold from "./firstFold/firstFold";
 import LogosList from "./logosList/logosList";
-import Placeholder from "./placeholder";
+const Placeholder = dynamic(() => import("./placeholder"), { ssr: false });
 import RichTextArea from "./richTextArea/richTextArea";
 import TextGridWithMedia from "./textGridWithMedia/textGridWithMedia";
 import TextWithMedia from "./textWithMedia/textWithMedia";
-import ClientTestimonial from "./clientTestimonial/clientTestimonial";
-import Spacer from "./spacer/spacer";
+const ClientTestimonial = dynamic(() =>
+  import("./clientTestimonial/clientTestimonial")
+);
+const Spacer = dynamic(() => import("./spacer/spacer"), { ssr: false });
 import ResourceList from "./resourceList/resourceList";
 import HeroImage from "./heroImage/heroImage";
 import CallToAction from "./callToAction/callToAction";
-import NewsList from "./newsList/newsList";
-import PressReleaseList from "./pressReleaseList/pressReleaseList";
-import BlogPostList from "./blogPostList/blogPostList";
-import Infographic from "./infographic/infographic";
-import CaseStudyDownloadPrompt from "./caseStudyDownloadPrompt/caseStudyDownloadPrompt";
+const NewsList = dynamic(() => import("./newsList/newsList"), { ssr: false });
+const PressReleaseList = dynamic(
+  () => import("./pressReleaseList/pressReleaseList"),
+  { ssr: false }
+);
+const BlogPostList = dynamic(() => import("./blogPostList/blogPostList"), {
+  ssr: false,
+});
+const Infographic = dynamic(() => import("./infographic/infographic"), {
+  ssr: false,
+});
+const CaseStudyDownloadPrompt = dynamic(
+  () => import("./caseStudyDownloadPrompt/caseStudyDownloadPrompt"),
+  { ssr: false }
+);
 import LatestCustomerStories from "./latestCustomerStories/latestCustomerStories";
-import TestimonialList from "./testimonialList/testimonialList";
+const TestimonialList = dynamic(
+  () => import("./testimonialList/testimonialList"),
+  { ssr: false }
+);
 import TextWithForm from "./textWithForm/textWithForm";
 import EmbedVideo from "./embedVideo/embedVideo";
-import ContentList from "./contentList/contentList";
+const ContentList = dynamic(() => import("./contentList/contentList"), {
+  ssr: false,
+});
 import AwardsBanner from "./awardsBanner/awardsBanner";
 import TransparentizeNavbar from "./transparentizeNavbar/transparentizeNavbar";
-import BondFirstFold from "./bondFirstFold/bondFirstFold";
+const BondFirstFold = dynamic(() => import("./bondFirstFold/bondFirstFold"), {
+  ssr: false,
+});
 import HideNavbar from "./hideNavbar/hideNavbar";
-import SpeakerList from "./speakerList/speakerList";
+const SpeakerList = dynamic(() => import("./speakerList/speakerList"), {
+  ssr: false,
+});
 import OverrideSEO from "./overrideSEO/overrideSEO";
-import TitleGroup from "./titleGroup/titleGroup";
-import Modal from "./modal/modal";
+const TitleGroup = dynamic(() => import("./titleGroup/titleGroup"), {
+  ssr: false,
+});
 import TextWithCard from "./textWithCard/textWithCard";
-import TableWithHeading from "./tableWithHeading/tableWithHeading";
-import ApplySmoothScrolling from "./applySmoothScrolling/applySmoothScrolling";
-import HiddenH1 from "./hiddenH1/hiddenH1";
+const TableWithHeading = dynamic(
+  () => import("./tableWithHeading/tableWithHeading"),
+  { ssr: false }
+);
+const HiddenH1 = dynamic(() => import("./hiddenH1/hiddenH1"), { ssr: false });
 import Breadcrumbs from "../breadcrumbs/breadcrumbs";
-import ScriptLoader from "./scriptLoader/scriptLoader";
 import Accordion from "./accordion/accordion";
 import BlankCards from "./blankCards/blankCards";
-import SecondaryNav from "./secondaryNav/secondaryNav";
+const SecondaryNav = dynamic(() => import("./secondaryNav/secondaryNav"), {
+  ssr: false,
+});
 import TwoTextColumns from "./twoTextColumns/twoTextColumns";
 import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
 
@@ -47,7 +73,10 @@ import BlogPostContent from "./blogPostContent/blogPostContent";
 import ResourceContent from "./resourceContent/resourceContent";
 import ResourceDownload from "./resourceDownload/resourceDownload";
 import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
-import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
+const ArchivesPageContent = dynamic(
+  () => import("./archivesPageContent/archivesPageContent"),
+  { ssr: false }
+);
 import BlogPageContent from "./blogPageContent/blogPageContent";
 import EventsPageContent from "./eventsPageContent/eventsPageContent";
 import AwardsPageContent from "./awardsPageContent/awardsPageContent";

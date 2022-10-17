@@ -22,6 +22,8 @@ import Router from "next/router";
 import { boolean } from "../../utils/validation";
 import PardotFormEmailStep from "./pardotFormEmailStep";
 import HoneypotFields from "./honeypotFields";
+import Script from "next/script";
+import LazyLoadReCAPTCHA from "./lazyLoadReCAPTCHA";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -523,6 +525,7 @@ class PardotForm extends Component {
   render() {
     return (
       <>
+        <LazyLoadReCAPTCHA />
         {this.stepsEnabled && !this.state.fieldsMatchedToStep ? (
           <form
             className={style.pardotForm}
