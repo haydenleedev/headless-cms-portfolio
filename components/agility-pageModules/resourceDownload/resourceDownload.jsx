@@ -82,7 +82,7 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
                           >
                             <Image src="/download.svg" width={60} height={60} />
 
-                            <span className="ml-2 d-flex text-20px text-darkblue w-600 line-height-1-2">
+                            <span className="pl-2 d-flex text-20px text-darkblue w-600 line-height-1-2">
                               {" "}
                               {resourceDownload.formTitle ||
                                 "Please click to download the resource today!"}
