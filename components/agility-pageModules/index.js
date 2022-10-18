@@ -8,8 +8,9 @@ const Placeholder = dynamic(() => import("./placeholder"), { ssr: false });
 import RichTextArea from "./richTextArea/richTextArea";
 import TextGridWithMedia from "./textGridWithMedia/textGridWithMedia";
 import TextWithMedia from "./textWithMedia/textWithMedia";
-const ClientTestimonial = dynamic(() =>
-  import("./clientTestimonial/clientTestimonial")
+const ClientTestimonial = dynamic(
+  () => import("./clientTestimonial/clientTestimonial"),
+  { ssr: false }
 );
 const Spacer = dynamic(() => import("./spacer/spacer"), { ssr: false });
 import ResourceList from "./resourceList/resourceList";
