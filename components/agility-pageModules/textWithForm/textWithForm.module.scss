@@ -235,7 +235,7 @@
         select {
           /*           background-color: $color-white !important; */
           box-sizing: border-box;
-          border: 0.1rem solid $color-black !important;
+          border: 0.1rem solid $color-black;
         }
         label {
           margin: 0 0 0.25rem 0;
