@@ -59,5 +59,5 @@ export const checkRequiredSafariVersion = ({ desktop, mobile }) => {
 };
 
 export const checkForResourceURL = (url) => {
-  return /.+\.[^.]{2,5}$/.test(url);
+  return /^.+\.pdf(\?.+)?$/.test(url);
 };

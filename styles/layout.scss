@@ -611,6 +611,12 @@
 .p-0 {
   padding: 0 !important;
 }
+.p-1 {
+  padding: toRem(10);
+}
+.p-2 {
+  padding: toRem(20);
+}
 .pt-0 {
   padding-top: 0 !important;
 }
@@ -658,6 +664,9 @@
 }
 .pr-4 {
   padding-right: $size-4 !important;
+}
+.pl-2 {
+  padding-left: $size-2 !important;
 }
 .pl-4 {
   padding-left: $size-4 !important;
