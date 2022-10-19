@@ -10,6 +10,7 @@ import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
 import AgilityLink from "../../agilityLink";
+import { useMutationObserver } from "../../../utils/hooks";
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards, formConfiguration } = customData;
@@ -17,12 +18,45 @@ const TextWithForm = ({ module, customData }) => {
   const { campaignScriptIDRef } = useContext(GlobalContext);
   const narrowContainer = boolean(fields?.narrowContainer);
   const columnLayout = fields.layout == "column";
-  const formLeft = fields.layout == "formLeft";
   const showAwards = boolean(fields?.showAwards);
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
   const linksStyle = fields?.linksStyle || "button";
 
+  const formRightCollapsedChanges = () => {
+    const form = formWrapperRef?.current?.querySelector?.("form");
+    if (fields.layout === "formRightCollapsed" && form) {
+      const visibleFields = form.querySelectorAll(
+        "form > div:not(.display-none)"
+      );
+      for (let row = 0; row < visibleFields.length; row++) {
+        if (
+          row === visibleFields.length - 2 &&
+          Array.from(visibleFields[row].children).length >= 2 &&
+          visibleFields[row].children[1].tagName === "INPUT"
+        ) {
+          visibleFields[row].classList.add(style.full);
+          visibleFields[row].classList.remove(style.half);
+        } else if (
+          row < visibleFields.length - 2 &&
+          Array.from(visibleFields[row].children).length >= 2 &&
+          visibleFields[row].children[1].tagName === "INPUT"
+        )
+          visibleFields[row].classList.add(style.half);
+        else visibleFields[row].classList.add(style.full);
+      }
+    }
+  };
+  const formWrapperRef = useMutationObserver({
+    options: {
+      childList: true,
+      subtree: true,
+    },
+    callback:
+      fields.layout === "formRightCollapsed"
+        ? formRightCollapsedChanges
+        : (mutationList, observer) => observer.disconnect(),
+  });
   fields.testimonials?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -97,6 +131,31 @@ const TextWithForm = ({ module, customData }) => {
     campaignScriptIDRef.current = fields.campaignTrackingID;
   }, []);
 
+  /*   useEffect(() => {
+    if (!mounted) setMounted(true);
+    else {
+      const form = formWrapperRef?.current?.querySelector?.("form");
+      if (fields.layout === "formRightCollapsed" && form) {
+        const visibleFields = form.querySelectorAll("div:not(.display-none)");
+        for (let row = 0; row < visibleFields.length; row++) {
+          if (
+            Array.from(visibleFields[row].children).length === 2 &&
+            visibleFields[row].children[1].tagName === "INPUT"
+          )
+            visibleFields[row].classList.add(style.half);
+          else visibleFields[row].classList.add(style.full);
+
+          if (
+            row === visibleFields.length - 2 &&
+            Array.from(visibleFields[row].children).length === 2 &&
+            visibleFields[row].children[1].tagName === "INPUT"
+          ) {
+            visibleFields[row].classList.replace(style.half, style.full);
+          }
+        }
+      }
+    }
+  }, [mounted]); */
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
@@ -116,7 +175,7 @@ const TextWithForm = ({ module, customData }) => {
           className={
             columnLayout
               ? style.columnLayoutContent
-              : `${style.content} ${formLeft ? style.formLeft : ""}`
+              : `${style.content} ${style[fields.layout]}`
           }
         >
           {(heading || subheading) && (
@@ -175,6 +234,7 @@ const TextWithForm = ({ module, customData }) => {
           <aside className={style.form}>
             <div
               className={`${style.sideWrapper} ${style["bg-skyblue-light"]}`}
+              ref={formWrapperRef}
             >
               <PardotForm
                 formHandlerID={

@@ -107,10 +107,38 @@
         }
       }
     }
+    &.formRightCollapsed {
+      form {
+        display: grid;
+        column-gap: 1rem;
+        grid-template-columns: repeat(2, 1fr);
+        & > div {
+          width: 100%;
+          &.full {
+            grid-column: 1 / -1;
+          }
+          &.half {
+            width: 100%;
+          }
+        }
+      }
+    }
     @include desktop() {
       flex-direction: row;
       &.formLeft {
         flex-direction: row-reverse;
+      }
+      &.formRightCollapsed {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: 0.45fr 0.55fr;
+        .form {
+          width: 100%;
+          .sideWrapper {
+            max-width: unset;
+            margin: unset;
+          }
+        }
       }
       .columnLayoutHeading {
         display: none;

@@ -267,7 +267,7 @@ const PardotFormField = ({
                 (field.name.toLowerCase() === "country" || "state") &&
                 style["form-select"]
               }`}
-              onBlur={(e) => {
+              onChange={(e) => {
                 if (field.name.toLowerCase().match(/country/)) {
                   const isPartnerCountry = field.name
                     .toLowerCase()
