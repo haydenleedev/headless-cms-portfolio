@@ -35,15 +35,14 @@ const TextWithForm = ({ module, customData }) => {
           Array.from(visibleFields[row].children).length >= 2 &&
           visibleFields[row].children[1].tagName === "INPUT"
         ) {
-          visibleFields[row].classList.add(style.full);
-          visibleFields[row].classList.remove(style.half);
+          visibleFields[row].style["grid-column"] = "1 / -1";
         } else if (
           row < visibleFields.length - 2 &&
           Array.from(visibleFields[row].children).length >= 2 &&
           visibleFields[row].children[1].tagName === "INPUT"
         )
-          visibleFields[row].classList.add(style.half);
-        else visibleFields[row].classList.add(style.full);
+          visibleFields[row].style["grid-column"] = "unset";
+        else visibleFields[row].style["grid-column"] = "1 / -1";
       }
     }
   };
@@ -51,6 +50,9 @@ const TextWithForm = ({ module, customData }) => {
     options: {
       childList: true,
       subtree: true,
+      attributes: true,
+      attributeFilter: ["class"],
+      attributeOldValue: true,
     },
     callback:
       fields.layout === "formRightCollapsed"
