@@ -2,20 +2,13 @@
 // Place Page Modules in allModules array below, passing in a name and the component.
 import dynamic from "next/dynamic";
 
-import FirstFold from "./firstFold/firstFold";
-import LogosList from "./logosList/logosList";
+// lazy-loaded modules
 const Placeholder = dynamic(() => import("./placeholder"), { ssr: false });
-import RichTextArea from "./richTextArea/richTextArea";
-import TextGridWithMedia from "./textGridWithMedia/textGridWithMedia";
-import TextWithMedia from "./textWithMedia/textWithMedia";
 const ClientTestimonial = dynamic(
   () => import("./clientTestimonial/clientTestimonial"),
   { ssr: false }
 );
 const Spacer = dynamic(() => import("./spacer/spacer"), { ssr: false });
-import ResourceList from "./resourceList/resourceList";
-import HeroImage from "./heroImage/heroImage";
-import CallToAction from "./callToAction/callToAction";
 const NewsList = dynamic(() => import("./newsList/newsList"), { ssr: false });
 const PressReleaseList = dynamic(
   () => import("./pressReleaseList/pressReleaseList"),
@@ -31,53 +24,61 @@ const CaseStudyDownloadPrompt = dynamic(
   () => import("./caseStudyDownloadPrompt/caseStudyDownloadPrompt"),
   { ssr: false }
 );
-import LatestCustomerStories from "./latestCustomerStories/latestCustomerStories";
 const TestimonialList = dynamic(
   () => import("./testimonialList/testimonialList"),
   { ssr: false }
 );
-import TextWithForm from "./textWithForm/textWithForm";
-import EmbedVideo from "./embedVideo/embedVideo";
 const ContentList = dynamic(() => import("./contentList/contentList"), {
   ssr: false,
 });
-import AwardsBanner from "./awardsBanner/awardsBanner";
-import TransparentizeNavbar from "./transparentizeNavbar/transparentizeNavbar";
 const BondFirstFold = dynamic(() => import("./bondFirstFold/bondFirstFold"), {
   ssr: false,
 });
-import HideNavbar from "./hideNavbar/hideNavbar";
 const SpeakerList = dynamic(() => import("./speakerList/speakerList"), {
   ssr: false,
 });
-import OverrideSEO from "./overrideSEO/overrideSEO";
 const TitleGroup = dynamic(() => import("./titleGroup/titleGroup"), {
   ssr: false,
 });
-import TextWithCard from "./textWithCard/textWithCard";
 const TableWithHeading = dynamic(
   () => import("./tableWithHeading/tableWithHeading"),
   { ssr: false }
 );
 const HiddenH1 = dynamic(() => import("./hiddenH1/hiddenH1"), { ssr: false });
-import Breadcrumbs from "../breadcrumbs/breadcrumbs";
-import Accordion from "./accordion/accordion";
-import BlankCards from "./blankCards/blankCards";
 const SecondaryNav = dynamic(() => import("./secondaryNav/secondaryNav"), {
   ssr: false,
 });
-import TwoTextColumns from "./twoTextColumns/twoTextColumns";
-import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
-
-// Template renderers
-import BlogPostContent from "./blogPostContent/blogPostContent";
-import ResourceContent from "./resourceContent/resourceContent";
-import ResourceDownload from "./resourceDownload/resourceDownload";
-import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
 const ArchivesPageContent = dynamic(
   () => import("./archivesPageContent/archivesPageContent"),
   { ssr: false }
 );
+
+// eagerly loaded modules
+import FirstFold from "./firstFold/firstFold";
+import LogosList from "./logosList/logosList";
+import RichTextArea from "./richTextArea/richTextArea";
+import TextGridWithMedia from "./textGridWithMedia/textGridWithMedia";
+import TextWithMedia from "./textWithMedia/textWithMedia";
+import ResourceList from "./resourceList/resourceList";
+import HeroImage from "./heroImage/heroImage";
+import CallToAction from "./callToAction/callToAction";
+import LatestCustomerStories from "./latestCustomerStories/latestCustomerStories";
+import TextWithForm from "./textWithForm/textWithForm";
+import EmbedVideo from "./embedVideo/embedVideo";
+import AwardsBanner from "./awardsBanner/awardsBanner";
+import TransparentizeNavbar from "./transparentizeNavbar/transparentizeNavbar";
+import HideNavbar from "./hideNavbar/hideNavbar";
+import OverrideSEO from "./overrideSEO/overrideSEO";
+import TextWithCard from "./textWithCard/textWithCard";
+import Breadcrumbs from "../breadcrumbs/breadcrumbs";
+import Accordion from "./accordion/accordion";
+import BlankCards from "./blankCards/blankCards";
+import TwoTextColumns from "./twoTextColumns/twoTextColumns";
+import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
+import BlogPostContent from "./blogPostContent/blogPostContent";
+import ResourceContent from "./resourceContent/resourceContent";
+import ResourceDownload from "./resourceDownload/resourceDownload";
+import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
 import BlogPageContent from "./blogPageContent/blogPageContent";
 import EventsPageContent from "./eventsPageContent/eventsPageContent";
 import AwardsPageContent from "./awardsPageContent/awardsPageContent";
@@ -178,6 +179,7 @@ export const getModule = (moduleName) => {
   const obj = allModules.find(
     (m) => m.name.toLowerCase() === moduleName.toLowerCase()
   );
+  console.log(obj);
   if (!obj) return null;
   return obj.module;
 };
