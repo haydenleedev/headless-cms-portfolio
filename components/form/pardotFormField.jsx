@@ -120,7 +120,7 @@ const PardotFormField = ({
           hidden={isHiddenField(field, isDealRegistrationField)}
           name={field.name}
           id={field.id}
-          autoComplete="email"
+          autoComplete={isContactField ? "off" : "on"}
           maxLength="255"
           onBlur={() => {
             updateTouched();
