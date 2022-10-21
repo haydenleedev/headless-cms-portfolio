@@ -11,6 +11,7 @@ import PardotFormField from "./pardotFormField";
 import { getCookie } from "../../utils/cookies";
 import {
   addGaData,
+  blockedContactFormCountries,
   getFallbackFieldData,
   getFormType,
   isHiddenField,
@@ -499,6 +500,27 @@ class PardotForm extends Component {
                   errors[index] = true;
                 }
             }
+          }
+        }
+
+        // check for blocked countries if contact form
+        if (this.isContactForm) {
+          if (
+            fieldRef.current.tagName === "SELECT" &&
+            blockedContactFormCountries.findIndex(
+              (country) => country === fieldRef.current.value
+            ) !== -1
+          ) {
+            this.form.action = "https://info.ujet.cx/l/986641/2022-10-17/l2hy5";
+          } else if (
+            fieldRef.current.tagName === "SELECT" &&
+            blockedContactFormCountries.findIndex(
+              (country) => country === fieldRef.current.value
+            ) === -1
+          ) {
+            this.form.action = this.props.customAction
+              ? null
+              : this.props.action;
           }
         }
       }

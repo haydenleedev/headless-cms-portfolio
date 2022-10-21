@@ -133,31 +133,6 @@ const TextWithForm = ({ module, customData }) => {
     campaignScriptIDRef.current = fields.campaignTrackingID;
   }, []);
 
-  /*   useEffect(() => {
-    if (!mounted) setMounted(true);
-    else {
-      const form = formWrapperRef?.current?.querySelector?.("form");
-      if (fields.layout === "formRightCollapsed" && form) {
-        const visibleFields = form.querySelectorAll("div:not(.display-none)");
-        for (let row = 0; row < visibleFields.length; row++) {
-          if (
-            Array.from(visibleFields[row].children).length === 2 &&
-            visibleFields[row].children[1].tagName === "INPUT"
-          )
-            visibleFields[row].classList.add(style.half);
-          else visibleFields[row].classList.add(style.full);
-
-          if (
-            row === visibleFields.length - 2 &&
-            Array.from(visibleFields[row].children).length === 2 &&
-            visibleFields[row].children[1].tagName === "INPUT"
-          ) {
-            visibleFields[row].classList.replace(style.half, style.full);
-          }
-        }
-      }
-    }
-  }, [mounted]); */
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
