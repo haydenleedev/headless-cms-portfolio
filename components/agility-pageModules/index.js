@@ -179,7 +179,6 @@ export const getModule = (moduleName) => {
   const obj = allModules.find(
     (m) => m.name.toLowerCase() === moduleName.toLowerCase()
   );
-  console.log(obj);
   if (!obj) return null;
   return obj.module;
 };

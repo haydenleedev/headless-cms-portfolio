@@ -328,6 +328,7 @@ export const getFallbackFieldData = (formID) => {
 };
 
 export const isNonUsPhoneNumber = (phoneNumber) => {
+  if (phoneNumber.length < 7) return false;
   for (let i = 0; i < phoneNumber.length; i++) {
     const char = phoneNumber[i];
     if (!char.match(/[0-9]/) && ![" ", "+", "-", "(", ")"].includes(char)) {
