@@ -120,7 +120,7 @@ const PardotFormField = ({
           hidden={isHiddenField(field, isDealRegistrationField)}
           name={field.name}
           id={field.id}
-          autoComplete="email"
+          autoComplete={isContactField ? "off" : "on"}
           maxLength="255"
           onBlur={() => {
             updateTouched();
@@ -267,6 +267,24 @@ const PardotFormField = ({
                 (field.name.toLowerCase() === "country" || "state") &&
                 style["form-select"]
               }`}
+              onChange={(e) => {
+                if (field.name.toLowerCase().match(/country/)) {
+                  const isPartnerCountry = field.name
+                    .toLowerCase()
+                    .match(/partner/);
+                  handleCountryChange(e.target.value, isPartnerCountry);
+                  if (isPartnerCountry) {
+                    updatePartnerStateFieldVisible(
+                      e.target.value == "United States"
+                    );
+                  } else {
+                    updateStateFieldVisible(e.target.value == "United States");
+                  }
+                }
+                updateTouched();
+                validate();
+                setPasteError(false);
+              }}
               onBlur={(e) => {
                 if (field.name.toLowerCase().match(/country/)) {
                   const isPartnerCountry = field.name
@@ -281,6 +299,7 @@ const PardotFormField = ({
                     updateStateFieldVisible(e.target.value == "United States");
                   }
                 }
+                updateTouched();
                 validate();
                 setPasteError(false);
               }}

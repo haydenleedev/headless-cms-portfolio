@@ -17,6 +17,20 @@ const gaMeta = [
     id: "ga-cookie-id",
   },
 ];
+
+export const blockedContactFormCountries = [
+  "Bulgaria",
+  "Myanmar",
+  "Central African Republic",
+  "China",
+  "Congo, the Democratic Republic of the",
+  "Croatia",
+  "Cuba",
+  "Ethiopia",
+  "Hong Kong",
+  "Iran",
+];
+
 const userIdCookie = getCookie("ga_user_id");
 
 // This function could be split into smaller parts and/or renamed (it does more than just add GA data)
@@ -328,6 +342,7 @@ export const getFallbackFieldData = (formID) => {
 };
 
 export const isNonUsPhoneNumber = (phoneNumber) => {
+  if (phoneNumber.length < 7) return false;
   for (let i = 0; i < phoneNumber.length; i++) {
     const char = phoneNumber[i];
     if (!char.match(/[0-9]/) && ![" ", "+", "-", "(", ")"].includes(char)) {
