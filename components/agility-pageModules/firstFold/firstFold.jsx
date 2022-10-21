@@ -23,6 +23,7 @@ const FirstFold = ({ module, customData }) => {
   const noImageLayout =
     !fields.media && !fields.customSVG && !fields.videoURL?.href;
   const narrowContainer = boolean(fields?.narrowContainer);
+  const animateSVG = fields?.animate || "static";
   const fixedMediaHeight = fields?.fixedMediaHeight;
   const linksStyle = fields?.linksStyle || "button";
   const layout = fields.layout;
@@ -512,6 +513,7 @@ const FirstFold = ({ module, customData }) => {
                 <CustomSVG
                   svgInput={fields.customSVG}
                   svgClasses={fields.customSVGClasses}
+                  animateSVG={animateSVG}
                 />
               )}
             </div>

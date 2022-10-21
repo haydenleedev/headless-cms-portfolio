@@ -31,3 +31,15 @@ export const useIntersectionObserver = (
 
   return ref;
 };
+
+export const useMutationObserver = ({ options, callback }) => {
+  const ref = useRef();
+  useEffect(() => {
+    const observer = new MutationObserver(callback);
+    if (ref.current) observer.observe(ref.current, options);
+    return () => {
+      if (ref.current) observer.disconnect();
+    };
+  }, [ref]);
+  return ref;
+};

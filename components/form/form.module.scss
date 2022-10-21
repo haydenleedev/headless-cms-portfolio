@@ -171,12 +171,21 @@
 }
 
 .error {
-  input,
-  select {
+  input {
     border: toRem(2) solid $color-red !important;
     background-color: $color-lightred !important;
     height: 3rem;
     padding: 1.25rem 0.9375rem;
+    &:focus {
+      @include outline();
+      outline-color: $color-red !important;
+      //outline: toRem(1) solid $color-red !important;
+    }
+  }
+    select {
+    border: toRem(2) solid $color-red !important;
+    background-color: $color-lightred !important;
+    height: 3rem;
     &:focus {
       @include outline();
       outline-color: $color-red !important;

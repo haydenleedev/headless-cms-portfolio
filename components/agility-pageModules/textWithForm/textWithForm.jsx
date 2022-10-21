@@ -9,6 +9,8 @@ import PardotForm from "../../form/pardotForm";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
+import AgilityLink from "../../agilityLink";
+import { useMutationObserver } from "../../../utils/hooks";
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards, formConfiguration } = customData;
@@ -16,11 +18,47 @@ const TextWithForm = ({ module, customData }) => {
   const { campaignScriptIDRef } = useContext(GlobalContext);
   const narrowContainer = boolean(fields?.narrowContainer);
   const columnLayout = fields.layout == "column";
-  const formLeft = fields.layout == "formLeft";
   const showAwards = boolean(fields?.showAwards);
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
+  const linksStyle = fields?.linksStyle || "button";
 
+  const formRightCollapsedChanges = () => {
+    const form = formWrapperRef?.current?.querySelector?.("form");
+    if (fields.layout === "formRightCollapsed" && form) {
+      const visibleFields = form.querySelectorAll(
+        "form > div:not(.display-none)"
+      );
+      for (let row = 0; row < visibleFields.length; row++) {
+        if (
+          row === visibleFields.length - 2 &&
+          Array.from(visibleFields[row].children).length >= 2 &&
+          visibleFields[row].children[1].tagName === "INPUT"
+        ) {
+          visibleFields[row].style["grid-column"] = "1 / -1";
+        } else if (
+          row < visibleFields.length - 2 &&
+          Array.from(visibleFields[row].children).length >= 2 &&
+          visibleFields[row].children[1].tagName === "INPUT"
+        )
+          visibleFields[row].style["grid-column"] = "unset";
+        else visibleFields[row].style["grid-column"] = "1 / -1";
+      }
+    }
+  };
+  const formWrapperRef = useMutationObserver({
+    options: {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["class"],
+      attributeOldValue: true,
+    },
+    callback:
+      fields.layout === "formRightCollapsed"
+        ? formRightCollapsedChanges
+        : (mutationList, observer) => observer.disconnect(),
+  });
   fields.testimonials?.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
   });
@@ -58,6 +96,39 @@ const TextWithForm = ({ module, customData }) => {
     }
   };
 
+  const getLinksStyle = () => {
+    switch (linksStyle) {
+      case "textWithArrow":
+        return "chevron-after w-600 mt-2";
+      case "buttonNavy":
+        return "button navy mt-2";
+      case "buttonOrange":
+        return "button orange mt-2";
+      default:
+        return "button cyan outlined mt-2";
+    }
+  };
+
+  const FirstFoldLink = ({ primary }) => {
+    const link = primary ? fields.primaryLink : fields.secondaryLink;
+    return link?.href && link?.text ? (
+      <div className={style.linkWrapper}>
+        <AgilityLink
+          agilityLink={link}
+          className={`${getLinksStyle()} ${
+            primary ? `${style.primaryLink}` : style.secondaryLink
+          } ${fields.linkClasses ? fields.linkClasses : ""} ${
+            style[linksStyle]
+          }`}
+          ariaLabel={`Navigate to page ` + link.href}
+          title={`Navigate to page ` + link.href}
+        >
+          {link.text}
+        </AgilityLink>
+      </div>
+    ) : null;
+  };
+
   useEffect(() => {
     campaignScriptIDRef.current = fields.campaignTrackingID;
   }, []);
@@ -81,7 +152,7 @@ const TextWithForm = ({ module, customData }) => {
           className={
             columnLayout
               ? style.columnLayoutContent
-              : `${style.content} ${formLeft ? style.formLeft : ""}`
+              : `${style.content} ${style[fields.layout]}`
           }
         >
           {(heading || subheading) && (
@@ -101,6 +172,11 @@ const TextWithForm = ({ module, customData }) => {
               className="content"
               dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
             ></div>
+
+            <div className={style.buttons}>
+              <FirstFoldLink primary />
+              <FirstFoldLink />
+            </div>
 
             {fields.testimonials && (
               <div className={`columns repeat-2 ${style.testimonials}`}>
@@ -135,6 +211,7 @@ const TextWithForm = ({ module, customData }) => {
           <aside className={style.form}>
             <div
               className={`${style.sideWrapper} ${style["bg-skyblue-light"]}`}
+              ref={formWrapperRef}
             >
               <PardotForm
                 formHandlerID={

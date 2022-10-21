@@ -611,6 +611,12 @@
 .p-0 {
   padding: 0 !important;
 }
+.p-1 {
+  padding: toRem(10);
+}
+.p-2 {
+  padding: toRem(20);
+}
 .pt-0 {
   padding-top: 0 !important;
 }
