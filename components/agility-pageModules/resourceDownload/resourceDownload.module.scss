@@ -2,12 +2,8 @@
 @import "../../../styles/settings/mixins";
 
 .columns {
-  display: grid;
-  grid-template-columns: 100%;
-  gap: 2rem;
-  @include desktop() {
-    grid-template-columns: 55% 45%;
-  }
+  display: flex;
+  justify-content: center;
 }
 
 .content {
@@ -17,20 +13,49 @@
 }
 .thumbnailWrap {
   background: #f0f6ff;
-  border-radius: toRem(20);
+  border-radius: toRem(22);
 }
 .thumbnail {
-  max-width: toRem(320);
+  max-width: toRem(400);
   margin: 0 auto;
-  padding: toRem(40) toRem(30) 0 toRem(30);
+  padding: toRem(20) toRem(40) 0 toRem(40);
   img {
     border: toRem(4) solid $color-paleblue !important;
     border-radius: toRem(20);
     cursor: pointer;
+    position: relative;
+  }
+  .download {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: visibility 0s, opacity 0.5s linear;
+    transition: visibility 0s, opacity 0.5s linear;
+  }
+  &:hover {
+    .download {
+      opacity: 1;
+      visibility: visible;
+      width: auto;
+      height: toRem(52);
+      padding: 8px 15px;
+      background: $color-paleblue;
+      border-radius: toRem(22);
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      top: 40%;
+      bottom: 0;
+      font-size: toRem(24);
+      max-width: 50%;
+    }
   }
 }
 .thumbnailButton {
-  padding: 0 toRem(34) toRem(40) toRem(34);
+  padding: 0 toRem(40) toRem(50) toRem(40);
   a,
   button {
     width: 100%;
@@ -42,6 +67,7 @@
   @include desktop() {
     padding: 0 0 0 toRem(30);
   }
+  text-align: center;
   padding: 0;
   height: min-content;
   border-radius: 1rem;
@@ -60,7 +86,10 @@
   .formTitle {
     color: $color-black;
     font-weight: 400;
-    margin-bottom: 2rem;
+    text-align: left;
+    max-width: toRem(400);
+    margin: 0 auto;
+    padding: toRem(40) toRem(40) 0 toRem(40);
   }
 }
 

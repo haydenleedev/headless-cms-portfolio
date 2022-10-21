@@ -11,6 +11,7 @@ import PardotFormField from "./pardotFormField";
 import { getCookie } from "../../utils/cookies";
 import {
   addGaData,
+  blockedContactFormCountries,
   getFallbackFieldData,
   getFormType,
   isHiddenField,
@@ -22,6 +23,8 @@ import Router from "next/router";
 import { boolean } from "../../utils/validation";
 import PardotFormEmailStep from "./pardotFormEmailStep";
 import HoneypotFields from "./honeypotFields";
+import Script from "next/script";
+import LazyLoadReCAPTCHA from "./lazyLoadReCAPTCHA";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -499,6 +502,27 @@ class PardotForm extends Component {
             }
           }
         }
+
+        // check for blocked countries if contact form
+        /*if (this.isContactForm) {
+          if (
+            fieldRef.current.tagName === "SELECT" &&
+            blockedContactFormCountries.findIndex(
+              (country) => country === fieldRef.current.value
+            ) !== -1
+          ) {
+            this.form.action = "https://info.ujet.cx/l/986641/2022-10-17/l2hy5";
+          } else if (
+            fieldRef.current.tagName === "SELECT" &&
+            blockedContactFormCountries.findIndex(
+              (country) => country === fieldRef.current.value
+            ) === -1
+          ) {
+            this.form.action = this.props.customAction
+              ? null
+              : this.props.action;
+          }
+        } */
       }
     });
     this.setState({ errors: errors, validity: !errors.includes(true) });
@@ -523,6 +547,7 @@ class PardotForm extends Component {
   render() {
     return (
       <>
+        <LazyLoadReCAPTCHA />
         {this.stepsEnabled && !this.state.fieldsMatchedToStep ? (
           <form
             className={style.pardotForm}
@@ -531,6 +556,7 @@ class PardotForm extends Component {
             onSubmit={(e) => {
               e.preventDefault();
             }}
+            autoComplete={this.isContactForm ? "off" : "on"}
           >
             <PardotFormEmailStep
               formHandlerID={this.props.formHandlerID}
@@ -551,6 +577,7 @@ class PardotForm extends Component {
                   e.preventDefault();
                   this.handleSubmit(e);
                 }}
+                autoComplete={this.isContactForm ? "off" : "on"}
                 className={style.pardotForm}
                 style={{ display: this.state.clientJSEnabled ? "" : "none" }}
                 ref={(form) => (this.form = form)}
