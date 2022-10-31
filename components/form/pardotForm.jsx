@@ -504,7 +504,7 @@ class PardotForm extends Component {
         }
 
         // check for blocked countries if contact form
-        if (this.isContactForm) {
+        /*if (this.isContactForm) {
           if (
             fieldRef.current.tagName === "SELECT" &&
             blockedContactFormCountries.findIndex(
@@ -522,7 +522,7 @@ class PardotForm extends Component {
               ? null
               : this.props.action;
           }
-        }
+        } */
       }
     });
     this.setState({ errors: errors, validity: !errors.includes(true) });
