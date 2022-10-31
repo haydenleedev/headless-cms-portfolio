@@ -21,3 +21,24 @@ export function generateUUID() {
     return (c === "x" ? r : (r & 0x3) | 0x8).toString(16);
   });
 }
+
+// helper function for easier management of classNames.
+export function cn(conditions) {
+  if (
+    !Array.isArray(conditions) ||
+    (typeof conditions !== "object" && Object.keys(conditions).length < 1)
+  )
+    throw new Error(
+      "Usage: cn({className: condition}); or cn(['class1', 'class2']);"
+    );
+
+  if (Array.isArray(conditions)) {
+    return conditions.filter((c) => c).join(" ");
+  }
+  const conditionEntries = Object.entries(conditions);
+  const appliedClasses = conditionEntries.map(([key, value]) => {
+    if (Boolean(value)) return key;
+    return null;
+  });
+  return appliedClasses.filter((c) => c).join(" ");
+}
