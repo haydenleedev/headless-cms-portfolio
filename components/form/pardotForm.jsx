@@ -108,6 +108,7 @@ class PardotForm extends Component {
       includeTimeStampInEmailAddress: [
         "dealRegistration",
         "channelRequest",
+        "partnerCertification",
       ].includes(this.formType),
     });
 

@@ -328,6 +328,8 @@ export const getFormType = (formHandlerID) => {
       return "partnerRequest";
     case 3721:
       return "googleContact";
+    case 3898:
+      return "partnerCertification";
   }
 };
 
