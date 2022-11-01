@@ -15,6 +15,7 @@ const {
   preferredMasterAgent,
   partnerAreaOfInterest,
   certificationType,
+  contactType,
 } = formConfig;
 
 // This function could be split into smaller parts and/or renamed (it does more than just add GA data)
@@ -24,8 +25,7 @@ export const addGaData = (
   formEmailInput,
   // isDealRegistrationForm could be moved to variable inside this function by checking the value of the formType prop
   isDealRegistrationForm,
-  formType,
-  contactTypeValue
+  formType
 ) => {
   if (!gaDataAdded) {
     // Loop and append randomized UID
@@ -108,9 +108,9 @@ export const addGaData = (
     const isChannelRequestForm = formType == "channelRequest";
 
     const isContactSalesForm =
-      formType == "contactUs" && contactTypeValue == "contactSales";
+      formType == "contactUs" && contactType == "contact_sales";
     const isRequestDemoForm =
-      formType == "contactUs" && contactTypeValue == "requestDemo";
+      formType == "contactUs" && contactType == "request_a_demo";
 
     let contactType;
     // If there is no future use for this currently unused function, it should be removed

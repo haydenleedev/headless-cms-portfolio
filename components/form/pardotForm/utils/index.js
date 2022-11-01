@@ -1,24 +1,31 @@
+import { isFreeEmail, isPhoneNumber } from "../../../../shop/utils/validation";
 import { getCookie } from "../../../../utils/cookies";
 import config from "../form.config";
-import { isHiddenField } from "./helpers";
+import { pardotFormActions } from "../reducer";
+import {
+  formatPhoneNumber,
+  isHiddenField,
+  isNonUsPhoneNumber,
+} from "./helpers";
 // this function checks for validation errors on a form field
 export const validateField = ({
   fieldData,
   stateFieldVisible,
   partnerStateFieldVisible,
   isDealRegistrationForm,
+  handleDispatch,
   usPhoneFormat,
   isContactForm,
   touchedFields,
   customAction,
   formErrors,
   fieldRef,
-  formRef,
   action,
   index,
+  callback,
 }) => {
   const fieldIsTouched = touchedFields[index];
-  const fieldName = fieldRef.current.value.name;
+  const fieldName = fieldRef.current.name;
   // Prevent submission if a visible required field does not have a value
   if (fieldIsTouched) {
     const isRequiredField = fieldData[index];
@@ -46,7 +53,7 @@ export const validateField = ({
 
     // field has a value, but it's a number input and the value is less than 1
     const isNumberFieldWithInvalidValue =
-      fieldValue < 1 && fieldRef.current.type === "number";
+      fieldRef.current.type === "number" && fieldValue < 1;
 
     if (
       (isRequiredNotStateField ||
@@ -93,21 +100,29 @@ export const validateField = ({
     if (isContactForm) {
       if (
         fieldRef.current.tagName === "SELECT" &&
+        fieldRef.current.name.toLowerCase().includes("country") &&
         config.blockedContactFormCountries.findIndex(
           (country) => country === fieldRef.current.value
         ) !== -1
       ) {
-        formRef.current.action =
-          "https://info.ujet.cx/l/986641/2022-10-17/l2hy5";
+        handleDispatch({
+          type: pardotFormActions.setAction,
+          value: "https://info.ujet.cx/l/986641/2022-10-17/l2hy5",
+        });
       } else if (
         fieldRef.current.tagName === "SELECT" &&
+        fieldRef.current.name.toLowerCase().includes("country") &&
         config.blockedContactFormCountries.findIndex(
           (country) => country === fieldRef.current.value
         ) === -1
       ) {
-        formRef.current.action = customAction ? null : action;
+        handleDispatch({
+          type: pardotFormActions.setAction,
+          value: customAction ? null : action,
+        });
       }
     }
+    callback(formErrors);
   }
 };
 

@@ -1,3 +1,4 @@
+// the different actions that can be dispatched to the reducer.
 export const pardotFormActions = {
   setFormInViewEventPushed: "set_form_in_view_event_pushed",
   setFirstPartnerFieldIndex: "set_first_partner_field_index",
@@ -20,6 +21,7 @@ export const pardotFormActions = {
   setPasteError: "set_paste_error",
   setFormType: "set_form_type",
   setFieldData: "set_field_data",
+  setAction: "set_action",
 };
 
 const setState = (value, key, state) => {
@@ -28,45 +30,47 @@ const setState = (value, key, state) => {
 
 export function pardotFormReducer(state, action) {
   switch (action.type) {
-    case formActions.setFormInViewEventPushed:
+    case pardotFormActions.setFormInViewEventPushed:
       return setState(action.value, "formInViewEventPushed", state);
-    case formActions.setFirstPartnerFieldIndex:
+    case pardotFormActions.setFirstPartnerFieldIndex:
       return setState(action.value, "firstPartnerFieldIndex", state);
-    case formActions.setGADataAdded:
+    case pardotFormActions.setGADataAdded:
       return setState(action.value, "gaDataAdded", state);
-    case formActions.setStateFieldVisible:
+    case pardotFormActions.setStateFieldVisible:
       return setState(action.value, "stateFieldVisible", state);
-    case formActions.setPartnerStateFieldVisible:
+    case pardotFormActions.setPartnerStateFieldVisible:
       return setState(action.value, "partnerStateFieldVisible", state);
-    case formActions.setFormErrors:
+    case pardotFormActions.setFormErrors:
       return setState(action.value, "formErrors", state);
-    case formActions.setTouchedFields:
+    case pardotFormActions.setTouchedFields:
       return setState(action.value, "touchedFields", state);
-    case formActions.setSelectedCountry:
+    case pardotFormActions.setSelectedCountry:
       return setState(action.value, "selectedCountry", state);
-    case formActions.setSelectedPartnerCountry:
+    case pardotFormActions.setSelectedPartnerCountry:
       return setState(action.value, "selectedPartnerCountry", state);
-    case formActions.setUSPhoneFormat:
+    case pardotFormActions.setUSPhoneFormat:
       return setState(action.value, "usPhoneFormat", state);
-    case formActions.setPartnerUSPhoneFormat:
+    case pardotFormActions.setPartnerUSPhoneFormat:
       return setState(action.value, "partnerUsPhoneFormat", state);
-    case formActions.setIncludeTimestampInEmailAddress:
+    case pardotFormActions.setIncludeTimestampInEmailAddress:
       return setState(action.value, "includeTimeStampInEmailAddress", state);
-    case formActions.setSubmissionInProgress:
+    case pardotFormActions.setSubmissionInProgress:
       return setState(action.value, "submissionInProgress", state);
-    case formActions.setFieldsMatchedToStep:
+    case pardotFormActions.setFieldsMatchedToStep:
       return setState(action.value, "fieldsMatchedToStep", state);
-    case formActions.setStepEmailFieldValue:
+    case pardotFormActions.setStepEmailFieldValue:
       return setState(action.value, "stepEmailFieldValue", state);
-    case formActions.setFinalStepSubmitted:
+    case pardotFormActions.setFinalStepSubmitted:
       return setState(action.value, "finalStepSubmitted", state);
-    case formActions.setClientJSEnabled:
+    case pardotFormActions.setClientJSEnabled:
       return setState(action.value, "clientJSEnabled", state);
-    case formActions.setPasteError:
+    case pardotFormActions.setPasteError:
       return setState(action.value, "pasteError", state);
-    case formActions.setFormType:
+    case pardotFormActions.setFormType:
       return setState(action.value, "formType", state);
-    case formActions.setFieldData:
+    case pardotFormActions.setFieldData:
       return setState(action.value, "fieldData", state);
+    case pardotFormActions.setAction:
+      return setState(action.value, "action", state);
   }
 }

@@ -1,11 +1,12 @@
+import { useContext } from "react";
+import HoneypotFields from "../honeypotFields";
 import PardotFormContext from "./context";
 import Field from "./field";
 import style from "./form.module.scss";
-import { getFormType } from "./utils/helpers";
 
 const StandardForm = ({ customAction, action, btnColor, submit }) => {
-  const { state, formRef, handleSubmit } = useContext(PardotFormContext);
-  const isContactForm = getFormType(state.formType) === "contactUs";
+  const { state, formRef, handleSubmit, isContactForm, fieldRefs } =
+    useContext(PardotFormContext);
   return (
     <form
       action={customAction ? null : action}
@@ -20,7 +21,11 @@ const StandardForm = ({ customAction, action, btnColor, submit }) => {
       ref={formRef}
     >
       {state.fieldData?.map((field, index) => (
-        <Field field={field} index={index} />
+        <Field
+          field={field}
+          index={index}
+          fieldRef={fieldRefs.current[index]}
+        />
       ))}
 
       {(state.includeTimeStampInEmailAddress || state.stepEmailFieldValue) && (

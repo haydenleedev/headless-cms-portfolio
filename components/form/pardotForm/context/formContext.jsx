@@ -1,10 +1,11 @@
 import PardotFormContext from ".";
-import { useEffect, useRef } from "react";
+import { useEffect, useReducer, useRef, createRef } from "react";
 import { pardotFormActions, pardotFormReducer } from "../reducer";
 import pardotFormData from "../../../../data/pardotFormData.json";
 import formConfig from "../form.config";
 import {
   addGaData,
+  formatPhoneNumber,
   getFallbackFieldData,
   getFormType,
   isHiddenField,
@@ -20,17 +21,18 @@ import {
 import { useIntersectionObserver } from "../../../../utils/hooks";
 
 // using React Context and useReducer for cleaner handling of form data
-const FormContextProvider = ({
-  config,
-  formHandlerID,
-  stepsEnabled,
-  customAction,
-  contactType,
-  children,
-  partner,
-  action,
-}) => {
+const FormContextProvider = (props) => {
+  const {
+    config,
+    formHandlerID,
+    customAction,
+    children,
+    partner,
+    action,
+    partnerCompanyCountry,
+  } = props;
   const formState = {
+    action: customAction ? null : action,
     fieldData: [],
     formType: getFormType(formHandlerID),
     formErrors: [],
@@ -41,11 +43,10 @@ const FormContextProvider = ({
     stateFieldVisible: false,
     partnerStateFieldVisible: false,
     selectedCountry: "",
-    selectedPartnerCountry: props.partnerCompanyCountry,
+    selectedPartnerCountry: partnerCompanyCountry,
     usPhoneFormat: true,
     partnerUsPhoneFormat:
-      props.partnerCompanyCountry == "United States" ||
-      !props.partnerCompanyCountry,
+      partnerCompanyCountry == "United States" || !partnerCompanyCountry,
     includeTimeStampInEmailAddress: false,
     submissionInProgress: false,
     submissionAllowed: true,
@@ -68,38 +69,41 @@ const FormContextProvider = ({
       });
     }
   });
+  const isDealRegistrationForm = state.formType === "dealRegistration";
+  const isChannelRequestForm = state.formType === "channelRequest";
+  const isContactForm = state.formType === "contactUs";
 
   // initialize form
   useEffect(() => {
     let fieldData = pardotFormData.find(
       (entry) => entry.formHandlerID === parseInt(formHandlerID)
-    );
+    ).fieldData;
     const emailFieldExists = fieldData.find((field) => field.name === "Email");
     if (fieldData.length > 0 && emailFieldExists) {
       fieldData.forEach((field) => {
         const shouldBeRequired =
-          !isHiddenField(field, this.isDealRegistrationForm) &&
-          !this.isDealRegistrationForm &&
-          !isHiddenField(field, this.isChannelRequestForm) &&
-          !this.isChannelRequestForm;
+          !isHiddenField(field, isDealRegistrationForm) &&
+          !isDealRegistrationForm &&
+          !isHiddenField(field, isChannelRequestForm) &&
+          !isChannelRequestForm;
         if (shouldBeRequired) {
           field.isRequired = true;
         }
       });
-    } else fieldData = getFallbackFieldData(this.props.formHandlerID);
-    fieldData = reorderFieldData(this.fieldData, this.formType);
+    } else fieldData = getFallbackFieldData(formHandlerID);
+    fieldData = reorderFieldData(fieldData, state.formType);
     fieldRefs.current = Array(fieldData.length)
       .fill(0)
-      .map(() => React.createRef());
+      .map(() => createRef());
 
     dispatch({ type: pardotFormActions.setFieldData, value: fieldData });
     dispatch({
       type: pardotFormActions.setFormErrors,
-      value: Array(this.fieldData.length).fill(false),
+      value: Array(fieldData.length).fill(false),
     });
     dispatch({
       type: pardotFormActions.setTouchedFields,
-      value: Array(this.fieldData.length).fill(false),
+      value: Array(fieldData.length).fill(false),
     });
     dispatch({
       type: pardotFormActions.setClientJSEnabled,
@@ -142,7 +146,8 @@ const FormContextProvider = ({
   };
 
   const handleGetPartnerFieldProperties = (field) => {
-    return getPartnerFieldProperties({ field, partner });
+    if (partner) return getPartnerFieldProperties({ field, partner });
+    return null;
   };
 
   const handleCountryChange = (newCountryValue) => {
@@ -156,20 +161,23 @@ const FormContextProvider = ({
       // Switch to US phone no. formatting if the previous country did not use it
       if (
         (formConfig.usPhoneFormatCountries.includes(newCountryValue) ||
-          !newCountryValue) &&
-        !formConfig.usPhoneFormatCountries.includes(previousCountry) &&
-        previousCountry
+          !Boolean(newCountryValue)) &&
+        !formConfig.usPhoneFormatCountries.includes(previousCountry)
       ) {
         dispatch({ type: pardotFormActions.setUSPhoneFormat, value: true });
+        phoneField.value = formatPhoneNumber(
+          phoneField.value.replace(/\D/g, "")
+        );
       }
       // Switch to non-US phone no. formatting if the previous country did not use it
       else if (
         !formConfig.usPhoneFormatCountries.includes(newCountryValue) &&
         state.selectedCountry &&
         (formConfig.usPhoneFormatCountries.includes(previousCountry) ||
-          !previousCountry)
+          !Boolean(previousCountry))
       ) {
         dispatch({ type: pardotFormActions.setUSPhoneFormat, value: false });
+        phoneField.value = phoneField.value.replace(/\D/g, "");
       }
     }
   };
@@ -209,7 +217,6 @@ const FormContextProvider = ({
   // Update fieldData to only contain the fields that are used in the current step and hidden fields
   const setFieldsToMatchStep = (step, emailFieldValue) => {
     const currentStepFields = [...config.items.fields.map((item) => item.name)];
-    const isDealRegistrationForm = state.formType === "dealRegistration";
     let newFieldData = [...state.fieldData]
       .map((field) => {
         if (
@@ -227,7 +234,7 @@ const FormContextProvider = ({
     newFieldData = reorderFieldData(newFieldData, state.formType);
     fieldRefs.current = Array(state.fieldData.length)
       .fill(0)
-      .map(() => React.createRef());
+      .map(() => createRef());
     dispatch({
       type: pardotFormActions.setFormErrors,
       value: Array(state.fieldData.length).fill(false),
@@ -260,29 +267,33 @@ const FormContextProvider = ({
     }
   };
 
-  const formValidation = ({ submitFlag = false }) => {
+  const formValidation = (submitFlag = false) => {
     const touchedFields = submitFlag
       ? Array(fieldRefs.current.length).fill(true)
       : state.touchedFields;
-    const formErrors = Array(fieldRefs.current.length).fill(false);
+    let formErrors = Array(fieldRefs.current.length).fill(false);
     fieldRefs.current.forEach((fieldRef, index) => {
-      const errors = validateField({
+      validateField({
         fieldData: state.fieldData,
         stateFieldVisible: state.stateFieldVisible,
         partnerStateFieldVisible: state.partnerStateFieldVisible,
-        isDealRegistrationForm: state.isDealRegistrationForm,
+        isDealRegistrationForm: isDealRegistrationForm,
         usPhoneFormat: state.usPhoneFormat,
-        isContactForm: state.formType === "contactUs",
+        isContactForm,
         touchedFields,
         customAction,
         formErrors,
+        handleDispatch,
         fieldRef,
         formRef,
         action,
         index,
+        callback: (errors) => {
+          formErrors = errors;
+        },
       });
-      dispatch({ type: pardotFormActions.setFormErrors, value: errors });
     });
+    dispatch({ type: pardotFormActions.setFormErrors, value: formErrors });
     return !state.formErrors.includes(true);
   };
 
@@ -291,12 +302,12 @@ const FormContextProvider = ({
       type: pardotFormActions.setTouchedFields,
       value: Array(fieldRefs.current.length).fill(true),
     });
-    const flag = formValidation({ submitFlag: true });
+    const flag = formValidation(true);
     return flag;
   };
 
   const setPasteError = (boolean, index) => {
-    const formErrors = { ...state.formErrors };
+    const formErrors = [...state.formErrors];
     formErrors[index] = boolean;
     if (boolean) {
       dispatch({
@@ -312,7 +323,10 @@ const FormContextProvider = ({
     }
   };
 
-  const phoneNumberFormatter = () => {
+  const phoneNumberFormatter = (index) => {
+    const fieldRef = fieldRefs.current[index];
+    const field = fieldRef.current;
+    console.log(field);
     if (field.name.toLowerCase().includes("phone")) {
       fieldRef.current.value = formatPhoneNumber(fieldRef.current.value);
     }
@@ -360,8 +374,6 @@ const FormContextProvider = ({
         });
         return;
       }
-      const isDealRegistrationForm =
-        getFormType(state.formType) === "dealRegistration";
       validSubmitFormModifications({
         includeTimeStampInEmailAddress: state.includeTimeStampInEmailAddress,
         partnerStateFieldVisible: state.partnerStateFieldVisible,
@@ -378,11 +390,13 @@ const FormContextProvider = ({
   };
 
   const context = {
+    ...props,
     state,
     formRef,
-    contactType,
-    stepsEnabled,
-    formHandlerID,
+    fieldRefs,
+    isDealRegistrationForm,
+    isChannelRequestForm,
+    isContactForm,
     handleSetTouchedFields,
     handleSetGaDataAdded,
     handleSetStateFieldVisible,

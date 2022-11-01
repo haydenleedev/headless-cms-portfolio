@@ -1,11 +1,15 @@
 import { useContext } from "react";
 import { cn } from "../../../../utils/generic";
 import PardotFormContext from "../context";
+import { getErrorMessage, isHiddenField } from "../utils/helpers";
 import FieldResolver from "./resolver";
+import style from "../form.module.scss";
+import FormError from "../../formError";
 
 const Field = (props) => {
   const { field, index } = props;
-  const { state, handleDispatch } = useContext(PardotFormContext);
+  const { state, handleDispatch, isDealRegistrationForm } =
+    useContext(PardotFormContext);
   const isFirstPartnerFieldIndex =
     state.firstPartnerFieldIndex === null &&
     field.name.toLowerCase().match(/partner/) &&
@@ -30,8 +34,8 @@ const Field = (props) => {
         "display-none":
           isHiddenField(field, isDealRegistrationForm) ||
           shouldBeHiddenStateSelect,
-        [style.error]: state.errors[index],
-        [style.valid]: state.touched[index],
+        [style.error]: state.formErrors[index],
+        [style.valid]: state.touchedFields[index] && !state.formErrors[index],
       })}
     >
       {!isHiddenField(field, isDealRegistrationForm) && (
@@ -64,7 +68,7 @@ const Field = (props) => {
         </>
       )}
       <FieldResolver {...props} />
-      {state.errors[index] && (
+      {state.formErrors[index] && (
         <FormError
           message={
             state.pasteError && state.pasteError.index === index

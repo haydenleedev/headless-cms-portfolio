@@ -5,7 +5,7 @@ import StarRating from "../../starRating/starRating";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import Heading from "../heading";
-import PardotForm from "../../form/pardotForm";
+import PardotForm from "../../form/pardotForm/index";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";

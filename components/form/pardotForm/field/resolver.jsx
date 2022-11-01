@@ -1,16 +1,37 @@
-import { addGaData, isHiddenField } from "../../utils/pardotForm";
-import style from "./form.module.scss";
+import style from "../form.module.scss";
 import PardotFormContext from "../context";
 import { useContext } from "react";
-import formConfig from "../form.config";
+import {
+  addGaData,
+  isAdditionalSelectField,
+  isHiddenField,
+  isSelectField,
+} from "../utils/helpers";
 
-const FieldResolver = ({ field }) => {
+const FieldResolver = ({ field, index, fieldRef }) => {
   const {
+    state,
+    contactType,
+    assetTitle,
+    recordTypeId,
     setPasteError,
     formValidation,
     handleCountryChange,
+    handlePartnerCountryChange,
     handleSetPartnerStateFieldVisible,
+    handleSetStateFieldVisible,
     handleSetTouchedFields,
+    isDealRegistrationForm,
+    pasteBlocker,
+    handleGetPartnerFieldProperties,
+    handleSetGaDataAdded,
+    phoneNumberFormatter,
+    clpField,
+    clsField,
+    utmCampaign,
+    utmAsset,
+    pagePath,
+    assetType,
   } = useContext(PardotFormContext);
 
   // Manually set data format for certain fields, as they are not set correctly in Pardot
@@ -26,17 +47,44 @@ const FieldResolver = ({ field }) => {
     field.dataFormat = "email";
   }
 
+  const resolveInputValue = (field) => {
+    const partnerFieldProperties = handleGetPartnerFieldProperties(field);
+    const lowerCaseName = field.name.toLowerCase();
+    switch (lowerCaseName) {
+      case "contact_type":
+        return contactType;
+      case "lead record type":
+        return recordTypeId;
+      case "asset title":
+        return assetTitle;
+      case "asset type":
+        return assetType;
+      case "asset url":
+        return pagePath;
+      case "utm_campaign":
+        return utmCampaign;
+      case "utm_asset":
+        return utmAsset;
+      case "current lead program 2":
+        return clpField;
+      case "current lead source 2":
+        return clsField;
+      default:
+        return partnerFieldProperties?.value;
+    }
+  };
+
   switch (field.dataFormat) {
     case "email":
       return (
         <input
-          hidden={isHiddenField(field, isDealRegistrationField)}
+          hidden={isHiddenField(field, isDealRegistrationForm)}
           name={field.name}
           id={field.id}
           autoComplete="email"
           maxLength="255"
           onBlur={() => {
-            handleSetTouchedFields();
+            handleSetTouchedFields(index);
             formValidation();
             setPasteError(false);
           }}
@@ -46,12 +94,12 @@ const FieldResolver = ({ field }) => {
           }}
           onInput={() => {
             addGaData(
-              gaDataAdded,
-              updateGaDataAdded,
+              state.gaDataAdded,
+              handleSetGaDataAdded,
               fieldRef.current,
-              isDealRegistrationField,
-              formType,
-              contactTypeValue
+              isDealRegistrationForm,
+              state.formType,
+              contactType
             );
           }}
           ref={fieldRef}
@@ -64,17 +112,17 @@ const FieldResolver = ({ field }) => {
           id={field.id}
           type="text"
           title={field.name}
-          hidden={isHiddenField(field, isDealRegistrationField)}
-          maxLength={usPhoneFormat ? null : 20}
+          hidden={isHiddenField(field, isDealRegistrationForm)}
+          maxLength={state.usPhoneFormat ? null : 20}
           onBlur={() => {
-            handleSetTouchedFields();
+            handleSetTouchedFields(index);
             formValidation();
             setPasteError(false);
           }}
           onPaste={pasteBlocker}
           onKeyDown={() => {
-            if (usPhoneFormat) {
-              phoneNumberFormatter();
+            if (state.usPhoneFormat) {
+              phoneNumberFormatter(index);
             } else formValidation();
             setPasteError(false);
           }}
@@ -89,9 +137,9 @@ const FieldResolver = ({ field }) => {
           type="number"
           min="0"
           title={field.name}
-          hidden={isHiddenField(field, isDealRegistrationField)}
+          hidden={isHiddenField(field, isDealRegistrationForm)}
           onBlur={() => {
-            handleSetTouchedFields();
+            handleSetTouchedFields(index);
             formValidation();
             setPasteError(false);
           }}
@@ -111,9 +159,9 @@ const FieldResolver = ({ field }) => {
               id={field.id}
               maxLength="232768"
               rows="3"
-              hidden={isHiddenField(field, isDealRegistrationField)}
+              hidden={isHiddenField(field, isDealRegistrationForm)}
               onBlur={() => {
-                handleSetTouchedFields();
+                handleSetTouchedFields(index);
                 formValidation();
                 setPasteError(false);
               }}
@@ -127,9 +175,9 @@ const FieldResolver = ({ field }) => {
               name={field.name}
               id={field.id}
               maxLength="255"
-              hidden={isHiddenField(field, isDealRegistrationField)}
+              hidden={isHiddenField(field, isDealRegistrationForm)}
               onBlur={() => {
-                handleSetTouchedFields();
+                handleSetTouchedFields(index);
                 formValidation();
                 setPasteError(false);
               }}
@@ -138,33 +186,7 @@ const FieldResolver = ({ field }) => {
               }}
               onPaste={pasteBlocker}
               ref={fieldRef}
-              value={
-                field.name.toLowerCase() === "contact_type"
-                  ? isContactType
-                  : field.name.toLowerCase() === "lead record type"
-                  ? isRecordTypeId
-                  : field.name.toLowerCase() === "asset title"
-                  ? isAssetTitle
-                  : field.name.toLowerCase() === "asset type"
-                  ? isAssetType
-                  : field.name.toLowerCase() === "asset url"
-                  ? isAssetUrl
-                  : /* : field.name.toLowerCase() === "utm_campaign" &&
-                    isLandingPageOrWebinarField
-                  ? isUtmCampaign
-                  : field.name.toLowerCase() === "utm_asset" &&
-                    isLandingPageOrWebinarField
-                  ? isUtmAsset */
-                  field.name.toLowerCase() === "utm_campaign"
-                  ? isUtmCampaign
-                  : field.name.toLowerCase() === "utm_asset"
-                  ? isUtmAsset
-                  : field.name.toLowerCase() === "current lead program 2"
-                  ? isCLPformField
-                  : field.name.toLowerCase() === "current lead source 2"
-                  ? isCLSformField
-                  : partnerFieldProperties?.value
-              }
+              value={resolveInputValue(field)}
             />
           )}
         </>
@@ -185,16 +207,19 @@ const FieldResolver = ({ field }) => {
                   const isPartnerCountry = field.name
                     .toLowerCase()
                     .match(/partner/);
-                  handleCountryChange(e.target.value, isPartnerCountry);
                   if (isPartnerCountry) {
+                    handlePartnerCountryChange(e.target.value);
                     handleSetPartnerStateFieldVisible(
                       e.target.value == "United States"
                     );
                   } else {
-                    updateStateFieldVisible(e.target.value == "United States");
+                    handleCountryChange(e.target.value);
+                    handleSetStateFieldVisible(
+                      e.target.value == "United States"
+                    );
                   }
                 }
-                handleSetTouchedFields();
+                handleSetTouchedFields(index);
                 formValidation();
                 setPasteError(false);
               }}
@@ -209,10 +234,12 @@ const FieldResolver = ({ field }) => {
                       e.target.value == "United States"
                     );
                   } else {
-                    updateStateFieldVisible(e.target.value == "United States");
+                    handleSetStateFieldVisible(
+                      e.target.value == "United States"
+                    );
                   }
                 }
-                handleSetTouchedFields();
+                handleSetTouchedFields(index);
                 formValidation();
                 setPasteError(false);
               }}

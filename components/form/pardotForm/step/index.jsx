@@ -2,16 +2,16 @@ import FormError from "../../formError";
 import HoneypotFields from "../../honeypotFields";
 import Field from "../field";
 import PardotFormContext from "../context";
-import style from "./form.module.scss";
+import style from "../form.module.scss";
 import { getFormType } from "../utils/helpers";
 import EmailStep from "./emailStep";
 
 const StepForm = ({ customAction, action, btnColor, submit, config }) => {
-  const { state, formRef, handleSubmit } = useContext(PardotFormContext);
+  const { state, formRef, handleSubmit, isContactForm } =
+    useContext(PardotFormContext);
   const isFirstStep = !state.fieldsMatchedToStep && !state.finalStepSubmitted;
   const isStep = state.fieldsMatchedToStep && !state.finalStepSubmitted;
   const isFinalStep = state.finalStepSubmitted;
-  const isContactForm = getFormType(state.formType) === "contactUs";
   if (isFirstStep) {
     return (
       <form

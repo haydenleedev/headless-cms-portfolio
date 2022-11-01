@@ -145,7 +145,7 @@
 
 .form-select {
   cursor: pointer;
-  background-image: url(../../shop/components/icons/svgs/down-arrow.svg);
+  background-image: url(../../../shop/components/icons/svgs/down-arrow.svg);
   background-position: right 1em center;
   background-repeat: no-repeat;
   background-size: 0.75 rem;
@@ -249,7 +249,7 @@
     width: toRem(17);
     height: toRem(17);
     padding-right: toRem(7);
-    background: url(../../shop/components/icons/svgs/icon-error-info.svg)
+    background: url(../../../shop/components/icons/svgs/icon-error-info.svg)
       no-repeat left bottom;
     overflow: hidden;
   }

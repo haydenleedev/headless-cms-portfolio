@@ -25,7 +25,7 @@ export function generateUUID() {
 // helper function for easier management of classNames.
 export function cn(conditions) {
   if (
-    !Array.isArray(conditions) ||
+    (!Array.isArray(conditions) && conditions.length) ||
     (typeof conditions !== "object" && Object.keys(conditions).length < 1)
   )
     throw new Error(
