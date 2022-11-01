@@ -48,7 +48,7 @@ const PressReleaseList = ({ module }) => {
             </div>
           ))}
         </div>
-        <Link href="/archives?type=pressreleases" prefetch={false}>
+        <Link href="/archives?type=pressreleases">
           <a
             className="button cyan outlined newsList--link"
             aria-label="Navigate to page /archives?type=pressreleases"

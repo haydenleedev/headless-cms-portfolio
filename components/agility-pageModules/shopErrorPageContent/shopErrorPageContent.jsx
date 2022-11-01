@@ -56,7 +56,7 @@ const ShopErrorPageContent = () => {
             <div className={`${styles["align-center"]}`}>
               <p>
                 For questions please reach out to{" "}
-                <Link prefetch={false} href="mailto:support@ujet.cx">
+                <Link href="mailto:support@ujet.cx">
                   <a className={layout["link"]}>support@ujet.cx</a>
                 </Link>
                 .

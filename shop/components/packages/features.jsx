@@ -19,7 +19,7 @@ class ProductFeatures extends Component {
           <label htmlFor={productId} tabIndex={0}>
             <h3 className={features["feature-title"]}>View features</h3>
           </label>
-          <Link  prefetch={false} href="#" {...productId}>
+          <Link href="#" {...productId}>
             <a
               className={`${features["product-anchor"]} ${features["product-anchor-open"]}`}
             >
@@ -28,7 +28,7 @@ class ProductFeatures extends Component {
               </span>
             </a>
           </Link>
-          <Link  prefetch={false} href="#">
+          <Link href="#">
             <a
               className={`${features["product-anchor"]} ${features["product-anchor-close"]}`}
             >

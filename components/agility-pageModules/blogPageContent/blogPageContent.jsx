@@ -151,7 +151,7 @@ const BlogPageContent = ({ customData }) => {
         <div className={`container ${style.highlightedPostContent}`}>
           <h1 className="heading-6 w-400">BLOG</h1>
           <p className="is-size-4 w-600">{highlightedPost.fields.title}</p>
-          <Link prefetch={false} href={`blog/${highlightedPost.fields.slug}`}>
+          <Link href={`blog/${highlightedPost.fields.slug}`}>
             <a
               className="button mediumblue no-outline"
               aria-label={`Navigate to /blog/${highlightedPost.fields.slug}`}

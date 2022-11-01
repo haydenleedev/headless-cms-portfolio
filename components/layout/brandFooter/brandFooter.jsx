@@ -11,7 +11,7 @@ const BrandFooter = ({ globalData }) => {
   return (
     <footer className={`max-width-brand ${style.footer}`}>
       <div>
-        <Link href="/brand" prefetch={false}>
+        <Link href="/brand">
           <a
             title="Navigate to home page"
             aria-label="Navigate to home page"
