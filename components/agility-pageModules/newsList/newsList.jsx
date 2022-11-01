@@ -49,7 +49,7 @@ const NewsList = ({ module }) => {
             </div>
           ))}
         </div>
-        <Link href="/archives?type=news">
+        <Link href="/archives?type=news" prefetch={false}>
           <a
             className="button cyan outlined newsList--link"
             aria-label="Navigate to page /archives?type=news"

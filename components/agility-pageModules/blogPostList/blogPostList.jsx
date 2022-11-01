@@ -57,7 +57,7 @@ const BlogPostList = ({ module }) => {
           ))}
         </div>
         {!hideMainLink && (
-          <Link href="/blog">
+          <Link prefetch={false} href="/blog">
             <a
               className="button cyan outlined newsList--link"
               aria-label="Navigate to the blog page"

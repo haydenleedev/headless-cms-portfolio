@@ -29,7 +29,7 @@ const Footer = ({ globalData }) => {
       <div className={style.container}>
         <div className="row-desktop">
           <div className={` ${style.brand}`}>
-            <Link href="/">
+            <Link prefetch={false} href="/">
               <a title="Go to home page" aria-label="Go to home page">
                 <img
                   className={style.logo}

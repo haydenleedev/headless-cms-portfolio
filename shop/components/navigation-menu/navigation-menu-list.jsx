@@ -17,7 +17,7 @@ const MenuList = (props) => {
             id={Index}
           ></input>
           <label className={nav.toggleClass} htmlFor={Index}>
-            <Link
+            <Link  prefetch={false}
               href={primary_menu.href ? url + primary_menu.href : "#"}
               passHref
             >
@@ -35,7 +35,7 @@ const MenuList = (props) => {
                 {primary_menu.dropdowns.map((dropdown, dropdownIndex) =>
                   dropdown.sub_menu.map((secondary_menu, secondIndex) => (
                     <li key={secondIndex}>
-                      <Link
+                      <Link  prefetch={false}
                         href={
                           secondary_menu.sub_href
                             ? url + secondary_menu.sub_href
@@ -51,7 +51,7 @@ const MenuList = (props) => {
                           secondary_menu.dropdown_items.map(
                             (third_menu, thirdIndex) => (
                               <li key={thirdIndex}>
-                                <Link
+                                <Link  prefetch={false}
                                   href={
                                     third_menu.dropdown_href
                                       ? url + third_menu.dropdown_href
