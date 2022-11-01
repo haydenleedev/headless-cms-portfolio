@@ -59,6 +59,7 @@ class PardotForm extends Component {
     this.state = {
       errors: [],
       touched: [],
+      action: this.props.customAction ? null : this.props.action,
       stateFieldVisible: false,
       partnerStateFieldVisible: false,
       selectedCountry: "",
@@ -503,26 +504,29 @@ class PardotForm extends Component {
             }
           }
         }
-
-        // check for blocked countries if contact form
-        if (this.isContactForm) {
-          if (
-            fieldRef.current.tagName === "SELECT" &&
-            blockedContactFormCountries.findIndex(
-              (country) => country === fieldRef.current.value
-            ) !== -1
-          ) {
-            this.form.action = "https://info.ujet.cx/l/986641/2022-10-17/l2hy5";
-          } else if (
-            fieldRef.current.tagName === "SELECT" &&
-            blockedContactFormCountries.findIndex(
-              (country) => country === fieldRef.current.value
-            ) === -1
-          ) {
-            this.form.action = this.props.customAction
-              ? null
-              : this.props.action;
-          }
+      }
+      // check for blocked countries if contact form
+      if (this.isContactForm) {
+        if (
+          fieldRef.current.tagName === "SELECT" &&
+          fieldRef.current.name.toLowerCase().includes("country") &&
+          blockedContactFormCountries.findIndex(
+            (country) => country === fieldRef.current.value
+          ) !== -1
+        ) {
+          this.setState({
+            action: "https://info.ujet.cx/l/986641/2022-10-17/l2hy5",
+          });
+        } else if (
+          fieldRef.current.tagName === "SELECT" &&
+          fieldRef.current.name.toLowerCase().includes("country") &&
+          blockedContactFormCountries.findIndex(
+            (country) => country === fieldRef.current.value
+          ) === -1
+        ) {
+          this.setState({
+            action: this.props.customAction ? null : this.props.action,
+          });
         }
       }
     });
@@ -572,7 +576,7 @@ class PardotForm extends Component {
               this.state.fieldsMatchedToStep &&
               !this.state.finalStepSubmitted) ? (
               <form
-                action={this.props.customAction ? null : this.props.action}
+                action={this.state.action}
                 method={this.props.customAction ? null : "post"}
                 onSubmit={(e) => {
                   e.preventDefault();
