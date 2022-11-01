@@ -15,7 +15,6 @@ const {
   preferredMasterAgent,
   partnerAreaOfInterest,
   certificationType,
-  contactType,
 } = formConfig;
 
 // This function could be split into smaller parts and/or renamed (it does more than just add GA data)
@@ -312,6 +311,8 @@ export const getFormType = (formHandlerID) => {
       return "partnerRequest";
     case 3721:
       return "googleContact";
+    case 3898:
+      return "partnerCertification";
   }
 };
 
@@ -326,6 +327,7 @@ export const getFallbackFieldData = (formID) => {
 };
 
 export const isNonUsPhoneNumber = (phoneNumber) => {
+  if (phoneNumber.length < 7) return false;
   for (let i = 0; i < phoneNumber.length; i++) {
     const char = phoneNumber[i];
     if (!char.match(/[0-9]/) && ![" ", "+", "-", "(", ")"].includes(char)) {
