@@ -62,7 +62,7 @@ const AgilityLink = ({
       replace={replace}
       scroll={scroll}
       shallow={shallow}
-      prefetch={false}
+      prefetch={prefetch}
     >
       <a
         className={className}

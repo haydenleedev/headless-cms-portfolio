@@ -31,7 +31,7 @@ const Breadcrumbs = ({ breadcrumbs, className }) => {
         return (
             <div key={`item${index}`}>
                 {item.path && index < breadcrumbItems.length - 1 ?
-                    <Link prefetch={false} href={item.path}>
+                    <Link href={item.path}>
                         <a>
                             <p>{item.name}</p>
                         </a>

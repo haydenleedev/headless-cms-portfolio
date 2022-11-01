@@ -86,7 +86,6 @@ const ResourceList = ({ module, customData }) => {
         {fields.resourceListCategory && (
           <div className={style.link}>
             <Link
-            prefetch={false}
               href={`/archives?type=resources&categories=${mappedResourceListCategory[
                 fields.resourceListCategory
               ].types.map((type, i) => {

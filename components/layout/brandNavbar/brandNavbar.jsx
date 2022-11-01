@@ -35,7 +35,7 @@ const BrandNavbar = ({ globalData }) => {
 
         </button>
         <div className={style.logoContainer}>
-          <Link prefetch={false} href="/brand">
+          <Link href="/brand">
             <a
               title="Navigate  to home page"
               aria-label="Navigate to home page"
@@ -63,7 +63,7 @@ const BrandNavbar = ({ globalData }) => {
               brandNavbar.fields.mainNavigation.map((item, index) => {
                 return (
                   <li key={`navitem${index}`}>
-                    <Link prefetch={false}
+                    <Link
                       href={item.fields.mainLink.fields.link.href}
                       className={style.navLink}
                     >
@@ -82,7 +82,7 @@ const BrandNavbar = ({ globalData }) => {
           </ul>
         </div>
         <div className={style.buttonContainer}>
-          <Link prefetch={false} href="/contact-sales">Questions?</Link>
+          <Link href="/contact-sales">Questions?</Link>
         </div>
       </nav>
     </header>
