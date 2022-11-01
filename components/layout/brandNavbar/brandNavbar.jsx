@@ -63,7 +63,8 @@ const BrandNavbar = ({ globalData }) => {
               brandNavbar.fields.mainNavigation.map((item, index) => {
                 return (
                   <li key={`navitem${index}`}>
-                    <Link prefetch={false}
+                    <Link
+                    prefetch={false}
                       href={item.fields.mainLink.fields.link.href}
                       className={style.navLink}
                     >
