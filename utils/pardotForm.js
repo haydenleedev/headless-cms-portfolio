@@ -349,6 +349,7 @@ export const isHiddenField = (field, isDealRegistrationField = false) => {
     /asset /,
     /contact_type/,
     /lead record type/,
+    /gclid/,
   ];
 
   const partialHiddenFields = [/partner country/, /partner company/];
