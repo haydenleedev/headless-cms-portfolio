@@ -1,4 +1,8 @@
-import { isFreeEmail, isPhoneNumber } from "../../../../shop/utils/validation";
+import {
+  isEmail,
+  isFreeEmail,
+  isPhoneNumber,
+} from "../../../../shop/utils/validation";
 import { getCookie } from "../../../../utils/cookies";
 import config from "../form.config";
 import { pardotFormActions } from "../reducer";
@@ -18,14 +22,13 @@ export const validateField = ({
   isContactForm,
   touchedFields,
   customAction,
-  formErrors,
   fieldRef,
   action,
   index,
-  callback,
 }) => {
   const fieldIsTouched = touchedFields[index];
   const fieldName = fieldRef.current.name;
+  let hasError = false;
   // Prevent submission if a visible required field does not have a value
   if (fieldIsTouched) {
     const isRequiredField = fieldData[index];
@@ -62,34 +65,34 @@ export const validateField = ({
       !fieldValue
     ) {
       // check for invalid state select input values
-      formErrors[index] = true;
+      hasError = true;
     } else if (isNumberFieldWithInvalidValue) {
       // check for invalid number input values
-      formErrors[index] = true;
+      hasError = true;
     } else if (fieldValue) {
       // if the previous conditions didn't apply, check for invalid input values in general
       switch (fieldName) {
         case "Phone Number": {
           if (usPhoneFormat) {
             if (!isPhoneNumber(formatPhoneNumber(fieldValue))) {
-              formErrors[index] = true;
+              hasError = true;
             }
           } else if (!isNonUsPhoneNumber(fieldValue)) {
-            formErrors[index] = true;
+            hasError = true;
           }
           break;
         }
         case "Email": {
           if (!isEmail(fieldValue)) {
-            formErrors[index] = true;
+            hasError = true;
           } else if (isFreeEmail(fieldValue) && isContactForm) {
-            formErrors[index] = true;
+            hasError = true;
           }
           break;
         }
         default: {
           if (!Boolean(fieldValue) && isRequiredField) {
-            formErrors[index] = true;
+            hasError = true;
           }
           break;
         }
@@ -122,8 +125,8 @@ export const validateField = ({
         });
       }
     }
-    callback(formErrors);
   }
+  return hasError;
 };
 
 // Define specific field values for deal registration pages

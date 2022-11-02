@@ -1,5 +1,5 @@
 import style from "../form.module.scss";
-import { useContext } from "react";
+import { useContext, useRef, useState } from "react";
 import PardotFormContext from "../context";
 import { getFormType } from "../utils/helpers";
 import FormError from "../../formError";
@@ -10,7 +10,7 @@ const EmailStep = ({ stepFields }) => {
   const emailRef = useRef(null);
   const [emailError, setEmailError] = useState(false);
   const [stepFetchInProgress, setStepFetchInProgress] = useState(false);
-  const formType = getFormType(this.props.formHandlerID);
+  const formType = getFormType(formHandlerID);
 
   const validateEmail = () => {
     let validEmail = isEmail(emailRef.current.value);

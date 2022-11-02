@@ -1,3 +1,4 @@
+import { boolean } from "../../../utils/validation";
 import LazyLoadReCAPTCHA from "../lazyLoadReCAPTCHA";
 import FormContextProvider from "./context/formContext";
 import StandardForm from "./form";
@@ -8,7 +9,11 @@ const PardotForm = (props) => {
   return (
     <FormContextProvider {...props}>
       <LazyLoadReCAPTCHA />
-      {stepsEnabled ? <StepForm {...props} /> : <StandardForm {...props} />}
+      {boolean(stepsEnabled) ? (
+        <StepForm {...props} />
+      ) : (
+        <StandardForm {...props} />
+      )}
       <noscript>
         <p>
           <strong>Please enable JavaScript to use the form.</strong>

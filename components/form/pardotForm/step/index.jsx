@@ -3,10 +3,10 @@ import HoneypotFields from "../../honeypotFields";
 import Field from "../field";
 import PardotFormContext from "../context";
 import style from "../form.module.scss";
-import { getFormType } from "../utils/helpers";
 import EmailStep from "./emailStep";
+import { useContext } from "react";
 
-const StepForm = ({ customAction, action, btnColor, submit, config }) => {
+const StepForm = ({ customAction, btnColor, submit, config }) => {
   const { state, formRef, handleSubmit, isContactForm } =
     useContext(PardotFormContext);
   const isFirstStep = !state.fieldsMatchedToStep && !state.finalStepSubmitted;
@@ -29,7 +29,7 @@ const StepForm = ({ customAction, action, btnColor, submit, config }) => {
   } else if (isStep) {
     return (
       <form
-        action={customAction ? null : action}
+        action={state.action}
         method={customAction ? null : "post"}
         onSubmit={(e) => {
           e.preventDefault();

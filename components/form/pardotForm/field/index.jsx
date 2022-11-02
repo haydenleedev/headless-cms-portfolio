@@ -10,11 +10,13 @@ const Field = (props) => {
   const { field, index } = props;
   const { state, handleDispatch, isDealRegistrationForm } =
     useContext(PardotFormContext);
+
   const isFirstPartnerFieldIndex =
     state.firstPartnerFieldIndex === null &&
     field.name.toLowerCase().match(/partner/) &&
     !field.name.toLowerCase().match(/partner area of interest/) &&
     !isHiddenField(field, isDealRegistrationForm);
+
   const shouldBeHiddenStateSelect =
     field.name.toLowerCase().match(/state/) &&
     ((!field.name.toLowerCase().match(/partner/) && !state.stateFieldVisible) ||
@@ -28,7 +30,7 @@ const Field = (props) => {
     });
   }
   return (
-    <div
+    <label
       key={`formField${index}`}
       className={cn({
         "display-none":
@@ -39,9 +41,9 @@ const Field = (props) => {
       })}
     >
       {!isHiddenField(field, isDealRegistrationForm) && (
-        <>
+        <span>
           {index == state.firstPartnerFieldIndex && (
-            <p
+            <span
               className={cn([
                 "heading-6",
                 style["pt-3"],
@@ -55,17 +57,17 @@ const Field = (props) => {
                 : isChannelRequestForm
                 ? "Partner Information"
                 : null}
-            </p>
+            </span>
           )}
-          <label htmlFor={field.id}>
-            {field.isRequired && <span className={style.required}>*</span>}{" "}
+          {field.isRequired && <span className={style.required}>*</span>}{" "}
+          <span>
             {field.name.toLowerCase() === "company"
               ? "Company Name"
               : field.name.toLowerCase() === "email"
               ? "Work Email"
               : field.name}
-          </label>
-        </>
+          </span>
+        </span>
       )}
       <FieldResolver {...props} />
       {state.formErrors[index] && (
@@ -77,7 +79,7 @@ const Field = (props) => {
           }
         />
       )}
-    </div>
+    </label>
   );
 };
 

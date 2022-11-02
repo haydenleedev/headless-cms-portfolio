@@ -86,11 +86,11 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           onBlur={() => {
             handleSetTouchedFields(index);
             formValidation();
-            setPasteError(false);
+            setPasteError(false, index);
           }}
           onPaste={pasteBlocker}
           onKeyDown={(e) => {
-            if (e.code !== "Tab") setPasteError(false);
+            if (e.code !== "Tab") setPasteError(false, index);
           }}
           onInput={() => {
             addGaData(
@@ -117,14 +117,14 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           onBlur={() => {
             handleSetTouchedFields(index);
             formValidation();
-            setPasteError(false);
+            setPasteError(false, index);
           }}
           onPaste={pasteBlocker}
           onKeyDown={() => {
             if (state.usPhoneFormat) {
               phoneNumberFormatter(index);
             } else formValidation();
-            setPasteError(false);
+            setPasteError(false, index);
           }}
           ref={fieldRef}
         />
@@ -141,10 +141,10 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           onBlur={() => {
             handleSetTouchedFields(index);
             formValidation();
-            setPasteError(false);
+            setPasteError(false, index);
           }}
           onKeyDown={(e) => {
-            if (e.code !== "Tab") setPasteError(false);
+            if (e.code !== "Tab") setPasteError(false, index);
           }}
           ref={fieldRef}
         />
@@ -163,10 +163,10 @@ const FieldResolver = ({ field, index, fieldRef }) => {
               onBlur={() => {
                 handleSetTouchedFields(index);
                 formValidation();
-                setPasteError(false);
+                setPasteError(false, index);
               }}
               onKeyDown={(e) => {
-                if (e.code !== "Tab") setPasteError(false);
+                if (e.code !== "Tab") setPasteError(false, index);
               }}
               ref={fieldRef}
             ></textarea>
@@ -179,10 +179,10 @@ const FieldResolver = ({ field, index, fieldRef }) => {
               onBlur={() => {
                 handleSetTouchedFields(index);
                 formValidation();
-                setPasteError(false);
+                setPasteError(false, index);
               }}
               onKeyDown={(e) => {
-                if (e.code !== "Tab") setPasteError(false);
+                if (e.code !== "Tab") setPasteError(false, index);
               }}
               onPaste={pasteBlocker}
               ref={fieldRef}
@@ -221,7 +221,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
                 }
                 handleSetTouchedFields(index);
                 formValidation();
-                setPasteError(false);
+                setPasteError(false, index);
               }}
               onBlur={(e) => {
                 if (field.name.toLowerCase().match(/country/)) {
@@ -241,7 +241,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
                 }
                 handleSetTouchedFields(index);
                 formValidation();
-                setPasteError(false);
+                setPasteError(false, index);
               }}
             >
               {field.options.map((option, index) => {
@@ -266,10 +266,10 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           onBlur={() => {
             handleSetTouchedFields(index);
             formValidation();
-            setPasteError(false);
+            setPasteError(false, index);
           }}
           onKeyDown={(e) => {
-            if (e.code !== "Tab") setPasteError(false);
+            if (e.code !== "Tab") setPasteError(false, index);
           }}
           onPaste={pasteBlocker}
           ref={fieldRef}

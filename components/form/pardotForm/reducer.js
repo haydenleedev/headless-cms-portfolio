@@ -72,5 +72,7 @@ export function pardotFormReducer(state, action) {
       return setState(action.value, "fieldData", state);
     case pardotFormActions.setAction:
       return setState(action.value, "action", state);
+    default:
+      return state;
   }
 }

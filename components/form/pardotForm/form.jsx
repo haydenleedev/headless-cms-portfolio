@@ -4,12 +4,12 @@ import PardotFormContext from "./context";
 import Field from "./field";
 import style from "./form.module.scss";
 
-const StandardForm = ({ customAction, action, btnColor, submit }) => {
+const StandardForm = ({ customAction, btnColor, submit }) => {
   const { state, formRef, handleSubmit, isContactForm, fieldRefs } =
     useContext(PardotFormContext);
   return (
     <form
-      action={customAction ? null : action}
+      action={state.action}
       method={customAction ? null : "post"}
       onSubmit={(e) => {
         e.preventDefault();
@@ -32,7 +32,7 @@ const StandardForm = ({ customAction, action, btnColor, submit }) => {
         <input name="hiddenemail" className="display-none" />
       )}
       <HoneypotFields />
-      <div className="layout mt-4 d-flex flex-direction-column align-items-center">
+      <div className={style.submitButton}>
         <input
           type="submit"
           className={`button ${btnColor ? btnColor : "orange"}`}

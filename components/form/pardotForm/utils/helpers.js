@@ -7,6 +7,7 @@ import formConfig from "../form.config";
 const userIdCookie = getCookie("ga_user_id");
 
 const {
+  gaMeta,
   errorMessages,
   countries,
   crmSolutions,

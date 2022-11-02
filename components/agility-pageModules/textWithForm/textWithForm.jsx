@@ -27,7 +27,7 @@ const TextWithForm = ({ module, customData }) => {
     const form = formWrapperRef?.current?.querySelector?.("form");
     if (fields.layout === "formRightCollapsed" && form) {
       const visibleFields = form.querySelectorAll(
-        "form > div:not(.display-none)"
+        "form > label:not(.display-none)"
       );
       for (let row = 0; row < visibleFields.length; row++) {
         if (
@@ -39,7 +39,8 @@ const TextWithForm = ({ module, customData }) => {
         } else if (
           row < visibleFields.length - 2 &&
           Array.from(visibleFields[row].children).length >= 2 &&
-          visibleFields[row].children[1].tagName === "INPUT"
+          visibleFields[row].children[1].tagName === "INPUT" &&
+          visibleFields[row + 1]?.children?.[1]?.tagName === "INPUT"
         )
           visibleFields[row].style["grid-column"] = "unset";
         else visibleFields[row].style["grid-column"] = "1 / -1";

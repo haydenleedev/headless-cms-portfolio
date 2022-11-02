@@ -1,30 +1,12 @@
-@import "../../../styles/settings/_settings";
-
-.form-container {
-  background-color: $color-paleblue;
-  border-radius: toRem(16);
-  margin-left: toRem(10);
-  margin-right: toRem(10);
-  margin-bottom: toRem(20);
-  form {
-    padding: toRem(30);
-    fieldset {
-      border: unset;
-      padding-top: unset;
-      padding-bottom: unset;
-      label {
-        padding: unset;
-      }
-    }
-  }
-  @include desktop() {
-    max-width: toRem(650);
-    margin-left: 0;
-    margin-right: 0;
-  }
-}
+@import "../../../styles/settings/mixins";
+@import "../../../styles/settings/variables";
+@import "../../../styles/settings/colors";
+@import "../../../styles/settings/fonts";
 
 .pardotForm {
+  label {
+    display: block;
+  }
   input,
   select {
     @include focus-visible-touch-outlines();
@@ -96,50 +78,6 @@
     display: block;
     position: relative;
     padding: toRem(2) 0 toRem(2) toRem(27);
-  }
-}
-
-.mb-20px {
-  margin-bottom: toRem(20);
-}
-.mb-10px {
-  margin-bottom: toRem(10);
-}
-
-.mlr-5px {
-  margin-left: toRem(5);
-  margin-right: toRem(5);
-}
-.pl-20px {
-  padding-left: toRem(20);
-}
-
-.pt-3 {
-  padding-top: toRem(30);
-}
-
-.pb-2 {
-  padding-bottom: toRem(20);
-}
-
-.mt-3 {
-  margin-top: toRem(30);
-}
-
-.bt-1 {
-  border-top: toRem(1) solid $color-darkblue;
-}
-
-.copyright {
-  font-size: toRem(14);
-}
-
-.paragraph {
-  padding: toRem(8);
-  line-height: 0 1.4em;
-  font-size: 1rem;
-  a {
-    text-decoration: underline;
   }
 }
 
@@ -267,4 +205,11 @@
 
 .hideFormField {
   display: none;
+}
+.submitButton {
+  margin-top: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  grid-column: 1/-1;
 }
