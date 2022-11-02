@@ -324,8 +324,7 @@ const SEO = ({
                   }
                   console.log("gclid loaded!");
                 }
-
-                window.addEventListener('load', addGclid);`}</Script>
+                addGclid();`}</Script>
             </>
           )}
         </>
