@@ -17,6 +17,43 @@ const gaMeta = [
     id: "ga-cookie-id",
   },
 ];
+
+export const blockedContactFormCountries = [
+  "Afghanistan",
+  "Albania",
+  "Belarus",
+  "Bosnia and Herzegovina",
+  "Bulgaria",
+  "Myanmar",
+  "Central African Republic",
+  "China",
+  "Congo, the Democratic Republic of the",
+  "Croatia",
+  "Cuba",
+  "Ethiopia",
+  "Hong Kong",
+  "Iran",
+  "Iraq",
+  "Lebanon",
+  "Libya",
+  "Macedonia, the former Yugoslav Republic of",
+  "Mali",
+  "Montenegro",
+  "North Korea",
+  "Nicaragua",
+  "Russia",
+  "Serbia",
+  "Slovenia",
+  "Somalia",
+  "South Sudan",
+  "Sudan",
+  "Syria",
+  "Ukraine",
+  "Venezuela",
+  "Yemen",
+  "Zimbabwe",
+];
+
 const userIdCookie = getCookie("ga_user_id");
 
 // This function could be split into smaller parts and/or renamed (it does more than just add GA data)
@@ -314,6 +351,8 @@ export const getFormType = (formHandlerID) => {
       return "partnerRequest";
     case 3721:
       return "googleContact";
+    case 3898:
+      return "partnerCertification";
   }
 };
 
@@ -328,6 +367,7 @@ export const getFallbackFieldData = (formID) => {
 };
 
 export const isNonUsPhoneNumber = (phoneNumber) => {
+  if (phoneNumber.length < 7) return false;
   for (let i = 0; i < phoneNumber.length; i++) {
     const char = phoneNumber[i];
     if (!char.match(/[0-9]/) && ![" ", "+", "-", "(", ")"].includes(char)) {

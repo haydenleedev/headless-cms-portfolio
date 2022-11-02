@@ -16,6 +16,8 @@ const CallToAction = ({ module, customData }) => {
   const itemContentRight = boolean(fields?.itemContentRight);
   const textLeftJustification = boolean(fields?.textLeftJustification);
 
+  const linkBackgroundColor = fields.linkBackgroundColor || "cyan outlined";
+
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
@@ -60,8 +62,8 @@ const CallToAction = ({ module, customData }) => {
           )}
           <AgilityLink
             agilityLink={fields.link}
-            className={`button ${style.link} ${
-              fields.linkClasses ? fields.linkClasses : "cyan outlined"
+            className={`button ${style.link} ${linkBackgroundColor} ${
+              fields.linkClasses ? fields.linkClasses : ""
             }`}
             ariaLabel={`Navigate to page ` + fields.link.href}
             title={`Navigate to page ` + fields.link.href}

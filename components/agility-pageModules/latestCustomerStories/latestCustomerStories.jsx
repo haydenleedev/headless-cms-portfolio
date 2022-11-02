@@ -1,37 +1,20 @@
-import Media from "../media";
 import Heading from "../heading";
-import { boolean } from "../../../utils/validation";
 import style from "./latestCustomerStories.module.scss";
-import { useRouter } from "next/router";
-import AgilityLink from "../../agilityLink";
 import GenericCard from "../../genericCard/genericCard";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 const LatestCustomerStories = ({ module, customData }) => {
-  const router = useRouter();
   const { fields } = module;
   const { customerStories } = customData;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
-  const cardStyle = boolean(fields.cardStyle);
-  const count = fields.count ? parseInt(fields?.count) : undefined;
-
-  // we don't want to recommend the same article that is currently being viewed
-  const stories =
-    router.query?.slug.length === 2 &&
-    router.query?.slug[0] === "customerstories"
-      ? customerStories
-          .filter(
-            (story) =>
-              story.fields.link.href !== "/" + router.query.slug.join("/")
-          )
-          .slice(0, count)
-      : customerStories.slice(0, count);
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
+
+  const [amountOfPostsToShow, setAmountOfPostsToShow] = useState(3);
 
   return (
     <section
@@ -43,63 +26,45 @@ const LatestCustomerStories = ({ module, customData }) => {
     >
       <div className="container">
         {heading && (
-          <div
-            className={`${style.heading} ${
-              cardStyle ? "align-center mb-5" : ""
-            }`}
-          >
+          <div className={`${style.heading} align-center mb-3`}>
             <Heading {...heading} />
           </div>
         )}
         <nav
           className={`columns repeat-3 ${style.content}`}
-          aria-label="customer stories navigation"
+          aria-label="customer customerStories navigation"
         >
-          {stories.map((story) => {
-            const heading = JSON.parse(story.fields.heading);
+          {customerStories.map((story, i) => {
             return (
-              <Fragment key={story.contentID}>
-                {cardStyle ? (
+              i + 1 <= amountOfPostsToShow && (
+                <Fragment key={story.contentID}>
                   <GenericCard
                     link={story.fields.link}
                     image={story.fields.image}
-                    title={heading.text}
-                    ariaTitle={`${heading.text} customer story`}
+                    title={story.fields.title}
+                    ariaTitle={`${story.fields.title} customer story`}
                     description={story.fields.description}
                     configuration={{
                       imageHeight: "tall",
                       emphasizedTitle: true,
                     }}
                   />
-                ) : (
-                  <AgilityLink
-                    agilityLink={story.fields.link}
-                    ariaLabel={`Navigate to ${heading.text} customer story`}
-                  >
-                    <div className={style.story}>
-                      <div>
-                        <div className={style.storyImage}>
-                          <Media media={story.fields.image} />
-                        </div>
-                        <div className={style.storyTitle}>
-                          <Heading {...heading} />
-                        </div>
-                        <p className={style.storyDescription}>
-                          {story.fields.description}
-                        </p>
-                      </div>
-                      <div className="d-flex align-items-center justify-content-flex-start">
-                        <p className={style.storyLink}>
-                          {story.fields.link.text}
-                        </p>
-                      </div>
-                    </div>
-                  </AgilityLink>
-                )}
-              </Fragment>
+                </Fragment>
+              )
             );
           })}
         </nav>
+        {amountOfPostsToShow < customerStories.length && (
+          <button
+            className={`button orange ${style.loadMoreButton}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setAmountOfPostsToShow(amountOfPostsToShow + 3);
+            }}
+          >
+            View More Customer Stories
+          </button>
+        )}
       </div>
     </section>
   );
@@ -110,34 +75,38 @@ LatestCustomerStories.getCustomInitialProps = async function ({
   languageCode,
 }) {
   const api = agility;
-  const referenceName = "customerStory";
-  // get total count of  to determine how many calls we need to get all pages
-  let initial = await api.getContentList({
-    referenceName,
-    languageCode,
-    take: 1,
+  const sitemap = await api.getSitemapFlat({
+    channelName: "website",
+    languageCode: languageCode,
   });
+  const customerStoryPageIDs = Object.entries(sitemap)
+    .filter(
+      ([key, value]) =>
+        key.includes("/customerstories") && key !== "/customerstories"
+    )
+    .map(([key, value]) => value.pageID);
 
-  let totalCount = initial.totalCount;
-  let skip = 0;
-  let promisedPages = [...Array(Math.ceil(totalCount / 50)).keys()].map(
-    (call) => {
-      let pagePromise = api.getContentList({
-        referenceName,
-        languageCode,
-        take: 50, // 50 is max value for take parameter
-        skip,
-        sort: "properties.itemOrder",
-      });
-      skip += 50;
-      return pagePromise;
-    }
+  let customerStoryPages = customerStoryPageIDs.map((pageID) =>
+    api.getPage({
+      channelName: "website",
+      languageCode: languageCode,
+      pageID: pageID,
+    })
   );
-  promisedPages = await Promise.all(promisedPages);
-  let customerStories = [];
-  promisedPages.map((result) => {
-    customerStories = [...customerStories, ...result.items];
-  });
+  customerStoryPages = await Promise.all(customerStoryPages);
+  let customerStories = customerStoryPages
+    .filter(
+      (page) =>
+        page.zones.MainContentZone.findIndex(
+          (item) => item.module === "CaseStudyData"
+        ) !== -1
+    )
+    .map(
+      (page) =>
+        page.zones.MainContentZone.find(
+          (item) => item.module === "CaseStudyData"
+        ).item
+    );
   return {
     customerStories,
   };

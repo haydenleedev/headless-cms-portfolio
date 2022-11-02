@@ -1,0 +1,34 @@
+@import "~/styles/settings/colors";
+@import "~/styles/settings/mixins";
+
+.downloadButton {
+  position: relative;
+  width: 100%;
+  .innerButton {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .loading {
+    background-color: $color-white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    min-width: 20rem;
+    z-index: 9999;
+    padding: toRem(10) toRem(40) toRem(10) toRem(40);
+    margin: toRem(20) toRem(40);
+    max-width: toRem(320);
+    border-radius: toRem(20);
+    @include shadow();
+    .progress {
+      margin-top: 0.5rem;
+      padding: 0 1rem;
+    }
+    .status {
+      color: $color-red;
+      text-align: center;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+}

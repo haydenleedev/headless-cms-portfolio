@@ -11,6 +11,7 @@ import PardotFormField from "./pardotFormField";
 import { getCookie } from "../../utils/cookies";
 import {
   addGaData,
+  blockedContactFormCountries,
   getFallbackFieldData,
   getFormType,
   isHiddenField,
@@ -22,6 +23,8 @@ import Router from "next/router";
 import { boolean } from "../../utils/validation";
 import PardotFormEmailStep from "./pardotFormEmailStep";
 import HoneypotFields from "./honeypotFields";
+import Script from "next/script";
+import LazyLoadReCAPTCHA from "./lazyLoadReCAPTCHA";
 
 class PardotForm extends Component {
   constructor(props) {
@@ -56,6 +59,7 @@ class PardotForm extends Component {
     this.state = {
       errors: [],
       touched: [],
+      action: this.props.customAction ? null : this.props.action,
       stateFieldVisible: false,
       partnerStateFieldVisible: false,
       selectedCountry: "",
@@ -105,6 +109,7 @@ class PardotForm extends Component {
       includeTimeStampInEmailAddress: [
         "dealRegistration",
         "channelRequest",
+        "partnerCertification",
       ].includes(this.formType),
     });
 
@@ -500,6 +505,30 @@ class PardotForm extends Component {
           }
         }
       }
+      // check for blocked countries if contact form
+      if (this.isContactForm) {
+        if (
+          fieldRef.current.tagName === "SELECT" &&
+          fieldRef.current.name.toLowerCase().includes("country") &&
+          blockedContactFormCountries.findIndex(
+            (country) => country === fieldRef.current.value
+          ) !== -1
+        ) {
+          this.setState({
+            action: "https://info.ujet.cx/l/986641/2022-10-17/l2hy5",
+          });
+        } else if (
+          fieldRef.current.tagName === "SELECT" &&
+          fieldRef.current.name.toLowerCase().includes("country") &&
+          blockedContactFormCountries.findIndex(
+            (country) => country === fieldRef.current.value
+          ) === -1
+        ) {
+          this.setState({
+            action: this.props.customAction ? null : this.props.action,
+          });
+        }
+      }
     });
     this.setState({ errors: errors, validity: !errors.includes(true) });
     return !errors.includes(true);
@@ -523,6 +552,7 @@ class PardotForm extends Component {
   render() {
     return (
       <>
+        <LazyLoadReCAPTCHA />
         {this.stepsEnabled && !this.state.fieldsMatchedToStep ? (
           <form
             className={style.pardotForm}
@@ -531,6 +561,7 @@ class PardotForm extends Component {
             onSubmit={(e) => {
               e.preventDefault();
             }}
+            autoComplete={this.isContactForm ? "off" : "on"}
           >
             <PardotFormEmailStep
               formHandlerID={this.props.formHandlerID}
@@ -545,12 +576,13 @@ class PardotForm extends Component {
               this.state.fieldsMatchedToStep &&
               !this.state.finalStepSubmitted) ? (
               <form
-                action={this.props.customAction ? null : this.props.action}
+                action={this.state.action}
                 method={this.props.customAction ? null : "post"}
                 onSubmit={(e) => {
                   e.preventDefault();
                   this.handleSubmit(e);
                 }}
+                autoComplete={this.isContactForm ? "off" : "on"}
                 className={style.pardotForm}
                 style={{ display: this.state.clientJSEnabled ? "" : "none" }}
                 ref={(form) => (this.form = form)}
@@ -622,9 +654,11 @@ class PardotForm extends Component {
                         field={field}
                         isDealRegistrationField={this.isDealRegistrationForm}
                         isContactField={this.isContactForm}
-                        isLandingPageOrWebinarField={
+                        /*                         isLandingPageOrWebinarField={
                           this.isLandingPageOrWebinarForm
-                        }
+                        } */
+                        isCLPformField={this.props.clpField}
+                        isCLSformField={this.props.clsField}
                         isUtmCampaign={this.props.utmCampaign}
                         isUtmAsset={this.props.utmAsset}
                         formType={this.formType}

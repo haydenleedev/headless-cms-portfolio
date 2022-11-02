@@ -1,51 +1,84 @@
 // All of the Agility Page Module Components that are in use in this site need to be imported into this index file.
 // Place Page Modules in allModules array below, passing in a name and the component.
+import dynamic from "next/dynamic";
 
+// lazy-loaded modules
+const Placeholder = dynamic(() => import("./placeholder"), { ssr: false });
+const ClientTestimonial = dynamic(
+  () => import("./clientTestimonial/clientTestimonial"),
+  { ssr: false }
+);
+const Spacer = dynamic(() => import("./spacer/spacer"), { ssr: false });
+const NewsList = dynamic(() => import("./newsList/newsList"), { ssr: false });
+const PressReleaseList = dynamic(
+  () => import("./pressReleaseList/pressReleaseList"),
+  { ssr: false }
+);
+const BlogPostList = dynamic(() => import("./blogPostList/blogPostList"), {
+  ssr: false,
+});
+const Infographic = dynamic(() => import("./infographic/infographic"), {
+  ssr: false,
+});
+const CaseStudyDownloadPrompt = dynamic(
+  () => import("./caseStudyDownloadPrompt/caseStudyDownloadPrompt"),
+  { ssr: false }
+);
+const TestimonialList = dynamic(
+  () => import("./testimonialList/testimonialList"),
+  { ssr: false }
+);
+const ContentList = dynamic(() => import("./contentList/contentList"), {
+  ssr: false,
+});
+const BondFirstFold = dynamic(() => import("./bondFirstFold/bondFirstFold"), {
+  ssr: false,
+});
+const SpeakerList = dynamic(() => import("./speakerList/speakerList"), {
+  ssr: false,
+});
+const TitleGroup = dynamic(() => import("./titleGroup/titleGroup"), {
+  ssr: false,
+});
+const TableWithHeading = dynamic(
+  () => import("./tableWithHeading/tableWithHeading"),
+  { ssr: false }
+);
+const HiddenH1 = dynamic(() => import("./hiddenH1/hiddenH1"), { ssr: false });
+const SecondaryNav = dynamic(() => import("./secondaryNav/secondaryNav"), {
+  ssr: false,
+});
+const ArchivesPageContent = dynamic(
+  () => import("./archivesPageContent/archivesPageContent"),
+  { ssr: false }
+);
+
+// eagerly loaded modules
 import FirstFold from "./firstFold/firstFold";
 import LogosList from "./logosList/logosList";
-import Placeholder from "./placeholder";
 import RichTextArea from "./richTextArea/richTextArea";
 import TextGridWithMedia from "./textGridWithMedia/textGridWithMedia";
 import TextWithMedia from "./textWithMedia/textWithMedia";
-import ClientTestimonial from "./clientTestimonial/clientTestimonial";
-import Spacer from "./spacer/spacer";
 import ResourceList from "./resourceList/resourceList";
 import HeroImage from "./heroImage/heroImage";
 import CallToAction from "./callToAction/callToAction";
-import NewsList from "./newsList/newsList";
-import PressReleaseList from "./pressReleaseList/pressReleaseList";
-import BlogPostList from "./blogPostList/blogPostList";
-import Infographic from "./infographic/infographic";
-import CaseStudyDownloadPrompt from "./caseStudyDownloadPrompt/caseStudyDownloadPrompt";
 import LatestCustomerStories from "./latestCustomerStories/latestCustomerStories";
-import TestimonialList from "./testimonialList/testimonialList";
 import TextWithForm from "./textWithForm/textWithForm";
 import EmbedVideo from "./embedVideo/embedVideo";
-import ContentList from "./contentList/contentList";
 import AwardsBanner from "./awardsBanner/awardsBanner";
 import TransparentizeNavbar from "./transparentizeNavbar/transparentizeNavbar";
-import BondFirstFold from "./bondFirstFold/bondFirstFold";
 import HideNavbar from "./hideNavbar/hideNavbar";
-import SpeakerList from "./speakerList/speakerList";
 import OverrideSEO from "./overrideSEO/overrideSEO";
-import TitleGroup from "./titleGroup/titleGroup";
-import Modal from "./modal/modal";
 import TextWithCard from "./textWithCard/textWithCard";
-import TableWithHeading from "./tableWithHeading/tableWithHeading";
-import ApplySmoothScrolling from "./applySmoothScrolling/applySmoothScrolling";
-import HiddenH1 from "./hiddenH1/hiddenH1";
 import Breadcrumbs from "../breadcrumbs/breadcrumbs";
-import ScriptLoader from "./scriptLoader/scriptLoader";
 import Accordion from "./accordion/accordion";
 import BlankCards from "./blankCards/blankCards";
-import SecondaryNav from "./secondaryNav/secondaryNav";
 import TwoTextColumns from "./twoTextColumns/twoTextColumns";
-
-// Template renderers
+import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
 import BlogPostContent from "./blogPostContent/blogPostContent";
 import ResourceContent from "./resourceContent/resourceContent";
+import ResourceDownload from "./resourceDownload/resourceDownload";
 import PressReleaseContent from "./pressReleaseContent/pressReleaseContent";
-import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
 import BlogPageContent from "./blogPageContent/blogPageContent";
 import EventsPageContent from "./eventsPageContent/eventsPageContent";
 import AwardsPageContent from "./awardsPageContent/awardsPageContent";
@@ -66,6 +99,8 @@ import BrandVideoPopup from "../../brand/components/brandVideoPopup/brandVideoPo
 import BrandTextGridWithMedia from "../../brand/components/brandTextGridWithMedia/brandTextGridWithMedia";
 import TextWithInfographic from "./textWithInfographic/textWithInfographic";
 import BlogSubscriptionBanner from "./BlogSubscriptionBanner/blogSubscriptionBanner";
+import CaseStudyData from "./caseStudyData/caseStudyData";
+import CustomerStoryCards from "./customerStoryCards/customerStoryCards";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
@@ -74,6 +109,7 @@ const allModules = [
   { name: "RichTextArea", module: RichTextArea },
   { name: "BlogPostContent", module: BlogPostContent },
   { name: "ResourceContent", module: ResourceContent },
+  { name: "ResourceDownload", module: ResourceDownload },
   { name: "PressReleaseContent", module: PressReleaseContent },
   { name: "OverrideSEO", module: OverrideSEO },
   { name: "TextWithMedia", module: TextWithMedia },
@@ -127,12 +163,15 @@ const allModules = [
   { name: "DealRegistration", module: DealRegistration },
   { name: "ChannelRequest", module: ChannelRequest },
   { name: "BlogSubscriptionBanner", module: BlogSubscriptionBanner },
+  { name: "CaseStudyData", module: CaseStudyData },
+  { name: "CustomerStoryCards", module: CustomerStoryCards },
   { name: "BrandFirstFold", module: BrandFirstFold },
   { name: "BrandTextGridWithMedia", module: BrandTextGridWithMedia },
   { name: "BrandTextWithMedia", module: BrandTextWithMedia },
   { name: "BrandTwoTextColumns", module: BrandTwoTextColumns },
   { name: "BrandBlankCards", module: BrandBlankCards },
   { name: "BrandVideoPopup", module: BrandVideoPopup },
+  { name: "LoadGoogleOptimizeScript", module: LoadGoogleOptimize },
 ];
 
 export const getModule = (moduleName) => {

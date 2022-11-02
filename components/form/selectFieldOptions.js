@@ -361,3 +361,10 @@ export const partnerAreaOfInterest = [
   "Master Agent",
   "Strategic Partner",
 ];
+
+export const certificationType = [
+  "Select a Certification Type",
+  "UJET Certified Delivery Partner Program",
+  "UJET Advisor Certification Program",
+  "UJET Reseller Certification Program",
+];

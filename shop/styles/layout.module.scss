@@ -288,6 +288,9 @@
 .text-underline {
   text-decoration: underline;
 }
+.text-nounderline {
+  text-decoration: none !important;
+}
 .link,
 a.link,
 a.link:active,

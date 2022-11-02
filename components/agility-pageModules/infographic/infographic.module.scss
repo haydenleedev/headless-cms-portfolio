@@ -6,6 +6,7 @@
   .content {
     display: grid;
     width: 100%;
+    row-gap: 1rem;
     grid-template-columns: repeat(
       auto-fill,
       minmax(max(6.25rem, 100% / 6), 1fr)
@@ -35,18 +36,69 @@
         auto-fill,
         minmax(max(14.0625rem, 100% / 3), 1fr)
       );
+      @include desktop() {
+        row-gap: 1rem;
+      }
     }
     &.is4 {
       grid-template-columns: repeat(
         auto-fill,
         minmax(max(12.5rem, 100% / 4), 1fr)
       );
+      .item {
+        &.itemColumnLargeTitleLayout {
+          padding: 1rem;
+          .itemMedia {
+            display: flex;
+            justify-content: center;
+            img {
+              max-width: 3rem !important;
+            }
+            & > span {
+              min-width: 3rem;
+            }
+          }
+          .itemTextContent {
+            .itemDescription {
+              font-size: 1.2rem;
+            }
+
+            .itemTitle {
+              font-size: 3.5rem;
+            }
+          }
+        }
+      }
     }
     &.is5 {
       grid-template-columns: repeat(
         auto-fill,
         minmax(max(10.9375rem, 100% / 5), 1fr)
       );
+      .item {
+        &.itemColumnLargeTitleLayout {
+          padding: 1rem;
+          .itemMedia {
+            display: flex;
+            justify-content: center;
+            img {
+              max-width: 2.5rem !important;
+            }
+            & > span {
+              min-width: 2.5rem;
+            }
+          }
+          .itemTextContent {
+            .itemDescription {
+              font-size: 1.2rem;
+            }
+
+            .itemTitle {
+              font-size: 3rem;
+            }
+          }
+        }
+      }
     }
 
     &.boxStyle {
@@ -125,10 +177,16 @@
         .itemTextContent {
           justify-content: flex-start;
           .itemTitle {
-            font-size: 5rem;
-            margin-bottom: 1rem;
             text-align: center;
             line-height: 1.2;
+            font-size: 3rem;
+            @include desktop() {
+              font-size: 4rem;
+              margin-bottom: 1rem;
+            }
+            @include ultraLargeDesktop() {
+              font-size: 5rem;
+            }
           }
           .itemTitle,
           .itemDefinition,
@@ -142,6 +200,10 @@
           }
           .itemDefinition {
             color: $color-navy;
+            margin-bottom: 0.5rem;
+            @include desktop() {
+              margin-bottom: unset;
+            }
           }
         }
       }

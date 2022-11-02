@@ -1,18 +1,5 @@
 @use "./mixins" as mixins;
 
-/*region Italic*/
-@font-face {
-  font-family: "GalanoGrotesque";
-  src: url("/fonts/Galano Grotesque Italic.eot");
-  src: url("/fonts/Galano Grotesque Italic.eot?#iefix")
-      format("embedded-opentype"),
-    url("/fonts/Galano Grotesque Italic.woff2") format("woff2"),
-    url("/fonts/Galano Grotesque Italic.woff") format("woff"),
-    url("/fonts/Galano Grotesque Italic.ttf") format("truetype");
-  font-style: italic;
-  font-display: swap;
-}
-/*endregion*/
 /*region Bold*/
 @font-face {
   font-family: "GalanoGrotesque";
@@ -35,15 +22,7 @@
     url("/fonts/Galano Grotesque.woff") format("woff"),
     url("/fonts/Galano Grotesque.ttf") format("truetype");
   font-weight: 400;
-}
-@font-face {
-  font-family: "GalanoGrotesque";
-  src: url("/fonts/Galano Grotesque.eot");
-  src: url("/fonts/Galano Grotesque.eot?#iefix") format("embedded-opentype"),
-    url("/fonts/Galano Grotesque.woff2") format("woff2"),
-    url("/fonts/Galano Grotesque.woff") format("woff"),
-    url("/fonts/Galano Grotesque.ttf") format("truetype");
-  font-weight: normal;
+  font-display: swap;
 }
 /*endregion*/
 /*region Light*/
@@ -58,6 +37,19 @@
   font-weight: 300;
   font-display: swap;
 }
+/*region Italic*/
+@font-face {
+  font-family: "GalanoGrotesque";
+  src: url("/fonts/Galano Grotesque Italic.eot");
+  src: url("/fonts/Galano Grotesque Italic.eot?#iefix")
+      format("embedded-opentype"),
+    url("/fonts/Galano Grotesque Italic.woff2") format("woff2"),
+    url("/fonts/Galano Grotesque Italic.woff") format("woff"),
+    url("/fonts/Galano Grotesque Italic.ttf") format("truetype");
+  font-style: italic;
+  font-display: swap;
+}
+/*endregion*/
 @font-face {
   font-family: "GalanoGrotesque";
   src: url("/fonts/Galano Grotesque Light.eot");

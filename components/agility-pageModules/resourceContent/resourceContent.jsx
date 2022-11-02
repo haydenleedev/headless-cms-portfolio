@@ -45,6 +45,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
       lowerCaseResourceCategory === "webinars"
     ) {
       return "3712";
+    } else if (
+      lowerCaseResourceCategory === "partnercontent" ||
+      lowerCaseResourceCategory === "partner-content"
+    ) {
+      return "3889";
     } else {
       return "3658";
     }
@@ -58,6 +63,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
       lowerCaseResourceCategory === "webinars"
     ) {
       return "https://info.ujet.cx/l/986641/2022-08-05/kgtbn";
+    } else if (
+      lowerCaseResourceCategory === "partnercontent" ||
+      lowerCaseResourceCategory === "partner-content"
+    ) {
+      return "https://info.ujet.cx/l/986641/2022-10-07/l1pj2";
     } else {
       return "https://info.ujet.cx/l/986641/2022-07-26/kdq1r";
     }
@@ -75,6 +85,8 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     { referenceName: "videos", type: "Webinar" },
     { referenceName: "webinars", type: "Webinar" },
     { referenceName: "integrations", type: "Datasheet" },
+    { referenceName: "partnercontent", type: "Partner Content" },
+    { referenceName: "partner-content", type: "Partner Content" },
   ];
 
   const getAssetType = () => {
@@ -90,6 +102,9 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   const utmCampaignValue = getUrlParamValue("utm_campaign");
   const utmAssetValue = getUrlParamValue("utm_asset");
 
+  // Set clp value from the url if the value exist.  If there's no parameters, then get the default values from "resource.currentLeadProgram2".
+  const clpValue = getUrlParamValue("clp");
+
   const setUtmCampaignValue = (url) => {
     if (utmCampaignValue) {
       return utmCampaignValue;
@@ -102,6 +117,13 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
       return utmAssetValue;
     } else {
       return resource.uTMCampaignAsset ? resource.uTMCampaignAsset : null;
+    }
+  };
+  const setClpValue = (url) => {
+    if (clpValue) {
+      return clpValue;
+    } else {
+      return resource.currentLeadProgram2 ? resource.currentLeadProgram2 : null;
     }
   };
 
@@ -247,6 +269,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           typeof window !== "undefined" &&
                           setUtmAssetValue(window.location.href)
                         }
+                        clpField={
+                          typeof window !== "undefined" &&
+                          setClpValue(window.location.href)
+                        }
+                        clsField={resource.currentLeadSource2}
                       />
                     </div>
                   </div>
@@ -333,6 +360,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           typeof window !== "undefined" &&
                           setUtmAssetValue(window.location.href)
                         }
+                        clpField={
+                          typeof window !== "undefined" &&
+                          setClpValue(window.location.href)
+                        }
+                        clsField={resource.currentLeadSource2}
                       />
                       {resource.link?.href && resource.link?.text && (
                         <div className="mt-4 align-center">

@@ -92,6 +92,10 @@
   &.navy {
     background-color: $color-navy;
     color: white;
+    &:hover {
+      background-color: $color-darkblue;
+      border-color: $color-darkblue;
+    }
   }
 
   &.small {

@@ -469,6 +469,15 @@ table {
 .line-height-1 {
   line-height: 1 !important;
 }
+.line-height-1-2 {
+  line-height: 1.2 !important;
+}
+.line-height-1-5 {
+  line-height: 1.5 !important;
+}
+.line-height-1-8 {
+  line-height: 1.8 !important;
+}
 .line-clamp {
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -495,7 +504,9 @@ mark {
 .text-decoration-underline {
   text-decoration: underline;
 }
-
+.text-nounderline {
+  text-decoration: none !important;
+}
 //This class is used to wrap brand template content to apply brand spceific typography
 .brand {
   h1,

@@ -10,17 +10,23 @@
         border: 1px solid #ccc;
         padding: 6px 8px;
       }
-      label {
+      .heading-field label {
         padding: 1rem 0;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        min-width: 300px;
+        max-width: 300px;
       }
       #heading-type,
       #heading-value,
       #heading-color,
+      #heading-size,
+      #heading-weight,
       #heading-classes {
         margin-top: 0.5rem;
+        min-width: 300px;
+        max-width: 300px;
       }
     </style>
   </head>
@@ -49,6 +55,7 @@
       <label for="heading-color">
         <b>Color</b>
         <select id="heading-color" data-bind="value: fieldBinding().color">
+          <option value=""></option>
           <option value="text-navy">Navy</option>
           <option value="text-paleblue">Pale Blue</option>
           <option value="text-lightblue">Light Blue</option>
@@ -69,6 +76,26 @@
           <option value="text-darkpurple">Dark Purple</option>
           <option value="text-lightpurple">Light Purple</option>
           <option value="text-mediumpurple">Medium Purple</option>
+        </select>
+      </label>
+      <label for="heading-size">
+        <b>Size</b>
+        <select id="heading-size" data-bind="value: fieldBinding().size">
+          <option value=""></option>
+          <option value="heading-1">Heading 1</option>
+          <option value="heading-2">Heading 2</option>
+          <option value="heading-3">Heading 3</option>
+          <option value="heading-4">Heading 4</option>
+          <option value="heading-5">Heading 5</option>
+          <option value="heading-6">Heading 6</option>
+        </select>
+      </label>
+      <label for="heading-weight">
+        <b>Font Weight</b>
+        <select id="heading-weight" data-bind="value: fieldBinding().weight">
+          <option value=""></option>
+          <option value="w-600">Bold</option>
+          <option value="w-400">Normal</option>
         </select>
       </label>
       <label for="heading-classes">
