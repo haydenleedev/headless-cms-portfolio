@@ -295,7 +295,10 @@ const SEO = ({
 
                 function addGclid() {
                   var gclidParam = getParam('gclid');
-                  var gclidFormFields = ['gclid', '29013']; // all possible gclid form field ids here
+                  var gclidFormFields = Array.prototype.slice.call(document.querySelectorAll('input[name=GCLID]')).map(function ( element ) {
+                      return element.id;
+                  }); // all possible gclid form field ids here
+
                   var gclidRecord = null;
                   var currGclidFormField;
 
