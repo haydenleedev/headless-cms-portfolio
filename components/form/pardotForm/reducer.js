@@ -22,6 +22,7 @@ export const pardotFormActions = {
   setFormType: "set_form_type",
   setFieldData: "set_field_data",
   setAction: "set_action",
+  setSubmitFlag: "set_submit_flag",
 };
 
 const setState = (value, key, state) => {
@@ -72,6 +73,8 @@ export function pardotFormReducer(state, action) {
       return setState(action.value, "fieldData", state);
     case pardotFormActions.setAction:
       return setState(action.value, "action", state);
+    case pardotFormActions.setSubmitFlag:
+      return setState(action.value, "submitFlag", state);
     default:
       return state;
   }

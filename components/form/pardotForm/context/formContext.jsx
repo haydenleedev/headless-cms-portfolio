@@ -23,6 +23,7 @@ const FormContextProvider = (props) => {
     setFieldsToMatchStep,
     phoneNumberFormatter,
     formValidation,
+    submitValidation,
     pasteBlocker,
     setPasteError,
     handleSubmit,
@@ -49,6 +50,7 @@ const FormContextProvider = (props) => {
     setFieldsToMatchStep,
     handleSubmit,
     formValidation,
+    submitValidation,
     handleDispatch,
   };
 

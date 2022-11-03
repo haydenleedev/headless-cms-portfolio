@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 import HoneypotFields from "../honeypotFields";
 import PardotFormContext from "./context";
 import Field from "./field";
@@ -11,21 +11,21 @@ const StandardForm = ({ customAction, btnColor, submit }) => {
     <form
       action={state.action}
       method={customAction ? null : "post"}
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit(e);
-      }}
+      onSubmit={handleSubmit}
       autoComplete={isContactForm ? "off" : "on"}
       className={style.pardotForm}
       style={{ display: state.clientJSEnabled ? "" : "none" }}
       ref={formRef}
     >
       {state.fieldData?.map((field, index) => (
-        <Field
-          field={field}
-          index={index}
-          fieldRef={fieldRefs.current[index]}
-        />
+        <Fragment key={`field${index}`}>
+          <Field
+            field={field}
+            index={index}
+            fieldRef={fieldRefs.current[index]}
+            key={"asd"}
+          />
+        </Fragment>
       ))}
 
       {(state.includeTimeStampInEmailAddress || state.stepEmailFieldValue) && (
@@ -38,6 +38,7 @@ const StandardForm = ({ customAction, btnColor, submit }) => {
           className={`button ${btnColor ? btnColor : "orange"}`}
           value={state.submissionInProgress ? "Please wait..." : submit}
           required="required"
+          disabled={state.submissionInProgress}
         />
         {!state.submissionAllowed && (
           <FormError

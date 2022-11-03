@@ -93,14 +93,14 @@ const FieldResolver = ({ field, index, fieldRef }) => {
             if (e.code !== "Tab") setPasteError(false, index);
           }}
           onInput={() => {
-            addGaData(
-              state.gaDataAdded,
+            addGaData({
+              gaDataAdded: state.gaDataAdded,
               handleSetGaDataAdded,
-              fieldRef.current,
+              formEmailInput: fieldRef.current,
               isDealRegistrationForm,
-              state.formType,
-              contactType
-            );
+              formType: state.formType,
+              contactTypeValue: contactType,
+            });
           }}
           ref={fieldRef}
         />
@@ -186,7 +186,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
               }}
               onPaste={pasteBlocker}
               ref={fieldRef}
-              value={resolveInputValue(field)}
+              defaultValue={resolveInputValue(field)}
             />
           )}
         </>

@@ -7,6 +7,8 @@ import formConfig from "../form.config";
 const userIdCookie = getCookie("ga_user_id");
 
 const {
+  partialHiddenFields,
+  hiddenFields,
   gaMeta,
   errorMessages,
   countries,
@@ -16,17 +18,27 @@ const {
   preferredMasterAgent,
   partnerAreaOfInterest,
   certificationType,
+  dealRegistrationUtmDefaults,
+  contactUsFieldOrder,
+  dealRegistrationFieldOrder,
+  landingPageFieldOrder,
+  channelRequestFieldOrder,
+  webinarFieldOrder,
+  blogSubscriptionFieldOrder,
+  partnerRequestFieldOrder,
+  googleContactFieldOrder,
+  defaultFieldOrder,
 } = formConfig;
 
 // This function could be split into smaller parts and/or renamed (it does more than just add GA data)
-export const addGaData = (
+export const addGaData = ({
   gaDataAdded,
-  updateGaDataAdded,
+  handleSetGaDataAdded,
   formEmailInput,
-  // isDealRegistrationForm could be moved to variable inside this function by checking the value of the formType prop
   isDealRegistrationForm,
-  formType
-) => {
+  formType,
+  contactTypeValue,
+}) => {
   if (!gaDataAdded) {
     // Loop and append randomized UID
     const UUID = generateUUID();
@@ -108,9 +120,9 @@ export const addGaData = (
     const isChannelRequestForm = formType == "channelRequest";
 
     const isContactSalesForm =
-      formType == "contactUs" && contactType == "contact_sales";
+      formType == "contactUs" && contactTypeValue == "contact_sales";
     const isRequestDemoForm =
-      formType == "contactUs" && contactType == "request_a_demo";
+      formType == "contactUs" && contactTypeValue == "request_a_demo";
 
     let contactType;
     // If there is no future use for this currently unused function, it should be removed
@@ -129,28 +141,14 @@ export const addGaData = (
     }
 
     // Get the default utm_campaign and utm_asset values for all Deal Registration pages when there are no utm parameters on urls.
-    const utmDefault = [
-      { slug: "google", utmDefault: "deal_reg_google_mp" },
-      { slug: "kustomer", utmDefault: "deal_reg_google_kustomer" },
-      { slug: "playvox", utmDefault: "deal_reg_google_playvox" },
-      { slug: "acqueon", utmDefault: "deal_reg_google_acqueon" },
-      { slug: "aws", utmDefault: "deal_reg_google_aws" },
-      { slug: "calabrio", utmDefault: "deal_reg_google_calabrio" },
-      { slug: "intercom", utmDefault: "deal_reg_google_intercom" },
-      { slug: "observe-ai", utmDefault: "deal_reg_google_observe" },
-      { slug: "oracle", utmDefault: "deal_reg_google_oracle" },
-      { slug: "successkpi", utmDefault: "deal_reg_google_successKPI" },
-      { slug: "zendesk", utmDefault: "deal_reg_google_zendesk" },
-    ];
-
-    let utmDealRegistrationDefalutResult;
+    let utmDealRegistrationDefaultResult;
     function getDealRegistrationUtmDefaultValue(url) {
-      utmDefault.map((item) => {
+      dealRegistrationUtmDefaults.map((item) => {
         if (url.includes("/deal-registration/" + item.slug)) {
-          utmDealRegistrationDefalutResult = item.utmDefault;
+          utmDealRegistrationDefaultResult = item.utmDefault;
         }
       });
-      return utmDealRegistrationDefalutResult;
+      return utmDealRegistrationDefaultResult;
     }
 
     // Set the default utm_campaign values if statement in this part has the condition !utmCampaignValue
@@ -259,7 +257,7 @@ export const addGaData = (
     }
 
     // Flag done so we don't run it again
-    updateGaDataAdded(true);
+    handleSetGaDataAdded(true);
   }
   // Update email meta & hidden input every time the field value changes
   if (!document.getElementById("ga-em-id")) {
@@ -339,22 +337,6 @@ export const isNonUsPhoneNumber = (phoneNumber) => {
 };
 
 export const isHiddenField = (field, isDealRegistrationField = false) => {
-  // Blacklist hidden fields from Pardot form handler fields
-  const hiddenFields = [
-    /ga_/,
-    /utm_/,
-    /current lead/,
-    /hidden/,
-    /hide/,
-    /alliance referral/,
-    /asset /,
-    /contact_type/,
-    /lead record type/,
-    /gclid/,
-  ];
-
-  const partialHiddenFields = [/partner country/, /partner company/];
-
   // Check whether form field is blacklisted
   if (
     partialHiddenFields.some(
@@ -402,130 +384,31 @@ export const reorderFieldData = (fieldData, formType) => {
   let fieldOrder;
   switch (formType) {
     case "contactUs":
-      fieldOrder = [
-        /first name/,
-        /last name/,
-        /email/,
-        /job/,
-        /company/,
-        /# of agents/,
-        /country/,
-        /state/,
-        /phone/,
-      ];
+      fieldOrder = contactUsFieldOrder;
       break;
     case "dealRegistration":
-      fieldOrder = [
-        /first name/,
-        /last name/,
-        /job/,
-        /^email/,
-        /^company name/,
-        /employees/,
-        /country/,
-        /state/,
-        /city/,
-        /^phone/,
-      ];
+      fieldOrder = dealRegistrationFieldOrder;
       break;
     case "landingPage":
-      fieldOrder = [
-        /first name/,
-        /last name/,
-        /email/,
-        /job/,
-        /company/,
-        /# of agents/,
-        /country/,
-        /state/,
-        /phone/,
-      ];
+      fieldOrder = landingPageFieldOrder;
       break;
     case "channelRequest":
-      fieldOrder = [
-        /first name/,
-        /last name/,
-        /job/,
-        /^company name/,
-        /^email/,
-        /company hq country/,
-        /company hq state/,
-        /company hq city/,
-        /^phone/,
-        /employees/,
-        /channel pain point/,
-        /current crm solution/,
-        /current contact center solution software/,
-        /# of licenses/,
-        /opportunity details/,
-        /partner company name/,
-        /partner full name/,
-        /partner title/,
-        /partner email/,
-        /partner country/,
-        /partner company state/,
-        /partner company city/,
-        /partner phone/,
-        /preferred master agent/,
-        /promo code/,
-      ];
+      fieldOrder = channelRequestFieldOrder;
       break;
     case "webinar":
-      fieldOrder = [
-        /first name/,
-        /last name/,
-        /email/,
-
-        /job/,
-        /company/,
-        /# of agents/,
-        /country/,
-        /state/,
-        /phone/,
-      ];
+      fieldOrder = webinarFieldOrder;
       break;
     case "blogSubscription":
-      fieldOrder = [/email/, /country/];
+      fieldOrder = blogSubscriptionFieldOrder;
       break;
     case "partnerRequest":
-      fieldOrder = [
-        /first name/,
-        /last name/,
-        /job/,
-        /partner area of interest/,
-        /company/,
-        /email/,
-
-        /country/,
-        /state/,
-        /phone/,
-      ];
+      fieldOrder = partnerRequestFieldOrder;
       break;
     case "googleContact":
-      fieldOrder = [
-        /first name/,
-        /last name/,
-        /email/,
-        /job/,
-        /company/,
-        /# of agents/,
-
-        /country/,
-        /state/,
-        /city/,
-        /phone/,
-      ];
+      fieldOrder = googleContactFieldOrder;
       break;
     default:
-      fieldOrder = [
-        /first name/,
-        /last name/,
-        /email/,
-
-        /country/,
-        /state/,
-        /phone/,
-      ];
+      fieldOrder = defaultFieldOrder;
   }
   const orderedFieldData = [];
   fieldOrder.forEach((fieldRegex) => {

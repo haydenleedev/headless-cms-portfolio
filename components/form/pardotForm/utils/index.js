@@ -26,107 +26,109 @@ export const validateField = ({
   action,
   index,
 }) => {
-  const fieldIsTouched = touchedFields[index];
-  const fieldName = fieldRef.current.name;
-  let hasError = false;
-  // Prevent submission if a visible required field does not have a value
-  if (fieldIsTouched) {
-    const isRequiredField = fieldData[index];
+  if (fieldRef.current) {
+    const fieldIsTouched = touchedFields[index];
+    const fieldName = fieldRef.current.name;
+    let hasError = false;
+    // Prevent submission if a visible required field does not have a value
+    if (fieldIsTouched) {
+      const isRequiredField = fieldData[index];
 
-    // field is required but isn't a state select input
-    const isRequiredNotStateField =
-      fieldData[index]?.isRequired && !fieldName.toLowerCase().match(/state/);
+      // field is required but isn't a state select input
+      const isRequiredNotStateField =
+        fieldData[index]?.isRequired && !fieldName.toLowerCase().match(/state/);
 
-    // field is a visible state select input
-    const isVisibleStateField =
-      stateFieldVisible &&
-      fieldName.toLowerCase().match(/state/) &&
-      !fieldName.toLowerCase().match(/partner/) &&
-      !isHiddenField(fieldRef.current, isDealRegistrationForm);
+      // field is a visible state select input
+      const isVisibleStateField =
+        stateFieldVisible &&
+        fieldName.toLowerCase().match(/state/) &&
+        !fieldName.toLowerCase().match(/partner/) &&
+        !isHiddenField(fieldRef.current, isDealRegistrationForm);
 
-    // field is a visible partner state select input
-    const isVisiblePartnerStateField =
-      partnerStateFieldVisible &&
-      fieldName.toLowerCase().match(/state/) &&
-      fieldName.toLowerCase().match(/partner/) &&
-      !isHiddenField(fieldRef.current, isDealRegistrationForm);
+      // field is a visible partner state select input
+      const isVisiblePartnerStateField =
+        partnerStateFieldVisible &&
+        fieldName.toLowerCase().match(/state/) &&
+        fieldName.toLowerCase().match(/partner/) &&
+        !isHiddenField(fieldRef.current, isDealRegistrationForm);
 
-    // field has a value
-    const fieldValue = fieldRef.current?.value;
+      // field has a value
+      const fieldValue = fieldRef.current?.value;
 
-    // field has a value, but it's a number input and the value is less than 1
-    const isNumberFieldWithInvalidValue =
-      fieldRef.current.type === "number" && fieldValue < 1;
+      // field has a value, but it's a number input and the value is less than 1
+      const isNumberFieldWithInvalidValue =
+        fieldRef.current.type === "number" && fieldValue < 1;
 
-    if (
-      (isRequiredNotStateField ||
-        isVisibleStateField ||
-        isVisiblePartnerStateField) &&
-      !fieldValue
-    ) {
-      // check for invalid state select input values
-      hasError = true;
-    } else if (isNumberFieldWithInvalidValue) {
-      // check for invalid number input values
-      hasError = true;
-    } else if (fieldValue) {
-      // if the previous conditions didn't apply, check for invalid input values in general
-      switch (fieldName) {
-        case "Phone Number": {
-          if (usPhoneFormat) {
-            if (!isPhoneNumber(formatPhoneNumber(fieldValue))) {
+      if (
+        (isRequiredNotStateField ||
+          isVisibleStateField ||
+          isVisiblePartnerStateField) &&
+        !fieldValue
+      ) {
+        // check for invalid state select input values
+        hasError = true;
+      } else if (isNumberFieldWithInvalidValue) {
+        // check for invalid number input values
+        hasError = true;
+      } else if (fieldValue) {
+        // if the previous conditions didn't apply, check for invalid input values in general
+        switch (fieldName) {
+          case "Phone Number": {
+            if (usPhoneFormat) {
+              if (!isPhoneNumber(formatPhoneNumber(fieldValue))) {
+                hasError = true;
+              }
+            } else if (!isNonUsPhoneNumber(fieldValue)) {
               hasError = true;
             }
-          } else if (!isNonUsPhoneNumber(fieldValue)) {
-            hasError = true;
+            break;
           }
-          break;
-        }
-        case "Email": {
-          if (!isEmail(fieldValue)) {
-            hasError = true;
-          } else if (isFreeEmail(fieldValue) && isContactForm) {
-            hasError = true;
+          case "Email": {
+            if (!isEmail(fieldValue)) {
+              hasError = true;
+            } else if (isFreeEmail(fieldValue) && isContactForm) {
+              hasError = true;
+            }
+            break;
           }
-          break;
-        }
-        default: {
-          if (!Boolean(fieldValue) && isRequiredField) {
-            hasError = true;
+          default: {
+            if (!Boolean(fieldValue) && isRequiredField) {
+              hasError = true;
+            }
+            break;
           }
-          break;
         }
       }
-    }
 
-    // finally check for blocked countries if contact form and change action attribute accordingly.
-    if (isContactForm) {
-      if (
-        fieldRef.current.tagName === "SELECT" &&
-        fieldRef.current.name.toLowerCase().includes("country") &&
-        config.blockedContactFormCountries.findIndex(
-          (country) => country === fieldRef.current.value
-        ) !== -1
-      ) {
-        handleDispatch({
-          type: pardotFormActions.setAction,
-          value: "https://info.ujet.cx/l/986641/2022-10-17/l2hy5",
-        });
-      } else if (
-        fieldRef.current.tagName === "SELECT" &&
-        fieldRef.current.name.toLowerCase().includes("country") &&
-        config.blockedContactFormCountries.findIndex(
-          (country) => country === fieldRef.current.value
-        ) === -1
-      ) {
-        handleDispatch({
-          type: pardotFormActions.setAction,
-          value: customAction ? null : action,
-        });
+      // finally check for blocked countries if contact form and change action attribute accordingly.
+      if (isContactForm) {
+        if (
+          fieldRef.current.tagName === "SELECT" &&
+          fieldRef.current.name.toLowerCase().includes("country") &&
+          config.blockedContactFormCountries.findIndex(
+            (country) => country === fieldRef.current.value
+          ) !== -1
+        ) {
+          handleDispatch({
+            type: pardotFormActions.setAction,
+            value: "https://info.ujet.cx/l/986641/2022-10-17/l2hy5",
+          });
+        } else if (
+          fieldRef.current.tagName === "SELECT" &&
+          fieldRef.current.name.toLowerCase().includes("country") &&
+          config.blockedContactFormCountries.findIndex(
+            (country) => country === fieldRef.current.value
+          ) === -1
+        ) {
+          handleDispatch({
+            type: pardotFormActions.setAction,
+            value: customAction ? null : action,
+          });
+        }
       }
     }
+    return hasError;
   }
-  return hasError;
 };
 
 // Define specific field values for deal registration pages
@@ -145,7 +147,7 @@ export const getPartnerFieldProperties = ({ field, partner }) => {
   return partnerFieldData.find((item) => item.name === field.name);
 };
 
-export const verifyFormSubmissionValidity = async () => {
+export const verifyFormSubmissionValidity = async ({ formRef, formData }) => {
   try {
     const token = await grecaptcha.enterprise.execute(
       process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY,
@@ -169,6 +171,7 @@ export const verifyFormSubmissionValidity = async () => {
       client,
       token,
     };
+    console.log(validationBody);
     let validationResponse = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/formValidation`,
       {
@@ -177,6 +180,7 @@ export const verifyFormSubmissionValidity = async () => {
       }
     );
     return await validationResponse.json();
+    return {};
   } catch (error) {
     console.error(error.message);
   }

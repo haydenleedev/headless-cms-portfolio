@@ -27,23 +27,29 @@ const TextWithForm = ({ module, customData }) => {
     const form = formWrapperRef?.current?.querySelector?.("form");
     if (fields.layout === "formRightCollapsed" && form) {
       const visibleFields = form.querySelectorAll(
-        "form > label:not(.display-none)"
+        `form > label:not(.display-none):not(${style.removehoney})`
       );
       for (let row = 0; row < visibleFields.length; row++) {
-        if (
-          row === visibleFields.length - 2 &&
-          Array.from(visibleFields[row].children).length >= 2 &&
-          visibleFields[row].children[1].tagName === "INPUT"
-        ) {
-          visibleFields[row].style["grid-column"] = "1 / -1";
-        } else if (
-          row < visibleFields.length - 2 &&
-          Array.from(visibleFields[row].children).length >= 2 &&
+        const lastInputField =
+          row === visibleFields.length - 1 &&
+          visibleFields[row].children[1].tagName === "INPUT";
+        const anyInputFieldButNotLast =
+          row < visibleFields.length - 1 &&
           visibleFields[row].children[1].tagName === "INPUT" &&
-          visibleFields[row + 1]?.children?.[1]?.tagName === "INPUT"
-        )
+          visibleFields[row + 1]?.children?.[1]?.tagName === "INPUT";
+
+        if (lastInputField) {
+          const previousIsHalfWidthInput =
+            visibleFields[row].previousSibling.children[1] === "INPUT" &&
+            visibleFields[row].previousSibling.children[1].style[
+              "grid-column"
+            ] === "unset";
+          if (previousIsHalfWidthInput) {
+            visibleFields[row].style["grid-column"] = "1 / -1";
+          } else visibleFields[row].style["grid-column"] = "unset";
+        } else if (anyInputFieldButNotLast) {
           visibleFields[row].style["grid-column"] = "unset";
-        else visibleFields[row].style["grid-column"] = "1 / -1";
+        } else visibleFields[row].style["grid-column"] = "1 / -1";
       }
     }
   };

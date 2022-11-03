@@ -7,7 +7,7 @@ import EmailStep from "./emailStep";
 import { useContext } from "react";
 
 const StepForm = ({ customAction, btnColor, submit, config }) => {
-  const { state, formRef, handleSubmit, isContactForm } =
+  const { state, formRef, handleSubmit, isContactForm, submitValidation } =
     useContext(PardotFormContext);
   const isFirstStep = !state.fieldsMatchedToStep && !state.finalStepSubmitted;
   const isStep = state.fieldsMatchedToStep && !state.finalStepSubmitted;
@@ -31,10 +31,7 @@ const StepForm = ({ customAction, btnColor, submit, config }) => {
       <form
         action={state.action}
         method={customAction ? null : "post"}
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(e);
-        }}
+        onSubmit={handleSubmit}
         autoComplete={isContactForm ? "off" : "on"}
         className={style.pardotForm}
         style={{ display: state.clientJSEnabled ? "" : "none" }}

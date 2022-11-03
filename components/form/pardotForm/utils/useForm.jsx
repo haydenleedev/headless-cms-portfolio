@@ -1,5 +1,6 @@
 import { createRef, useEffect, useReducer, useRef, useState } from "react";
 import {
+  getPartnerFieldProperties,
   submit,
   validateField,
   validSubmitFormModifications,
@@ -49,6 +50,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     finalStepSubmitted: false,
     clientJSEnabled: false,
     pasteError: null,
+    submitFlag: false,
   };
 
   const isDealRegistrationForm =
@@ -109,26 +111,28 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
   }, []);
 
   useEffect(() => {
-    if (state.touchedFields.includes(true)) formValidation();
-  }, [state.touchedFields]);
+    const isValidForm =
+      state.touchedFields.length > 0 &&
+      state.formErrors.length > 0 &&
+      !state.touchedFields.includes(false) &&
+      !state.formErrors.includes(true);
 
-  useEffect(() => {
-    if (!state.formErrors.includes(true)) setValidForm(true);
+    if (isValidForm) setValidForm(true);
     else setValidForm(false);
   }, [state.formErrors]);
 
   useEffect(() => {
     if (state.stepEmailFieldValue && !state.finalStepSubmitted) {
       formRef.current["hiddenemail"].value = state.stepEmailFieldValue;
-      addGaData(
-        state.gaDataAdded,
+      addGaData({
+        gaDataAdded: state.gaDataAdded,
         handleSetGaDataAdded,
-        formRef.current["hiddenemail"],
+        formEmailInput: formRef.current["hiddenemail"],
         isDealRegistrationForm,
-        state.formType
-      );
+        formType: state.formType,
+      });
     }
-  }, [state.stepEmailFieldValue, !state.finalStepSubmitted]);
+  }, [state.stepEmailFieldValue, state.finalStepSubmitted]);
 
   useEffect(() => {
     const phoneField = formRef.current["Phone Number"];
@@ -175,6 +179,65 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       }
     }
   }, [state.selectedPartnerCountry]);
+
+  useEffect(() => {
+    const submitHandler = async () => {
+      const noHoneyName = !formRef.current.honeyname.value;
+      const noHoneyEmail = !formRef.current.honeyemail.value;
+      const submissionCanProceed =
+        !state.submissionInProgress &&
+        state.submissionAllowed &&
+        noHoneyEmail &&
+        noHoneyName;
+      if (state.submitFlag && validForm && submissionCanProceed) {
+        const formData = new FormData(formRef.current);
+        window.dataLayer?.push({
+          event: "pardotFormSubmit",
+        });
+        dispatch({
+          type: pardotFormActions.setSubmissionInProgress,
+          value: true,
+        });
+
+        const validationResponse = await verifyFormSubmissionValidity({
+          formRef,
+          formData,
+        });
+        if (!validationResponse.success) {
+          dispatch({
+            type: pardotFormActions.setSubmissionInProgress,
+            value: false,
+          });
+          dispatch({
+            type: pardotFormActions.setSubmissionAllowed,
+            value: false,
+          });
+          return;
+        }
+        validSubmitFormModifications({
+          includeTimeStampInEmailAddress: state.includeTimeStampInEmailAddress,
+          partnerStateFieldVisible: state.partnerStateFieldVisible,
+          stepEmailFieldValue: state.stepEmailFieldValue,
+          stateFieldVisible: state.stateFieldVisible,
+          isDealRegistrationForm,
+          formRef,
+        });
+        window.dataLayer?.push({
+          event: "pardotFormSuccess",
+        });
+        submit({ customAction, formData, formRef, action });
+      }
+    };
+    try {
+      submitHandler();
+    } catch (error) {
+      console.log(error.message);
+      dispatch({
+        type: pardotFormActions.setSubmissionInProgress,
+        value: false,
+      });
+    }
+  }, [state.submitFlag, validForm]);
   // useEffect listeners >>>>>>>>//
 
   const handleDispatch = ({ type, value }) => {
@@ -213,7 +276,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
 
   const handleGetPartnerFieldProperties = (field) => {
     if (partner) return getPartnerFieldProperties({ field, partner });
-    return null;
+    return "";
   };
 
   const handleCountryChange = (newCountryValue) => {
@@ -276,8 +339,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     });
   };
 
-  const formValidation = () => {
-    const touchedFields = state.touchedFields;
+  const formValidation = (newTouchedFields) => {
+    const touchedFields = newTouchedFields || state.touchedFields;
     const formErrors = fieldRefs.current.map((fieldRef, index) =>
       validateField({
         fieldData: state.fieldData,
@@ -295,14 +358,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         index,
       })
     );
+    dispatch({ type: pardotFormActions.setSubmitFlag, value: false });
     dispatch({ type: pardotFormActions.setFormErrors, value: formErrors });
-  };
-
-  const submitValidation = () => {
-    dispatch({
-      type: pardotFormActions.setTouchedFields,
-      value: Array(fieldRefs.current.length).fill(true),
-    });
   };
 
   const setPasteError = (boolean, index) => {
@@ -342,49 +399,15 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validForm = submitValidation();
-    const noHoneyName = !formRef.current.honeyname.value;
-    const noHoneyEmail = !formRef.current.honeyemail.value;
-    const submissionCanProceed =
-      !state.submissionInProgress &&
-      state.submissionAllowed &&
-      noHoneyEmail &&
-      noHoneyName;
-    if (validForm && submissionCanProceed) {
-      const formData = new FormData(formRef.current);
-      window.dataLayer?.push({
-        event: "pardotFormSubmit",
-      });
-      dispatch({
-        type: pardotFormActions.setSubmissionInProgress,
-        value: true,
-      });
-
-      const validationResponse = await verifyFormSubmissionValidity();
-      if (!validationResponse.success) {
-        dispatch({
-          type: pardotFormActions.setSubmissionInProgress,
-          value: false,
-        });
-        dispatch({
-          type: pardotFormActions.setSubmissionAllowed,
-          value: false,
-        });
-        return;
-      }
-      validSubmitFormModifications({
-        includeTimeStampInEmailAddress: state.includeTimeStampInEmailAddress,
-        partnerStateFieldVisible: state.partnerStateFieldVisible,
-        stepEmailFieldValue: state.stepEmailFieldValue,
-        stateFieldVisible: state.stateFieldVisible,
-        isDealRegistrationForm,
-        formRef,
-      });
-      window.dataLayer?.push({
-        event: "pardotFormSuccess",
-      });
-      submit({ customAction, formData, formRef, action });
-    }
+    formValidation(Array(fieldRefs.current.length).fill(true));
+    dispatch({
+      type: pardotFormActions.setSubmitFlag,
+      value: true,
+    });
+    dispatch({
+      type: pardotFormActions.setTouchedFields,
+      value: Array(fieldRefs.current.length).fill(true),
+    });
   };
   return {
     state,
