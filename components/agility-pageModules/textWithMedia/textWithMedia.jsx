@@ -22,6 +22,7 @@ const TextWithMedia = ({ module, customData }) => {
   const headingSizeforTextArea = fields.headingSizeforTextArea;
   const mediaVerticalAlignment = fields.mediaVerticalAlignment;
   const textContentVerticalAlignment = fields.textContentVerticalAlignment;
+  const textHorizontalAlignment = fields.textContentHorizontalAlignment;
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {
@@ -45,7 +46,6 @@ const TextWithMedia = ({ module, customData }) => {
     return "";
   };
 
-  const textAlignment = fields.textContentHorizontalAlignment === "alignCenter" ? "align-center": "align-left";
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
@@ -85,9 +85,9 @@ const TextWithMedia = ({ module, customData }) => {
           } ${fullPageWidth ? style.fullPageWidthContent : ""}`}
         >
           <div
-            className={`${style.textContent} ${textAlignment} ${
-              fullPageWidth ? style.fullPageWidthTextContent : ""
-            } ${
+            className={`${style.textContent} ${
+              textHorizontalAlignment ? textHorizontalAlignment : ""
+            } ${fullPageWidth ? style.fullPageWidthTextContent : ""} ${
               style[`textContentBasis${fields.textWidthPercentage || 50}`]
             } ${textContentVerticalAlignment}`}
           >
