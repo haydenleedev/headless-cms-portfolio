@@ -1,4 +1,4 @@
-import PardotForm from "../../form/pardotForm";
+import PardotForm from "../../form/pardotForm/index";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./blogSubscriptionBanner.module.scss";
 import Heading from "../heading";

@@ -9,7 +9,7 @@ import {
 } from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
-import PardotForm from "../../form/pardotForm";
+import PardotForm from "../../form/pardotForm/index";
 
 const DealRegistration = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, formConfiguration } = customData;

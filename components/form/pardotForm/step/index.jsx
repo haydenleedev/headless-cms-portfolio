@@ -4,7 +4,7 @@ import Field from "../field";
 import PardotFormContext from "../context";
 import style from "../form.module.scss";
 import EmailStep from "./emailStep";
-import { useContext } from "react";
+import { Fragment, useContext } from "react";
 
 const StepForm = ({ customAction, btnColor, submit, config }) => {
   const { state, formRef, handleSubmit, isContactForm, submitValidation } =
@@ -38,7 +38,9 @@ const StepForm = ({ customAction, btnColor, submit, config }) => {
         ref={formRef}
       >
         {state.fieldData?.map((field, index) => (
-          <Field field={field} index={index} />
+          <Fragment key={`stepField${index}`}>
+            <Field field={field} index={index} />
+          </Fragment>
         ))}
 
         {(state.includeTimeStampInEmailAddress ||

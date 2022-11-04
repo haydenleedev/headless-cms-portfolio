@@ -1,6 +1,6 @@
 import style from "./form.module.scss";
 
-const HoneypotFields = ({}) => {
+const HoneypotFields = () => {
   return (
     <>
       <div>

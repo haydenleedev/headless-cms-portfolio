@@ -23,7 +23,6 @@ const StandardForm = ({ customAction, btnColor, submit }) => {
             field={field}
             index={index}
             fieldRef={fieldRefs.current[index]}
-            key={"asd"}
           />
         </Fragment>
       ))}

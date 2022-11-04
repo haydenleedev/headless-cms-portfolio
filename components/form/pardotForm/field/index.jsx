@@ -59,7 +59,7 @@ const Field = (props) => {
                 : null}
             </span>
           )}
-          {field.isRequired && <span className={style.required}>*</span>}{" "}
+          {field.isRequired && <span className={style.required}>*</span>}
           <span>
             {field.name.toLowerCase() === "company"
               ? "Company Name"

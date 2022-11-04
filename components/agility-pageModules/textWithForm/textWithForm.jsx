@@ -81,21 +81,21 @@ const TextWithForm = ({ module, customData }) => {
   // Set clp value from the url if the value exist.  If there's no parameters, then get the default values from "fields.currentLeadProgram2".
   const clpValue = getUrlParamValue("clp");
 
-  const setUtmCampaignValue = (url) => {
+  const setUtmCampaignValue = () => {
     if (utmCampaignValue) {
       return utmCampaignValue;
     } else {
       return fields.uTMCampaignAsset ? fields.uTMCampaignAsset : null;
     }
   };
-  const setUtmAssetValue = (url) => {
+  const setUtmAssetValue = () => {
     if (utmAssetValue) {
       return utmAssetValue;
     } else {
       return fields.uTMCampaignAsset ? fields.uTMCampaignAsset : null;
     }
   };
-  const setClpValue = (url) => {
+  const setClpValue = () => {
     if (clpValue) {
       return clpValue;
     } else {
@@ -241,16 +241,19 @@ const TextWithForm = ({ module, customData }) => {
                   fields.contactType ? fields.contactType : "request_a_demo"
                 }
                 utmCampaign={
-                  typeof window !== "undefined" &&
-                  setUtmCampaignValue(window.location.href)
+                  typeof window !== "undefined"
+                    ? setUtmCampaignValue(window.location.href)
+                    : null
                 }
                 utmAsset={
-                  typeof window !== "undefined" &&
-                  setUtmAssetValue(window.location.href)
+                  typeof window !== "undefined"
+                    ? setUtmAssetValue(window.location.href)
+                    : null
                 }
                 clpField={
-                  typeof window !== "undefined" &&
-                  setClpValue(window.location.href)
+                  typeof window !== "undefined"
+                    ? setClpValue(window.location.href)
+                    : null
                 }
                 clsField={fields.currentLeadSource2}
               />

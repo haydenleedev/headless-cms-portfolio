@@ -6,6 +6,15 @@
 .pardotForm {
   label {
     display: block;
+    padding: unset;
+    text-align: left;
+    & > span {
+      &:first-child {
+        display: block;
+        padding: 0.5rem 0;
+        margin-bottom: 0.25rem;
+      }
+    }
   }
   input,
   select {

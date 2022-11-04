@@ -1,4 +1,4 @@
-import PardotForm from "../form/pardotForm";
+import PardotForm from "../form/pardotForm/index";
 
 const Subscribe = ({ formConfiguration }) => {
   const NEWSLETTER_FORM_ID = 3715;

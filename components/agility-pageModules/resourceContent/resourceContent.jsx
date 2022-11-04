@@ -16,7 +16,7 @@ import FirstFold from "../firstFold/firstFold";
 import EmbedVideo from "../embedVideo/embedVideo";
 import Script from "next/script";
 import Accordion from "../accordion/accordion";
-import PardotForm from "../../form/pardotForm";
+import PardotForm from "../../form/pardotForm/index";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
@@ -262,16 +262,19 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         assetTitle={resource.title ? resource.title : null}
                         assetType={getAssetType()}
                         utmCampaign={
-                          typeof window !== "undefined" &&
-                          setUtmCampaignValue(window.location.href)
+                          typeof window !== "undefined"
+                            ? setUtmCampaignValue(window.location.href)
+                            : null
                         }
                         utmAsset={
-                          typeof window !== "undefined" &&
-                          setUtmAssetValue(window.location.href)
+                          typeof window !== "undefined"
+                            ? setUtmAssetValue(window.location.href)
+                            : null
                         }
                         clpField={
-                          typeof window !== "undefined" &&
-                          setClpValue(window.location.href)
+                          typeof window !== "undefined"
+                            ? setClpValue(window.location.href)
+                            : null
                         }
                         clsField={resource.currentLeadSource2}
                       />

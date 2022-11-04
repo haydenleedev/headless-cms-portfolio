@@ -88,7 +88,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
             formValidation();
             setPasteError(false, index);
           }}
-          onPaste={pasteBlocker}
+          onPaste={(e) => pasteBlocker(e, index)}
           onKeyDown={(e) => {
             if (e.code !== "Tab") setPasteError(false, index);
           }}
@@ -119,7 +119,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
             formValidation();
             setPasteError(false, index);
           }}
-          onPaste={pasteBlocker}
+          onPaste={(e) => pasteBlocker(e, index)}
           onKeyDown={() => {
             if (state.usPhoneFormat) {
               phoneNumberFormatter(index);
@@ -184,7 +184,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
               onKeyDown={(e) => {
                 if (e.code !== "Tab") setPasteError(false, index);
               }}
-              onPaste={pasteBlocker}
+              onPaste={(e) => pasteBlocker(e, index)}
               ref={fieldRef}
               defaultValue={resolveInputValue(field)}
             />
@@ -271,7 +271,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           onKeyDown={(e) => {
             if (e.code !== "Tab") setPasteError(false, index);
           }}
-          onPaste={pasteBlocker}
+          onPaste={(e) => pasteBlocker(e, index)}
           ref={fieldRef}
         />
       );

@@ -18,14 +18,7 @@ import {
 } from "./helpers";
 
 export const useForm = ({ props, pardotFormData, formConfig }) => {
-  const {
-    config,
-    formHandlerID,
-    customAction,
-    partner,
-    action,
-    partnerCompanyCountry,
-  } = props;
+  const { config, formHandlerID, customAction, partner, action } = props;
   const initialFormState = {
     action: customAction ? null : action,
     fieldData: [],
@@ -38,10 +31,10 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     stateFieldVisible: false,
     partnerStateFieldVisible: false,
     selectedCountry: "",
-    selectedPartnerCountry: partnerCompanyCountry,
+    selectedPartnerCountry: partner?.companyCountry || "",
     usPhoneFormat: true,
     partnerUsPhoneFormat:
-      partnerCompanyCountry == "United States" || !partnerCompanyCountry,
+      partner?.companyCountry == "United States" || !partner?.companyCountry,
     includeTimeStampInEmailAddress: false,
     submissionInProgress: false,
     submissionAllowed: true,
@@ -387,10 +380,10 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     }
   };
 
-  const pasteBlocker = (e) => {
+  const pasteBlocker = (e, index) => {
     if (isContactForm) {
       e.preventDefault();
-      setPasteError(true);
+      setPasteError(true, index);
       return false;
     } else {
       return true;
