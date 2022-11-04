@@ -41,10 +41,7 @@ const AgilityLink = ({
   smooth = false,
 }) => {
   const href = agilityLink?.href;
-  if (!href)
-    throw new Error(
-      "AgilityLink: agilityLink prop must include a property called href!"
-    );
+
   const isResource = checkForResourceURL(href);
   const isInner = hrefSelf(href);
   const rel = isInner ? null : "noindex noreferrer nofollow";
