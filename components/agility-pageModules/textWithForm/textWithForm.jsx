@@ -133,7 +133,7 @@ const TextWithForm = ({ module, customData }) => {
     campaignScriptIDRef.current = fields.campaignTrackingID;
   }, []);
 
-  const textAlignment = fields.textAlignment ? fields.textAlignment : "align-left";
+  const textAlignment = fields.textAlignment === "alignCenter" ? "align-center": "align-left";
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
