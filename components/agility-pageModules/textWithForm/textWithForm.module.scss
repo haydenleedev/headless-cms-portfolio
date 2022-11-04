@@ -23,6 +23,9 @@
   .columnLayoutHeading {
     order: 0;
   }
+  &.columnAndRowLayoutAlign {
+    text-align: center;
+  }
   .columnLayoutHeading,
   .rowLayoutHeading {
     h1,
@@ -166,7 +169,6 @@
   .columnLayoutContent {
     display: flex;
     flex-direction: column;
-
     .bg-skyblue-light {
       background-color: transparent !important;
     }

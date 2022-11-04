@@ -150,19 +150,20 @@ const TextWithForm = ({ module, customData }) => {
     >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
         <div
-          className={
-            columnLayout
-              ? `${style.columnLayoutContent} ${fields.textAlignment ? textAlignment : "align-center"}`
-              : `${style.content} ${style[fields.layout]}`
+          className={`${fields.textAlignment ? textAlignment : "align-center"}
+          ${ columnLayout
+            ? `${style.columnLayoutContent}`
+            : `${style.content} ${style[fields.layout]}`}`
+           
           }
         >
           {(heading || subheading) && (
-            <aside className={`${style.columnLayoutHeading} ${fields.textAlignment ? textAlignment : style.columnAndRowLayoutAlign}`}>
+            <aside className={`${style.columnLayoutHeading} ${!fields.textAlignment ? style.columnAndRowLayoutAlign : undefined}`}>
               {heading && <Heading {...heading} />}
               {subheading && <Heading {...subheading} />}
             </aside>
           )}
-          <aside className={`${style.textContent} ${fields.textAlignment ? textAlignment : style.columnAndRowLayoutAlign}`}>
+          <aside className={`${style.textContent} ${!fields.textAlignment ? style.columnAndRowLayoutAlign : undefined}`}>
             {(heading || subheading) && (
               <div className={style.rowLayoutHeading}>
                 {heading && <Heading {...heading} />}
