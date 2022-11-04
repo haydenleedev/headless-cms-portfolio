@@ -152,17 +152,17 @@ const TextWithForm = ({ module, customData }) => {
         <div
           className={
             columnLayout
-              ? style.columnLayoutContent
+              ? `${style.columnLayoutContent} ${fields.textAlignment ? textAlignment : "align-center"}`
               : `${style.content} ${style[fields.layout]}`
           }
         >
           {(heading || subheading) && (
-            <aside className={style.columnLayoutHeading}>
+            <aside className={`${style.columnLayoutHeading} ${fields.textAlignment ? textAlignment : style.columnAndRowLayoutAlign}`}>
               {heading && <Heading {...heading} />}
               {subheading && <Heading {...subheading} />}
             </aside>
           )}
-          <aside className={`${style.textContent} ${textAlignment}`}>
+          <aside className={`${style.textContent} ${fields.textAlignment ? textAlignment : style.columnAndRowLayoutAlign}`}>
             {(heading || subheading) && (
               <div className={style.rowLayoutHeading}>
                 {heading && <Heading {...heading} />}
