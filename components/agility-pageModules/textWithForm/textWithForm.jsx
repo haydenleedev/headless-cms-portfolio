@@ -140,6 +140,7 @@ const TextWithForm = ({ module, customData }) => {
     campaignScriptIDRef.current = fields.campaignTrackingID;
   }, []);
 
+  const textAlignment = fields.textAlignment === "alignCenter" ? "align-center": "align-left";
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
@@ -158,17 +159,17 @@ const TextWithForm = ({ module, customData }) => {
         <div
           className={
             columnLayout
-              ? style.columnLayoutContent
+              ? `${style.columnLayoutContent} ${fields.textAlignment ? textAlignment : "align-center"}`
               : `${style.content} ${style[fields.layout]}`
           }
         >
           {(heading || subheading) && (
-            <aside className={style.columnLayoutHeading}>
+            <aside className={`${style.columnLayoutHeading} ${fields.textAlignment ? textAlignment : style.columnAndRowLayoutAlign}`}>
               {heading && <Heading {...heading} />}
               {subheading && <Heading {...subheading} />}
             </aside>
           )}
-          <aside className={style.textContent}>
+          <aside className={`${style.textContent} ${fields.textAlignment ? textAlignment : style.columnAndRowLayoutAlign}`}>
             {(heading || subheading) && (
               <div className={style.rowLayoutHeading}>
                 {heading && <Heading {...heading} />}

@@ -45,6 +45,7 @@ const TextWithMedia = ({ module, customData }) => {
     return "";
   };
 
+  const textAlignment = fields.textContentHorizontalAlignment === "alignCenter" ? "align-center": "align-left";
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
@@ -84,7 +85,7 @@ const TextWithMedia = ({ module, customData }) => {
           } ${fullPageWidth ? style.fullPageWidthContent : ""}`}
         >
           <div
-            className={`${style.textContent} ${
+            className={`${style.textContent} ${textAlignment} ${
               fullPageWidth ? style.fullPageWidthTextContent : ""
             } ${
               style[`textContentBasis${fields.textWidthPercentage || 50}`]
