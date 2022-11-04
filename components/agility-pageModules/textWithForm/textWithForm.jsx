@@ -133,6 +133,7 @@ const TextWithForm = ({ module, customData }) => {
     campaignScriptIDRef.current = fields.campaignTrackingID;
   }, []);
 
+  const textAlignment = fields.textAlignment ? fields.textAlignment : "align-left";
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
@@ -161,7 +162,7 @@ const TextWithForm = ({ module, customData }) => {
               {subheading && <Heading {...subheading} />}
             </aside>
           )}
-          <aside className={style.textContent}>
+          <aside className={`${style.textContent} ${textAlignment}`}>
             {(heading || subheading) && (
               <div className={style.rowLayoutHeading}>
                 {heading && <Heading {...heading} />}
