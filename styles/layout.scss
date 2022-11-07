@@ -324,6 +324,20 @@
 .align-right {
   text-align: right;
 }
+// class for forcing text-align: center
+.text-align-center {
+  text-align: center !important;
+  * {
+    text-align: center !important;
+  }
+}
+// class for forcing text-align: left
+.text-align-left {
+  text-align: left !important;
+  * {
+    text-align: left !important;
+  }
+}
 .border-gray {
   border: 0.125rem solid $color-gray;
 }
@@ -799,14 +813,13 @@ fieldset {
   }
 }
 
-
 // Moved color classes here
 
 .bg-paleblue {
   background-color: #f0f6ff !important; // $color-paleblue: not pale enough...;
 }
-.bg-palelightblue{
-  background-color:#e1ecfe !important;
+.bg-palelightblue {
+  background-color: #e1ecfe !important;
 }
 .bg-skyblue-light {
   background-color: $color-paleblue;
@@ -844,7 +857,7 @@ fieldset {
 .bg-darkmedium {
   background-color: $color-darkmedium !important;
 }
-.bg-lightmedium{
+.bg-lightmedium {
   background-color: $color-lightmedium !important;
 }
 .bg-mediumgray {

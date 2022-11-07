@@ -140,27 +140,35 @@
     display: flex;
     width: 100%;
     margin: 2rem 0;
-    flex-flow: row;
+    flex-flow: column;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
+    a,
+    p {
+      padding: 0.5rem 0;
+    }
 
     @include desktop() {
+      flex-flow: row;
       margin: 0;
-      align-items: center;
       justify-content: flex-end;
+      a,
+      p {
+        padding: 0;
+      }
     }
     .footNoteLink {
       font-size: 0.8rem;
       &:not(:last-child) {
         &::after {
-          content: " - ";
+          content: "";
           margin: 0 0.5rem;
         }
       }
       @include desktop() {
         &:not(:last-child) {
           &::after {
-            content: "";
             margin: 0 1.5rem;
             border-right: 0.1rem solid white;
             height: 100%;

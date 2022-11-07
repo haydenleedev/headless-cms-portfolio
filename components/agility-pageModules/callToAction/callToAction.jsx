@@ -17,7 +17,7 @@ const CallToAction = ({ module, customData }) => {
   const textLeftJustification = boolean(fields?.textLeftJustification);
 
   const linkBackgroundColor = fields.linkBackgroundColor || "cyan outlined";
-  const textAlignment = fields.textAlignment === "alignLeft" ? style.textLeft : style.textCenter;
+
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
@@ -46,8 +46,8 @@ const CallToAction = ({ module, customData }) => {
       >
         <div
           className={`${style.content} ${
-            textLeftJustification ? style.textLeft : textAlignment
-          }`}
+            fields.textAlignment ? fields.textAlignment : ""
+          } ${textLeftJustification ? style.textLeft : style.textCenter}`}
         >
           {heading.text && (
             <div className={style.heading}>
