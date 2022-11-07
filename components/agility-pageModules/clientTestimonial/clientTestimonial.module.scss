@@ -193,6 +193,15 @@
       align-items: center;
       flex-direction: row-reverse;
       gap: 5em;
+      // Fix for bug: Safari before version 15.4 does not apply gap when flex-direction is column-reverse
+      @media not all and (min-resolution: 0.001dpcm) {
+        @supports (-webkit-appearance: none) {
+          .client {
+            margin-right: 5em;
+          }
+        }
+      }
+
       .companyName {
         display: none;
       }
@@ -248,7 +257,8 @@
     line-height: 1.2em;
     font-weight: 400;
   }
-  .jobTitle, .companyName {
+  .jobTitle,
+  .companyName {
     font-size: 1rem;
     display: block;
     margin-top: 0.4em;
