@@ -22,7 +22,6 @@ const SEO = ({
   const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
-  const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
   const qualifiedSrc = "https://js.qualified.com/qualified.js?token=";
   if (!getCookie("ga_cookie_date")) {
     setCookie(
@@ -135,7 +134,7 @@ const SEO = ({
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
               </Script>
-              <Script id="6sense">
+              <Script id="6sense" strategy="lazyOnload">
                 {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
@@ -235,7 +234,7 @@ const SEO = ({
               })();
           `}
               </Script>
-              <Script id="g2Crowd" strategy="afterInteractive">
+              <Script id="g2Crowd" strategy="lazyOnload">
                 {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
