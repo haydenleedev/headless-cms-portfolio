@@ -54,7 +54,7 @@ const SEO = ({
     // Delay script loading with setTimeout
     setTimeout(() => {
       setTimerExpired(true);
-    }, 0);
+    }, 1000);
 
     router.events.on("routeChangeStart", () => {
       campaignScriptIDRef.current = null;
@@ -137,7 +137,7 @@ const SEO = ({
       </Head>
       {pageTemplateName !== "BrandTemplate" && (
         <>
-          {timerExpired && userInteracted && (
+          {(timerExpired || userInteracted) && (
             <>
               <Script id="google-tag-manager">
                 {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

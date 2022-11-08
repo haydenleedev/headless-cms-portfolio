@@ -53,11 +53,6 @@ const ArchivesPageContent = dynamic(
   { ssr: false }
 );
 
-const LoadGoogleOptimize = dynamic(
-  () => import("./loadGoogleOptimize/loadGoogleOptimize"),
-  { ssr: false }
-);
-
 const JobOpeningList = dynamic(
   () => import("./jobOpeningList/jobOpeningList"),
   { ssr: false }
@@ -70,6 +65,7 @@ const CustomerStoryCards = dynamic(
 
 // eagerly loaded modules
 import FirstFold from "./firstFold/firstFold";
+import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
 import LogosList from "./logosList/logosList";
 import RichTextArea from "./richTextArea/richTextArea";
 import TextGridWithMedia from "./textGridWithMedia/textGridWithMedia";
