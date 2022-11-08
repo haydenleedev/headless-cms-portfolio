@@ -54,7 +54,7 @@ const SEO = ({
     // Delay script loading with setTimeout
     setTimeout(() => {
       setTimerExpired(true);
-    }, 1000);
+    }, 2000);
 
     router.events.on("routeChangeStart", () => {
       campaignScriptIDRef.current = null;
@@ -260,19 +260,21 @@ const SEO = ({
         `}
               </Script>
               {/* Load Qualified script after user starts scrolling */}
-              <>
-                {/* Qualified Script */}
-                <Script id="qualified" strategy="lazyOnload">
-                  {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+              {userInteracted && (
+                <>
+                  {/* Qualified Script */}
+                  <Script id="qualified" strategy="lazyOnload">
+                    {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
-                </Script>
-                <Script
-                  id="qualified-src"
-                  async
-                  src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-                  strategy="lazyOnload"
-                />
-              </>
+                  </Script>
+                  <Script
+                    id="qualified-src"
+                    async
+                    src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+                    strategy="lazyOnload"
+                  />
+                </>
+              )}
 
               <Script
                 id="onetrust"
