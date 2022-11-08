@@ -1,5 +1,6 @@
 import style from "./embedVideo.module.scss";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import { boolean } from "../../../utils/validation";
 import {
   sanitizeHtmlConfig,
@@ -137,10 +138,10 @@ const EmbedVideo = ({ module, customData }) => {
   };
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <>

@@ -1,6 +1,7 @@
 import style from "./testimonialList.module.scss";
 import TestimonialListLayout from "./testimonialListLayout";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 
 const TestimonialList = ({ module }) => {
   const { fields } = module;

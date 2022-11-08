@@ -1,7 +1,8 @@
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { boolean, mediaIsSvg } from "../../../utils/validation";
-import Heading from "../heading";
-import Media from "../media";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Media = dynamic(() => import("../media"), { ssr: false });
 import style from "./awardsBanner.module.scss";
 import { renderHTML } from "@agility/nextjs";
 
@@ -24,10 +25,10 @@ const AwardsBanner = ({ module, customData }) => {
   });
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section

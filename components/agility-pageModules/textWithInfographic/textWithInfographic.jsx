@@ -3,7 +3,8 @@ import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useIntersectionObserver } from "../../../utils/hooks";
 import { mediaIsSvg } from "../../../utils/validation";
 import AgilityLink from "../../agilityLink";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import Media from "../media";
 import style from "./textWithInfographic.module.scss";
 

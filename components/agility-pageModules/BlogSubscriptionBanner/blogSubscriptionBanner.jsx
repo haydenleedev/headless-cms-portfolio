@@ -1,7 +1,8 @@
 import PardotForm from "../../form/pardotForm";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./blogSubscriptionBanner.module.scss";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import { renderHTML } from "@agility/nextjs";
 import { useState } from "react";
 import Image from "next/image";

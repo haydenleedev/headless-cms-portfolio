@@ -1,7 +1,8 @@
 import Media from "../media";
 import style from "./videoPopup.module.scss";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import { renderHTML } from "@agility/nextjs";
 import { useState } from "react";
 
@@ -34,7 +35,13 @@ const VideoPopup = ({ module, customData }) => {
           ></div>
         )}
         <div className={style.autoplayVideoWrapper}>
-          <video className="video display-block" autoPlay muted loop playsInline>
+          <video
+            className="video display-block"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
             <source src={fields.video.url} type={`video/${mediaType}`} />
           </video>
           <div className={style.playButtonOverlay}>

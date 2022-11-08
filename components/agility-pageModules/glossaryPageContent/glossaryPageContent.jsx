@@ -1,4 +1,3 @@
-import Heading from "../heading";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useState } from "react";

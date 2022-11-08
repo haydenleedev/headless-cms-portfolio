@@ -1,7 +1,8 @@
 import { renderHTML } from "@agility/nextjs";
 import { useRef, useState, useEffect } from "react";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import style from "./accordion.module.scss";
 
 const Accordion = ({ module, customData }) => {
@@ -41,10 +42,10 @@ const Accordion = ({ module, customData }) => {
   }, []);
 
   // Margins & Paddings
-  const mtValue = fields?.marginTop ? fields.marginTop : '';
-  const mbValue = fields?.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields?.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields?.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields?.marginTop ? fields.marginTop : "";
+  const mbValue = fields?.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields?.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields?.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section

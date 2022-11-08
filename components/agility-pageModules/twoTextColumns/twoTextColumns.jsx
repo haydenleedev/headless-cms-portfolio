@@ -1,7 +1,8 @@
 import style from "./twoTextColumns.module.scss";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import { useIntersectionObserver } from "../../../utils/hooks";
 
 const TwoTextColumns = ({ module, customData }) => {
@@ -43,29 +44,40 @@ const TwoTextColumns = ({ module, customData }) => {
           fullPageWidth ? "max-width-unset padding-unset" : ""
         } ${brandWidth ? "max-width-brand" : ""}`}
       >
-        <div className={`${style.heading} ${"flex-direction-"+fields.subtitlePosition} ${alignRight ? style.alignRight : alignCenter ? style.alignCenter : ""}`}>
-    
-            <p>{fields.subtitle}</p>
+        <div
+          className={`${style.heading} ${
+            "flex-direction-" + fields.subtitlePosition
+          } ${
+            alignRight ? style.alignRight : alignCenter ? style.alignCenter : ""
+          }`}
+        >
+          <p>{fields.subtitle}</p>
           <Heading {...heading} />
         </div>
-        <div className={`${style.textContainer} ${"flex-direction-"+fields.mobileorder}`}>
+        <div
+          className={`${style.textContainer} ${
+            "flex-direction-" + fields.mobileorder
+          }`}
+        >
           <div className={style.columnLeft}>
-          {fields.textLeft && (
-                <div
-                  className={`${style.html} content`}
-                  dangerouslySetInnerHTML={renderHTML(customData.sanitizedHtmlLeft)}
-                >
-                </div>
-              )}
+            {fields.textLeft && (
+              <div
+                className={`${style.html} content`}
+                dangerouslySetInnerHTML={renderHTML(
+                  customData.sanitizedHtmlLeft
+                )}
+              ></div>
+            )}
           </div>
           <div className={style.columnRight}>
-          {fields.textRight && (
-                <div
-                  className={`${style.html} content`}
-                  dangerouslySetInnerHTML={renderHTML(customData.sanitizedHtmlRight)}
-                >
-                </div>
-              )}
+            {fields.textRight && (
+              <div
+                className={`${style.html} content`}
+                dangerouslySetInnerHTML={renderHTML(
+                  customData.sanitizedHtmlRight
+                )}
+              ></div>
+            )}
           </div>
         </div>
       </div>
@@ -78,8 +90,12 @@ TwoTextColumns.getCustomInitialProps = async function ({ item }) {
 
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-  const sanitizedHtmlLeft = item.fields.textLeft ? cleanHtml(item.fields.textLeft) : null;
-  const sanitizedHtmlRight = item.fields.textRight ? cleanHtml(item.fields.textRight) : null;
+  const sanitizedHtmlLeft = item.fields.textLeft
+    ? cleanHtml(item.fields.textLeft)
+    : null;
+  const sanitizedHtmlRight = item.fields.textRight
+    ? cleanHtml(item.fields.textRight)
+    : null;
 
   return {
     sanitizedHtmlLeft,

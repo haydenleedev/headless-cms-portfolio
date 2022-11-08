@@ -1,10 +1,11 @@
 import { renderHTML } from "@agility/nextjs";
+import dynamic from "next/dynamic";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useIntersectionObserver } from "../../../utils/hooks";
 import { boolean, mediaIsSvg } from "../../../utils/validation";
-import AgilityLink from "../../agilityLink";
-import Heading from "../heading";
-import Media from "../media";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Media = dynamic(() => import("../media"), { ssr: false });
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
 import style from "./textWithMedia.module.scss";
 
 const TextWithMedia = ({ module, customData }) => {

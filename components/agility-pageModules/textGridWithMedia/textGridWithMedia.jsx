@@ -1,24 +1,22 @@
-import Heading from "../heading";
-import Media from "../media";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Media = dynamic(() => import("../media"), { ssr: false });
 import { boolean, mediaIsSvg } from "../../../utils/validation";
 import style from "./textGridWithMedia.module.scss";
 import AgilityLink from "../../agilityLink";
-import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useIntersectionObserver } from "../../../utils/hooks";
+import { Fragment } from "react";
+const TextItem = dynamic(() => import("./textItem"), { ssr: false });
 
 const TextGridWithMedia = ({ module, customData }) => {
   const { itemsWithSanitizedHTML } = customData;
   const { fields } = module;
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields?.narrowContainer);
-  const itemShadow = boolean(fields?.itemShadow);
-  const roundCorners = boolean(fields?.roundCorners);
   const objectFitContainItemImages = boolean(
     fields?.objectFitContainItemImages
   );
-
-  const itemImagesAtTop = fields.itemStyle == null;
 
   itemsWithSanitizedHTML.sort(function (a, b) {
     return a.properties.itemOrder - b.properties.itemOrder;
@@ -52,111 +50,6 @@ const TextGridWithMedia = ({ module, customData }) => {
     itemsWithSanitizedHTML.length < columns
       ? style[`is-${itemsWithSanitizedHTML.length}`]
       : style[`is-${columns}`];
-
-  const TextItem = ({ data, objectFitContainItemImages }) => {
-    const itemFields = data.fields;
-    const heading = JSON.parse(itemFields.heading);
-    return (
-      <div
-        className={`
-          ${`grid-column ${columnSizeClassname}`}
-          ${style.textItem} ${
-          fields.itemStyle === "imgBottom" && "justify-content-flex-end"
-        }
-          ${
-            fields.itemStyle == "logoLeft" ||
-            fields.itemStyle == "mediumLogoLeft"
-              ? ""
-              : `
-                flex-direction-column
-                ${
-                  fields.itemImageSize
-                    ? style[`textItemWith${fields.itemImageSize}Media`]
-                    : ""
-                }
-                ${itemShadow ? "card-shadow" : ""}
-                ${roundCorners ? "border-radius-1" : ""}`
-          }`}
-        key={data.contentID}
-        data-animate="true"
-      >
-        {heading.text && fields.itemStyle === "imgBottom" && (
-          <div className={style.textItemHeading}>
-            <Heading {...heading} />
-          </div>
-        )}
-        {itemFields.media && (
-          <div
-            className={`
-              ${style.textItemMedia}
-              ${mediaIsSvg(itemFields.media) ? style.textItemSvgMedia : ""}
-              ${
-                itemImagesAtTop
-                  ? `${style.textItemMediaTop} ${
-                      fields.itemImageSize
-                        ? style[`textItemMedia${fields.itemImageSize}`]
-                        : ""
-                    } ${`align-self-${
-                      fields.itemImageHorizontalAlignment || "start"
-                    }`}
-                  `
-                  : ""
-              }
-              ${
-                objectFitContainItemImages
-                  ? style.objectFitContainItemImages
-                  : ""
-              }
-            `}
-          >
-            <Media media={itemFields.media} />
-          </div>
-        )}
-        {(itemFields.text ||
-          itemFields.secondText ||
-          (heading.text && fields.itemStyle !== "imgBottom")) && (
-          <div
-            className={`${
-              style.textItemTextContent
-            } d-flex flex-direction-column ${
-              fields.flexAlignItems ? fields.flexAlignItems : ""
-            }`}
-          >
-            {heading.text && fields.itemStyle !== "imgBottom" && (
-              <div className={style.textItemHeading}>
-                <Heading {...heading} />
-              </div>
-            )}
-            {(itemFields.text || itemFields.secondText) && (
-              <div className={style.textItemContentWrapper}>
-                {itemFields.text && (
-                  <div
-                    className={`content ${style.content}`}
-                    dangerouslySetInnerHTML={renderHTML(itemFields.text)}
-                  ></div>
-                )}
-                {itemFields.secondText && (
-                  <div
-                    className={`content ${style.content} ${style.textItemSecondText}`}
-                    dangerouslySetInnerHTML={renderHTML(itemFields.secondText)}
-                  ></div>
-                )}
-              </div>
-            )}
-            {itemFields.link && itemFields.link.text && (
-              <span
-                className={`${
-                  fields.linkStyle ? fields.linkStyle : style.rightArrow
-                }`}
-              >
-                {itemFields.link.text}
-              </span>
-            )}
-          </div>
-        )}
-      </div>
-    );
-  };
 
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
@@ -213,22 +106,25 @@ const TextGridWithMedia = ({ module, customData }) => {
             {itemsWithSanitizedHTML?.map((textItem, index) => {
               if (textItem.fields.link) {
                 return (
-                  <AgilityLink
-                    agilityLink={textItem.fields.link}
-                    ariaLabel={`Read more about ${textItem.fields.title}`}
-                    key={`textItem${index}`}
-                    className={`
+                  <Fragment key={`textItem${index}`}>
+                    <AgilityLink
+                      agilityLink={textItem.fields.link}
+                      ariaLabel={`Read more about ${textItem.fields.title}`}
+                      className={`
                       ${style.gridItem}
                       ${columnSizeClassname}
                       ${index % columns == 0 ? "ml-0" : ""}
                       ${index + 1 > (numberOfRows - 1) * columns ? "mb-0" : ""}
                     `}
-                  >
-                    <TextItem
-                      data={textItem}
-                      objectFitContainItemImages={objectFitContainItemImages}
-                    />
-                  </AgilityLink>
+                    >
+                      <TextItem
+                        fields={fields}
+                        data={textItem}
+                        objectFitContainItemImages={objectFitContainItemImages}
+                        columnSizeClassname={columnSizeClassname}
+                      />
+                    </AgilityLink>
+                  </Fragment>
                 );
               } else {
                 return (
@@ -242,9 +138,10 @@ const TextGridWithMedia = ({ module, customData }) => {
                   `}
                   >
                     <TextItem
+                      fields={fields}
                       data={textItem}
-                      key={`textItem${index}`}
                       objectFitContainItemImages={objectFitContainItemImages}
+                      columnSizeClassname={columnSizeClassname}
                     />
                   </div>
                 );

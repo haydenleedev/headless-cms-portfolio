@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import AgilityLink from "../../agilityLink";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import style from "./jobOpeningList.module.scss";
 
 const JobOpeningList = ({ module, customData }) => {
@@ -148,10 +149,10 @@ const JobOpeningList = ({ module, customData }) => {
   }, [currentSortProperty]);
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <>

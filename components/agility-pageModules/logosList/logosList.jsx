@@ -1,9 +1,10 @@
 import { renderHTML } from "@agility/nextjs";
+import dynamic from "next/dynamic";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { boolean } from "../../../utils/validation";
 import AgilityLink from "../../agilityLink";
-import Heading from "../heading";
-import Media from "../media";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Media = dynamic(() => import("../media"), { ssr: false });
 import style from "./logosList.module.scss";
 
 const LogosList = ({ module, customData }) => {

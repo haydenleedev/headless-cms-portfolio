@@ -1,8 +1,9 @@
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Media = dynamic(() => import("../media"), { ssr: false });
 import style from "./callToAction.module.scss";
 import { boolean } from "../../../utils/validation";
-import Media from "../media";
-import AgilityLink from "../../agilityLink";
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 

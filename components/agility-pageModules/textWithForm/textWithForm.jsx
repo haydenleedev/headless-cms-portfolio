@@ -1,10 +1,11 @@
+import dynamic from "next/dynamic";
 import style from "./textWithForm.module.scss";
 import { boolean } from "../../../utils/validation";
-import Media from "../media";
+const Media = dynamic(() => import("../media"), { ssr: false });
 import StarRating from "../../starRating/starRating";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import Heading from "../heading";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import PardotForm from "../../form/pardotForm";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
