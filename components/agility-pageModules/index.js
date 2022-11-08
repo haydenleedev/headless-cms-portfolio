@@ -53,6 +53,21 @@ const ArchivesPageContent = dynamic(
   { ssr: false }
 );
 
+const LoadGoogleOptimize = dynamic(
+  () => import("./loadGoogleOptimize/loadGoogleOptimize"),
+  { ssr: false }
+);
+
+const JobOpeningList = dynamic(
+  () => import("./jobOpeningList/jobOpeningList"),
+  { ssr: false }
+);
+
+const CustomerStoryCards = dynamic(
+  () => import("./customerStoryCards/customerStoryCards"),
+  { ssr: false }
+);
+
 // eagerly loaded modules
 import FirstFold from "./firstFold/firstFold";
 import LogosList from "./logosList/logosList";
@@ -74,7 +89,6 @@ import Breadcrumbs from "../breadcrumbs/breadcrumbs";
 import Accordion from "./accordion/accordion";
 import BlankCards from "./blankCards/blankCards";
 import TwoTextColumns from "./twoTextColumns/twoTextColumns";
-import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
 import BlogPostContent from "./blogPostContent/blogPostContent";
 import ResourceContent from "./resourceContent/resourceContent";
 import ResourceDownload from "./resourceDownload/resourceDownload";
@@ -87,7 +101,6 @@ import SearchPageContent from "./searchPageContent/searchPageContent";
 import AcknowledgePageContent from "./acknowledgePageContent/acknowledgePageContent";
 import GlossaryPageContent from "./glossaryPageContent/glossaryPageContent";
 import ShopErrorPageContent from "./shopErrorPageContent/shopErrorPageContent";
-import JobOpeningList from "./jobOpeningList/jobOpeningList";
 import VideoPopup from "./videoPopup/videoPopup";
 import DealRegistration from "./dealRegistration/dealRegistration";
 import ChannelRequest from "./channelRequest/channelRequest";
@@ -100,7 +113,6 @@ import BrandTextGridWithMedia from "../../brand/components/brandTextGridWithMedi
 import TextWithInfographic from "./textWithInfographic/textWithInfographic";
 import BlogSubscriptionBanner from "./BlogSubscriptionBanner/blogSubscriptionBanner";
 import CaseStudyData from "./caseStudyData/caseStudyData";
-import CustomerStoryCards from "./customerStoryCards/customerStoryCards";
 
 const allModules = [
   { name: "FirstFold", module: FirstFold },
