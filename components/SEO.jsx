@@ -17,7 +17,7 @@ const SEO = ({
   url,
   pageTemplateName,
 }) => {
-  const [scrolled, setScrolled] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
   const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
@@ -38,12 +38,18 @@ const SEO = ({
   const router = useRouter();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(true);
-      window.removeEventListener("scroll", handleScroll);
+    const userInteractionEvent = () => {
+      setUserInteracted(true);
+      window.removeEventListener("scroll", userInteractionEvent);
+      window.removeEventListener("mousedown", userInteractionEvent);
+      window.removeEventListener("touchstart", userInteractionEvent);
+      window.removeEventListener("keydown", userInteractionEvent);
     };
     if (typeof window !== "undefined") {
-      window.addEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", userInteractionEvent);
+      window.addEventListener("mousedown", userInteractionEvent);
+      window.addEventListener("touchstart", userInteractionEvent);
+      window.addEventListener("keydown", userInteractionEvent);
     }
     // Delay script loading with setTimeout
     setTimeout(() => {
@@ -66,6 +72,12 @@ const SEO = ({
         );
       }, 2000);
     });
+    return () => {
+      window.removeEventListener("scroll", userInteractionEvent);
+      window.removeEventListener("mousedown", userInteractionEvent);
+      window.removeEventListener("touchstart", userInteractionEvent);
+      window.removeEventListener("keydown", userInteractionEvent);
+    };
   }, []);
 
   return (
@@ -125,7 +137,7 @@ const SEO = ({
       </Head>
       {pageTemplateName !== "BrandTemplate" && (
         <>
-          {timerExpired && (
+          {timerExpired && userInteracted && (
             <>
               <Script id="google-tag-manager">
                 {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -248,21 +260,20 @@ const SEO = ({
         `}
               </Script>
               {/* Load Qualified script after user starts scrolling */}
-              {scrolled && (
-                <>
-                  {/* Qualified Script */}
-                  <Script id="qualified" strategy="lazyOnload">
-                    {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+              <>
+                {/* Qualified Script */}
+                <Script id="qualified" strategy="lazyOnload">
+                  {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
-                  </Script>
-                  <Script
-                    id="qualified-src"
-                    async
-                    src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-                    strategy="lazyOnload"
-                  />
-                </>
-              )}
+                </Script>
+                <Script
+                  id="qualified-src"
+                  async
+                  src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+                  strategy="lazyOnload"
+                />
+              </>
+
               <Script
                 id="onetrust"
                 src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
