@@ -124,7 +124,7 @@ const SEO = ({
 
         {/* TODO: add Canonical url */}
       </Head>
-      {/* {pageTemplateName !== "BrandTemplate" && (
+      {pageTemplateName !== "BrandTemplate" && (
         <>
           {timerExpired && (
             <>
@@ -248,10 +248,10 @@ const SEO = ({
           }("1136", document.location.href, document));
         `}
               </Script>
-              
+              {/* Load Qualified script after user starts scrolling */}
               {scrolled && (
                 <>
-                  
+                  {/* Qualified Script */}
                   <Script id="qualified" strategy="lazyOnload">
                     {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
@@ -274,7 +274,7 @@ const SEO = ({
 
               <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
 
-             
+              {/* Implement Google Ad GCLID parameter value */}
               <Script
                 id="gclidParameter"
                 strategy="lazyOnload"
@@ -328,7 +328,7 @@ const SEO = ({
             </>
           )}
         </>
-      )} */}
+      )}
     </>
   );
 };
