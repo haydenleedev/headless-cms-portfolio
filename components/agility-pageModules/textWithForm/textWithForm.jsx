@@ -149,19 +149,20 @@ const TextWithForm = ({ module, customData }) => {
     >
       <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
         <div
-          className={
+          className={`${fields.textAlignment ? fields.textAlignment : ""}
+          ${
             columnLayout
-              ? style.columnLayoutContent
+              ? `${style.columnLayoutContent}`
               : `${style.content} ${style[fields.layout]}`
-          }
+          }`}
         >
           {(heading || subheading) && (
-            <aside className={style.columnLayoutHeading}>
+            <aside className={`${style.columnLayoutHeading}`}>
               {heading && <Heading {...heading} />}
               {subheading && <Heading {...subheading} />}
             </aside>
           )}
-          <aside className={style.textContent}>
+          <aside className={`${style.textContent}`}>
             {(heading || subheading) && (
               <div className={style.rowLayoutHeading}>
                 {heading && <Heading {...heading} />}

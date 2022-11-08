@@ -46,8 +46,8 @@ const CallToAction = ({ module, customData }) => {
       >
         <div
           className={`${style.content} ${
-            textLeftJustification ? style.textLeft : style.textCenter
-          }`}
+            fields.textAlignment ? fields.textAlignment : ""
+          } ${textLeftJustification ? style.textLeft : style.textCenter}`}
         >
           {heading.text && (
             <div className={style.heading}>

@@ -22,6 +22,7 @@ const TextWithMedia = ({ module, customData }) => {
   const headingSizeforTextArea = fields.headingSizeforTextArea;
   const mediaVerticalAlignment = fields.mediaVerticalAlignment;
   const textContentVerticalAlignment = fields.textContentVerticalAlignment;
+  const textHorizontalAlignment = fields.textContentHorizontalAlignment;
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {
@@ -85,8 +86,8 @@ const TextWithMedia = ({ module, customData }) => {
         >
           <div
             className={`${style.textContent} ${
-              fullPageWidth ? style.fullPageWidthTextContent : ""
-            } ${
+              textHorizontalAlignment ? textHorizontalAlignment : ""
+            } ${fullPageWidth ? style.fullPageWidthTextContent : ""} ${
               style[`textContentBasis${fields.textWidthPercentage || 50}`]
             } ${textContentVerticalAlignment}`}
           >

@@ -181,6 +181,14 @@
         }
       }
     }
+    // Fix Safari 13 bug on iOS where video height is weird
+    @media not all and (min-resolution: 0.001dpcm) {
+      @supports (-webkit-appearance: none) {
+        video {
+          height: 100%;
+        }
+      }
+    }
   }
 }
 
