@@ -2,7 +2,7 @@ import { renderHTML } from "@agility/nextjs";
 import { useEffect } from "react";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./richTextArea.module.scss";
-
+import {richTextSanitizeConfig} from "./richTextSanitizeConfig";
 const RichTextArea = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
   const { fields } = module;
@@ -58,13 +58,11 @@ const RichTextArea = ({ module, customData }) => {
 RichTextArea.getCustomInitialProps = async function ({ item }) {
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
-
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
-
-  const sanitizedHtml = item.fields.textblob
+  const firstSanitization = item.fields.textblob
     ? cleanHtml(item.fields.textblob)
     : null;
-
+  const sanitizedHtml = sanitizeHtml(firstSanitization, richTextSanitizeConfig(item.fields.bodyTextFontSize, item.fields.headingFontSize));
   return {
     sanitizedHtml,
   };
