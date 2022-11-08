@@ -1,5 +1,4 @@
-import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+import Heading from "../heading";
 import style from "./firstFold.module.scss";
 import Media from "../media";
 import { boolean } from "../../../utils/validation";
