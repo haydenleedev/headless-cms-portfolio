@@ -38,6 +38,11 @@ const SEO = ({
   const router = useRouter();
 
   useEffect(() => {
+    /* let gclidValues = JSON.stringify(localStorage.getItem("gclid"));
+    if (document.querySelector("input[name=GCLID]") && gclidValues) {
+      document.querySelector("input[name=GCLID]").value = gclidValues;
+    } */
+
     const userInteractionEvent = () => {
       setUserInteracted(true);
       window.removeEventListener("scroll", userInteractionEvent);
@@ -56,6 +61,56 @@ const SEO = ({
       setTimerExpired(true);
     }, 2000);
 
+    // get gclid values
+    function getParam(p) {
+      var match = RegExp("[?&]" + p + "=([^&]*)").exec(window.location.search);
+      return match && decodeURIComponent(match[1].replace(/\\+/g, " "));
+    }
+
+    function getExpiryRecord(value) {
+      var expiryPeriod = 90 * 24 * 60 * 60 * 1000; // 90 day expiry in milliseconds
+
+      var expiryDate = new Date().getTime() + expiryPeriod;
+      return {
+        value: value,
+        expiryDate: expiryDate,
+      };
+    }
+
+    const addGclid = () => {
+      var gclidParam = getParam("gclid");
+      var gclidFormFields = Array.prototype.slice
+        .call(document.querySelectorAll("input[name=GCLID]"))
+        .map(function (element) {
+          return element.id;
+        }); // all possible gclid form field ids here
+
+      var gclidRecord = null;
+      var currGclidFormField;
+
+      var gclsrcParam = getParam("gclsrc");
+      var isGclsrcValid = !gclsrcParam || gclsrcParam.indexOf("aw") !== -1;
+
+      gclidFormFields.forEach(function (field) {
+        if (document.getElementById(field)) {
+          currGclidFormField = document.getElementById(field);
+        }
+      });
+
+      if (gclidParam && isGclsrcValid) {
+        gclidRecord = getExpiryRecord(gclidParam);
+        localStorage.setItem("gclid", JSON.stringify(gclidRecord));
+      }
+
+      var gclid = gclidRecord || JSON.parse(localStorage.getItem("gclid"));
+      var isGclidValid = gclid && new Date().getTime() < gclid.expiryDate;
+
+      if (currGclidFormField && isGclidValid) {
+        currGclidFormField.value = gclid.value;
+      }
+      console.log("gclid loaded!");
+    };
+
     router.events.on("routeChangeStart", () => {
       campaignScriptIDRef.current = null;
       clearTimeout(campaignScriptAppendTimeout.current);
@@ -70,6 +125,10 @@ const SEO = ({
           getCampaignScript(campaignScriptIDRef.current),
           scriptElements[scriptElements.length - 1].nextSibling
         );
+
+        if (document.querySelector("input[name=GCLID]")) {
+          addGclid();
+        }
       }, 2000);
     });
     return () => {
@@ -285,58 +344,6 @@ const SEO = ({
               />
 
               <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
-
-              {/* Implement Google Ad GCLID parameter value */}
-              <Script
-                id="gclidParameter"
-                strategy="lazyOnload"
-              >{`function getParam(p) {
-                  var match = RegExp('[?&]' + p + '=([^&]*)').exec(window.location.search);
-                  return match && decodeURIComponent(match[1].replace(/\\+/g, ' '));
-                }
-
-                function getExpiryRecord(value) {
-                  var expiryPeriod = 90 * 24 * 60 * 60 * 1000; // 90 day expiry in milliseconds
-
-                  var expiryDate = new Date().getTime() + expiryPeriod;
-                  return {
-                    value: value,
-                    expiryDate: expiryDate
-                  };
-                }
-
-                function addGclid() {
-                  var gclidParam = getParam('gclid');
-                  var gclidFormFields = Array.prototype.slice.call(document.querySelectorAll('input[name=GCLID]')).map(function ( element ) {
-                      return element.id;
-                  }); // all possible gclid form field ids here
-
-                  var gclidRecord = null;
-                  var currGclidFormField;
-
-                  var gclsrcParam = getParam('gclsrc');
-                  var isGclsrcValid = !gclsrcParam || gclsrcParam.indexOf('aw') !== -1;
-
-                  gclidFormFields.forEach(function (field) {
-                    if (document.getElementById(field)) {
-                      currGclidFormField = document.getElementById(field);
-                    }
-                  });
-
-                  if (gclidParam && isGclsrcValid) {
-                    gclidRecord = getExpiryRecord(gclidParam);
-                    localStorage.setItem('gclid', JSON.stringify(gclidRecord));
-                  }
-
-                  var gclid = gclidRecord || JSON.parse(localStorage.getItem('gclid'));
-                  var isGclidValid = gclid && new Date().getTime() < gclid.expiryDate;
-
-                  if (currGclidFormField && isGclidValid) {
-                    currGclidFormField.value = gclid.value;
-                  }
-                  console.log("gclid loaded!");
-                }
-                addGclid();`}</Script>
             </>
           )}
         </>
