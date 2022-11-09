@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import style from "./resourceDownload.module.scss";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
-import { useRouter } from "next/router";
 import Script from "next/script";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
@@ -18,7 +17,6 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;
   const resourceDownload = dynamicPageItem.fields;
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
-  const { asPath } = useRouter();
   const { campaignScriptIDRef } = useContext(GlobalContext);
 
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
