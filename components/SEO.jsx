@@ -109,7 +109,6 @@ const SEO = ({
       if (currGclidFormField && isGclidValid) {
         currGclidFormField.value = gclid.value;
       }
-      console.log("gclid loaded!");
     };
 
     router.events.on("routeChangeStart", () => {
