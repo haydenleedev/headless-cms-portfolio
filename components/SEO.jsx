@@ -126,9 +126,7 @@ const SEO = ({
           scriptElements[scriptElements.length - 1].nextSibling
         );
 
-        if (document.querySelector("input[name=GCLID]")) {
-          addGclid();
-        }
+        addGclid();
       }, 2000);
     });
     return () => {
