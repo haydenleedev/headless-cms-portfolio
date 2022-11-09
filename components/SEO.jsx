@@ -37,6 +37,7 @@ const SEO = ({
   );
   const router = useRouter();
 
+  // load scripts as soons as user interacts with the page.
   useEffect(() => {
     const userInteractionEvent = () => {
       setUserInteracted(true);
@@ -51,10 +52,10 @@ const SEO = ({
       window.addEventListener("touchstart", userInteractionEvent);
       window.addEventListener("keydown", userInteractionEvent);
     }
-    // Delay script loading with setTimeout
+    // Load scripts anyway after 5 seconds, if user interaction was not detected.
     setTimeout(() => {
       setTimerExpired(true);
-    }, 2000);
+    }, 5000);
 
     router.events.on("routeChangeStart", () => {
       campaignScriptIDRef.current = null;

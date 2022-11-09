@@ -21,7 +21,7 @@ const LoadGoogleOptimize = () => {
     // Delay script loading with setTimeout
     setTimeout(() => {
       setTimerExpired(true);
-    }, 2000);
+    }, 5000);
     return () => {
       window.removeEventListener("scroll", userInteractionEvent);
       window.removeEventListener("mousedown", userInteractionEvent);
