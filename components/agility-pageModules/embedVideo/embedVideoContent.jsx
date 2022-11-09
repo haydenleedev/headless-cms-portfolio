@@ -1,12 +1,18 @@
 import { renderHTML } from "@agility/nextjs";
 import dynamic from "next/dynamic";
+import Script from "next/script";
 import { useEffect } from "react";
 import { youTubeActivityEvent } from "../../../utils/dataLayer";
 import { boolean } from "../../../utils/validation";
 const Heading = dynamic(() => import("../heading"), { ssr: false });
 import style from "./embedVideo.module.scss";
 
-const EmbedVideoContent = ({ fields, sanitizedHtml, videoSrc }) => {
+const EmbedVideoContent = ({
+  fields,
+  sanitizedHtml,
+  videoSrc,
+  isYouTubeVideo,
+}) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields.narrowContainer);
   const layout = fields.layout;
@@ -122,38 +128,47 @@ const EmbedVideoContent = ({ fields, sanitizedHtml, videoSrc }) => {
   };
 
   return (
-    <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
-      <div className={`${style.content} ${layout ? style[layout] : ""}`}>
-        <div className={style.text}>
-          {heading && (
-            <div className={style.heading}>
-              <Heading {...heading} />
+    <>
+      <div className={`container ${narrowContainer ? "max-width-narrow" : ""}`}>
+        <div className={`${style.content} ${layout ? style[layout] : ""}`}>
+          <div className={style.text}>
+            {heading && (
+              <div className={style.heading}>
+                <Heading {...heading} />
+              </div>
+            )}
+            {fields.text && (
+              <div
+                className={style.text}
+                dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
+              ></div>
+            )}
+          </div>
+          <div
+            className={`${style.embed} ${
+              disableBorder ? style.disableBorder : ""
+            }`}
+          >
+            <div className={style.iframeWrapper}>
+              <iframe
+                id="video-player"
+                type="text/html"
+                src={videoSrc}
+                frameBorder="0"
+                allow="fullscreen;"
+              />
             </div>
-          )}
-          {fields.text && (
-            <div
-              className={style.text}
-              dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-            ></div>
-          )}
-        </div>
-        <div
-          className={`${style.embed} ${
-            disableBorder ? style.disableBorder : ""
-          }`}
-        >
-          <div className={style.iframeWrapper}>
-            <iframe
-              id="video-player"
-              type="text/html"
-              src={videoSrc}
-              frameBorder="0"
-              allow="fullscreen;"
-            />
           </div>
         </div>
       </div>
-    </div>
+      {isYouTubeVideo && (
+        <Script
+          src="https://www.youtube.com/iframe_api"
+          strategy="lazyOnload"
+          onLoad={handleAPIScriptLoad}
+        />
+      )}
+    </>
   );
 };
 

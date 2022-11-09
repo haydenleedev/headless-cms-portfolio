@@ -5,7 +5,6 @@ import {
   youTubeVideoLinkToEmbed,
   vimeoLinkToEmbed,
 } from "../../../utils/convert";
-import Script from "next/script";
 const EmbedVideoContent = dynamic(() => import("./embedVideoContent"), {
   ssr: false,
 });
@@ -42,15 +41,9 @@ const EmbedVideo = ({ module, customData }) => {
             fields={fields}
             sanitizedHtml={sanitizedHtml}
             videoSrc={videoSrc}
+            isYouTubeVideo={isYouTubeVideo}
           />
         </section>
-      )}
-      {isYouTubeVideo && (
-        <Script
-          src="https://www.youtube.com/iframe_api"
-          strategy="lazyOnload"
-          onLoad={handleAPIScriptLoad}
-        />
       )}
     </>
   );
