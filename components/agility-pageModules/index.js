@@ -53,23 +53,20 @@ const ArchivesPageContent = dynamic(
   { ssr: false }
 );
 
-const JobOpeningList = dynamic(
-  () => import("./jobOpeningList/jobOpeningList"),
-  { ssr: false }
-);
-
-const CustomerStoryCards = dynamic(
-  () => import("./customerStoryCards/customerStoryCards"),
+const AcknowledgePageContent = dynamic(
+  () => import("./acknowledgePageContent/acknowledgePageContent"),
   { ssr: false }
 );
 
 // eagerly loaded modules
 import FirstFold from "./firstFold/firstFold";
+import CustomerStoryCards from "./customerStoryCards/customerStoryCards";
 import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
 import LogosList from "./logosList/logosList";
 import RichTextArea from "./richTextArea/richTextArea";
 import TextGridWithMedia from "./textGridWithMedia/textGridWithMedia";
 import TextWithMedia from "./textWithMedia/textWithMedia";
+import JobOpeningList from "./jobOpeningList/jobOpeningList";
 import ResourceList from "./resourceList/resourceList";
 import HeroImage from "./heroImage/heroImage";
 import CallToAction from "./callToAction/callToAction";
@@ -94,7 +91,6 @@ import EventsPageContent from "./eventsPageContent/eventsPageContent";
 import AwardsPageContent from "./awardsPageContent/awardsPageContent";
 import LeadershipPageContent from "./leadershipPageContent/leadershipPageContent";
 import SearchPageContent from "./searchPageContent/searchPageContent";
-import AcknowledgePageContent from "./acknowledgePageContent/acknowledgePageContent";
 import GlossaryPageContent from "./glossaryPageContent/glossaryPageContent";
 import ShopErrorPageContent from "./shopErrorPageContent/shopErrorPageContent";
 import VideoPopup from "./videoPopup/videoPopup";
@@ -126,7 +122,6 @@ const allModules = [
   { name: "TextGridWithMedia", module: TextGridWithMedia },
   { name: "ClientTestimonial", module: ClientTestimonial },
   { name: "ResourceList", module: ResourceList },
-  { name: "TextGridWithMedia", module: Placeholder },
   { name: "Spacer", module: Spacer },
   { name: "HeroImage", module: HeroImage },
   { name: "CallToAction", module: CallToAction },

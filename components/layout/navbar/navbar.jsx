@@ -68,7 +68,7 @@ const Navbar = ({ globalData }) => {
           if (window.innerWidth < 890) setTransparentBackground(false);
           if (
             window.scrollY >
-            firstSection.getBoundingClientRect().top +
+            firstSection?.getBoundingClientRect?.().top +
               document.getElementById("globalSecondaryNav").clientHeight
           ) {
             setPageScrolled(true);

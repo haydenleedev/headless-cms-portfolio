@@ -1,6 +1,7 @@
+import dynamic from "next/dynamic";
 import style from "./awardsPageContent.module.scss";
-import Media from "../media";
-import AgilityLink from "../../agilityLink";
+const Media = dynamic(() => import("../media"), { ssr: false });
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
 
 const AwardsPageContent = ({ customData }) => {
   const { allAwards } = customData;
@@ -9,25 +10,26 @@ const AwardsPageContent = ({ customData }) => {
       <div className="container">
         <nav className={style.awardsPageContent} aria-label="awards navigation">
           {allAwards.map((award) => {
-            if (!award.fields.hideOnAwardsPage) return (
-              <div className={style.award} key={award.contentID}>
-                <div className={style.awardImage}>
-                  <Media media={award.fields.image} />
+            if (!award.fields.hideOnAwardsPage)
+              return (
+                <div className={style.award} key={award.contentID}>
+                  <div className={style.awardImage}>
+                    <Media media={award.fields.image} />
+                  </div>
+                  <div>
+                    <p>{award.fields.title}</p>
+                    {award.fields.year && <small>{award.fields.year}</small>}
+                    {award.fields.link && (
+                      <AgilityLink
+                        agilityLink={award.fields.link}
+                        className={style.awardLink}
+                      >
+                        <span>Learn More</span>
+                      </AgilityLink>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <p>{award.fields.title}</p>
-                  {award.fields.year && <small>{award.fields.year}</small>}
-                  {award.fields.link && (
-                    <AgilityLink
-                      agilityLink={award.fields.link}
-                      className={style.awardLink}
-                    >
-                      <span>Learn More</span>
-                    </AgilityLink>
-                  )}
-                </div>
-              </div>
-            );
+              );
           })}
         </nav>
       </div>

@@ -37,6 +37,7 @@ const SEO = ({
   );
   const router = useRouter();
 
+  // load scripts as soons as user interacts with the page.
   useEffect(() => {
     /* let gclidValues = JSON.stringify(localStorage.getItem("gclid"));
     if (document.querySelector("input[name=GCLID]") && gclidValues) {
@@ -56,10 +57,10 @@ const SEO = ({
       window.addEventListener("touchstart", userInteractionEvent);
       window.addEventListener("keydown", userInteractionEvent);
     }
-    // Delay script loading with setTimeout
+    // Load scripts anyway after 5 seconds, if user interaction was not detected.
     setTimeout(() => {
       setTimerExpired(true);
-    }, 2000);
+    }, 5000);
 
     // get gclid values
     function getParam(p) {
@@ -177,7 +178,21 @@ const SEO = ({
           content={suffixedMetaTitle}
           key="ogimagealt"
         />
-
+        {/* preload fonts */}
+        <link
+          rel="preload"
+          href="/fonts/Galano Grotesque.woff2"
+          as="font"
+          crossOrigin="anonymous"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Galano Grotesque Bold.woff2"
+          as="font"
+          crossOrigin="anonymous"
+          type="font/woff2"
+        />
         {/* schema */}
         <script
           type="application/ld+json"

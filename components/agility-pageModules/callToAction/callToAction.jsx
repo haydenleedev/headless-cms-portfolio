@@ -1,23 +1,16 @@
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
-const Media = dynamic(() => import("../media"), { ssr: false });
 import style from "./callToAction.module.scss";
 import { boolean } from "../../../utils/validation";
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
-import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
+const CallToActionContent = dynamic(() => import("./callToActionContent"), {
+  ssr: false,
+});
 
 const CallToAction = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
   const { fields } = module;
-  const heading = JSON.parse(fields.heading);
-  const narrowContainer = boolean(fields?.narrowContainer);
   const bannerLayout = boolean(fields?.bannerLayout);
-
   const itemContentRight = boolean(fields?.itemContentRight);
-  const textLeftJustification = boolean(fields?.textLeftJustification);
-
-  const linkBackgroundColor = fields.linkBackgroundColor || "cyan outlined";
 
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
@@ -35,44 +28,7 @@ const CallToAction = ({ module, customData }) => {
       } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
       id={fields.id ? fields.id : null}
     >
-      {fields.backgroundImage && (
-        <div className={style.backgroundImage}>
-          <Media media={fields.backgroundImage} />
-        </div>
-      )}
-      <div
-        className={`container d-flex flex-direction-column justify-content-center align-items-center ${
-          narrowContainer ? "max-width-narrow" : ""
-        }`}
-      >
-        <div
-          className={`${style.content} ${
-            fields.textAlignment ? fields.textAlignment : ""
-          } ${textLeftJustification ? style.textLeft : style.textCenter}`}
-        >
-          {heading.text && (
-            <div className={style.heading}>
-              <Heading {...heading} />
-            </div>
-          )}
-          {fields.textContent && (
-            <div
-              className="content"
-              dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-            ></div>
-          )}
-          <AgilityLink
-            agilityLink={fields.link}
-            className={`button ${style.link} ${linkBackgroundColor} ${
-              fields.linkClasses ? fields.linkClasses : ""
-            }`}
-            ariaLabel={`Navigate to page ` + fields.link.href}
-            title={`Navigate to page ` + fields.link.href}
-          >
-            {fields.link.text}
-          </AgilityLink>
-        </div>
-      </div>
+      <CallToActionContent fields={fields} sanitizedHtml={sanitizedHtml} />
     </section>
   );
 };
