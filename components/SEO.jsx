@@ -119,7 +119,21 @@ const SEO = ({
           content={suffixedMetaTitle}
           key="ogimagealt"
         />
-
+        {/* preload fonts */}
+        <link
+          rel="preload"
+          href="/fonts/Galano Grotesque.woff2"
+          as="font"
+          crossOrigin="anonymous"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Galano Grotesque Bold.woff2"
+          as="font"
+          crossOrigin="anonymous"
+          type="font/woff2"
+        />
         {/* schema */}
         <script
           type="application/ld+json"
