@@ -1,19 +1,18 @@
-import { renderHTML } from "@agility/nextjs";
-import Media from "../media";
-import style from "./resourceDownload.module.scss";
-import AgilityLink from "../../agilityLink";
 import {
   convertUJETLinksToHttps,
   sanitizeHtmlConfig,
 } from "../../../utils/convert";
+import dynamic from "next/dynamic";
+import style from "./resourceDownload.module.scss";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
-import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 import { useRouter } from "next/router";
 import Script from "next/script";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import Image from "next/image";
+const Media = dynamic(() => import("../media"), { ssr: false });
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
 
 const ResourceDownload = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;

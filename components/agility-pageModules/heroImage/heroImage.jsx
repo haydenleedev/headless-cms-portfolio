@@ -1,8 +1,8 @@
-import Media from "../media";
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import dynamic from "next/dynamic";
 const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Media = dynamic(() => import("../media"), { ssr: false });
 import style from "./heroImage.module.scss";
 
 const HeroImage = ({ module, narrowHeight, customData }) => {

@@ -1,4 +1,5 @@
 import style from "./blogPageContent.module.scss";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -6,10 +7,15 @@ import {
   sortContentListByDate,
   removeDuplicatePosts,
 } from "../../../utils/convert";
-import Media from "../media";
+const Media = dynamic(() => import("../media"), { ssr: false });
 import { isMobile } from "../../../utils/responsivity";
-import GenericCard from "../../genericCard/genericCard";
-import GenericCardListLoader from "../../genericCard/genericCardListLoader";
+const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
+  ssr: false,
+});
+const GenericCardListLoader = dynamic(
+  () => import("../../genericCard/genericCardListLoader"),
+  { ssr: false }
+);
 import ujetLogo from "../../../assets/ujet-logo.svg";
 
 const BlogPageContent = ({ customData }) => {

@@ -1,26 +1,14 @@
-import PardotForm from "../../form/pardotForm";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./blogSubscriptionBanner.module.scss";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
-import { renderHTML } from "@agility/nextjs";
-import { useState } from "react";
-import Image from "next/image";
+const BlogSubscriptionBannerContent = dynamic(
+  () => import("./blogSubscriptionBannerContent"),
+  { ssr: false }
+);
 
 const BlogSubscriptionBanner = ({ module, customData }) => {
-  const [successView, setSuccessView] = useState(null);
   const { sanitizedHtml } = customData;
   const { fields } = module;
-  const heading = fields.heading ? JSON.parse(fields.heading) : null;
-  const NEWSLETTER_FORM_ID = 3715;
-  const NEWSLETTER_FORM_ACTION =
-    "https://info.ujet.cx/l/986641/2022-08-05/kgtbr";
-
-  const customAction = (success) => {
-    if (success) setSuccessView("Thank you! You have been subscribed.");
-    else setSuccessView("An unexpected error occured. Please try again later.");
-  };
-
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
@@ -34,39 +22,10 @@ const BlogSubscriptionBanner = ({ module, customData }) => {
         fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
     >
-      <div className={`container ${style.content}`}>
-        <div className={style.textContent}>
-          {heading && (
-            <div className={`heading ${style.heading}`}>
-              <Heading {...heading} />
-            </div>
-          )}
-          {fields.text && (
-            <div
-              className={style.text}
-              dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-            ></div>
-          )}
-        </div>
-        <div className={style.form}>
-          {successView ? (
-            <div className={`${style.success} fadeIn`}>
-              <Image src="/success-blue.png" height={54} width={54} />
-              <p className="heading-6">
-                Thank you!<br></br> You have been subscribed.
-              </p>
-            </div>
-          ) : (
-            <PardotForm
-              formHandlerID={NEWSLETTER_FORM_ID}
-              action={NEWSLETTER_FORM_ACTION}
-              customAction={customAction}
-              submit={fields.submitButtonText}
-              btnColor="orange"
-            />
-          )}
-        </div>
-      </div>
+      <BlogSubscriptionBannerContent
+        fields={fields}
+        sanitizedHtml={sanitizedHtml}
+      />
     </section>
   );
 };
