@@ -30,7 +30,7 @@ const LoadGoogleOptimize = () => {
     };
   }, []);
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
-  return userInteracted && timerExpired ? (
+  return userInteracted || timerExpired ? (
     <Script
       id="google-optimize"
       src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
