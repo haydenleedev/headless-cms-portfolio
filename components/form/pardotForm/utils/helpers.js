@@ -312,6 +312,8 @@ export const getFormType = (formHandlerID) => {
       return "googleContact";
     case 3898:
       return "partnerCertification";
+    default:
+      return "contactUs";
   }
 };
 

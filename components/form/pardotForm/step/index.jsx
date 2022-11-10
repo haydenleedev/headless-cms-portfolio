@@ -7,7 +7,7 @@ import EmailStep from "./emailStep";
 import { Fragment, useContext } from "react";
 
 const StepForm = ({ customAction, btnColor, submit, config }) => {
-  const { state, formRef, handleSubmit, isContactForm, submitValidation } =
+  const { state, formRef, handleSubmit, isContactForm } =
     useContext(PardotFormContext);
   const isFirstStep = !state.fieldsMatchedToStep && !state.finalStepSubmitted;
   const isStep = state.fieldsMatchedToStep && !state.finalStepSubmitted;
@@ -39,7 +39,11 @@ const StepForm = ({ customAction, btnColor, submit, config }) => {
       >
         {state.fieldData?.map((field, index) => (
           <Fragment key={`stepField${index}`}>
-            <Field field={field} index={index} />
+            <Field
+              field={field}
+              index={index}
+              fieldRef={fieldRefs.current[index]}
+            />
           </Fragment>
         ))}
 
@@ -48,12 +52,13 @@ const StepForm = ({ customAction, btnColor, submit, config }) => {
           <input name="hiddenemail" className="display-none" />
         )}
         <HoneypotFields />
-        <div className="layout mt-4 d-flex flex-direction-column align-items-center">
+        <div className={style.submitButton}>
           <input
             type="submit"
             className={`button ${btnColor ? btnColor : "orange"}`}
             value={state.submissionInProgress ? "Please wait..." : submit}
             required="required"
+            disabled={state.submissionInProgress}
           />
           {!state.submissionAllowed && (
             <FormError

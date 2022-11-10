@@ -273,13 +273,10 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
   };
 
   const handleCountryChange = (newCountryValue) => {
-    dispatch(
-      {
-        type: pardotFormActions.setSelectedCountry,
-        value: newCountryValue,
-      },
-      (state) => console.log(state)
-    );
+    dispatch({
+      type: pardotFormActions.setSelectedCountry,
+      value: newCountryValue,
+    });
   };
 
   const handlePartnerCountryChange = (newPartnerCountryValue) => {

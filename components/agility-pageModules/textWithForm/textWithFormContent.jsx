@@ -42,20 +42,24 @@ const TextWithFormContent = ({
         const anyInputFieldButNotLast =
           row < visibleFields.length - 1 &&
           visibleFields[row].children[1].tagName === "INPUT" &&
-          visibleFields[row + 1]?.children?.[1]?.tagName === "INPUT";
+          (visibleFields[row + 1]?.children?.[1]?.tagName === "INPUT" ||
+            visibleFields[row - 1]?.children?.[1]?.tagName === "INPUT");
 
         if (lastInputField) {
           const previousIsHalfWidthInput =
-            visibleFields[row].previousSibling.children[1] === "INPUT" &&
+            visibleFields[row].previousSibling.children[1].tagName ===
+              "INPUT" &&
             visibleFields[row].previousSibling.children[1].style[
               "grid-column"
             ] === "unset";
           if (previousIsHalfWidthInput) {
-            visibleFields[row].style["grid-column"] = "1 / -1";
-          } else visibleFields[row].style["grid-column"] = "unset";
+            visibleFields[row].style["grid-column"] = "unset";
+          } else visibleFields[row].style["grid-column"] = "1 / -1";
         } else if (anyInputFieldButNotLast) {
           visibleFields[row].style["grid-column"] = "unset";
-        } else visibleFields[row].style["grid-column"] = "1 / -1";
+        } else {
+          visibleFields[row].style["grid-column"] = "1 / -1";
+        }
       }
     }
   };
@@ -142,8 +146,8 @@ const TextWithFormContent = ({
           ></div>
 
           <div className={style.buttons}>
-            <FirstFoldLink primary />
-            <FirstFoldLink />
+            <FirstFoldLink fields={fields} primary />
+            <FirstFoldLink fields={fields} />
           </div>
 
           {fields.testimonials && (
