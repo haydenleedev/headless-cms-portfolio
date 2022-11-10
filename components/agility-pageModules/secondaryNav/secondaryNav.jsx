@@ -1,6 +1,7 @@
 import AgilityLink from "../../agilityLink";
 import style from "./secondaryNav.module.scss";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import { useRef, useEffect, useContext } from "react";
 import GlobalContext from "../../../context";
 import HorizontallyScrollableList from "../../horizontallyScrollableList/horizontallyScrollableList";
@@ -20,7 +21,7 @@ const SecondaryNav = ({ module }) => {
         <p>{link.fields.link.text}</p>
       </AgilityLink>
     );
-  })
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -48,10 +49,7 @@ const SecondaryNav = ({ module }) => {
         <section className={`section ${style.section}`} ref={sectionRef}>
           <nav className={`container ${style.nav}`}>
             {heading && <Heading {...heading} />}
-            <HorizontallyScrollableList
-              items={links}
-              maxVisibleItems={4}
-            />
+            <HorizontallyScrollableList items={links} maxVisibleItems={4} />
           </nav>
         </section>
       )}

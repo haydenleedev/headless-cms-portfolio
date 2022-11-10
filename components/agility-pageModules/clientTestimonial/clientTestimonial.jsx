@@ -1,8 +1,11 @@
+import dynamic from "next/dynamic";
 import { boolean } from "../../../utils/validation";
-import Media from "../media";
-import StarRating from "../../starRating/starRating";
 import style from "./clientTestimonial.module.scss";
-import AgilityLink from "../../agilityLink";
+const Media = dynamic(() => import("../media"), { ssr: false });
+const StarRating = dynamic(() => import("../../starRating/starRating"), {
+  ssr: false,
+});
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
 import { useIntersectionObserver } from "../../../utils/hooks";
 
 const ClientTestimonial = ({ module }) => {
@@ -25,19 +28,23 @@ const ClientTestimonial = ({ module }) => {
   );
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section
       className={`section ${style.clientTestimonial} ${
         fields?.backgroundColor ? fields?.backgroundColor : ""
-      } ${fields.testimonialStyle === "logo-left-text-right" ?
-        `pb-6 ${style.logoOnLeft}` : ""
-      } ${fields.testimonialStyle === "text-left-logo-right" ?
-        `pb-6 ${style.logoOnLeft} ${style.logoOnRight}` : ""
+      } ${
+        fields.testimonialStyle === "logo-left-text-right"
+          ? `pb-6 ${style.logoOnLeft}`
+          : ""
+      } ${
+        fields.testimonialStyle === "text-left-logo-right"
+          ? `pb-6 ${style.logoOnLeft} ${style.logoOnRight}`
+          : ""
       } ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
         fields.classes ? fields.classes : ""
       }`}
@@ -126,7 +133,7 @@ const ClientTestimonial = ({ module }) => {
                     >
                       {fields.testimonial.fields.text}
                       {(fields.testimonialStyle === "text-left-logo-right" ||
-                      fields.testimonialStyle === "logo-left-text-right") &&
+                        fields.testimonialStyle === "logo-left-text-right") && (
                         <>
                           {fields.testimonial.fields.name && (
                             <span className={style.clientName}>
@@ -147,9 +154,13 @@ const ClientTestimonial = ({ module }) => {
                             <AgilityLink
                               agilityLink={fields.link}
                               className={`button ${
-                                fields.cTALinkColor ? fields.cTALinkColor : "white"
+                                fields.cTALinkColor
+                                  ? fields.cTALinkColor
+                                  : "white"
                               } ${
-                                fields.cTALinkSize ? fields.cTALinkSize : "small"
+                                fields.cTALinkSize
+                                  ? fields.cTALinkSize
+                                  : "small"
                               } ${style.link}`}
                               ariaLabel={`Navigate to page ` + fields.link.href}
                               title={`Navigate to page ` + fields.link.href}
@@ -158,29 +169,29 @@ const ClientTestimonial = ({ module }) => {
                             </AgilityLink>
                           )}
                         </>
-                      }
+                      )}
                     </p>
                     <div className={style.client}>
                       {fields.testimonialStyle !== "text-left-logo-right" &&
-                      fields.testimonialStyle !== "logo-left-text-right" &&
-                        <>
-                          {fields.testimonial.fields.name && (
-                            <p className={style.clientName}>
-                              {fields.testimonial.fields.name}
-                            </p>
-                          )}
-                          {fields.testimonial.fields.jobTitle && (
-                            <p className={style.jobTitle}>
-                              {fields.testimonial.fields.jobTitle}
-                            </p>
-                          )}
-                          {fields.testimonial.fields.companyName && (
-                            <p className={style.companyName}>
-                              {fields.testimonial.fields.companyName}
-                            </p>
-                          )}
-                        </>
-                      }
+                        fields.testimonialStyle !== "logo-left-text-right" && (
+                          <>
+                            {fields.testimonial.fields.name && (
+                              <p className={style.clientName}>
+                                {fields.testimonial.fields.name}
+                              </p>
+                            )}
+                            {fields.testimonial.fields.jobTitle && (
+                              <p className={style.jobTitle}>
+                                {fields.testimonial.fields.jobTitle}
+                              </p>
+                            )}
+                            {fields.testimonial.fields.companyName && (
+                              <p className={style.companyName}>
+                                {fields.testimonial.fields.companyName}
+                              </p>
+                            )}
+                          </>
+                        )}
                       {fields.testimonial.fields.logo && (
                         <div
                           className={`${style.logo}${
@@ -193,21 +204,22 @@ const ClientTestimonial = ({ module }) => {
                         </div>
                       )}
                     </div>
-                    {fields.link && fields.testimonialStyle !== "text-left-logo-right" &&
+                    {fields.link &&
+                      fields.testimonialStyle !== "text-left-logo-right" &&
                       fields.testimonialStyle !== "logo-left-text-right" && (
-                      <AgilityLink
-                        agilityLink={fields.link}
-                        className={`button ${
-                          fields.cTALinkColor ? fields.cTALinkColor : "white"
-                        } ${
-                          fields.cTALinkSize ? fields.cTALinkSize : "small"
-                        } ${style.link}`}
-                        ariaLabel={`Navigate to page ` + fields.link.href}
-                        title={`Navigate to page ` + fields.link.href}
-                      >
-                        {fields.link.text}
-                      </AgilityLink>
-                    )}
+                        <AgilityLink
+                          agilityLink={fields.link}
+                          className={`button ${
+                            fields.cTALinkColor ? fields.cTALinkColor : "white"
+                          } ${
+                            fields.cTALinkSize ? fields.cTALinkSize : "small"
+                          } ${style.link}`}
+                          ariaLabel={`Navigate to page ` + fields.link.href}
+                          title={`Navigate to page ` + fields.link.href}
+                        >
+                          {fields.link.text}
+                        </AgilityLink>
+                      )}
                   </div>
                 )}
               </div>

@@ -1,4 +1,5 @@
-import PardotForm from "../form/pardotForm/index";
+import dynamic from "next/dynamic";
+const PardotForm = dynamic(() => import("../form/pardotForm"), { ssr: false });
 
 const Subscribe = ({ formConfiguration }) => {
   const NEWSLETTER_FORM_ID = 3715;

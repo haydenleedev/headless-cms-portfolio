@@ -1,22 +1,16 @@
-import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import Heading from "../heading";
-import style from "./textWithCard.module.scss";
+import dynamic from "next/dynamic";
+import TextWithCardContent from "./textWithCardContent";
 
 const TextWithCard = ({ module, customData }) => {
-  const sanitizedHtml = customData.sanitizedHtml;
-  const sanitizedCardHtml = customData.sanitizedCardHtml;
+  const { sanitizedHtml, sanitizedCardHtml } = customData;
   const { fields } = module;
-  const heading = fields.textContentHeading
-    ? JSON.parse(fields.textContentHeading)
-    : null;
-  const cardFields = fields.card?.fields;
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section
@@ -24,44 +18,11 @@ const TextWithCard = ({ module, customData }) => {
         fields?.backgroundColor ? fields?.backgroundColor : ""
       }`}
     >
-      <div className="container">
-        <div className={style.content}>
-          {fields.card && (
-            <div className={style.card}>
-              <div className={style.cardTop}>
-                {cardFields.topBarText && (
-                  <span className={style.bar}>{cardFields.topBarText}</span>
-                )}
-                <div className={style.cardTextWrapper}>
-                  {cardFields.heading && (
-                    <p className={style.cardHeading}>{cardFields.heading}</p>
-                  )}
-                  {cardFields.price && (
-                    <p className={style.price}>{`$${cardFields.price}`}</p>
-                  )}
-                  {cardFields.conditionsText && (
-                    <p className={style.conditions}>
-                      {cardFields.conditionsText}
-                    </p>
-                  )}
-                </div>
-              </div>
-              <div
-                className={style.cardContent}
-                dangerouslySetInnerHTML={renderHTML(sanitizedCardHtml)}
-              ></div>
-            </div>
-          )}
-          {(heading || fields.text) && (
-            <div className={`${style.text} ${fields.textVerticalAlignment}`}>
-              {heading && <Heading {...heading} />}
-              {fields.text && (
-                <div dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}></div>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
+      <TextWithCardContent
+        fields={fields}
+        sanitizedHtml={sanitizedHtml}
+        sanitizedCardHtml={sanitizedCardHtml}
+      />
     </section>
   );
 };
