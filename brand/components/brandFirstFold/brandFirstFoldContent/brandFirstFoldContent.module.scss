@@ -1,0 +1,285 @@
+@import "../../../../styles/settings/colors";
+@import "../../../../styles/settings/variables";
+@import "../../../../styles/settings/mixins";
+
+// default firstFold layout
+.defaultLayout {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .textContent:not(:only-child) {
+    margin-bottom: 1.7rem;
+  }
+  @include desktop() {
+    flex-direction: row;
+    &.imageLeft {
+      flex-direction: row-reverse;
+      .textContent:not(:only-child) {
+        margin: 0 0 0 1.7rem;
+      }
+    }
+    &:not(.imageLeft) {
+      .textContent:not(:only-child) {
+        margin: 0 1.7rem 0 0;
+      }
+    }
+  }
+}
+// styling configuration for the optionally toggled no image layout field
+.noImageLayout {
+  padding: 2.5rem 0;
+  .heading {
+    max-width: unset;
+    margin-bottom: unset;
+  }
+  .textContent {
+    text-align: center;
+    align-items: center;
+  }
+}
+.circularImage {
+  border-radius: 50%;
+}
+.heading {
+  max-width: 39.5rem;
+  margin-top: 1rem;
+}
+.brandHeading {
+  margin-left: -0.1rem;
+  @include desktop {
+    margin-left: -0.2rem;
+  }
+}
+.textContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  // Overflow fallback for Safari
+  overflow: hidden;
+  overflow: clip;
+  &.brandAlign {
+    text-align: left;
+    align-items: flex-start;
+  }
+  &.textContentBasis30 {
+    flex-basis: 30%;
+  }
+  &.textContentBasis40 {
+    flex-basis: 40%;
+  }
+  &.textContentBasis50 {
+    flex-basis: 50%;
+  }
+  &.textContentBasis60 {
+    flex-basis: 60%;
+  }
+  &.textContentBasis70 {
+    flex-basis: 70%;
+  }
+}
+.text {
+  margin-top: 1rem;
+}
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+  max-height: inherit;
+  margin-top: 1rem;
+  // Overflow fallback for Safari
+  overflow: hidden;
+  overflow: clip;
+  @include desktop() {
+    margin-top: initial;
+  }
+  span {
+    width: 100%;
+    height: 100%;
+    position: unset !important;
+    img {
+      height: unset !important;
+      min-height: unset !important;
+      margin: auto 0 0 0 !important;
+      object-fit: contain;
+    }
+  }
+}
+.image,
+.imageLink {
+  flex-grow: 1;
+  &.mediaBasis30 {
+    flex-basis: 30%;
+  }
+  &.mediaBasis40 {
+    flex-basis: 40%;
+  }
+  &.mediaBasis50 {
+    flex-basis: 50%;
+  }
+  &.mediaBasis60 {
+    flex-basis: 60%;
+  }
+  &.mediaBasis70 {
+    flex-basis: 70%;
+  }
+  &.mediaTop {
+    justify-self: flex-start;
+  }
+  &.mediaBottom {
+    justify-self: flex-end;
+  }
+  @include desktop() {
+    &.defaultLayoutFixedHeight400 {
+      max-height: 25rem;
+    }
+    &.defaultLayoutFixedHeight500 {
+      max-height: 31.25rem;
+    }
+    &.defaultLayoutFixedHeight600 {
+      max-height: 37.5rem;
+    }
+    &.defaultLayoutFixedHeight700 {
+      max-height: 43.75em;
+    }
+    &.mediaTop {
+      justify-self: unset;
+      align-self: flex-start;
+    }
+    &.mediaBottom {
+      justify-self: unset;
+      align-self: flex-end;
+    }
+  }
+}
+.noImageLayout {
+  .links {
+    margin-top: toRem(20);
+  }
+}
+
+.links {
+  flex-direction: column;
+  display: flex;
+  .primaryLink,
+  .secondaryLink {
+    width: 100%;
+  }
+  .linkWrapper:first-child:not(:only-child) {
+    margin: 0 0 0.5rem 0;
+  }
+  @include desktop() {
+    flex-direction: row;
+    .linkWrapper:first-child:not(:only-child) {
+      margin: 0 1.5rem 0 0;
+    }
+  }
+}
+
+.primaryLink {
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+  padding: 0.5em 2em;
+  border-radius: 3em;
+  border-width: 0.15em;
+}
+.secondaryLink {
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+  padding: 0.5em 2em;
+  border-radius: 3em;
+  border-width: 0.15em;
+}
+.imageLink {
+  display: block;
+}
+// resets for large screen sizes
+@include desktop() {
+  .textContent {
+    text-align: unset;
+    align-items: flex-start;
+  }
+  .primaryLink,
+  .secondaryLink {
+  }
+}
+
+.testimonial {
+  @include shadow();
+  position: relative;
+  border-radius: 1rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  max-width: 32ch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  @include desktop() {
+    padding: 1.5rem 2rem;
+  }
+  &.testimonialComment {
+    .testimonialIcon {
+      position: absolute;
+      padding: 1rem;
+      max-width: 5rem;
+      max-height: 5rem;
+      background-color: $color-darkblue;
+      border-radius: 50%;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  p {
+    margin: 1rem 0 2rem 0;
+    font-style: italic;
+    font-size: 1.2rem;
+  }
+  .testimonialDetails {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+    .testimonialImage {
+      padding: 1rem;
+      max-width: 7.8125rem;
+      max-height: 7.8125rem;
+      overflow: hidden;
+      & > span {
+        &:only-child {
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
+
+.logoGridColumns {
+  justify-content: space-between;
+  .logoGridColumn {
+    padding: 0.5rem;
+    height: 5rem;
+    > span {
+      height: 100% !important;
+      img {
+        object-fit: contain;
+      }
+    }
+    @include desktop() {
+      padding: 0.25rem;
+    }
+  }
+}
