@@ -1,6 +1,6 @@
 import style from "./blogPostContent.module.scss";
 
-const ShareSocials = () => {
+const ShareSocials = ({ url }) => {
   return (
     <>
       <a

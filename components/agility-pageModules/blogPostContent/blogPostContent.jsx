@@ -139,7 +139,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
               ></div>
             </div>
             <div className={style.share}>
-              <ShareSocials />
+              <ShareSocials url={url} />
             </div>
           </div>
           <div>
