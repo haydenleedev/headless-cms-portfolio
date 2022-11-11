@@ -69,7 +69,6 @@ const TextWithForm = ({ module, customData }) => {
 
   // Set utm_campaign and utm_asset values from the url if the values exist.  If there's no parameters, then get the default values from "fields.uTMCampaignAsset".
   const utmCampaignValue = getUrlParamValue("utm_campaign");
-  const utmAssetValue = getUrlParamValue("utm_asset");
 
   // Set clp value from the url if the value exist.  If there's no parameters, then get the default values from "fields.currentLeadProgram2".
   const clpValue = getUrlParamValue("clp");
@@ -81,11 +80,11 @@ const TextWithForm = ({ module, customData }) => {
       return fields.uTMCampaignAsset ? fields.uTMCampaignAsset : null;
     }
   };
-  const setUtmAssetValue = (url) => {
-    if (utmAssetValue) {
-      return utmAssetValue;
+  const setUtmAssetValue = () => {
+    if (fields.uTMCampaignAsset) {
+      return fields.uTMCampaignAsset;
     } else {
-      return fields.uTMCampaignAsset ? fields.uTMCampaignAsset : null;
+      return null;
     }
   };
   const setClpValue = (url) => {
@@ -237,10 +236,7 @@ const TextWithForm = ({ module, customData }) => {
                   typeof window !== "undefined" &&
                   setUtmCampaignValue(window.location.href)
                 }
-                utmAsset={
-                  typeof window !== "undefined" &&
-                  setUtmAssetValue(window.location.href)
-                }
+                utmAsset={typeof window !== "undefined" && setUtmAssetValue()}
                 clpField={
                   typeof window !== "undefined" &&
                   setClpValue(window.location.href)
