@@ -17,12 +17,11 @@ const SEO = ({
   url,
   pageTemplateName,
 }) => {
-  const [scrolled, setScrolled] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
   const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
-  const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
   const qualifiedSrc = "https://js.qualified.com/qualified.js?token=";
   if (!getCookie("ga_cookie_date")) {
     setCookie(
@@ -38,18 +37,74 @@ const SEO = ({
   );
   const router = useRouter();
 
+  // load scripts as soons as user interacts with the page.
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(true);
-      window.removeEventListener("scroll", handleScroll);
+    const userInteractionEvent = () => {
+      setUserInteracted(true);
+      window.removeEventListener("scroll", userInteractionEvent);
+      window.removeEventListener("mousedown", userInteractionEvent);
+      window.removeEventListener("touchstart", userInteractionEvent);
+      window.removeEventListener("keydown", userInteractionEvent);
     };
     if (typeof window !== "undefined") {
-      window.addEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", userInteractionEvent);
+      window.addEventListener("mousedown", userInteractionEvent);
+      window.addEventListener("touchstart", userInteractionEvent);
+      window.addEventListener("keydown", userInteractionEvent);
     }
-    // Delay script loading with setTimeout
+    // Load scripts anyway after 5 seconds, if user interaction was not detected.
     setTimeout(() => {
       setTimerExpired(true);
-    }, 0);
+    }, 5000);
+
+    // get gclid values
+    function getParam(p) {
+      var match = RegExp("[?&]" + p + "=([^&]*)").exec(window.location.search);
+      return match && decodeURIComponent(match[1].replace(/\\+/g, " "));
+    }
+
+    function getExpiryRecord(value) {
+      var expiryPeriod = 90 * 24 * 60 * 60 * 1000; // 90 day expiry in milliseconds
+
+      var expiryDate = new Date().getTime() + expiryPeriod;
+      return {
+        value: value,
+        expiryDate: expiryDate,
+      };
+    }
+
+    const addGclid = () => {
+      var gclidParam = getParam("gclid");
+      var gclidFormFields = Array.prototype.slice
+        .call(document.querySelectorAll("input[name=GCLID]"))
+        .map(function (element) {
+          return element.id;
+        }); // all possible gclid form field ids here
+
+      var gclidRecord = null;
+      var currGclidFormField;
+
+      var gclsrcParam = getParam("gclsrc");
+      var isGclsrcValid = !gclsrcParam || gclsrcParam.indexOf("aw") !== -1;
+
+      gclidFormFields.forEach(function (field) {
+        if (document.getElementById(field)) {
+          currGclidFormField = document.getElementById(field);
+        }
+      });
+
+      if (gclidParam && isGclsrcValid) {
+        gclidRecord = getExpiryRecord(gclidParam);
+        localStorage.setItem("gclid", JSON.stringify(gclidRecord));
+      }
+
+      var gclid = gclidRecord || JSON.parse(localStorage.getItem("gclid"));
+      var isGclidValid = gclid && new Date().getTime() < gclid.expiryDate;
+
+      if (currGclidFormField && isGclidValid) {
+        currGclidFormField.value = gclid.value;
+      }
+    };
 
     router.events.on("routeChangeStart", () => {
       campaignScriptIDRef.current = null;
@@ -65,8 +120,16 @@ const SEO = ({
           getCampaignScript(campaignScriptIDRef.current),
           scriptElements[scriptElements.length - 1].nextSibling
         );
+
+        addGclid();
       }, 2000);
     });
+    return () => {
+      window.removeEventListener("scroll", userInteractionEvent);
+      window.removeEventListener("mousedown", userInteractionEvent);
+      window.removeEventListener("touchstart", userInteractionEvent);
+      window.removeEventListener("keydown", userInteractionEvent);
+    };
   }, []);
 
   return (
@@ -107,7 +170,21 @@ const SEO = ({
           content={suffixedMetaTitle}
           key="ogimagealt"
         />
-
+        {/* preload fonts */}
+        <link
+          rel="preload"
+          href="/fonts/Galano Grotesque.woff2"
+          as="font"
+          crossOrigin="anonymous"
+          type="font/woff2"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Galano Grotesque Bold.woff2"
+          as="font"
+          crossOrigin="anonymous"
+          type="font/woff2"
+        />
         {/* schema */}
         <script
           type="application/ld+json"
@@ -126,7 +203,7 @@ const SEO = ({
       </Head>
       {pageTemplateName !== "BrandTemplate" && (
         <>
-          {timerExpired && (
+          {(timerExpired || userInteracted) && (
             <>
               <Script id="google-tag-manager">
                 {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -135,7 +212,7 @@ const SEO = ({
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
               </Script>
-              <Script id="6sense">
+              <Script id="6sense" strategy="lazyOnload">
                 {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
@@ -235,7 +312,7 @@ const SEO = ({
               })();
           `}
               </Script>
-              <Script id="g2Crowd" strategy="afterInteractive">
+              <Script id="g2Crowd" strategy="lazyOnload">
                 {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
@@ -249,7 +326,7 @@ const SEO = ({
         `}
               </Script>
               {/* Load Qualified script after user starts scrolling */}
-              {scrolled && (
+              {userInteracted && (
                 <>
                   {/* Qualified Script */}
                   <Script id="qualified" strategy="lazyOnload">
@@ -264,6 +341,7 @@ const SEO = ({
                   />
                 </>
               )}
+
               <Script
                 id="onetrust"
                 src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
