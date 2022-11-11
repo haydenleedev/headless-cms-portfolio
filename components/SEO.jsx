@@ -208,17 +208,18 @@ const SEO = ({
       </Head>
       {pageTemplateName !== "BrandTemplate" && (
         <>
-          {(timerExpired || userInteracted) && (
-            <>
-              <Script id="google-tag-manager">
-                {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          <>
+            {(timerExpired || userInteracted) && (
+              <>
+                <Script id="google-tag-manager">
+                  {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
-              </Script>
-              <Script id="6sense" strategy="lazyOnload">
-                {`
+                </Script>
+                <Script id="6sense" strategy="lazyOnload">
+                  {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
               if (a === '') {
@@ -316,9 +317,9 @@ const SEO = ({
               s.parentNode.insertBefore(gd, s);
               })();
           `}
-              </Script>
-              <Script id="g2Crowd" strategy="lazyOnload">
-                {`
+                </Script>
+                <Script id="g2Crowd" strategy="lazyOnload">
+                  {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
             u = 'https://tracking.g2crowd.com/attribution_tracking/conversions/' + c + '.js?p=' + encodeURI(p) + '&e=' + id;
@@ -329,35 +330,35 @@ const SEO = ({
             d.getElementsByTagName('head')[0].appendChild(i);
           }("1136", document.location.href, document));
         `}
-              </Script>
-              {/* Load Qualified script after user starts scrolling */}
-              {userInteracted && (
-                <>
-                  {/* Qualified Script */}
-                  <Script id="qualified" strategy="lazyOnload">
-                    {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+                </Script>
+                {/* Load Qualified script after user starts scrolling */}
+                {userInteracted && (
+                  <>
+                    {/* Qualified Script */}
+                    <Script id="qualified" strategy="lazyOnload">
+                      {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
-                  </Script>
-                  <Script
-                    id="qualified-src"
-                    async
-                    src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-                    strategy="lazyOnload"
-                  />
-                </>
-              )}
+                    </Script>
+                    <Script
+                      id="qualified-src"
+                      async
+                      src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+                      strategy="lazyOnload"
+                    />
+                  </>
+                )}
+              </>
+            )}
+          </>
+          <Script
+            id="onetrust"
+            src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+            charSet="UTF-8"
+            strategy="beforeInteractive"
+            data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
+          />
 
-              <Script
-                id="onetrust"
-                src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
-                charSet="UTF-8"
-                strategy="beforeInteractive"
-                data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
-              />
-
-              <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
-            </>
-          )}
+          <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
         </>
       )}
     </>
