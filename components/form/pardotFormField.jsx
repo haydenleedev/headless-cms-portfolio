@@ -309,8 +309,9 @@ const PardotFormField = ({
                   <option
                     key={`selectOption${index}`}
                     value={index == 0 ? "" : option}
-                    label={option}
-                  ></option>
+                  >
+                    {option}
+                  </option>
                 );
               })}
             </select>
