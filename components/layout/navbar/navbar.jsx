@@ -150,7 +150,11 @@ const Navbar = ({ globalData }) => {
       )}
 
       {/* End Navbar Secondary */}
-      <nav className="container" role="navigation" aria-label="Main">
+      <nav
+        className={`container ${style.mainNav}`}
+        role="navigation"
+        aria-label="Main"
+      >
         <Link href="/">
           <a
             title="Navigate  to home page"

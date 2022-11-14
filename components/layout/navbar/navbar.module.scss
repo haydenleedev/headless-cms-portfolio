@@ -70,6 +70,12 @@
       position: relative;
     }
   }
+  & > .mainNav {
+    overflow-y: hidden;
+    @include desktop() {
+      overflow-y: initial;
+    }
+  }
 }
 
 .brand {
