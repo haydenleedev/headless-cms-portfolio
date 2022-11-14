@@ -11,7 +11,8 @@ export const NavigationGroup = ({
   searchToggled,
   secondaryNavigation,
   activeNavigationItem,
-  setActiveNavigationItem
+  setActiveNavigationItem,
+  isSecondary,
 }) => {
   const router = useRouter();
   const [dropdownFocus, setDropdownFocus] = useState(false);
@@ -38,17 +39,17 @@ export const NavigationGroup = ({
       className={`${
         secondaryNavigation ? style.navbarSecondaryMobileLinks : ""
       } ${
-        (!navigationGroup.fields.columns || !navigationGroup.fields.columns?.[0]?.fields?.links)
+        !navigationGroup.fields.columns ||
+        !navigationGroup.fields.columns?.[0]?.fields?.links
           ? style.noDropdown
           : `${style.hasDropdown} ${
               activeNavigationItem === `navigation-group-${index}`
                 ? style.hasDropdownIsActive
                 : ""
             }`
-      }
-          ${searchToggled && style.disabled}
-          ${!dropdownFocus && style.disabled}
-        `}
+      } ${searchToggled ? style.disabled : ""} ${
+        !dropdownFocus ? style.disabled : ""
+      } ${isSecondary ? style.isSecondary : ""}`}
       aria-label="Toggle dropdown menu"
       aria-controls={
         navigationGroup.fields.columns ? navigationGroup.contentID : null
@@ -66,7 +67,7 @@ export const NavigationGroup = ({
           navigationGroup.fields.classes
             ? " " + navigationGroup.fields.classes
             : ""
-        }`}
+        } ${isSecondary ? style.isSecondary : ""}`}
         href={navigationGroup.fields.mainLink?.fields.link.href || "#"}
         aria-label={navigationGroup.fields.mainLink?.fields.link.text}
         label={navigationGroup.fields.mainLink?.fields.link.text}

@@ -13,6 +13,8 @@ const Navbar = ({ globalData }) => {
   const router = useRouter();
   // affects only mobile
   const [mainNavigationActive, setMainNavigationActive] = useState(false);
+  const [secondaryNavigationActive, setSecondaryNavigationActive] =
+    useState(false);
   const [pageScrolled, setPageScrolled] = useState(false);
   const [transparentBackground, setTransparentBackground] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -121,6 +123,11 @@ const Navbar = ({ globalData }) => {
     setMainNavigationActive(!mainNavigationActive);
   };
 
+  // update secondaryNav to match main nav
+  const handleSetSecondaryNavigationActive = () => {
+    setSecondaryNavigationActive(!secondaryNavigationActive);
+  };
+
   return (
     <section
       className={`${style.navbar} ${pageScrolled ? style.scrolled : ""} ${
@@ -132,11 +139,14 @@ const Navbar = ({ globalData }) => {
       ref={navbarRef}
     >
       {/* Begin Navbar Secondary */}
-      {navbar.fields.navbarSecondary?.length > 0 && (
+      {navbar.fields.navbarSecondaryV2?.length > 0 && (
         <NavbarSecondary
+          active={secondaryNavigationActive}
+          secondaryNavigation={navbar.fields.navbarSecondaryV2}
+          handleSetMainNavigationActive={handleSetSecondaryNavigationActive}
           navbarData={navbar}
-          styleClsss={style.navbarSecondary}
-        ></NavbarSecondary>
+          styleClass={style.navbarSecondary}
+        />
       )}
 
       {/* End Navbar Secondary */}
