@@ -39,7 +39,9 @@ RichTextArea.getCustomInitialProps = async function ({ item }) {
         item.fields.headingFontSize
       )
     );
-  const sanitizedHtml = cleanHtml(item.fields.textblob);
+  const sanitizedHtml = item.fields.textblob
+    ? cleanHtml(item.fields.textblob)
+    : null;
   return {
     sanitizedHtml,
   };
