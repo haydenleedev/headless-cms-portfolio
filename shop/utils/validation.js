@@ -23,6 +23,7 @@ const freeEmailDomains = [
   /@form.us/,
   /@outlook.com/,
   /@gmail.co.za/,
+  /@aol.com/,
 ];
 let freeEmailRegex;
 
