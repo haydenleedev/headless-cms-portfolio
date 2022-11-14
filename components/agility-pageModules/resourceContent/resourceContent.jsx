@@ -103,7 +103,6 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
 
   // Set utm_campaign and utm_asset values from the url if the values exist.  If there's no parameters, then get the default values from "resource.uTMCampaignAsset".
   const utmCampaignValue = getUrlParamValue("utm_campaign");
-  const utmAssetValue = getUrlParamValue("utm_asset");
 
   // Set clp value from the url if the value exist.  If there's no parameters, then get the default values from "resource.currentLeadProgram2".
   const clpValue = getUrlParamValue("clp");
@@ -115,11 +114,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
       return resource.uTMCampaignAsset ? resource.uTMCampaignAsset : null;
     }
   };
-  const setUtmAssetValue = (url) => {
-    if (utmAssetValue) {
-      return utmAssetValue;
+  const setUtmAssetValue = () => {
+    if (resource.uTMCampaignAsset) {
+      return resource.uTMCampaignAsset;
     } else {
-      return resource.uTMCampaignAsset ? resource.uTMCampaignAsset : null;
+      return null;
     }
   };
   const setClpValue = (url) => {
@@ -269,8 +268,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           setUtmCampaignValue(window.location.href)
                         }
                         utmAsset={
-                          typeof window !== "undefined" &&
-                          setUtmAssetValue(window.location.href)
+                          typeof window !== "undefined" && setUtmAssetValue()
                         }
                         clpField={
                           typeof window !== "undefined" &&
@@ -360,8 +358,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           setUtmCampaignValue(window.location.href)
                         }
                         utmAsset={
-                          typeof window !== "undefined" &&
-                          setUtmAssetValue(window.location.href)
+                          typeof window !== "undefined" && setUtmAssetValue()
                         }
                         clpField={
                           typeof window !== "undefined" &&
