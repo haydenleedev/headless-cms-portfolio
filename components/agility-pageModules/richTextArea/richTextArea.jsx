@@ -31,17 +31,15 @@ const RichTextArea = ({ module, customData }) => {
 RichTextArea.getCustomInitialProps = async function ({ item }) {
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
-  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
-  const firstSanitization = item.fields.textblob
-    ? cleanHtml(item.fields.textblob)
-    : null;
-  const sanitizedHtml = sanitizeHtml(
-    firstSanitization,
-    richTextSanitizeConfig(
-      item.fields.bodyTextFontSize,
-      item.fields.headingFontSize
-    )
-  );
+  const cleanHtml = (html) =>
+    sanitizeHtml(
+      html,
+      richTextSanitizeConfig(
+        item.fields.bodyTextFontSize,
+        item.fields.headingFontSize
+      )
+    );
+  const sanitizedHtml = cleanHtml(item.fields.textblob);
   return {
     sanitizedHtml,
   };
