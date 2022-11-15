@@ -109,7 +109,6 @@ export const validateField = ({
             (country) => country === fieldRef.current.value
           ) !== -1
         ) {
-          console.log("je");
           handleDispatch({
             type: pardotFormActions.setAction,
             value: "https://info.ujet.cx/l/986641/2022-10-17/l2hy5",

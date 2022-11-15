@@ -168,39 +168,18 @@ export const addGaData = ({
         getDealRegistrationUtmDefaultValue(window.location.href)
       );
     }
-    // This part could be easier to read in this format:
-    // if (utmCampaignValue) {
-    //   setFormInputValue("utm_campaign", utmCampaignValue);
-    // } else {
-    //   if (isGoogleContactForm) {
-    //     setFormInputValue("utm_campaign", "gmp_contact_sales");
-    //   } else if (isChannelRequestForm) {
-    //     setFormInputValue("utm_campaign", "request_to_partner");
-    //   } else if (isContactSalesForm) {
-    //     setFormInputValue("utm_campaign", "contact_sales");
-    //   } else if (isRequestDemoForm) {
-    //     setFormInputValue("utm_campaign", "request_demo");
-    //   } else if (isDealRegistrationForm) {
-    //     setFormInputValue(
-    //       "utm_campaign",
-    //       getDealRegistrationUtmDefaultValue(window.location.href)
-    //     );
-    //   }
-    // }
 
-    // Set the default utm_asset values if the parameter value doesn't exist in the url.
-    const utmAssetValue = getUrlParamValue("utm_asset");
-    if (utmAssetValue) {
-      setFormInputValue("utm_asset", utmAssetValue);
-    } else if (!utmAssetValue && isGoogleContactForm) {
+    // Set the default utm_asset values for specific form type. This values are not by overwritten with url parameter.
+
+    if (isGoogleContactForm) {
       setFormInputValue("utm_asset", "gmp_contact_sales");
-    } else if (!utmAssetValue && isChannelRequestForm) {
+    } else if (isChannelRequestForm) {
       setFormInputValue("utm_asset", "request_to_partner");
-    } else if (!utmCampaignValue && isContactSalesForm) {
+    } else if (isContactSalesForm) {
       setFormInputValue("utm_asset", "contact_sales");
-    } else if (!utmCampaignValue && isRequestDemoForm) {
+    } else if (isRequestDemoForm) {
       setFormInputValue("utm_asset", "request_demo");
-    } else if (!utmAssetValue && isDealRegistrationForm) {
+    } else if (isDealRegistrationForm) {
       setFormInputValue(
         "utm_asset",
         getDealRegistrationUtmDefaultValue(window.location.href)
