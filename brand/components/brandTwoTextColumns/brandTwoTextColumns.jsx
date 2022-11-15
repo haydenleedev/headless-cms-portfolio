@@ -1,18 +1,14 @@
-import style from "./brandTwoTextColumns.module.scss";
-import { renderHTML } from "@agility/nextjs";
+import dynamic from "next/dynamic";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import Heading from "../../../components/agility-pageModules/heading";
 import { useIntersectionObserver } from "../../../utils/hooks";
+const BrandTwoTextColumnsContent = dynamic(
+  () => import("./brandTwoTextColumnsContent"),
+  { ssr: false }
+);
 
 const BrandTwoTextColumns = ({ module, customData }) => {
   const { fields } = module;
-  const heading = JSON.parse(fields.heading);
-  //Configuration variables
-  const narrowContainer = fields.containerWidth == "narrow";
-  const fullPageWidth = fields.containerWidth == "fullPageWidth";
-  const brandWidth = fields.containerWidth == "brand";
-  const alignRight = fields.headingAlignment == "align-right";
-  const alignCenter = fields.headingAlignment == "align-center";
+  const { sanitizedHtmlLeft, sanitizedHtmlRight } = customData;
 
   const intersectionRef = useIntersectionObserver(
     {
@@ -38,48 +34,11 @@ const BrandTwoTextColumns = ({ module, customData }) => {
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
-      <div
-        className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
-          fullPageWidth ? "max-width-unset padding-unset" : ""
-        } ${brandWidth ? "max-width-brand" : ""}`}
-      >
-        <div
-          className={`${style.heading} ${
-            "flex-direction-" + fields.subtitlePosition
-          } ${
-            alignRight ? style.alignRight : alignCenter ? style.alignCenter : ""
-          }`}
-        >
-          <p>{fields.subtitle}</p>
-          <Heading {...heading} />
-        </div>
-        <div
-          className={`${style.textContainer} ${
-            "flex-direction-" + fields.mobileorder
-          }`}
-        >
-          <div className={style.columnLeft}>
-            {fields.textLeft && (
-              <div
-                className={`${style.html} content`}
-                dangerouslySetInnerHTML={renderHTML(
-                  customData.sanitizedHtmlLeft
-                )}
-              ></div>
-            )}
-          </div>
-          <div className={style.columnRight}>
-            {fields.textRight && (
-              <div
-                className={`${style.html} content`}
-                dangerouslySetInnerHTML={renderHTML(
-                  customData.sanitizedHtmlRight
-                )}
-              ></div>
-            )}
-          </div>
-        </div>
-      </div>
+      <BrandTwoTextColumnsContent
+        sanitizedHtmlLeft={sanitizedHtmlLeft}
+        sanitizedHtmlRight={sanitizedHtmlRight}
+        fields={fields}
+      />
     </section>
   );
 };

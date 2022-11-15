@@ -1,6 +1,7 @@
 import { resolveCategory, resolveLink } from "../../../utils/convert";
 import GenericCard from "../../genericCard/genericCard";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import style from "./contentList.module.scss";
 
 const ContentList = ({ module }) => {
@@ -40,17 +41,17 @@ const ContentList = ({ module }) => {
   };
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section
       className={`section ${mtValue} ${mbValue} ${ptValue} ${pbValue}
-      ${style.contentList} ${
-        fields.classes ? fields.classes : ""
-      } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
+      ${style.contentList} ${fields.classes ? fields.classes : ""} ${
+        fields?.backgroundColor ? fields?.backgroundColor : ""
+      }`}
       id={fields.id ? fields.id : null}
     >
       <nav className="container" aria-label="content list">

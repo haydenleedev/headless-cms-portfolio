@@ -70,6 +70,12 @@
       position: relative;
     }
   }
+  & > .mainNav {
+    overflow-y: hidden;
+    @include desktop() {
+      overflow-y: initial;
+    }
+  }
 }
 
 .brand {
@@ -276,6 +282,7 @@
       border: 0.1rem solid $color-mediumgray;
       z-index: 3;
       margin-left: -2rem;
+      right: unset;
     }
 
     li {
@@ -322,6 +329,41 @@
           left: unset;
           &:focus-within {
             left: unset;
+          }
+        }
+      }
+    }
+  }
+  // update secondaryNav to match main nav
+  &.isSecondary {
+    & > ul {
+      @include desktop() {
+        top: 2.5rem;
+      }
+    }
+    &:not(.disabled) {
+      &:hover,
+      &:focus-within {
+        @include desktop() {
+          &::before {
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            background: $color-mediumgray;
+            content: "";
+            transform: rotate(45deg);
+            top: 3.5rem;
+            z-index: 3;
+          }
+        }
+      }
+    }
+    @include desktop() {
+      &:hover {
+        &:last-child {
+          & > ul {
+            right: 0;
+            margin-left: unset;
           }
         }
       }

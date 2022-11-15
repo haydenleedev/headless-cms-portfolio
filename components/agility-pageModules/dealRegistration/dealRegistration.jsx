@@ -1,22 +1,22 @@
 import { renderHTML } from "@agility/nextjs";
-import { AgilityImage } from "@agility/nextjs";
-import Media from "../media";
 import style from "./dealRegistration.module.scss";
-import { boolean } from "../../../utils/validation";
 import {
   convertUJETLinksToHttps,
   sanitizeHtmlConfig,
 } from "../../../utils/convert";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
-import PardotForm from "../../form/pardotForm";
+import dynamic from "next/dynamic";
+const Media = dynamic(() => import("../media"), { ssr: false });
+const PardotForm = dynamic(() => import("../../form/pardotForm"), {
+  ssr: false,
+});
 
 const DealRegistration = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, formConfiguration } = customData;
   const deal = dynamicPageItem.fields;
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
 
-  const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
   return (
     <>
       <OverrideSEO

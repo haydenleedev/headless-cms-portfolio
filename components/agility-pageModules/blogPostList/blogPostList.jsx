@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { boolean } from "../../../utils/validation";
 import GenericCard from "../../genericCard/genericCard";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 
 // styling for this page module is defined globally because we need to override inner styles from the GenericCard component.
 
@@ -15,10 +16,10 @@ const BlogPostList = ({ module }) => {
     : fields?.blogPosts?.slice(0, limit);
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <section

@@ -1,10 +1,11 @@
-import { Fragment } from "react";
-import GenericCard from "../../genericCard/genericCard";
 import style from "./customerStoryCards.module.scss";
+import CustomerStoryCardsContent from "./customerStoryCardsContent";
 
 const CustomerStoryCards = ({ module, customData }) => {
   const { fields } = module;
-  const { card1Data, card2Data, card3Data } = customData;
+  const card1Data = customData?.card1Data;
+  const card2Data = customData?.card2Data;
+  const card3Data = customData?.card3Data;
   const customerStories = [card1Data, card2Data, card3Data];
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
@@ -18,33 +19,10 @@ const CustomerStoryCards = ({ module, customData }) => {
         fields.classes ? fields.classes : ""
       } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
     >
-      <div className={`container ${style.content}`}>
-        <div className={`${style.heading} align-center mb-4`}>
-          <h2 className="heading-4">{fields.title}</h2>
-        </div>
-        <nav
-          className={`columns repeat-3 ${style.cards}`}
-          aria-label="customer customerStories navigation"
-        >
-          {customerStories.map((story) => {
-            return (
-              <Fragment key={story.contentID}>
-                <GenericCard
-                  link={story.fields.link}
-                  image={story.fields.image}
-                  title={story.fields.title}
-                  ariaTitle={`${story.fields.title} customer story`}
-                  description={story.fields.description}
-                  configuration={{
-                    imageHeight: "tall",
-                    emphasizedTitle: true,
-                  }}
-                />
-              </Fragment>
-            );
-          })}
-        </nav>
-      </div>
+      <CustomerStoryCardsContent
+        fields={fields}
+        customerStories={customerStories}
+      />
     </section>
   );
 };

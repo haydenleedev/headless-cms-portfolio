@@ -1,4 +1,5 @@
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
 import style from "./modal.module.scss";
 import Media from "../media";
 
@@ -12,10 +13,10 @@ const Modal = ({ module, customData }) => {
   const heading = JSON.parse(fields.heading);
 
   // Margins & Paddings
-  const mtValue = fields.marginTop ? fields.marginTop : '';
-  const mbValue = fields.marginBottom ? fields.marginBottom : '';
-  const ptValue = fields.paddingTop ? fields.paddingTop : '';
-  const pbValue = fields.paddingBottom ? fields.paddingBottom : '';
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
 
   return (
     <>
@@ -25,7 +26,9 @@ const Modal = ({ module, customData }) => {
         </span>
       </div>
 
-      <div className={`${style.modal} ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${style.narrow}`}>
+      <div
+        className={`${style.modal} ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${style.narrow}`}
+      >
         <button
           type="button"
           className={style.close}
