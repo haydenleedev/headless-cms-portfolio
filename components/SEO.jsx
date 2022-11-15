@@ -19,6 +19,7 @@ const SEO = ({
 }) => {
   const [userInteracted, setUserInteracted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
+  const [cookieTimerExpired, setCookieTimerExpired] = useState(false);
   const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
@@ -52,7 +53,11 @@ const SEO = ({
       window.addEventListener("touchstart", userInteractionEvent);
       window.addEventListener("keydown", userInteractionEvent);
     }
-    // Load scripts anyway after 5 seconds, if user interaction was not detected.
+    // load cookie manager after mount
+    setTimeout(() => {
+      setCookieTimerExpired(true);
+    }, 0);
+    // Load other scripts anyway after 5 seconds, if user interaction was not detected.
     setTimeout(() => {
       setTimerExpired(true);
     }, 5000);
@@ -203,17 +208,18 @@ const SEO = ({
       </Head>
       {pageTemplateName !== "BrandTemplate" && (
         <>
-          {(timerExpired || userInteracted) && (
-            <>
-              <Script id="google-tag-manager">
-                {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          <>
+            {(timerExpired || userInteracted) && (
+              <>
+                <Script id="google-tag-manager">
+                  {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
-              </Script>
-              <Script id="6sense" strategy="lazyOnload">
-                {`
+                </Script>
+                <Script id="6sense" strategy="lazyOnload">
+                  {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
               if (a === '') {
@@ -311,9 +317,9 @@ const SEO = ({
               s.parentNode.insertBefore(gd, s);
               })();
           `}
-              </Script>
-              <Script id="g2Crowd" strategy="lazyOnload">
-                {`
+                </Script>
+                <Script id="g2Crowd" strategy="lazyOnload">
+                  {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
             u = 'https://tracking.g2crowd.com/attribution_tracking/conversions/' + c + '.js?p=' + encodeURI(p) + '&e=' + id;
@@ -324,24 +330,28 @@ const SEO = ({
             d.getElementsByTagName('head')[0].appendChild(i);
           }("1136", document.location.href, document));
         `}
-              </Script>
-              {/* Load Qualified script after user starts scrolling */}
-              {userInteracted && (
-                <>
-                  {/* Qualified Script */}
-                  <Script id="qualified" strategy="lazyOnload">
-                    {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+                </Script>
+                {/* Load Qualified script after user starts scrolling */}
+                {userInteracted && (
+                  <>
+                    {/* Qualified Script */}
+                    <Script id="qualified" strategy="lazyOnload">
+                      {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
-                  </Script>
-                  <Script
-                    id="qualified-src"
-                    async
-                    src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-                    strategy="lazyOnload"
-                  />
-                </>
-              )}
-
+                    </Script>
+                    <Script
+                      id="qualified-src"
+                      async
+                      src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+                      strategy="lazyOnload"
+                    />
+                  </>
+                )}
+              </>
+            )}
+          </>
+          {cookieTimerExpired && (
+            <>
               <Script
                 id="onetrust"
                 src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
@@ -351,58 +361,6 @@ const SEO = ({
               />
 
               <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
-
-              {/* Implement Google Ad GCLID parameter value */}
-              <Script
-                id="gclidParameter"
-                strategy="lazyOnload"
-              >{`function getParam(p) {
-                  var match = RegExp('[?&]' + p + '=([^&]*)').exec(window.location.search);
-                  return match && decodeURIComponent(match[1].replace(/\\+/g, ' '));
-                }
-
-                function getExpiryRecord(value) {
-                  var expiryPeriod = 90 * 24 * 60 * 60 * 1000; // 90 day expiry in milliseconds
-
-                  var expiryDate = new Date().getTime() + expiryPeriod;
-                  return {
-                    value: value,
-                    expiryDate: expiryDate
-                  };
-                }
-
-                function addGclid() {
-                  var gclidParam = getParam('gclid');
-                  var gclidFormFields = Array.prototype.slice.call(document.querySelectorAll('input[name=GCLID]')).map(function ( element ) {
-                      return element.id;
-                  }); // all possible gclid form field ids here
-
-                  var gclidRecord = null;
-                  var currGclidFormField;
-
-                  var gclsrcParam = getParam('gclsrc');
-                  var isGclsrcValid = !gclsrcParam || gclsrcParam.indexOf('aw') !== -1;
-
-                  gclidFormFields.forEach(function (field) {
-                    if (document.getElementById(field)) {
-                      currGclidFormField = document.getElementById(field);
-                    }
-                  });
-
-                  if (gclidParam && isGclsrcValid) {
-                    gclidRecord = getExpiryRecord(gclidParam);
-                    localStorage.setItem('gclid', JSON.stringify(gclidRecord));
-                  }
-
-                  var gclid = gclidRecord || JSON.parse(localStorage.getItem('gclid'));
-                  var isGclidValid = gclid && new Date().getTime() < gclid.expiryDate;
-
-                  if (currGclidFormField && isGclidValid) {
-                    currGclidFormField.value = gclid.value;
-                  }
-                  console.log("gclid loaded!");
-                }
-                addGclid();`}</Script>
             </>
           )}
         </>

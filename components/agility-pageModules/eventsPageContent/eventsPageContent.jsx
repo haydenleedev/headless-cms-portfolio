@@ -3,8 +3,9 @@ import {
   toPacificDateTime,
   toPacificTimeMilliseconds,
 } from "../../../utils/convert";
-import AgilityLink from "../../agilityLink";
-import Heading from "../heading";
+import dynamic from "next/dynamic";
+const Heading = dynamic(() => import("../heading"), { ssr: false });
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
 
 const EventsPageContent = ({ module, customData }) => {
   const { allEvents } = customData;

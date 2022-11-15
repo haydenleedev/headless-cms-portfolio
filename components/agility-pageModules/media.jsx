@@ -2,7 +2,7 @@ import { AgilityImage } from "@agility/nextjs";
 import { useEffect, useState } from "react";
 import Video from "../video/video";
 
-const Media = ({ media, title }) => {
+const Media = ({ media, title, imageOptions }) => {
   const [videoDefinitelyNotSupported, setVideoDefinitelyNotSupported] =
     useState(false);
   let mediaName = media?.url?.split("/");
@@ -34,7 +34,8 @@ const Media = ({ media, title }) => {
             title={title ? title : ""}
             // Does not work well...
             // layout="responsive"
-          ></AgilityImage>
+            {...imageOptions}
+          />
         );
       default:
         return (

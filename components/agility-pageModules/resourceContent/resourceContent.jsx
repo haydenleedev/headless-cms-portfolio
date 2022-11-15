@@ -2,7 +2,6 @@ import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
 import style from "./resourceContent.module.scss";
 import { boolean } from "../../../utils/validation";
-import AgilityLink from "../../agilityLink";
 import {
   convertUJETLinksToHttps,
   resolveCategory,
@@ -16,7 +15,11 @@ import FirstFold from "../firstFold/firstFold";
 import EmbedVideo from "../embedVideo/embedVideo";
 import Script from "next/script";
 import Accordion from "../accordion/accordion";
-import PardotForm from "../../form/pardotForm";
+import dynamic from "next/dynamic";
+const PardotForm = dynamic(() => import("../../form/pardotForm"), {
+  ssr: false,
+});
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
