@@ -30,74 +30,123 @@ export const richTextSanitizeConfig = (bodyTextFontSize, headingFontSize) => {
         };
       },
       p: function (tagName, attribs) {
-        return {
-          tagName: "p",
-          attribs: {
-            class: bodyTextFontSize
-              ? attribs.class + " " + bodyTextFontSize
-              : attribs.class,
-          },
-        };
+        if (bodyTextFontSize && attribs.class)
+          return {
+            tagName: "p",
+            attribs: {
+              class: attribs.class + " " + bodyTextFontSize,
+            },
+          };
+        else if (bodyTextFontSize && !attribs.class)
+          return {
+            tagName: "p",
+            attribs: {
+              class: bodyTextFontSize,
+            },
+          };
+        else return { tagName: "p", attribs };
       },
       h1: function (tagName, attribs) {
-        return {
-          tagName: "h1",
-          attribs: {
-            class: headingFontSize
-              ? attribs.class + " " + headingFontSize
-              : attribs.class,
-          },
-        };
+        if (headingFontSize && attribs.class)
+          return {
+            tagName: "h1",
+            attribs: {
+              class: attribs.class + " " + headingFontSize,
+            },
+          };
+        else if (headingFontSize && !attribs.class)
+          return {
+            tagName: "h1",
+            attribs: {
+              class: headingFontSize,
+            },
+          };
+        else return { tagName: "h1", attribs };
       },
       h2: function (tagName, attribs) {
-        return {
-          tagName: "h2",
-          attribs: {
-            class: headingFontSize
-              ? attribs.class + " " + headingFontSize
-              : attribs.class,
-          },
-        };
+        if (headingFontSize && attribs.class)
+          return {
+            tagName: "h2",
+            attribs: {
+              class: attribs.class + " " + headingFontSize,
+            },
+          };
+        else if (headingFontSize && !attribs.class)
+          return {
+            tagName: "h2",
+            attribs: {
+              class: headingFontSize,
+            },
+          };
+        else return { tagName: "h2", attribs };
       },
       h3: function (tagName, attribs) {
-        return {
-          tagName: "h3",
-          attribs: {
-            class: headingFontSize
-              ? attribs.class + " " + headingFontSize
-              : attribs.class,
-          },
-        };
+        if (headingFontSize && attribs.class)
+          return {
+            tagName: "h3",
+            attribs: {
+              class: attribs.class + " " + headingFontSize,
+            },
+          };
+        else if (headingFontSize && !attribs.class)
+          return {
+            tagName: "h3",
+            attribs: {
+              class: headingFontSize,
+            },
+          };
+        else return { tagName: "h3", attribs };
       },
       h4: function (tagName, attribs) {
-        return {
-          tagName: "h4",
-          attribs: {
-            class: headingFontSize
-              ? attribs.class + " " + headingFontSize
-              : attribs.class,
-          },
-        };
+        if (headingFontSize && attribs.class)
+          return {
+            tagName: "h4",
+            attribs: {
+              class: attribs.class + " " + headingFontSize,
+            },
+          };
+        else if (headingFontSize && !attribs.class)
+          return {
+            tagName: "h4",
+            attribs: {
+              class: headingFontSize,
+            },
+          };
+        else return { tagName: "h4", attribs };
       },
       h5: function (tagName, attribs) {
-        return {
-          tagName: "h5",
-          attribs: {
-            class: headingFontSize
-              ? attribs.class + " " + headingFontSize
-              : attribs.class,
-          },
-        };
+        if (headingFontSize && attribs.class)
+          return {
+            tagName: "h5",
+            attribs: {
+              class: attribs.class + " " + headingFontSize,
+            },
+          };
+        else if (headingFontSize && !attribs.class)
+          return {
+            tagName: "h5",
+            attribs: {
+              class: headingFontSize,
+            },
+          };
+        else return { tagName: "h5", attribs };
       },
       h6: function (tagName, attribs) {
-        return {
-          tagName: "h6",
-          attribs: {
-            class: headingFontSize
-              ? attribs.class + " " + headingFontSize
-              : attribs.class,
-          },
-        };
+        if (headingFontSize && attribs.class)
+          return {
+            tagName: "h6",
+            attribs: {
+              class: attribs.class + " " + headingFontSize,
+            },
+          };
+        else if (headingFontSize && !attribs.class)
+          return {
+            tagName: "h6",
+            attribs: {
+              class: headingFontSize,
+            },
+          };
+        else return { tagName: "h6", attribs };
       },
     },
   };
