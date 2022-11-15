@@ -13,7 +13,8 @@ import Head from "next/head";
 import { addDataLayerEventTriggers } from "../../utils/dataLayer";
 import { useEffect } from "react";
 import BrandFooter from "./brandFooter/brandFooter";
-import ScrollToTop from "../scrollToTop/scrollToTop";
+import dynamic from "next/dynamic";
+const ScrollToTop = dynamic(()=>import("../scrollToTop/scrollToTop"),{ssr:false});
 const isPreview = handlePreview();
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
