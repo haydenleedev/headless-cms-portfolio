@@ -138,6 +138,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           min="0"
           title={field.name}
           hidden={isHiddenField(field, isDealRegistrationForm)}
+          onPaste={(e) => pasteBlocker(e, index)}
           onBlur={() => {
             handleSetTouchedFields(index);
             formValidation();
