@@ -52,6 +52,8 @@ export const removeDuplicatePosts = (list) => {
 // return name based on the content referenceName
 export const resolveCategory = (referenceName) => {
   switch (referenceName) {
+    case "casestudy":
+      return "Case Study";
     case "newsarticle":
       return "News";
     case "externalcontent":
@@ -94,6 +96,8 @@ export const resolveLink = (referenceName, fields) => {
       return { href: `/integrations/${fields.slug}` };
     case "whitepapers":
       return { href: `/resources/white-papers/${fields.slug}` };
+    case "casestudy":
+      return { href: `/resources/case-study/${fields.slug}` };
     case "partnercontent":
       return { href: `/resources/partner-content/${fields.slug}` };
     default:

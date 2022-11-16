@@ -36,6 +36,7 @@ const getArchivesPageContent = async () => {
       id: "resources",
       content: [],
       categories: {
+        casestudy: { title: "Case Study", content: [] },
         ebooks: { title: "e-Books", content: [] },
         guides: { title: "Guides", content: [] },
         integrations: { title: "Product Datasheets", content: [] },
