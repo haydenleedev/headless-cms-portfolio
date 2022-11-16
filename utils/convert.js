@@ -52,14 +52,14 @@ export const removeDuplicatePosts = (list) => {
 // return name based on the content referenceName
 export const resolveCategory = (referenceName) => {
   switch (referenceName) {
-    case "casestudy":
-      return "Case Study";
     case "newsarticle":
       return "News";
     case "externalcontent":
       return fields.link;
     case "pressreleasearticle":
       return "Press Release";
+    case "casestudy":
+      return "Case Study";
     case "ebooks":
       return "e-Book";
     case "guides":

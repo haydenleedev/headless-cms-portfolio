@@ -319,6 +319,10 @@ export default function handler(req, res) {
           pressReleaseUpdate(req.body.contentID, req.body.state);
           break;
         }
+        case "casestudy": {
+          resourceUpdate(req.body.contentID, req.body.state);
+          break;
+        }
         case "ebooks": {
           resourceUpdate(req.body.contentID, req.body.state);
           break;
