@@ -58,6 +58,8 @@ export const resolveCategory = (referenceName) => {
       return fields.link;
     case "pressreleasearticle":
       return "Press Release";
+    case "casestudy":
+      return "Case Study";
     case "ebooks":
       return "e-Book";
     case "guides":
@@ -94,6 +96,8 @@ export const resolveLink = (referenceName, fields) => {
       return { href: `/integrations/${fields.slug}` };
     case "whitepapers":
       return { href: `/resources/white-papers/${fields.slug}` };
+    case "casestudy":
+      return { href: `/resources/case-study/${fields.slug}` };
     case "partnercontent":
       return { href: `/resources/partner-content/${fields.slug}` };
     default:
