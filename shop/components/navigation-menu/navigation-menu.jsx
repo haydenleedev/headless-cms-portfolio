@@ -129,6 +129,10 @@ const mainNavs = [
             sub_href: "/press/",
           },
           {
+            sub_item: "Case Study",
+            sub_href: "/resources/#case-study",
+          },
+          {
             sub_item: "Guides & Reports",
             sub_href: "/resources/#guides-and-reports",
           },

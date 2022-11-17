@@ -81,6 +81,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   let setAssetType;
   let referenceNameValue = dynamicPageItem.properties.referenceName;
   const resourceTypesByNames = [
+    { referenceName: "casestudy", type: "Case Study" },
     { referenceName: "ebooks", type: "eBook" },
     { referenceName: "reports", type: "Report" },
     { referenceName: "guides", type: "Guide" },
@@ -101,7 +102,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     return setAssetType ? setAssetType : null;
   };
 
-  // Set utm_campaign and utm_asset values from the url if the values exist.  If there's no parameters, then get the default values from "resource.uTMCampaignAsset".
+  // Set utm_campaign values from the url if the values exist.  If there's no parameters, then get the default values from "resource.uTMCampaignAsset".
   const utmCampaignValue = getUrlParamValue("utm_campaign");
 
   // Set clp value from the url if the value exist.  If there's no parameters, then get the default values from "resource.currentLeadProgram2".

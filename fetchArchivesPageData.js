@@ -36,6 +36,7 @@ const getArchivesPageContent = async () => {
       id: "resources",
       content: [],
       categories: {
+        casestudy: { title: "Case Study", content: [] },
         ebooks: { title: "e-Books", content: [] },
         guides: { title: "Guides", content: [] },
         integrations: { title: "Product Datasheets", content: [] },
@@ -92,6 +93,7 @@ const getArchivesPageContent = async () => {
 
   // get resources: ebooks, guides, integrations, reports, webinars, white papers
 
+  const casestudy = await getContentList("casestudy");
   const ebooks = await getContentList("ebooks");
   const guides = await getContentList("guides");
   const integrations = await getContentList("integrations");
@@ -162,6 +164,7 @@ const getArchivesPageContent = async () => {
     ...whitepapers,
   ]);
 
+  contentListTypes[2].categories.casestudy.content = [...casestudy];
   contentListTypes[2].categories.ebooks.content = [...ebooks];
   contentListTypes[2].categories.guides.content = [...guides];
   contentListTypes[2].categories.integrations.content = [...integrations];
