@@ -6,6 +6,7 @@ import AgilityLink from "../../agilityLink";
 import { renderHTML } from "@agility/nextjs";
 import {
   sanitizeHtmlConfig,
+  textSizeSanitizeConfig,
   vimeoLinkToEmbed,
   youTubeVideoLinkToEmbed,
 } from "../../../utils/convert";
@@ -550,8 +551,8 @@ FirstFold.getCustomInitialProps = async function ({ item }) {
 
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-  const sanitizedHtml = item.fields.text ? cleanHtml(item.fields.text) : null;
-
+  const firstSanitization = item.fields.text ? cleanHtml(item.fields.text) : null;
+  const sanitizedHtml = item.fields.text ? sanitizeHtml(firstSanitization, textSizeSanitizeConfig(item.fields.textFieldFontSize, false)) : null;
   return {
     sanitizedHtml,
   };
