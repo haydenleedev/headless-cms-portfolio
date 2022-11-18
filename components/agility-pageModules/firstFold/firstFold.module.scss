@@ -476,3 +476,7 @@
     }
   }
 }
+.hide {
+  position: absolute;
+  left: -2147483647px !important;
+}

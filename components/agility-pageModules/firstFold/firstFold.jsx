@@ -28,6 +28,7 @@ const FirstFold = ({ module, customData }) => {
   const fixedMediaHeight = fields?.fixedMediaHeight;
   const linksStyle = fields?.linksStyle || "button";
   const layout = fields.layout;
+  const hideHeading = boolean(fields?.hideHeading);
   let videoSrc;
   let isYouTubeVideo = false;
   if (fields?.videoURL?.href?.includes?.("youtube.com")) {
@@ -240,7 +241,7 @@ const FirstFold = ({ module, customData }) => {
               : style.textContent
           } ${narrowContainer ? "max-width-narrow" : ""}`}
         >
-          <div className={style.heading}>
+          <div className={hideHeading ?  style.hide : style.heading}>
             <Heading {...heading}></Heading>
           </div>
           {sanitizedHtml && (
@@ -271,7 +272,7 @@ const FirstFold = ({ module, customData }) => {
               <Media media={fields.media} title={fields.mediaTitle} />
             </aside>
             <div>
-              <div className={style.heading}>
+              <div className={hideHeading ?  style.hide : style.heading}>
                 <Heading {...heading}></Heading>
               </div>
               {sanitizedHtml && (
@@ -316,7 +317,7 @@ const FirstFold = ({ module, customData }) => {
                   style[`textContentBasis${fields.textWidthPercentage || 50}`]
                 }`}
               >
-                <div className={style.heading}>
+                <div className={hideHeading ?  style.hide : style.heading}>
                   <Heading {...heading}></Heading>
                 </div>
                 {sanitizedHtml && (
