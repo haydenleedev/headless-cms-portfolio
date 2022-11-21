@@ -6,6 +6,7 @@ import AgilityLink from "../../agilityLink";
 import { renderHTML } from "@agility/nextjs";
 import {
   sanitizeHtmlConfig,
+  textSizeSanitizeConfig,
   vimeoLinkToEmbed,
   youTubeVideoLinkToEmbed,
 } from "../../../utils/convert";
@@ -27,6 +28,7 @@ const FirstFold = ({ module, customData }) => {
   const fixedMediaHeight = fields?.fixedMediaHeight;
   const linksStyle = fields?.linksStyle || "button";
   const layout = fields.layout;
+  const hideHeading = boolean(fields?.hideHeading);
   let videoSrc;
   let isYouTubeVideo = false;
   if (fields?.videoURL?.href?.includes?.("youtube.com")) {
@@ -239,7 +241,7 @@ const FirstFold = ({ module, customData }) => {
               : style.textContent
           } ${narrowContainer ? "max-width-narrow" : ""}`}
         >
-          <div className={style.heading}>
+          <div className={hideHeading ?  style.hide : style.heading}>
             <Heading {...heading}></Heading>
           </div>
           {sanitizedHtml && (
@@ -270,7 +272,7 @@ const FirstFold = ({ module, customData }) => {
               <Media media={fields.media} title={fields.mediaTitle} />
             </aside>
             <div>
-              <div className={style.heading}>
+              <div className={hideHeading ?  style.hide : style.heading}>
                 <Heading {...heading}></Heading>
               </div>
               {sanitizedHtml && (
@@ -315,7 +317,7 @@ const FirstFold = ({ module, customData }) => {
                   style[`textContentBasis${fields.textWidthPercentage || 50}`]
                 }`}
               >
-                <div className={style.heading}>
+                <div className={hideHeading ?  style.hide : style.heading}>
                   <Heading {...heading}></Heading>
                 </div>
                 {sanitizedHtml && (
@@ -550,8 +552,8 @@ FirstFold.getCustomInitialProps = async function ({ item }) {
 
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-  const sanitizedHtml = item.fields.text ? cleanHtml(item.fields.text) : null;
-
+  const firstSanitization = item.fields.text ? cleanHtml(item.fields.text) : null;
+  const sanitizedHtml = item.fields.text ? sanitizeHtml(firstSanitization, textSizeSanitizeConfig(item.fields.textFieldFontSize, false)) : null;
   return {
     sanitizedHtml,
   };
