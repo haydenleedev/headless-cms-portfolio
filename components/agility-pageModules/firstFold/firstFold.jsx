@@ -241,7 +241,7 @@ const FirstFold = ({ module, customData }) => {
               : style.textContent
           } ${narrowContainer ? "max-width-narrow" : ""}`}
         >
-          <div className={hideHeading ?  style.hide : style.heading}>
+          <div className={hideHeading ? style.hide : style.heading}>
             <Heading {...heading}></Heading>
           </div>
           {sanitizedHtml && (
@@ -272,7 +272,7 @@ const FirstFold = ({ module, customData }) => {
               <Media media={fields.media} title={fields.mediaTitle} />
             </aside>
             <div>
-              <div className={hideHeading ?  style.hide : style.heading}>
+              <div className={hideHeading ? style.hide : style.heading}>
                 <Heading {...heading}></Heading>
               </div>
               {sanitizedHtml && (
@@ -317,7 +317,12 @@ const FirstFold = ({ module, customData }) => {
                   style[`textContentBasis${fields.textWidthPercentage || 50}`]
                 }`}
               >
-                <div className={hideHeading ?  style.hide : style.heading}>
+                {fields.headerImage && (
+                  <div className={style.headerImage}>
+                    <Media media={fields.headerImage} />
+                  </div>
+                )}
+                <div className={hideHeading ? style.hide : style.heading}>
                   <Heading {...heading}></Heading>
                 </div>
                 {sanitizedHtml && (
@@ -552,8 +557,15 @@ FirstFold.getCustomInitialProps = async function ({ item }) {
 
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
 
-  const firstSanitization = item.fields.text ? cleanHtml(item.fields.text) : null;
-  const sanitizedHtml = item.fields.text ? sanitizeHtml(firstSanitization, textSizeSanitizeConfig(item.fields.textFieldFontSize, false)) : null;
+  const firstSanitization = item.fields.text
+    ? cleanHtml(item.fields.text)
+    : null;
+  const sanitizedHtml = item.fields.text
+    ? sanitizeHtml(
+        firstSanitization,
+        textSizeSanitizeConfig(item.fields.textFieldFontSize, false)
+      )
+    : null;
   return {
     sanitizedHtml,
   };

@@ -6,8 +6,6 @@ const RichTextAreaContent = ({ fields, sanitizedHtml }) => {
   const contentHorizontalAlignmentClass = fields.contentHorizontalAlignment
     ? `align-${fields.contentHorizontalAlignment}`
     : "";
-
-  console.log(fields);
   let containerWidthClass = style.content;
   if (fields.containerWidth == "narrow") {
     containerWidthClass += " max-width-narrow";

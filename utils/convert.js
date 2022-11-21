@@ -183,7 +183,11 @@ export const sanitizeHtmlConfig = {
   },
 };
 //Used to apply custom text classes to html
-export const textSizeSanitizeConfig = (bodyTextFontSize, headingFontSize) => {
+export const textSizeSanitizeConfig = (
+  bodyTextFontSize,
+  headingFontSize,
+  roundedCornersForImages
+) => {
   return {
     allowedTags: false,
     allowedAttributes: {
@@ -332,6 +336,25 @@ export const textSizeSanitizeConfig = (bodyTextFontSize, headingFontSize) => {
             },
           };
         else return { tagName: "h6", attribs };
+      },
+      img: function (tagName, attribs) {
+        if (roundedCornersForImages) {
+          const newAttribs = { ...attribs };
+          const className = newAttribs?.class;
+          if (newAttribs.class) delete newAttribs.class;
+          return {
+            tagName,
+            attribs: {
+              ...newAttribs,
+              class: className ? className + " border-radius-1" : "",
+            },
+          };
+        } else {
+          return {
+            tagName,
+            attribs,
+          };
+        }
       },
     },
   };
