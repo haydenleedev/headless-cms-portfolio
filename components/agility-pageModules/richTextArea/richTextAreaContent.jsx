@@ -6,7 +6,6 @@ const RichTextAreaContent = ({ fields, sanitizedHtml }) => {
   const contentHorizontalAlignmentClass = fields.contentHorizontalAlignment
     ? `align-${fields.contentHorizontalAlignment}`
     : "";
-
   let containerWidthClass = style.content;
   if (fields.containerWidth == "narrow") {
     containerWidthClass += " max-width-narrow";
@@ -32,8 +31,12 @@ const RichTextAreaContent = ({ fields, sanitizedHtml }) => {
   return (
     <div
       className={`container content ${containerWidthClass} ${contentHorizontalAlignmentClass}`}
-      dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-    ></div>
+    >
+      {fields.subject && (
+        <h2 className={fields?.headingFontSize}>{fields.subject}</h2>
+      )}
+      <div dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}></div>
+    </div>
   );
 };
 

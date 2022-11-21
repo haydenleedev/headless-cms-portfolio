@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 const Heading = dynamic(() => import("../heading"), { ssr: false });
 const Media = dynamic(() => import("../media"), { ssr: false });
 import style from "./heroImage.module.scss";
+import { boolean } from "../../../utils/validation";
 
 const HeroImage = ({ module, narrowHeight, customData }) => {
   const { fields } = module;
@@ -39,7 +40,16 @@ const HeroImage = ({ module, narrowHeight, customData }) => {
           ></div>
         </div>
       )}
-      {fields.image && <Media media={fields.image} />}
+      {fields.image && (
+        <Media
+          media={fields.image}
+          imageOptions={{
+            className: boolean(fields.roundedCornersforImages)
+              ? "border-radius-1"
+              : null,
+          }}
+        />
+      )}
     </section>
   );
 };

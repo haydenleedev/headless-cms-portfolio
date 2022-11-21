@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./richTextArea.module.scss";
-import { richTextSanitizeConfig } from "./richTextSanitizeConfig";
+import { textSizeSanitizeConfig } from "../../../utils/convert";
+import { boolean } from "../../../utils/validation";
 const RichTextAreaContent = dynamic(() => import("./richTextAreaContent"), {
   ssr: false,
 });
@@ -35,9 +36,10 @@ RichTextArea.getCustomInitialProps = async function ({ item }) {
     if (item.fields.bodyTextFontSize || item.fields.headingFontSize)
       return sanitizeHtml(
         html,
-        richTextSanitizeConfig(
+        textSizeSanitizeConfig(
           item.fields.bodyTextFontSize,
-          item.fields.headingFontSize
+          item.fields.headingFontSize,
+          boolean(item.fields.roundedCornersforImages)
         )
       );
     else return sanitizeHtml(html, sanitizeHtmlConfig);
