@@ -40,11 +40,6 @@ const SEO = ({
 
   // load scripts as soons as user interacts with the page.
   useEffect(() => {
-    /* let gclidValues = JSON.stringify(localStorage.getItem("gclid"));
-    if (document.querySelector("input[name=GCLID]") && gclidValues) {
-      document.querySelector("input[name=GCLID]").value = gclidValues;
-    } */
-
     const userInteractionEvent = () => {
       setUserInteracted(true);
       window.removeEventListener("scroll", userInteractionEvent);

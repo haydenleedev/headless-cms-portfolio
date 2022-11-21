@@ -45,6 +45,7 @@ ResourceList.getCustomInitialProps = async function ({
     productDatasheets: { types: ["integrations"], content: [] },
     partnerContent: { types: ["partnercontent"], content: [] },
     videosWebinars: { types: ["webinars"], content: [] },
+    caseStudy: { types: ["casestudy"], content: [] },
   };
 
   async function getContentList(referenceName) {
@@ -77,6 +78,8 @@ ResourceList.getCustomInitialProps = async function ({
 
   let partnerContent = await getContentList("partnercontent");
 
+  let caseStudy = await getContentList("casestudy");
+
   let webinars = await getContentList("webinars");
 
   let guidesReportsContent = sortContentByDate([...guides, ...reports]);
@@ -84,6 +87,7 @@ ResourceList.getCustomInitialProps = async function ({
   let productDatasheetsContent = sortContentByDate([...integrations]);
   let videosWebinarsContent = sortContentByDate([...webinars]);
   let partnerContentContent = sortContentByDate([...partnerContent]);
+  let caseStudyContent = sortContentByDate([...caseStudy]);
 
   mappedResourceListCategory["guidesReports"].content =
     guidesReportsContent.slice(0, 3);
@@ -96,6 +100,10 @@ ResourceList.getCustomInitialProps = async function ({
     videosWebinarsContent.slice(0, 3);
   mappedResourceListCategory["partnerContent"].content =
     partnerContentContent.slice(0, 3);
+  mappedResourceListCategory["caseStudy"].content = caseStudyContent.slice(
+    0,
+    3
+  );
 
   // set same static images for entries in videosWebinars
   const staticWebinarCardImageUrls = [
