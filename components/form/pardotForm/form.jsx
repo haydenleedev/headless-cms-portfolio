@@ -27,7 +27,7 @@ const StandardForm = ({ customAction, btnColor, submit }) => {
         </Fragment>
       ))}
 
-      {(state.includeTimeStampInEmailAddress || state.stepEmailFieldValue) && (
+      {state.includeTimeStampInEmailAddress && (
         <input name="hiddenemail" className="display-none" />
       )}
       <HoneypotFields />

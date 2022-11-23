@@ -54,10 +54,12 @@ TextWithForm.getCustomInitialProps = async function ({
   });
   featuredAwards = featuredAwards.items[0].fields.awards;
 
-  const formConfiguration = await api.getContentList({
+  const formConfiguration = await api.getContentItem({
     referenceName: "formconfiguration",
     expandAllContentLinks: true,
     languageCode,
+    contentLinkDepth: 4,
+    contentID: 6018,
   });
 
   const sanitizeHtml = (await import("sanitize-html")).default;
@@ -69,7 +71,7 @@ TextWithForm.getCustomInitialProps = async function ({
   return {
     sanitizedHtml,
     featuredAwards,
-    formConfiguration,
+    formConfiguration: formConfiguration.fields,
   };
 };
 

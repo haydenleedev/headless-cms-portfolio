@@ -14,7 +14,6 @@ export const pardotFormActions = {
   setIncludeTimestampInEmailAddress: "set_include_timestamp_in_email_address",
   setSubmissionInProgress: "set_submission_in_progress",
   setSubmissionAllowed: "set_submission_allowed",
-  setFieldsMatchedToStep: "set_fields_matched_to_step",
   setStepEmailFieldValue: "set_step_email_field_value",
   setFinalStepSubmitted: "set_final_step_submitted",
   setClientJSEnabled: "set_client_js_enabled",
@@ -23,6 +22,10 @@ export const pardotFormActions = {
   setFieldData: "set_field_data",
   setAction: "set_action",
   setSubmitFlag: "set_submit_flag",
+  setStepFetchInProgress: "set_step_fetch_in_progress",
+  setCurrentStepIndex: "set_current_step_index",
+  setSubmittedStepFields: "set_submitted_step_fields",
+  completedSteps: "set_completed_steps",
 };
 
 const setState = (value, key, state) => {
@@ -57,8 +60,6 @@ export function pardotFormReducer(state, action) {
       return setState(action.value, "includeTimeStampInEmailAddress", state);
     case pardotFormActions.setSubmissionInProgress:
       return setState(action.value, "submissionInProgress", state);
-    case pardotFormActions.setFieldsMatchedToStep:
-      return setState(action.value, "fieldsMatchedToStep", state);
     case pardotFormActions.setStepEmailFieldValue:
       return setState(action.value, "stepEmailFieldValue", state);
     case pardotFormActions.setFinalStepSubmitted:
@@ -75,6 +76,16 @@ export function pardotFormReducer(state, action) {
       return setState(action.value, "action", state);
     case pardotFormActions.setSubmitFlag:
       return setState(action.value, "submitFlag", state);
+    case pardotFormActions.setStepFetchInProgress:
+      return setState(action.value, "stepFetchInProgress", state);
+    case pardotFormActions.setCurrentStepIndex:
+      return setState(action.value, "currentStepIndex", state);
+    case pardotFormActions.setSubmittedStepFields:
+      return setState(action.value, "submittedStepFields", state);
+    case pardotFormActions.setCompletedSteps:
+      return setState(action.value, "completedSteps", state);
+    case pardotFormActions.setStepFormCompleted:
+      return setState(action.value, "stepFormCompleted", state);
     default:
       return state;
   }

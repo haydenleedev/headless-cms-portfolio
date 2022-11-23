@@ -35,6 +35,7 @@ const TextWithFormContent = ({
       const visibleFields = form.querySelectorAll(
         `form > label:not(.display-none):not(${style.removehoney})`
       );
+
       for (let row = 0; row < visibleFields.length; row++) {
         const lastInputField =
           row === visibleFields.length - 1 &&
@@ -47,9 +48,9 @@ const TextWithFormContent = ({
 
         if (lastInputField) {
           const previousIsHalfWidthInput =
-            visibleFields[row].previousSibling.children[1].tagName ===
+            visibleFields[row]?.previousSibling?.children?.[1]?.tagName ===
               "INPUT" &&
-            visibleFields[row].previousSibling.children[1].style[
+            visibleFields[row]?.previousSibling?.children?.[1]?.style[
               "grid-column"
             ] === "unset";
           if (previousIsHalfWidthInput) {

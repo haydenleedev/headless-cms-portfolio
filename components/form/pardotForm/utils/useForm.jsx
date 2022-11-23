@@ -38,12 +38,16 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     includeTimeStampInEmailAddress: false,
     submissionInProgress: false,
     submissionAllowed: true,
-    fieldsMatchedToStep: false,
     stepEmailFieldValue: null,
     finalStepSubmitted: false,
     clientJSEnabled: false,
     pasteError: null,
     submitFlag: false,
+    stepFetchInProgress: false,
+    currentStepIndex: -1,
+    submittedStepFields: {},
+    completedSteps: {},
+    stepFormCompleted: false,
   };
 
   const isDealRegistrationForm =
@@ -52,6 +56,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
   const isContactForm = initialFormState.formType === "contactUs";
 
   const [state, dispatch] = useReducer(pardotFormReducer, initialFormState);
+  const [initialFieldData, setInitialFieldData] = useState(null); // needed for step form logic: used to compare active step fields to original field data
   const [validForm, setValidForm] = useState(false);
   const fieldRefs = useRef(null);
   const formRef = useIntersectionObserver(null, 0.2, () => {
@@ -88,6 +93,15 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       .fill(0)
       .map(() => createRef());
 
+    setInitialFieldData(fieldData);
+    dispatch({
+      type: pardotFormActions.setIncludeTimestampInEmailAddress,
+      value: [
+        "dealRegistration",
+        "channelRequest",
+        "partnerCertification",
+      ].includes(state.formType),
+    });
     dispatch({ type: pardotFormActions.setFieldData, value: fieldData });
     dispatch({
       type: pardotFormActions.setFormErrors,
@@ -115,7 +129,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
   }, [state.formErrors]);
 
   useEffect(() => {
-    if (state.stepEmailFieldValue && !state.finalStepSubmitted) {
+    if (state.currentStepIndex > 0) {
       formRef.current["hiddenemail"].value = state.stepEmailFieldValue;
       addGaData({
         gaDataAdded: state.gaDataAdded,
@@ -125,7 +139,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         formType: state.formType,
       });
     }
-  }, [state.stepEmailFieldValue, state.finalStepSubmitted]);
+  }, [state.currentStepIndex]);
 
   useEffect(() => {
     const phoneField = formRef.current["Phone Number"];
@@ -175,21 +189,29 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
 
   useEffect(() => {
     const submitHandler = async () => {
-      const noHoneyName = !formRef.current.honeyname.value;
-      const noHoneyEmail = !formRef.current.honeyemail.value;
+      const noHoneyName = !formRef.current?.honeyname?.value;
+      const noHoneyEmail = !formRef.current?.honeyemail?.value;
       const submissionCanProceed =
         !state.submissionInProgress &&
         state.submissionAllowed &&
         noHoneyEmail &&
         noHoneyName;
       if (state.submitFlag && validForm && submissionCanProceed) {
-        const formData = new FormData(formRef.current);
-        window.dataLayer?.push({
-          event: "pardotFormSubmit",
-        });
         dispatch({
           type: pardotFormActions.setSubmissionInProgress,
           value: true,
+        });
+        if (state.finalStepSubmitted) {
+          for (let key in state.completedSteps) {
+            const prefilled = document.createElement("input");
+            prefilled.setAttribute("name", key);
+            prefilled.setAttribute("value", state.completedSteps[key]);
+            formRef.current.appendChild(prefilled);
+          }
+        }
+        const formData = new FormData(formRef.current);
+        window.dataLayer?.push({
+          event: "pardotFormSubmit",
         });
 
         const validationResponse = await verifyFormSubmissionValidity({
@@ -233,6 +255,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
   }, [state.submitFlag, validForm]);
   // useEffect listeners >>>>>>>>//
 
+  // <<<<<<<<< handlers
   const handleDispatch = ({ type, value }) => {
     dispatch({ type, value });
   };
@@ -286,47 +309,153 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     });
   };
 
-  // Update fieldData to only contain the fields that are used in the current step and hidden fields
-  const setFieldsToMatchStep = (step, emailFieldValue) => {
-    const currentStepFields = [...config.items.fields.map((item) => item.name)];
-    let newFieldData = [...state.fieldData]
-      .map((field) => {
-        if (
-          currentStepFields.includes(field.name) &&
-          !isHiddenField(field, isDealRegistrationForm)
-        ) {
-          field.isRequired = true;
-        }
-      })
-      .filter(
-        (field) =>
-          currentStepFields.includes(field.name) ||
-          isHiddenField(field, isDealRegistrationForm)
-      );
-    newFieldData = reorderFieldData(newFieldData, state.formType);
-    fieldRefs.current = Array(state.fieldData.length)
-      .fill(0)
-      .map(() => createRef());
+  const handleSetStepEmailFieldValue = (email) => {
     dispatch({
-      type: pardotFormActions.setFormErrors,
-      value: Array(state.fieldData.length).fill(false),
+      type: pardotFormActions.setStepEmailFieldValue,
+      value: email,
     });
+  };
+
+  const handleSubmit = async (e, stepsDone) => {
+    e.preventDefault();
+    formValidation(Array(fieldRefs.current.length).fill(true));
+    if (stepsDone) {
+      dispatch({
+        type: pardotFormActions.setFinalStepSubmitted,
+        value: true,
+      });
+    }
     dispatch({
-      type: pardotFormActions.setTouchedFields,
-      value: Array(state.fieldData.length).fill(false),
-    });
-    dispatch({
-      type: pardotFormActions.setFieldsMatchedToStep,
+      type: pardotFormActions.setSubmitFlag,
       value: true,
     });
     dispatch({
-      type: pardotFormActions.setStepEmailFieldValue,
-      value: emailFieldValue,
+      type: pardotFormActions.setTouchedFields,
+      value: Array(fieldRefs.current.length).fill(true),
     });
-    dispatch({
+  };
+
+  // handlers >>>>>>>>>
+
+  // Update fieldData to only contain the fields that are used in the current step (and hidden fields)
+  const setFieldsToMatchStep = (step, submittedFields) => {
+    let newFieldData = [...initialFieldData];
+    if (step) {
+      initialFieldData.forEach((field) => {
+        const newFieldDataIndex = newFieldData.findIndex(
+          (newField) => field.name === newField.name
+        );
+        const stepFieldFound = step.find(
+          (stepField) => stepField.fields.name === field.name
+        );
+        if (!stepFieldFound && !isHiddenField(field, isDealRegistrationForm)) {
+          newFieldData.splice(newFieldDataIndex, 1);
+        }
+      });
+      newFieldData = reorderFieldData(newFieldData, state.formType);
+      dispatch({
+        type: pardotFormActions.setStepFetchInProgress,
+        value: false,
+      });
+      fieldRefs.current = Array(newFieldData.length)
+        .fill(0)
+        .map(() => createRef());
+      dispatch({
+        type: pardotFormActions.setFieldData,
+        value: newFieldData,
+      });
+      dispatch({
+        type: pardotFormActions.setFormErrors,
+        value: Array(newFieldData.length).fill(false),
+      });
+      dispatch({
+        type: pardotFormActions.setTouchedFields,
+        value: Array(newFieldData.length).fill(false),
+      });
+    }
+    /*     dispatch({
       type: pardotFormActions.setFinalStepSubmitted,
       value: !step,
+    }); */
+  };
+
+  const checkForSubmittedFields = (associatedStepFields, submittedFields) => {
+    let alreadySubmittedStepFields = [];
+    Object.keys(submittedFields).forEach((key) => {
+      if (associatedStepFields.find((field) => field.name === key))
+        alreadySubmittedStepFields.push(submittedFields[key]);
     });
+    return alreadySubmittedStepFields;
+  };
+
+  const updateCurrentStep = async ({ stepFields, email }) => {
+    let submittedFields;
+    formRef.current.firstChild.lastChild.focus({ preventScroll: true });
+    const currentStep =
+      state.currentStepIndex > -1
+        ? stepFields[state.currentStepIndex + 1].fields.formFields
+        : stepFields[0].fields.formFields;
+    // get all fields that are in the step form and compare them to the submitted fields
+    const associatedStepFields = stepFields
+      .map((step) => step.fields.formFields)
+      .flat(1);
+
+    dispatch({
+      type: pardotFormActions.setStepFetchInProgress,
+      value: true,
+    });
+    // if email step, fetch submitted field data for the entered email.
+    if (state.currentStepIndex === -1 && email) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/getSubmittedPardotFields`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email,
+          }),
+        }
+      );
+      const responseJSON = await response.json();
+      submittedFields = responseJSON ? responseJSON?.submittedFields : {};
+      dispatch({
+        type: pardotFormActions.setSubmittedStepFields,
+        value: responseJSON.submittedFields,
+      });
+    } else {
+      submittedFields = state.submittedStepFields;
+    }
+
+    dispatch({
+      type: pardotFormActions.setTouchedFields,
+      value: Array(fieldRefs.current.length).fill(true),
+    });
+    dispatch({
+      type: pardotFormActions.setCompletedSteps,
+      value: {
+        ...state.completedSteps,
+        ...Object.fromEntries(
+          Array.from(new FormData(formRef.current)).filter(
+            ([key, value]) => value && key !== "contact_type"
+          )
+        ),
+      },
+    });
+
+    /*     const prefilledFields = checkForSubmittedFields(
+      associatedStepFields,
+      submittedFields
+    );
+
+    for (const [key, value] of Object.entries(prefilledFields)) {
+      formRef.current.elements.namedItem(key).value = value;
+    } */
+
+    dispatch({
+      type: pardotFormActions.setCurrentStepIndex,
+      value: state.currentStepIndex + 1,
+    });
+    formRef.current.reset();
+    setFieldsToMatchStep(currentStep, submittedFields);
   };
 
   const formValidation = (newTouchedFields) => {
@@ -387,18 +516,6 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    formValidation(Array(fieldRefs.current.length).fill(true));
-    dispatch({
-      type: pardotFormActions.setSubmitFlag,
-      value: true,
-    });
-    dispatch({
-      type: pardotFormActions.setTouchedFields,
-      value: Array(fieldRefs.current.length).fill(true),
-    });
-  };
   return {
     state,
     formRef,
@@ -412,10 +529,11 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     handleSetStateFieldVisible,
     handleSetPartnerStateFieldVisible,
     handleGetPartnerFieldProperties,
+    handleSetStepEmailFieldValue,
     handleCountryChange,
     handlePartnerCountryChange,
-    setFieldsToMatchStep,
     phoneNumberFormatter,
+    updateCurrentStep,
     setPasteError,
     formValidation,
     pasteBlocker,

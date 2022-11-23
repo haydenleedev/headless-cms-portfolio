@@ -6,6 +6,7 @@ import {
   isAdditionalSelectField,
   isHiddenField,
   isSelectField,
+  stripQueryStringAndHashFromPath,
 } from "../utils/helpers";
 
 const FieldResolver = ({ field, index, fieldRef }) => {
@@ -30,7 +31,6 @@ const FieldResolver = ({ field, index, fieldRef }) => {
     clsField,
     utmCampaign,
     utmAsset,
-    pagePath,
     assetType,
   } = useContext(PardotFormContext);
 
@@ -60,7 +60,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
       case "asset type":
         return assetType;
       case "asset url":
-        return pagePath;
+        return stripQueryStringAndHashFromPath(window.location.href);
       case "utm_campaign":
         return utmCampaign;
       case "utm_asset":

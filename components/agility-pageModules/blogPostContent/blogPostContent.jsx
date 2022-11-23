@@ -280,16 +280,18 @@ BlogPostContent.getCustomInitialProps = async ({
       cleanHtml(dynamicPageItem.fields.ctaText)
     );
 
-    const formConfiguration = await api.getContentList({
+    const formConfiguration = await api.getContentItem({
       referenceName: "formconfiguration",
       expandAllContentLinks: true,
       languageCode,
+      contentLinkDepth: 4,
+      contentID: 6018,
     });
 
     return {
       relatedBlogPosts,
       sanitizedHtml,
-      formConfiguration,
+      formConfiguration: formConfiguration.fields,
       sanitizedCtaHtml,
     };
   } catch (error) {

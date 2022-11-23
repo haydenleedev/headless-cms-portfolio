@@ -420,12 +420,13 @@ ResourceContent.getCustomInitialProps = async function ({
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
 
-  const formConfiguration = await api.getContentList({
+  const formConfiguration = await api.getContentItem({
     referenceName: "formconfiguration",
     expandAllContentLinks: true,
     languageCode,
+    contentLinkDepth: 4,
+    contentID: 6018,
   });
-
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
   const accordionItemsWithSanitizedHTML = accordionItemsData?.items
     ? accordionItemsData.items.map((item) => {
@@ -440,7 +441,7 @@ ResourceContent.getCustomInitialProps = async function ({
   return {
     sanitizedHtml,
     accordionItemsWithSanitizedHTML,
-    formConfiguration,
+    formConfiguration: formConfiguration.fields,
   };
 };
 

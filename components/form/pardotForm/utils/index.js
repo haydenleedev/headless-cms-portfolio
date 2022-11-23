@@ -171,7 +171,6 @@ export const verifyFormSubmissionValidity = async ({ formRef, formData }) => {
       client,
       token,
     };
-    console.log(validationBody);
     let validationResponse = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/formValidation`,
       {
@@ -180,7 +179,6 @@ export const verifyFormSubmissionValidity = async ({ formRef, formData }) => {
       }
     );
     return await validationResponse.json();
-    return {};
   } catch (error) {
     console.error(error.message);
   }
