@@ -33,7 +33,12 @@ RichTextArea.getCustomInitialProps = async function ({ item }) {
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
   const cleanHtml = (html) => {
-    if (item.fields.bodyTextFontSize || item.fields.headingFontSize)
+    if (
+      item.fields.bodyTextFontSize ||
+      item.fields.headingFontSize ||
+      boolean(item.fields.roundedCornersforImages) ||
+      boolean(item.fields.centerImagesHorizontally)
+    )
       return sanitizeHtml(
         html,
         textSizeSanitizeConfig(
