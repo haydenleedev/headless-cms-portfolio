@@ -540,7 +540,7 @@ class PardotForm extends Component {
     return flag;
   }
 
-  setPasteError(boolean, index) {
+  handleSetPasteError(boolean, index) {
     const errors = { ...this.state.errors };
     errors[index] = boolean;
     if (boolean) {
@@ -684,7 +684,7 @@ class PardotForm extends Component {
                           field
                         )}
                         setPasteError={(boolean) =>
-                          this.setPasteError(boolean, index)
+                          this.handleSetPasteError(boolean, index)
                         }
                       />
                       {this.state.errors[index] && (

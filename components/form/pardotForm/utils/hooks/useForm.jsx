@@ -1,61 +1,43 @@
-import { createRef, useEffect, useReducer, useRef, useState } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
 import {
-  getPartnerFieldProperties,
   submit,
   validateField,
   validSubmitFormModifications,
   verifyFormSubmissionValidity,
-} from ".";
-import { useIntersectionObserver } from "../../../../utils/hooks";
-import { pardotFormActions, pardotFormReducer } from "../reducer";
+} from "../../utils";
+import { useIntersectionObserver } from "../../../../../utils/hooks";
+import { pardotFormActions } from "../../reducer";
 import {
   addGaData,
   formatPhoneNumber,
   getFallbackFieldData,
-  getFormType,
   isHiddenField,
   reorderFieldData,
-} from "./helpers";
+} from "../helpers";
+import { useFormState } from "./useFormState";
 
 export const useForm = ({ props, pardotFormData, formConfig }) => {
-  const { config, formHandlerID, customAction, partner, action } = props;
-  const initialFormState = {
-    action: customAction ? null : action,
-    fieldData: [],
-    formType: getFormType(formHandlerID),
-    formErrors: [],
-    touchedFields: [],
-    gaDataAdded: false,
-    formInViewEventPushed: false,
-    firstPartnerFieldIndex: null,
-    stateFieldVisible: false,
-    partnerStateFieldVisible: false,
-    selectedCountry: "",
-    selectedPartnerCountry: partner?.companyCountry || "",
-    usPhoneFormat: true,
-    partnerUsPhoneFormat:
-      partner?.companyCountry == "United States" || !partner?.companyCountry,
-    includeTimeStampInEmailAddress: false,
-    submissionInProgress: false,
-    submissionAllowed: true,
-    stepEmailFieldValue: null,
-    finalStepSubmitted: false,
-    clientJSEnabled: false,
-    pasteError: null,
-    submitFlag: false,
-    stepFetchInProgress: false,
-    currentStepIndex: -1,
-    submittedStepFields: {},
-    completedSteps: {},
-    stepFormCompleted: false,
-  };
+  const { formHandlerID, customAction, action } = props;
 
-  const isDealRegistrationForm =
-    initialFormState.formType === "dealRegistration";
-  const isChannelRequestForm = initialFormState.formType === "channelRequest";
-  const isContactForm = initialFormState.formType === "contactUs";
+  const {
+    state,
+    dispatch,
+    isContactForm,
+    isChannelRequestForm,
+    isDealRegistrationForm,
+    handleSetPartnerStateFieldVisible,
+    handleGetPartnerFieldProperties,
+    handleSetStepEmailFieldValue,
+    handlePartnerCountryChange,
+    handleSetStateFieldVisible,
+    handleSetTouchedFields,
+    handleSetGaDataAdded,
+    handleSetPasteError,
+    handleCountryChange,
+    handleDispatch,
+    pasteBlocker,
+  } = useFormState(props);
 
-  const [state, dispatch] = useReducer(pardotFormReducer, initialFormState);
   const [initialFieldData, setInitialFieldData] = useState(null); // needed for step form logic: used to compare active step fields to original field data
   const [validForm, setValidForm] = useState(false);
   const fieldRefs = useRef(null);
@@ -70,7 +52,9 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       });
     }
   });
+
   //<<<<<<<<<<<<< useEffect listeners
+  // initialize the form.
   useEffect(() => {
     let fieldData = pardotFormData.find(
       (entry) => entry.formHandlerID === parseInt(formHandlerID)
@@ -117,6 +101,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     });
   }, []);
 
+  // listen for changes to form errors list. Check if the form is valid.
   useEffect(() => {
     const isValidForm =
       state.touchedFields.length > 0 &&
@@ -128,8 +113,9 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     else setValidForm(false);
   }, [state.formErrors]);
 
+  // listen for changes to the current step form index.
   useEffect(() => {
-    if (state.currentStepIndex > 0) {
+    if (state.finalStepSubmitted) {
       formRef.current["hiddenemail"].value = state.stepEmailFieldValue;
       addGaData({
         gaDataAdded: state.gaDataAdded,
@@ -139,8 +125,9 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         formType: state.formType,
       });
     }
-  }, [state.currentStepIndex]);
+  }, [state.finalStepSubmitted]);
 
+  // listen to changes on the selected country. Change phone number format for US or Canada
   useEffect(() => {
     const phoneField = formRef.current["Phone Number"];
     if (phoneField) {
@@ -165,6 +152,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     }
   }, [state.selectedCountry]);
 
+  // listen to changes on the selected partner country. Change phone number format for US Canada
   useEffect(() => {
     const phoneField = formRef.current["Partner Phone Number"];
     if (phoneField) {
@@ -187,6 +175,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     }
   }, [state.selectedPartnerCountry]);
 
+  // check for form submission events. Submit only if the submitFlag is active and the form is valid.
   useEffect(() => {
     const submitHandler = async () => {
       const noHoneyName = !formRef.current?.honeyname?.value;
@@ -206,6 +195,11 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
             const prefilled = document.createElement("input");
             prefilled.setAttribute("name", key);
             prefilled.setAttribute("value", state.completedSteps[key]);
+            const fieldNameAlreadyExists = formRef.current.querySelector(
+              `input[name="${key}"]`
+            );
+            if (fieldNameAlreadyExists)
+              formRef.current.removeChild(fieldNameAlreadyExists.parentElement);
             formRef.current.appendChild(prefilled);
           }
         }
@@ -255,67 +249,6 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
   }, [state.submitFlag, validForm]);
   // useEffect listeners >>>>>>>>//
 
-  // <<<<<<<<< handlers
-  const handleDispatch = ({ type, value }) => {
-    dispatch({ type, value });
-  };
-
-  const handleSetTouchedFields = (index) => {
-    const touchedFields = state.touchedFields;
-    touchedFields[index] = true;
-    dispatch({
-      type: pardotFormActions.setTouchedFields,
-      value: touchedFields,
-    });
-  };
-
-  const handleSetGaDataAdded = (value) => {
-    dispatch({
-      type: pardotFormActions.setGADataAdded,
-      value,
-    });
-  };
-
-  const handleSetStateFieldVisible = (value) => {
-    dispatch({
-      type: pardotFormActions.setStateFieldVisible,
-      value,
-    });
-  };
-
-  const handleSetPartnerStateFieldVisible = (value) => {
-    dispatch({
-      type: pardotFormActions.setPartnerStateFieldVisible,
-      value,
-    });
-  };
-
-  const handleGetPartnerFieldProperties = (field) => {
-    if (partner) return getPartnerFieldProperties({ field, partner });
-    return "";
-  };
-
-  const handleCountryChange = (newCountryValue) => {
-    dispatch({
-      type: pardotFormActions.setSelectedCountry,
-      value: newCountryValue,
-    });
-  };
-
-  const handlePartnerCountryChange = (newPartnerCountryValue) => {
-    dispatch({
-      type: pardotFormActions.setSelectedPartnerCountry,
-      value: newPartnerCountryValue,
-    });
-  };
-
-  const handleSetStepEmailFieldValue = (email) => {
-    dispatch({
-      type: pardotFormActions.setStepEmailFieldValue,
-      value: email,
-    });
-  };
-
   const handleSubmit = async (e, stepsDone) => {
     e.preventDefault();
     formValidation(Array(fieldRefs.current.length).fill(true));
@@ -335,21 +268,16 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     });
   };
 
-  // handlers >>>>>>>>>
-
   // Update fieldData to only contain the fields that are used in the current step (and hidden fields)
   const setFieldsToMatchStep = (step, submittedFields) => {
     let newFieldData = [...initialFieldData];
     if (step) {
-      initialFieldData.forEach((field) => {
-        const newFieldDataIndex = newFieldData.findIndex(
-          (newField) => field.name === newField.name
-        );
+      initialFieldData.forEach((field, index) => {
         const stepFieldFound = step.find(
           (stepField) => stepField.fields.name === field.name
         );
         if (!stepFieldFound && !isHiddenField(field, isDealRegistrationForm)) {
-          newFieldData.splice(newFieldDataIndex, 1);
+          newFieldData.splice(index, 1);
         }
       });
       newFieldData = reorderFieldData(newFieldData, state.formType);
@@ -373,19 +301,32 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         value: Array(newFieldData.length).fill(false),
       });
     }
-    /*     dispatch({
-      type: pardotFormActions.setFinalStepSubmitted,
-      value: !step,
-    }); */
   };
 
-  const checkForSubmittedFields = (associatedStepFields, submittedFields) => {
-    let alreadySubmittedStepFields = [];
-    Object.keys(submittedFields).forEach((key) => {
-      if (associatedStepFields.find((field) => field.name === key))
-        alreadySubmittedStepFields.push(submittedFields[key]);
-    });
-    return alreadySubmittedStepFields;
+  const checkForSubmittedFields = async (steps, submittedFields) => {
+    const previouslySubmittedKeys = Object.keys(submittedFields);
+    if (previouslySubmittedKeys.length > 0) {
+      return steps.map((step) => {
+        return step.fields.formFields.map((field) => {
+          const submittedFound = previouslySubmittedKeys.find(
+            (key) => key === field.fields.name
+          );
+          if (submittedFound) {
+            return {
+              name: field.fields.name,
+              submitted: true,
+              value: submittedFields[submittedFound],
+            };
+          }
+          return {
+            name: field.fields.name,
+            submitted: false,
+            value: null,
+          };
+        });
+      });
+    }
+    return null;
   };
 
   const updateCurrentStep = async ({ stepFields, email }) => {
@@ -395,10 +336,6 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       state.currentStepIndex > -1
         ? stepFields[state.currentStepIndex + 1].fields.formFields
         : stepFields[0].fields.formFields;
-    // get all fields that are in the step form and compare them to the submitted fields
-    const associatedStepFields = stepFields
-      .map((step) => step.fields.formFields)
-      .flat(1);
 
     dispatch({
       type: pardotFormActions.setStepFetchInProgress,
@@ -416,11 +353,83 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         }
       );
       const responseJSON = await response.json();
-      submittedFields = responseJSON ? responseJSON?.submittedFields : {};
-      dispatch({
-        type: pardotFormActions.setSubmittedStepFields,
-        value: responseJSON.submittedFields,
-      });
+
+      const submittedFields = await checkForSubmittedFields(
+        stepFields,
+        responseJSON?.submittedFields
+      );
+
+      if (submittedFields) {
+        dispatch({
+          type: pardotFormActions.setSubmittedStepFields,
+          value: submittedFields,
+        });
+        const allStepsSubmitted = stepFields
+          .map((step, i) => {
+            return step.fields.formFields.map(
+              (field, j) =>
+                submittedFields[i][j].submitted &&
+                field.fields.name === submittedFields[i][j].name
+            );
+          })
+          .flat(1)
+          .every((value) => value);
+
+        if (allStepsSubmitted) {
+          let completed = submittedFields
+            .map((step) =>
+              step.map((field) => {
+                return { [field.name]: field.value };
+              })
+            )
+            .flat(1);
+          completed = completed.reduce(
+            (accumulator, currentValue) =>
+              Object.assign(accumulator, currentValue),
+            {}
+          );
+          let newFieldData = [...initialFieldData];
+          initialFieldData.forEach((field) => {
+            const shouldBeDeletedIndex = newFieldData.findIndex(
+              (compareField) =>
+                compareField.name === field.name &&
+                !isHiddenField(compareField, isDealRegistrationForm)
+            );
+            if (shouldBeDeletedIndex !== -1)
+              newFieldData.splice(shouldBeDeletedIndex, 1);
+          });
+          newFieldData = reorderFieldData(newFieldData, state.formType);
+          dispatch({
+            type: pardotFormActions.setStepFetchInProgress,
+            value: false,
+          });
+          fieldRefs.current = Array(newFieldData.length)
+            .fill(0)
+            .map(() => createRef());
+          dispatch({
+            type: pardotFormActions.setFieldData,
+            value: newFieldData,
+          });
+          dispatch({
+            type: pardotFormActions.setCurrentStepIndex,
+            value: state.currentStepIndex + 1,
+          });
+          dispatch({
+            type: pardotFormActions.setCompletedSteps,
+            value: completed,
+          });
+          setValidForm(true);
+          dispatch({
+            type: pardotFormActions.setFinalStepSubmitted,
+            value: true,
+          });
+          dispatch({
+            type: pardotFormActions.setSubmitFlag,
+            value: true,
+          });
+          return;
+        }
+      }
     } else {
       submittedFields = state.submittedStepFields;
     }
@@ -440,15 +449,6 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         ),
       },
     });
-
-    /*     const prefilledFields = checkForSubmittedFields(
-      associatedStepFields,
-      submittedFields
-    );
-
-    for (const [key, value] of Object.entries(prefilledFields)) {
-      formRef.current.elements.namedItem(key).value = value;
-    } */
 
     dispatch({
       type: pardotFormActions.setCurrentStepIndex,
@@ -481,38 +481,11 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     dispatch({ type: pardotFormActions.setFormErrors, value: formErrors });
   };
 
-  const setPasteError = (boolean, index) => {
-    const formErrors = [...state.formErrors];
-    formErrors[index] = boolean;
-    if (boolean) {
-      dispatch({
-        type: pardotFormActions.setPasteError,
-        value: { index, msg: "Can not paste" },
-      });
-      dispatch({ type: pardotFormActions.setFormErrors, value: formErrors });
-    } else {
-      dispatch({
-        type: pardotFormActions.setPasteError,
-        value: null,
-      });
-    }
-  };
-
   const phoneNumberFormatter = (index) => {
     const fieldRef = fieldRefs.current[index];
     const field = fieldRef.current;
     if (field.name.toLowerCase().includes("phone")) {
       fieldRef.current.value = formatPhoneNumber(fieldRef.current.value);
-    }
-  };
-
-  const pasteBlocker = (e, index) => {
-    if (isContactForm) {
-      e.preventDefault();
-      setPasteError(true, index);
-      return false;
-    } else {
-      return true;
     }
   };
 
@@ -534,7 +507,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     handlePartnerCountryChange,
     phoneNumberFormatter,
     updateCurrentStep,
-    setPasteError,
+    handleSetPasteError,
     formValidation,
     pasteBlocker,
     handleSubmit,

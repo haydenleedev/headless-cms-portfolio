@@ -63,8 +63,8 @@ const StepForm = ({ customAction, btnColor, submit, config }) => {
           autoComplete={isContactForm ? "off" : "on"}
           className={cn({
             [style.pardotForm]: true,
-            [style.isHidden]:
-              state.stepFetchInProgress || state.submissionInProgress,
+            /*             [style.isHidden]:
+              state.stepFetchInProgress || state.submissionInProgress, */
           })}
           style={{ display: state.clientJSEnabled ? "" : "none" }}
           ref={formRef}

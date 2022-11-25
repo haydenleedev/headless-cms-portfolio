@@ -1,5 +1,5 @@
 import PardotFormContext from ".";
-import { useForm } from "../utils/useForm";
+import { useForm } from "../utils/hooks/useForm";
 import pardotFormData from "../../../../data/pardotFormData.json";
 import formConfig from "../form.config";
 
@@ -25,7 +25,7 @@ const FormContextProvider = (props) => {
     updateCurrentStep,
     formValidation,
     pasteBlocker,
-    setPasteError,
+    handleSetPasteError,
     handleSubmit,
   } = useForm({ props, pardotFormData, formConfig });
 
@@ -38,7 +38,7 @@ const FormContextProvider = (props) => {
     isChannelRequestForm,
     isContactForm,
     pasteBlocker,
-    setPasteError,
+    handleSetPasteError,
     handleSetTouchedFields,
     handleSetGaDataAdded,
     handleSetStateFieldVisible,

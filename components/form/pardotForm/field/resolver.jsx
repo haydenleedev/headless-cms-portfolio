@@ -15,7 +15,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
     contactType,
     assetTitle,
     recordTypeId,
-    setPasteError,
+    handleSetPasteError,
     formValidation,
     handleCountryChange,
     handlePartnerCountryChange,
@@ -86,11 +86,11 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           onBlur={() => {
             handleSetTouchedFields(index);
             formValidation();
-            setPasteError(false, index);
+            handleSetPasteError(false, index);
           }}
           onPaste={(e) => pasteBlocker(e, index)}
           onKeyDown={(e) => {
-            if (e.code !== "Tab") setPasteError(false, index);
+            if (e.code !== "Tab") handleSetPasteError(false, index);
           }}
           onInput={() => {
             addGaData({
@@ -117,14 +117,14 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           onBlur={() => {
             handleSetTouchedFields(index);
             formValidation();
-            setPasteError(false, index);
+            handleSetPasteError(false, index);
           }}
           onPaste={(e) => pasteBlocker(e, index)}
           onKeyDown={() => {
             if (state.usPhoneFormat) {
               phoneNumberFormatter(index);
             } else formValidation();
-            setPasteError(false, index);
+            handleSetPasteError(false, index);
           }}
           ref={fieldRef}
         />
@@ -142,10 +142,10 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           onBlur={() => {
             handleSetTouchedFields(index);
             formValidation();
-            setPasteError(false, index);
+            handleSetPasteError(false, index);
           }}
           onKeyDown={(e) => {
-            if (e.code !== "Tab") setPasteError(false, index);
+            if (e.code !== "Tab") handleSetPasteError(false, index);
           }}
           ref={fieldRef}
         />
@@ -164,10 +164,10 @@ const FieldResolver = ({ field, index, fieldRef }) => {
               onBlur={() => {
                 handleSetTouchedFields(index);
                 formValidation();
-                setPasteError(false, index);
+                handleSetPasteError(false, index);
               }}
               onKeyDown={(e) => {
-                if (e.code !== "Tab") setPasteError(false, index);
+                if (e.code !== "Tab") handleSetPasteError(false, index);
               }}
               ref={fieldRef}
             ></textarea>
@@ -180,10 +180,10 @@ const FieldResolver = ({ field, index, fieldRef }) => {
               onBlur={() => {
                 handleSetTouchedFields(index);
                 formValidation();
-                setPasteError(false, index);
+                handleSetPasteError(false, index);
               }}
               onKeyDown={(e) => {
-                if (e.code !== "Tab") setPasteError(false, index);
+                if (e.code !== "Tab") handleSetPasteError(false, index);
               }}
               onPaste={(e) => pasteBlocker(e, index)}
               ref={fieldRef}
@@ -222,7 +222,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
                 }
                 handleSetTouchedFields(index);
                 formValidation();
-                setPasteError(false, index);
+                handleSetPasteError(false, index);
               }}
               onBlur={(e) => {
                 if (field.name.toLowerCase().match(/country/)) {
@@ -242,7 +242,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
                 }
                 handleSetTouchedFields(index);
                 formValidation();
-                setPasteError(false, index);
+                handleSetPasteError(false, index);
               }}
             >
               {field.options.map((option, index) => {
@@ -267,10 +267,10 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           onBlur={() => {
             handleSetTouchedFields(index);
             formValidation();
-            setPasteError(false, index);
+            handleSetPasteError(false, index);
           }}
           onKeyDown={(e) => {
-            if (e.code !== "Tab") setPasteError(false, index);
+            if (e.code !== "Tab") handleSetPasteError(false, index);
           }}
           onPaste={(e) => pasteBlocker(e, index)}
           ref={fieldRef}
