@@ -343,14 +343,14 @@ export const textSizeSanitizeConfig = (
           const newAttribs = { ...attribs };
           const className = newAttribs?.class;
           let classNamesToApply = " ";
+          if (roundedCornersForImages) classNamesToApply += " border-radius-1"
+          if (centerImagesHorizontally) classNamesToApply += " d-flex ml-auto mr-auto"
           if (newAttribs.class) delete newAttribs.class;
-          if (roundedCornersForImages) classNamesToApply += "border-radius-1"
-          if (centerImagesHorizontally) classNamesToApply +=" d-flex ml-auto mr-auto"
           return {
             tagName,
             attribs: {
               ...newAttribs,
-              class: className ? className + classNamesToApply : "",
+              class: className ? className + classNamesToApply : classNamesToApply,
             },
           };
         } else {
