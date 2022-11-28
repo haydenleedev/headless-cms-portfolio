@@ -47,34 +47,6 @@ const ResourceListContent = ({ fields }) => {
           </div>
         ))}
       </div>
-      {fields.resourceListCategory && (
-        <div className={style.link}>
-          <Link
-            href={`/archives?type=resources&categories=${mappedResourceListCategory[
-              fields.resourceListCategory
-            ].types.map((type, i) => {
-              if (
-                i <
-                mappedResourceListCategory[fields.resourceListCategory].types
-                  .length -
-                  1
-              )
-                return `${type},`;
-              return `${type}`;
-            })}`
-              .split(" ")
-              .join("")}
-          >
-            <a
-              className="button cyan outlined"
-              aria-label="Navigate to page resource archives page"
-              title="Navigate to page resource archives page"
-            >
-              Read More
-            </a>
-          </Link>
-        </div>
-      )}
     </nav>
   );
 };
