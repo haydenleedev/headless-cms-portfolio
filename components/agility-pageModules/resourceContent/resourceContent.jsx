@@ -81,7 +81,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   let setAssetType;
   let referenceNameValue = dynamicPageItem.properties.referenceName;
   const resourceTypesByNames = [
-    { referenceName: "casestudy", type: "Case Study" },
+    /* { referenceName: "casestudy", type: "Case Study" }, */
     { referenceName: "ebooks", type: "eBook" },
     { referenceName: "reports", type: "Report" },
     { referenceName: "guides", type: "Guide" },

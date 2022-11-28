@@ -58,8 +58,8 @@ export const resolveCategory = (referenceName) => {
       return fields.link;
     case "pressreleasearticle":
       return "Press Release";
-    case "casestudy":
-      return "Case Study";
+    /* case "casestudy":
+      return "Case Study"; */
     case "ebooks":
       return "e-Book";
     case "guides":
@@ -343,14 +343,17 @@ export const textSizeSanitizeConfig = (
           const newAttribs = { ...attribs };
           const className = newAttribs?.class;
           let classNamesToApply = " ";
-          if (roundedCornersForImages) classNamesToApply += " border-radius-1"
-          if (centerImagesHorizontally) classNamesToApply += " d-flex ml-auto mr-auto"
+          if (roundedCornersForImages) classNamesToApply += " border-radius-1";
+          if (centerImagesHorizontally)
+            classNamesToApply += " d-flex ml-auto mr-auto";
           if (newAttribs.class) delete newAttribs.class;
           return {
             tagName,
             attribs: {
               ...newAttribs,
-              class: className ? className + classNamesToApply : classNamesToApply,
+              class: className
+                ? className + classNamesToApply
+                : classNamesToApply,
             },
           };
         } else {
