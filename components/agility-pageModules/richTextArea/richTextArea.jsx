@@ -45,7 +45,9 @@ RichTextArea.getCustomInitialProps = async function ({ item }) {
           item.fields.bodyTextFontSize,
           item.fields.headingFontSize,
           boolean(item.fields.roundedCornersforImages),
-          boolean(item.fields.centerImagesHorizontally)
+          boolean(item.fields.centerImagesHorizontally),
+          item.fields.imageSpacingTop,
+          item.fields.imageSpacingBottom
         )
       );
     else return sanitizeHtml(html, sanitizeHtmlConfig);
