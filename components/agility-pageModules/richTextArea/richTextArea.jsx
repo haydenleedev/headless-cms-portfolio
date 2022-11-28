@@ -1,7 +1,8 @@
 import dynamic from "next/dynamic";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./richTextArea.module.scss";
-import { richTextSanitizeConfig } from "./richTextSanitizeConfig";
+import { textSizeSanitizeConfig } from "../../../utils/convert";
+import { boolean } from "../../../utils/validation";
 const RichTextAreaContent = dynamic(() => import("./richTextAreaContent"), {
   ssr: false,
 });
@@ -32,12 +33,19 @@ RichTextArea.getCustomInitialProps = async function ({ item }) {
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
   const cleanHtml = (html) => {
-    if (item.fields.bodyTextFontSize || item.fields.headingFontSize)
+    if (
+      item.fields.bodyTextFontSize ||
+      item.fields.headingFontSize ||
+      boolean(item.fields.roundedCornersforImages) ||
+      boolean(item.fields.centerImagesHorizontally)
+    )
       return sanitizeHtml(
         html,
-        richTextSanitizeConfig(
+        textSizeSanitizeConfig(
           item.fields.bodyTextFontSize,
-          item.fields.headingFontSize
+          item.fields.headingFontSize,
+          boolean(item.fields.roundedCornersforImages),
+          boolean(item.fields.centerImagesHorizontally)
         )
       );
     else return sanitizeHtml(html, sanitizeHtmlConfig);

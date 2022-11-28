@@ -85,6 +85,9 @@
     &.textContentBasis70 {
       flex-basis: 70%;
     }
+    .headerImage {
+      max-width: 16rem;
+    }
   }
   .text {
     margin-top: 1rem;
@@ -475,4 +478,8 @@
       padding: 0.25rem;
     }
   }
+}
+.hide {
+  position: absolute;
+  left: -2147483647px !important;
 }
