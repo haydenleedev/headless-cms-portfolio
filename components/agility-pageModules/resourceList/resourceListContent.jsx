@@ -7,10 +7,8 @@ const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
 const Heading = dynamic(() => import("../heading"), { ssr: false });
 import style from "./resourceList.module.scss";
 
-const ResourceListContent = ({ fields, mappedResourceListCategory }) => {
+const ResourceListContent = ({ fields }) => {
   const heading = JSON.parse(fields.heading);
-  const resources =
-    mappedResourceListCategory[fields.resourceListCategory]?.content;
   const placeholderImages = [];
   if (fields.overrideImages && fields.overrideImages.media) {
     fields.overrideImages?.media?.forEach((image) => {
@@ -29,44 +27,25 @@ const ResourceListContent = ({ fields, mappedResourceListCategory }) => {
         </div>
       )}
       <div className={style.resources}>
-        {fields.highlightedResources
-          ? fields.highlightedResources.map((resource, index) => (
-              <div className={style.resource} key={resource.contentID}>
-                <GenericCard
-                  link={resolveLink(
-                    resource.properties.referenceName,
-                    resource.fields
-                  )}
-                  category={resource.properties.referenceName}
-                  overrideCategory={resource.fields.cardCategoryTitle}
-                  title={resource.fields.title}
-                  ariaTitle={resource.fields.title}
-                  image={
-                    placeholderImages?.length > index
-                      ? placeholderImages[index]
-                      : resource.fields.image
-                  }
-                />
-              </div>
-            ))
-          : resources?.map((resource, index) => (
-              <div className={style.resource} key={resource.contentID}>
-                <GenericCard
-                  link={resolveLink(
-                    resource.properties.referenceName,
-                    resource.fields
-                  )}
-                  category={resource.properties.referenceName}
-                  overrideCategory={resource.fields.cardCategoryTitle}
-                  title={resource.fields.title}
-                  image={
-                    placeholderImages?.length >= index
-                      ? placeholderImages[index]
-                      : resource.fields.image
-                  }
-                />
-              </div>
-            ))}
+        {fields.highlightedResources.map((resource, index) => (
+          <div className={style.resource} key={resource.contentID}>
+            <GenericCard
+              link={resolveLink(
+                resource.properties.referenceName,
+                resource.fields
+              )}
+              category={resource.properties.referenceName}
+              overrideCategory={resource.fields.cardCategoryTitle}
+              title={resource.fields.title}
+              ariaTitle={resource.fields.title}
+              image={
+                placeholderImages?.length > index
+                  ? placeholderImages[index]
+                  : resource.fields.image
+              }
+            />
+          </div>
+        ))}
       </div>
       {fields.resourceListCategory && (
         <div className={style.link}>
