@@ -58,8 +58,8 @@ export const resolveCategory = (referenceName) => {
       return fields.link;
     case "pressreleasearticle":
       return "Press Release";
-    /* case "casestudy":
-      return "Case Study"; */
+    case "casestudy":
+      return "Case Study";
     case "ebooks":
       return "e-Book";
     case "guides":
