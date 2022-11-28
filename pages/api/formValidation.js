@@ -93,7 +93,7 @@ export default async function handler(req, res) {
         {
           isPreviouslySubmitted: Match(
             Index("form_submissions_by_email"),
-            parsedBody.client["Email"]
+            parsedBody.client["Email"] || parsedBody.client["hiddenemail"]
           ),
         },
         If(

@@ -31,7 +31,7 @@ const StepForm = ({ customAction, btnColor, submit, config }) => {
       if (!state.formErrors.includes(true))
         // it's assumed that the step form email is already in the form state
         updateCurrentStep({
-          stepFields: config.steps,
+          steps: config.steps,
         });
     }
   };
@@ -46,7 +46,7 @@ const StepForm = ({ customAction, btnColor, submit, config }) => {
         }}
         autoComplete={isContactForm ? "off" : "on"}
       >
-        <EmailStep stepFields={config.steps} />
+        <EmailStep steps={config.steps} />
         <HoneypotFields />
       </form>
     );

@@ -482,3 +482,9 @@ export function isAdditionalSelectField(field) {
   }
   return false;
 }
+
+// WIP
+export const getNextStepIndex = (currentStepIndex, steps, submittedSteps) => {
+  let nextIndex = state.currentStepIndex > -1 ? currentStepIndex + 1 : 0;
+  let nextStepSubmittedFields = submittedSteps[nextIndex];
+};

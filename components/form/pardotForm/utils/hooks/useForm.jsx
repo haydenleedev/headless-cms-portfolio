@@ -11,6 +11,7 @@ import {
   addGaData,
   formatPhoneNumber,
   getFallbackFieldData,
+  getNextStepIndex,
   isHiddenField,
   reorderFieldData,
 } from "../helpers";
@@ -269,18 +270,32 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
   };
 
   // Update fieldData to only contain the fields that are used in the current step (and hidden fields)
-  const setFieldsToMatchStep = (step, submittedFields) => {
+  const setFieldsToMatchStep = (step, currentStepSubmittedFields) => {
     let newFieldData = [...initialFieldData];
     if (step) {
-      initialFieldData.forEach((field, index) => {
+      initialFieldData.forEach((field) => {
+        const newFieldDataIndex = newFieldData.findIndex(
+          (newField) => field.name === newField.name
+        );
         const stepFieldFound = step.find(
           (stepField) => stepField.fields.name === field.name
         );
-        if (!stepFieldFound && !isHiddenField(field, isDealRegistrationForm)) {
-          newFieldData.splice(index, 1);
+        const completedFound = currentStepSubmittedFields
+          ? currentStepSubmittedFields.find(
+              (stepField) =>
+                stepField.name === field.name && stepField.submitted
+            )
+          : false;
+        console.log(step, currentStepSubmittedFields);
+        if (
+          (completedFound || !stepFieldFound) &&
+          !isHiddenField(field, isDealRegistrationForm)
+        ) {
+          newFieldData.splice(newFieldDataIndex, 1);
         }
       });
       newFieldData = reorderFieldData(newFieldData, state.formType);
+      console.log(newFieldData);
       dispatch({
         type: pardotFormActions.setStepFetchInProgress,
         value: false,
@@ -303,8 +318,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     }
   };
 
-  const checkForSubmittedFields = async (steps, submittedFields) => {
-    const previouslySubmittedKeys = Object.keys(submittedFields);
+  const checkForSubmittedFields = async (steps, submittedFieldsFromDb) => {
+    const previouslySubmittedKeys = Object.keys(submittedFieldsFromDb);
     if (previouslySubmittedKeys.length > 0) {
       return steps.map((step) => {
         return step.fields.formFields.map((field) => {
@@ -315,7 +330,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
             return {
               name: field.fields.name,
               submitted: true,
-              value: submittedFields[submittedFound],
+              value: submittedFieldsFromDb[submittedFound],
             };
           }
           return {
@@ -329,13 +344,14 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     return null;
   };
 
-  const updateCurrentStep = async ({ stepFields, email }) => {
-    let submittedFields;
+  const updateCurrentStep = async ({ steps, email }) => {
+    let submittedStepFields;
+    let completed;
     formRef.current.firstChild.lastChild.focus({ preventScroll: true });
-    const currentStep =
+    let currentStep =
       state.currentStepIndex > -1
-        ? stepFields[state.currentStepIndex + 1].fields.formFields
-        : stepFields[0].fields.formFields;
+        ? steps[state.currentStepIndex + 1].fields.formFields
+        : steps[0].fields.formFields;
 
     dispatch({
       type: pardotFormActions.setStepFetchInProgress,
@@ -354,29 +370,31 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       );
       const responseJSON = await response.json();
 
-      const submittedFields = await checkForSubmittedFields(
-        stepFields,
+      submittedStepFields = await checkForSubmittedFields(
+        steps,
         responseJSON?.submittedFields
       );
 
-      if (submittedFields) {
+      console.log(submittedStepFields);
+
+      if (submittedStepFields) {
         dispatch({
           type: pardotFormActions.setSubmittedStepFields,
-          value: submittedFields,
+          value: submittedStepFields,
         });
-        const allStepsSubmitted = stepFields
+        const allStepsSubmitted = steps
           .map((step, i) => {
             return step.fields.formFields.map(
               (field, j) =>
-                submittedFields[i][j].submitted &&
-                field.fields.name === submittedFields[i][j].name
+                submittedStepFields[i][j].submitted &&
+                field.fields.name === submittedStepFields[i][j].name
             );
           })
           .flat(1)
           .every((value) => value);
 
         if (allStepsSubmitted) {
-          let completed = submittedFields
+          completed = submittedStepFields
             .map((step) =>
               step.map((field) => {
                 return { [field.name]: field.value };
@@ -431,7 +449,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         }
       }
     } else {
-      submittedFields = state.submittedStepFields;
+      submittedStepFields = state.submittedStepFields;
+      completed = state.completedSteps;
     }
 
     dispatch({
@@ -450,12 +469,19 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       },
     });
 
+    // get the index of the next step that has fields to fill. Skip steps that are already fully submitted
+    // TODO: WIP
+    const nextStepIndex = getNextStepIndex(
+      state.currentStepIndex,
+      submittedStepFields
+    );
+
     dispatch({
       type: pardotFormActions.setCurrentStepIndex,
       value: state.currentStepIndex + 1,
     });
     formRef.current.reset();
-    setFieldsToMatchStep(currentStep, submittedFields);
+    setFieldsToMatchStep(currentStep, currentStepSubmittedFields);
   };
 
   const formValidation = (newTouchedFields) => {

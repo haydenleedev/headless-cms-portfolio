@@ -30,7 +30,7 @@ export const useFormState = (props) => {
     pasteError: null,
     submitFlag: false,
     stepFetchInProgress: false,
-    currentStepIndex: -1,
+    currentStepIndex: -1, // initially -1 because the first step where email is submitted is not considered as a step
     submittedStepFields: {},
     completedSteps: {},
     stepFormCompleted: false,
