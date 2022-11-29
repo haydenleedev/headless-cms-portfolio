@@ -42,7 +42,8 @@ LatestCustomerStories.getCustomInitialProps = async function ({
   const customerStoryPageIDs = Object.entries(sitemap)
     .filter(
       ([key, value]) =>
-        key.includes("/customerstories") && key !== "/customerstories"
+        key.includes("/CopyOfcustomerstories") &&
+        key !== "/CopyOfcustomerstories"
     )
     .map(([key, value]) => value.pageID);
 
