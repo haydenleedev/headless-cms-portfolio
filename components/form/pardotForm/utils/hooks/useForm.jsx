@@ -369,7 +369,6 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         steps,
         responseJSON?.submittedFields
       );
-      console.log(submittedStepFields);
 
       if (submittedStepFields) {
         dispatch({
@@ -386,8 +385,6 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
           })
           .flat(1)
           .every((value) => value);
-
-        console.log(allStepsSubmitted);
 
         if (allStepsSubmitted) {
           completed = submittedStepFields
@@ -470,16 +467,28 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       state.currentStepIndex,
       submittedStepFields
     );
-    const currentStep = steps[nextStepIndex].fields.formFields;
-    const currentStepSubmittedFields = submittedStepFields
-      ? submittedStepFields[nextStepIndex]
-      : null;
-    dispatch({
-      type: pardotFormActions.setCurrentStepIndex,
-      value: nextStepIndex,
-    });
-    formRef.current.reset();
-    setFieldsToMatchStep(currentStep, currentStepSubmittedFields);
+    if (typeof nextStepIndex === "number") {
+      const currentStep = steps[nextStepIndex].fields.formFields;
+      const currentStepSubmittedFields = submittedStepFields
+        ? submittedStepFields[nextStepIndex]
+        : null;
+      dispatch({
+        type: pardotFormActions.setCurrentStepIndex,
+        value: nextStepIndex,
+      });
+      formRef.current.reset();
+      setFieldsToMatchStep(currentStep, currentStepSubmittedFields);
+    } else {
+      setValidForm(true);
+      dispatch({
+        type: pardotFormActions.setFinalStepSubmitted,
+        value: true,
+      });
+      dispatch({
+        type: pardotFormActions.setSubmitFlag,
+        value: true,
+      });
+    }
   };
 
   const formValidation = (newTouchedFields) => {
