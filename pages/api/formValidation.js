@@ -85,9 +85,11 @@ export default async function handler(req, res) {
 
     let clientData = parsedBody.client;
 
-    Object.keys(parsedBody.client).map((key) => {
-      if (key === "") delete clientData[key];
-    });
+    if (clientData.hiddenemail && !clientData["Email"])
+      clientData["Email"] = clientData.hiddenemail;
+
+    delete clientData[""];
+
     await client.query(
       Let(
         {

@@ -483,8 +483,17 @@ export function isAdditionalSelectField(field) {
   return false;
 }
 
-// WIP
-export const getNextStepIndex = (currentStepIndex, steps, submittedSteps) => {
-  let nextIndex = state.currentStepIndex > -1 ? currentStepIndex + 1 : 0;
-  let nextStepSubmittedFields = submittedSteps[nextIndex];
+export const getNextStepIndex = (currentStepIndex, submittedSteps) => {
+  let nextIndex = currentStepIndex > -1 ? currentStepIndex + 1 : 0;
+  let stepsSkipped = 0;
+  if (submittedSteps) {
+    for (let i = nextIndex; i < submittedSteps.length; i++) {
+      const submittedFields = submittedSteps[i];
+      const allStepFieldsSubmitted = submittedFields
+        .map((field) => field.submitted)
+        .every((value) => value);
+      if (allStepFieldsSubmitted) stepsSkipped++;
+    }
+  }
+  return nextIndex + stepsSkipped;
 };

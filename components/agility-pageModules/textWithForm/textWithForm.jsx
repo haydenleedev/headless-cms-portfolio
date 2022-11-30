@@ -40,9 +40,6 @@ TextWithForm.getCustomInitialProps = async function ({
 }) {
   const api = agility;
 
-  // console.log("<<<<<<<< Pardot form data: ", JSON.stringify(pardotFormData));
-  // TODO: parse pardot form HTML if it's possible. Might not be in case it's returned only inside the embed iFrame...
-
   let featuredAwards = await api.getContentList({
     referenceName: "featuredawards",
     languageCode,

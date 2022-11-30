@@ -158,14 +158,18 @@ export const verifyFormSubmissionValidity = async ({ formRef, formData }) => {
     const clientCountry = getCookie("client_country");
     const client = {
       ip: ip && ip !== "undefined" ? ip : "Unknown",
-      country:
+      clientCountry:
         clientCountry && clientCountry !== "undefined"
           ? clientCountry
           : "Unknown",
     };
-    [...formRef.current.getElementsByTagName("input")].forEach((input) => {
+    [
+      ...formRef.current.getElementsByTagName("input"),
+      ...formRef.current.getElementsByTagName("select"),
+    ].forEach((input) => {
       client[input.name] = input.value;
     });
+    console.log(client);
     const validationBody = {
       check: { ip, domain },
       client,
