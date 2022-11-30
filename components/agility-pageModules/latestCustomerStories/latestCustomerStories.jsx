@@ -7,7 +7,7 @@ const LatestCustomerStoriesContent = dynamic(
 
 const LatestCustomerStories = ({ module, customData }) => {
   const { fields } = module;
-  const { customerStories } = customData;
+  const { customerStories, rootPageName } = customData;
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
@@ -25,6 +25,7 @@ const LatestCustomerStories = ({ module, customData }) => {
       <LatestCustomerStoriesContent
         fields={fields}
         customerStories={customerStories}
+        rootPageName={rootPageName}
       />
     </section>
   );
@@ -33,6 +34,7 @@ const LatestCustomerStories = ({ module, customData }) => {
 LatestCustomerStories.getCustomInitialProps = async function ({
   agility,
   languageCode,
+  page,
 }) {
   const api = agility;
   const sitemap = await api.getSitemapFlat({
@@ -41,9 +43,7 @@ LatestCustomerStories.getCustomInitialProps = async function ({
   });
   const customerStoryPageIDs = Object.entries(sitemap)
     .filter(
-      ([key, value]) =>
-        key.includes("/CopyOfcustomerstories") &&
-        key !== "/CopyOfcustomerstories"
+      ([key, value]) => key.includes(`/${page.name}`) && key !== `/${page.name}`
     )
     .map(([key, value]) => value.pageID);
 
@@ -62,14 +62,17 @@ LatestCustomerStories.getCustomInitialProps = async function ({
           (item) => item.module === "CaseStudyData"
         ) !== -1
     )
-    .map(
-      (page) =>
-        page.zones.MainContentZone.find(
+    .map((page) => {
+      return {
+        name: page.name,
+        ...page.zones.MainContentZone.find(
           (item) => item.module === "CaseStudyData"
-        ).item
-    );
+        ).item,
+      };
+    });
   return {
     customerStories,
+    rootPageName: page.name,
   };
 };
 
