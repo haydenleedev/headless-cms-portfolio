@@ -7,7 +7,7 @@ const LatestCustomerStoriesContent = dynamic(
 
 const LatestCustomerStories = ({ module, customData }) => {
   const { fields } = module;
-  const { customerStories, rootPageName } = customData;
+  const { customerStories, rootPath } = customData;
   // Margins & Paddings
   const mtValue = fields.marginTop ? fields.marginTop : "";
   const mbValue = fields.marginBottom ? fields.marginBottom : "";
@@ -25,7 +25,7 @@ const LatestCustomerStories = ({ module, customData }) => {
       <LatestCustomerStoriesContent
         fields={fields}
         customerStories={customerStories}
-        rootPageName={rootPageName}
+        rootPath={rootPath}
       />
     </section>
   );
@@ -34,7 +34,7 @@ const LatestCustomerStories = ({ module, customData }) => {
 LatestCustomerStories.getCustomInitialProps = async function ({
   agility,
   languageCode,
-  page,
+  sitemapNode,
 }) {
   const api = agility;
   const sitemap = await api.getSitemapFlat({
@@ -43,7 +43,8 @@ LatestCustomerStories.getCustomInitialProps = async function ({
   });
   const customerStoryPageIDs = Object.entries(sitemap)
     .filter(
-      ([key, value]) => key.includes(`/${page.name}`) && key !== `/${page.name}`
+      ([key, value]) =>
+        key.includes(sitemapNode.path) && key !== sitemapNode.path
     )
     .map(([key, value]) => value.pageID);
 
@@ -72,7 +73,7 @@ LatestCustomerStories.getCustomInitialProps = async function ({
     });
   return {
     customerStories,
-    rootPageName: page.name,
+    rootPath: sitemapNode.path,
   };
 };
 

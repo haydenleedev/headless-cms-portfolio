@@ -9,7 +9,7 @@ const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
 const LatestCustomerStoriesContent = ({
   fields,
   customerStories,
-  rootPageName,
+  rootPath,
 }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const [amountOfPostsToShow, setAmountOfPostsToShow] = useState(3);
@@ -29,7 +29,7 @@ const LatestCustomerStoriesContent = ({
             i + 1 <= amountOfPostsToShow && (
               <Fragment key={story.contentID}>
                 <GenericCard
-                  link={{ href: `/${rootPageName}/${story.name}` }}
+                  link={{ href: `${rootPath}/${story.name}` }}
                   image={story.fields.image}
                   title={story.fields.title}
                   ariaTitle={`${story.fields.title} customer story`}
