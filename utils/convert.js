@@ -187,7 +187,9 @@ export const textSizeSanitizeConfig = (
   bodyTextFontSize,
   headingFontSize,
   roundedCornersForImages,
-  centerImagesHorizontally
+  centerImagesHorizontally,
+  imageSpacingTop,
+  imageSpacingBottom
 ) => {
   return {
     allowedTags: false,
@@ -339,13 +341,20 @@ export const textSizeSanitizeConfig = (
         else return { tagName: "h6", attribs };
       },
       img: function (tagName, attribs) {
-        if (roundedCornersForImages || centerImagesHorizontally) {
+        if (
+          roundedCornersForImages ||
+          centerImagesHorizontally ||
+          imageSpacingTop ||
+          imageSpacingBottom
+        ) {
           const newAttribs = { ...attribs };
           const className = newAttribs?.class;
           let classNamesToApply = " ";
           if (roundedCornersForImages) classNamesToApply += " border-radius-1";
           if (centerImagesHorizontally)
             classNamesToApply += " d-flex ml-auto mr-auto";
+          if (imageSpacingBottom) classNamesToApply += ` ${imageSpacingBottom}`;
+          if (imageSpacingTop) classNamesToApply += ` ${imageSpacingTop}`;
           if (newAttribs.class) delete newAttribs.class;
           return {
             tagName,

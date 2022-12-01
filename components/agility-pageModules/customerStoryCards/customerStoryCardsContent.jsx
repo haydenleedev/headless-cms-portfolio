@@ -5,7 +5,7 @@ const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
 });
 import style from "./customerStoryCards.module.scss";
 
-const CustomerStoryCardsContent = ({ fields, customerStories }) => {
+const CustomerStoryCardsContent = ({ fields, customerStories, rootPath }) => {
   return (
     <div className={`container ${style.content}`}>
       <div className={`${style.heading} align-center mb-4`}>
@@ -19,7 +19,7 @@ const CustomerStoryCardsContent = ({ fields, customerStories }) => {
           return (
             <Fragment key={story.contentID}>
               <GenericCard
-                link={story.fields.link}
+                link={{ href: `${rootPath}/${story.name}` }}
                 image={story.fields.image}
                 title={story.fields.title}
                 ariaTitle={`${story.fields.title} customer story`}
