@@ -40,6 +40,15 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   }
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
 
+  const stepCompletion = resource.stepLink
+    ? {
+        link: resource.stepLink,
+        title: resource?.stepTitle,
+        content: resource?.stepContent,
+        image: resource?.stepImage,
+      }
+    : null;
+
   // Predefine defalut Pardot form handler ID
   const getPardotDefaultFormID = (resourceCategory) => {
     const lowerCaseResourceCategory = String(resourceCategory).toLowerCase();
@@ -278,6 +287,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             : null
                         }
                         clsField={resource.currentLeadSource2}
+                        stepCompletion={stepCompletion}
                       />
                     </div>
                   </div>
