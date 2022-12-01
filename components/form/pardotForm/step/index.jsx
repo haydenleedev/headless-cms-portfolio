@@ -8,6 +8,7 @@ import { Fragment, useContext } from "react";
 import Loader from "../../../layout/loader/loader";
 import { cn } from "../../../../utils/generic";
 import ResourceDownloadContent from "../../../agility-pageModules/resourceDownload/resourceDownloadContent";
+import { getNextStepIndex } from "../utils/helpers";
 
 const StepForm = ({
   customAction,
@@ -100,7 +101,11 @@ const StepForm = ({
               value={
                 state.submissionInProgress
                   ? "Please wait..."
-                  : state.currentStepIndex === config.steps.length - 1
+                  : state.currentStepIndex === config.steps.length - 1 ||
+                    getNextStepIndex(
+                      state.currentStepIndex,
+                      state.submittedStepFields
+                    )
                   ? submit
                   : "Next"
               }
