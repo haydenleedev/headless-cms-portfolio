@@ -26,6 +26,8 @@ export const pardotFormActions = {
   setCurrentStepIndex: "set_current_step_index",
   setSubmittedStepFields: "set_submitted_step_fields",
   completedSteps: "set_completed_steps",
+  setPrefilledCompletionView: "set_step_form_completed",
+  setPrefilledStepFormCompleted: "set_prefilled_step_form_completed",
 };
 
 const setState = (value, key, state) => {
@@ -84,8 +86,10 @@ export function pardotFormReducer(state, action) {
       return setState(action.value, "submittedStepFields", state);
     case pardotFormActions.setCompletedSteps:
       return setState(action.value, "completedSteps", state);
-    case pardotFormActions.setStepFormCompleted:
-      return setState(action.value, "stepFormCompleted", state);
+    case pardotFormActions.setPrefilledCompletionView:
+      return setState(action.value, "prefilledCompletionView", state);
+    case pardotFormActions.setPrefilledStepFormCompleted:
+      return setState(action.value, "prefilledStepFormCompleted", state);
     default:
       return state;
   }

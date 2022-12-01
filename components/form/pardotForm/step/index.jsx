@@ -7,8 +7,15 @@ import EmailStep from "./emailStep";
 import { Fragment, useContext } from "react";
 import Loader from "../../../layout/loader/loader";
 import { cn } from "../../../../utils/generic";
+import ResourceDownloadContent from "../../../agility-pageModules/resourceDownload/resourceDownloadContent";
 
-const StepForm = ({ customAction, btnColor, submit, config }) => {
+const StepForm = ({
+  customAction,
+  btnColor,
+  submit,
+  config,
+  stepCompletion,
+}) => {
   const {
     state,
     fieldRefs,
@@ -17,10 +24,12 @@ const StepForm = ({ customAction, btnColor, submit, config }) => {
     isContactForm,
     updateCurrentStep,
   } = useContext(PardotFormContext);
-  const isFirstStep = !state.stepEmailFieldValue && !state.stepFormCompleted;
+  const isFirstStep =
+    !state.stepEmailFieldValue && !state.prefilledCompletionView;
   const isStep =
-    state.currentStepIndex < config.steps.length && !state.stepFormCompleted;
-  const stepsCompleted = state.stepFormCompleted;
+    state.currentStepIndex < config.steps.length &&
+    !state.prefilledCompletionView;
+  const stepsCompleted = state.prefilledCompletionView;
 
   const handleStepFormSubmit = (e) => {
     e.preventDefault();
@@ -107,9 +116,9 @@ const StepForm = ({ customAction, btnColor, submit, config }) => {
         </form>
       </>
     );
-  } /* else if (stepsCompleted) {
-    return <p>Thank you for contacting us.</p>;
-  } */
+  } else if (stepsCompleted) {
+    return <ResourceDownloadContent resourceDownload={{ ...stepCompletion }} />;
+  }
 };
 
 export default StepForm;

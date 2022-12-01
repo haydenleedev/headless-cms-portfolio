@@ -18,7 +18,7 @@ import {
 import { useFormState } from "./useFormState";
 
 export const useForm = ({ props, pardotFormData, formConfig }) => {
-  const { formHandlerID, customAction, action } = props;
+  const { formHandlerID, customAction, action, stepCompletion } = props;
 
   const {
     state,
@@ -26,6 +26,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     isContactForm,
     isChannelRequestForm,
     isDealRegistrationForm,
+    handlePrefilledStepFormCompletion,
     handleSetPartnerStateFieldVisible,
     handleGetPartnerFieldProperties,
     handleSetStepEmailFieldValue,
@@ -235,7 +236,16 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         window.dataLayer?.push({
           event: "pardotFormSuccess",
         });
-        submit({ customAction, formData, formRef, action });
+        submit({
+          customAction,
+          formData,
+          formRef,
+          action,
+          prefilledStepFormAction:
+            stepCompletion && state.prefilledStepFormCompleted
+              ? handlePrefilledStepFormCompletion
+              : "",
+        });
       }
     };
     try {
@@ -248,6 +258,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       });
     }
   }, [state.submitFlag, validForm]);
+
+  useEffect(() => {});
   // useEffect listeners >>>>>>>>//
 
   const handleSubmit = async (e, stepsDone) => {
@@ -432,6 +444,10 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
           setValidForm(true);
           dispatch({
             type: pardotFormActions.setFinalStepSubmitted,
+            value: true,
+          });
+          dispatch({
+            type: pardotFormActions.setPrefilledStepFormCompleted,
             value: true,
           });
           dispatch({

@@ -33,7 +33,8 @@ export const useFormState = (props) => {
     currentStepIndex: -1, // initially -1 because the first step where email is submitted is not considered as a step
     submittedStepFields: {},
     completedSteps: {},
-    stepFormCompleted: false,
+    prefilledCompletionView: false,
+    prefilledStepFormCompleted: false,
   };
   const isDealRegistrationForm =
     initialFormState.formType === "dealRegistration";
@@ -103,6 +104,13 @@ export const useFormState = (props) => {
     });
   };
 
+  const handlePrefilledStepFormCompletion = () => {
+    dispatch({
+      type: pardotFormActions.setPrefilledCompletionView,
+      value: true,
+    });
+  };
+
   const handleSetPasteError = (boolean, index) => {
     const formErrors = [...state.formErrors];
     formErrors[index] = boolean;
@@ -136,6 +144,7 @@ export const useFormState = (props) => {
     isContactForm,
     isChannelRequestForm,
     isDealRegistrationForm,
+    handlePrefilledStepFormCompletion,
     handleSetPartnerStateFieldVisible,
     handleGetPartnerFieldProperties,
     handleSetStepEmailFieldValue,

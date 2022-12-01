@@ -29,6 +29,15 @@ const TextWithFormContent = ({
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
 
+  const stepCompletion = fields.stepLink
+    ? {
+        link: fields.stepLink,
+        title: fields?.stepTitle,
+        content: fields?.stepContent,
+        image: fields?.stepImage,
+      }
+    : null;
+
   const formRightCollapsedChanges = () => {
     const form = formWrapperRef?.current?.querySelector?.("form");
     if (fields.layout === "formRightCollapsed" && form) {
@@ -209,6 +218,7 @@ const TextWithFormContent = ({
                   : null
               }
               clsField={fields.currentLeadSource2}
+              stepCompletion={stepCompletion}
             />
           </div>
         </aside>

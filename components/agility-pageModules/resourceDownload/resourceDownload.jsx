@@ -3,15 +3,12 @@ import {
   sanitizeHtmlConfig,
 } from "../../../utils/convert";
 import dynamic from "next/dynamic";
-import style from "./resourceDownload.module.scss";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
 import Script from "next/script";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
-import Image from "next/image";
-const Media = dynamic(() => import("../media"), { ssr: false });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
+import ResourceDownloadContent from "./resourceDownloadContent";
 
 const ResourceDownload = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;
@@ -49,79 +46,7 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
         strategy="lazyOnload"
       />
-      {
-        <>
-          {
-            <>
-              <section className="section">
-                <div className="container">
-                  <div
-                    className={`${style.columns} max-width-narrow mr-auto ml-auto`}
-                  >
-                    {/* <div className={style.content}>
-                      <h1 className="heading-5">{resourceDownload.title}</h1>
-                      <div
-                        className="content mt-4"
-                        dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                      />
-                    </div> */}
-                    <div
-                      className={`${resourceDownload.formBackgroundColor} ${style.form}`}
-                    >
-                      <h1 className="heading-5 mb-3">
-                        {resourceDownload.title}
-                      </h1>
-
-                      <div className={style.thumbnailWrap}>
-                        {/\S/.test(resourceDownload.formTitle) && (
-                          <h2
-                            className={`${style.formTitle} heading-6 d-flex align-items-center`}
-                          >
-                            <Image src="/download.svg" width={60} height={60} />
-
-                            <span className="pl-2 d-flex text-20px text-darkblue w-600 line-height-1-2">
-                              {" "}
-                              {resourceDownload.formTitle ||
-                                "Please click to download the resource today!"}
-                            </span>
-                          </h2>
-                        )}
-                        {resourceDownload.link?.href && (
-                          <AgilityLink
-                            className="imgLink"
-                            agilityLink={resourceDownload.link}
-                          >
-                            <div className={`${style.thumbnail}`}>
-                              <Media
-                                media={resourceDownload.image}
-                                title={resourceDownload.title}
-                              />
-                              <span className={style.download}>Download</span>
-                            </div>
-                          </AgilityLink>
-                        )}
-                        {resourceDownload.link?.href &&
-                          resourceDownload.link?.text && (
-                            <div
-                              className={`mt-3 align-center ${style.thumbnailButton}`}
-                            >
-                              <AgilityLink
-                                className="button navy"
-                                agilityLink={resourceDownload.link}
-                              >
-                                {resourceDownload.link.text}
-                              </AgilityLink>
-                            </div>
-                          )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </>
-          }
-        </>
-      }
+      <ResourceDownloadContent resourceDownload={resourceDownload} />
     </>
   );
 };

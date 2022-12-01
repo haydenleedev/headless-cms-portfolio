@@ -169,7 +169,6 @@ export const verifyFormSubmissionValidity = async ({ formRef, formData }) => {
     ].forEach((input) => {
       client[input.name] = input.value;
     });
-    console.log(client);
     const validationBody = {
       check: { ip, domain },
       client,
@@ -235,8 +234,15 @@ export const validSubmitFormModifications = ({
   }
 };
 
-export const submit = async ({ customAction, formData, formRef, action }) => {
-  if (customAction) {
+export const submit = async ({
+  customAction,
+  formData,
+  formRef,
+  action,
+  prefilledStepFormAction,
+}) => {
+  if (prefilledStepFormAction) prefilledStepFormAction();
+  else if (customAction) {
     const formObject = Object.fromEntries(formData.entries());
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/ajaxRequestPardot`,
@@ -250,5 +256,6 @@ export const submit = async ({ customAction, formData, formRef, action }) => {
     );
     const data = await response.json();
     customAction(data.success);
-  } else formRef.current.submit();
+  }
+  formRef.current.submit();
 };
