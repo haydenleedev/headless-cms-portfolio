@@ -11,6 +11,7 @@ import {
   isHiddenField,
   isNonUsPhoneNumber,
 } from "./helpers";
+
 // this function checks for validation errors on a form field
 export const validateField = ({
   fieldData,
@@ -147,6 +148,7 @@ export const getPartnerFieldProperties = ({ field, partner }) => {
   return partnerFieldData.find((item) => item.name === field.name);
 };
 
+// verify that the user hasn't been blocked by recaptcha or by matching blacklisted ip / email domain.
 export const verifyFormSubmissionValidity = async ({ formRef, formData }) => {
   try {
     const token = await grecaptcha.enterprise.execute(
@@ -187,6 +189,7 @@ export const verifyFormSubmissionValidity = async ({ formRef, formData }) => {
   }
 };
 
+// if the form is valid for submission, execute some modifications to it before submitting.
 export const validSubmitFormModifications = ({
   includeTimeStampInEmailAddress,
   partnerStateFieldVisible,
@@ -234,6 +237,7 @@ export const validSubmitFormModifications = ({
   }
 };
 
+// determine what to do when the form is submitted.
 export const submit = async ({
   customAction,
   formData,
@@ -241,7 +245,10 @@ export const submit = async ({
   action,
   prefilledStepFormAction,
 }) => {
+  // instead of normal form submission, trigger the prefilledStepFormAction function
+  // if it's a step form and the user has previously submitted all step fields.
   if (prefilledStepFormAction) prefilledStepFormAction();
+  // if the form has a customAction (e.g. BlogSubcriptionBanner)
   else if (customAction) {
     const formObject = Object.fromEntries(formData.entries());
     const response = await fetch(
@@ -256,6 +263,6 @@ export const submit = async ({
     );
     const data = await response.json();
     customAction(data.success);
-  }
-  formRef.current.submit();
+    // normal form submission.
+  } else formRef.current.submit();
 };

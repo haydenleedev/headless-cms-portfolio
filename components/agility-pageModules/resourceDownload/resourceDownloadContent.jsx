@@ -9,9 +9,13 @@ const ResourceDownloadContent = ({ resourceDownload }) => {
       <div className="container">
         <div className={`${style.columns} max-width-narrow mr-auto ml-auto`}>
           <div
-            className={`${resourceDownload.formBackgroundColor} ${style.form}`}
+            className={`${resourceDownload.formBackgroundColor || ""} ${
+              style.form
+            }`}
           >
-            <h1 className="heading-5 mb-3">{resourceDownload.title}</h1>
+            <h1 className="heading-5 mb-3">
+              {resourceDownload?.title || "Download Resource"}
+            </h1>
 
             <div className={style.thumbnailWrap}>
               {/\S/.test(resourceDownload.formTitle) && (

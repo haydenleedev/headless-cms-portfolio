@@ -1,16 +1,8 @@
-import { createRef, useEffect, useRef, useState } from "react";
-import {
-  submit,
-  validateField,
-  validSubmitFormModifications,
-  verifyFormSubmissionValidity,
-} from "../../utils";
-import { useIntersectionObserver } from "../../../../../utils/hooks";
+import { createRef } from "react";
+import { validateField } from "../../utils";
 import { pardotFormActions } from "../../reducer";
 import {
-  addGaData,
   formatPhoneNumber,
-  getFallbackFieldData,
   getNextStepIndex,
   isHiddenField,
   reorderFieldData,
@@ -18,15 +10,18 @@ import {
 import { useFormState } from "./useFormState";
 
 export const useForm = ({ props, pardotFormData, formConfig }) => {
-  const { formHandlerID, customAction, action, stepCompletion } = props;
+  const { customAction, action } = props;
 
   const {
     state,
     dispatch,
+    formRef,
+    fieldRefs,
     isContactForm,
+    initialFieldData,
     isChannelRequestForm,
     isDealRegistrationForm,
-    handlePrefilledStepFormCompletion,
+    handlePrefilledStepFormSubmissionActions,
     handleSetPartnerStateFieldVisible,
     handleGetPartnerFieldProperties,
     handleSetStepEmailFieldValue,
@@ -36,232 +31,12 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     handleSetGaDataAdded,
     handleSetPasteError,
     handleCountryChange,
+    handleSetValidForm,
     handleDispatch,
     pasteBlocker,
-  } = useFormState(props);
+  } = useFormState({ props, pardotFormData, formConfig });
 
-  const [initialFieldData, setInitialFieldData] = useState(null); // needed for step form logic: used to compare active step fields to original field data
-  const [validForm, setValidForm] = useState(false);
-  const fieldRefs = useRef(null);
-  const formRef = useIntersectionObserver(null, 0.2, () => {
-    if (state.formInViewEventPushed) {
-      dispatch({
-        type: pardotFormActions.setFormInViewEventPushed,
-        value: true,
-      });
-      window.dataLayer?.push({
-        event: "pardotFormInView",
-      });
-    }
-  });
-
-  //<<<<<<<<<<<<< useEffect listeners
-  // initialize the form.
-  useEffect(() => {
-    let fieldData = pardotFormData.find(
-      (entry) => entry.formHandlerID === parseInt(formHandlerID)
-    ).fieldData;
-    const emailFieldExists = fieldData.find((field) => field.name === "Email");
-    if (fieldData.length > 0 && emailFieldExists) {
-      fieldData.forEach((field) => {
-        const shouldBeRequired =
-          !isHiddenField(field, isDealRegistrationForm) &&
-          !isDealRegistrationForm &&
-          !isHiddenField(field, isChannelRequestForm) &&
-          !isChannelRequestForm;
-        if (shouldBeRequired) {
-          field.isRequired = true;
-        }
-      });
-    } else fieldData = getFallbackFieldData(formHandlerID);
-    fieldData = reorderFieldData(fieldData, state.formType);
-    fieldRefs.current = Array(fieldData.length)
-      .fill(0)
-      .map(() => createRef());
-
-    setInitialFieldData(fieldData);
-    dispatch({
-      type: pardotFormActions.setIncludeTimestampInEmailAddress,
-      value: [
-        "dealRegistration",
-        "channelRequest",
-        "partnerCertification",
-      ].includes(state.formType),
-    });
-    dispatch({ type: pardotFormActions.setFieldData, value: fieldData });
-    dispatch({
-      type: pardotFormActions.setFormErrors,
-      value: Array(fieldData.length).fill(false),
-    });
-    dispatch({
-      type: pardotFormActions.setTouchedFields,
-      value: Array(fieldData.length).fill(false),
-    });
-    dispatch({
-      type: pardotFormActions.setClientJSEnabled,
-      value: true,
-    });
-  }, []);
-
-  // listen for changes to form errors list. Check if the form is valid.
-  useEffect(() => {
-    const isValidForm =
-      state.touchedFields.length > 0 &&
-      state.formErrors.length > 0 &&
-      !state.touchedFields.includes(false) &&
-      !state.formErrors.includes(true);
-
-    if (isValidForm) setValidForm(true);
-    else setValidForm(false);
-  }, [state.formErrors]);
-
-  // listen for changes to the 'final step submitted' flag.
-  useEffect(() => {
-    if (state.finalStepSubmitted) {
-      formRef.current["hiddenemail"].value = state.stepEmailFieldValue;
-      addGaData({
-        gaDataAdded: state.gaDataAdded,
-        handleSetGaDataAdded,
-        formEmailInput: formRef.current["hiddenemail"],
-        isDealRegistrationForm,
-        formType: state.formType,
-      });
-    }
-  }, [state.finalStepSubmitted]);
-
-  // listen to changes on the selected country. Change phone number format for US or Canada
-  useEffect(() => {
-    const phoneField = formRef.current["Phone Number"];
-    if (phoneField) {
-      // Switch to US phone no. formatting if the previous country did not use it
-      if (formConfig.usPhoneFormatCountries.includes(state.selectedCountry)) {
-        dispatch({
-          type: pardotFormActions.setUSPhoneFormat,
-          value: true,
-        });
-        phoneField.value = formatPhoneNumber(
-          phoneField.value.replace(/\D/g, "")
-        );
-      }
-      // Switch to non-US phone no. formatting if the previous country did not use it
-      else {
-        dispatch({
-          type: pardotFormActions.setUSPhoneFormat,
-          value: false,
-        });
-        phoneField.value = phoneField.value.replace(/\D/g, "");
-      }
-    }
-  }, [state.selectedCountry]);
-
-  // listen to changes on the selected partner country. Change phone number format for US Canada
-  useEffect(() => {
-    const phoneField = formRef.current["Partner Phone Number"];
-    if (phoneField) {
-      // Switch to US phone no. formatting if the previous country did not use it
-      if (
-        formConfig.usPhoneFormatCountries.includes(state.selectedPartnerCountry)
-      ) {
-        dispatch({
-          type: pardotFormActions.setPartnerUSPhoneFormat,
-          value: true,
-        });
-      }
-      // Switch to non-US phone no. formatting if the previous country did not use it
-      else {
-        dispatch({
-          type: pardotFormActions.setPartnerUSPhoneFormat,
-          value: false,
-        });
-      }
-    }
-  }, [state.selectedPartnerCountry]);
-
-  // check for form submission events. Submit only if the submitFlag is active and the form is valid.
-  useEffect(() => {
-    const submitHandler = async () => {
-      const noHoneyName = !formRef.current?.honeyname?.value;
-      const noHoneyEmail = !formRef.current?.honeyemail?.value;
-      const submissionCanProceed =
-        !state.submissionInProgress &&
-        state.submissionAllowed &&
-        noHoneyEmail &&
-        noHoneyName;
-      if (state.submitFlag && validForm && submissionCanProceed) {
-        dispatch({
-          type: pardotFormActions.setSubmissionInProgress,
-          value: true,
-        });
-        if (state.finalStepSubmitted) {
-          for (let key in state.completedSteps) {
-            const prefilled = document.createElement("input");
-            prefilled.setAttribute("name", key);
-            prefilled.setAttribute("value", state.completedSteps[key]);
-            const fieldNameAlreadyExists = formRef.current.querySelector(
-              `input[name="${key}"]`
-            );
-            if (fieldNameAlreadyExists)
-              formRef.current.removeChild(fieldNameAlreadyExists.parentElement);
-            formRef.current.appendChild(prefilled);
-          }
-        }
-        const formData = new FormData(formRef.current);
-        window.dataLayer?.push({
-          event: "pardotFormSubmit",
-        });
-
-        const validationResponse = await verifyFormSubmissionValidity({
-          formRef,
-          formData,
-        });
-        if (!validationResponse.success) {
-          dispatch({
-            type: pardotFormActions.setSubmissionInProgress,
-            value: false,
-          });
-          dispatch({
-            type: pardotFormActions.setSubmissionAllowed,
-            value: false,
-          });
-          return;
-        }
-        validSubmitFormModifications({
-          includeTimeStampInEmailAddress: state.includeTimeStampInEmailAddress,
-          partnerStateFieldVisible: state.partnerStateFieldVisible,
-          stepEmailFieldValue: state.stepEmailFieldValue,
-          stateFieldVisible: state.stateFieldVisible,
-          isDealRegistrationForm,
-          formRef,
-        });
-        window.dataLayer?.push({
-          event: "pardotFormSuccess",
-        });
-        submit({
-          customAction,
-          formData,
-          formRef,
-          action,
-          prefilledStepFormAction:
-            stepCompletion && state.prefilledStepFormCompleted
-              ? handlePrefilledStepFormCompletion
-              : "",
-        });
-      }
-    };
-    try {
-      submitHandler();
-    } catch (error) {
-      console.log(error.message);
-      dispatch({
-        type: pardotFormActions.setSubmissionInProgress,
-        value: false,
-      });
-    }
-  }, [state.submitFlag, validForm]);
-
-  useEffect(() => {});
-  // useEffect listeners >>>>>>>>//
-
+  // called when form is submitted
   const handleSubmit = async (e, stepsDone) => {
     e.preventDefault();
     formValidation(Array(fieldRefs.current.length).fill(true));
@@ -328,6 +103,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     }
   };
 
+  // checks which of the step form fields are submitted, if any. Returns an array of steps and for each field a 'submitted'
+  // property with a boolean value depending on if the field has been previously submitted.
   const checkForSubmittedFields = async (steps, submittedFieldsFromDb) => {
     if (submittedFieldsFromDb) {
       const previouslySubmittedKeys = Object.keys(submittedFieldsFromDb);
@@ -355,9 +132,9 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     return null;
   };
 
+  // execute required actions when a step form progresses from previous step to the next one.
   const updateCurrentStep = async ({ steps, email }) => {
     let submittedStepFields;
-    let completed;
     formRef.current.firstChild.lastChild.focus({ preventScroll: true });
 
     dispatch({
@@ -399,67 +176,12 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
           .every((value) => value);
 
         if (allStepsSubmitted) {
-          completed = submittedStepFields
-            .map((step) =>
-              step.map((field) => {
-                return { [field.name]: field.value };
-              })
-            )
-            .flat(1);
-          completed = completed.reduce(
-            (accumulator, currentValue) =>
-              Object.assign(accumulator, currentValue),
-            {}
-          );
-          let newFieldData = [...initialFieldData];
-          initialFieldData.forEach((field) => {
-            const shouldBeDeletedIndex = newFieldData.findIndex(
-              (compareField) =>
-                compareField.name === field.name &&
-                !isHiddenField(compareField, isDealRegistrationForm)
-            );
-            if (shouldBeDeletedIndex !== -1)
-              newFieldData.splice(shouldBeDeletedIndex, 1);
-          });
-          newFieldData = reorderFieldData(newFieldData, state.formType);
-          dispatch({
-            type: pardotFormActions.setStepFetchInProgress,
-            value: false,
-          });
-          fieldRefs.current = Array(newFieldData.length)
-            .fill(0)
-            .map(() => createRef());
-          dispatch({
-            type: pardotFormActions.setFieldData,
-            value: newFieldData,
-          });
-          dispatch({
-            type: pardotFormActions.setCurrentStepIndex,
-            value: state.currentStepIndex + 1,
-          });
-          dispatch({
-            type: pardotFormActions.setCompletedSteps,
-            value: completed,
-          });
-          setValidForm(true);
-          dispatch({
-            type: pardotFormActions.setFinalStepSubmitted,
-            value: true,
-          });
-          dispatch({
-            type: pardotFormActions.setPrefilledStepFormCompleted,
-            value: true,
-          });
-          dispatch({
-            type: pardotFormActions.setSubmitFlag,
-            value: true,
-          });
+          handlePrefilledStepFormSubmissionActions(submittedStepFields);
           return;
         }
       }
     } else {
       submittedStepFields = state.submittedStepFields;
-      completed = state.completedSteps;
     }
 
     dispatch({
@@ -495,7 +217,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       formRef.current.reset();
       setFieldsToMatchStep(currentStep, currentStepSubmittedFields);
     } else {
-      setValidForm(true);
+      handleSetValidForm(true);
       dispatch({
         type: pardotFormActions.setFinalStepSubmitted,
         value: true,
@@ -507,6 +229,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     }
   };
 
+  // validate the form to check if there's any input errors.
   const formValidation = (newTouchedFields) => {
     const touchedFields = newTouchedFields || state.touchedFields;
     const formErrors = fieldRefs.current.map((fieldRef, index) =>

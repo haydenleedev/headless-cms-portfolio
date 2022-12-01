@@ -117,7 +117,15 @@ const StepForm = ({
       </>
     );
   } else if (stepsCompleted) {
-    return <ResourceDownloadContent resourceDownload={{ ...stepCompletion }} />;
+    return (
+      <>
+        {stepCompletion ? (
+          <ResourceDownloadContent resourceDownload={{ ...stepCompletion }} />
+        ) : (
+          <p>Thank you for contacting us.</p>
+        )}
+      </>
+    );
   }
 };
 

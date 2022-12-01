@@ -483,6 +483,8 @@ export function isAdditionalSelectField(field) {
   return false;
 }
 
+// returns the index of the next step that has fields which have not been sumbmitted previously.
+// returns a boolean 'true' value, if the there are no more steps to fill and thus the form should be submitted.
 export const getNextStepIndex = (currentStepIndex, submittedSteps) => {
   let nextIndex = currentStepIndex > -1 ? currentStepIndex + 1 : 0;
   let shouldSubmit = false;
