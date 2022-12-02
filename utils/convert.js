@@ -341,20 +341,28 @@ export const textSizeSanitizeConfig = (
         else return { tagName: "h6", attribs };
       },
       img: function (tagName, attribs) {
-        if (roundedCornersForImages || centerImagesHorizontally || imageSpacingTop || imageSpacingBottom) {
+        if (
+          roundedCornersForImages ||
+          centerImagesHorizontally ||
+          imageSpacingTop ||
+          imageSpacingBottom
+        ) {
           const newAttribs = { ...attribs };
           const className = newAttribs?.class;
           let classNamesToApply = " ";
-          if (roundedCornersForImages) classNamesToApply += " border-radius-1"
-          if (centerImagesHorizontally) classNamesToApply += " d-flex ml-auto mr-auto"
-          if (imageSpacingBottom) classNamesToApply += ` ${imageSpacingBottom}`
-          if (imageSpacingTop) classNamesToApply += ` ${imageSpacingTop}`
+          if (roundedCornersForImages) classNamesToApply += " border-radius-1";
+          if (centerImagesHorizontally)
+            classNamesToApply += " d-flex ml-auto mr-auto";
+          if (imageSpacingBottom) classNamesToApply += ` ${imageSpacingBottom}`;
+          if (imageSpacingTop) classNamesToApply += ` ${imageSpacingTop}`;
           if (newAttribs.class) delete newAttribs.class;
           return {
             tagName,
             attribs: {
               ...newAttribs,
-              class: className ? className + classNamesToApply : classNamesToApply,
+              class: className
+                ? className + classNamesToApply
+                : classNamesToApply,
             },
           };
         } else {
