@@ -12,7 +12,7 @@ const LatestCustomerStoriesContent = ({
   rootPath,
 }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
-  const [amountOfPostsToShow, setAmountOfPostsToShow] = useState(3);
+  const [amountOfPostsToShow, setAmountOfPostsToShow] = useState(6);
   return (
     <div className="container">
       {heading && (
@@ -49,7 +49,7 @@ const LatestCustomerStoriesContent = ({
           className={`button orange ${style.loadMoreButton}`}
           onClick={(e) => {
             e.stopPropagation();
-            setAmountOfPostsToShow(amountOfPostsToShow + 3);
+            setAmountOfPostsToShow(amountOfPostsToShow + 6);
           }}
         >
           View More Customer Stories
