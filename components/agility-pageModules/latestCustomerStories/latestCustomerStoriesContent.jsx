@@ -49,7 +49,7 @@ const LatestCustomerStoriesContent = ({
           className={`button orange ${style.loadMoreButton}`}
           onClick={(e) => {
             e.stopPropagation();
-            setAmountOfPostsToShow(amountOfPostsToShow + 3);
+            setAmountOfPostsToShow(amountOfPostsToShow + 6);
           }}
         >
           View More Customer Stories
