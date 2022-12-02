@@ -59,7 +59,7 @@ LatestCustomerStories.getCustomInitialProps = async function ({
   let customerStories = customerStoryPages
     .filter(
       (page) =>
-        page.zones.MainContentZone.findIndex(
+        page && page.zones.MainContentZone.findIndex(
           (item) => item.module === "CaseStudyData"
         ) !== -1
     )
