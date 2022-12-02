@@ -414,3 +414,7 @@ export const cleanText = (string) => {
   const cleanText = string.replace(/<\/?[^>]+(>|$)/g, "")
   return cleanText
 }
+
+export const capitalizeFirstLetter = (string) =>{
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
