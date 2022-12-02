@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { Fragment } from "react";
+import { cleanText, capitalizeFirstLetter } from "../../../utils/convert";
 const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
   ssr: false,
 });
@@ -20,10 +21,10 @@ const CustomerStoryCardsContent = ({ fields, customerStories, rootPath }) => {
             <Fragment key={story.contentID}>
               <GenericCard
                 link={{ href: `${rootPath}/${story.name}` }}
-                image={story.fields.image}
-                title={story.fields.title}
-                ariaTitle={`${story.fields.title} customer story`}
-                description={story.fields.description}
+                image={story.fields.image || story.fields.media}
+                title={story.fields.title || capitalizeFirstLetter(story.name)}
+                ariaTitle={`${story.fields.title || story.name} customer story`}
+                description={story.fields.description || cleanText(story.fields.text)}
                 configuration={{
                   imageHeight: "tall",
                   emphasizedTitle: true,

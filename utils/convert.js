@@ -379,9 +379,9 @@ export const getAlgoliaHighestResultFormatted = (result) => {
   let snippet;
   const headingMatch = result?.headings
     ? result?.headings?.find(
-        (heading) =>
-          heading?.matchLevel === "full" || heading?.matchLevel === "partial"
-      )
+      (heading) =>
+        heading?.matchLevel === "full" || heading?.matchLevel === "partial"
+    )
     : null;
   if (
     result?.description?.matchLevel === "full" ||
@@ -408,3 +408,13 @@ export const formatPageTitle = (title, suffix) => {
 export const convertUJETLinksToHttps = (html) => {
   return html?.replace(/http:\/\/ujet.cx/g, "https://ujet.cx");
 };
+
+//Clean html tags from text and return a string
+export const cleanText = (string) => {
+  const cleanText = string.replace(/<\/?[^>]+(>|$)/g, "")
+  return cleanText
+}
+
+export const capitalizeFirstLetter = (string) =>{
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

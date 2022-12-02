@@ -17,9 +17,9 @@ const PressReleaseList = dynamic(
 const BlogPostList = dynamic(() => import("./blogPostList/blogPostList"), {
   ssr: false,
 });
-const Infographic = dynamic(() => import("./infographic/infographic"), {
+/* const Infographic = dynamic(() => import("./infographic/infographic"), {
   ssr: false,
-});
+}); */
 const CaseStudyDownloadPrompt = dynamic(
   () => import("./caseStudyDownloadPrompt/caseStudyDownloadPrompt"),
   { ssr: false }
@@ -60,6 +60,7 @@ const AcknowledgePageContent = dynamic(
 
 // eagerly loaded modules
 import FirstFold from "./firstFold/firstFold";
+import Infographic from "./infographic/infographic";
 import CustomerStoryCards from "./customerStoryCards/customerStoryCards";
 import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
 import LogosList from "./logosList/logosList";
