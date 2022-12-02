@@ -12,7 +12,7 @@ const LatestCustomerStoriesContent = ({
   rootPath,
 }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
-  const [amountOfPostsToShow, setAmountOfPostsToShow] = useState(3);
+  const [amountOfPostsToShow, setAmountOfPostsToShow] = useState(6);
   return (
     <div className="container">
       {heading && (
