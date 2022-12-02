@@ -5,12 +5,9 @@ import { getErrorMessage, isHiddenField } from "../utils/helpers";
 import FieldResolver from "./resolver";
 import style from "../form.module.scss";
 import FormError from "../../formError";
-import { pardotFormActions } from "../reducer";
-
 const Field = (props) => {
   const { field, index } = props;
-  const { state, handleDispatch, isDealRegistrationForm } =
-    useContext(PardotFormContext);
+  const { state, isDealRegistrationForm } = useContext(PardotFormContext);
 
   const shouldBeHiddenStateSelect =
     field.name.toLowerCase().match(/state/) &&
@@ -34,10 +31,9 @@ const Field = (props) => {
             <p
               className={cn([
                 "heading-6",
-                "mb-4",
-                style["pt-3"],
-                style["mt-3"],
-                style["pb-2"],
+                "pt-3",
+                "mt-3",
+                "pb-4",
                 style["bt-1"],
               ])}
             >

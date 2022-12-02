@@ -27,28 +27,28 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     touchedFields: [], // lists of boolean values which has equal length with the fieldData array. If some field has been touched, the matching boolean value is true.
     gaDataAdded: false, // flag for determining if the addGaData function has been triggered already.
     formInViewEventPushed: false, // flag for determining if the pardotFormInView event has been pushed to GTM data layer already.
-    firstPartnerFieldIndex: null,
-    stateFieldVisible: false,
-    partnerStateFieldVisible: false,
+    firstPartnerFieldIndex: null, // used to determine where the first partner field is so that the title for the partner fields can be displayed.
+    stateFieldVisible: false, // determine if the state select field is visible.
+    partnerStateFieldVisible: false, // determine if the state select field is visible on a partner form.
     selectedCountry: "",
     selectedPartnerCountry: partner?.companyCountry || "",
     usPhoneFormat: true,
     partnerUsPhoneFormat:
       partner?.companyCountry == "United States" || !partner?.companyCountry,
-    includeTimeStampInEmailAddress: false,
+    includeTimeStampInEmailAddress: false, // should the email address include a timestamp for making it an unique submission)?
     submissionInProgress: false,
     submissionAllowed: true,
     stepEmailFieldValue: null,
-    finalStepSubmitted: false,
+    finalStepSubmitted: false, // switches on after the final step in a step form is submitted.
     clientJSEnabled: false,
     pasteError: null,
-    submitFlag: false,
+    submitFlag: false, // flag for checking if a form has been submitted.
     stepFetchInProgress: false,
     currentStepIndex: -1, // initially -1 because the first step where email is submitted is not considered as a step
-    submittedStepFields: {},
-    completedSteps: {},
-    prefilledCompletionView: false,
-    prefilledStepFormCompleted: false,
+    submittedStepFields: {}, // keep track of which step fields have been submitted and which have not.
+    completedSteps: {}, // an object that contains key-value pairs of all the completed step fields.
+    prefilledCompletionView: false, // true, if a prefilled step form was successfully submitted, and the resource/text with form module had content for the viewed step completion component.
+    prefilledStepFormCompleted: false, // true, if a prefilled step form was fully submitted and the submit action should be determined.
   };
   const isDealRegistrationForm =
     initialFormState.formType === "dealRegistration";
