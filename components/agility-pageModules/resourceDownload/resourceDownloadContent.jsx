@@ -48,7 +48,7 @@ const ResourceDownloadContent = ({ resourceDownload }) => {
               {resourceDownload.link?.href && resourceDownload.link?.text && (
                 <div className={`mt-3 align-center ${style.thumbnailButton}`}>
                   <AgilityLink
-                    className="button navy"
+                    className={`button navy ${style.mainButton}`}
                     agilityLink={resourceDownload.link}
                   >
                     {resourceDownload.link.text}

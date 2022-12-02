@@ -102,10 +102,10 @@ const StepForm = ({
                 state.submissionInProgress
                   ? "Please wait..."
                   : state.currentStepIndex === config.steps.length - 1 ||
-                    getNextStepIndex(
+                    typeof getNextStepIndex(
                       state.currentStepIndex,
                       state.submittedStepFields
-                    )
+                    ) !== "number"
                   ? submit
                   : "Next"
               }

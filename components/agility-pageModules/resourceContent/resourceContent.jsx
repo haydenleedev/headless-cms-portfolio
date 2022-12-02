@@ -378,6 +378,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           setClpValue(window.location.href)
                         }
                         clsField={resource.currentLeadSource2}
+                        stepCompletion={stepCompletion}
                       />
                       {resource.link?.href && resource.link?.text && (
                         <div className="mt-4 align-center">

@@ -11,7 +11,6 @@ import { useFormState } from "./useFormState";
 
 export const useForm = ({ props, pardotFormData, formConfig }) => {
   const { customAction, action } = props;
-
   const {
     state,
     dispatch,
