@@ -42,7 +42,8 @@ CustomerStoryCards.getCustomInitialProps = async function ({
   });
   let rootPath = sitemapNode.path.split("/");
   rootPath.pop();
-  rootPath = rootPath.join("/");
+  rootPath = rootPath.join("/") + "/";
+  console.log(rootPath);
   const customerStoryPageIDs = Object.entries(sitemap)
     .filter(([key, value]) => key.includes(rootPath) && key !== rootPath)
     .map(([key, value]) => {
@@ -62,7 +63,8 @@ CustomerStoryCards.getCustomInitialProps = async function ({
   customerStoryPages = await Promise.all(customerStoryPages);
   customerStoryPages = customerStoryPages.filter(
     (page) =>
-      page && page.zones.MainContentZone.findIndex(
+      page &&
+      page.zones.MainContentZone.findIndex(
         (item) => item.module === "CaseStudyData" || item.module === "FirstFold"
       ) !== -1
   );
@@ -79,7 +81,8 @@ CustomerStoryCards.getCustomInitialProps = async function ({
   const card1Data = {
     name: card1Page.name,
     ...card1Page?.zones?.MainContentZone?.find?.(
-      (module) => module.module === "CaseStudyData" || module.module === "FirstFold"
+      (module) =>
+        module.module === "CaseStudyData" || module.module === "FirstFold"
     )?.item,
   };
   const card2Page = customerStoryPages.find((page) =>
@@ -88,7 +91,8 @@ CustomerStoryCards.getCustomInitialProps = async function ({
   const card2Data = {
     name: card2Page.name,
     ...card2Page?.zones?.MainContentZone?.find?.(
-      (module) => module.module === "CaseStudyData" || module.module === "FirstFold"
+      (module) =>
+        module.module === "CaseStudyData" || module.module === "FirstFold"
     )?.item,
   };
   const card3Page = customerStoryPages.find((page) =>
@@ -97,7 +101,8 @@ CustomerStoryCards.getCustomInitialProps = async function ({
   const card3Data = {
     name: card3Page.name,
     ...card3Page?.zones?.MainContentZone?.find?.(
-      (module) => module.module === "CaseStudyData" || module.module === "FirstFold"
+      (module) =>
+        module.module === "CaseStudyData" || module.module === "FirstFold"
     )?.item,
   };
   return { card1Data, card2Data, card3Data, rootPath };
