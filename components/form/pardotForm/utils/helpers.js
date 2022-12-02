@@ -317,13 +317,13 @@ export const isNonUsPhoneNumber = (phoneNumber) => {
   return true;
 };
 
-export const isHiddenField = (field, isDealRegistrationField = false) => {
+export const isHiddenField = (field, isDealRegistrationForm = false) => {
   // Check whether form field is blacklisted
   if (
     partialHiddenFields.some(
       (re) =>
         re.test(String(field.name).toLocaleLowerCase()) &&
-        isDealRegistrationField
+        isDealRegistrationForm
     )
   ) {
     return true;
@@ -463,7 +463,7 @@ export function isSelectField(field) {
 // Partner company country and partner company state field need to be select type for other forms except for deal registration form
 // This function could be renamed and/or split into smaller parts
 // Currently it not only checks whether the field is a select field, but also adds the options to the field
-export function isAdditionalSelectField(field) {
+export function isAdditionalSelectField(field, isDealRegistrationForm) {
   const selectFields = [
     {
       regex: /(^partner company country|^partner country)/,
@@ -474,7 +474,7 @@ export function isAdditionalSelectField(field) {
   for (let i = 0; i < selectFields.length; i++) {
     if (
       selectFields[i].regex.test(String(field.name).toLocaleLowerCase()) &&
-      !isDealRegistrationField
+      !isDealRegistrationForm
     ) {
       field.options = selectFields[i].options;
       return true;

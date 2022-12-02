@@ -5,30 +5,18 @@ import { getErrorMessage, isHiddenField } from "../utils/helpers";
 import FieldResolver from "./resolver";
 import style from "../form.module.scss";
 import FormError from "../../formError";
+import { pardotFormActions } from "../reducer";
 
 const Field = (props) => {
   const { field, index } = props;
   const { state, handleDispatch, isDealRegistrationForm } =
     useContext(PardotFormContext);
 
-  const isFirstPartnerFieldIndex =
-    state.firstPartnerFieldIndex === null &&
-    field.name.toLowerCase().match(/partner/) &&
-    !field.name.toLowerCase().match(/partner area of interest/) &&
-    !isHiddenField(field, isDealRegistrationForm);
-
   const shouldBeHiddenStateSelect =
     field.name.toLowerCase().match(/state/) &&
     ((!field.name.toLowerCase().match(/partner/) && !state.stateFieldVisible) ||
       (field.name.toLowerCase().match(/partner/) &&
         !state.partnerStateFieldVisible));
-
-  if (isFirstPartnerFieldIndex) {
-    handleDispatch({
-      type: pardotFormActions.setFirstPartnerFieldIndex,
-      value: index,
-    });
-  }
   return (
     <label
       key={`formField${index}`}
@@ -43,9 +31,10 @@ const Field = (props) => {
       {!isHiddenField(field, isDealRegistrationForm) && (
         <span>
           {index == state.firstPartnerFieldIndex && (
-            <span
+            <p
               className={cn([
                 "heading-6",
+                "mb-4",
                 style["pt-3"],
                 style["mt-3"],
                 style["pb-2"],
@@ -57,7 +46,7 @@ const Field = (props) => {
                 : isChannelRequestForm
                 ? "Partner Information"
                 : null}
-            </span>
+            </p>
           )}
           {field.isRequired && <span className={style.required}>*</span>}
           <span>

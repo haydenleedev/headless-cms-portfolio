@@ -96,7 +96,17 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
       .fill(0)
       .map(() => createRef());
 
+    const firstPartnerFieldIndex = fieldData.findIndex(
+      (field) =>
+        field.name.toLowerCase().match(/partner/) &&
+        !field.name.toLowerCase().match(/partner area of interest/) &&
+        !isHiddenField(field, isDealRegistrationForm)
+    );
     setInitialFieldData(fieldData);
+    dispatch({
+      type: pardotFormActions.setFirstPartnerFieldIndex,
+      value: firstPartnerFieldIndex,
+    });
     dispatch({
       type: pardotFormActions.setIncludeTimestampInEmailAddress,
       value: [
@@ -268,7 +278,6 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     try {
       submitHandler();
     } catch (error) {
-      console.log(error.message);
       dispatch({
         type: pardotFormActions.setSubmissionInProgress,
         value: false,

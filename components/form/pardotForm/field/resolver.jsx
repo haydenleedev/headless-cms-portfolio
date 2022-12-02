@@ -37,7 +37,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
   // Manually set data format for certain fields, as they are not set correctly in Pardot
   if (isSelectField(field)) {
     field.dataFormat = "select";
-  } else if (isAdditionalSelectField(field)) {
+  } else if (isAdditionalSelectField(field, isDealRegistrationForm)) {
     field.dataFormat = "select";
   } else if (field.name.toLowerCase().includes("phone")) {
     field.dataFormat = "phone";
