@@ -42,7 +42,8 @@ CustomerStoryCards.getCustomInitialProps = async function ({
   });
   let rootPath = sitemapNode.path.split("/");
   rootPath.pop();
-  rootPath = rootPath.join("/");
+  rootPath = rootPath.join("/") + "/";
+  console.log(rootPath);
   const customerStoryPageIDs = Object.entries(sitemap)
     .filter(([key, value]) => key.includes(rootPath) && key !== rootPath)
     .map(([key, value]) => {
@@ -62,6 +63,7 @@ CustomerStoryCards.getCustomInitialProps = async function ({
   customerStoryPages = await Promise.all(customerStoryPages);
   customerStoryPages = customerStoryPages.filter(
     (page) =>
+      page &&
       page.zones.MainContentZone.findIndex(
         (item) => item.module === "CaseStudyData"
       ) !== -1

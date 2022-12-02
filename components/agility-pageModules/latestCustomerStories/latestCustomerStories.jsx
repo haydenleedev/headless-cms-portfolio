@@ -44,7 +44,7 @@ LatestCustomerStories.getCustomInitialProps = async function ({
   const customerStoryPageIDs = Object.entries(sitemap)
     .filter(
       ([key, value]) =>
-        key.includes(sitemapNode.path) && key !== sitemapNode.path
+        key.includes(`${sitemapNode.path}/`) && key !== sitemapNode.path
     )
     .map(([key, value]) => value.pageID);
 
@@ -59,6 +59,7 @@ LatestCustomerStories.getCustomInitialProps = async function ({
   let customerStories = customerStoryPages
     .filter(
       (page) =>
+        page &&
         page.zones.MainContentZone.findIndex(
           (item) => item.module === "CaseStudyData"
         ) !== -1
