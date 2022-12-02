@@ -60,14 +60,14 @@ LatestCustomerStories.getCustomInitialProps = async function ({
     .filter(
       (page) =>
         page && page.zones.MainContentZone.findIndex(
-          (item) => item.module === "CaseStudyData"
+          (item) => item.module === "CaseStudyData" || item.module === "FirstFold"
         ) !== -1
     )
     .map((page) => {
       return {
         name: page.name,
         ...page.zones.MainContentZone.find(
-          (item) => item.module === "CaseStudyData"
+          (item) => item.module === "CaseStudyData" || item.module === "FirstFold"
         ).item,
       };
     });
