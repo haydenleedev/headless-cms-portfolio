@@ -21,7 +21,16 @@ const CustomerStoryCardsContent = ({ fields, customerStories, rootPath }) => {
             <Fragment key={story.contentID}>
               <GenericCard
                 link={{ href: `${rootPath}/${story.name}` }}
-                image={story.fields.image || story.fields.media}
+                image={
+                  story.fields.image ||
+                  story.fields.media || {
+                    // fallback image
+                    url: "https://assets.ujet.cx/Attachments/NewItems/ujetcx_Logo-Hero-1920x1920_20220512075357_0.png",
+                    pixelWidth: "330",
+                    pixelHeight: "270",
+                    label: "",
+                  }
+                }
                 title={
                   story.fields.title || JSON.parse(story.fields.heading).text
                 }
