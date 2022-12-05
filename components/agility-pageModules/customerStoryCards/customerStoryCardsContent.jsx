@@ -22,9 +22,15 @@ const CustomerStoryCardsContent = ({ fields, customerStories, rootPath }) => {
               <GenericCard
                 link={{ href: `${rootPath}/${story.name}` }}
                 image={story.fields.image || story.fields.media}
-                title={story.fields.title || story.name}
-                ariaTitle={`${story.fields.title || story.name} customer story`}
-                description={story.fields.description || cleanText(story.fields.text)}
+                title={
+                  story.fields.title || JSON.parse(story.fields.heading).text
+                }
+                ariaTitle={`${
+                  story.fields.title || JSON.parse(story.fields.heading).text
+                } customer story`}
+                description={
+                  story.fields.description || cleanText(story.fields.text)
+                }
                 configuration={{
                   imageHeight: "tall",
                   emphasizedTitle: true,
