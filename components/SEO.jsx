@@ -218,7 +218,7 @@ const SEO = ({
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
                 </Script>
-                <Script id="6sense" strategy="lazyOnload">
+                {/*  <Script id="6sense" strategy="lazyOnload">
                   {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
@@ -317,7 +317,7 @@ const SEO = ({
               s.parentNode.insertBefore(gd, s);
               })();
           `}
-                </Script>
+                </Script> */}
                 <Script id="g2Crowd" strategy="lazyOnload">
                   {`
           (function (c, p, d, u, id, i) {
