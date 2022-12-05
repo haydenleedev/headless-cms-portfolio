@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { Fragment, useState } from "react";
 import style from "./latestCustomerStories.module.scss";
-import { cleanText, capitalizeFirstLetter } from "../../../utils/convert";
+import { cleanText } from "../../../utils/convert";
 const Heading = dynamic(() => import("../heading"), { ssr: false });
 const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
   ssr: false,
@@ -32,9 +32,15 @@ const LatestCustomerStoriesContent = ({
                 <GenericCard
                   link={{ href: `${rootPath}/${story.name}` }}
                   image={story.fields.image || story.fields.media}
-                  title={story.fields.title || capitalizeFirstLetter(story.name)}
-                  ariaTitle={`${story.fields.title || story.name} customer story`}
-                  description={story.fields.description || cleanText(story.fields.text)}
+                  title={
+                    story.fields.title || JSON.parse(story.fields.heading).text
+                  }
+                  ariaTitle={`${
+                    story.fields.title || JSON.parse(story.fields.heading).text
+                  } customer story`}
+                  description={
+                    story.fields.description || cleanText(story.fields.text)
+                  }
                   configuration={{
                     imageHeight: "tall",
                     emphasizedTitle: true,
