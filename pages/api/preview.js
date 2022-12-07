@@ -17,7 +17,7 @@ export default async (req, res) => {
 
   const api = agility.getApi({
     guid: process.env.AGILITY_GUID,
-    isPreview:true,
+    isPreview: true,
     apiKey: process.env.AGILITY_API_PREVIEW_KEY,
   });
 
@@ -25,6 +25,7 @@ export default async (req, res) => {
   let referer = req.headers.referer;
   let queryString;
   if (
+    referer &&
     referer.includes("?") &&
     !referer.includes("?lang=") &&
     !referer.includes("?ContentID=")
