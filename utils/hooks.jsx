@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useLayoutEffect } from "react";
 
 /*
  This custom hook helps using the intersectionObserver API whenever needed without needing to manually set it up every time
@@ -15,7 +15,7 @@ export const useIntersectionObserver = (
   callback
 ) => {
   const ref = useRef();
-  useEffect(() => {
+  useLayoutEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.intersectionRatio > intersectionRatioThreshold) callback?.();
@@ -34,7 +34,7 @@ export const useIntersectionObserver = (
 
 export const useMutationObserver = ({ options, callback }) => {
   const ref = useRef();
-  useEffect(() => {
+  useLayoutEffect(() => {
     const observer = new MutationObserver(callback);
     if (ref.current) observer.observe(ref.current, options);
     return () => {
