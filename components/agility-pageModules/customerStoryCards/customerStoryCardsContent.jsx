@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { Fragment } from "react";
+import { cleanText } from "../../../utils/convert";
 const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
   ssr: false,
 });
@@ -20,10 +21,25 @@ const CustomerStoryCardsContent = ({ fields, customerStories, rootPath }) => {
             <Fragment key={story.contentID}>
               <GenericCard
                 link={{ href: `${rootPath}/${story.name}` }}
-                image={story.fields.image}
-                title={story.fields.title}
-                ariaTitle={`${story.fields.title} customer story`}
-                description={story.fields.description}
+                image={
+                  story.fields.image ||
+                  story.fields.media || {
+                    // fallback image
+                    url: "https://assets.ujet.cx/Attachments/NewItems/ujetcx_Logo-Hero-1920x1920_20220512075357_0.png",
+                    pixelWidth: "330",
+                    pixelHeight: "270",
+                    label: "",
+                  }
+                }
+                title={
+                  story.fields.title || JSON.parse(story.fields.heading).text
+                }
+                ariaTitle={`${
+                  story.fields.title || JSON.parse(story.fields.heading).text
+                } customer story`}
+                description={
+                  story.fields.description || cleanText(story.fields.text)
+                }
                 configuration={{
                   imageHeight: "tall",
                   emphasizedTitle: true,
