@@ -48,7 +48,15 @@ const BondFirstFold = ({ module }) => {
                   width="168"
                   alt=""
                 />
-                <p>{fields.title}</p>
+                <p
+                  className={`${
+                    fields.headingAlignment
+                      ? fields.headingAlignment
+                      : "align-center"
+                  }`}
+                >
+                  {fields.title}
+                </p>
                 <div className="button">{fields.formLink.text}</div>
               </div>
             </div>
