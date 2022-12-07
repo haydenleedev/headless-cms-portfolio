@@ -17,7 +17,8 @@ export default async (req, res) => {
 
   const api = agility.getApi({
     guid: process.env.AGILITY_GUID,
-    apiKey: process.env.AGILITY_API_FETCH_KEY,
+    isPreview:true,
+    apiKey: process.env.AGILITY_API_PREVIEW_KEY,
   });
 
   let previewUrl = req.query.slug;
