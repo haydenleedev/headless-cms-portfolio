@@ -59,9 +59,9 @@ const TextWithFormContent = ({
           const previousIsHalfWidthInput =
             visibleFields[row]?.previousSibling?.children?.[1]?.tagName ===
               "INPUT" &&
-            visibleFields[row]?.previousSibling?.children?.[1]?.style[
-              "grid-column"
-            ] === "unset";
+            visibleFields[row]?.previousSibling?.style["grid-column"] ===
+              "unset" &&
+            (row - 1) % 2 === 0;
           if (previousIsHalfWidthInput) {
             visibleFields[row].style["grid-column"] = "unset";
           } else visibleFields[row].style["grid-column"] = "1 / -1";
