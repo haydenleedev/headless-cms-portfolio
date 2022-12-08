@@ -20,7 +20,7 @@ const LazyLoadReCAPTCHA = () => {
       {shouldLoad && (
         <Script
           src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY}`}
-          strategy="worker"
+          strategy="lazyOnload"
         />
       )}
     </>

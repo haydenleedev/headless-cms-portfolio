@@ -47,7 +47,7 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
       <Script
         id="google-optimize"
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
-        strategy="worker"
+        strategy="lazyOnload"
       />
       {
         <>

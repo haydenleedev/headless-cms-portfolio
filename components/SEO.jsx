@@ -211,14 +211,14 @@ const SEO = ({
           <>
             {(timerExpired || userInteracted) && (
               <>
-                <Script id="google-tag-manager" strategy="worker">
+                <Script id="google-tag-manager">
                   {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
                 </Script>
-                <Script id="6sense" strategy="worker">
+                <Script id="6sense" strategy="lazyOnload">
                   {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
@@ -318,7 +318,7 @@ const SEO = ({
               })();
           `}
                 </Script>
-                <Script id="g2Crowd" strategy="worker">
+                <Script id="g2Crowd" strategy="lazyOnload">
                   {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
@@ -335,7 +335,7 @@ const SEO = ({
                 {userInteracted && (
                   <>
                     {/* Qualified Script */}
-                    <Script id="qualified" strategy="worker">
+                    <Script id="qualified" strategy="lazyOnload">
                       {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
                     </Script>
@@ -343,7 +343,7 @@ const SEO = ({
                       id="qualified-src"
                       async
                       src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-                      strategy="worker"
+                      strategy="lazyOnload"
                     />
                   </>
                 )}

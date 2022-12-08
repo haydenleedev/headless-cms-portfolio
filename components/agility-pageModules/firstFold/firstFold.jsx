@@ -564,7 +564,6 @@ const FirstFold = ({ module, customData }) => {
           <Script
             src="https://www.youtube.com/iframe_api"
             onLoad={handleAPIScriptLoad}
-            strategy="worker"
           />
         )}
       </>
