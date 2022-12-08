@@ -164,7 +164,7 @@ const EmbedVideoContent = ({
       {isYouTubeVideo && (
         <Script
           src="https://www.youtube.com/iframe_api"
-          strategy="lazyOnload"
+          strategy="worker"
           onLoad={handleAPIScriptLoad}
         />
       )}

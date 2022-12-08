@@ -218,7 +218,7 @@ const SEO = ({
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}');`}
                 </Script>
-                <Script id="6sense" strategy="lazyOnload">
+                <Script id="6sense" strategy="worker">
                   {`
             var processEpsilonData = function(a) {
               // --- Decode Response ---
@@ -318,7 +318,7 @@ const SEO = ({
               })();
           `}
                 </Script>
-                <Script id="g2Crowd" strategy="lazyOnload">
+                <Script id="g2Crowd" strategy="worker">
                   {`
           (function (c, p, d, u, id, i) {
             id = ''; // Optional Custom ID for user in your system
@@ -335,7 +335,7 @@ const SEO = ({
                 {userInteracted && (
                   <>
                     {/* Qualified Script */}
-                    <Script id="qualified" strategy="lazyOnload">
+                    <Script id="qualified" strategy="worker">
                       {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
                     </Script>
@@ -343,7 +343,7 @@ const SEO = ({
                       id="qualified-src"
                       async
                       src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-                      strategy="lazyOnload"
+                      strategy="worker"
                     />
                   </>
                 )}

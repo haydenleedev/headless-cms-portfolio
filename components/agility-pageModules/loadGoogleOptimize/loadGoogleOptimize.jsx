@@ -34,7 +34,7 @@ const LoadGoogleOptimize = () => {
     <Script
       id="google-optimize"
       src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
-      strategy="lazyOnload"
+      strategy="worker"
     />
   );
 };
