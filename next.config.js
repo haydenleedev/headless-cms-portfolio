@@ -4,11 +4,7 @@ const marketoLpRedirects = require("./data/marketoLpRedirects.json");
 const marketoEmailRedirects = require("./data/marketoEmailRedirects.json");
 const agilityRedirects = require("./data/agilityRedirects.json");
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === 'true',
-});
-
-module.exports = withBundleAnalyzer({
+module.exports = {
   rewrites() {
     return {
       beforeFiles: [
@@ -52,4 +48,4 @@ module.exports = withBundleAnalyzer({
     locales: ["en-US"],
     defaultLocale: "en-US",
   },
-});
+};
