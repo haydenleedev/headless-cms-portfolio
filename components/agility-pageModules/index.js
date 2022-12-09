@@ -48,10 +48,6 @@ const HiddenH1 = dynamic(() => import("./hiddenH1/hiddenH1"), { ssr: false });
 const SecondaryNav = dynamic(() => import("./secondaryNav/secondaryNav"), {
   ssr: false,
 });
-const ArchivesPageContent = dynamic(
-  () => import("./archivesPageContent/archivesPageContent"),
-  { ssr: false }
-);
 
 const AcknowledgePageContent = dynamic(
   () => import("./acknowledgePageContent/acknowledgePageContent"),
@@ -60,6 +56,7 @@ const AcknowledgePageContent = dynamic(
 
 // eagerly loaded modules
 import FirstFold from "./firstFold/firstFold";
+import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
 import Infographic from "./infographic/infographic";
 import CustomerStoryCards from "./customerStoryCards/customerStoryCards";
 import LoadGoogleOptimize from "./loadGoogleOptimize/loadGoogleOptimize";
