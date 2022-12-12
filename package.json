@@ -28,6 +28,5 @@
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "sass": "^1.42.1"
-  },
-  "sideEffects": false
+  }
 }
