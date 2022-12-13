@@ -53,7 +53,7 @@ const BondFirstFold = ({ module }) => {
                     fields.headingAlignment
                       ? fields.headingAlignment
                       : "align-center"
-                  }`}
+                  }${fields.headingSize ? " " + fields.headingSize : ""}`}
                 >
                   {fields.title}
                 </p>
