@@ -18,12 +18,9 @@ import {
   isNonUsPhoneNumber,
   reorderFieldData,
 } from "../../utils/pardotForm";
-import pardotFormData from "../../data/pardotFormData.json";
-import Router from "next/router";
 import { boolean } from "../../utils/validation";
 import PardotFormEmailStep from "./pardotFormEmailStep";
 import HoneypotFields from "./honeypotFields";
-import Script from "next/script";
 import LazyLoadReCAPTCHA from "./lazyLoadReCAPTCHA";
 
 class PardotForm extends Component {
@@ -80,105 +77,108 @@ class PardotForm extends Component {
   }
 
   componentDidMount() {
-    // Variables that are initialized here could be moved to the constructor so that all variables are initialized before the first render
-    // It would also improve readability slightly
+    import("../../data/pardotFormData.json").then((data) => {
+      const pardotFormData = data.default;
+      // Variables that are initialized here could be moved to the constructor so that all variables are initialized before the first render
+      // It would also improve readability slightly
 
-    this.isDealRegistrationForm = this.props.formHandlerID == 3571;
-    this.isChannelRequestForm = this.props.formHandlerID == 3709;
-    this.isContactForm = this.props.formHandlerID == 3568;
-    this.isLandingPageOrWebinarForm =
-      this.props.formHandlerID == 3658 || this.props.formHandlerID == 3712;
+      this.isDealRegistrationForm = this.props.formHandlerID == 3571;
+      this.isChannelRequestForm = this.props.formHandlerID == 3709;
+      this.isContactForm = this.props.formHandlerID == 3568;
+      this.isLandingPageOrWebinarForm =
+        this.props.formHandlerID == 3658 || this.props.formHandlerID == 3712;
 
-    // Pass different value to contact_type for contact sales form
-    switch (this.props.contactType) {
-      case "request_a_demo":
-        this.contactTypeValue = "requestDemo";
-        break;
-      case "contact_sales":
-        this.contactTypeValue = "contactSales";
-        break;
-    }
-
-    const stripQueryStringAndHashFromPath = (url) => {
-      return url.split("?")[0].split("#")[0];
-    };
-
-    this.pagePath = stripQueryStringAndHashFromPath(window.location.href);
-    this.formType = getFormType(this.props.formHandlerID);
-    this.setState({
-      includeTimeStampInEmailAddress: [
-        "dealRegistration",
-        "channelRequest",
-        "partnerCertification",
-      ].includes(this.formType),
-    });
-
-    // Get field data corresponding to the form handler ID
-    for (let i = 0; i < pardotFormData.length; i++) {
-      if (
-        pardotFormData[i].formHandlerID == parseInt(this.props.formHandlerID)
-      ) {
-        this.fieldData = pardotFormData[i].fieldData;
-        break;
+      // Pass different value to contact_type for contact sales form
+      switch (this.props.contactType) {
+        case "request_a_demo":
+          this.contactTypeValue = "requestDemo";
+          break;
+        case "contact_sales":
+          this.contactTypeValue = "contactSales";
+          break;
       }
-    }
-    if (!this.fieldData) {
-      this.fieldData = [];
-    }
 
-    let emailFieldExists = false;
-    for (let i = 0; i < this.fieldData.length; i++) {
-      if (this.fieldData[i].name == "Email") {
-        emailFieldExists = true;
-        break;
-      }
-    }
+      const stripQueryStringAndHashFromPath = (url) => {
+        return url.split("?")[0].split("#")[0];
+      };
 
-    if (this.fieldData.length > 0 && emailFieldExists) {
-      this.fieldData.forEach((field) => {
+      this.pagePath = stripQueryStringAndHashFromPath(window.location.href);
+      this.formType = getFormType(this.props.formHandlerID);
+      this.setState({
+        includeTimeStampInEmailAddress: [
+          "dealRegistration",
+          "channelRequest",
+          "partnerCertification",
+        ].includes(this.formType),
+      });
+
+      // Get field data corresponding to the form handler ID
+      for (let i = 0; i < pardotFormData.length; i++) {
         if (
-          !isHiddenField(field, this.isDealRegistrationForm) &&
-          !this.isDealRegistrationForm &&
-          !isHiddenField(field, this.isChannelRequestForm) &&
-          !this.isChannelRequestForm
+          pardotFormData[i].formHandlerID == parseInt(this.props.formHandlerID)
         ) {
-          field.isRequired = true;
+          this.fieldData = pardotFormData[i].fieldData;
+          break;
         }
-      });
-    } else {
-      this.fieldData = getFallbackFieldData(this.props.formHandlerID);
-    }
-    this.fieldData = reorderFieldData(this.fieldData, this.formType);
-    this.fieldRefs = Array(this.fieldData.length)
-      .fill(0)
-      .map(() => {
-        return React.createRef();
-      });
-    this.setState({
-      errors: Array(this.fieldData.length).fill(false),
-      touched: Array(this.fieldData.length).fill(false),
-      clientJSEnabled: true,
-    });
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !this.formInViewEventPushed) {
-            this.formInViewEventPushed = true;
-            window.dataLayer?.push({
-              event: "pardotFormInView",
-            });
+      }
+      if (!this.fieldData) {
+        this.fieldData = [];
+      }
+
+      let emailFieldExists = false;
+      for (let i = 0; i < this.fieldData.length; i++) {
+        if (this.fieldData[i].name == "Email") {
+          emailFieldExists = true;
+          break;
+        }
+      }
+
+      if (this.fieldData.length > 0 && emailFieldExists) {
+        this.fieldData.forEach((field) => {
+          if (
+            !isHiddenField(field, this.isDealRegistrationForm) &&
+            !this.isDealRegistrationForm &&
+            !isHiddenField(field, this.isChannelRequestForm) &&
+            !this.isChannelRequestForm
+          ) {
+            field.isRequired = true;
           }
         });
-      },
-      {
-        threshold: 0.2,
+      } else {
+        this.fieldData = getFallbackFieldData(this.props.formHandlerID);
       }
-    );
-    if (this.stepsEnabled) {
-      observer.observe(this.stepForm);
-    } else {
-      observer.observe(this.form);
-    }
+      this.fieldData = reorderFieldData(this.fieldData, this.formType);
+      this.fieldRefs = Array(this.fieldData.length)
+        .fill(0)
+        .map(() => {
+          return React.createRef();
+        });
+      this.setState({
+        errors: Array(this.fieldData.length).fill(false),
+        touched: Array(this.fieldData.length).fill(false),
+        clientJSEnabled: true,
+      });
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !this.formInViewEventPushed) {
+              this.formInViewEventPushed = true;
+              window.dataLayer?.push({
+                event: "pardotFormInView",
+              });
+            }
+          });
+        },
+        {
+          threshold: 0.2,
+        }
+      );
+      if (this.stepsEnabled) {
+        observer.observe(this.stepForm);
+      } else {
+        observer.observe(this.form);
+      }
+    });
   }
 
   updateTouched(index) {
