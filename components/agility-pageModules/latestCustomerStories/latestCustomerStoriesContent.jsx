@@ -13,7 +13,7 @@ const LatestCustomerStoriesContent = ({
   rootPath,
 }) => {
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
-  const [amountOfPostsToShow, setAmountOfPostsToShow] = useState(3);
+  const [amountOfPostsToShow, setAmountOfPostsToShow] = useState(6);
   return (
     <div className="container">
       {heading && (
@@ -23,7 +23,7 @@ const LatestCustomerStoriesContent = ({
       )}
       <nav
         className={`columns repeat-3 ${style.content}`}
-        aria-label="customer customerStories navigation"
+        aria-label="customer stories navigation"
       >
         {customerStories.map((story, i) => {
           return (
@@ -31,7 +31,16 @@ const LatestCustomerStoriesContent = ({
               <Fragment key={story.contentID}>
                 <GenericCard
                   link={{ href: `${rootPath}/${story.name}` }}
-                  image={story.fields.image || story.fields.media}
+                  image={
+                    story.fields.image ||
+                    story.fields.media || {
+                      // fallback image
+                      url: "https://assets.ujet.cx/Attachments/NewItems/ujetcx_Logo-Hero-1920x1920_20220512075357_0.png",
+                      pixelWidth: "330",
+                      pixelHeight: "270",
+                      label: "",
+                    }
+                  }
                   title={
                     story.fields.title || JSON.parse(story.fields.heading).text
                   }
@@ -56,7 +65,7 @@ const LatestCustomerStoriesContent = ({
           className={`button orange ${style.loadMoreButton}`}
           onClick={(e) => {
             e.stopPropagation();
-            setAmountOfPostsToShow(amountOfPostsToShow + 3);
+            setAmountOfPostsToShow(amountOfPostsToShow + 6);
           }}
         >
           View More Customer Stories
