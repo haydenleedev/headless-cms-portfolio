@@ -65,7 +65,7 @@ CustomerStoryCards.getCustomInitialProps = async function ({
     (page) =>
       page &&
       page.zones.MainContentZone.findIndex(
-        (item) => item.module === "CaseStudyData"
+        (item) => item.module === "CaseStudyData" || item.module === "FirstFold"
       ) !== -1
   );
   customerStoryPages = customerStoryPages.map((page) => {
@@ -81,7 +81,8 @@ CustomerStoryCards.getCustomInitialProps = async function ({
   const card1Data = {
     name: card1Page.name,
     ...card1Page?.zones?.MainContentZone?.find?.(
-      (module) => module.module === "CaseStudyData"
+      (module) =>
+        module.module === "CaseStudyData" || module.module === "FirstFold"
     )?.item,
   };
   const card2Page = customerStoryPages.find((page) =>
@@ -90,7 +91,8 @@ CustomerStoryCards.getCustomInitialProps = async function ({
   const card2Data = {
     name: card2Page.name,
     ...card2Page?.zones?.MainContentZone?.find?.(
-      (module) => module.module === "CaseStudyData"
+      (module) =>
+        module.module === "CaseStudyData" || module.module === "FirstFold"
     )?.item,
   };
   const card3Page = customerStoryPages.find((page) =>
@@ -99,7 +101,8 @@ CustomerStoryCards.getCustomInitialProps = async function ({
   const card3Data = {
     name: card3Page.name,
     ...card3Page?.zones?.MainContentZone?.find?.(
-      (module) => module.module === "CaseStudyData"
+      (module) =>
+        module.module === "CaseStudyData" || module.module === "FirstFold"
     )?.item,
   };
   return { card1Data, card2Data, card3Data, rootPath };

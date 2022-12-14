@@ -1,7 +1,6 @@
 import { getCookie, setCookie } from "./cookies";
 import { generateUUID } from "./generic";
 import { getUrlParamValue } from "./getUrlParamValue";
-import fallBackPardotFormData from "../data/fallbackPardotFormData.json";
 
 const gaMeta = [
   {
@@ -335,7 +334,10 @@ export const getFormType = (formHandlerID) => {
   }
 };
 
-export const getFallbackFieldData = (formID) => {
+export const getFallbackFieldData = async (formID) => {
+  const fallBackPardotFormData = (
+    await import("../data/fallbackPardotFormData.json")
+  ).default;
   const fields = [];
   fallBackPardotFormData.forEach((field) => {
     if (field.formHandlerId == formID) {

@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { Fragment, useState } from "react";
 import style from "./latestCustomerStories.module.scss";
+import { cleanText } from "../../../utils/convert";
 const Heading = dynamic(() => import("../heading"), { ssr: false });
 const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
   ssr: false,
@@ -22,7 +23,7 @@ const LatestCustomerStoriesContent = ({
       )}
       <nav
         className={`columns repeat-3 ${style.content}`}
-        aria-label="customer customerStories navigation"
+        aria-label="customer stories navigation"
       >
         {customerStories.map((story, i) => {
           return (
@@ -30,10 +31,25 @@ const LatestCustomerStoriesContent = ({
               <Fragment key={story.contentID}>
                 <GenericCard
                   link={{ href: `${rootPath}/${story.name}` }}
-                  image={story.fields.image}
-                  title={story.fields.title}
-                  ariaTitle={`${story.fields.title} customer story`}
-                  description={story.fields.description}
+                  image={
+                    story.fields.image ||
+                    story.fields.media || {
+                      // fallback image
+                      url: "https://assets.ujet.cx/Attachments/NewItems/ujetcx_Logo-Hero-1920x1920_20220512075357_0.png",
+                      pixelWidth: "330",
+                      pixelHeight: "270",
+                      label: "",
+                    }
+                  }
+                  title={
+                    story.fields.title || JSON.parse(story.fields.heading).text
+                  }
+                  ariaTitle={`${
+                    story.fields.title || JSON.parse(story.fields.heading).text
+                  } customer story`}
+                  description={
+                    story.fields.description || cleanText(story.fields.text)
+                  }
                   configuration={{
                     imageHeight: "tall",
                     emphasizedTitle: true,

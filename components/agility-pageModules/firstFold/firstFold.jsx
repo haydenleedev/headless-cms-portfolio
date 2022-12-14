@@ -213,17 +213,32 @@ const FirstFold = ({ module, customData }) => {
     ) : null;
   };
 
+  //Transparentise navbar functionality
+  const transparentiseNavbar = boolean(fields.transparentiseNavbar);
+  useEffect(() => {
+    if (
+      transparentiseNavbar &&
+      intersectionRef.current &&
+      !intersectionRef.current.previousSibling
+    ) {
+      const nextSiblingModule = intersectionRef.current.nextSibling;
+      nextSiblingModule.classList.add("mt--navbar-height");
+    }
+  }, [intersectionRef]);
   // different layout when alternateLayout or customerStory is toggled on
+
   if (layout == "alternateLayout" || layout == "customerStory") {
     return (
       <section
         className={`section ${style.firstFoldAlternate}
-        ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
+          ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
           layout == "customerStory" ? "mb-6" : ""
         } ${fields.classes ? fields.classes : ""} ${
           fields?.backgroundColor ? fields?.backgroundColor : ""
-        }`}
+        } ${transparentiseNavbar ? "transparentized-navbar-transform" : ""}`}
         id={fields.id ? fields.id : null}
+        ref={intersectionRef}
+        data-transparent-navbar={transparentiseNavbar}
       >
         {fields.media && (
           <div
@@ -259,10 +274,13 @@ const FirstFold = ({ module, customData }) => {
     return (
       <section
         className={`section ${mtValue} ${mbValue} ${ptValue} ${pbValue}
-        ${style.softwareIntegration}${
+          ${style.softwareIntegration}${
           fields.classes ? " " + fields.classes : ""
-        } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
+        } ${fields?.backgroundColor ? fields?.backgroundColor : ""}
+        ${transparentiseNavbar ? "transparentized-navbar-transform" : ""}`}
         id={fields.id ? fields.id : null}
+        ref={intersectionRef}
+        data-transparent-navbar={transparentiseNavbar}
       >
         <div
           className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
@@ -294,11 +312,13 @@ const FirstFold = ({ module, customData }) => {
       <>
         <section
           className={`section ${style.firstFold}
-        ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
+          ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
             fields.classes ? fields.classes : ""
-          } ${fields?.backgroundColor ? fields?.backgroundColor : ""}`}
+          } ${fields?.backgroundColor ? fields?.backgroundColor : ""}
+          ${transparentiseNavbar ? "transparentized-navbar-transform" : ""}`}
           id={fields.id ? fields.id : null}
           ref={intersectionRef}
+          data-transparent-navbar={transparentiseNavbar}
         >
           <div
             className={`container ${narrowContainer ? "max-width-narrow" : ""}`}
