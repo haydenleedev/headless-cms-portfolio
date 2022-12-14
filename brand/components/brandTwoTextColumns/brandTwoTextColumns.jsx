@@ -1,14 +1,17 @@
-import dynamic from "next/dynamic";
-import { sanitizeHtmlConfig } from "../../../utils/convert";
+import style from "./brandTwoTextColumns.module.scss";
+import { renderHTML } from "@agility/nextjs";
+import Heading from "../../../components/agility-pageModules/heading";
 import { useIntersectionObserver } from "../../../utils/hooks";
-const BrandTwoTextColumnsContent = dynamic(
-  () => import("./brandTwoTextColumnsContent"),
-  { ssr: false }
-);
 
-const BrandTwoTextColumns = ({ module, customData }) => {
+const BrandTwoTextColumns = ({ module }) => {
   const { fields } = module;
-  const { sanitizedHtmlLeft, sanitizedHtmlRight } = customData;
+  const heading = JSON.parse(fields.heading);
+  //Configuration variables
+  const narrowContainer = fields.containerWidth == "narrow";
+  const fullPageWidth = fields.containerWidth == "fullPageWidth";
+  const brandWidth = fields.containerWidth == "brand";
+  const alignRight = fields.headingAlignment == "align-right";
+  const alignCenter = fields.headingAlignment == "align-center";
 
   const intersectionRef = useIntersectionObserver(
     {
@@ -34,31 +37,46 @@ const BrandTwoTextColumns = ({ module, customData }) => {
       id={fields.id ? fields.id : null}
       ref={intersectionRef}
     >
-      <BrandTwoTextColumnsContent
-        sanitizedHtmlLeft={sanitizedHtmlLeft}
-        sanitizedHtmlRight={sanitizedHtmlRight}
-        fields={fields}
-      />
+      <div
+        className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
+          fullPageWidth ? "max-width-unset padding-unset" : ""
+        } ${brandWidth ? "max-width-brand" : ""}`}
+      >
+        <div
+          className={`${style.heading} ${
+            "flex-direction-" + fields.subtitlePosition
+          } ${
+            alignRight ? style.alignRight : alignCenter ? style.alignCenter : ""
+          }`}
+        >
+          <p>{fields.subtitle}</p>
+          <Heading {...heading} />
+        </div>
+        <div
+          className={`${style.textContainer} ${
+            "flex-direction-" + fields.mobileorder
+          }`}
+        >
+          <div className={style.columnLeft}>
+            {fields.textLeft && (
+              <div
+                className={`${style.html} content`}
+                dangerouslySetInnerHTML={renderHTML(fields.textLeft)}
+              ></div>
+            )}
+          </div>
+          <div className={style.columnRight}>
+            {fields.textRight && (
+              <div
+                className={`${style.html} content`}
+                dangerouslySetInnerHTML={renderHTML(fields.textRight)}
+              ></div>
+            )}
+          </div>
+        </div>
+      </div>
     </section>
   );
-};
-BrandTwoTextColumns.getCustomInitialProps = async function ({ item }) {
-  const sanitizeHtml = (await import("sanitize-html")).default;
-  // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
-
-  const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
-
-  const sanitizedHtmlLeft = item.fields.textLeft
-    ? cleanHtml(item.fields.textLeft)
-    : null;
-  const sanitizedHtmlRight = item.fields.textRight
-    ? cleanHtml(item.fields.textRight)
-    : null;
-
-  return {
-    sanitizedHtmlLeft,
-    sanitizedHtmlRight,
-  };
 };
 
 export default BrandTwoTextColumns;

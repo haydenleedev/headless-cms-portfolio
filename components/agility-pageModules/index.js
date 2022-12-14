@@ -54,6 +54,35 @@ const AcknowledgePageContent = dynamic(
   { ssr: false }
 );
 
+const BrandFirstFold = dynamic(
+  () => import("../../brand/components/brandFirstFold/brandFirstFold"),
+  { ssr: false }
+);
+const BrandTextWithMedia = dynamic(
+  () => import("../../brand/components/brandTextWithMedia/brandTextWithMedia"),
+  { ssr: false }
+);
+const BrandTwoTextColumns = dynamic(
+  () =>
+    import("../../brand/components/brandTwoTextColumns/brandTwoTextColumns"),
+  { ssr: false }
+);
+const BrandBlankCards = dynamic(
+  () => import("../../brand/components/brandBlankCards/brandBlankCards"),
+  { ssr: false }
+);
+const BrandVideoPopup = dynamic(
+  () => import("../../brand/components/brandVideoPopup/brandVideoPopup"),
+  { ssr: false }
+);
+const BrandTextGridWithMedia = dynamic(
+  () =>
+    import(
+      "../../brand/components/brandTextGridWithMedia/brandTextGridWithMedia"
+    ),
+  { ssr: false }
+);
+
 // eagerly loaded modules
 import FirstFold from "./firstFold/firstFold";
 import ArchivesPageContent from "./archivesPageContent/archivesPageContent";
@@ -94,12 +123,6 @@ import ShopErrorPageContent from "./shopErrorPageContent/shopErrorPageContent";
 import VideoPopup from "./videoPopup/videoPopup";
 import DealRegistration from "./dealRegistration/dealRegistration";
 import ChannelRequest from "./channelRequest/channelRequest";
-import BrandFirstFold from "../../brand/components/brandFirstFold/brandFirstFold";
-import BrandTextWithMedia from "../../brand/components/brandTextWithMedia/brandTextWithMedia";
-import BrandTwoTextColumns from "../../brand/components/brandTwoTextColumns/brandTwoTextColumns";
-import BrandBlankCards from "../../brand/components/brandBlankCards/brandBlankCards";
-import BrandVideoPopup from "../../brand/components/brandVideoPopup/brandVideoPopup";
-import BrandTextGridWithMedia from "../../brand/components/brandTextGridWithMedia/brandTextGridWithMedia";
 import TextWithInfographic from "./textWithInfographic/textWithInfographic";
 import BlogSubscriptionBanner from "./BlogSubscriptionBanner/blogSubscriptionBanner";
 import CaseStudyData from "./caseStudyData/caseStudyData";
