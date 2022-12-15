@@ -181,6 +181,17 @@ export const sanitizeHtmlConfig = {
       };
     },
   },
+  img: function (tagName, attribs) {
+      const newAttribs = { ...attribs };
+      const altText = newAttribs?.alt;
+      return {
+        tagName,
+        attribs: {
+          ...newAttribs,
+          alt: altText ? altText : " ",
+        },
+      };
+  },
 };
 //Used to apply custom text classes to html
 export const textSizeSanitizeConfig = (
@@ -349,6 +360,7 @@ export const textSizeSanitizeConfig = (
         ) {
           const newAttribs = { ...attribs };
           const className = newAttribs?.class;
+          const altText = newAttribs?.alt;
           let classNamesToApply = " ";
           if (roundedCornersForImages) classNamesToApply += " border-radius-1";
           if (centerImagesHorizontally)
@@ -363,6 +375,7 @@ export const textSizeSanitizeConfig = (
               class: className
                 ? className + classNamesToApply
                 : classNamesToApply,
+                alt: altText ? altText : " ",
             },
           };
         } else {
