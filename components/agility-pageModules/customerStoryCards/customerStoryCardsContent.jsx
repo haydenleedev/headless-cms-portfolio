@@ -20,7 +20,7 @@ const CustomerStoryCardsContent = ({ fields, customerStories, rootPath }) => {
           return (
             <Fragment key={story.contentID}>
               <GenericCard
-                link={{ href: `${rootPath}/${story.name}` }}
+                link={{ href: `${rootPath}${story.name}` }}
                 image={
                   story.fields.image ||
                   story.fields.media || {
