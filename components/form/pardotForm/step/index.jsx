@@ -8,8 +8,10 @@ import { Fragment, useContext } from "react";
 import Loader from "../../../layout/loader/loader";
 import { cn } from "../../../../utils/generic";
 import ResourceDownloadContent from "../../../agility-pageModules/resourceDownload/resourceDownloadContent";
-import { getNextStepIndex } from "../utils/helpers";
 
+// idea: the user submits the form several times based on the number of steps defined in Agility
+// the email of the user is always checked first.
+// then the step that's submitted this time is defined based on if the user has previously submitted (every time a form is submitted, the values are saved on FaunaDB).
 const StepForm = ({
   customAction,
   btnColor,
@@ -17,34 +19,18 @@ const StepForm = ({
   config,
   stepCompletion,
 }) => {
-  const {
-    state,
-    fieldRefs,
-    formRef,
-    handleSubmit,
-    isContactForm,
-    updateCurrentStep,
-  } = useContext(PardotFormContext);
+  const { state, fieldRefs, formRef, handleSubmit, isContactForm } =
+    useContext(PardotFormContext);
+
   const isFirstStep =
     !state.stepEmailFieldValue && !state.prefilledCompletionView;
-  const isStep =
-    state.currentStepIndex < config.steps.length &&
-    !state.prefilledCompletionView;
+  const isStep = state.stepEmailFieldValue && !state.prefilledCompletionView;
   const stepsCompleted = state.prefilledCompletionView;
 
   const handleStepFormSubmit = (e) => {
-    e.preventDefault();
-    // if this step is the final step, submit the form
-    if (state.currentStepIndex === config.steps.length - 1) {
-      handleSubmit(e, true);
-    } else {
-      if (!state.formErrors.includes(true))
-        // it's assumed that the step form email is already in the form state
-        updateCurrentStep({
-          steps: config.steps,
-        });
-    }
+    handleSubmit(e, true);
   };
+
   if (isFirstStep) {
     return (
       <form
@@ -98,17 +84,7 @@ const StepForm = ({
             <input
               type="submit"
               className={`button ${btnColor ? btnColor : "orange"}`}
-              value={
-                state.submissionInProgress
-                  ? "Please wait..."
-                  : state.currentStepIndex === config.steps.length - 1 ||
-                    typeof getNextStepIndex(
-                      state.currentStepIndex,
-                      state.submittedStepFields
-                    ) !== "number"
-                  ? submit
-                  : "Next"
-              }
+              value={state.submissionInProgress ? "Please wait..." : submit}
               required="required"
               disabled={state.submissionInProgress}
             />

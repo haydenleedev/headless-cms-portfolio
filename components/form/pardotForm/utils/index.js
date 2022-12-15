@@ -238,18 +238,10 @@ export const validSubmitFormModifications = ({
 };
 
 // determine what to do when the form is submitted.
-export const submit = async ({
-  customAction,
-  formData,
-  formRef,
-  action,
-  prefilledStepFormAction,
-}) => {
+export const submit = async ({ customAction, formData, formRef, action }) => {
   // instead of normal form submission, trigger the prefilledStepFormAction function
-  // if it's a step form and the user has previously submitted all step fields.
-  if (prefilledStepFormAction) prefilledStepFormAction();
   // if the form has a customAction (e.g. BlogSubcriptionBanner)
-  else if (customAction) {
+  if (customAction) {
     const formObject = Object.fromEntries(formData.entries());
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/ajaxRequestPardot`,

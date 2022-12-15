@@ -6,7 +6,7 @@ import { isEmail } from "../../../../shop/utils/validation";
 import { cn } from "../../../../utils/generic";
 
 const EmailStep = ({ steps }) => {
-  const { state, updateCurrentStep, handleSetStepEmailFieldValue } =
+  const { state, getNextStep, handleSetStepEmailFieldValue } =
     useContext(PardotFormContext);
   const emailRef = useRef(null);
   const [emailError, setEmailError] = useState(false);
@@ -50,7 +50,7 @@ const EmailStep = ({ steps }) => {
             if (validateEmail() && !state.stepFetchInProgress) {
               e.preventDefault();
               handleSetStepEmailFieldValue(emailRef.current.value);
-              updateCurrentStep({ steps, email: emailRef.current.value });
+              getNextStep({ steps, email: emailRef.current.value });
             }
           }}
         >

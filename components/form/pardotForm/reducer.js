@@ -15,7 +15,6 @@ export const pardotFormActions = {
   setSubmissionInProgress: "set_submission_in_progress",
   setSubmissionAllowed: "set_submission_allowed",
   setStepEmailFieldValue: "set_step_email_field_value",
-  setFinalStepSubmitted: "set_final_step_submitted",
   setClientJSEnabled: "set_client_js_enabled",
   setPasteError: "set_paste_error",
   setFormType: "set_form_type",
@@ -24,10 +23,7 @@ export const pardotFormActions = {
   setSubmitFlag: "set_submit_flag",
   setStepFetchInProgress: "set_step_fetch_in_progress",
   setCurrentStepIndex: "set_current_step_index",
-  setSubmittedStepFields: "set_submitted_step_fields",
-  completedSteps: "set_completed_steps",
   setPrefilledCompletionView: "set_step_form_completed",
-  setPrefilledStepFormCompleted: "set_prefilled_step_form_completed",
 };
 
 const setState = (value, key, state) => {
@@ -64,8 +60,6 @@ export function pardotFormReducer(state, action) {
       return setState(action.value, "submissionInProgress", state);
     case pardotFormActions.setStepEmailFieldValue:
       return setState(action.value, "stepEmailFieldValue", state);
-    case pardotFormActions.setFinalStepSubmitted:
-      return setState(action.value, "finalStepSubmitted", state);
     case pardotFormActions.setClientJSEnabled:
       return setState(action.value, "clientJSEnabled", state);
     case pardotFormActions.setPasteError:
@@ -82,14 +76,8 @@ export function pardotFormReducer(state, action) {
       return setState(action.value, "stepFetchInProgress", state);
     case pardotFormActions.setCurrentStepIndex:
       return setState(action.value, "currentStepIndex", state);
-    case pardotFormActions.setSubmittedStepFields:
-      return setState(action.value, "submittedStepFields", state);
-    case pardotFormActions.setCompletedSteps:
-      return setState(action.value, "completedSteps", state);
     case pardotFormActions.setPrefilledCompletionView:
       return setState(action.value, "prefilledCompletionView", state);
-    case pardotFormActions.setPrefilledStepFormCompleted:
-      return setState(action.value, "prefilledStepFormCompleted", state);
     default:
       return state;
   }

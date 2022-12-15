@@ -2,6 +2,7 @@ import { createRef } from "react";
 import { validateField } from "../../utils";
 import { pardotFormActions } from "../../reducer";
 import {
+  addGaData,
   formatPhoneNumber,
   getNextStepIndex,
   isHiddenField,
@@ -20,8 +21,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     initialFieldData,
     isChannelRequestForm,
     isDealRegistrationForm,
-    handlePrefilledStepFormSubmissionActions,
     handleSetPartnerStateFieldVisible,
+    handlePrefilledStepFormCompletion,
     handleGetPartnerFieldProperties,
     handleSetStepEmailFieldValue,
     handlePartnerCountryChange,
@@ -30,19 +31,21 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     handleSetGaDataAdded,
     handleSetPasteError,
     handleCountryChange,
-    handleSetValidForm,
     handleDispatch,
     pasteBlocker,
   } = useFormState({ props, pardotFormData, formConfig });
 
-  // called when form is submitted
-  const handleSubmit = async (e, stepsDone) => {
+  const handleSubmit = async (e, stepFormSubmission) => {
     e.preventDefault();
     formValidation(Array(fieldRefs.current.length).fill(true));
-    if (stepsDone) {
-      dispatch({
-        type: pardotFormActions.setFinalStepSubmitted,
-        value: true,
+    if (stepFormSubmission) {
+      formRef.current["hiddenemail"].value = state.stepEmailFieldValue;
+      addGaData({
+        gaDataAdded: state.gaDataAdded,
+        handleSetGaDataAdded,
+        formEmailInput: formRef.current["hiddenemail"],
+        isDealRegistrationForm,
+        formType: state.formType,
       });
     }
     dispatch({
@@ -132,7 +135,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
   };
 
   // execute required actions when a step form progresses from previous step to the next one.
-  const updateCurrentStep = async ({ steps, email }) => {
+  const getNextStep = async ({ steps, email }) => {
     let submittedStepFields;
     formRef.current.firstChild.lastChild.focus({ preventScroll: true });
 
@@ -140,92 +143,62 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       type: pardotFormActions.setStepFetchInProgress,
       value: true,
     });
-    // if email step, fetch submitted field data for the entered email.
-    if (state.currentStepIndex === -1 && email) {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/getSubmittedPardotFields`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email,
-          }),
-        }
-      );
-      const responseJSON = await response.json();
 
-      submittedStepFields = await checkForSubmittedFields(
-        steps,
-        responseJSON?.submittedFields
-      );
-
-      if (submittedStepFields) {
-        dispatch({
-          type: pardotFormActions.setSubmittedStepFields,
-          value: submittedStepFields,
-        });
-        const allStepsSubmitted = steps
-          .map((step, i) => {
-            return step.fields.formFields.map(
-              (field, j) =>
-                submittedStepFields[i][j].submitted &&
-                field.fields.name === submittedStepFields[i][j].name
-            );
-          })
-          .flat(1)
-          .every((value) => value);
-
-        if (allStepsSubmitted) {
-          handlePrefilledStepFormSubmissionActions(submittedStepFields);
-          return;
-        }
+    // fetch previously submitted values for the email.
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/getSubmittedPardotFields`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+        }),
       }
-    } else {
-      submittedStepFields = state.submittedStepFields;
+    );
+    const responseJSON = await response.json();
+
+    submittedStepFields = await checkForSubmittedFields(
+      steps,
+      responseJSON?.submittedFields
+    );
+
+    if (submittedStepFields) {
+      const allStepsSubmitted = steps
+        .map((step, i) => {
+          return step.fields.formFields.map(
+            (field, j) =>
+              submittedStepFields[i][j].submitted &&
+              field.fields.name === submittedStepFields[i][j].name
+          );
+        })
+        .flat(1)
+        .every((value) => value);
+
+      if (allStepsSubmitted) {
+        handlePrefilledStepFormCompletion();
+        return;
+      }
     }
 
     dispatch({
       type: pardotFormActions.setTouchedFields,
       value: Array(fieldRefs.current.length).fill(true),
     });
-    dispatch({
-      type: pardotFormActions.setCompletedSteps,
-      value: {
-        ...state.completedSteps,
-        ...Object.fromEntries(
-          Array.from(new FormData(formRef.current)).filter(
-            ([key, value]) => value && key !== "contact_type"
-          )
-        ),
-      },
-    });
 
-    // get the index of the next step that has fields to fill. Skip steps that are already fully submitted
+    // get the index of the next step that has fields to fill. Skip steps that have already been submitted
     const nextStepIndex = getNextStepIndex(
       state.currentStepIndex,
       submittedStepFields
     );
-    if (typeof nextStepIndex === "number") {
-      const currentStep = steps[nextStepIndex].fields.formFields;
-      const currentStepSubmittedFields = submittedStepFields
-        ? submittedStepFields[nextStepIndex]
-        : null;
-      dispatch({
-        type: pardotFormActions.setCurrentStepIndex,
-        value: nextStepIndex,
-      });
-      formRef.current.reset();
-      setFieldsToMatchStep(currentStep, currentStepSubmittedFields);
-    } else {
-      handleSetValidForm(true);
-      dispatch({
-        type: pardotFormActions.setFinalStepSubmitted,
-        value: true,
-      });
-      dispatch({
-        type: pardotFormActions.setSubmitFlag,
-        value: true,
-      });
-    }
+    const currentStep = steps[nextStepIndex].fields.formFields;
+    const currentStepSubmittedFields = submittedStepFields
+      ? submittedStepFields[nextStepIndex]
+      : null;
+    dispatch({
+      type: pardotFormActions.setCurrentStepIndex,
+      value: nextStepIndex,
+    });
+    formRef.current.reset();
+    setFieldsToMatchStep(currentStep, currentStepSubmittedFields);
   };
 
   // validate the form to check if there's any input errors.
@@ -277,7 +250,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     handleCountryChange,
     handlePartnerCountryChange,
     phoneNumberFormatter,
-    updateCurrentStep,
+    getNextStep,
     handleSetPasteError,
     formValidation,
     pasteBlocker,

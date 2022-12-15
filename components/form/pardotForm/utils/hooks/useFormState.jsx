@@ -39,16 +39,12 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     submissionInProgress: false,
     submissionAllowed: true,
     stepEmailFieldValue: null,
-    finalStepSubmitted: false, // switches on after the final step in a step form is submitted.
     clientJSEnabled: false,
     pasteError: null,
     submitFlag: false, // flag for checking if a form has been submitted.
     stepFetchInProgress: false,
     currentStepIndex: -1, // initially -1 because the first step where email is submitted is not considered as a step
-    submittedStepFields: {}, // keep track of which step fields have been submitted and which have not.
-    completedSteps: {}, // an object that contains key-value pairs of all the completed step fields.
     prefilledCompletionView: false, // true, if a prefilled step form was successfully submitted, and the resource/text with form module had content for the viewed step completion component.
-    prefilledStepFormCompleted: false, // true, if a prefilled step form was fully submitted and the submit action should be determined.
   };
   const isDealRegistrationForm =
     initialFormState.formType === "dealRegistration";
@@ -142,19 +138,6 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     else setValidForm(false);
   }, [state.formErrors]);
 
-  // listen for changes to the 'final step submitted' flag.
-  useEffect(() => {
-    if (state.finalStepSubmitted) {
-      formRef.current["hiddenemail"].value = state.stepEmailFieldValue;
-      addGaData({
-        gaDataAdded: state.gaDataAdded,
-        handleSetGaDataAdded,
-        formEmailInput: formRef.current["hiddenemail"],
-        isDealRegistrationForm,
-        formType: state.formType,
-      });
-    }
-  }, [state.finalStepSubmitted]);
 
   // listen to changes on the selected country. Change phone number format for US or Canada
   useEffect(() => {
@@ -268,10 +251,6 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
           formData,
           formRef,
           action,
-          prefilledStepFormAction:
-            stepCompletion && state.prefilledStepFormCompleted
-              ? handlePrefilledStepFormCompletion
-              : "",
         });
       }
     };
@@ -355,10 +334,6 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     });
   };
 
-  const handleSetValidForm = (boolean) => {
-    setValidForm(boolean);
-  };
-
   const handleSetPasteError = (boolean, index) => {
     const formErrors = [...state.formErrors];
     formErrors[index] = boolean;
@@ -376,82 +351,6 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     }
   };
 
-  // a set of actions that are triggered when the user submits a step form for which all field values were found from the db.
-  const handlePrefilledStepFormSubmissionActions = (submittedStepFields) => {
-    let completed = submittedStepFields
-      .map((step) =>
-        step.map((field) => {
-          return { [field.name]: field.value };
-        })
-      )
-      .flat(1);
-    completed = completed.reduce(
-      (accumulator, currentValue) => Object.assign(accumulator, currentValue),
-      {}
-    );
-    let newFieldData = [...initialFieldData];
-    initialFieldData.forEach((field) => {
-      const shouldBeDeletedIndex = newFieldData.findIndex(
-        (compareField) =>
-          compareField.name === field.name &&
-          !isHiddenField(compareField, isDealRegistrationForm)
-      );
-      if (shouldBeDeletedIndex !== -1)
-        newFieldData.splice(shouldBeDeletedIndex, 1);
-    });
-    newFieldData = reorderFieldData(newFieldData, state.formType);
-    dispatch({
-      type: pardotFormActions.setStepFetchInProgress,
-      value: false,
-    });
-    fieldRefs.current = Array(newFieldData.length)
-      .fill(0)
-      .map(() => createRef());
-    dispatch({
-      type: pardotFormActions.setFieldData,
-      value: newFieldData,
-    });
-    dispatch({
-      type: pardotFormActions.setCurrentStepIndex,
-      value: state.currentStepIndex + 1,
-    });
-    dispatch({
-      type: pardotFormActions.setCompletedSteps,
-      value: completed,
-    });
-    setValidForm(true);
-    dispatch({
-      type: pardotFormActions.setFinalStepSubmitted,
-      value: true,
-    });
-    dispatch({
-      type: pardotFormActions.setPrefilledStepFormCompleted,
-      value: true,
-    });
-    dispatch({
-      type: pardotFormActions.setSubmitFlag,
-      value: true,
-    });
-  };
-
-  const handleSubmit = async (e, stepsDone) => {
-    e.preventDefault();
-    formValidation(Array(fieldRefs.current.length).fill(true));
-    if (stepsDone) {
-      dispatch({
-        type: pardotFormActions.setFinalStepSubmitted,
-        value: true,
-      });
-    }
-    dispatch({
-      type: pardotFormActions.setSubmitFlag,
-      value: true,
-    });
-    dispatch({
-      type: pardotFormActions.setTouchedFields,
-      value: Array(fieldRefs.current.length).fill(true),
-    });
-  };
   // handlers >>>>>>>>>
 
   const pasteBlocker = (e, index) => {
@@ -475,7 +374,6 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     initialFieldData,
     isChannelRequestForm,
     isDealRegistrationForm,
-    handlePrefilledStepFormSubmissionActions,
     handlePrefilledStepFormCompletion,
     handleSetPartnerStateFieldVisible,
     handleGetPartnerFieldProperties,
@@ -486,7 +384,6 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     handleSetGaDataAdded,
     handleSetPasteError,
     handleCountryChange,
-    handleSetValidForm,
     handleDispatch,
     pasteBlocker,
   };
