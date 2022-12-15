@@ -38,6 +38,8 @@ export const addGaData = ({
   isDealRegistrationForm,
   formType,
   contactTypeValue,
+  currentStepIndex,
+  isLastStep,
 }) => {
   if (!gaDataAdded) {
     // Loop and append randomized UID
@@ -110,6 +112,17 @@ export const addGaData = ({
     meta.id = "ga-cookie-datetime";
     head.appendChild(meta);
     setFormInputValue("ga_cookie_datetime", meta.content);
+
+    if (typeof currentStepIndex === "number" && currentStepIndex >= 0) {
+      var meta = document.createElement("meta");
+      meta.name = "ga_steps";
+      meta.content = isLastStep
+        ? `last_step${currentStepIndex + 1}`
+        : `step${currentStepIndex + 1}`;
+      meta.id = "ga-steps";
+      head.appendChild(meta);
+      setFormInputValue("ga_steps", meta.content);
+    }
 
     // Get Asset Type for all forms for Resources pages
     let getAssetUrl = window.location.href.split("?")[0];

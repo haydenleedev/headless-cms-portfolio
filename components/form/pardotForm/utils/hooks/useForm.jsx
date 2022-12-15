@@ -46,6 +46,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         formEmailInput: formRef.current["hiddenemail"],
         isDealRegistrationForm,
         formType: state.formType,
+        currentStepIndex: state.currentStepIndex,
+        isLastStep: props.config.steps.length === state.currentStepIndex + 1,
       });
     }
     dispatch({
