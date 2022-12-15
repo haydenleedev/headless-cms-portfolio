@@ -37,7 +37,7 @@ const PressReleaseContent = ({ dynamicPageItem, customData }) => {
             {resource.image && (
               <AgilityImage
                 src={resource.image.url}
-                alt={resource.image.label || null}
+                alt={resource.image.label || ""}
                 width={resource.image.pixelWidth}
                 height={resource.image.pixelHeight}
                 layout={"responsive"}

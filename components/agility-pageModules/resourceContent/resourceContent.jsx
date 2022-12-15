@@ -204,7 +204,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     <div className={style.imageColumn}>
                       <AgilityImage
                         src={resource.image.url}
-                        alt={resource.image.label || null}
+                        alt={resource.image.label || ""}
                         width={resource.image.pixelWidth}
                         height={resource.image.pixelHeight}
                         objectFit="cover"
