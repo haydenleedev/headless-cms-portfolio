@@ -375,7 +375,7 @@ export const textSizeSanitizeConfig = (
               class: className
                 ? className + classNamesToApply
                 : classNamesToApply,
-                alt: altText ? altText : " ",
+                alt: altText ? altText : "",
             },
           };
         } else {
