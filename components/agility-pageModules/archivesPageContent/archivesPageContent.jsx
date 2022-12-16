@@ -1,8 +1,7 @@
 import dynamic from "next/dynamic";
 
-const ArchivesPageContentBlock = dynamic(
-  () => import("./archivesPageContentBlock"),
-  
+const ArchivesPageContentBlock = dynamic(() =>
+  import("./archivesPageContentBlock")
 );
 
 const ArchivesPageContent = ({ module, customData }) => {
