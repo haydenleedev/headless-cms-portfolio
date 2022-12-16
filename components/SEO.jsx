@@ -138,28 +138,24 @@ const SEO = ({
       window.removeEventListener("keydown", userInteractionEvent);
     };
   }, []);
-  useEffect(()=> {
+  useEffect(() => {
     //Get all images with alt text
-    setTimeout(()=> {
-      const images = document.querySelectorAll("img[alt]");
-      let sd = [];
-      images.forEach((image) => {
-        if (
-          image.src.includes("data:image/gif") ||
-          image.src.includes("data:image/svg")
-        ) return;
-        //causes issues if added to the if statement above
-        if (image.src.includes(".svg")) return
-        console.log(image.src)
-        sd.push(JSON.parse(imageObject(image.src)));
-      });
-      setImagesProcessed(true);
-      setImageData(sd);
-      console.log("all", images)
-      console.log("filtered", sd)
-    },[300])
-    
-  },[router.asPath])
+    const images = document.querySelectorAll("img[alt]");
+    let sd = [];
+    images.forEach((image) => {
+      if (
+        image.src.includes("data:image/gif") ||
+        image.src.includes("data:image/svg")
+      )
+        return;
+      //causes issues if added to the if statement above
+      if (image.src.includes(".svg")) return;
+      console.log(image.src);
+      sd.push(JSON.parse(imageObject(image.src)));
+    });
+    setImagesProcessed(true);
+    setImageData(sd);
+  }, [router.asPath]);
   return (
     <>
       <Head>
