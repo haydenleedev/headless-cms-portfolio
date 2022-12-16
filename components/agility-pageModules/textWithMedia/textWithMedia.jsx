@@ -2,9 +2,7 @@ import dynamic from "next/dynamic";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useIntersectionObserver } from "../../../utils/hooks";
 import style from "./textWithMedia.module.scss";
-const TextWithMediaContent = dynamic(() => import("./textWithMediaContent"), {
-  ssr: false,
-});
+const TextWithMediaContent = dynamic(() => import("./textWithMediaContent"));
 
 const TextWithMedia = ({ module, customData }) => {
   const { sanitizedHtml } = customData;

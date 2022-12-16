@@ -1,8 +1,6 @@
 import dynamic from "next/dynamic";
 import { boolean } from "../../../utils/validation";
-const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
-  ssr: false,
-});
+const GenericCard = dynamic(() => import("../../genericCard/genericCard"));
 import style from "./blankCards.module.scss";
 
 const BlankCardsContent = ({ fields, cardsWithSanitizedHtml }) => {

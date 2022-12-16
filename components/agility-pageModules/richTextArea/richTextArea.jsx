@@ -2,9 +2,7 @@ import dynamic from "next/dynamic";
 import style from "./richTextArea.module.scss";
 import { textSizeSanitizeConfig, sanitizeHtmlConfig } from "../../../utils/convert";
 import { boolean } from "../../../utils/validation";
-const RichTextAreaContent = dynamic(() => import("./richTextAreaContent"), {
-  ssr: false,
-});
+const RichTextAreaContent = dynamic(() => import("./richTextAreaContent"));
 
 const RichTextArea = ({ module, customData }) => {
   const { sanitizedHtml } = customData;

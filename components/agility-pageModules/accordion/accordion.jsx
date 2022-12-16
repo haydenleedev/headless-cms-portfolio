@@ -1,8 +1,6 @@
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import dynamic from "next/dynamic";
-const AccordionContent = dynamic(() => import("./accordionContent"), {
-  ssr: false,
-});
+const AccordionContent = dynamic(() => import("./accordionContent"));
 
 const Accordion = ({ module, customData }) => {
   const { itemsWithSanitizedHTML } = customData;

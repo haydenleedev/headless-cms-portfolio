@@ -7,14 +7,11 @@ import {
   sortContentListByDate,
   removeDuplicatePosts,
 } from "../../../utils/convert";
-const Media = dynamic(() => import("../media"), { ssr: false });
+const Media = dynamic(() => import("../media"));
 import { isMobile } from "../../../utils/responsivity";
-const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
-  ssr: false,
-});
-const GenericCardListLoader = dynamic(
-  () => import("../../genericCard/genericCardListLoader"),
-  { ssr: false }
+const GenericCard = dynamic(() => import("../../genericCard/genericCard"));
+const GenericCardListLoader = dynamic(() =>
+  import("../../genericCard/genericCardListLoader")
 );
 import ujetLogo from "../../../assets/ujet-logo.svg";
 
