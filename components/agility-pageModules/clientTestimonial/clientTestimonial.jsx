@@ -1,11 +1,9 @@
 import dynamic from "next/dynamic";
 import { boolean } from "../../../utils/validation";
 import style from "./clientTestimonial.module.scss";
-const Media = dynamic(() => import("../media"), { ssr: false });
-const StarRating = dynamic(() => import("../../starRating/starRating"), {
-  ssr: false,
-});
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
+const Media = dynamic(() => import("../media"));
+const StarRating = dynamic(() => import("../../starRating/starRating"));
+const AgilityLink = dynamic(() => import("../../agilityLink"));
 import { useIntersectionObserver } from "../../../utils/hooks";
 
 const ClientTestimonial = ({ module }) => {

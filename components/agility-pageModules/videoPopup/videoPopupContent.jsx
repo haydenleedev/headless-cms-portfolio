@@ -2,8 +2,8 @@ import style from "./videoPopup.module.scss";
 import dynamic from "next/dynamic";
 import { renderHTML } from "@agility/nextjs";
 import { useState } from "react";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
-const Media = dynamic(() => import("../media"), { ssr: false });
+const Heading = dynamic(() => import("../heading"));
+const Media = dynamic(() => import("../media"));
 
 const VideoPopupContent = ({ fields, sanitizedHtml }) => {
   const narrowContainer = fields.containerWidth == "narrow";

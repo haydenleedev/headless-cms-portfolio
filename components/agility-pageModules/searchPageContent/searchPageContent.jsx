@@ -1,8 +1,6 @@
 import algoliasearch from "algoliasearch/lite";
 import dynamic from "next/dynamic";
-const SearchPageContentWrap = dynamic(() => import("./searchPageContentWrap"), {
-  ssr: false,
-});
+const SearchPageContentWrap = dynamic(() => import("./searchPageContentWrap"));
 
 const SearchPageContent = ({ customData }) => {
   const { tags } = customData;

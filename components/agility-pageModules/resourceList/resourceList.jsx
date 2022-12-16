@@ -1,7 +1,5 @@
 import dynamic from "next/dynamic";
-const ResourceListContent = dynamic(() => import("./resourceListContent"), {
-  ssr: false,
-});
+const ResourceListContent = dynamic(() => import("./resourceListContent"));
 import style from "./resourceList.module.scss";
 
 const ResourceList = ({ module }) => {

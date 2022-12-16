@@ -1,9 +1,7 @@
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import dynamic from "next/dynamic";
 import style from "./awardsBanner.module.scss";
-const AwardsBannerContent = dynamic(() => import("./awardsBannerContent"), {
-  ssr: false,
-});
+const AwardsBannerContent = dynamic(() => import("./awardsBannerContent"));
 
 const AwardsBanner = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards } = customData;

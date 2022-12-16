@@ -7,10 +7,8 @@ import {
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
 import dynamic from "next/dynamic";
-const Media = dynamic(() => import("../media"), { ssr: false });
-const PardotForm = dynamic(() => import("../../form/pardotForm"), {
-  ssr: false,
-});
+const Media = dynamic(() => import("../media"));
+const PardotForm = dynamic(() => import("../../form/pardotForm"));
 
 const DealRegistration = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, formConfiguration } = customData;

@@ -2,9 +2,8 @@ import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useIntersectionObserver } from "../../../utils/hooks";
 import dynamic from "next/dynamic";
 import style from "./textWithInfographic.module.scss";
-const TextWithInfographicContent = dynamic(
-  () => import("./textWithInfographicContent"),
-  { ssr: false }
+const TextWithInfographicContent = dynamic(() =>
+  import("./textWithInfographicContent")
 );
 
 const TextWithInfographic = ({ module, customData }) => {

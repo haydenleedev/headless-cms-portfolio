@@ -1,10 +1,8 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { resolveLink } from "../../../utils/convert";
-const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
-  ssr: false,
-});
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const GenericCard = dynamic(() => import("../../genericCard/genericCard"));
+const Heading = dynamic(() => import("../heading"));
 import style from "./resourceList.module.scss";
 
 const ResourceListContent = ({ fields }) => {

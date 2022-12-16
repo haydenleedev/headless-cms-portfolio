@@ -1,9 +1,8 @@
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./blogSubscriptionBanner.module.scss";
 import dynamic from "next/dynamic";
-const BlogSubscriptionBannerContent = dynamic(
-  () => import("./blogSubscriptionBannerContent"),
-  { ssr: false }
+const BlogSubscriptionBannerContent = dynamic(() =>
+  import("./blogSubscriptionBannerContent")
 );
 
 const BlogSubscriptionBanner = ({ module, customData }) => {

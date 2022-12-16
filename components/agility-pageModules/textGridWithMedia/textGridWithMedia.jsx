@@ -2,9 +2,8 @@ import dynamic from "next/dynamic";
 import style from "./textGridWithMedia.module.scss";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useIntersectionObserver } from "../../../utils/hooks";
-const TextGridWithMediaContent = dynamic(
-  () => import("./textGridWithMediaContent"),
-  { ssr: false }
+const TextGridWithMediaContent = dynamic(() =>
+  import("./textGridWithMediaContent")
 );
 
 const TextGridWithMedia = ({ module, customData }) => {

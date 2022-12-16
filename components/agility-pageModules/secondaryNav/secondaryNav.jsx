@@ -1,7 +1,7 @@
 import AgilityLink from "../../agilityLink";
 import style from "./secondaryNav.module.scss";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Heading = dynamic(() => import("../heading"));
 import { useRef, useEffect, useContext } from "react";
 import GlobalContext from "../../../context";
 import HorizontallyScrollableList from "../../horizontallyScrollableList/horizontallyScrollableList";

@@ -1,9 +1,7 @@
 import dynamic from "next/dynamic";
 import { Fragment } from "react";
 import { cleanText } from "../../../utils/convert";
-const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
-  ssr: false,
-});
+const GenericCard = dynamic(() => import("../../genericCard/genericCard"));
 import style from "./customerStoryCards.module.scss";
 
 const CustomerStoryCardsContent = ({ fields, customerStories, rootPath }) => {
