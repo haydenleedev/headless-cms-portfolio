@@ -147,16 +147,23 @@ const SEO = ({
         if (
           image.src.includes("data:image/gif") ||
           image.src.includes("data:image/svg")
-        ) return;
+        ) {
+          if (image.srcSet) {
+            const imgSrc = image.srcSet.split(",")[0];
+            if (imgSrc.includes(".svg")) return;
+            sd.push(JSON.parse(imageObject(imgSrc)));
+          }
+          return;
+        }
         //causes issues if added to the if statement above
         if (image.src.includes(".svg")) {
-        return;
-      }
+          return;
+        }
         sd.push(JSON.parse(imageObject(image.src)));
       });
       setImagesProcessed(true);
       setImageData(sd);
-      console.log(sd)
+      console.log(sd);
     }
   }, [router.isReady]);
   return (
@@ -227,7 +234,7 @@ const SEO = ({
         />
         {imagesProcessed && imageData.length > 0 && (
           <script
-          id="imageObjectScript"
+            id="imageObjectScript"
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(imageData) }}
           />
