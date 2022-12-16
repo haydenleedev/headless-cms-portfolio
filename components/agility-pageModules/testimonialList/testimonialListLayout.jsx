@@ -5,7 +5,7 @@ import style from "./testimonialList.module.scss";
 import { sleep } from "../../../utils/generic";
 import { boolean } from "../../../utils/validation";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Heading = dynamic(() => import("../heading"), { ssr: true });
 import StarRating from "../../starRating/starRating";
 import { AgilityImage } from "@agility/nextjs";
 import Slider from "../../slider/slider";

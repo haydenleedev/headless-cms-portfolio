@@ -3,16 +3,16 @@
 import dynamic from "next/dynamic";
 
 // lazy-loaded modules
-const Placeholder = dynamic(() => import("./placeholder"), { ssr: false });
+const Placeholder = dynamic(() => import("./placeholder"), { ssr: true });
 const ClientTestimonial = dynamic(
   () => import("./clientTestimonial/clientTestimonial"),
-  { ssr: false }
+  { ssr: true }
 );
-const Spacer = dynamic(() => import("./spacer/spacer"), { ssr: false });
-const NewsList = dynamic(() => import("./newsList/newsList"), { ssr: false });
+const Spacer = dynamic(() => import("./spacer/spacer"), { ssr: true });
+const NewsList = dynamic(() => import("./newsList/newsList"), { ssr: true });
 const PressReleaseList = dynamic(
   () => import("./pressReleaseList/pressReleaseList"),
-  { ssr: false }
+  { ssr: true }
 );
 const BlogPostList = dynamic(() => import("./blogPostList/blogPostList"), {
   ssr: false,
@@ -22,11 +22,11 @@ const BlogPostList = dynamic(() => import("./blogPostList/blogPostList"), {
 }); */
 const CaseStudyDownloadPrompt = dynamic(
   () => import("./caseStudyDownloadPrompt/caseStudyDownloadPrompt"),
-  { ssr: false }
+  { ssr: true }
 );
 const TestimonialList = dynamic(
   () => import("./testimonialList/testimonialList"),
-  { ssr: false }
+  { ssr: true }
 );
 const ContentList = dynamic(() => import("./contentList/contentList"), {
   ssr: false,
@@ -42,45 +42,45 @@ const TitleGroup = dynamic(() => import("./titleGroup/titleGroup"), {
 });
 const TableWithHeading = dynamic(
   () => import("./tableWithHeading/tableWithHeading"),
-  { ssr: false }
+  { ssr: true }
 );
-const HiddenH1 = dynamic(() => import("./hiddenH1/hiddenH1"), { ssr: false });
+const HiddenH1 = dynamic(() => import("./hiddenH1/hiddenH1"), { ssr: true });
 const SecondaryNav = dynamic(() => import("./secondaryNav/secondaryNav"), {
   ssr: false,
 });
 
 const AcknowledgePageContent = dynamic(
   () => import("./acknowledgePageContent/acknowledgePageContent"),
-  { ssr: false }
+  { ssr: true }
 );
 
 const BrandFirstFold = dynamic(
   () => import("../../brand/components/brandFirstFold/brandFirstFold"),
-  { ssr: false }
+  { ssr: true }
 );
 const BrandTextWithMedia = dynamic(
   () => import("../../brand/components/brandTextWithMedia/brandTextWithMedia"),
-  { ssr: false }
+  { ssr: true }
 );
 const BrandTwoTextColumns = dynamic(
   () =>
     import("../../brand/components/brandTwoTextColumns/brandTwoTextColumns"),
-  { ssr: false }
+  { ssr: true }
 );
 const BrandBlankCards = dynamic(
   () => import("../../brand/components/brandBlankCards/brandBlankCards"),
-  { ssr: false }
+  { ssr: true }
 );
 const BrandVideoPopup = dynamic(
   () => import("../../brand/components/brandVideoPopup/brandVideoPopup"),
-  { ssr: false }
+  { ssr: true }
 );
 const BrandTextGridWithMedia = dynamic(
   () =>
     import(
       "../../brand/components/brandTextGridWithMedia/brandTextGridWithMedia"
     ),
-  { ssr: false }
+  { ssr: true }
 );
 
 // eagerly loaded modules

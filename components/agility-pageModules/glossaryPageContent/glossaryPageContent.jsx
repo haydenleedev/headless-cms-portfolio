@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 const GlossaryPageContentWrap = dynamic(
   () => import("./glossaryPageContentWrap"),
-  { ssr: false }
+  { ssr: true }
 );
 
 const GlossaryPageContent = ({ customData }) => {

@@ -1,6 +1,6 @@
 import { renderHTML } from "@agility/nextjs";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Heading = dynamic(() => import("../heading"), { ssr: true });
 import style from "./textWithCard.module.scss";
 
 const TextWithCardContent = ({ fields, sanitizedHtml, sanitizedCardHtml }) => {

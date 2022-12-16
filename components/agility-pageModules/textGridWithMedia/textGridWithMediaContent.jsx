@@ -1,10 +1,10 @@
 import dynamic from "next/dynamic";
 import { Fragment } from "react";
 import style from "./textGridWithMedia.module.scss";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
-const Media = dynamic(() => import("../media"), { ssr: false });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
-const TextItem = dynamic(() => import("./textItem"), { ssr: false });
+const Heading = dynamic(() => import("../heading"), { ssr: true });
+const Media = dynamic(() => import("../media"), { ssr: true });
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: true });
+const TextItem = dynamic(() => import("./textItem"), { ssr: true });
 import { boolean, mediaIsSvg } from "../../../utils/validation";
 
 const TextGridWithMediaContent = ({ itemsWithSanitizedHTML, fields }) => {

@@ -7,7 +7,7 @@ import {
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
 import dynamic from "next/dynamic";
-const Media = dynamic(() => import("../media"), { ssr: false });
+const Media = dynamic(() => import("../media"), { ssr: true });
 const PardotForm = dynamic(() => import("../../form/pardotForm"), {
   ssr: false,
 });

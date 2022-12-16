@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import style from "./latestCustomerStories.module.scss";
 const LatestCustomerStoriesContent = dynamic(
   () => import("./latestCustomerStoriesContent"),
-  { ssr: false }
+  { ssr: true }
 );
 
 const LatestCustomerStories = ({ module, customData }) => {

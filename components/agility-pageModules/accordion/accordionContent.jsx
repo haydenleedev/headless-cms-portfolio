@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { renderHTML } from "@agility/nextjs";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Heading = dynamic(() => import("../heading"), { ssr: true });
 import style from "./accordion.module.scss";
 
 const AccordionContent = ({ fields, itemsWithSanitizedHTML }) => {

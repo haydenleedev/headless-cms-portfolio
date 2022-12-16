@@ -2,9 +2,9 @@ import { renderHTML } from "@agility/nextjs";
 import { mediaIsSvg } from "../../../utils/validation";
 import dynamic from "next/dynamic";
 import style from "./textWithInfographic.module.scss";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
-const Media = dynamic(() => import("../media"), { ssr: false });
+const Heading = dynamic(() => import("../heading"), { ssr: true });
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: true });
+const Media = dynamic(() => import("../media"), { ssr: true });
 
 const TextWithInfographicContent = ({ fields, sanitizedHtml }) => {
   const heading = JSON.parse(fields.heading);

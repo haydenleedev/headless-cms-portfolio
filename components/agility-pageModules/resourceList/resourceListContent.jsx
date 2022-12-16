@@ -4,7 +4,7 @@ import { resolveLink } from "../../../utils/convert";
 const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
   ssr: false,
 });
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Heading = dynamic(() => import("../heading"), { ssr: true });
 import style from "./resourceList.module.scss";
 
 const ResourceListContent = ({ fields }) => {

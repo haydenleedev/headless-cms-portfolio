@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { useState, useEffect, useRef } from "react";
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: true });
+const Heading = dynamic(() => import("../heading"), { ssr: true });
 import style from "./jobOpeningList.module.scss";
 
 const JobOpeningListContent = ({ fields, jobListData }) => {

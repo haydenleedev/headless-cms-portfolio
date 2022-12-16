@@ -4,11 +4,11 @@ import { boolean, mediaIsSvg } from "../../../utils/validation";
 import style from "./brandTextGridWithMedia.module.scss";
 const Heading = dynamic(
   () => import("../../../components/agility-pageModules/heading"),
-  { ssr: false }
+  { ssr: true }
 );
 const Media = dynamic(
   () => import("../../../components/agility-pageModules/media"),
-  { ssr: false }
+  { ssr: true }
 );
 
 const TextItem = ({

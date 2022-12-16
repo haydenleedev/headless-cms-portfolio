@@ -10,9 +10,9 @@ import {
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article, blogPosting } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
-const ShareSocials = dynamic(() => import("./shareSocials"), { ssr: false });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
-const Media = dynamic(() => import("../media"), { ssr: false });
+const ShareSocials = dynamic(() => import("./shareSocials"), { ssr: true });
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: true });
+const Media = dynamic(() => import("../media"), { ssr: true });
 const Subscribe = dynamic(() => import("../../subscribe/subscribe"), {
   ssr: false,
 });

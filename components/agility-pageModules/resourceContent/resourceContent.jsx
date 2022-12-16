@@ -19,7 +19,7 @@ import dynamic from "next/dynamic";
 const PardotForm = dynamic(() => import("../../form/pardotForm"), {
   ssr: false,
 });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: true });
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";

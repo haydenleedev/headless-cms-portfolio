@@ -2,9 +2,9 @@ import { renderHTML } from "@agility/nextjs";
 import style from "./callToAction.module.scss";
 import { boolean } from "../../../utils/validation";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
-const Media = dynamic(() => import("../media"), { ssr: false });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
+const Heading = dynamic(() => import("../heading"), { ssr: true });
+const Media = dynamic(() => import("../media"), { ssr: true });
+const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: true });
 
 const CallToActionContent = ({ fields, sanitizedHtml }) => {
   const heading = JSON.parse(fields.heading);

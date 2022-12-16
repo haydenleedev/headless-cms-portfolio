@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { renderHTML } from "@agility/nextjs";
 import { useState } from "react";
 import Image from "next/image";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Heading = dynamic(() => import("../heading"), { ssr: true });
 const PardotForm = dynamic(() => import("../../form/pardotForm"), {
   ssr: false,
 });

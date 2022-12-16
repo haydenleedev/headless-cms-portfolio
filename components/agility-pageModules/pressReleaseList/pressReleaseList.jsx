@@ -1,7 +1,7 @@
 import Link from "next/link";
 import GenericCard from "../../genericCard/genericCard";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Heading = dynamic(() => import("../heading"), { ssr: true });
 
 // styling for this page module is defined globally because we need to override inner styles from the GenericCard component.
 
