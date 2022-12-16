@@ -2,10 +2,8 @@ import dynamic from "next/dynamic";
 import { Fragment, useState } from "react";
 import style from "./latestCustomerStories.module.scss";
 import { cleanText } from "../../../utils/convert";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
-const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
-  ssr: false,
-});
+const Heading = dynamic(() => import("../heading"));
+const GenericCard = dynamic(() => import("../../genericCard/genericCard"));
 
 const LatestCustomerStoriesContent = ({
   fields,

@@ -5,9 +5,7 @@ import {
   youTubeVideoLinkToEmbed,
   vimeoLinkToEmbed,
 } from "../../../utils/convert";
-const EmbedVideoContent = dynamic(() => import("./embedVideoContent"), {
-  ssr: false,
-});
+const EmbedVideoContent = dynamic(() => import("./embedVideoContent"));
 
 const EmbedVideo = ({ module, customData }) => {
   const { sanitizedHtml } = customData;

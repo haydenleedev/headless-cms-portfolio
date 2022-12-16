@@ -10,8 +10,8 @@ import Script from "next/script";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import Image from "next/image";
-const Media = dynamic(() => import("../media"), { ssr: true });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: true });
+const Media = dynamic(() => import("../media"));
+const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const ResourceDownload = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;

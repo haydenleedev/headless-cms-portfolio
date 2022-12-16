@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 
 const ArchivesPageContentBlock = dynamic(
   () => import("./archivesPageContentBlock"),
-  { ssr: true }
+  
 );
 
 const ArchivesPageContent = ({ module, customData }) => {

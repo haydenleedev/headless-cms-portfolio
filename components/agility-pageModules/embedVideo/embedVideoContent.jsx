@@ -4,7 +4,7 @@ import Script from "next/script";
 import { useEffect } from "react";
 import { youTubeActivityEvent } from "../../../utils/dataLayer";
 import { boolean } from "../../../utils/validation";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
+const Heading = dynamic(() => import("../heading"));
 import style from "./embedVideo.module.scss";
 
 const EmbedVideoContent = ({

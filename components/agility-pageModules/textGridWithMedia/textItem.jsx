@@ -2,8 +2,8 @@ import style from "./textGridWithMedia.module.scss";
 import { renderHTML } from "@agility/nextjs";
 import { boolean, mediaIsSvg } from "../../../utils/validation";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
-const Media = dynamic(() => import("../media"), { ssr: true });
+const Heading = dynamic(() => import("../heading"));
+const Media = dynamic(() => import("../media"));
 
 const TextItem = ({
   fields,

@@ -4,7 +4,7 @@ import { sanitizeHtmlConfig } from "../../../utils/convert";
 import { useIntersectionObserver } from "../../../utils/hooks";
 const TextGridWithMediaContent = dynamic(
   () => import("./textGridWithMediaContent"),
-  { ssr: true }
+  
 );
 
 const TextGridWithMedia = ({ module, customData }) => {

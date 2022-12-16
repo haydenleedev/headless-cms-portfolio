@@ -1,8 +1,8 @@
 import { renderHTML } from "@agility/nextjs";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
-const Media = dynamic(() => import("../media"), { ssr: true });
+const Heading = dynamic(() => import("../heading"));
+const Media = dynamic(() => import("../media"));
 import style from "./heroImage.module.scss";
 import { boolean } from "../../../utils/validation";
 

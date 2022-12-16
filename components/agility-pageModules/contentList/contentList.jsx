@@ -1,7 +1,7 @@
 import { resolveCategory, resolveLink } from "../../../utils/convert";
 import GenericCard from "../../genericCard/genericCard";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
+const Heading = dynamic(() => import("../heading"));
 import style from "./contentList.module.scss";
 
 const ContentList = ({ module }) => {

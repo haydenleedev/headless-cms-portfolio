@@ -1,8 +1,6 @@
 import dynamic from "next/dynamic";
 import style from "./jobOpeningList.module.scss";
-const JobOpeningListContent = dynamic(() => import("./jobOpeningListContent"), {
-  ssr: false,
-});
+const JobOpeningListContent = dynamic(() => import("./jobOpeningListContent"));
 
 const JobOpeningList = ({ module, customData }) => {
   const { fields } = module;

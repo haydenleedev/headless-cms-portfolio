@@ -2,9 +2,9 @@ import { renderHTML } from "@agility/nextjs";
 import dynamic from "next/dynamic";
 import { boolean, mediaIsSvg } from "../../../utils/validation";
 import style from "./textWithMedia.module.scss";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
-const Media = dynamic(() => import("../media"), { ssr: true });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: true });
+const Heading = dynamic(() => import("../heading"));
+const Media = dynamic(() => import("../media"));
+const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const TextWithMediaContent = ({ fields, sanitizedHtml }) => {
   const heading = JSON.parse(fields.heading);

@@ -3,84 +3,54 @@
 import dynamic from "next/dynamic";
 
 // lazy-loaded modules
-const Placeholder = dynamic(() => import("./placeholder"), { ssr: true });
-const ClientTestimonial = dynamic(
-  () => import("./clientTestimonial/clientTestimonial"),
-  { ssr: true }
+const Placeholder = dynamic(() => import("./placeholder"));
+const ClientTestimonial = dynamic(() =>
+  import("./clientTestimonial/clientTestimonial")
 );
-const Spacer = dynamic(() => import("./spacer/spacer"), { ssr: true });
-const NewsList = dynamic(() => import("./newsList/newsList"), { ssr: true });
-const PressReleaseList = dynamic(
-  () => import("./pressReleaseList/pressReleaseList"),
-  { ssr: true }
+const Spacer = dynamic(() => import("./spacer/spacer"));
+const NewsList = dynamic(() => import("./newsList/newsList"));
+const PressReleaseList = dynamic(() =>
+  import("./pressReleaseList/pressReleaseList")
 );
-const BlogPostList = dynamic(() => import("./blogPostList/blogPostList"), {
-  ssr: false,
-});
-/* const Infographic = dynamic(() => import("./infographic/infographic"), {
-  ssr: false,
-}); */
-const CaseStudyDownloadPrompt = dynamic(
-  () => import("./caseStudyDownloadPrompt/caseStudyDownloadPrompt"),
-  { ssr: true }
+const BlogPostList = dynamic(() => import("./blogPostList/blogPostList"));
+/* const Infographic = dynamic(() => import("./infographic/infographic")); */
+const CaseStudyDownloadPrompt = dynamic(() =>
+  import("./caseStudyDownloadPrompt/caseStudyDownloadPrompt")
 );
-const TestimonialList = dynamic(
-  () => import("./testimonialList/testimonialList"),
-  { ssr: true }
+const TestimonialList = dynamic(() =>
+  import("./testimonialList/testimonialList")
 );
-const ContentList = dynamic(() => import("./contentList/contentList"), {
-  ssr: false,
-});
-const BondFirstFold = dynamic(() => import("./bondFirstFold/bondFirstFold"), {
-  ssr: false,
-});
-const SpeakerList = dynamic(() => import("./speakerList/speakerList"), {
-  ssr: false,
-});
-const TitleGroup = dynamic(() => import("./titleGroup/titleGroup"), {
-  ssr: false,
-});
-const TableWithHeading = dynamic(
-  () => import("./tableWithHeading/tableWithHeading"),
-  { ssr: true }
+const ContentList = dynamic(() => import("./contentList/contentList"));
+const BondFirstFold = dynamic(() => import("./bondFirstFold/bondFirstFold"));
+const SpeakerList = dynamic(() => import("./speakerList/speakerList"));
+const TitleGroup = dynamic(() => import("./titleGroup/titleGroup"));
+const TableWithHeading = dynamic(() =>
+  import("./tableWithHeading/tableWithHeading")
 );
-const HiddenH1 = dynamic(() => import("./hiddenH1/hiddenH1"), { ssr: true });
-const SecondaryNav = dynamic(() => import("./secondaryNav/secondaryNav"), {
-  ssr: false,
-});
+const HiddenH1 = dynamic(() => import("./hiddenH1/hiddenH1"));
+const SecondaryNav = dynamic(() => import("./secondaryNav/secondaryNav"));
 
-const AcknowledgePageContent = dynamic(
-  () => import("./acknowledgePageContent/acknowledgePageContent"),
-  { ssr: true }
+const AcknowledgePageContent = dynamic(() =>
+  import("./acknowledgePageContent/acknowledgePageContent")
 );
 
-const BrandFirstFold = dynamic(
-  () => import("../../brand/components/brandFirstFold/brandFirstFold"),
-  { ssr: true }
+const BrandFirstFold = dynamic(() =>
+  import("../../brand/components/brandFirstFold/brandFirstFold")
 );
-const BrandTextWithMedia = dynamic(
-  () => import("../../brand/components/brandTextWithMedia/brandTextWithMedia"),
-  { ssr: true }
+const BrandTextWithMedia = dynamic(() =>
+  import("../../brand/components/brandTextWithMedia/brandTextWithMedia")
 );
-const BrandTwoTextColumns = dynamic(
-  () =>
-    import("../../brand/components/brandTwoTextColumns/brandTwoTextColumns"),
-  { ssr: true }
+const BrandTwoTextColumns = dynamic(() =>
+  import("../../brand/components/brandTwoTextColumns/brandTwoTextColumns")
 );
-const BrandBlankCards = dynamic(
-  () => import("../../brand/components/brandBlankCards/brandBlankCards"),
-  { ssr: true }
+const BrandBlankCards = dynamic(() =>
+  import("../../brand/components/brandBlankCards/brandBlankCards")
 );
-const BrandVideoPopup = dynamic(
-  () => import("../../brand/components/brandVideoPopup/brandVideoPopup"),
-  { ssr: true }
+const BrandVideoPopup = dynamic(() =>
+  import("../../brand/components/brandVideoPopup/brandVideoPopup")
 );
-const BrandTextGridWithMedia = dynamic(
-  () =>
-    import(
-      "../../brand/components/brandTextGridWithMedia/brandTextGridWithMedia"
-    ),
-  { ssr: true }
+const BrandTextGridWithMedia = dynamic(() =>
+  import("../../brand/components/brandTextGridWithMedia/brandTextGridWithMedia")
 );
 
 // eagerly loaded modules

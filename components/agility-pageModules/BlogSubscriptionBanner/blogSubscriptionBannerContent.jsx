@@ -3,10 +3,8 @@ import dynamic from "next/dynamic";
 import { renderHTML } from "@agility/nextjs";
 import { useState } from "react";
 import Image from "next/image";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
-const PardotForm = dynamic(() => import("../../form/pardotForm"), {
-  ssr: false,
-});
+const Heading = dynamic(() => import("../heading"));
+const PardotForm = dynamic(() => import("../../form/pardotForm"));
 
 const BlogSubscriptionBannerContent = ({ fields, sanitizedHtml }) => {
   const [successView, setSuccessView] = useState(null);

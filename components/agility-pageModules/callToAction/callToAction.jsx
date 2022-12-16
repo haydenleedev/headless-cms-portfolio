@@ -2,9 +2,7 @@ import dynamic from "next/dynamic";
 import style from "./callToAction.module.scss";
 import { boolean } from "../../../utils/validation";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-const CallToActionContent = dynamic(() => import("./callToActionContent"), {
-  ssr: false,
-});
+const CallToActionContent = dynamic(() => import("./callToActionContent"));
 
 const CallToAction = ({ module, customData }) => {
   const { sanitizedHtml } = customData;

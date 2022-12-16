@@ -1,6 +1,6 @@
 import { boolean } from "../../../utils/validation";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
+const Heading = dynamic(() => import("../heading"));
 import Media from "../media";
 import style from "./infographic.module.scss";
 

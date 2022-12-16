@@ -1,7 +1,7 @@
 import style from "./twoTextColumns.module.scss";
 import { renderHTML } from "@agility/nextjs";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
+const Heading = dynamic(() => import("../heading"));
 
 const TwoTextColumnsContent = ({
   fields,

@@ -8,15 +8,9 @@ import {
   resolveLink,
 } from "../../../utils/convert";
 import GenericCardListLoader from "../../genericCard/genericCardListLoader";
-const ArchivesNavigation = dynamic(() => import("./archivesNavigation"), {
-  ssr: false,
-});
-const GenericCard = dynamic(() => import("../../genericCard/genericCard"), {
-  ssr: false,
-});
-const HighlightSection = dynamic(() => import("./highlightSection"), {
-  ssr: false,
-});
+const ArchivesNavigation = dynamic(() => import("./archivesNavigation"));
+const GenericCard = dynamic(() => import("../../genericCard/genericCard"));
+const HighlightSection = dynamic(() => import("./highlightSection"));
 
 const ArchivesPageContentBlock = ({ fields, archivesPageData }) => {
   const highlightedResource = fields.highlightedResource;

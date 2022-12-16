@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import style from "./textWithInfographic.module.scss";
 const TextWithInfographicContent = dynamic(
   () => import("./textWithInfographicContent"),
-  { ssr: true }
+  
 );
 
 const TextWithInfographic = ({ module, customData }) => {

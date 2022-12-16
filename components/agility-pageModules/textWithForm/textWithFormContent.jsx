@@ -6,15 +6,11 @@ import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
 import { useMutationObserver } from "../../../utils/hooks";
-const Media = dynamic(() => import("../media"), { ssr: true });
-const StarRating = dynamic(() => import("../../starRating/starRating"), {
-  ssr: false,
-});
-const Heading = dynamic(() => import("../heading"), { ssr: true });
-const PardotForm = dynamic(() => import("../../form/pardotForm"), {
-  ssr: false,
-});
-const FirstFoldLink = dynamic(() => import("./firstFoldLink"), { ssr: true });
+const Media = dynamic(() => import("../media"));
+const StarRating = dynamic(() => import("../../starRating/starRating"));
+const Heading = dynamic(() => import("../heading"));
+const PardotForm = dynamic(() => import("../../form/pardotForm"));
+const FirstFoldLink = dynamic(() => import("./firstFoldLink"));
 
 const TextWithFormContent = ({
   fields,

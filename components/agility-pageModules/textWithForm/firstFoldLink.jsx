@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: true });
+const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const FirstFoldLink = ({ fields, primary }) => {
   const link = primary ? fields.primaryLink : fields.secondaryLink;

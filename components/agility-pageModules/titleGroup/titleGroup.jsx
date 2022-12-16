@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
+const Heading = dynamic(() => import("../heading"));
 import { useIntersectionObserver } from "../../../utils/hooks";
 
 const TitleGroup = ({ module }) => {

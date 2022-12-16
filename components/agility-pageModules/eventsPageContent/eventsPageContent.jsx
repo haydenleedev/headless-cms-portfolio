@@ -4,8 +4,8 @@ import {
   toPacificTimeMilliseconds,
 } from "../../../utils/convert";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: true });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: true });
+const Heading = dynamic(() => import("../heading"));
+const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const EventsPageContent = ({ module, customData }) => {
   const { allEvents } = customData;

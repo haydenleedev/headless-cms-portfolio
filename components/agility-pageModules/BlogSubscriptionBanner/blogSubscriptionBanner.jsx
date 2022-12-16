@@ -3,7 +3,7 @@ import style from "./blogSubscriptionBanner.module.scss";
 import dynamic from "next/dynamic";
 const BlogSubscriptionBannerContent = dynamic(
   () => import("./blogSubscriptionBannerContent"),
-  { ssr: true }
+  
 );
 
 const BlogSubscriptionBanner = ({ module, customData }) => {
