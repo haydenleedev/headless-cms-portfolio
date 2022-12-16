@@ -144,26 +144,18 @@ const SEO = ({
       const images = document.querySelectorAll("img[alt]");
       let sd = [];
       images.forEach((image) => {
-        if (
-          image.src.includes("data:image/gif") ||
-          image.src.includes("data:image/svg")
-        ) {
-          if (image.srcSet) {
-            const imgSrc = image.srcSet.split(",")[0];
-            if (imgSrc.includes(".svg")) return;
-            sd.push(JSON.parse(imageObject(imgSrc)));
-          }
+        const src = image["data-src"] || image.src;
+        if (src.includes("data:image/gif") || src.includes("data:image/svg")) {
           return;
         }
         //causes issues if added to the if statement above
-        if (image.src.includes(".svg")) {
+        if (src.includes(".svg")) {
           return;
         }
-        sd.push(JSON.parse(imageObject(image.src)));
+        sd.push(JSON.parse(imageObject(src)));
       });
       setImagesProcessed(true);
       setImageData(sd);
-      console.log(sd);
     }
   }, [router.isReady]);
   return (
