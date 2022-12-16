@@ -151,8 +151,6 @@ const SEO = ({
       sd.push(JSON.parse(imageObject(image.currentSrc)));
       setImagesProcessed(true);
       setImageData(sd);
-      console.log("all", images);
-      console.log("filtered", sd);
     });
   },[router.asPath])
   return (
