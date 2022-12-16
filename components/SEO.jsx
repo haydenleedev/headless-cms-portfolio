@@ -144,12 +144,13 @@ const SEO = ({
       const images = document.querySelectorAll("img[alt]");
       let sd = [];
       images.forEach((image) => {
-        const src = image["data-src"] || image.src;
-        if (src.includes("data:image/gif") || src.includes("data:image/svg")) {
+        let src = image.src;
+        if (src.includes(".svg")) {
           return;
         }
-        //causes issues if added to the if statement above
-        if (src.includes(".svg")) {
+        if (src.includes("data:image/gif") || src.includes("data:image/svg")) {
+          if (image.attributes.getNamedItem("data-src"))
+            src = image.attributes.getNamedItem("data-src").value;
           return;
         }
         sd.push(JSON.parse(imageObject(src)));
