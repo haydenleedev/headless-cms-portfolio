@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import style from "./awardsPageContent.module.scss";
-import Media from "../media";
+const Media = dynamic(() => import("../media"));
 const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const AwardsPageContent = ({ customData }) => {

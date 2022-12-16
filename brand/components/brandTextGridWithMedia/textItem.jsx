@@ -5,7 +5,9 @@ import style from "./brandTextGridWithMedia.module.scss";
 const Heading = dynamic(() =>
   import("../../../components/agility-pageModules/heading")
 );
-import Media from "../../../components/agility-pageModules/media";
+const Media = dynamic(() =>
+  import("../../../components/agility-pageModules/media")
+);
 
 const TextItem = ({
   fields,

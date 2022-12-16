@@ -6,7 +6,7 @@ import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
 import { useMutationObserver } from "../../../utils/hooks";
-import Media from "../media";
+const Media = dynamic(() => import("../media"));
 const StarRating = dynamic(() => import("../../starRating/starRating"));
 const Heading = dynamic(() => import("../heading"));
 const PardotForm = dynamic(() => import("../../form/pardotForm"));

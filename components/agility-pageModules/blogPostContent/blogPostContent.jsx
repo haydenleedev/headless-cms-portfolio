@@ -12,7 +12,7 @@ import { article, blogPosting } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 const ShareSocials = dynamic(() => import("./shareSocials"));
 const AgilityLink = dynamic(() => import("../../agilityLink"));
-import Media from "../media";
+const Media = dynamic(() => import("../media"));
 const Subscribe = dynamic(() => import("../../subscribe/subscribe"));
 const BlogPostList = dynamic(() => import("../blogPostList/blogPostList"));
 

@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
-import Media from "../media";
+const Media = dynamic(() => import("../media"));
 const AgilityLink = dynamic(() => import("../../agilityLink"));
-import Image from "next/image";
+const Image = dynamic(() => import("next/image"));
 import { resolveLink } from "../../../utils/convert";
 import style from "./archivesPageContent.module.scss";
 

@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { renderHTML } from "@agility/nextjs";
 import { useState } from "react";
 const Heading = dynamic(() => import("../heading"));
-import Media from "../media";
+const Media = dynamic(() => import("../media"));
 
 const VideoPopupContent = ({ fields, sanitizedHtml }) => {
   const narrowContainer = fields.containerWidth == "narrow";

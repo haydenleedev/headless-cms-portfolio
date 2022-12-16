@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import { Fragment } from "react";
 import style from "./textGridWithMedia.module.scss";
 const Heading = dynamic(() => import("../heading"));
-import Media from "../media";
+const Media = dynamic(() => import("../media"));
 const AgilityLink = dynamic(() => import("../../agilityLink"));
 const TextItem = dynamic(() => import("./textItem"));
 import { boolean, mediaIsSvg } from "../../../utils/validation";
