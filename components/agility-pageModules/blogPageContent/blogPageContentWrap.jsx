@@ -7,7 +7,7 @@ import {
   sortContentListByDate,
   removeDuplicatePosts,
 } from "../../../utils/convert";
-const Media = dynamic(() => import("../media"));
+import Media from "../media";
 import { isMobile } from "../../../utils/responsivity";
 const GenericCard = dynamic(() => import("../../genericCard/genericCard"));
 const GenericCardListLoader = dynamic(() =>

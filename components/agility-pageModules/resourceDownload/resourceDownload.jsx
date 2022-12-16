@@ -10,7 +10,7 @@ import Script from "next/script";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import Image from "next/image";
-const Media = dynamic(() => import("../media"));
+import Media from "../media";
 const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const ResourceDownload = ({ dynamicPageItem, customData }) => {

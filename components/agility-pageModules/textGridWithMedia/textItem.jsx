@@ -3,7 +3,7 @@ import { renderHTML } from "@agility/nextjs";
 import { boolean, mediaIsSvg } from "../../../utils/validation";
 import dynamic from "next/dynamic";
 const Heading = dynamic(() => import("../heading"));
-const Media = dynamic(() => import("../media"));
+import Media from "../media";
 
 const TextItem = ({
   fields,

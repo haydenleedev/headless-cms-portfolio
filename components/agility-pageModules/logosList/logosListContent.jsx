@@ -4,7 +4,7 @@ import { boolean } from "../../../utils/validation";
 import style from "./logosList.module.scss";
 const AgilityLink = dynamic(() => import("../../agilityLink"));
 const Heading = dynamic(() => import("../heading"));
-const Media = dynamic(() => import("../media"));
+import Media from "../media";
 
 const LogosListContent = ({ fields, sanitizedHtml }) => {
   const heading = JSON.parse(fields.heading);

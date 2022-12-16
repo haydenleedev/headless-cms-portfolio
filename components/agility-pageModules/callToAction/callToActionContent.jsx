@@ -3,7 +3,7 @@ import style from "./callToAction.module.scss";
 import { boolean } from "../../../utils/validation";
 import dynamic from "next/dynamic";
 const Heading = dynamic(() => import("../heading"));
-const Media = dynamic(() => import("../media"));
+import Media from "../media";
 const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const CallToActionContent = ({ fields, sanitizedHtml }) => {

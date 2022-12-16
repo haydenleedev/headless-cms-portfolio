@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import style from "./textWithInfographic.module.scss";
 const Heading = dynamic(() => import("../heading"));
 const AgilityLink = dynamic(() => import("../../agilityLink"));
-const Media = dynamic(() => import("../media"));
+import Media from "../media";
 
 const TextWithInfographicContent = ({ fields, sanitizedHtml }) => {
   const heading = JSON.parse(fields.heading);

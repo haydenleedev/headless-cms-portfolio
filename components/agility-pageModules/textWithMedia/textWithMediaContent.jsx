@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import { boolean, mediaIsSvg } from "../../../utils/validation";
 import style from "./textWithMedia.module.scss";
 const Heading = dynamic(() => import("../heading"));
-const Media = dynamic(() => import("../media"));
+import Media from "../media";
 const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const TextWithMediaContent = ({ fields, sanitizedHtml }) => {
