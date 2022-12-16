@@ -140,22 +140,25 @@ const SEO = ({
   }, []);
   useEffect(() => {
     //Get all images with alt text
-    const images = document.querySelectorAll("img[alt]");
-    let sd = [];
-    images.forEach((image) => {
-      if (
-        image.src.includes("data:image/gif") ||
-        image.src.includes("data:image/svg")
-      )
+    if (router.isReady) {
+      const images = document.querySelectorAll("img[alt]");
+      let sd = [];
+      images.forEach((image) => {
+        if (
+          image.src.includes("data:image/gif") ||
+          image.src.includes("data:image/svg")
+        ) return;
+        //causes issues if added to the if statement above
+        if (image.src.includes(".svg")) {
         return;
-      //causes issues if added to the if statement above
-      if (image.src.includes(".svg")) return;
-      console.log(image.src);
-      sd.push(JSON.parse(imageObject(image.src)));
-    });
-    setImagesProcessed(true);
-    setImageData(sd);
-  }, [router.asPath]);
+      }
+        sd.push(JSON.parse(imageObject(image.src)));
+      });
+      setImagesProcessed(true);
+      setImageData(sd);
+      console.log(sd)
+    }
+  }, [router.isReady]);
   return (
     <>
       <Head>
@@ -224,6 +227,7 @@ const SEO = ({
         />
         {imagesProcessed && imageData.length > 0 && (
           <script
+          id="imageObjectScript"
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(imageData) }}
           />
