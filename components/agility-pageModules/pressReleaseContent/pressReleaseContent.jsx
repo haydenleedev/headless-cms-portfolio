@@ -1,7 +1,10 @@
 import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
 import { article } from "../../../schema";
-import { convertUJETLinksToHttps, sanitizeHtmlConfig } from "../../../utils/convert";
+import {
+  convertUJETLinksToHttps,
+  sanitizeHtmlConfig,
+} from "../../../utils/convert";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import style from "./pressReleaseContent.module.scss";
@@ -37,6 +40,7 @@ const PressReleaseContent = ({ dynamicPageItem, customData }) => {
             {resource.image && (
               <AgilityImage
                 src={resource.image.url}
+                data-src={resource.image.url}
                 alt={resource.image.label || ""}
                 width={resource.image.pixelWidth}
                 height={resource.image.pixelHeight}
@@ -50,13 +54,12 @@ const PressReleaseContent = ({ dynamicPageItem, customData }) => {
             <h1>{resource.title}</h1>
           </div>
         </section>
-        <Breadcrumbs breadcrumbs={
-            [
-              { name: "Home", path: "/" },
-              { name: "Press Releases" },
-              { name: resource.title }
-            ]
-          }
+        <Breadcrumbs
+          breadcrumbs={[
+            { name: "Home", path: "/" },
+            { name: "Press Releases" },
+            { name: resource.title },
+          ]}
         />
         <section className="section">
           <div className="container">

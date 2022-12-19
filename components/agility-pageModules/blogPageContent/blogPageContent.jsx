@@ -1,7 +1,5 @@
 import dynamic from "next/dynamic";
-const BlogPageContentWrap = dynamic(() => import("./blogPageContentWrap"), {
-  ssr: false,
-});
+const BlogPageContentWrap = dynamic(() => import("./blogPageContentWrap"));
 
 const BlogPageContent = ({ customData }) => {
   const { contentListTypes, highlightedPost } = customData; // includes only blog posts

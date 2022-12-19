@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
-const Media = dynamic(() => import("../media"), { ssr: false });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
-const Image = dynamic(() => import("next/image"), { ssr: false });
+const Media = dynamic(() => import("../media"));
+const AgilityLink = dynamic(() => import("../../agilityLink"));
+const Image = dynamic(() => import("next/image"));
 import { resolveLink } from "../../../utils/convert";
 import style from "./archivesPageContent.module.scss";
 
@@ -24,6 +24,9 @@ const HighlightSection = ({ highlightContent, headingText }) => {
         ) : (
           <Image
             src={
+              "https://assets.ujet.cx/files/How%20to%20build%20a%20better%20customer%20data%20management%20strategy.jpg"
+            }
+            data-src={
               "https://assets.ujet.cx/files/How%20to%20build%20a%20better%20customer%20data%20management%20strategy.jpg"
             }
             layout="fill"

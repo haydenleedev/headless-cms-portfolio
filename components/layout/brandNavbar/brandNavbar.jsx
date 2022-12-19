@@ -1,12 +1,10 @@
 import style from "./brandNavbar.module.scss";
 import dynamic from "next/dynamic";
-const BrandNavbarNav = dynamic(()=> import("./brandNavbarNav/brandNavbarNav"),{ssr:false})
+const BrandNavbarNav = dynamic(() => import("./brandNavbarNav/brandNavbarNav"));
 const BrandNavbar = ({ globalData }) => {
   return (
     <header className={`${style.navbar} `}>
-      <BrandNavbarNav
-        globalData={globalData}
-      />
+      <BrandNavbarNav globalData={globalData} />
     </header>
   );
 };

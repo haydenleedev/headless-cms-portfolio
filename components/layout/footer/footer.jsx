@@ -104,6 +104,7 @@ const Footer = ({ globalData }) => {
                         // >
                         <AgilityImage
                           src={award.fields.image.url}
+                          data-src={award.fields.image.url}
                           layout="responsive"
                           width="4"
                           height="5"

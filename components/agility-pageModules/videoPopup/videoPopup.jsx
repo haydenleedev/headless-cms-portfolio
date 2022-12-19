@@ -1,9 +1,7 @@
 import style from "./videoPopup.module.scss";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import dynamic from "next/dynamic";
-const VideoPopupContent = dynamic(() => import("./videoPopupContent"), {
-  ssr: false,
-});
+const VideoPopupContent = dynamic(() => import("./videoPopupContent"));
 
 const VideoPopup = ({ module, customData }) => {
   const { fields } = module;
