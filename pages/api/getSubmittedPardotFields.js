@@ -16,6 +16,7 @@ export default async function handler(req, res) {
       Paginate,
       Lambda,
       If,
+      LowerCase,
     } = query;
 
     const client = new Client({
@@ -28,7 +29,7 @@ export default async function handler(req, res) {
         {
           isPreviouslySubmitted: Match(
             Index("form_submissions_by_email"),
-            parsedBody.email
+            LowerCase(parsedBody.email)
           ),
         },
         If(

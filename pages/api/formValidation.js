@@ -23,6 +23,7 @@ export default async function handler(req, res) {
       Paginate,
       Lambda,
       If,
+      LowerCase,
     } = query;
 
     if (!parsedBody.client || !parsedBody.check || !parsedBody.token) {
@@ -85,8 +86,12 @@ export default async function handler(req, res) {
 
     let clientData = parsedBody.client;
 
-    if (clientData.hiddenemail && !clientData["Email"])
+    if (clientData.hiddenemail && !clientData["Email"]) {
+      clientData.hiddenemail = clientData.hiddenemail.toLowerCase();
       clientData["Email"] = clientData.hiddenemail;
+    }
+
+    clientData["Email"] = clientData["Email"].toLowerCase();
 
     delete clientData[""];
 
@@ -95,7 +100,9 @@ export default async function handler(req, res) {
         {
           isPreviouslySubmitted: Match(
             Index("form_submissions_by_email"),
-            parsedBody.client["Email"] || parsedBody.client["hiddenemail"]
+            LowerCase(
+              parsedBody.client["Email"] || parsedBody.client["hiddenemail"]
+            )
           ),
         },
         If(
