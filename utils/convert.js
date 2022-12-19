@@ -180,6 +180,17 @@ export const sanitizeHtmlConfig = {
         attribs,
       };
     },
+    img: function (tagName, attribs) {
+      const newAttribs = { ...attribs };
+      const altText = newAttribs?.alt;
+      return {
+        tagName,
+        attribs: {
+          ...newAttribs,
+          alt: altText ? altText : "",
+        },
+      };
+    },
   },
 };
 //Used to apply custom text classes to html
@@ -349,6 +360,7 @@ export const textSizeSanitizeConfig = (
         ) {
           const newAttribs = { ...attribs };
           const className = newAttribs?.class;
+          const altText = newAttribs?.alt;
           let classNamesToApply = " ";
           if (roundedCornersForImages) classNamesToApply += " border-radius-1";
           if (centerImagesHorizontally)
@@ -363,12 +375,18 @@ export const textSizeSanitizeConfig = (
               class: className
                 ? className + classNamesToApply
                 : classNamesToApply,
+              alt: altText ? altText : "",
             },
           };
         } else {
+          const newAttribs = { ...attribs };
+          const altText = newAttribs?.alt;
           return {
             tagName,
-            attribs,
+            attribs: {
+              ...newAttribs,
+              alt: altText ? altText : "",
+            },
           };
         }
       },
@@ -379,9 +397,9 @@ export const getAlgoliaHighestResultFormatted = (result) => {
   let snippet;
   const headingMatch = result?.headings
     ? result?.headings?.find(
-      (heading) =>
-        heading?.matchLevel === "full" || heading?.matchLevel === "partial"
-    )
+        (heading) =>
+          heading?.matchLevel === "full" || heading?.matchLevel === "partial"
+      )
     : null;
   if (
     result?.description?.matchLevel === "full" ||
@@ -411,6 +429,6 @@ export const convertUJETLinksToHttps = (html) => {
 
 //Clean html tags from text and return a string
 export const cleanText = (string) => {
-  const cleanText = string.replace(/<\/?[^>]+(>|$)/g, "")
-  return cleanText
-}
+  const cleanText = string.replace(/<\/?[^>]+(>|$)/g, "");
+  return cleanText;
+};

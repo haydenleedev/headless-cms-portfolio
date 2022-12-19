@@ -26,7 +26,20 @@ export const webSite = {
   description: "Reimagining Customer Support for a Connected World",
   inLanguage: "en-US",
 };
-
+export const imageObject = ({
+  imageUrl,
+}) => {
+  let data = {
+    "@context": "https://schema.org/",
+    "@type": "ImageObject",
+    "contentUrl": imageUrl,
+    "creator": {
+      "@type": "Organization",
+      "name": "UJET"
+    }
+  }
+  return JSON.stringify(data)
+}
 export const blogPosting = ({
   headline,
   image,

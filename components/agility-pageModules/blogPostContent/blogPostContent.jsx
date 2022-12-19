@@ -100,7 +100,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                 <div className={style.blogPostImage}>
                   <AgilityImage
                     src={blogPost.image.url}
-                    alt={blogPost.image.label || null}
+                    alt={blogPost.image.label || ""}
                     width={blogPost.image.pixelWidth}
                     height={blogPost.image.pixelHeight}
                     objectFit="cover"
