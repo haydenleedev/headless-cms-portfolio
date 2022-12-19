@@ -2,13 +2,11 @@ import { renderHTML } from "@agility/nextjs";
 import dynamic from "next/dynamic";
 import { boolean, mediaIsSvg } from "../../../utils/validation";
 import style from "./brandTextGridWithMedia.module.scss";
-const Heading = dynamic(
-  () => import("../../../components/agility-pageModules/heading"),
-  { ssr: false }
+const Heading = dynamic(() =>
+  import("../../../components/agility-pageModules/heading")
 );
-const Media = dynamic(
-  () => import("../../../components/agility-pageModules/media"),
-  { ssr: false }
+const Media = dynamic(() =>
+  import("../../../components/agility-pageModules/media")
 );
 
 const TextItem = ({

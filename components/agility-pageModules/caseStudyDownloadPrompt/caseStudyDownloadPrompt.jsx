@@ -1,6 +1,6 @@
 import Media from "../media";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Heading = dynamic(() => import("../heading"));
 import style from "./caseStudyDownloadPrompt.module.scss";
 import AgilityLink from "../../agilityLink";
 

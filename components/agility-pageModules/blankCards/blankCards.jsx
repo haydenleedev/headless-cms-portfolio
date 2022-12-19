@@ -1,8 +1,6 @@
 import dynamic from "next/dynamic";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-const BlankCardsContent = dynamic(() => import("./blankCardsContent"), {
-  ssr: false,
-});
+const BlankCardsContent = dynamic(() => import("./blankCardsContent"));
 
 const BlankCards = ({ module, customData }) => {
   const { fields } = module;

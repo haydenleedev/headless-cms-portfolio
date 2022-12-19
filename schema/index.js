@@ -26,7 +26,24 @@ export const webSite = {
   description: "Reimagining Customer Support for a Connected World",
   inLanguage: "en-US",
 };
-
+export const imageObject = (
+  imageSrc,
+) => {
+  let data = {
+    "@context": "https://schema.org/",
+    "@type": "ImageObject",
+    "contentUrl": imageSrc,
+    "license": "https://ujet.cx",
+    "acquireLicensePage": "https://ujet.cx",
+    "creditText": "UJET",
+    "copyrightNotice": "UJET",
+    "creator": {
+      "@type": "Organization",
+      "name": "UJET"
+    }
+  }
+  return JSON.stringify(data)
+}
 export const blogPosting = ({
   headline,
   image,

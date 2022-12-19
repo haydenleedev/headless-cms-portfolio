@@ -10,15 +10,11 @@ import {
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article, blogPosting } from "../../../schema";
 import Breadcrumbs from "../../breadcrumbs/breadcrumbs";
-const ShareSocials = dynamic(() => import("./shareSocials"), { ssr: false });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
-const Media = dynamic(() => import("../media"), { ssr: false });
-const Subscribe = dynamic(() => import("../../subscribe/subscribe"), {
-  ssr: false,
-});
-const BlogPostList = dynamic(() => import("../blogPostList/blogPostList"), {
-  ssr: false,
-});
+const ShareSocials = dynamic(() => import("./shareSocials"));
+const AgilityLink = dynamic(() => import("../../agilityLink"));
+const Media = dynamic(() => import("../media"));
+const Subscribe = dynamic(() => import("../../subscribe/subscribe"));
+const BlogPostList = dynamic(() => import("../blogPostList/blogPostList"));
 
 const BlogPostContent = ({ dynamicPageItem, customData }) => {
   const {
@@ -104,7 +100,8 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                 <div className={style.blogPostImage}>
                   <AgilityImage
                     src={blogPost.image.url}
-                    alt={blogPost.image.label || null}
+                    data-src={blogPost.image.url}
+                    alt={blogPost.image.label || ""}
                     width={blogPost.image.pixelWidth}
                     height={blogPost.image.pixelHeight}
                     objectFit="cover"

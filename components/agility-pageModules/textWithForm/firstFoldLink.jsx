@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
+const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const FirstFoldLink = ({ fields, primary }) => {
   const linksStyle = fields?.linksStyle || "button";

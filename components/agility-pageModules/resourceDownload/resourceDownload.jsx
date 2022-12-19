@@ -2,7 +2,6 @@ import {
   convertUJETLinksToHttps,
   sanitizeHtmlConfig,
 } from "../../../utils/convert";
-import dynamic from "next/dynamic";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
 import Script from "next/script";

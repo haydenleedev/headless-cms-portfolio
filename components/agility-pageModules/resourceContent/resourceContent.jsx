@@ -16,10 +16,8 @@ import EmbedVideo from "../embedVideo/embedVideo";
 import Script from "next/script";
 import Accordion from "../accordion/accordion";
 import dynamic from "next/dynamic";
-const PardotForm = dynamic(() => import("../../form/pardotForm"), {
-  ssr: false,
-});
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
+const PardotForm = dynamic(() => import("../../form/pardotForm"));
+const AgilityLink = dynamic(() => import("../../agilityLink"));
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
@@ -213,7 +211,8 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     <div className={style.imageColumn}>
                       <AgilityImage
                         src={resource.image.url}
-                        alt={resource.image.label || null}
+                        data-src={resource.image.url}
+                        alt={resource.image.label || ""}
                         width={resource.image.pixelWidth}
                         height={resource.image.pixelHeight}
                         objectFit="cover"

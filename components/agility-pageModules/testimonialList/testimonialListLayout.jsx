@@ -5,7 +5,7 @@ import style from "./testimonialList.module.scss";
 import { sleep } from "../../../utils/generic";
 import { boolean } from "../../../utils/validation";
 import dynamic from "next/dynamic";
-const Heading = dynamic(() => import("../heading"), { ssr: false });
+const Heading = dynamic(() => import("../heading"));
 import StarRating from "../../starRating/starRating";
 import { AgilityImage } from "@agility/nextjs";
 import Slider from "../../slider/slider";
@@ -148,6 +148,7 @@ const TestimonialListLayout = (fields) => {
                     <AgilityImage
                       className={style.gridItemLogo}
                       src={fields.awards[index].fields.image.url}
+                      data-src={fields.awards[index].fields.image.url}
                       layout="fill"
                       objectFit="contain"
                       width={0}
@@ -159,6 +160,7 @@ const TestimonialListLayout = (fields) => {
                     <AgilityImage
                       className={style.gridItemLogo}
                       src={testimonial.fields.logo.url}
+                      data-src={testimonial.fields.logo.url}
                       layout="fill"
                       objectFit="contain"
                       width={0}

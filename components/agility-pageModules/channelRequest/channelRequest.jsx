@@ -7,9 +7,7 @@ import {
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
 import dynamic from "next/dynamic";
-const PardotForm = dynamic(() => import("../../form/pardotForm"), {
-  ssr: false,
-});
+const PardotForm = dynamic(() => import("../../form/pardotForm"));
 
 const ChannelRequest = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, formConfiguration } = customData;

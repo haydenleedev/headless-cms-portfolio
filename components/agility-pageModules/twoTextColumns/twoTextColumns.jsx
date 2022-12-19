@@ -2,9 +2,7 @@ import style from "./twoTextColumns.module.scss";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import dynamic from "next/dynamic";
 import { useIntersectionObserver } from "../../../utils/hooks";
-const TwoTextColumnsContent = dynamic(() => import("./twoTextColumnsContent"), {
-  ssr: false,
-});
+const TwoTextColumnsContent = dynamic(() => import("./twoTextColumnsContent"));
 
 const TwoTextColumns = ({ module, customData }) => {
   const { fields } = module;
