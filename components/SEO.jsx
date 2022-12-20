@@ -43,6 +43,9 @@ const SEO = ({
   // load scripts as soons as user interacts with the page.
   useEffect(() => {
     const userInteractionEvent = () => {
+      if (document.getElementById("q-frame-hidden")) {
+        document.getElementById("q-frame-hidden").id = "q-messenger-frame";
+      }
       setUserInteracted(true);
       window.removeEventListener("scroll", userInteractionEvent);
       window.removeEventListener("mousedown", userInteractionEvent);
