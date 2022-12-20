@@ -144,16 +144,7 @@ const SEO = ({
       const images = document.querySelectorAll("img[alt]");
       let sd = [];
       images.forEach((image) => {
-        let src = image.src;
-        if (src.includes(".svg")) {
-          return;
-        }
-        if (src.includes("data:image/gif") || src.includes("data:image/svg")) {
-          if (image.attributes.getNamedItem("data-src"))
-            src = image.attributes.getNamedItem("data-src").value;
-          return;
-        }
-        sd.push(JSON.parse(imageObject(src)));
+        sd.push(JSON.parse(imageObject(image.src)));
       });
       setImagesProcessed(true);
       setImageData(sd);
