@@ -191,7 +191,7 @@ export const sanitizeHtmlConfig = {
           ...newAttribs,
           alt: altText ? altText : "",
           loading: "lazy",
-          srcset: `${newAttribs.src}?q=75&w=768&format=auto 1x, ${newAttribs.src}?q=75&w=890&format=auto 2x`,
+          srcset: `${newAttribs.src}?q=75&w=480&format=auto 1x, ${newAttribs.src}?q=75&w=640&format=auto 2x`
         },
       };
     },
@@ -383,7 +383,7 @@ export const textSizeSanitizeConfig = (
                 : classNamesToApply,
               alt: altText ? altText : "",
               loading: "lazy",
-              srcset: `${newAttribs.src}?q=75&w=768&format=auto 1x, ${newAttribs.src}?q=75&w=890&format=auto 2x`,
+              srcset: `${newAttribs.src}?q=75&w=480&format=auto 1x, ${newAttribs.src}?q=75&w=640&format=auto 2x`
             },
           };
         } else {
@@ -395,7 +395,7 @@ export const textSizeSanitizeConfig = (
               ...newAttribs,
               alt: altText ? altText : "",
               loading: "lazy",
-              srcset: `${newAttribs.src}?q=75&w=768&format=auto 1x, ${newAttribs.src}?q=75&w=890&format=auto 2x`,
+              srcset: `${newAttribs.src}?q=75&w=480&format=auto 1x, ${newAttribs.src}?q=75&w=640&format=auto 2x`
             },
           };
         }
@@ -407,9 +407,9 @@ export const getAlgoliaHighestResultFormatted = (result) => {
   let snippet;
   const headingMatch = result?.headings
     ? result?.headings?.find(
-        (heading) =>
-          heading?.matchLevel === "full" || heading?.matchLevel === "partial"
-      )
+      (heading) =>
+        heading?.matchLevel === "full" || heading?.matchLevel === "partial"
+    )
     : null;
   if (
     result?.description?.matchLevel === "full" ||
