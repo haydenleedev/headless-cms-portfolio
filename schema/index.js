@@ -69,7 +69,6 @@ export const blogPosting = ({
     description,
     articleBody,
     publisher: {
-      "@type": "Organization",
       "@id": "https://ujet.cx/#organization",
     },
     author: {
@@ -107,7 +106,6 @@ export const article = ({
     description,
     articleBody,
     publisher: {
-      "@type": "Organization",
       "@id": "https://ujet.cx/#organization",
     },
   };
