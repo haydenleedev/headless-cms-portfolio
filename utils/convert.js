@@ -154,6 +154,8 @@ export const sanitizeHtmlConfig = {
   allowedTags: false,
   allowedAttributes: {
     "*": [
+      "loading",
+      "srcset",
       "href",
       "target",
       "alt",
@@ -188,6 +190,8 @@ export const sanitizeHtmlConfig = {
         attribs: {
           ...newAttribs,
           alt: altText ? altText : "",
+          loading: "lazy",
+          srcset: `${newAttribs.src}?q=75&w=480&format=auto 1x, ${newAttribs.src}?q=75&w=640&format=auto 2x`
         },
       };
     },
