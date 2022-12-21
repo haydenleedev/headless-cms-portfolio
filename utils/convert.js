@@ -210,6 +210,8 @@ export const textSizeSanitizeConfig = (
     allowedTags: false,
     allowedAttributes: {
       "*": [
+        "loading",
+        "srcset",
         "href",
         "target",
         "alt",
@@ -380,6 +382,8 @@ export const textSizeSanitizeConfig = (
                 ? className + classNamesToApply
                 : classNamesToApply,
               alt: altText ? altText : "",
+              loading: "lazy",
+              srcset: `${newAttribs.src}?q=75&w=480&format=auto 1x, ${newAttribs.src}?q=75&w=640&format=auto 2x`
             },
           };
         } else {
@@ -390,6 +394,8 @@ export const textSizeSanitizeConfig = (
             attribs: {
               ...newAttribs,
               alt: altText ? altText : "",
+              loading: "lazy",
+              srcset: `${newAttribs.src}?q=75&w=480&format=auto 1x, ${newAttribs.src}?q=75&w=640&format=auto 2x`
             },
           };
         }
@@ -401,9 +407,9 @@ export const getAlgoliaHighestResultFormatted = (result) => {
   let snippet;
   const headingMatch = result?.headings
     ? result?.headings?.find(
-        (heading) =>
-          heading?.matchLevel === "full" || heading?.matchLevel === "partial"
-      )
+      (heading) =>
+        heading?.matchLevel === "full" || heading?.matchLevel === "partial"
+    )
     : null;
   if (
     result?.description?.matchLevel === "full" ||
