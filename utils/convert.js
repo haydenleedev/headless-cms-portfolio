@@ -153,6 +153,17 @@ export const vimeoLinkToEmbed = (link) => {
 export const sanitizeHtmlConfig = {
   allowedTags: false,
   allowedAttributes: {
+    img: [
+      "loading",
+      "srcset",
+      "style",
+      "class",
+      "id",
+      "src",
+      "width",
+      "height",
+      "alt",
+    ],
     "*": [
       "loading",
       "srcset",
@@ -197,6 +208,8 @@ export const sanitizeHtmlConfig = {
           src: source,
           alt: altText ? altText : "",
           loading: "lazy",
+          srcset: `${source}?q=75&w=768&format=auto 1x, ${source}?q=75&w=890&format=auto 2x`,
+          style: "max-width: 100%",
         },
       };
     },
@@ -214,6 +227,17 @@ export const textSizeSanitizeConfig = (
   return {
     allowedTags: false,
     allowedAttributes: {
+      img: [
+        "loading",
+        "srcset",
+        "style",
+        "class",
+        "id",
+        "src",
+        "width",
+        "height",
+        "alt",
+      ],
       "*": [
         "loading",
         "srcset",
@@ -395,7 +419,8 @@ export const textSizeSanitizeConfig = (
                 : classNamesToApply,
               alt: altText ? altText : "",
               loading: "lazy",
-              srcset: `${newAttribs.src}?q=75&w=480&format=auto 1x, ${newAttribs.src}?q=75&w=640&format=auto 2x`
+              srcset: `${source}?q=75&w=768&format=auto 1x, ${source}?q=75&w=890&format=auto 2x`,
+              style: "max-width: 100%",
             },
           };
         } else {
@@ -413,7 +438,8 @@ export const textSizeSanitizeConfig = (
               src: source,
               alt: altText ? altText : "",
               loading: "lazy",
-              srcset: `${newAttribs.src}?q=75&w=480&format=auto 1x, ${newAttribs.src}?q=75&w=640&format=auto 2x`
+              srcset: `${source}?q=75&w=768&format=auto 1x, ${source}?q=75&w=890&format=auto 2x`,
+              style: "max-width: 100%",
             },
           };
         }
@@ -425,9 +451,9 @@ export const getAlgoliaHighestResultFormatted = (result) => {
   let snippet;
   const headingMatch = result?.headings
     ? result?.headings?.find(
-      (heading) =>
-        heading?.matchLevel === "full" || heading?.matchLevel === "partial"
-    )
+        (heading) =>
+          heading?.matchLevel === "full" || heading?.matchLevel === "partial"
+      )
     : null;
   if (
     result?.description?.matchLevel === "full" ||
