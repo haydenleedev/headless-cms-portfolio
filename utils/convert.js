@@ -185,13 +185,18 @@ export const sanitizeHtmlConfig = {
     img: function (tagName, attribs) {
       const newAttribs = { ...attribs };
       const altText = newAttribs?.alt;
+        //Clear queries from img soruce
+        let source = newAttribs.src
+        if (newAttribs.src.includes("?")) {
+          source = newAttribs.slice(newAttribs.src.indexOf("?"))
+        }
       return {
         tagName,
         attribs: {
           ...newAttribs,
+          src: source,
           alt: altText ? altText : "",
           loading: "lazy",
-          srcset: `${newAttribs.src}?q=75&w=480&format=auto 1x, ${newAttribs.src}?q=75&w=640&format=auto 2x`
         },
       };
     },
@@ -365,6 +370,12 @@ export const textSizeSanitizeConfig = (
           imageSpacingBottom
         ) {
           const newAttribs = { ...attribs };
+          //Clear queries from img soruce
+          let source = newAttribs.src
+          if (newAttribs.src.includes("?")) {
+            source = newAttribs.slice(newAttribs.src.indexOf("?"))
+          }
+          //Apply image classes and alt text
           const className = newAttribs?.class;
           const altText = newAttribs?.alt;
           let classNamesToApply = " ";
@@ -378,6 +389,7 @@ export const textSizeSanitizeConfig = (
             tagName,
             attribs: {
               ...newAttribs,
+              src: source,
               class: className
                 ? className + classNamesToApply
                 : classNamesToApply,
@@ -388,11 +400,17 @@ export const textSizeSanitizeConfig = (
           };
         } else {
           const newAttribs = { ...attribs };
+            //Clear queries from img soruce
+            let source = newAttribs.src
+            if (newAttribs.src.includes("?")) {
+              source = newAttribs.slice(newAttribs.src.indexOf("?"))
+            }
           const altText = newAttribs?.alt;
           return {
             tagName,
             attribs: {
               ...newAttribs,
+              src: source,
               alt: altText ? altText : "",
               loading: "lazy",
               srcset: `${newAttribs.src}?q=75&w=480&format=auto 1x, ${newAttribs.src}?q=75&w=640&format=auto 2x`
