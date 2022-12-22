@@ -26,13 +26,17 @@ export const webSite = {
   description: "Reimagining Customer Support for a Connected World",
   inLanguage: "en-US",
 };
-export const imageObject = ({
-  imageUrl,
-}) => {
+export const imageObject = (
+  imageSrc,
+) => {
   let data = {
     "@context": "https://schema.org/",
     "@type": "ImageObject",
-    "contentUrl": imageUrl,
+    "contentUrl": imageSrc,
+    "license": "https://ujet.cx",
+    "acquireLicensePage": "https://ujet.cx",
+    "creditText": "UJET",
+    "copyrightNotice": "UJET",
     "creator": {
       "@type": "Organization",
       "name": "UJET"
@@ -64,9 +68,7 @@ export const blogPosting = ({
     dateCreated,
     description,
     articleBody,
-    publisher: {
-      "@id": "https://ujet.cx/#organization",
-    },
+    publisher: organization,
     author: {
       "@type": "Person",
       name: authorName,
@@ -101,9 +103,7 @@ export const article = ({
     dateModified,
     description,
     articleBody,
-    publisher: {
-      "@id": "https://ujet.cx/#organization",
-    },
+    publisher: organization,
   };
 
   return JSON.stringify(data);

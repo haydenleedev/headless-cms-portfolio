@@ -60,8 +60,10 @@ export default function Home({
     mobile: 14,
   });
   const { formData, updateFormData, resetData } = useContext(GlobalContext);
-
   useEffect(() => {
+    if (document.getElementById("q-messenger-frame")) {
+      document.getElementById("q-messenger-frame").id = "q-frame-hidden"
+    }
     addDataLayerEventTriggers(router);
     router.events.on("routeChangeComplete", () => {
       // Track virtual page views (Bombora)
@@ -190,11 +192,10 @@ export default function Home({
                       return (
                         <div
                           key={index}
-                          className={`${layout.col} ${layout["col-4"]} ${
-                            promotion
+                          className={`${layout.col} ${layout["col-4"]} ${promotion
                               ? `${styles.promotion} ${layout.col} ${layout["col-4"]}`
                               : `${layout.col} ${layout["col-4"]}`
-                          }`}
+                            }`}
                         >
                           {item.name.includes("Enterprise") && (
                             <span className={styles["flag-orange"]}>

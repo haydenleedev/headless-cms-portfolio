@@ -153,7 +153,20 @@ export const vimeoLinkToEmbed = (link) => {
 export const sanitizeHtmlConfig = {
   allowedTags: false,
   allowedAttributes: {
+    img: [
+      "loading",
+      "srcset",
+      "style",
+      "class",
+      "id",
+      "src",
+      "width",
+      "height",
+      "alt",
+    ],
     "*": [
+      "loading",
+      "srcset",
       "href",
       "target",
       "alt",
@@ -183,11 +196,20 @@ export const sanitizeHtmlConfig = {
     img: function (tagName, attribs) {
       const newAttribs = { ...attribs };
       const altText = newAttribs?.alt;
+        //Clear queries from img soruce
+        let source = newAttribs.src
+        if (newAttribs.src.includes("?")) {
+          source = newAttribs.slice(newAttribs.src.indexOf("?"))
+        }
       return {
         tagName,
         attribs: {
           ...newAttribs,
+          src: source,
           alt: altText ? altText : "",
+          loading: "lazy",
+          srcset: `${source}?q=75&w=768&format=auto 1x, ${source}?q=75&w=890&format=auto 2x`,
+          style: "max-width: 100%",
         },
       };
     },
@@ -205,7 +227,20 @@ export const textSizeSanitizeConfig = (
   return {
     allowedTags: false,
     allowedAttributes: {
+      img: [
+        "loading",
+        "srcset",
+        "style",
+        "class",
+        "id",
+        "src",
+        "width",
+        "height",
+        "alt",
+      ],
       "*": [
+        "loading",
+        "srcset",
         "href",
         "target",
         "alt",
@@ -359,6 +394,12 @@ export const textSizeSanitizeConfig = (
           imageSpacingBottom
         ) {
           const newAttribs = { ...attribs };
+          //Clear queries from img soruce
+          let source = newAttribs.src
+          if (newAttribs.src.includes("?")) {
+            source = newAttribs.slice(newAttribs.src.indexOf("?"))
+          }
+          //Apply image classes and alt text
           const className = newAttribs?.class;
           const altText = newAttribs?.alt;
           let classNamesToApply = " ";
@@ -372,20 +413,33 @@ export const textSizeSanitizeConfig = (
             tagName,
             attribs: {
               ...newAttribs,
+              src: source,
               class: className
                 ? className + classNamesToApply
                 : classNamesToApply,
               alt: altText ? altText : "",
+              loading: "lazy",
+              srcset: `${source}?q=75&w=768&format=auto 1x, ${source}?q=75&w=890&format=auto 2x`,
+              style: "max-width: 100%",
             },
           };
         } else {
           const newAttribs = { ...attribs };
+            //Clear queries from img soruce
+            let source = newAttribs.src
+            if (newAttribs.src.includes("?")) {
+              source = newAttribs.slice(newAttribs.src.indexOf("?"))
+            }
           const altText = newAttribs?.alt;
           return {
             tagName,
             attribs: {
               ...newAttribs,
+              src: source,
               alt: altText ? altText : "",
+              loading: "lazy",
+              srcset: `${source}?q=75&w=768&format=auto 1x, ${source}?q=75&w=890&format=auto 2x`,
+              style: "max-width: 100%",
             },
           };
         }

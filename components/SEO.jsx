@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
-import { breadcrumbs, organization, webSite } from "../schema";
+import { breadcrumbs, organization, webSite, imageObject } from "../schema";
 import Script from "next/script";
 import { getCookie, setCookie } from "../utils/cookies";
 import { useContext } from "react";
@@ -20,6 +20,8 @@ const SEO = ({
   const [userInteracted, setUserInteracted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
   const [cookieTimerExpired, setCookieTimerExpired] = useState(false);
+  const [imagesProcessed, setImagesProcessed] = useState(false);
+  const [imageData, setImageData] = useState(false);
   const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
@@ -41,6 +43,9 @@ const SEO = ({
   // load scripts as soons as user interacts with the page.
   useEffect(() => {
     const userInteractionEvent = () => {
+      if (document.getElementById("q-frame-hidden")) {
+        document.getElementById("q-frame-hidden").id = "q-messenger-frame";
+      }
       setUserInteracted(true);
       window.removeEventListener("scroll", userInteractionEvent);
       window.removeEventListener("mousedown", userInteractionEvent);
@@ -136,7 +141,18 @@ const SEO = ({
       window.removeEventListener("keydown", userInteractionEvent);
     };
   }, []);
-
+  useEffect(() => {
+    //Get all images with alt text
+    if (router.isReady) {
+      const images = document.querySelectorAll("img[alt]");
+      let sd = [];
+      images.forEach((image) => {
+        sd.push(JSON.parse(imageObject(image.src)));
+      });
+      setImagesProcessed(true);
+      setImageData(sd);
+    }
+  }, [router.isReady]);
   return (
     <>
       <Head>
@@ -203,7 +219,13 @@ const SEO = ({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: breadcrumbs(url) }}
         />
-
+        {imagesProcessed && imageData.length > 0 && (
+          <script
+            id="imageObjectScript"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(imageData) }}
+          />
+        )}
         {/* TODO: add Canonical url */}
       </Head>
       {pageTemplateName !== "BrandTemplate" && (

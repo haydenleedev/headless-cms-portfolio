@@ -37,6 +37,7 @@ const RenderGenericCard = ({ properties }) => {
                 {image && image.pixelWidth ? (
                   <AgilityImage
                     src={image.url}
+                    data-src={image.url}
                     alt={image.label || ""}
                     width={image.pixelWidth}
                     height={image.pixelHeight}
@@ -47,6 +48,7 @@ const RenderGenericCard = ({ properties }) => {
                   configuration?.defaultImage && (
                     <AgilityImage
                       src={configuration?.defaultImage}
+                      data-src={configuration?.defaultImage}
                       alt=""
                       width="250"
                       height="162"
@@ -63,7 +65,11 @@ const RenderGenericCard = ({ properties }) => {
                 smallImage ? style.smallerSize : style.normalSize
               } ${
                 brandLayout
-                  ? `${style.imageWrapper} ${imageWrapperClasses?.match(/bg-*/) ? style.colorCardImageWrapper : ""}`
+                  ? `${style.imageWrapper} ${
+                      imageWrapperClasses?.match(/bg-*/)
+                        ? style.colorCardImageWrapper
+                        : ""
+                    }`
                   : `genericCard__image ${
                       configuration?.imageHeight
                         ? `genericCard__image--${configuration?.imageHeight}`
@@ -72,16 +78,18 @@ const RenderGenericCard = ({ properties }) => {
               }`}
             >
               {brandLayout ? (
-               <AgilityImage
-               src={image.url}
-               width={0}
-               height={0}
-               layout="responsive"
-               objectFit="contain"
-             />
+                <AgilityImage
+                  src={image.url}
+                  data-src={image.url}
+                  width={0}
+                  height={0}
+                  layout="responsive"
+                  objectFit="contain"
+                />
               ) : image && image.pixelWidth ? (
                 <AgilityImage
                   src={image.url}
+                  data-src={image.url}
                   alt={image.label || ""}
                   width={image.pixelWidth}
                   height={image.pixelHeight}
@@ -91,6 +99,7 @@ const RenderGenericCard = ({ properties }) => {
               ) : (
                 <AgilityImage
                   src={configuration?.defaultImage}
+                  data-src={configuration?.defaultImage}
                   alt=""
                   width="250"
                   height="162"
@@ -101,10 +110,17 @@ const RenderGenericCard = ({ properties }) => {
           )}
         </>
       )}
-      <div className={`${brandLayout ? style.textContent : "genericCard__textContent"}
+      <div
+        className={`${
+          brandLayout ? style.textContent : "genericCard__textContent"
+        }
       ${
-       image && !configuration?.iconStyleImage && brandLayout && style.imageCardTextContent
-      }`}>
+        image &&
+        !configuration?.iconStyleImage &&
+        brandLayout &&
+        style.imageCardTextContent
+      }`}
+      >
         {date && (
           <p className="genericCard__textContent--date">{toDate(date)}</p>
         )}
@@ -129,13 +145,17 @@ const RenderGenericCard = ({ properties }) => {
         )}
         {title && !configuration?.iconStyleImage && (
           <p
-            className={`${brandLayout ? style.title : `genericCard__textContent--title ${
-              configuration?.emphasizedTitle
-                ? "genericCard__textContent--titleEmphasized"
-                : !date && !category && !overrideCategory && !newsSite
-                ? "pt-2"
-                : ""
-            }`}`}
+            className={`${
+              brandLayout
+                ? style.title
+                : `genericCard__textContent--title ${
+                    configuration?.emphasizedTitle
+                      ? "genericCard__textContent--titleEmphasized"
+                      : !date && !category && !overrideCategory && !newsSite
+                      ? "pt-2"
+                      : ""
+                  }`
+            }`}
           >
             {title}
           </p>
@@ -153,16 +173,18 @@ const RenderGenericCard = ({ properties }) => {
             {description}
           </p>
         )}
-          {text && (
-              <div
-                dangerouslySetInnerHTML={renderHTML(text)}
-                className={
-                  textAlignment == "left" ? "align-left" : "align-center"
-                }
-              />
-            )}
+        {text && (
+          <div
+            dangerouslySetInnerHTML={renderHTML(text)}
+            className={textAlignment == "left" ? "align-left" : "align-center"}
+          />
+        )}
         {link && (
-          <p className={brandLayout ? style.linkText : "genericCard__textContent--link"}>
+          <p
+            className={
+              brandLayout ? style.linkText : "genericCard__textContent--link"
+            }
+          >
             <span>{brandLayout ? link.text : "Read more"}</span>
           </p>
         )}
