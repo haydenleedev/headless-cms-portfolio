@@ -199,7 +199,7 @@ export const sanitizeHtmlConfig = {
         //Clear queries from img soruce
         let source = newAttribs.src
         if (source.includes("?")) {
-          source = source.slice(source.indexOf("?"))
+          source = source.slice(0, source.indexOf("?"))
         }
       return {
         tagName,
@@ -397,7 +397,7 @@ export const textSizeSanitizeConfig = (
           //Clear queries from img soruce
           let source = newAttribs.src
           if (source.includes("?")) {
-            source = source.slice(source.indexOf("?"))
+            source = source.slice(0, source.indexOf("?"))
           }
           //Apply image classes and alt text
           const className = newAttribs?.class;
@@ -428,7 +428,7 @@ export const textSizeSanitizeConfig = (
             //Clear queries from img soruce
             let source = newAttribs.src
             if (source.includes("?")) {
-              source = source.slice(source.indexOf("?"))
+              source = source.slice(0, source.indexOf("?"))
             }
           const altText = newAttribs?.alt;
           return {
