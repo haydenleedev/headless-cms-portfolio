@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useIntersectionObserver } from "../../utils/hooks";
+import style from "./video.module.scss";
 const Video = ({
   src,
   type,
@@ -27,6 +28,7 @@ const Video = ({
     }
   );
   return (
+    <div className={style.videoWrapper}>
       <video
         ref={videoRef}
         className={`${className}`}
@@ -40,6 +42,7 @@ const Video = ({
       >
         Your browser does not support the video tag.
       </video>
+    </div>
   );
 };
 
