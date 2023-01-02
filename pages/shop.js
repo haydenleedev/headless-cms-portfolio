@@ -60,16 +60,10 @@ export default function Home({
     mobile: 14,
   });
   const { formData, updateFormData, resetData } = useContext(GlobalContext);
-  const removeQualified = () => {
-    const srcScript = document.getElementById("qualified-src")
-    const script = document.getElementById("qualified")
-    const msgFrame = document.getElementById("q-messenger-frame")
-    script && script.remove()
-    srcScript && srcScript.remove()
-    msgFrame && msgFrame.remove()
-  }
   useEffect(() => {
-    removeQualified();
+    if (document.getElementById("q-messenger-frame")) {
+      document.getElementById("q-messenger-frame").id = "q-frame-hidden"
+    }
     addDataLayerEventTriggers(router);
     router.events.on("routeChangeComplete", () => {
       // Track virtual page views (Bombora)

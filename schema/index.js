@@ -68,9 +68,7 @@ export const blogPosting = ({
     dateCreated,
     description,
     articleBody,
-    publisher: {
-      "@id": "https://ujet.cx/#organization",
-    },
+    publisher: organization,
     author: {
       "@type": "Person",
       name: authorName,
@@ -105,9 +103,7 @@ export const article = ({
     dateModified,
     description,
     articleBody,
-    publisher: {
-      "@id": "https://ujet.cx/#organization",
-    },
+    publisher: organization,
   };
 
   return JSON.stringify(data);
