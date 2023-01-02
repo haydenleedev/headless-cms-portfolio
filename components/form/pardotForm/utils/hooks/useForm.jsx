@@ -36,7 +36,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
   } = useFormState({ props, pardotFormData, formConfig });
 
   const handleSubmit = async (e, stepFormSubmission) => {
-    e.preventDefault();
+    e?.preventDefault?.();
     formValidation(Array(fieldRefs.current.length).fill(true));
     if (stepFormSubmission) {
       formRef.current["hiddenemail"].value = state.stepEmailFieldValue;
@@ -85,26 +85,37 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         }
       });
       newFieldData = reorderFieldData(newFieldData, state.formType);
-      dispatch({
-        type: pardotFormActions.setStepFetchInProgress,
-        value: false,
-      });
-      fieldRefs.current = Array(newFieldData.length)
-        .fill(0)
-        .map(() => createRef());
-      dispatch({
-        type: pardotFormActions.setFieldData,
-        value: newFieldData,
-      });
-      dispatch({
-        type: pardotFormActions.setFormErrors,
-        value: Array(newFieldData.length).fill(false),
-      });
-      dispatch({
-        type: pardotFormActions.setTouchedFields,
-        value: Array(newFieldData.length).fill(false),
-      });
+    } else {
+      // no step found - means that it's the step after all steps have been already submitted
+      newFieldData = reorderFieldData(
+        newFieldData.filter(
+          (field) =>
+            isHiddenField(field, isDealRegistrationForm) ||
+            field.name === "Email" ||
+            field.name === "hiddenemail"
+        ),
+        state.formType
+      );
     }
+    dispatch({
+      type: pardotFormActions.setStepFetchInProgress,
+      value: false,
+    });
+    fieldRefs.current = Array(newFieldData.length)
+      .fill(0)
+      .map(() => createRef());
+    dispatch({
+      type: pardotFormActions.setFieldData,
+      value: newFieldData,
+    });
+    dispatch({
+      type: pardotFormActions.setFormErrors,
+      value: Array(newFieldData.length).fill(false),
+    });
+    dispatch({
+      type: pardotFormActions.setTouchedFields,
+      value: Array(newFieldData.length).fill(false),
+    });
   };
 
   // checks which of the step form fields are submitted, if any. Returns an array of steps and for each field a 'submitted'
@@ -163,8 +174,9 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       responseJSON?.submittedFields
     );
 
+    let allStepsSubmitted = false;
     if (submittedStepFields) {
-      const allStepsSubmitted = steps
+      allStepsSubmitted = steps
         .map((step, i) => {
           return step.fields.formFields.map(
             (field, j) =>
@@ -174,11 +186,6 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         })
         .flat(1)
         .every((value) => value);
-
-      if (allStepsSubmitted) {
-        handlePrefilledStepFormCompletion();
-        return;
-      }
     }
 
     dispatch({
@@ -191,7 +198,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       state.currentStepIndex,
       submittedStepFields
     );
-    const currentStep = steps[nextStepIndex].fields.formFields;
+    const currentStep = steps[nextStepIndex]?.fields?.formFields;
     const currentStepSubmittedFields = submittedStepFields
       ? submittedStepFields[nextStepIndex]
       : null;
@@ -201,6 +208,27 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     });
     formRef.current.reset();
     setFieldsToMatchStep(currentStep, currentStepSubmittedFields);
+    if (allStepsSubmitted) {
+      formRef.current["hiddenemail"].value = email;
+      addGaData({
+        gaDataAdded: state.gaDataAdded,
+        handleSetGaDataAdded,
+        formEmailInput: formRef.current["hiddenemail"],
+        isDealRegistrationForm,
+        formType: state.formType,
+        currentStepIndex: state.currentStepIndex,
+        isLastStep: props.config.steps.length === state.currentStepIndex + 1,
+      });
+      handlePrefilledStepFormCompletion();
+      dispatch({
+        type: pardotFormActions.setSubmitFlag,
+        value: true,
+      });
+      dispatch({
+        type: pardotFormActions.setTouchedFields,
+        value: Array(fieldRefs.current.length).fill(true),
+      });
+    }
   };
 
   // validate the form to check if there's any input errors.

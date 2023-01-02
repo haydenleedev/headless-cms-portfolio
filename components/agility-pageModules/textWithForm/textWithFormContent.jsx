@@ -215,6 +215,13 @@ const TextWithFormContent = ({
               }
               clsField={fields.currentLeadSource2}
               stepCompletion={stepCompletion}
+              stepsCompletionRedirectURL={
+                fields.formStepsEnabled
+                  ? fields.completionRedirectURL
+                    ? fields.completionRedirectURL
+                    : "/thank-you-contact"
+                  : null
+              }
             />
           </div>
         </aside>

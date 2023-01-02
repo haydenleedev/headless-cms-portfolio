@@ -287,6 +287,13 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         }
                         clsField={resource.currentLeadSource2}
                         stepCompletion={stepCompletion}
+                        stepsCompletionRedirectURL={
+                          resource.formStepsEnabled
+                            ? resource.completionRedirectURL
+                              ? resource.completionRedirectURL
+                              : "/thank-you-download-guide"
+                            : null
+                        }
                       />
                     </div>
                   </div>

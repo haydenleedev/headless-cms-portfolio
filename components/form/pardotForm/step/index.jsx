@@ -24,7 +24,7 @@ const StepForm = ({
 
   const isFirstStep =
     !state.stepEmailFieldValue && !state.prefilledCompletionView;
-  const isStep = state.stepEmailFieldValue && !state.prefilledCompletionView;
+  const isStep = state.stepEmailFieldValue;
   const stepsCompleted = state.prefilledCompletionView;
 
   const handleStepFormSubmit = (e) => {
@@ -60,7 +60,9 @@ const StepForm = ({
           className={cn({
             [style.pardotForm]: true,
             [style.isHidden]:
-              state.stepFetchInProgress || state.submissionInProgress,
+              state.stepFetchInProgress ||
+              state.submissionInProgress ||
+              stepsCompleted,
           })}
           style={{ display: state.clientJSEnabled ? "" : "none" }}
           ref={formRef}
@@ -95,16 +97,7 @@ const StepForm = ({
             )}
           </div>
         </form>
-      </>
-    );
-  } else if (stepsCompleted) {
-    return (
-      <>
-        {stepCompletion ? (
-          <ResourceDownloadContent resourceDownload={{ ...stepCompletion }} />
-        ) : (
-          <p>Thank you for contacting us.</p>
-        )}
+        {stepsCompleted && <p>Thank you for contacting us.</p>}
       </>
     );
   }

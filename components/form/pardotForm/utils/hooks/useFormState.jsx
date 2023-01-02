@@ -15,6 +15,7 @@ import {
   isHiddenField,
   reorderFieldData,
 } from "../helpers";
+import { useRouter } from "next/router";
 
 export const useFormState = ({ props, pardotFormData, formConfig }) => {
   const { formHandlerID, customAction, partner, action, stepCompletion } =
@@ -56,6 +57,7 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
   const [initialFieldData, setInitialFieldData] = useState(null); // needed for step form logic: used to compare active step fields to original field data
   const [validForm, setValidForm] = useState(false);
   const fieldRefs = useRef(null);
+  const router = useRouter();
   const formRef = useIntersectionObserver(null, 0.2, () => {
     if (!state.formInViewEventPushed) {
       dispatch({
@@ -138,7 +140,6 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     else setValidForm(false);
   }, [state.formErrors]);
 
-
   // listen to changes on the selected country. Change phone number format for US or Canada
   useEffect(() => {
     const phoneField = formRef.current["Phone Number"];
@@ -202,19 +203,6 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
           type: pardotFormActions.setSubmissionInProgress,
           value: true,
         });
-        if (state.finalStepSubmitted) {
-          for (let key in state.completedSteps) {
-            const prefilled = document.createElement("input");
-            prefilled.setAttribute("name", key);
-            prefilled.setAttribute("value", state.completedSteps[key]);
-            const fieldNameAlreadyExists = formRef.current.querySelector(
-              `input[name="${key}"]`
-            );
-            if (fieldNameAlreadyExists)
-              formRef.current.removeChild(fieldNameAlreadyExists.parentElement);
-            formRef.current.appendChild(prefilled);
-          }
-        }
         const formData = new FormData(formRef.current);
         window.dataLayer?.push({
           event: "pardotFormSubmit",
@@ -246,8 +234,12 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
         window.dataLayer?.push({
           event: "pardotFormSuccess",
         });
+
         submit({
-          customAction,
+          customAction:
+            !customAction && props.stepsCompletionRedirectURL
+              ? () => router.push(props.stepsCompletionRedirectURL)
+              : customAction,
           formData,
           formRef,
           action,
