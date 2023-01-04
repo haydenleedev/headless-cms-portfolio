@@ -18,7 +18,7 @@
 .thumbnail {
   max-width: toRem(400);
   margin: 0 auto;
-  padding: toRem(20) toRem(40) 0 toRem(40);
+  padding: toRem(20) toRem(40);
   position: relative;
   img {
     border: toRem(4) solid $color-paleblue !important;
