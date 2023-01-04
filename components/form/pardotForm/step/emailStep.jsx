@@ -5,7 +5,7 @@ import FormError from "../../formError";
 import { isEmail } from "../../../../shop/utils/validation";
 import { cn } from "../../../../utils/generic";
 
-const EmailStep = ({ steps }) => {
+const EmailStep = ({ steps, emailStepButtonText }) => {
   const { state, getNextStep, handleSetStepEmailFieldValue } =
     useContext(PardotFormContext);
   const emailRef = useRef(null);
@@ -28,7 +28,7 @@ const EmailStep = ({ steps }) => {
         style={{ gridColumn: "1 / -1" }}
       >
         <span>
-          <span className={style.required}>*</span> Email
+          <span className={style.required}>*</span> Business Email
         </span>
         <input
           name="stepEmail"
@@ -54,7 +54,11 @@ const EmailStep = ({ steps }) => {
             }
           }}
         >
-          {state.stepFetchInProgress ? "Please wait..." : "Next"}
+          {state.stepFetchInProgress
+            ? "Please wait..."
+            : emailStepButtonText
+            ? emailStepButtonText
+            : "Next"}
         </button>
       </div>
     </>

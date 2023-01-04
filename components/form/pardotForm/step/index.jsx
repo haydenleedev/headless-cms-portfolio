@@ -7,7 +7,6 @@ import EmailStep from "./emailStep";
 import { Fragment, useContext } from "react";
 import Loader from "../../../layout/loader/loader";
 import { cn } from "../../../../utils/generic";
-import ResourceDownloadContent from "../../../agility-pageModules/resourceDownload/resourceDownloadContent";
 
 // idea: the user submits the form several times based on the number of steps defined in Agility
 // the email of the user is always checked first.
@@ -17,7 +16,7 @@ const StepForm = ({
   btnColor,
   submit,
   config,
-  stepCompletion,
+  emailStepButtonText,
 }) => {
   const { state, fieldRefs, formRef, handleSubmit, isContactForm } =
     useContext(PardotFormContext);
@@ -42,7 +41,10 @@ const StepForm = ({
         }}
         autoComplete={isContactForm ? "off" : "on"}
       >
-        <EmailStep steps={config.steps} />
+        <EmailStep
+          steps={config.steps}
+          emailStepButtonText={emailStepButtonText}
+        />
         <HoneypotFields />
       </form>
     );

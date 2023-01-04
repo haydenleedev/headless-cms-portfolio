@@ -1,3 +1,5 @@
+import { boolean } from "./validation";
+
 export const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
@@ -41,4 +43,11 @@ export function cn(conditions) {
     return null;
   });
   return appliedClasses.filter((c) => c).join(" ");
+}
+
+export function resolveFormSubmitButtonText(fields, defaultValue) {
+  if (boolean(fields.formStepsEnabled)) {
+    return fields?.stepSubmitButtonText || defaultValue;
+  }
+  return fields?.formSubmitText || defaultValue;
 }

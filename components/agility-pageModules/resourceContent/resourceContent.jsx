@@ -21,6 +21,7 @@ const AgilityLink = dynamic(() => import("../../agilityLink"));
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
+import { resolveFormSubmitButtonText } from "../../../utils/generic";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, accordionItemsWithSanitizedHTML, formConfiguration } =
@@ -37,15 +38,6 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     resourceCategory = asPath.split("/")[1];
   }
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
-
-  const stepCompletion = resource.stepLink
-    ? {
-        link: resource.stepLink,
-        title: resource?.stepTitle,
-        content: resource?.stepContent,
-        image: resource?.stepImage,
-      }
-    : null;
 
   // Predefine defalut Pardot form handler ID
   const getPardotDefaultFormID = (resourceCategory) => {
@@ -140,6 +132,8 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   useEffect(() => {
     campaignScriptIDRef.current = resource.campaignTrackingID;
   }, []);
+
+  console.log(boolean(resource.formStepsEnabled));
 
   return (
     <>
@@ -263,12 +257,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             ? resource.formAction
                             : getPardotDefaultAction(resourceCategory)
                         }
-                        submit={
-                          resource.formSubmitText
-                            ? resource.formSubmitText
-                            : "Download Now"
-                        }
-                        stepsEnabled={resource.formStepsEnabled}
+                        submit={resolveFormSubmitButtonText(
+                          fields,
+                          "Download Now"
+                        )}
+                        stepsEnabled={boolean(resource.formStepsEnabled)}
                         config={formConfiguration}
                         assetTitle={resource.title ? resource.title : null}
                         assetType={getAssetType()}
@@ -286,14 +279,14 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             : null
                         }
                         clsField={resource.currentLeadSource2}
-                        stepCompletion={stepCompletion}
                         stepsCompletionRedirectURL={
-                          resource.formStepsEnabled
-                            ? resource.completionRedirectURL
-                              ? resource.completionRedirectURL
+                          boolean(resource.formStepsEnabled)
+                            ? resource.completionRedirectURL?.href
+                              ? resource.completionRedirectURL?.href
                               : "/thank-you-download-guide"
                             : null
                         }
+                        emailStepButtonText={resource?.emailStepButtonText}
                       />
                     </div>
                   </div>
@@ -363,12 +356,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             ? resource.formAction
                             : getPardotDefaultAction(resourceCategory)
                         }
-                        submit={
-                          resource.formSubmitText
-                            ? resource.formSubmitText
-                            : "Download Now"
-                        }
-                        stepsEnabled={resource.formStepsEnabled}
+                        submit={resolveFormSubmitButtonText(
+                          fields,
+                          "Download Now"
+                        )}
+                        stepsEnabled={boolean(resource.formStepsEnabled)}
                         config={formConfiguration}
                         assetTitle={resource.title ? resource.title : null}
                         assetType={getAssetType()}
@@ -384,7 +376,14 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           setClpValue(window.location.href)
                         }
                         clsField={resource.currentLeadSource2}
-                        stepCompletion={stepCompletion}
+                        stepsCompletionRedirectURL={
+                          boolean(resource.formStepsEnabled)
+                            ? resource.completionRedirectURL?.href
+                              ? resource.completionRedirectURL?.href
+                              : "/thank-you-download-guide"
+                            : null
+                        }
+                        emailStepButtonText={resource?.emailStepButtonText}
                       />
                       {resource.link?.href && resource.link?.text && (
                         <div className="mt-4 align-center">

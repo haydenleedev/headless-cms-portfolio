@@ -49,6 +49,9 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         currentStepIndex: state.currentStepIndex,
         isLastStep: props.config.steps.length === state.currentStepIndex + 1,
       });
+      // this is final step - use action defined in agility
+      if (props.config.steps.length === state.currentStepIndex + 1)
+        handlePrefilledStepFormCompletion();
     }
     dispatch({
       type: pardotFormActions.setSubmitFlag,
@@ -125,23 +128,25 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       const previouslySubmittedKeys = Object.keys(submittedFieldsFromDb);
       if (previouslySubmittedKeys.length > 0)
         return steps.map((step) => {
-          return step.fields.formFields.map((field) => {
-            const submittedFound = previouslySubmittedKeys.find(
-              (key) => key === field.fields.name
-            );
-            if (submittedFound) {
+          return step.fields.formFields
+            .filter((field) => !!formRef.current[field.fields.name])
+            .map((field) => {
+              const submittedFound = previouslySubmittedKeys.find(
+                (key) => key === field.fields.name
+              );
+              if (submittedFound) {
+                return {
+                  name: field.fields.name,
+                  submitted: true,
+                  value: submittedFieldsFromDb[submittedFound],
+                };
+              }
               return {
                 name: field.fields.name,
-                submitted: true,
-                value: submittedFieldsFromDb[submittedFound],
+                submitted: false,
+                value: null,
               };
-            }
-            return {
-              name: field.fields.name,
-              submitted: false,
-              value: null,
-            };
-          });
+            });
         });
     }
     return null;
@@ -178,11 +183,14 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     if (submittedStepFields) {
       allStepsSubmitted = steps
         .map((step, i) => {
-          return step.fields.formFields.map(
-            (field, j) =>
-              submittedStepFields[i][j].submitted &&
-              field.fields.name === submittedStepFields[i][j].name
-          );
+          return step.fields.formFields
+            .filter((field) => !!formRef.current[field.fields.name])
+            .map(
+              (field, j) =>
+                !!formRef.current[field.fields.name] &&
+                submittedStepFields[i][j].submitted &&
+                field.fields.name === submittedStepFields[i][j].name
+            );
         })
         .flat(1)
         .every((value) => value);
@@ -216,8 +224,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         formEmailInput: formRef.current["hiddenemail"],
         isDealRegistrationForm,
         formType: state.formType,
-        currentStepIndex: state.currentStepIndex,
-        isLastStep: props.config.steps.length === state.currentStepIndex + 1,
+        currentStepIndex: props.config.steps.length - 1,
+        isLastStep: true,
       });
       handlePrefilledStepFormCompletion();
       dispatch({

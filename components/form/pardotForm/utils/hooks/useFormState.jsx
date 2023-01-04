@@ -18,8 +18,7 @@ import {
 import { useRouter } from "next/router";
 
 export const useFormState = ({ props, pardotFormData, formConfig }) => {
-  const { formHandlerID, customAction, partner, action, stepCompletion } =
-    props;
+  const { formHandlerID, customAction, partner, action } = props;
   const initialFormState = {
     action: customAction ? null : action, // the Pardot form submission endpoint that will be requested when the form is successfully submitted.
     fieldData: [], // an array which contains the data of all the form fields received from Pardot.
@@ -237,7 +236,10 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
 
         submit({
           customAction:
-            !customAction && props.stepsCompletionRedirectURL
+            props.stepsEnabled &&
+            !customAction &&
+            state.prefilledCompletionView &&
+            props.stepsCompletionRedirectURL
               ? () => router.push(props.stepsCompletionRedirectURL)
               : customAction,
           formData,
@@ -254,7 +256,7 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
         value: false,
       });
     }
-  }, [state.submitFlag, validForm]);
+  }, [state.submitFlag, validForm, state.prefilledCompletionView]);
 
   // useEffect listeners >>>>>>>>//
 

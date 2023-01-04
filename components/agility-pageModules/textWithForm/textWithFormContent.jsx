@@ -6,6 +6,7 @@ import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
 import { useMutationObserver } from "../../../utils/hooks";
+import { resolveFormSubmitButtonText } from "../../../utils/generic";
 const Media = dynamic(() => import("../media"));
 const StarRating = dynamic(() => import("../../starRating/starRating"));
 const Heading = dynamic(() => import("../heading"));
@@ -24,15 +25,6 @@ const TextWithFormContent = ({
   const showAwards = boolean(fields?.showAwards);
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
-
-  const stepCompletion = fields.stepLink
-    ? {
-        link: fields.stepLink,
-        title: fields?.stepTitle,
-        content: fields?.stepContent,
-        image: fields?.stepImage,
-      }
-    : null;
 
   const formRightCollapsedChanges = () => {
     const form = formWrapperRef?.current?.querySelector?.("form");
@@ -195,10 +187,8 @@ const TextWithFormContent = ({
                   ? fields.formAction
                   : "https://info.ujet.cx/l/986641/2022-06-29/k12n5"
               }
-              submit={
-                fields.formSubmitText ? fields.formSubmitText : "Request a Demo"
-              }
-              stepsEnabled={fields.formStepsEnabled}
+              submit={resolveFormSubmitButtonText(fields, "Request a Demo")}
+              stepsEnabled={boolean(fields.formStepsEnabled)}
               contactType={
                 fields.contactType ? fields.contactType : "request_a_demo"
               }
@@ -214,14 +204,14 @@ const TextWithFormContent = ({
                   : null
               }
               clsField={fields.currentLeadSource2}
-              stepCompletion={stepCompletion}
               stepsCompletionRedirectURL={
-                fields.formStepsEnabled
-                  ? fields.completionRedirectURL
-                    ? fields.completionRedirectURL
+                boolean(fields.formStepsEnabled)
+                  ? fields.completionRedirectURL?.href
+                    ? fields.completionRedirectURL?.href
                     : "/thank-you-contact"
                   : null
               }
+              emailStepButtonText={fields?.emailStepButtonText}
             />
           </div>
         </aside>
