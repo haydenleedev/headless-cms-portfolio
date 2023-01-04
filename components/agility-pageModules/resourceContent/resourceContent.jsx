@@ -258,7 +258,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             : getPardotDefaultAction(resourceCategory)
                         }
                         submit={resolveFormSubmitButtonText(
-                          fields,
+                          resource,
                           "Download Now"
                         )}
                         stepsEnabled={boolean(resource.formStepsEnabled)}
@@ -357,7 +357,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             : getPardotDefaultAction(resourceCategory)
                         }
                         submit={resolveFormSubmitButtonText(
-                          fields,
+                          resource,
                           "Download Now"
                         )}
                         stepsEnabled={boolean(resource.formStepsEnabled)}
