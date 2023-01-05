@@ -6,15 +6,20 @@ import Image from "next/image";
 const Media = dynamic(() => import("../media"));
 const AgilityLink = dynamic(() => import("../../agilityLink"));
 
-const ResourceDownloadContent = ({ dynamicPageItem, customData }) => {
+const ResourceDownloadContent = ({
+  dynamicPageItem,
+  customData,
+  rootPath,
+  isDownloadHeader,
+}) => {
   const resourceDownloadContent = dynamicPageItem.fields;
-
   const { campaignScriptIDRef } = useContext(GlobalContext);
 
   return (
     <>
       {
         <>
+          {console.log("rootPath33: ", rootPath)}
           <section className="section">
             <div className="container">
               <div
@@ -23,7 +28,7 @@ const ResourceDownloadContent = ({ dynamicPageItem, customData }) => {
                 <div
                   className={`${resourceDownloadContent.formBackgroundColor} ${style.form}`}
                 >
-                  {resourceDownloadContent.title && (
+                  {resourceDownloadContent.title && isDownloadHeader && (
                     <h1 className="heading-5 mb-3">
                       {resourceDownloadContent.title}
                     </h1>

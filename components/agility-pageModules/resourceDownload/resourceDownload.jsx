@@ -17,6 +17,7 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
   const resourceDownload = dynamicPageItem;
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
   const { campaignScriptIDRef } = useContext(GlobalContext);
+  const { rootPath } = customData;
 
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
 
@@ -48,10 +49,13 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
         strategy="lazyOnload"
       />
+      {console.log("rootPath: ", rootPath)}
       {
         <ResourceDownloadContent
           dynamicPageItem={resourceDownload}
           customData={sanitizedHtml}
+          rootPath={rootPath}
+          isDownloadHeader={true}
         />
       }
     </>
@@ -62,8 +66,18 @@ ResourceDownload.getCustomInitialProps = async function ({
   dynamicPageItem,
   agility,
   languageCode,
+  sitemapNode,
 }) {
   const api = agility;
+  const sitemap = await api.getSitemapFlat({
+    channelName: "website",
+    languageCode: languageCode,
+  });
+
+  let rootPath = sitemapNode.path.split("/");
+  rootPath.pop();
+  rootPath = rootPath.join("/") + "/";
+  console.log("rootPath22: ", rootPath);
 
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
@@ -75,6 +89,7 @@ ResourceDownload.getCustomInitialProps = async function ({
 
   return {
     sanitizedHtml,
+    rootPath: sitemapNode.path,
   };
 };
 
