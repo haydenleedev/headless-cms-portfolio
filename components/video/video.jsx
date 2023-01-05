@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useIntersectionObserver } from "../../utils/hooks";
-
-const video = ({
+import style from "./video.module.scss";
+const Video = ({
   src,
   type,
   className,
@@ -27,21 +27,22 @@ const video = ({
       }
     }
   );
-
   return (
-    <video
-      ref={videoRef}
-      className={className}
-      autoPlay={autoPlay}
-      playsInline={playsInline}
-      muted={muted}
-      loop={loop}
-      controls={controls}
-      aria-label={ariaLabel}
-    >
-      Your browser does not support the video tag.
-    </video>
+    <div className={style.videoWrapper}>
+      <video
+        ref={videoRef}
+        className={`${className}`}
+        autoPlay={autoPlay}
+        playsInline={playsInline}
+        muted={muted}
+        loop={loop}
+        controls={controls}
+        aria-label={ariaLabel}
+      >
+        Your browser does not support the video tag.
+      </video>
+    </div>
   );
 };
 
-export default video;
+export default Video;

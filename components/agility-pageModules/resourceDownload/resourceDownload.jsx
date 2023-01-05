@@ -2,22 +2,22 @@ import {
   convertUJETLinksToHttps,
   sanitizeHtmlConfig,
 } from "../../../utils/convert";
+import ResourceDownloadContent from "./resourceDownloadContent";
 import dynamic from "next/dynamic";
-import style from "./resourceDownload.module.scss";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
 import Script from "next/script";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
-import Image from "next/image";
 const Media = dynamic(() => import("../media"));
 const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const ResourceDownload = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;
-  const resourceDownload = dynamicPageItem.fields;
+  const resourceDownload = dynamicPageItem;
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
   const { campaignScriptIDRef } = useContext(GlobalContext);
+  const { rootPath } = customData;
 
   const googleOptimize = "https://www.googleoptimize.com/optimize.js?id=";
 
@@ -49,78 +49,14 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
         src={`${googleOptimize}${process.env.NEXT_PUBLIC_GOOGLE_OPTIMIZE_ID}`}
         strategy="lazyOnload"
       />
+      {console.log("rootPath: ", rootPath)}
       {
-        <>
-          {
-            <>
-              <section className="section">
-                <div className="container">
-                  <div
-                    className={`${style.columns} max-width-narrow mr-auto ml-auto`}
-                  >
-                    {/* <div className={style.content}>
-                      <h1 className="heading-5">{resourceDownload.title}</h1>
-                      <div
-                        className="content mt-4"
-                        dangerouslySetInnerHTML={renderHTML(sanitizedHtml)}
-                      />
-                    </div> */}
-                    <div
-                      className={`${resourceDownload.formBackgroundColor} ${style.form}`}
-                    >
-                      <h1 className="heading-5 mb-3">
-                        {resourceDownload.title}
-                      </h1>
-
-                      <div className={style.thumbnailWrap}>
-                        {/\S/.test(resourceDownload.formTitle) && (
-                          <h2
-                            className={`${style.formTitle} heading-6 d-flex align-items-center`}
-                          >
-                            <Image src="/download.svg" width={60} height={60} />
-
-                            <span className="pl-2 d-flex text-20px text-darkblue w-600 line-height-1-2">
-                              {" "}
-                              {resourceDownload.formTitle ||
-                                "Please click to download the resource today!"}
-                            </span>
-                          </h2>
-                        )}
-                        {resourceDownload.link?.href && (
-                          <AgilityLink
-                            className="imgLink"
-                            agilityLink={resourceDownload.link}
-                          >
-                            <div className={`${style.thumbnail}`}>
-                              <Media
-                                media={resourceDownload.image}
-                                title={resourceDownload.title}
-                              />
-                              <span className={style.download}>Download</span>
-                            </div>
-                          </AgilityLink>
-                        )}
-                        {resourceDownload.link?.href &&
-                          resourceDownload.link?.text && (
-                            <div
-                              className={`mt-3 align-center ${style.thumbnailButton}`}
-                            >
-                              <AgilityLink
-                                className="button navy"
-                                agilityLink={resourceDownload.link}
-                              >
-                                {resourceDownload.link.text}
-                              </AgilityLink>
-                            </div>
-                          )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </>
-          }
-        </>
+        <ResourceDownloadContent
+          dynamicPageItem={resourceDownload}
+          customData={sanitizedHtml}
+          rootPath={rootPath}
+          isDownloadHeader={true}
+        />
       }
     </>
   );
@@ -130,8 +66,18 @@ ResourceDownload.getCustomInitialProps = async function ({
   dynamicPageItem,
   agility,
   languageCode,
+  sitemapNode,
 }) {
   const api = agility;
+  const sitemap = await api.getSitemapFlat({
+    channelName: "website",
+    languageCode: languageCode,
+  });
+
+  let rootPath = sitemapNode.path.split("/");
+  rootPath.pop();
+  rootPath = rootPath.join("/") + "/";
+  console.log("rootPath22: ", rootPath);
 
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
@@ -143,6 +89,7 @@ ResourceDownload.getCustomInitialProps = async function ({
 
   return {
     sanitizedHtml,
+    rootPath: sitemapNode.path,
   };
 };
 

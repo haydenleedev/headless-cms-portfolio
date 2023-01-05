@@ -196,11 +196,11 @@ export const sanitizeHtmlConfig = {
     img: function (tagName, attribs) {
       const newAttribs = { ...attribs };
       const altText = newAttribs?.alt;
-        //Clear queries from img soruce
-        let source = newAttribs.src
-        if (newAttribs.src.includes("?")) {
-          source = newAttribs.slice(newAttribs.src.indexOf("?"))
-        }
+      //Clear queries from img soruce
+      let source = newAttribs.src;
+      if (source.includes("?")) {
+        source = source.slice(0, source.indexOf("?"));
+      }
       return {
         tagName,
         attribs: {
@@ -208,7 +208,7 @@ export const sanitizeHtmlConfig = {
           src: source,
           alt: altText ? altText : "",
           loading: "lazy",
-          srcset: `${source}?q=75&w=768&format=auto 1x, ${source}?q=75&w=890&format=auto 2x`,
+          srcset: `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`,
           style: "max-width: 100%",
         },
       };
@@ -395,9 +395,9 @@ export const textSizeSanitizeConfig = (
         ) {
           const newAttribs = { ...attribs };
           //Clear queries from img soruce
-          let source = newAttribs.src
-          if (newAttribs.src.includes("?")) {
-            source = newAttribs.slice(newAttribs.src.indexOf("?"))
+          let source = newAttribs.src;
+          if (source.includes("?")) {
+            source = source.slice(0, source.indexOf("?"));
           }
           //Apply image classes and alt text
           const className = newAttribs?.class;
@@ -419,17 +419,17 @@ export const textSizeSanitizeConfig = (
                 : classNamesToApply,
               alt: altText ? altText : "",
               loading: "lazy",
-              srcset: `${source}?q=75&w=768&format=auto 1x, ${source}?q=75&w=890&format=auto 2x`,
+              srcset: `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`,
               style: "max-width: 100%",
             },
           };
         } else {
           const newAttribs = { ...attribs };
-            //Clear queries from img soruce
-            let source = newAttribs.src
-            if (newAttribs.src.includes("?")) {
-              source = newAttribs.slice(newAttribs.src.indexOf("?"))
-            }
+          //Clear queries from img soruce
+          let source = newAttribs.src;
+          if (source.includes("?")) {
+            source = source.slice(0, source.indexOf("?"));
+          }
           const altText = newAttribs?.alt;
           return {
             tagName,
@@ -438,7 +438,7 @@ export const textSizeSanitizeConfig = (
               src: source,
               alt: altText ? altText : "",
               loading: "lazy",
-              srcset: `${source}?q=75&w=768&format=auto 1x, ${source}?q=75&w=890&format=auto 2x`,
+              srcset: `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`,
               style: "max-width: 100%",
             },
           };
