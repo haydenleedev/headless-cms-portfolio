@@ -20,6 +20,9 @@
   margin: 0 auto;
   padding: toRem(20) toRem(40);
   position: relative;
+  &.fullWidth {
+    max-width: 100%;
+  }
   img {
     border: toRem(4) solid $color-paleblue !important;
     border-radius: toRem(20);

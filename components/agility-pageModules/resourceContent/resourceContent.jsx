@@ -251,6 +251,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         <ResourceDownloadContent
                           dynamicPageItem={resourceDownload}
                           customData={sanitizedHtml}
+                          isDownloadHeader={false}
                         />
                       ) : (
                         <PardotForm
@@ -338,7 +339,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       />
                     </div>
                     <div
-                      className={`${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`}
+                      className={
+                        !resource.makeitUngated
+                          ? `${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`
+                          : `${resource.ungateDownload}`
+                      }
                     >
                       {!resource.makeitUngated &&
                         /\S/.test(resource.formTitle) && (
@@ -351,6 +356,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         <ResourceDownloadContent
                           dynamicPageItem={resourceDownload}
                           customData={sanitizedHtml}
+                          isDownloadHeader={false}
                         />
                       ) : (
                         <PardotForm
