@@ -53,7 +53,9 @@ const ResourceDownloadContent = ({
                         className="imgLink"
                         agilityLink={resourceDownloadContent.downloadLink}
                       >
-                        <div className={`${style.thumbnail}`}>
+                        <div
+                          className={`${style.thumbnail} isDownloadHeader && ${style.fullWidth}`}
+                        >
                           <Media
                             media={resourceDownloadContent.downloadImage}
                             title={resourceDownloadContent.title}
