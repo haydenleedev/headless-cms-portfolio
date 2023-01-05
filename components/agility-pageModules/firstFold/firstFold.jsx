@@ -504,6 +504,10 @@ const FirstFold = ({ module, customData }) => {
                   <AgilityLink
                     agilityLink={fields.imageLink}
                     className={`${style.imageLink} ${
+                      boolean(fields.circularImage)
+                        ? style.circularImage
+                        : style.removeCircular
+                    } ${
                       fields.imageBottomMargin ? fields.imageBottomMargin : ""
                     } ${fields.linkClasses ? fields.linkClasses : ""} ${
                       style[

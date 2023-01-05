@@ -163,6 +163,8 @@ export const sanitizeHtmlConfig = {
       "width",
       "height",
       "alt",
+      "sizes",
+      "decoding",
     ],
     "*": [
       "loading",
@@ -209,7 +211,9 @@ export const sanitizeHtmlConfig = {
           alt: altText ? altText : "",
           loading: "lazy",
           srcset: `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`,
+          sizes: "100vw",
           style: "max-width: 100%",
+          decoding: "async",
         },
       };
     },
@@ -420,7 +424,9 @@ export const textSizeSanitizeConfig = (
               alt: altText ? altText : "",
               loading: "lazy",
               srcset: `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`,
+              sizes: "100vw",
               style: "max-width: 100%",
+              decoding: "async",
             },
           };
         } else {
@@ -439,7 +445,9 @@ export const textSizeSanitizeConfig = (
               alt: altText ? altText : "",
               loading: "lazy",
               srcset: `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`,
+              sizes: "100vw",
               style: "max-width: 100%",
+              decoding: "async",
             },
           };
         }
