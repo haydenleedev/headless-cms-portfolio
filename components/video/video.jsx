@@ -38,7 +38,6 @@ const Video = ({
         loop={loop}
         controls={controls}
         aria-label={ariaLabel}
-        preload={"none"}
       >
         Your browser does not support the video tag.
       </video>
