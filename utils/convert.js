@@ -163,6 +163,7 @@ export const sanitizeHtmlConfig = {
       "width",
       "height",
       "alt",
+      "sizes",
     ],
     "*": [
       "loading",
