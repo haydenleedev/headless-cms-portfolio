@@ -19,7 +19,7 @@
     z-index: 9999;
     padding: toRem(10) toRem(40) toRem(10) toRem(40);
     margin: 0 toRem(40) toRem(40);
-    max-width: toRem(320);
+
     border-radius: toRem(20);
     @include shadow();
     .progress {
