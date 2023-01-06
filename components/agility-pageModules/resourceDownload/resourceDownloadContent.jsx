@@ -18,71 +18,66 @@ const ResourceDownloadContent = ({
   return (
     <>
       {
-        <>
-          {console.log("rootPath33: ", rootPath)}
-          <section className="section">
-            <div className="container">
-              <div
-                className={`${style.columns} max-width-narrow mr-auto ml-auto`}
-              >
-                <div
-                  className={`${resourceDownloadContent.formBackgroundColor} ${style.form}`}
+        <div className={`${style.columns} max-width-narrow mr-auto ml-auto`}>
+          <div
+            className={`${resourceDownloadContent.formBackgroundColor} ${style.form}`}
+          >
+            {resourceDownloadContent.title && isDownloadHeader && (
+              <h1 className="heading-5 mb-3">
+                {resourceDownloadContent.title}
+              </h1>
+            )}
+
+            <div
+              className={`${style.thumbnailWrap} ${
+                !isDownloadHeader && style.fullWidth
+              }`}
+            >
+              {/\S/.test(resourceDownloadContent.downloadHeader) && (
+                <h2
+                  className={`${style.formTitle} heading-6 d-flex align-items-center`}
                 >
-                  {resourceDownloadContent.title && isDownloadHeader && (
-                    <h1 className="heading-5 mb-3">
-                      {resourceDownloadContent.title}
-                    </h1>
-                  )}
+                  <Image src="/download.svg" width={60} height={60} />
 
-                  <div className={style.thumbnailWrap}>
-                    {/\S/.test(resourceDownloadContent.downloadHeader) && (
-                      <h2
-                        className={`${style.formTitle} heading-6 d-flex align-items-center`}
-                      >
-                        <Image src="/download.svg" width={60} height={60} />
-
-                        <span className="pl-2 d-flex text-20px text-darkblue w-600 line-height-1-2">
-                          {" "}
-                          {resourceDownloadContent.downloadHeader ||
-                            "Please click to download the resource today!"}
-                        </span>
-                      </h2>
-                    )}
-                    {resourceDownloadContent.downloadLink?.href && (
-                      <AgilityLink
-                        className="imgLink"
-                        agilityLink={resourceDownloadContent.downloadLink}
-                      >
-                        <div
-                          className={`${style.thumbnail} isDownloadHeader && ${style.fullWidth}`}
-                        >
-                          <Media
-                            media={resourceDownloadContent.downloadImage}
-                            title={resourceDownloadContent.title}
-                          />
-                          <span className={style.download}>Download</span>
-                        </div>
-                      </AgilityLink>
-                    )}
-                    {resourceDownloadContent.downloadLink?.href &&
-                      resourceDownloadContent.downloadLink?.text && (
-                        <div
-                          className={`mt-3 align-center ${style.thumbnailButton}`}
-                        >
-                          <AgilityLink
-                            className="button navy"
-                            agilityLink={resourceDownloadContent.downloadLink}
-                          >
-                            {resourceDownloadContent.downloadLink.text}
-                          </AgilityLink>
-                        </div>
-                      )}
+                  <span className="pl-2 d-flex text-20px text-darkblue w-600 line-height-1-2">
+                    {" "}
+                    {resourceDownloadContent.downloadHeader ||
+                      "Please click to download the resource today!"}
+                  </span>
+                </h2>
+              )}
+              {resourceDownloadContent.downloadLink?.href && (
+                <AgilityLink
+                  className="imgLink"
+                  agilityLink={resourceDownloadContent.downloadLink}
+                >
+                  <div
+                    className={`${style.thumbnail} ${
+                      !isDownloadHeader && style.fullWidth
+                    }`}
+                  >
+                    <Media
+                      media={resourceDownloadContent.downloadImage}
+                      title={resourceDownloadContent.title}
+                    />
+                    <span className={style.download}>Download</span>
                   </div>
-                </div>
-              </div>
+                </AgilityLink>
+              )}
+              {resourceDownloadContent.downloadLink?.href &&
+                resourceDownloadContent.downloadLink?.text && (
+                  <div className={`mt-3 align-center ${style.thumbnailButton}`}>
+                    <AgilityLink
+                      className="button navy"
+                      agilityLink={resourceDownloadContent.downloadLink}
+                    >
+                      {resourceDownloadContent.downloadLink.text}
+                    </AgilityLink>
+                  </div>
+                )}
             </div>
-          </section>
-        </>
+          </div>
+        </div>
       }
     </>
   );
