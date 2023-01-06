@@ -239,7 +239,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     <div
                       className={`bg-skyblue-light  ${style.marketoResource}`}
                     >
-                      {!resource.makeitUngated &&
+                      {!boolean(resource.makeitUngated) &&
                         /\S/.test(resource.formTitle) && (
                           <h2 className={`${style.formTitle} heading-6`}>
                             {resource.formTitle ||
@@ -247,7 +247,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           </h2>
                         )}
 
-                      {resource.makeitUngated ? (
+                      {boolean(resource.makeitUngated) ? (
                         <ResourceDownloadContent
                           dynamicPageItem={resourceDownload}
                           customData={sanitizedHtml}
@@ -291,7 +291,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     </div>
                   </div>
                 </div>
-                {!resource.makeitUngated &&
+                {!boolean(resource.makeitUngated) &&
                   resource.link?.text &&
                   resource.link?.href && (
                     <div className="container">
@@ -340,19 +340,19 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     </div>
                     <div
                       className={
-                        !resource.makeitUngated
+                        !boolean(resource.makeitUngated)
                           ? `${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`
                           : `${resource.ungateDownload}`
                       }
                     >
-                      {!resource.makeitUngated &&
+                      {!boolean(resource.makeitUngated) &&
                         /\S/.test(resource.formTitle) && (
                           <h2 className={`${style.formTitle} heading-6`}>
                             {resource.formTitle ||
                               "Fill out the form to download the the resource today!"}
                           </h2>
                         )}
-                      {resource.makeitUngated ? (
+                      {boolean(resource.makeitUngated) ? (
                         <ResourceDownloadContent
                           dynamicPageItem={resourceDownload}
                           customData={sanitizedHtml}
@@ -393,7 +393,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           clsField={resource.currentLeadSource2}
                         />
                       )}
-                      {!resource.makeitUngated &&
+                      {!boolean(resource.makeitUngated) &&
                         resource.link?.href &&
                         resource.link?.text && (
                           <div className="mt-4 align-center">
