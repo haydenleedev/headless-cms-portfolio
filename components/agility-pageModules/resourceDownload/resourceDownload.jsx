@@ -51,12 +51,16 @@ const ResourceDownload = ({ dynamicPageItem, customData }) => {
       />
       {console.log("rootPath: ", rootPath)}
       {
-        <ResourceDownloadContent
-          dynamicPageItem={resourceDownload}
-          customData={sanitizedHtml}
-          rootPath={rootPath}
-          isDownloadHeader={true}
-        />
+        <section className="section">
+          <div className="container">
+            <ResourceDownloadContent
+              dynamicPageItem={resourceDownload}
+              customData={sanitizedHtml}
+              rootPath={rootPath}
+              isDownloadHeader={true}
+            />
+          </div>
+        </section>
       }
     </>
   );
