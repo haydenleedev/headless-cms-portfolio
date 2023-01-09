@@ -8,7 +8,6 @@ import { article } from "../../../schema";
 import Script from "next/script";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
-import ResourceDownloadContent from "./resourceDownloadContent";
 
 const ResourceDownload = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;
