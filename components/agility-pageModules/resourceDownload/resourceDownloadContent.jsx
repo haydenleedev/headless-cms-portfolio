@@ -1,24 +1,39 @@
 import dynamic from "next/dynamic";
 import style from "./resourceDownload.module.scss";
+import { useContext } from "react";
+import GlobalContext from "../../../context";
 import Image from "next/image";
-const Media = dynamic(() => import("../media"), { ssr: false });
-const AgilityLink = dynamic(() => import("../../agilityLink"), { ssr: false });
-const ResourceDownloadContent = ({ resourceDownload }) => {
+const Media = dynamic(() => import("../media"));
+const AgilityLink = dynamic(() => import("../../agilityLink"));
+
+const ResourceDownloadContent = ({
+  dynamicPageItem,
+  customData,
+  rootPath,
+  isDownloadHeader,
+}) => {
+  const resourceDownloadContent = dynamicPageItem.fields;
+  const { campaignScriptIDRef } = useContext(GlobalContext);
+
   return (
-    <section className="section">
-      <div className="container">
+    <>
+      {
         <div className={`${style.columns} max-width-narrow mr-auto ml-auto`}>
           <div
-            className={`${resourceDownload.formBackgroundColor || ""} ${
-              style.form
-            }`}
+            className={`${resourceDownloadContent.formBackgroundColor} ${style.form}`}
           >
-            <h1 className="heading-5 mb-3">
-              {resourceDownload?.title || "Download Resource"}
-            </h1>
+            {resourceDownloadContent.title && isDownloadHeader && (
+              <h1 className="heading-5 mb-3">
+                {resourceDownloadContent.title}
+              </h1>
+            )}
 
-            <div className={style.thumbnailWrap}>
-              {/\S/.test(resourceDownload.formTitle) && (
+            <div
+              className={`${style.thumbnailWrap} ${
+                !isDownloadHeader && style.fullWidth
+              }`}
+            >
+              {/\S/.test(resourceDownloadContent.downloadHeader) && (
                 <h2
                   className={`${style.formTitle} heading-6 d-flex align-items-center`}
                 >
@@ -26,40 +41,45 @@ const ResourceDownloadContent = ({ resourceDownload }) => {
 
                   <span className="pl-2 d-flex text-20px text-darkblue w-600 line-height-1-2">
                     {" "}
-                    {resourceDownload.formTitle ||
+                    {resourceDownloadContent.downloadHeader ||
                       "Please click to download the resource today!"}
                   </span>
                 </h2>
               )}
-              {resourceDownload.link?.href && (
+              {resourceDownloadContent.downloadLink?.href && (
                 <AgilityLink
                   className="imgLink"
-                  agilityLink={resourceDownload.link}
+                  agilityLink={resourceDownloadContent.downloadLink}
                 >
-                  <div className={`${style.thumbnail}`}>
+                  <div
+                    className={`${style.thumbnail} ${
+                      !isDownloadHeader && style.fullWidth
+                    }`}
+                  >
                     <Media
-                      media={resourceDownload.image}
-                      title={resourceDownload.title}
+                      media={resourceDownloadContent.downloadImage}
+                      title={resourceDownloadContent.title}
                     />
                     <span className={style.download}>Download</span>
                   </div>
                 </AgilityLink>
               )}
-              {resourceDownload.link?.href && resourceDownload.link?.text && (
-                <div className={`mt-3 align-center ${style.thumbnailButton}`}>
-                  <AgilityLink
-                    className={`button navy ${style.mainButton}`}
-                    agilityLink={resourceDownload.link}
-                  >
-                    {resourceDownload.link.text}
-                  </AgilityLink>
-                </div>
-              )}
+              {resourceDownloadContent.downloadLink?.href &&
+                resourceDownloadContent.downloadLink?.text && (
+                  <div className={`mt-3 align-center ${style.thumbnailButton}`}>
+                    <AgilityLink
+                      className="button navy"
+                      agilityLink={resourceDownloadContent.downloadLink}
+                    >
+                      {resourceDownloadContent.downloadLink.text}
+                    </AgilityLink>
+                  </div>
+                )}
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      }
+    </>
   );
 };
 

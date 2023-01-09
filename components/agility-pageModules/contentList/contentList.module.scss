@@ -24,7 +24,7 @@
       width: 100%;
       grid-template-columns: repeat(3, 1fr);
       .contentItem {
-        width: initial;
+        width: 100%;
         > * {
           max-width: calc(33% - 1.875rem);
         }

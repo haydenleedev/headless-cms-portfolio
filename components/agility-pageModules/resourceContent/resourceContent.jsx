@@ -2,6 +2,7 @@ import { renderHTML } from "@agility/nextjs";
 import { AgilityImage } from "@agility/nextjs";
 import style from "./resourceContent.module.scss";
 import { boolean } from "../../../utils/validation";
+import ResourceDownloadContent from "../resourceDownload/resourceDownloadContent";
 import {
   convertUJETLinksToHttps,
   resolveCategory,
@@ -27,6 +28,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, accordionItemsWithSanitizedHTML, formConfiguration } =
     customData;
   const resource = dynamicPageItem.fields;
+  const resourceDownload = dynamicPageItem;
   const articleText = sanitizedHtml?.replace(/<[^>]+>/g, "");
   const { asPath } = useRouter();
   const { campaignScriptIDRef } = useContext(GlobalContext);
@@ -240,74 +242,86 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     <div
                       className={`bg-skyblue-light  ${style.marketoResource}`}
                     >
-                      {/\S/.test(resource.formTitle) && (
-                        <h2 className={`${style.formTitle} heading-6`}>
-                          {resource.formTitle ||
-                            "Fill out the form to download the the resource today!"}
-                        </h2>
-                      )}
-                      <PardotForm
-                        formHandlerID={
-                          resource.pardotFormID
-                            ? resource.pardotFormID
-                            : getPardotDefaultFormID(resourceCategory)
-                        }
-                        action={
-                          resource.formAction
-                            ? resource.formAction
-                            : getPardotDefaultAction(resourceCategory)
-                        }
-                        submit={resolveFormSubmitButtonText(
-                          resource,
-                          "Download Now"
+                      {!boolean(resource.makeitUngated) &&
+                        /\S/.test(resource.formTitle) && (
+                          <h2 className={`${style.formTitle} heading-6`}>
+                            {resource.formTitle ||
+                              "Fill out the form to download the the resource today!"}
+                          </h2>
                         )}
-                        stepsEnabled={boolean(resource.formStepsEnabled)}
-                        config={formConfiguration}
-                        assetTitle={resource.title ? resource.title : null}
-                        assetType={getAssetType()}
-                        utmCampaign={
-                          typeof window !== "undefined"
-                            ? setUtmCampaignValue(window.location.href)
-                            : null
-                        }
-                        utmAsset={
-                          typeof window !== "undefined" && setUtmAssetValue()
-                        }
-                        clpField={
-                          typeof window !== "undefined"
-                            ? setClpValue(window.location.href)
-                            : null
-                        }
-                        clsField={resource.currentLeadSource2}
-                        stepsCompletionRedirectURL={
-                          boolean(resource.formStepsEnabled)
-                            ? resource.completionRedirectURL?.href
+
+                      {boolean(resource.makeitUngated) ? (
+                        <ResourceDownloadContent
+                          dynamicPageItem={resourceDownload}
+                          customData={sanitizedHtml}
+                          isDownloadHeader={false}
+                        />
+                      ) : (
+                        <PardotForm
+                          formHandlerID={
+                            resource.pardotFormID
+                              ? resource.pardotFormID
+                              : getPardotDefaultFormID(resourceCategory)
+                          }
+                          action={
+                            resource.formAction
+                              ? resource.formAction
+                              : getPardotDefaultAction(resourceCategory)
+                          }
+                          submit={resolveFormSubmitButtonText(
+                            resource,
+                            "Download Now"
+                          )}
+                          stepsEnabled={boolean(resource.formStepsEnabled)}
+                          config={formConfiguration}
+                          assetTitle={resource.title ? resource.title : null}
+                          assetType={getAssetType()}
+                          utmCampaign={
+                            typeof window !== "undefined"
+                              ? setUtmCampaignValue(window.location.href)
+                              : null
+                          }
+                          utmAsset={
+                            typeof window !== "undefined" && setUtmAssetValue()
+                          }
+                          clpField={
+                            typeof window !== "undefined"
+                              ? setClpValue(window.location.href)
+                              : null
+                          }
+                          clsField={resource.currentLeadSource2}
+                          stepsCompletionRedirectURL={
+                            boolean(resource.formStepsEnabled)
                               ? resource.completionRedirectURL?.href
-                              : "/thank-you-download-guide"
-                            : null
-                        }
-                        emailStepButtonText={resource?.emailStepButtonText}
-                      />
+                                ? resource.completionRedirectURL?.href
+                                : "/thank-you-download-guide"
+                              : null
+                          }
+                          emailStepButtonText={resource?.emailStepButtonText}
+                        />
+                      )}
                     </div>
                   </div>
                 </div>
-                {resource.link?.text && resource.link?.href && (
-                  <div className="container">
-                    <p className={style.alternateLink}>
-                      <h2 className="heading-6">
-                        {resource.footerText
-                          ? resource.footerText
-                          : "Want to learn more about UJET?"}
-                      </h2>
-                      <AgilityLink
-                        agilityLink={resource.link}
-                        className="link ml-2"
-                      >
-                        {resource.link.text}
-                      </AgilityLink>
-                    </p>
-                  </div>
-                )}
+                {!boolean(resource.makeitUngated) &&
+                  resource.link?.text &&
+                  resource.link?.href && (
+                    <div className="container">
+                      <p className={style.alternateLink}>
+                        <h2 className="heading-6">
+                          {resource.footerText
+                            ? resource.footerText
+                            : "Want to learn more about UJET?"}
+                        </h2>
+                        <AgilityLink
+                          agilityLink={resource.link}
+                          className="link ml-2"
+                        >
+                          {resource.link.text}
+                        </AgilityLink>
+                      </p>
+                    </div>
+                  )}
               </section>
             </>
           ) : (
@@ -337,69 +351,84 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                       />
                     </div>
                     <div
-                      className={`${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`}
+                      className={
+                        !boolean(resource.makeitUngated)
+                          ? `${resource.formBackgroundColor} ${style.form} ${style.marketoResource}`
+                          : `${resource.ungateDownload}`
+                      }
                     >
-                      {/\S/.test(resource.formTitle) && (
-                        <h2 className={`${style.formTitle} heading-6`}>
-                          {resource.formTitle ||
-                            "Fill out the form to download the the resource today!"}
-                        </h2>
-                      )}
-                      <PardotForm
-                        formHandlerID={
-                          resource.pardotFormID
-                            ? resource.pardotFormID
-                            : getPardotDefaultFormID(resourceCategory)
-                        }
-                        action={
-                          resource.formAction
-                            ? resource.formAction
-                            : getPardotDefaultAction(resourceCategory)
-                        }
-                        submit={resolveFormSubmitButtonText(
-                          resource,
-                          "Download Now"
+                      {!boolean(resource.makeitUngated) &&
+                        /\S/.test(resource.formTitle) && (
+                          <h2 className={`${style.formTitle} heading-6`}>
+                            {resource.formTitle ||
+                              "Fill out the form to download the the resource today!"}
+                          </h2>
                         )}
-                        stepsEnabled={boolean(resource.formStepsEnabled)}
-                        config={formConfiguration}
-                        assetTitle={resource.title ? resource.title : null}
-                        assetType={getAssetType()}
-                        utmCampaign={
-                          typeof window !== "undefined" &&
-                          setUtmCampaignValue(window.location.href)
-                        }
-                        utmAsset={
-                          typeof window !== "undefined" && setUtmAssetValue()
-                        }
-                        clpField={
-                          typeof window !== "undefined" &&
-                          setClpValue(window.location.href)
-                        }
-                        clsField={resource.currentLeadSource2}
-                        stepsCompletionRedirectURL={
-                          boolean(resource.formStepsEnabled)
-                            ? resource.completionRedirectURL?.href
+                      {boolean(resource.makeitUngated) ? (
+                        <ResourceDownloadContent
+                          dynamicPageItem={resourceDownload}
+                          customData={sanitizedHtml}
+                          isDownloadHeader={false}
+                        />
+                      ) : (
+                        <PardotForm
+                          formHandlerID={
+                            resource.pardotFormID
+                              ? resource.pardotFormID
+                              : getPardotDefaultFormID(resourceCategory)
+                          }
+                          action={
+                            resource.formAction
+                              ? resource.formAction
+                              : getPardotDefaultAction(resourceCategory)
+                          }
+                          submit={resolveFormSubmitButtonText(
+                            resource,
+                            "Download Now"
+                          )}
+                          stepsEnabled={boolean(resource.formStepsEnabled)}
+                          config={formConfiguration}
+                          assetTitle={resource.title ? resource.title : null}
+                          assetType={getAssetType()}
+                          utmCampaign={
+                            typeof window !== "undefined" &&
+                            setUtmCampaignValue(window.location.href)
+                          }
+                          utmAsset={
+                            typeof window !== "undefined" && setUtmAssetValue()
+                          }
+                          clpField={
+                            typeof window !== "undefined" &&
+                            setClpValue(window.location.href)
+                          }
+                          clsField={resource.currentLeadSource2}
+                          stepsCompletionRedirectURL={
+                            boolean(resource.formStepsEnabled)
                               ? resource.completionRedirectURL?.href
-                              : "/thank-you-download-guide"
-                            : null
-                        }
-                        emailStepButtonText={resource?.emailStepButtonText}
-                      />
-                      {resource.link?.href && resource.link?.text && (
-                        <div className="mt-4 align-center">
-                          <p>
-                            {resource.footerText
-                              ? resource.footerText
-                              : "Want to learn more about UJET?"}
-                          </p>
-                          <AgilityLink
-                            className="text-decoration-underline"
-                            agilityLink={resource.link}
-                          >
-                            {resource.link.text}
-                          </AgilityLink>
-                        </div>
+                                ? resource.completionRedirectURL?.href
+                                : "/thank-you-download-guide"
+                              : null
+                          }
+                          emailStepButtonText={resource?.emailStepButtonText}
+                        />
                       )}
+                      {!boolean(resource.makeitUngated) &&
+                        resource.link?.href &&
+                        resource.link?.text && (
+                          <div className="mt-4 align-center">
+                            <p>
+                              {resource.footerText
+                                ? resource.footerText
+                                : "Want to learn more about UJET?"}
+                            </p>
+                            <AgilityLink
+                              className="text-decoration-underline"
+                              agilityLink={resource.link}
+                            >
+                              {resource.link.text}
+                            </AgilityLink>
+                          </div>
+                        )}
                     </div>
                   </div>
                 </div>
