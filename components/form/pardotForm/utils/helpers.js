@@ -310,7 +310,7 @@ export const getFormType = (formHandlerID) => {
 
 export const getFallbackFieldData = async (formID) => {
   const fallBackPardotFormData = (
-    await import("../data/fallbackPardotFormData.json")
+    await import("../../../../data/fallbackPardotFormData.json")
   ).default;
   const fields = [];
   fallBackPardotFormData.forEach((field) => {
