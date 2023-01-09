@@ -3,14 +3,12 @@ import {
   sanitizeHtmlConfig,
 } from "../../../utils/convert";
 import ResourceDownloadContent from "./resourceDownloadContent";
-import dynamic from "next/dynamic";
 import OverrideSEO from "../overrideSEO/overrideSEO";
 import { article } from "../../../schema";
 import Script from "next/script";
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
-const Media = dynamic(() => import("../media"));
-const AgilityLink = dynamic(() => import("../../agilityLink"));
+import ResourceDownloadContent from "./resourceDownloadContent";
 
 const ResourceDownload = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml } = customData;

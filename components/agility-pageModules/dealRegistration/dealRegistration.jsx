@@ -77,12 +77,14 @@ const DealRegistration = ({ dynamicPageItem, customData }) => {
                     : "https://info.ujet.cx/l/986641/2022-07-06/k38vn"
                 }
                 submit={deal.formSubmitText}
-                partnerCompanyCountry={deal.partnerCompanyCountry}
-                partnerCompanyName={deal.partnerCompanyName}
-                partnerCompanyState={deal.partnerCompanyState}
-                partnerCompanyCity={deal.partnerCompanyCity}
-                allianceReferralCompany={deal.allianceReferralCompany}
-                partner={deal.partner}
+                partner={{
+                  companyCountry: deal.partnerCompanyCountry,
+                  companyName: deal.partnerCompanyName,
+                  companyState: deal.partnerCompanyState,
+                  companyCity: deal.partnerCompanyCity,
+                  allianceReferralCompany: deal.allianceReferralCompany,
+                  partnerId: deal.partner,
+                }}
                 recordTypeId="0121I0000007LYlQAM"
               />
             </div>
@@ -103,10 +105,12 @@ DealRegistration.getCustomInitialProps = async function ({
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
 
-  const formConfiguration = await api.getContentList({
+  const formConfiguration = await api.getContentItem({
     referenceName: "formconfiguration",
     expandAllContentLinks: true,
     languageCode,
+    contentLinkDepth: 4,
+    contentID: 6018,
   });
 
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
@@ -117,7 +121,7 @@ DealRegistration.getCustomInitialProps = async function ({
 
   return {
     sanitizedHtml,
-    formConfiguration,
+    formConfiguration: formConfiguration.fields,
   };
 };
 

@@ -15,6 +15,7 @@
     "@algolia/autocomplete-core": "^1.5.1",
     "@algolia/autocomplete-preset-algolia": "^1.5.1",
     "algoliasearch": "^4.11.0",
+    "faunadb": "^4.7.1",
     "fs-extra": "^10.0.0",
     "jsforce": "^1.10.1",
     "next": "^12.1.6",

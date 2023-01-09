@@ -92,6 +92,17 @@
     font-size: toRem(22);
     cursor: pointer;
   }
+  .mainButton {
+    & > div {
+      &:nth-child(2) {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translate(-50%, 120%);
+        margin: unset;
+      }
+    }
+  }
 }
 .form {
   @include desktop() {

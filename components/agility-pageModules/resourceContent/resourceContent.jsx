@@ -22,6 +22,7 @@ const AgilityLink = dynamic(() => import("../../agilityLink"));
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
+import { resolveFormSubmitButtonText } from "../../../utils/generic";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, accordionItemsWithSanitizedHTML, formConfiguration } =
@@ -133,6 +134,8 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   useEffect(() => {
     campaignScriptIDRef.current = resource.campaignTrackingID;
   }, []);
+
+  console.log(boolean(resource.formStepsEnabled));
 
   return (
     <>
@@ -265,27 +268,36 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                               ? resource.formAction
                               : getPardotDefaultAction(resourceCategory)
                           }
-                          submit={
-                            resource.formSubmitText
-                              ? resource.formSubmitText
-                              : "Download Now"
-                          }
-                          stepsEnabled={resource.formStepsEnabled}
+                          submit={resolveFormSubmitButtonText(
+                            resource,
+                            "Download Now"
+                          )}
+                          stepsEnabled={boolean(resource.formStepsEnabled)}
                           config={formConfiguration}
                           assetTitle={resource.title ? resource.title : null}
                           assetType={getAssetType()}
                           utmCampaign={
-                            typeof window !== "undefined" &&
-                            setUtmCampaignValue(window.location.href)
+                            typeof window !== "undefined"
+                              ? setUtmCampaignValue(window.location.href)
+                              : null
                           }
                           utmAsset={
                             typeof window !== "undefined" && setUtmAssetValue()
                           }
                           clpField={
-                            typeof window !== "undefined" &&
-                            setClpValue(window.location.href)
+                            typeof window !== "undefined"
+                              ? setClpValue(window.location.href)
+                              : null
                           }
                           clsField={resource.currentLeadSource2}
+                          stepsCompletionRedirectURL={
+                            boolean(resource.formStepsEnabled)
+                              ? resource.completionRedirectURL?.href
+                                ? resource.completionRedirectURL?.href
+                                : "/thank-you-download-guide"
+                              : null
+                          }
+                          emailStepButtonText={resource?.emailStepButtonText}
                         />
                       )}
                     </div>
@@ -370,12 +382,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                               ? resource.formAction
                               : getPardotDefaultAction(resourceCategory)
                           }
-                          submit={
-                            resource.formSubmitText
-                              ? resource.formSubmitText
-                              : "Download Now"
-                          }
-                          stepsEnabled={resource.formStepsEnabled}
+                          submit={resolveFormSubmitButtonText(
+                            resource,
+                            "Download Now"
+                          )}
+                          stepsEnabled={boolean(resource.formStepsEnabled)}
                           config={formConfiguration}
                           assetTitle={resource.title ? resource.title : null}
                           assetType={getAssetType()}
@@ -391,6 +402,14 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             setClpValue(window.location.href)
                           }
                           clsField={resource.currentLeadSource2}
+                          stepsCompletionRedirectURL={
+                            boolean(resource.formStepsEnabled)
+                              ? resource.completionRedirectURL?.href
+                                ? resource.completionRedirectURL?.href
+                                : "/thank-you-download-guide"
+                              : null
+                          }
+                          emailStepButtonText={resource?.emailStepButtonText}
                         />
                       )}
                       {!boolean(resource.makeitUngated) &&
@@ -446,12 +465,13 @@ ResourceContent.getCustomInitialProps = async function ({
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
 
-  const formConfiguration = await api.getContentList({
+  const formConfiguration = await api.getContentItem({
     referenceName: "formconfiguration",
     expandAllContentLinks: true,
     languageCode,
+    contentLinkDepth: 4,
+    contentID: 6018,
   });
-
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
   const accordionItemsWithSanitizedHTML = accordionItemsData?.items
     ? accordionItemsData.items.map((item) => {
@@ -466,7 +486,7 @@ ResourceContent.getCustomInitialProps = async function ({
   return {
     sanitizedHtml,
     accordionItemsWithSanitizedHTML,
-    formConfiguration,
+    formConfiguration: formConfiguration.fields,
   };
 };
 
