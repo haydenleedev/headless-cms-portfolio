@@ -19,7 +19,6 @@ const SEO = ({
 }) => {
   const [userInteracted, setUserInteracted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
-  const [cookieTimerExpired, setCookieTimerExpired] = useState(false);
   const [imagesProcessed, setImagesProcessed] = useState(false);
   const [imageData, setImageData] = useState(false);
   const campaignScriptAppendTimeout = useRef(null);
@@ -58,10 +57,6 @@ const SEO = ({
       window.addEventListener("touchstart", userInteractionEvent);
       window.addEventListener("keydown", userInteractionEvent);
     }
-    // load cookie manager after mount
-    setTimeout(() => {
-      setCookieTimerExpired(true);
-    }, 0);
     // Load other scripts anyway after 5 seconds, if user interaction was not detected.
     setTimeout(() => {
       setTimerExpired(true);
@@ -372,19 +367,6 @@ const SEO = ({
               </>
             )}
           </>
-          {cookieTimerExpired && (
-            <>
-              <Script
-                id="onetrust"
-                src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
-                charSet="UTF-8"
-                strategy="beforeInteractive"
-                data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
-              />
-
-              <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
-            </>
-          )}
         </>
       )}
     </>
