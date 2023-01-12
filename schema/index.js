@@ -42,7 +42,7 @@ export const imageObject = (
       "name": "UJET"
     }
   }
-  return JSON.stringify(data)
+  return data
 }
 export const blogPosting = ({
   headline,
