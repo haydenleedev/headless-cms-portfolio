@@ -27,6 +27,14 @@ export const webSite = {
   name: "UJET",
   description: "Reimagining Customer Support for a Connected World",
   inLanguage: "en-US",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${process.env.NEXT_PUBLIC_SITE_URL}/search?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
 export const imageObject = (imageSrc) => {
   return {

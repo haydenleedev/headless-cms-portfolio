@@ -20,6 +20,7 @@ const SEO = ({
 }) => {
   const [userInteracted, setUserInteracted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
+  const [isHomePage, setIsHomePage] = useState(false);
   const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
@@ -136,6 +137,10 @@ const SEO = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (router.asPath === "/") setIsHomePage(true);
+  }, [router.isReady]);
+
   return (
     <>
       <Head>
@@ -194,10 +199,12 @@ const SEO = ({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
-        />
+        {isHomePage && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
+          />
+        )}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: breadcrumbs(url) }}
