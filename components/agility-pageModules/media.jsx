@@ -35,7 +35,6 @@ const Media = ({ media, title, imageOptions }) => {
             // Does not work well...
             // layout="responsive"
             {...imageOptions}
-            data-src={media.url}
           />
         );
       default:

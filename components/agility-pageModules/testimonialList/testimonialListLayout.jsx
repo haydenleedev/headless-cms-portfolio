@@ -148,7 +148,6 @@ const TestimonialListLayout = (fields) => {
                     <AgilityImage
                       className={style.gridItemLogo}
                       src={fields.awards[index].fields.image.url}
-                      data-src={fields.awards[index].fields.image.url}
                       layout="fill"
                       objectFit="contain"
                       width={0}
@@ -160,7 +159,6 @@ const TestimonialListLayout = (fields) => {
                     <AgilityImage
                       className={style.gridItemLogo}
                       src={testimonial.fields.logo.url}
-                      data-src={testimonial.fields.logo.url}
                       layout="fill"
                       objectFit="contain"
                       width={0}

@@ -154,7 +154,6 @@ export const sanitizeHtmlConfig = {
   allowedTags: false,
   allowedAttributes: {
     img: [
-      "data-src",
       "loading",
       "srcset",
       "style",
@@ -211,7 +210,6 @@ export const sanitizeHtmlConfig = {
         attribs: {
           ...newAttribs,
           src: source,
-          "data-src": source,
           alt: altText ? altText : "",
           loading: "lazy",
           srcset,
@@ -236,7 +234,6 @@ export const textSizeSanitizeConfig = (
     allowedTags: false,
     allowedAttributes: {
       img: [
-        "data-src",
         "loading",
         "srcset",
         "style",
@@ -425,7 +422,6 @@ export const textSizeSanitizeConfig = (
             attribs: {
               ...newAttribs,
               src: source,
-              "data-src": source,
               class: className
                 ? className + classNamesToApply
                 : classNamesToApply,
@@ -452,7 +448,6 @@ export const textSizeSanitizeConfig = (
             attribs: {
               ...newAttribs,
               src: source,
-              "data-src": source,
               alt: altText ? altText : "",
               loading: "lazy",
               srcset,

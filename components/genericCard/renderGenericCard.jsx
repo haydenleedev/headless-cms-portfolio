@@ -37,7 +37,6 @@ const RenderGenericCard = ({ properties }) => {
                 {image && image.pixelWidth ? (
                   <AgilityImage
                     src={image.url}
-                    data-src={image.url}
                     alt={image.label || ""}
                     width={image.pixelWidth}
                     height={image.pixelHeight}
@@ -48,7 +47,6 @@ const RenderGenericCard = ({ properties }) => {
                   configuration?.defaultImage && (
                     <AgilityImage
                       src={configuration?.defaultImage}
-                      data-src={configuration?.defaultImage}
                       alt=""
                       width="250"
                       height="162"
@@ -80,7 +78,6 @@ const RenderGenericCard = ({ properties }) => {
               {brandLayout ? (
                 <AgilityImage
                   src={image.url}
-                  data-src={image.url}
                   width={0}
                   height={0}
                   layout="responsive"
@@ -89,7 +86,6 @@ const RenderGenericCard = ({ properties }) => {
               ) : image && image.pixelWidth ? (
                 <AgilityImage
                   src={image.url}
-                  data-src={image.url}
                   alt={image.label || ""}
                   width={image.pixelWidth}
                   height={image.pixelHeight}
@@ -99,7 +95,6 @@ const RenderGenericCard = ({ properties }) => {
               ) : (
                 <AgilityImage
                   src={configuration?.defaultImage}
-                  data-src={configuration?.defaultImage}
                   alt=""
                   width="250"
                   height="162"
