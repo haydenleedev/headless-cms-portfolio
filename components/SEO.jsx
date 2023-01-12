@@ -202,12 +202,16 @@ const SEO = ({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: breadcrumbs(url) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(allImageSrcs.map((src) => imageObject(src))),
-          }}
-        />
+        {allImageSrcs && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(
+                allImageSrcs.map((src) => imageObject(src))
+              ),
+            }}
+          />
+        )}
         {/* TODO: add Canonical url */}
       </Head>
       {pageTemplateName !== "BrandTemplate" && (

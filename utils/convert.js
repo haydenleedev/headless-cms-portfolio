@@ -201,7 +201,7 @@ export const sanitizeHtmlConfig = {
       //Clear queries from img soruce
       let source = newAttribs.src;
       const srcset = `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
-      console.log(srcset)
+      
       if (source.includes("?")) {
         source = source.slice(0, source.indexOf("?"));
       }
@@ -409,7 +409,7 @@ export const textSizeSanitizeConfig = (
           const className = newAttribs?.class;
           const altText = newAttribs?.alt;
           const srcset = `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
-          console.log(srcset)
+          
           let classNamesToApply = " ";
           if (roundedCornersForImages) classNamesToApply += " border-radius-1";
           if (centerImagesHorizontally)
@@ -442,7 +442,7 @@ export const textSizeSanitizeConfig = (
           }
           const altText = newAttribs?.alt;
           const srcset = `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
-          console.log(srcset)
+          
           return {
             tagName,
             attribs: {
