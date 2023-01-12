@@ -1,5 +1,12 @@
 import Head from "next/head";
-import { breadcrumbs, organization, shop, webSite } from "../../schema";
+import {
+  breadcrumbs,
+  organization,
+  shop,
+  speakable,
+  webPage,
+  webSite,
+} from "../../schema";
 import Script from "next/script";
 import { setCookie } from "../../utils/cookies";
 
@@ -76,16 +83,20 @@ const ShopSEO = ({ seo, children }) => {
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
-        />
-        <script
-          type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: shop }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: breadcrumbs(process.env.NEXT_PUBLIC_SITE_URL + "/shop"),
+            __html: webPage({
+              url: process.env.NEXT_PUBLIC_SITE_URL + "/shop",
+              name: suffixedMetaTitle,
+              description: description,
+              breadcrumb: breadcrumbs(
+                process.env.NEXT_PUBLIC_SITE_URL + "/shop"
+              ),
+              speakable: speakable,
+            }),
           }}
         />
         {children}

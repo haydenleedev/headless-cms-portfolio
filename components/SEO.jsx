@@ -1,6 +1,13 @@
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
-import { breadcrumbs, organization, webSite, imageObject } from "../schema";
+import {
+  breadcrumbs,
+  organization,
+  webSite,
+  imageObject,
+  webPage,
+  speakable,
+} from "../schema";
 import Script from "next/script";
 import { getCookie, setCookie } from "../utils/cookies";
 import { useContext } from "react";
@@ -207,7 +214,15 @@ const SEO = ({
         )}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: breadcrumbs(url) }}
+          dangerouslySetInnerHTML={{
+            __html: webPage({
+              url,
+              name: suffixedMetaTitle,
+              description: description,
+              breadcrumb: breadcrumbs(url),
+              speakable: speakable,
+            }),
+          }}
         />
         {allImageSrcs && (
           <script

@@ -20,9 +20,7 @@ export const webSite = {
   "@context": "https://schema.org/",
   "@type": "WebSite",
   "@id": "https://ujet.cx/#website",
-  publisher: {
-    "@id": "https://ujet.cx/#organization",
-  },
+  publisher: organization,
   url: "https://ujet.cx/",
   name: "UJET",
   description: "Reimagining Customer Support for a Connected World",
@@ -36,6 +34,20 @@ export const webSite = {
     "query-input": "required name=search_term_string",
   },
 };
+
+export const webPage = ({ url, name, description, breadcrumb, speakable }) => {
+  return JSON.stringify({
+    "@context": "https://schema.org/",
+    "@type": "WebPage",
+    name,
+    description,
+    publisher: organization,
+    breadcrumb,
+    speakable,
+    url,
+  });
+};
+
 export const imageObject = (imageSrc) => {
   return {
     "@context": "https://schema.org/",
@@ -175,7 +187,6 @@ export const breadcrumbs = (url) => {
   }
 
   let data = {
-    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       items.map((item, index) => ({
@@ -188,5 +199,10 @@ export const breadcrumbs = (url) => {
       })),
     ],
   };
-  return JSON.stringify(data);
+  return data;
+};
+
+export const speakable = {
+  "@type": "SpeakableSpecification",
+  xPath: ["/html/head/title", "/html/head/meta[@name='description']/@content"],
 };
