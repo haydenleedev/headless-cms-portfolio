@@ -3,6 +3,8 @@ import { renderHTML } from "@agility/nextjs";
 import dynamic from "next/dynamic";
 const Heading = dynamic(() => import("../heading"));
 import style from "./accordion.module.scss";
+import OverrideSEO from "../overrideSEO/overrideSEO";
+import { faqPage } from "../../../schema";
 
 const AccordionContent = ({ fields, itemsWithSanitizedHTML }) => {
   const detailsRefs = useRef([]);
@@ -38,73 +40,88 @@ const AccordionContent = ({ fields, itemsWithSanitizedHTML }) => {
     };
   }, []);
   return (
-    <div className="container max-width-narrow mb-3">
-      {heading?.text ? (
-        <div className={`heading ${fields?.headingAlignment}`}>
-          <Heading {...heading} />
-        </div>
-      ) : (
-        <div className={`heading mb-3 ${fields?.headingAlignment}`}>
-          <h2 className="heading-5">Frequently Asked Questions</h2>
-        </div>
-      )}
-      <div className={style.accordion}>
-        {itemsWithSanitizedHTML.map((item, index) => {
-          return (
-            <div
-              key={`details${index}`}
-              className={`${style["bb-1"]} ${
-                activeItem == index ? style.open : "null"
-              }`}
-            >
-              <details
-                className={style.accordionItem}
-                open={activeItem == index}
-                aria-expanded={activeItem == index}
-                ref={(elem) => (detailsRefs.current[index] = elem)}
-              >
-                <summary
-                  className={style.itemToggle}
-                  onClick={(e) => {
-                    setLastKeyPress(null);
-                    e.preventDefault();
-                    if (activeItem == index) {
-                      setActiveItem(null);
-                    } else {
-                      setActiveItem(index);
-                    }
-                  }}
-                  onMouseDown={() => setLastKeyPress(null)}
-                  onFocus={() => {
-                    if (lastKeyPress == "Tab") {
-                      setActiveItem(index);
-                    }
-                  }}
-                >
-                  <div className="width-100 d-flex align-items-center justify-content-space-between">
-                    <div>
-                      <h3 className="text-20px w-600 text-darkblue">
-                        {item.fields.heading}
-                      </h3>
-                    </div>
-                    <div className="d-flex">
-                      <span className={style.circle}>
-                        <span className={style.chevron} />
-                      </span>
-                    </div>
-                  </div>
-                </summary>
-              </details>
+    <>
+      <OverrideSEO
+        module={{ fields: {} }}
+        additionalSchemas={[
+          faqPage(
+            itemsWithSanitizedHTML.map((item) => {
+              return {
+                question: item.fields.heading,
+                answer: item.fields.html,
+              };
+            })
+          ),
+        ]}
+      />
+      <div className="container max-width-narrow mb-3">
+        {heading?.text ? (
+          <div className={`heading ${fields?.headingAlignment}`}>
+            <Heading {...heading} />
+          </div>
+        ) : (
+          <div className={`heading mb-3 ${fields?.headingAlignment}`}>
+            <h2 className="heading-5">Frequently Asked Questions</h2>
+          </div>
+        )}
+        <div className={style.accordion}>
+          {itemsWithSanitizedHTML.map((item, index) => {
+            return (
               <div
-                className={style.itemContent}
-                ref={(elem) => (itemContentRefs.current[index] = elem)}
-                dangerouslySetInnerHTML={renderHTML(item.fields.html)}
-              />
-            </div>
-          );
-        })}
+                key={`details${index}`}
+                className={`${style["bb-1"]} ${
+                  activeItem == index ? style.open : "null"
+                }`}
+              >
+                <details
+                  className={style.accordionItem}
+                  open={activeItem == index}
+                  aria-expanded={activeItem == index}
+                  ref={(elem) => (detailsRefs.current[index] = elem)}
+                >
+                  <summary
+                    className={style.itemToggle}
+                    onClick={(e) => {
+                      setLastKeyPress(null);
+                      e.preventDefault();
+                      if (activeItem == index) {
+                        setActiveItem(null);
+                      } else {
+                        setActiveItem(index);
+                      }
+                    }}
+                    onMouseDown={() => setLastKeyPress(null)}
+                    onFocus={() => {
+                      if (lastKeyPress == "Tab") {
+                        setActiveItem(index);
+                      }
+                    }}
+                  >
+                    <div className="width-100 d-flex align-items-center justify-content-space-between">
+                      <div>
+                        <h3 className="text-20px w-600 text-darkblue">
+                          {item.fields.heading}
+                        </h3>
+                      </div>
+                      <div className="d-flex">
+                        <span className={style.circle}>
+                          <span className={style.chevron} />
+                        </span>
+                      </div>
+                    </div>
+                  </summary>
+                </details>
+                <div
+                  className={style.itemContent}
+                  ref={(elem) => (itemContentRefs.current[index] = elem)}
+                  dangerouslySetInnerHTML={renderHTML(item.fields.html)}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

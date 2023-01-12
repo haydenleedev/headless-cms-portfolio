@@ -1,4 +1,5 @@
 export const organization = {
+  "@context": "https://schema.org/",
   "@type": "Organization",
   "@id": "https://ujet.cx/#organization",
   name: "UJET",
@@ -16,6 +17,7 @@ export const organization = {
 };
 
 export const webSite = {
+  "@context": "https://schema.org/",
   "@type": "WebSite",
   "@id": "https://ujet.cx/#website",
   publisher: {
@@ -26,24 +28,39 @@ export const webSite = {
   description: "Reimagining Customer Support for a Connected World",
   inLanguage: "en-US",
 };
-export const imageObject = (
-  imageSrc,
-) => {
-  let data = {
+export const imageObject = (imageSrc) => {
+  return {
     "@context": "https://schema.org/",
     "@type": "ImageObject",
-    "contentUrl": imageSrc,
-    "license": "https://ujet.cx",
-    "acquireLicensePage": "https://ujet.cx",
-    "creditText": "UJET",
-    "copyrightNotice": "UJET",
-    "creator": {
+    contentUrl: imageSrc,
+    license: "https://ujet.cx",
+    acquireLicensePage: "https://ujet.cx",
+    creditText: "UJET",
+    copyrightNotice: "UJET",
+    creator: {
       "@type": "Organization",
-      "name": "UJET"
-    }
-  }
-  return data
-}
+      name: "UJET",
+    },
+  };
+};
+
+export const faqPage = (items) => {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((qa) => {
+      return {
+        "@type": "Question",
+        name: qa.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: qa.answer,
+        },
+      };
+    }),
+  });
+};
+
 export const blogPosting = ({
   headline,
   image,
