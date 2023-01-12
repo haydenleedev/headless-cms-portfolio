@@ -42,7 +42,6 @@ export async function getStaticProps({
     /"(https?:\/\/[^,;]+\.(?:png|jpg|jpeg|webp|gif|svg))"/gi
   );
 
-  console.log(JSON.stringify(agilityProps));
   const allImageSrcs = [];
   for (const match of allImageSrcMatches) {
     allImageSrcs.push(match[1]);
