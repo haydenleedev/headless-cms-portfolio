@@ -37,6 +37,7 @@ const Layout = (props) => {
     notFound,
     pageTemplateName,
     children, // for pages created manually in the next.js pages folder
+    allImageSrcs,
   } = props;
 
   const router = useRouter();
@@ -86,6 +87,7 @@ const Layout = (props) => {
           metaHTML={page.seo.metaHTML}
           url={siteUrl + sitemapNode.path}
           pageTemplateName={pageTemplateName}
+          allImageSrcs={allImageSrcs}
         />
       )}
       {isPreview && <p>Loading preview mode...</p>}

@@ -16,11 +16,10 @@ const SEO = ({
   metaHTML,
   url,
   pageTemplateName,
+  allImageSrcs,
 }) => {
   const [userInteracted, setUserInteracted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
-  const [imagesProcessed, setImagesProcessed] = useState(false);
-  const [imageData, setImageData] = useState(false);
   const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
@@ -136,18 +135,7 @@ const SEO = ({
       window.removeEventListener("keydown", userInteractionEvent);
     };
   }, []);
-  useEffect(() => {
-    //Get all images with alt text
-    if (router.isReady) {
-      const images = document.querySelectorAll("img[alt]");
-      let sd = [];
-      images.forEach((image) => {
-        sd.push(JSON.parse(imageObject(image.src)));
-      });
-      setImagesProcessed(true);
-      setImageData(sd);
-    }
-  }, [router.isReady]);
+
   return (
     <>
       <Head>
@@ -214,13 +202,12 @@ const SEO = ({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: breadcrumbs(url) }}
         />
-        {imagesProcessed && imageData.length > 0 && (
-          <script
-            id="imageObjectScript"
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(imageData) }}
-          />
-        )}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(allImageSrcs.map((src) => imageObject(src))),
+          }}
+        />
         {/* TODO: add Canonical url */}
       </Head>
       {pageTemplateName !== "BrandTemplate" && (

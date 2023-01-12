@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from "react";
 import { getAgilityPageProps, getAgilityPaths } from "@agility/nextjs/node";
 import { getModule } from "../components/agility-pageModules";
-import agility from "@agility/content-fetch";
 import Layout from "../components/layout/layout";
 import Navbar from "../components/layout/navbar/navbar";
 import BrandNavbar from "../components/layout/brandNavbar/brandNavbar";
@@ -16,15 +15,7 @@ export async function getStaticProps({
   params,
   locale,
   defaultLocale,
-  locales,
 }) {
-
-  const api = await agility.getApi({
-    guid: process.env.AGILITY_GUID,
-    apiKey: process.env.AGILITY_API_FETCH_KEY,
-    isPreview: false,
-  });
-
   const globalComponents = {
     navbar: Navbar,
     brandNavbar: BrandNavbar,
@@ -47,8 +38,16 @@ export async function getStaticProps({
     throw new Error(`Page not found`);
   }
 
+  const allImageSrcMatches = JSON.stringify(agilityProps).matchAll(
+    /"(https?:\/\/[^,;]+\.(?:png|jpg|jpeg|webp|gif|svg))"/gi
+  );
+
+  const allImageSrcs = [];
+  for (const match of allImageSrcMatches) {
+    allImageSrcs.push(match[1]);
+  }
   return {
-    props: agilityProps,
+    props: { ...agilityProps, allImageSrcs },
     // Next.js will attempt to re-generate the page when a request comes in, at most once every 10 seconds
     // Read more on Incremental Static Regenertion here: https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration
     revalidate: 10,
