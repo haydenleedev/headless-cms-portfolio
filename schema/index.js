@@ -1,4 +1,5 @@
 export const organization = {
+  "@context": "https://schema.org/",
   "@type": "Organization",
   "@id": "https://ujet.cx/#organization",
   name: "UJET",
@@ -16,30 +17,70 @@ export const organization = {
 };
 
 export const webSite = {
+  "@context": "https://schema.org/",
   "@type": "WebSite",
   "@id": "https://ujet.cx/#website",
-  publisher: {
-    "@id": "https://ujet.cx/#organization",
-  },
+  publisher: organization,
   url: "https://ujet.cx/",
   name: "UJET",
   description: "Reimagining Customer Support for a Connected World",
   inLanguage: "en-US",
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${process.env.NEXT_PUBLIC_SITE_URL}/search?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 };
-export const imageObject = ({
-  imageUrl,
-}) => {
-  let data = {
+
+export const webPage = ({ url, name, description, breadcrumb, speakable }) => {
+  return JSON.stringify({
+    "@context": "https://schema.org/",
+    "@type": "WebPage",
+    name,
+    description,
+    publisher: organization,
+    breadcrumb,
+    speakable,
+    url,
+  });
+};
+
+export const imageObject = (imageSrc) => {
+  return {
     "@context": "https://schema.org/",
     "@type": "ImageObject",
-    "contentUrl": imageUrl,
-    "creator": {
+    contentUrl: imageSrc,
+    license: "https://ujet.cx",
+    acquireLicensePage: "https://ujet.cx",
+    creditText: "UJET",
+    copyrightNotice: "UJET",
+    creator: {
       "@type": "Organization",
-      "name": "UJET"
-    }
-  }
-  return JSON.stringify(data)
-}
+      name: "UJET",
+    },
+  };
+};
+
+export const faqPage = (items) => {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((qa) => {
+      return {
+        "@type": "Question",
+        name: qa.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: qa.answer,
+        },
+      };
+    }),
+  });
+};
+
 export const blogPosting = ({
   headline,
   image,
@@ -64,9 +105,7 @@ export const blogPosting = ({
     dateCreated,
     description,
     articleBody,
-    publisher: {
-      "@id": "https://ujet.cx/#organization",
-    },
+    publisher: organization,
     author: {
       "@type": "Person",
       name: authorName,
@@ -101,9 +140,7 @@ export const article = ({
     dateModified,
     description,
     articleBody,
-    publisher: {
-      "@id": "https://ujet.cx/#organization",
-    },
+    publisher: organization,
   };
 
   return JSON.stringify(data);
@@ -150,7 +187,6 @@ export const breadcrumbs = (url) => {
   }
 
   let data = {
-    "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
       items.map((item, index) => ({
@@ -163,5 +199,10 @@ export const breadcrumbs = (url) => {
       })),
     ],
   };
-  return JSON.stringify(data);
+  return data;
+};
+
+export const speakable = {
+  "@type": "SpeakableSpecification",
+  xPath: ["/html/head/title", "/html/head/meta[@name='description']/@content"],
 };

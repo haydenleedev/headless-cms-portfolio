@@ -1,0 +1,7 @@
+@import "../../styles/settings/_mixins.scss";
+.videoWrapper {
+    height:51vw;
+    @include tablet() {
+      height:44.3vh;
+    }
+  }

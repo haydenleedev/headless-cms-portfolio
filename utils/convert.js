@@ -153,7 +153,22 @@ export const vimeoLinkToEmbed = (link) => {
 export const sanitizeHtmlConfig = {
   allowedTags: false,
   allowedAttributes: {
+    img: [
+      "loading",
+      "srcset",
+      "style",
+      "class",
+      "id",
+      "src",
+      "width",
+      "height",
+      "alt",
+      "sizes",
+      "decoding",
+    ],
     "*": [
+      "loading",
+      "srcset",
       "href",
       "target",
       "alt",
@@ -183,11 +198,24 @@ export const sanitizeHtmlConfig = {
     img: function (tagName, attribs) {
       const newAttribs = { ...attribs };
       const altText = newAttribs?.alt;
+      //Clear queries from img soruce
+      let source = newAttribs.src;
+      const srcset = `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
+      
+      if (source.includes("?")) {
+        source = source.slice(0, source.indexOf("?"));
+      }
       return {
         tagName,
         attribs: {
           ...newAttribs,
+          src: source,
           alt: altText ? altText : "",
+          loading: "lazy",
+          srcset,
+          sizes: "100vw",
+          style: "max-width: 100%",
+          decoding: "async",
         },
       };
     },
@@ -205,7 +233,20 @@ export const textSizeSanitizeConfig = (
   return {
     allowedTags: false,
     allowedAttributes: {
+      img: [
+        "loading",
+        "srcset",
+        "style",
+        "class",
+        "id",
+        "src",
+        "width",
+        "height",
+        "alt",
+      ],
       "*": [
+        "loading",
+        "srcset",
         "href",
         "target",
         "alt",
@@ -359,8 +400,16 @@ export const textSizeSanitizeConfig = (
           imageSpacingBottom
         ) {
           const newAttribs = { ...attribs };
+          //Clear queries from img soruce
+          let source = newAttribs.src;
+          if (source.includes("?")) {
+            source = source.slice(0, source.indexOf("?"));
+          }
+          //Apply image classes and alt text
           const className = newAttribs?.class;
           const altText = newAttribs?.alt;
+          const srcset = `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
+          
           let classNamesToApply = " ";
           if (roundedCornersForImages) classNamesToApply += " border-radius-1";
           if (centerImagesHorizontally)
@@ -372,20 +421,39 @@ export const textSizeSanitizeConfig = (
             tagName,
             attribs: {
               ...newAttribs,
+              src: source,
               class: className
                 ? className + classNamesToApply
                 : classNamesToApply,
               alt: altText ? altText : "",
+              loading: "lazy",
+              srcset,
+              sizes: "100vw",
+              style: "max-width: 100%",
+              decoding: "async",
             },
           };
         } else {
           const newAttribs = { ...attribs };
+          //Clear queries from img soruce
+          let source = newAttribs.src;
+          if (source.includes("?")) {
+            source = source.slice(0, source.indexOf("?"));
+          }
           const altText = newAttribs?.alt;
+          const srcset = `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
+          
           return {
             tagName,
             attribs: {
               ...newAttribs,
+              src: source,
               alt: altText ? altText : "",
+              loading: "lazy",
+              srcset,
+              sizes: "100vw",
+              style: "max-width: 100%",
+              decoding: "async",
             },
           };
         }

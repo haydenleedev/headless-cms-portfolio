@@ -1,6 +1,13 @@
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
-import { breadcrumbs, organization, webSite } from "../schema";
+import {
+  breadcrumbs,
+  organization,
+  webSite,
+  imageObject,
+  webPage,
+  speakable,
+} from "../schema";
 import Script from "next/script";
 import { getCookie, setCookie } from "../utils/cookies";
 import { useContext } from "react";
@@ -16,9 +23,11 @@ const SEO = ({
   metaHTML,
   url,
   pageTemplateName,
+  allImageSrcs,
 }) => {
   const [userInteracted, setUserInteracted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
+  const [isHomePage, setIsHomePage] = useState(false);
   const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
@@ -40,6 +49,9 @@ const SEO = ({
   // load scripts as soons as user interacts with the page.
   useEffect(() => {
     const userInteractionEvent = () => {
+      if (document.getElementById("q-frame-hidden")) {
+        document.getElementById("q-frame-hidden").id = "q-messenger-frame";
+      }
       setUserInteracted(true);
       window.removeEventListener("scroll", userInteractionEvent);
       window.removeEventListener("mousedown", userInteractionEvent);
@@ -132,6 +144,10 @@ const SEO = ({
     };
   }, []);
 
+  useEffect(() => {
+    if (router.asPath === "/") setIsHomePage(true);
+  }, [router.isReady]);
+
   return (
     <>
       <Head>
@@ -188,17 +204,40 @@ const SEO = ({
         {/* schema */}
         <script
           type="application/ld+json"
+          id="organization-structured-data"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
         />
+        {isHomePage && (
+          <script
+            type="application/ld+json"
+            id="web-site-structured-data"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
+          />
+        )}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
+          id="web-page-structured-data"
+          dangerouslySetInnerHTML={{
+            __html: webPage({
+              url,
+              name: suffixedMetaTitle,
+              description: description,
+              breadcrumb: breadcrumbs(url),
+              speakable: speakable,
+            }),
+          }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: breadcrumbs(url) }}
-        />
-
+        {allImageSrcs && (
+          <script
+            type="application/ld+json"
+            id="image-objects-structured-data"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(
+                allImageSrcs.map((src) => imageObject(src))
+              ),
+            }}
+          />
+        )}
         {/* TODO: add Canonical url */}
       </Head>
       {pageTemplateName !== "BrandTemplate" && (

@@ -98,6 +98,7 @@ const OverrideSEO = ({ module, additionalSchemas }) => {
         additionalSchemas.map((schema, index) => (
           <script
             type="application/ld+json"
+            id={`additional-structured-data-${index}`}
             key={"additionalSchema" + index}
             dangerouslySetInnerHTML={renderHTML(schema)}
           />
