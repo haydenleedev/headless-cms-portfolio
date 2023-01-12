@@ -204,16 +204,19 @@ const SEO = ({
         {/* schema */}
         <script
           type="application/ld+json"
+          id="organization-structured-data"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
         />
         {isHomePage && (
           <script
             type="application/ld+json"
+            id="web-site-structured-data"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
           />
         )}
         <script
           type="application/ld+json"
+          id="web-page-structured-data"
           dangerouslySetInnerHTML={{
             __html: webPage({
               url,
@@ -227,6 +230,7 @@ const SEO = ({
         {allImageSrcs && (
           <script
             type="application/ld+json"
+            id="image-objects-structured-data"
             dangerouslySetInnerHTML={{
               __html: JSON.stringify(
                 allImageSrcs.map((src) => imageObject(src))

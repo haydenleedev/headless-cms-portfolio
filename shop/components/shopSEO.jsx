@@ -79,14 +79,17 @@ const ShopSEO = ({ seo, children }) => {
         <meta name="twitter:site" content="@UJETcx" key="twittersite" />
         <script
           type="application/ld+json"
+          id="organization-structured-data"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
         />
         <script
           type="application/ld+json"
+          id="shop-structured-data"
           dangerouslySetInnerHTML={{ __html: shop }}
         />
         <script
           type="application/ld+json"
+          id="web-page-structured-data"
           dangerouslySetInnerHTML={{
             __html: webPage({
               url: process.env.NEXT_PUBLIC_SITE_URL + "/shop",
