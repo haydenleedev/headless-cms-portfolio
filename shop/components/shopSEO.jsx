@@ -90,8 +90,8 @@ const ShopSEO = ({ seo, children }) => {
           dangerouslySetInnerHTML={{
             __html: webPage({
               url: process.env.NEXT_PUBLIC_SITE_URL + "/shop",
-              name: suffixedMetaTitle,
-              description: description,
+              name: seo.metaTitle,
+              description: seo.metaDescription,
               breadcrumb: breadcrumbs(
                 process.env.NEXT_PUBLIC_SITE_URL + "/shop"
               ),
