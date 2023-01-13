@@ -206,3 +206,38 @@ export const speakable = {
   "@type": "SpeakableSpecification",
   xPath: ["/html/head/title", "/html/head/meta[@name='description']/@content"],
 };
+
+export const event = ({
+  name,
+  startDate,
+  endDate,
+  eventType,
+  location,
+  description,
+}) => {
+  const resolveEventLocation = (eventType) => {
+    if (eventType === "Virtual" || eventType === "Webinar") {
+      return {
+        "@type": "VirtualLocation",
+        url: location.url,
+      };
+    }
+    return location.place;
+  };
+  const resolveEventAttendanceMode = (eventType) => {
+    if (eventType === "Virtual" || eventType === "Webinar")
+      return "https://schema.org/OnlineEventAttendanceMode";
+    return "https://schema.org/OfflineEventAttendanceMode";
+  };
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name,
+    startDate,
+    endDate,
+    location: resolveEventLocation(eventType),
+    eventAttendanceMode: resolveEventAttendanceMode(eventType),
+    eventStatus: "https://schema.org/EventScheduled",
+    description,
+  });
+};
