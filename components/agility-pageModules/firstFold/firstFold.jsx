@@ -517,7 +517,7 @@ const FirstFold = ({ module, customData }) => {
                           fetchpriority: "high",
                         }}
                         videoStructuredData={
-                          hasVideoStructuredDataFields
+                          hasVideoStructuredDataFields && !videoSrc
                             ? {
                                 name: fields.videoName,
                                 description: fields.videoDescription,
@@ -584,7 +584,7 @@ const FirstFold = ({ module, customData }) => {
                             fetchpriority: "high",
                           }}
                           videoStructuredData={
-                            hasVideoStructuredDataFields
+                            hasVideoStructuredDataFields && !videoSrc
                               ? {
                                   name: fields.videoName,
                                   description: fields.videoDescription,
