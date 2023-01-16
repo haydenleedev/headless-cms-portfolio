@@ -1,8 +1,9 @@
 import { renderHTML } from "@agility/nextjs";
 import dynamic from "next/dynamic";
 import Script from "next/script";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { youTubeActivityEvent } from "../../../utils/dataLayer";
+import { useIntersectionObserver } from "../../../utils/hooks";
 import { boolean } from "../../../utils/validation";
 const Heading = dynamic(() => import("../heading"));
 import style from "./embedVideo.module.scss";
@@ -13,6 +14,14 @@ const EmbedVideoContent = ({
   videoSrc,
   isYouTubeVideo,
 }) => {
+  const [canLoadIFrame, setCanLoadIFrame] = useState(false);
+  const intersectionRef = useIntersectionObserver(
+    {
+      threshold: 0.0,
+    },
+    0.0,
+    () => setCanLoadIFrame(true)
+  );
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const narrowContainer = boolean(fields.narrowContainer);
   const layout = fields.layout;
@@ -149,14 +158,16 @@ const EmbedVideoContent = ({
               disableBorder ? style.disableBorder : ""
             }`}
           >
-            <div className={style.iframeWrapper}>
-              <iframe
-                id="video-player"
-                type="text/html"
-                src={videoSrc}
-                frameBorder="0"
-                allow="fullscreen;"
-              />
+            <div className={style.iframeWrapper} ref={intersectionRef}>
+              {canLoadIFrame && (
+                <iframe
+                  id="video-player"
+                  type="text/html"
+                  src={videoSrc}
+                  frameBorder="0"
+                  allow="fullscreen;"
+                />
+              )}
             </div>
           </div>
         </div>
