@@ -68,7 +68,7 @@ const SEO = ({
 
     setTimeout(() => {
       setConsentTimerExpired(true);
-    });
+    }, 0);
     // Load other scripts anyway after 5 seconds, if user interaction was not detected.
     setTimeout(() => {
       setTimerExpired(true);
