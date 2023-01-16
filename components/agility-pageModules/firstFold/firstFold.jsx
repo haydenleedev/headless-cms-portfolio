@@ -15,10 +15,18 @@ import { useIntersectionObserver } from "../../../utils/hooks";
 import { useEffect } from "react";
 import { youTubeActivityEvent } from "../../../utils/dataLayer";
 import Script from "next/script";
+import OverrideSEO from "../overrideSEO/overrideSEO";
+import { video } from "../../../schema";
 
 const FirstFold = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
   const { fields } = module;
+  const hasVideoStructuredDataFields =
+    fields.videoName &&
+    fields.videoDescription &&
+    fields.videoThumbnail &&
+    fields.videoUploadDate;
+
   const heading = JSON.parse(fields.heading);
   const uncenteredVertically = boolean(fields.uncenteredVertically);
   const noImageLayout =
@@ -310,6 +318,20 @@ const FirstFold = ({ module, customData }) => {
     return (
       // default firstFold layout
       <>
+        {hasVideoStructuredDataFields && videoSrc && (
+          <OverrideSEO
+            module={{ fields: {} }}
+            additionalSchemas={[
+              video({
+                name: fields.videoName,
+                description: fields.videoDescription,
+                thumbnailUrl: [fields.videoThumbnail.url],
+                uploadDate: new Date(fields.videoUploadDate).toISOString(),
+                embedUrl: videoSrc,
+              }),
+            ]}
+          />
+        )}
         <section
           className={`section ${style.firstFold}
           ${mtValue} ${mbValue} ${ptValue} ${pbValue} ${
@@ -494,6 +516,18 @@ const FirstFold = ({ module, customData }) => {
                           priority: true,
                           fetchpriority: "high",
                         }}
+                        videoStructuredData={
+                          hasVideoStructuredDataFields
+                            ? {
+                                name: fields.videoName,
+                                description: fields.videoDescription,
+                                thumbnailUrl: [fields.videoThumbnail.url],
+                                uploadDate: new Date(
+                                  fields.videoUploadDate
+                                ).toISOString(),
+                              }
+                            : null
+                        }
                       />
                     )}
                   </div>
@@ -549,6 +583,18 @@ const FirstFold = ({ module, customData }) => {
                             priority: true,
                             fetchpriority: "high",
                           }}
+                          videoStructuredData={
+                            hasVideoStructuredDataFields
+                              ? {
+                                  name: fields.videoName,
+                                  description: fields.videoDescription,
+                                  thumbnailUrl: [fields.videoThumbnail.url],
+                                  uploadDate: new Date(
+                                    fields.videoUploadDate
+                                  ).toISOString(),
+                                }
+                              : null
+                          }
                         />
                       )}
                     </div>

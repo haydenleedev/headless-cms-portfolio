@@ -1,8 +1,10 @@
 import { AgilityImage } from "@agility/nextjs";
 import { useEffect, useState } from "react";
+import { video } from "../../schema";
 import Video from "../video/video";
+import OverrideSEO from "./overrideSEO/overrideSEO";
 
-const Media = ({ media, title, imageOptions }) => {
+const Media = ({ media, title, imageOptions, videoStructuredData }) => {
   const [videoDefinitelyNotSupported, setVideoDefinitelyNotSupported] =
     useState(false);
   let mediaName = media?.url?.split("/");
@@ -40,6 +42,14 @@ const Media = ({ media, title, imageOptions }) => {
       default:
         return (
           <>
+            {videoStructuredData && (
+              <OverrideSEO
+                module={{ fields: {} }}
+                additionalSchemas={[
+                  video({ ...videoStructuredData, contentUrl: media.url }),
+                ]}
+              />
+            )}
             {videoDefinitelyNotSupported ? (
               <div className="unsupported-video">
                 <div>
