@@ -10,8 +10,7 @@ function MyApp({ Component, pageProps }) {
       setCanLoadOneTrust(true);
     }, 0);
   }, []);
-  // OneTrust should be loaded in _app.jsx because it has the beforeInteractive loading strategy.
-  // More info: https://nextjs.org/docs/api-reference/next/script#beforeinteractive
+
   return (
     <GlobalContextWrapper>
       {pageProps.pageTemplateName !== "BrandTemplate" && canLoadOneTrust && (
