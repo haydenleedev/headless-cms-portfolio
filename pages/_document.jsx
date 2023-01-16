@@ -12,7 +12,7 @@ export default function Document() {
           type="text/javascript"
           id="onetrust"
           src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
-          defer
+          async
           data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
         ></script>
         <script id="optanon-wrapper">{`function OptanonWrapper() { }`}</script>
