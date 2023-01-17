@@ -7,7 +7,6 @@ import EmailStep from "./emailStep";
 import { Fragment, useContext } from "react";
 import Loader from "../../../layout/loader/loader";
 import { cn } from "../../../../utils/generic";
-import { isHiddenField } from "../utils/helpers";
 
 // idea: the user submits the form several times based on the number of steps defined in Agility
 // the email of the user is always checked first.
@@ -46,17 +45,6 @@ const StepForm = ({
           steps={config.steps}
           emailStepButtonText={emailStepButtonText}
         />
-        {state.fieldData
-          .filter?.((field) => isHiddenField(field, false))
-          ?.map((field, index) => (
-            <Fragment key={`stepField${index}`}>
-              <Field
-                field={field}
-                index={index}
-                fieldRef={fieldRefs.current[index]}
-              />
-            </Fragment>
-          ))}
         <HoneypotFields />
       </form>
     );
