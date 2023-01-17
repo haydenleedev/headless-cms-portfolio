@@ -19,7 +19,6 @@ const BrandFooter = ({ globalData }) => {
           >
             <AgilityImage
               src={logo.src}
-              data-src={logo.src}
               width={logo.width * 1.2}
               height={logo.height * 1.2}
               alt="UJET logo"

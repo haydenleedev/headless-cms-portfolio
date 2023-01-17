@@ -7,6 +7,7 @@ const TextWithMediaContent = dynamic(() => import("./textWithMediaContent"));
 const TextWithMedia = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
   const { fields } = module;
+
   // observer for triggering animations if an animation style is selected in agility.
   const intersectionRef = useIntersectionObserver(
     {

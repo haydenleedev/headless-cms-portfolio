@@ -5,11 +5,18 @@ import {
   youTubeVideoLinkToEmbed,
   vimeoLinkToEmbed,
 } from "../../../utils/convert";
+import OverrideSEO from "../overrideSEO/overrideSEO";
+import { video } from "../../../schema";
 const EmbedVideoContent = dynamic(() => import("./embedVideoContent"));
 
 const EmbedVideo = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
   const { fields } = module;
+  const hasVideoStructuredDataFields =
+    fields.videoName &&
+    fields.videoDescription &&
+    fields.videoThumbnail &&
+    fields.videoUploadDate;
   let videoSrc;
   let isYouTubeVideo = false;
   if (fields.videoURL.href.includes("youtube.com")) {
@@ -27,6 +34,20 @@ const EmbedVideo = ({ module, customData }) => {
 
   return (
     <>
+      {hasVideoStructuredDataFields && videoSrc && (
+        <OverrideSEO
+          module={{ fields: {} }}
+          additionalSchemas={[
+            video({
+              name: fields.videoName,
+              description: fields.videoDescription,
+              thumbnailUrl: [fields.videoThumbnail.url],
+              uploadDate: new Date(fields.videoUploadDate).toISOString(),
+              embedUrl: videoSrc,
+            }),
+          ]}
+        />
+      )}
       {videoSrc && (
         <section
           className={`section ${style.embedVideo}

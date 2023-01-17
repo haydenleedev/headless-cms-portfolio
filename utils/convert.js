@@ -200,6 +200,8 @@ export const sanitizeHtmlConfig = {
       const altText = newAttribs?.alt;
       //Clear queries from img soruce
       let source = newAttribs.src;
+      const srcset = `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
+      
       if (source.includes("?")) {
         source = source.slice(0, source.indexOf("?"));
       }
@@ -210,7 +212,7 @@ export const sanitizeHtmlConfig = {
           src: source,
           alt: altText ? altText : "",
           loading: "lazy",
-          srcset: `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`,
+          srcset,
           sizes: "100vw",
           style: "max-width: 100%",
           decoding: "async",
@@ -406,6 +408,8 @@ export const textSizeSanitizeConfig = (
           //Apply image classes and alt text
           const className = newAttribs?.class;
           const altText = newAttribs?.alt;
+          const srcset = `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
+          
           let classNamesToApply = " ";
           if (roundedCornersForImages) classNamesToApply += " border-radius-1";
           if (centerImagesHorizontally)
@@ -423,7 +427,7 @@ export const textSizeSanitizeConfig = (
                 : classNamesToApply,
               alt: altText ? altText : "",
               loading: "lazy",
-              srcset: `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`,
+              srcset,
               sizes: "100vw",
               style: "max-width: 100%",
               decoding: "async",
@@ -437,6 +441,8 @@ export const textSizeSanitizeConfig = (
             source = source.slice(0, source.indexOf("?"));
           }
           const altText = newAttribs?.alt;
+          const srcset = `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
+          
           return {
             tagName,
             attribs: {
@@ -444,7 +450,7 @@ export const textSizeSanitizeConfig = (
               src: source,
               alt: altText ? altText : "",
               loading: "lazy",
-              srcset: `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`,
+              srcset,
               sizes: "100vw",
               style: "max-width: 100%",
               decoding: "async",

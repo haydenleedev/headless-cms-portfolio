@@ -1,6 +1,13 @@
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
-import { breadcrumbs, organization, webSite, imageObject } from "../schema";
+import {
+  breadcrumbs,
+  organization,
+  webSite,
+  imageObject,
+  webPage,
+  speakable,
+} from "../schema";
 import Script from "next/script";
 import { getCookie, setCookie } from "../utils/cookies";
 import { useContext } from "react";
@@ -16,12 +23,12 @@ const SEO = ({
   metaHTML,
   url,
   pageTemplateName,
+  allImageSrcs,
 }) => {
   const [userInteracted, setUserInteracted] = useState(false);
+  const [consentTimerExpired, setConsentTimerExpired] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
-  const [cookieTimerExpired, setCookieTimerExpired] = useState(false);
-  const [imagesProcessed, setImagesProcessed] = useState(false);
-  const [imageData, setImageData] = useState(false);
+  const [isHomePage, setIsHomePage] = useState(false);
   const campaignScriptAppendTimeout = useRef(null);
   // setup and parse additional header markup
   // TODO: probably dangerouslySetInnerHTML...
@@ -58,9 +65,9 @@ const SEO = ({
       window.addEventListener("touchstart", userInteractionEvent);
       window.addEventListener("keydown", userInteractionEvent);
     }
-    // load cookie manager after mount
+
     setTimeout(() => {
-      setCookieTimerExpired(true);
+      setConsentTimerExpired(true);
     }, 0);
     // Load other scripts anyway after 5 seconds, if user interaction was not detected.
     setTimeout(() => {
@@ -141,18 +148,11 @@ const SEO = ({
       window.removeEventListener("keydown", userInteractionEvent);
     };
   }, []);
+
   useEffect(() => {
-    //Get all images with alt text
-    if (router.isReady) {
-      const images = document.querySelectorAll("img[alt]");
-      let sd = [];
-      images.forEach((image) => {
-        sd.push(JSON.parse(imageObject(image.src)));
-      });
-      setImagesProcessed(true);
-      setImageData(sd);
-    }
+    if (router.asPath === "/") setIsHomePage(true);
   }, [router.isReady]);
+
   return (
     <>
       <Head>
@@ -209,27 +209,56 @@ const SEO = ({
         {/* schema */}
         <script
           type="application/ld+json"
+          id="organization-structured-data"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: breadcrumbs(url) }}
-        />
-        {imagesProcessed && imageData.length > 0 && (
+        {isHomePage && (
           <script
-            id="imageObjectScript"
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(imageData) }}
+            id="web-site-structured-data"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(webSite) }}
+          />
+        )}
+        <script
+          type="application/ld+json"
+          id="web-page-structured-data"
+          dangerouslySetInnerHTML={{
+            __html: webPage({
+              url,
+              name: suffixedMetaTitle,
+              description: description,
+              breadcrumb: breadcrumbs(url),
+              speakable: speakable,
+            }),
+          }}
+        />
+        {allImageSrcs && (
+          <script
+            type="application/ld+json"
+            id="image-objects-structured-data"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(
+                allImageSrcs.map((src) => imageObject(src))
+              ),
+            }}
           />
         )}
         {/* TODO: add Canonical url */}
       </Head>
       {pageTemplateName !== "BrandTemplate" && (
         <>
+          {consentTimerExpired && (
+            <>
+              <Script
+                id="onetrust"
+                src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+                charSet="UTF-8"
+                data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
+              />
+
+              <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
+            </>
+          )}
           <>
             {(timerExpired || userInteracted) && (
               <>
@@ -372,19 +401,6 @@ const SEO = ({
               </>
             )}
           </>
-          {cookieTimerExpired && (
-            <>
-              <Script
-                id="onetrust"
-                src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
-                charSet="UTF-8"
-                strategy="beforeInteractive"
-                data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
-              />
-
-              <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
-            </>
-          )}
         </>
       )}
     </>
