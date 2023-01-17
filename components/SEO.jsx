@@ -245,7 +245,7 @@ const SEO = ({
         )}
         {/* TODO: add Canonical url */}
       </Head>
-      {pageTemplateName !== "BrandTemplate" && (
+      {/*  {pageTemplateName !== "BrandTemplate" && (
         <>
           {consentTimerExpired && (
             <>
@@ -382,27 +382,22 @@ const SEO = ({
           }("1136", document.location.href, document));
         `}
                 </Script>
-                {/* Load Qualified script after user starts scrolling */}
-                {userInteracted && (
-                  <>
-                    {/* Qualified Script */}
-                    <Script id="qualified" strategy="lazyOnload">
-                      {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
+
+                <Script id="qualified" strategy="lazyOnload">
+                  {`(function(w,q){w['QualifiedObject']=q;w[q]=w[q]||function(){
           (w[q].q=w[q].q||[]).push(arguments)};})(window,'qualified')`}
-                    </Script>
-                    <Script
-                      id="qualified-src"
-                      async
-                      src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
-                      strategy="lazyOnload"
-                    />
-                  </>
-                )}
+                </Script>
+                <Script
+                  id="qualified-src"
+                  async
+                  src={`${qualifiedSrc}${process.env.NEXT_PUBLIC_QUALIFIED_TOKEN}`}
+                  strategy="lazyOnload"
+                />
               </>
             )}
           </>
         </>
-      )}
+      )} */}
     </>
   );
 };
