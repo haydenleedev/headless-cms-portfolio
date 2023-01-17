@@ -9,6 +9,12 @@ const AgilityLink = dynamic(() => import("../../agilityLink"));
 const TextWithMediaContent = ({ fields, sanitizedHtml }) => {
   const heading = JSON.parse(fields.heading);
 
+  const hasVideoStructuredDataFields =
+    fields.videoName &&
+    fields.videoDescription &&
+    fields.videoThumbnail &&
+    fields.videoUploadDate;
+
   //configuration options
   const narrowContainer = fields.containerWidth == "narrow";
   const fullPageWidth = fields.containerWidth == "fullPageWidth";
@@ -113,7 +119,22 @@ const TextWithMediaContent = ({ fields, sanitizedHtml }) => {
             } ${fields.roundMediaCorners ? fields.roundMediaCorners : "null"}`}
           >
             {fields.media && !fields.testimonial && (
-              <Media media={fields.media} title={fields.mediaTitle} />
+              <Media
+                media={fields.media}
+                title={fields.mediaTitle}
+                videoStructuredData={
+                  hasVideoStructuredDataFields
+                    ? {
+                        name: fields.videoName,
+                        description: fields.videoDescription,
+                        thumbnailUrl: [fields.videoThumbnail.url],
+                        uploadDate: new Date(
+                          fields.videoUploadDate
+                        ).toISOString(),
+                      }
+                    : null
+                }
+              />
             )}
           </div>
           {fields.testimonial && (

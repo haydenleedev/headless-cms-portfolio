@@ -82,11 +82,11 @@ const ShopSEO = ({ seo, children }) => {
           id="organization-structured-data"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
         />
-        <script
+        {/*         <script
           type="application/ld+json"
           id="shop-structured-data"
-          dangerouslySetInnerHTML={{ __html: shop }}
-        />
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(shop) }}
+        /> */}
         <script
           type="application/ld+json"
           id="web-page-structured-data"

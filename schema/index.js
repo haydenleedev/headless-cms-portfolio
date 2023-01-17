@@ -241,3 +241,26 @@ export const event = ({
     description,
   });
 };
+
+export const video = ({
+  description,
+  name,
+  thumbnailUrl,
+  uploadDate,
+  embedUrl,
+  contentUrl,
+}) => {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name,
+    description,
+    thumbnailUrl,
+    uploadDate,
+    embedUrl,
+    contentUrl,
+  };
+  if (!embedUrl) delete data.embedUrl;
+  else if (!contentUrl) delete data.contentUrl;
+  return JSON.stringify(data);
+};

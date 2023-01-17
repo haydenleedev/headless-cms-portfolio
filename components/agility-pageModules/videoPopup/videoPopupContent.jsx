@@ -6,6 +6,12 @@ const Heading = dynamic(() => import("../heading"));
 const Media = dynamic(() => import("../media"));
 
 const VideoPopupContent = ({ fields, sanitizedHtml }) => {
+  const hasVideoStructuredDataFields =
+    fields.videoName &&
+    fields.videoDescription &&
+    fields.videoThumbnail &&
+    fields.videoUploadDate;
+
   const narrowContainer = fields.containerWidth == "narrow";
   const wideContainer = fields.containerWidth == "wide";
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
@@ -69,7 +75,19 @@ const VideoPopupContent = ({ fields, sanitizedHtml }) => {
           </button>
         </div>
         <div className={style.modalVideoWrapper}>
-          <Media media={fields.video} />
+          <Media
+            media={fields.video}
+            videoStructuredData={
+              hasVideoStructuredDataFields
+                ? {
+                    name: fields.videoName,
+                    description: fields.videoDescription,
+                    thumbnailUrl: [fields.videoThumbnail.url],
+                    uploadDate: new Date(fields.videoUploadDate).toISOString(),
+                  }
+                : null
+            }
+          />
         </div>
       </div>
     </div>
