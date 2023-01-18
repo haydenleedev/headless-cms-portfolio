@@ -131,11 +131,13 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     }
   };
 
+  const formStepEnabledDefaultValue = !resource.formStepsEnabled
+    ? true
+    : boolean(resource.formStepsEnabled);
+
   useEffect(() => {
     campaignScriptIDRef.current = resource.campaignTrackingID;
   }, []);
-
-  console.log(boolean(resource.formStepsEnabled));
 
   return (
     <>
@@ -207,6 +209,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     <div className={style.imageColumn}>
                       <AgilityImage
                         src={resource.image.url}
+                        data-src={resource.image.url}
                         alt={resource.image.label || ""}
                         width={resource.image.pixelWidth}
                         height={resource.image.pixelHeight}
@@ -271,7 +274,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             resource,
                             "Download Now"
                           )}
-                          stepsEnabled={boolean(resource.formStepsEnabled)}
+                          stepsEnabled={formStepEnabledDefaultValue}
                           config={formConfiguration}
                           assetTitle={resource.title ? resource.title : null}
                           assetType={getAssetType()}
@@ -385,7 +388,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             resource,
                             "Download Now"
                           )}
-                          stepsEnabled={boolean(resource.formStepsEnabled)}
+                          stepsEnabled={formStepEnabledDefaultValue}
                           config={formConfiguration}
                           assetTitle={resource.title ? resource.title : null}
                           assetType={getAssetType()}
