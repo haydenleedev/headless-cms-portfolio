@@ -68,11 +68,7 @@ const SEO = ({
 
     setTimeout(() => {
       setConsentTimerExpired(true);
-    }, 0);
-    // Load other scripts anyway after 5 seconds, if user interaction was not detected.
-    setTimeout(() => {
-      setTimerExpired(true);
-    }, 5000);
+    }, 2500);
 
     // get gclid values
     function getParam(p) {
@@ -254,13 +250,18 @@ const SEO = ({
                 src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
                 charSet="UTF-8"
                 data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
+                onLoad={() => {
+                  setTimeout(() => {
+                    setTimerExpired(true);
+                  }, 1000);
+                }}
               />
 
               <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
             </>
           )}
           <>
-            {(timerExpired || userInteracted) && (
+            {timerExpired && (
               <>
                 <Script id="google-tag-manager">
                   {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
