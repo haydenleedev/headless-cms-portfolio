@@ -140,14 +140,6 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
           </div>
           <div>
             <Subscribe formConfiguration={formConfiguration} />
-            {/* <Link href="/request-a-demo">
-              <a
-                className={`button outlined cyan ${style.requestDemo}`}
-                aria-label="Navigate to 'Request a Demo' page"
-              >
-                Request a DEMO
-              </a>
-            </Link> */}
             {blogPost.ctaTitle && stickyCta && (
               <div className={`${style.stickyCtaBanner} bg-paleblue`}>
                 <h2 className="heading-6">{blogPost.ctaTitle}</h2>

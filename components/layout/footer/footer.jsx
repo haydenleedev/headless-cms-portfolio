@@ -29,24 +29,22 @@ const Footer = ({ globalData }) => {
       <div className={style.container}>
         <div className="row-desktop">
           <div className={` ${style.brand}`}>
-            <Link href="/">
-              <a title="Go to home page" aria-label="Go to home page">
-                <img
-                  className={style.logo}
-                  src={data.fields.logo.url}
-                  width={
-                    data.fields.logo.pixelWidth == 0
-                      ? "150"
-                      : data.fields.logo.pixelWidth
-                  }
-                  height={
-                    data.fields.logo.pixelHeight == 0
-                      ? "52"
-                      : data.fields.logo.pixelHeight
-                  }
-                  alt=""
-                />
-              </a>
+            <Link href="/" title="Go to home page" aria-label="Go to home page">
+              <img
+                className={style.logo}
+                src={data.fields.logo.url}
+                width={
+                  data.fields.logo.pixelWidth == 0
+                    ? "150"
+                    : data.fields.logo.pixelWidth
+                }
+                height={
+                  data.fields.logo.pixelHeight == 0
+                    ? "52"
+                    : data.fields.logo.pixelHeight
+                }
+                alt=""
+              />
             </Link>
             {global.fields.primaryPhone && (
               <a
