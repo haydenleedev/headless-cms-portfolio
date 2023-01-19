@@ -259,5 +259,5 @@ export const submit = async ({ customAction, formData, formRef, action }) => {
     const data = await response.json();
     customAction(data.success);
     // normal form submission.
-  } /* else formRef.current.submit(); */
+  } else formRef.current.submit();
 };
