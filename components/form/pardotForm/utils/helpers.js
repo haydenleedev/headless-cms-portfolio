@@ -548,6 +548,7 @@ export const addGclid = () => {
       return element.id;
     }); // all possible gclid form field ids here
 
+  console.log(gclidFormFields);
   var gclidRecord = null;
   var currGclidFormField;
 
@@ -569,8 +570,6 @@ export const addGclid = () => {
   var isGclidValid = gclid && new Date().getTime() < gclid.expiryDate;
 
   if (currGclidFormField && isGclidValid) {
-    document
-      .getElementById(currGclidFormField.getAttribute("id"))
-      .setAttribute("value", gclid.value);
+    currGclidFormField.setAttribute("value", gclid.value);
   }
 };
