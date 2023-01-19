@@ -548,7 +548,6 @@ export const addGclid = () => {
       return element.id;
     }); // all possible gclid form field ids here
 
-  console.log(gclidFormFields);
   var gclidRecord = null;
   var currGclidFormField;
 
