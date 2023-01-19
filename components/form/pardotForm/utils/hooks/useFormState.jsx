@@ -190,7 +190,11 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
 
   useEffect(() => {
     // get gclid values
-    if (state.stepEmailFieldValue) addGclid();
+    if (state.stepEmailFieldValue) {
+      setTimeout(() => {
+        addGclid();
+      }, 1200);
+    }
   }, [state.stepEmailFieldValue]);
 
   // check for form submission events. Submit only if the submitFlag is active and the form is valid.

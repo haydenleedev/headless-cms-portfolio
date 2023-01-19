@@ -569,6 +569,8 @@ export const addGclid = () => {
   var isGclidValid = gclid && new Date().getTime() < gclid.expiryDate;
 
   if (currGclidFormField && isGclidValid) {
-    currGclidFormField.value = gclid.value;
+    document
+      .getElementById(currGclidFormField.getAttribute("id"))
+      .setAttribute("value", gclid.value);
   }
 };
