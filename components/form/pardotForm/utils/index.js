@@ -7,7 +7,6 @@ import { getCookie } from "../../../../utils/cookies";
 import config from "../form.config";
 import { pardotFormActions } from "../reducer";
 import {
-  addGclid,
   formatPhoneNumber,
   isHiddenField,
   isNonUsPhoneNumber,
@@ -199,8 +198,6 @@ export const validSubmitFormModifications = ({
   stateFieldVisible,
   formRef,
 }) => {
-  // get gclid values
-  addGclid();
   // Set hidden email field's name to "Email" to include the email step value in the form submission
   if (stepEmailFieldValue && !formRef.current["Email"]) {
     formRef.current["hiddenemail"].name = "Email";

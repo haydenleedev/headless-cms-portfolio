@@ -14,6 +14,7 @@ import {
   getFallbackFieldData,
   isHiddenField,
   reorderFieldData,
+  addGclid,
 } from "../helpers";
 import { useRouter } from "next/router";
 
@@ -186,6 +187,11 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
       }
     }
   }, [state.selectedPartnerCountry]);
+
+  useEffect(() => {
+    // get gclid values
+    if (state.stepEmailFieldValue) addGclid();
+  }, [state.stepEmailFieldValue]);
 
   // check for form submission events. Submit only if the submitFlag is active and the form is valid.
   useEffect(() => {
