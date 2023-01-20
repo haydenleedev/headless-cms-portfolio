@@ -549,14 +549,14 @@ export const addGclid = () => {
     }); // all possible gclid form field ids here
 
   var gclidRecord = null;
-  var currGclidFormField;
+  var currGclidFormFields = [];
 
   var gclsrcParam = getParam("gclsrc");
   var isGclsrcValid = !gclsrcParam || gclsrcParam.indexOf("aw") !== -1;
 
   gclidFormFields.forEach(function (field) {
     if (document.getElementById(field)) {
-      currGclidFormField = document.getElementById(field);
+      currGclidFormFields.push(document.getElementById(field));
     }
   });
 
@@ -568,7 +568,10 @@ export const addGclid = () => {
   var gclid = gclidRecord || JSON.parse(localStorage.getItem("gclid"));
   var isGclidValid = gclid && new Date().getTime() < gclid.expiryDate;
 
-  if (currGclidFormField && isGclidValid) {
-    currGclidFormField.setAttribute("value", gclid.value);
+  if (currGclidFormFields.length > 0 && isGclidValid) {
+    return currGclidFormFields.map((formfield) => {
+      return { id: formfield.id, value: gclid.value };
+    });
   }
+  return [];
 };

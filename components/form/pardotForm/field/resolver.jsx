@@ -151,6 +151,30 @@ const FieldResolver = ({ field, index, fieldRef }) => {
         />
       );
     case "text":
+      if (field.name === "GCLID") {
+        return (
+          <input
+            name={field.name}
+            value={
+              state.gclidValues?.find?.(
+                (value) => parseInt(value.id) === field.id
+              )?.value
+            }
+            id={field.id}
+            maxLength="255"
+            onBlur={() => {
+              handleSetTouchedFields(index);
+              formValidation();
+              handleSetPasteError(false, index);
+            }}
+            onKeyDown={(e) => {
+              if (e.code !== "Tab") handleSetPasteError(false, index);
+            }}
+            onPaste={(e) => pasteBlocker(e, index)}
+            ref={fieldRef}
+          />
+        );
+      }
       return (
         <>
           {field.name.toLowerCase() === "additional details" ||
@@ -258,7 +282,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           ) : null}
         </>
       );
-    default:
+    default: {
       return (
         <input
           name={field.name}
@@ -276,6 +300,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
           ref={fieldRef}
         />
       );
+    }
   }
 };
 

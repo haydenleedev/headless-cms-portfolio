@@ -9,7 +9,6 @@ import { useIntersectionObserver } from "../../../../../utils/hooks";
 import { getPartnerFieldProperties } from "../../utils";
 import {
   getFormType,
-  addGaData,
   formatPhoneNumber,
   getFallbackFieldData,
   isHiddenField,
@@ -42,6 +41,7 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     stepEmailFieldValue: null,
     clientJSEnabled: false,
     pasteError: null,
+    gclidValues: [],
     submitFlag: false, // flag for checking if a form has been submitted.
     stepFetchInProgress: false,
     currentStepIndex: -1, // initially -1 because the first step where email is submitted is not considered as a step
@@ -126,6 +126,14 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
       type: pardotFormActions.setClientJSEnabled,
       value: true,
     });
+
+    setTimeout(() => {
+      const gclidValues = addGclid();
+      dispatch({
+        type: pardotFormActions.setGclidValues,
+        value: gclidValues,
+      });
+    }, 1000);
   }, []);
 
   // listen for changes to form errors list. Check if the form is valid.
@@ -191,9 +199,11 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
   useEffect(() => {
     // get gclid values
     if (state.stepEmailFieldValue) {
-      setTimeout(() => {
-        addGclid();
-      }, 1200);
+      const gclidValues = addGclid();
+      dispatch({
+        type: pardotFormActions.setGclidValues,
+        value: gclidValues,
+      });
     }
   }, [state.stepEmailFieldValue]);
 

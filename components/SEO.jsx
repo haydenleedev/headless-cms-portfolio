@@ -89,8 +89,6 @@ const SEO = ({
           getCampaignScript(campaignScriptIDRef.current),
           scriptElements[scriptElements.length - 1].nextSibling
         );
-
-        addGclid();
       }, 2000);
     });
     return () => {
