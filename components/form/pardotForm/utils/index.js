@@ -4,6 +4,7 @@ import {
   isPhoneNumber,
 } from "../../../../shop/utils/validation";
 import { getCookie } from "../../../../utils/cookies";
+import { sleep } from "../../../../utils/generic";
 import config from "../form.config";
 import { pardotFormActions } from "../reducer";
 import {
@@ -243,7 +244,8 @@ export const submit = async ({ customAction, formData, formRef, action }) => {
   // if the form has a customAction (e.g. BlogSubcriptionBanner)
   if (customAction) {
     const formObject = Object.fromEntries(formData.entries());
-    const response = await fetch(
+    await sleep(20000);
+    /*     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/ajaxRequestPardot`,
       {
         method: "POST",
@@ -253,7 +255,7 @@ export const submit = async ({ customAction, formData, formRef, action }) => {
         }),
       }
     );
-    const data = await response.json();
+    const data = await response.json(); */
     customAction(data.success);
     // normal form submission.
   } else formRef.current.submit();
