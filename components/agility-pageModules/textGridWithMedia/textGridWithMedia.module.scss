@@ -122,13 +122,14 @@
       display: flex;
       justify-content: center;
       width: 100%;
+      & > img {
+        height: unset;
+        width: auto;
+      }
       &.svgMediaContainer {
-        > span {
-          height: 100%;
-          img {
-            height: 100% !important;
-            position: relative !important;
-          }
+        > img {
+          height: 100% !important;
+          position: relative !important;
         }
       }
     }
@@ -150,17 +151,9 @@
       .textItemMedia {
         max-width: 7.5rem;
         height: 7.5rem;
-        & > span {
-          &:only-child {
-            height: 100% !important;
-            img {
-              margin: 0 !important;
-              width: 100% !important;
-              object-fit: contain;
-              height: unset !important;
-              min-height: unset !important;
-            }
-          }
+        & > img {
+          object-fit: cover;
+          border-radius: 1rem;
         }
         &.textItemMediaTop {
           > span:only-child {
@@ -260,11 +253,7 @@
           height: initial !important;
         }
         &.textItemSvgMedia {
-          > span > span {
-            // This is needed to prevent oversized images on older versions of Safari
-            height: 0 !important;
-          }
-          img {
+          & > img {
             position: unset !important;
           }
         }

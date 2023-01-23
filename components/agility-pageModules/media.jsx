@@ -1,6 +1,7 @@
 import { AgilityImage } from "@agility/nextjs";
 import { useEffect, useState } from "react";
 import { video } from "../../schema";
+import { cn } from "../../utils/generic";
 import Video from "../video/video";
 import OverrideSEO from "./overrideSEO/overrideSEO";
 
@@ -11,6 +12,7 @@ const Media = ({ media, title, imageOptions, videoStructuredData }) => {
   mediaName = mediaName ? mediaName[mediaName.length - 1] : null;
   const imageFileRegex = /.*\.(jpe?g|png|svg|gif)$/;
   const mediaType = mediaName?.split(".")[1];
+
   useEffect(() => {
     if (
       typeof document !== "undefined" &&
@@ -31,12 +33,22 @@ const Media = ({ media, title, imageOptions, videoStructuredData }) => {
           <AgilityImage
             src={media.url}
             alt={media.label || ""}
-            width={media.pixelWidth != "0" ? media.pixelWidth + "px" : "360"}
-            height={media.pixelHeight}
+            width={
+              parseInt(media.pixelWidth) > 0 ? parseInt(media.pixelWidth) : 768
+            }
+            height={
+              parseInt(media.pixelHeight) > 0
+                ? parseInt(media.pixelHeight)
+                : 432
+            }
             title={title ? title : ""}
-            // Does not work well...
-            // layout="responsive"
             {...imageOptions}
+            className={cn({
+              "agility-image": true,
+              [imageOptions?.className]:
+                typeof imageOptions === "object" &&
+                imageOptions?.hasOwnProperty?.("className"),
+            })}
           />
         );
       default:

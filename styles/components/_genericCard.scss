@@ -22,7 +22,7 @@ $card-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
     width: 100%;
     &--tall {
       height: 62.5vh;
-      .loadingTextContent div:not(:last-child){
+      .loadingTextContent div:not(:last-child) {
         margin-bottom: 0.5rem;
         &.loadingTextFieldWide {
           margin-bottom: 0.75rem;
@@ -135,11 +135,9 @@ $card-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
       overflow: hidden;
       border-top-left-radius: $card-border-radius;
       border-top-right-radius: $card-border-radius;
-      & > span {
-        &:only-child {
-          height: 100% !important;
-          width: 100% !important;
-        }
+      & > img {
+        height: 100%;
+        width: 100%;
       }
     }
     &__textContent {
@@ -227,11 +225,9 @@ $card-shadow: 0 0 0.5rem 0.25rem rgb(0 0 0 / 12%);
         &:not(:only-child) {
           margin-right: 0.75rem;
         }
-        > span {
+        > img {
           height: 100% !important;
-          img {
-            object-fit: contain !important;
-          }
+          object-fit: contain !important;
         }
       }
     }

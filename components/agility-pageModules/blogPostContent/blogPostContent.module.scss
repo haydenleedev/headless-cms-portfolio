@@ -118,20 +118,9 @@
       height: 0;
       position: relative;
       padding-top: math.div(180px, 320px) * 100%;
-      & > span {
-        display: block !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100% !important;
-        height: 100% !important;
-      }
     }
-    & > span {
-      img {
-        object-fit: cover !important;
-      }
-      border-radius: 0.5rem;
+    & > img {
+      object-fit: cover !important;
     }
   }
 }

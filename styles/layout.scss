@@ -288,6 +288,10 @@
   object-fit: contain !important;
 }
 
+.object-fit-cover {
+  object-fit: cover !important;
+}
+
 .wrap {
   @include siteWidth();
   margin: 0 auto;
@@ -374,6 +378,13 @@
     padding-top: calc($navbar-height + $navbar-secondary-height) !important;
     top: 0 - $navbar-height - $navbar-secondary-height;
   }
+}
+
+.agility-image {
+  width: 100%;
+  height: auto;
+  max-height: inherit;
+  object-fit: contain;
 }
 
 /*
@@ -1021,5 +1032,5 @@ fieldset {
 }
 
 #q-frame-hidden {
-  display:none;
+  display: none;
 }

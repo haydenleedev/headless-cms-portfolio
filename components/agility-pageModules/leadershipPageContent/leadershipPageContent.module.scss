@@ -39,18 +39,13 @@
       display: flex;
       align-items: center;
       margin-bottom: 1rem;
-      & > span {
+      & > img {
         border-radius: 50%;
         width: 100%;
         height: 100%;
-        max-width: 16.4375rem !important;
-        max-height: 16.4375rem !important;
-        img {
-          min-width: 100% !important;
-          width: unset !important;
-          height: unset !important;
-          object-fit: cover;
-        }
+        max-width: 16.4375rem;
+        max-height: 16.4375rem;
+        object-fit: cover;
       }
       .leaderImageFilter {
         position: absolute;

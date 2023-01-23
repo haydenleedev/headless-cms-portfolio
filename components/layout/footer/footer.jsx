@@ -102,10 +102,9 @@ const Footer = ({ globalData }) => {
                         // >
                         <AgilityImage
                           src={award.fields.image.url}
-                          layout="responsive"
-                          width="4"
-                          height="5"
-                          objectFit="contain"
+                          width={105}
+                          height={130}
+                          className="object-fit-cover"
                           alt=""
                           key={award.contentID}
                         ></AgilityImage>

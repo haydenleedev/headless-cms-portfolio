@@ -83,15 +83,8 @@
         overflow: hidden;
         border-top-left-radius: 1rem;
         border-top-right-radius: 1rem;
-        & > span {
-          &:only-child {
-            display: block !important;
-            img {
-              object-fit: cover;
-              height: unset;
-              width: unset;
-            }
-          }
+        & > img {
+          object-fit: cover;
         }
       }
       .storyTitle,
@@ -160,7 +153,7 @@
     margin: 3em auto 0 auto;
     display: block;
     cursor: pointer;
-    font-family: 'GalanoGrotesque', sans-serif;
+    font-family: "GalanoGrotesque", sans-serif;
     font-size: 0.95rem;
   }
 }

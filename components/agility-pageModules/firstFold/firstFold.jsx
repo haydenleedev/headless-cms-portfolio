@@ -382,6 +382,7 @@ const FirstFold = ({ module, customData }) => {
                           fields.logos.length >= 6 ? 6 : fields.logos.length
                         } ${style.logoGridColumn}`}
                         data-animate="true"
+                        style={fields.animationStyle ? { opacity: "0" } : null}
                       >
                         <Media media={logo.fields.logo} />
                       </div>
@@ -395,6 +396,11 @@ const FirstFold = ({ module, customData }) => {
                     )}`}
                     data-animate={
                       fields.testimonialStyle === "quote" ? true : false
+                    }
+                    style={
+                      fields.testimonialStyle === "quote"
+                        ? { opacity: "0" }
+                        : null
                     }
                   >
                     {fields.testimonialStyle === "comment" ? (
@@ -496,6 +502,7 @@ const FirstFold = ({ module, customData }) => {
                     } ${style[fields.mediaVerticalAlignment]} ${
                       fields.mediaClasses ? fields.mediaClasses : ""
                     }`}
+                    style={fields.animationStyle ? { opacity: "0" } : null}
                     data-animate="true"
                   >
                     {fields.videoURL ? (
@@ -563,6 +570,7 @@ const FirstFold = ({ module, customData }) => {
                       className={`${style.image} ${
                         fields.videoURL ? style.isVideo : ""
                       }`}
+                      style={fields.animationStyle ? { opacity: "0" } : null}
                       data-animate="true"
                     >
                       {fields.videoURL ? (

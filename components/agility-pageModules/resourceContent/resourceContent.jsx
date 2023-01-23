@@ -213,7 +213,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         alt={resource.image.label || ""}
                         width={resource.image.pixelWidth}
                         height={resource.image.pixelHeight}
-                        objectFit="cover"
+                        className="object-fit-cover"
                       />
                     </div>
                   </div>

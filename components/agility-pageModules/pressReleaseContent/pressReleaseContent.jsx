@@ -43,8 +43,7 @@ const PressReleaseContent = ({ dynamicPageItem, customData }) => {
                 alt={resource.image.label || ""}
                 width={resource.image.pixelWidth}
                 height={resource.image.pixelHeight}
-                layout={"responsive"}
-                objectFit="cover"
+                className="object-fit-cover"
               />
             )}
           </div>

@@ -38,19 +38,26 @@ const RenderGenericCard = ({ properties }) => {
                   <AgilityImage
                     src={image.url}
                     alt={image.label || ""}
-                    width={image.pixelWidth}
-                    height={image.pixelHeight}
-                    objectFit="cover"
-                    layout="responsive"
+                    width={
+                      parseInt(image.pixelWidth) > 0
+                        ? parseInt(image.pixelWidth)
+                        : 250
+                    }
+                    height={
+                      parseInt(image.pixelHeight) > 0
+                        ? parseInt(image.pixelHeight)
+                        : 162
+                    }
+                    className="object-fit-cover agility-image"
                   />
                 ) : (
                   configuration?.defaultImage && (
                     <AgilityImage
                       src={configuration?.defaultImage}
                       alt=""
-                      width="250"
-                      height="162"
-                      objectFit="contain"
+                      width={250}
+                      height={162}
+                      className="object-fit-cover agility-image"
                     />
                   )
                 )}
@@ -78,27 +85,41 @@ const RenderGenericCard = ({ properties }) => {
               {brandLayout ? (
                 <AgilityImage
                   src={image.url}
-                  width={0}
-                  height={0}
-                  layout="responsive"
-                  objectFit="contain"
+                  width={
+                    parseInt(image.pixelWidth) > 0
+                      ? parseInt(image.pixelWidth)
+                      : 250
+                  }
+                  height={
+                    parseInt(image.pixelHeight) > 0
+                      ? parseInt(image.pixelHeight)
+                      : 162
+                  }
+                  className="object-fit-cover agility-image"
                 />
               ) : image && image.pixelWidth ? (
                 <AgilityImage
                   src={image.url}
                   alt={image.label || ""}
-                  width={image.pixelWidth}
-                  height={image.pixelHeight}
-                  objectFit="cover"
-                  layout="responsive"
+                  width={
+                    parseInt(image.pixelWidth) > 0
+                      ? parseInt(image.pixelWidth)
+                      : 250
+                  }
+                  height={
+                    parseInt(image.pixelHeight) > 0
+                      ? parseInt(image.pixelHeight)
+                      : 162
+                  }
+                  className="object-fit-cover agility-image"
                 />
               ) : (
                 <AgilityImage
                   src={configuration?.defaultImage}
                   alt=""
-                  width="250"
-                  height="162"
-                  objectFit="contain"
+                  width={250}
+                  height={162}
+                  className="object-fit-cover agility-image"
                 />
               )}
             </div>

@@ -124,12 +124,9 @@
       justify-content: center;
       width: 100%;
       &.svgMediaContainer {
-        > span {
-          height: 100%;
-          img {
-            height: 100% !important;
-            position: relative !important;
-          }
+        & > img {
+          height: 100% !important;
+          position: relative !important;
         }
       }
     }
@@ -265,10 +262,6 @@
           height: initial !important;
         }
         &.textItemSvgMedia {
-          > span > span {
-            // This is needed to prevent oversized images on older versions of Safari
-            height: 0 !important;
-          }
           img {
             position: unset !important;
           }
