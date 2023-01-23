@@ -7,7 +7,7 @@ import {
   isPhoneNumber,
   isFreeEmail,
 } from "../../shop/utils/validation";
-import PardotFormField from "./pardotFormField";
+import PardotFormField from "./DELETE_pardotFormField";
 import { getCookie } from "../../utils/cookies";
 import {
   addGaData,
@@ -19,8 +19,8 @@ import {
   reorderFieldData,
 } from "../../utils/pardotForm";
 import { boolean } from "../../utils/validation";
-import PardotFormEmailStep from "./pardotFormEmailStep";
-import HoneypotFields from "./honeypotFields";
+import PardotFormEmailStep from "./DELETE_pardotFormEmailStep";
+import HoneypotFields from "./pardotForm/honeypotFields";
 import LazyLoadReCAPTCHA from "./lazyLoadReCAPTCHA";
 
 class PardotForm extends Component {

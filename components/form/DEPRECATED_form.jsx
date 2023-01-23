@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
+// DEPRECATED
 const Form = ({ submitButtonText, formLoaded, formID }) => {
   const formRef = useRef(null);
   // do this to allow the marketo form ID being input in format "mktoForm_1638" or just "1638"

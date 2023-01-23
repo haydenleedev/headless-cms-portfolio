@@ -4,7 +4,8 @@ import PardotFormContext from "../context";
 import { getErrorMessage, isHiddenField } from "../utils/helpers";
 import FieldResolver from "./resolver";
 import style from "../form.module.scss";
-import FormError from "../../formError";
+import FormError from "../formError";
+
 const Field = (props) => {
   const { field, index } = props;
   const { state, isDealRegistrationForm } = useContext(PardotFormContext);

@@ -1,5 +1,4 @@
-import FormError from "../../formError";
-import HoneypotFields from "../../honeypotFields";
+import HoneypotFields from "../honeypotFields";
 import Field from "../field";
 import PardotFormContext from "../context";
 import style from "../form.module.scss";
@@ -7,6 +6,7 @@ import EmailStep from "./emailStep";
 import { Fragment, useContext } from "react";
 import Loader from "../../../layout/loader/loader";
 import { cn } from "../../../../utils/generic";
+import FormError from "../formError";
 
 // idea: the user submits the form several times based on the number of steps defined in Agility
 // the email of the user is always checked first.

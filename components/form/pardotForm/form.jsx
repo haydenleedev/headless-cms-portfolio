@@ -1,8 +1,9 @@
 import { Fragment, useContext } from "react";
-import HoneypotFields from "../honeypotFields";
+import HoneypotFields from "./honeypotFields";
 import PardotFormContext from "./context";
 import Field from "./field";
 import style from "./form.module.scss";
+import FormError from "./formError";
 
 const StandardForm = ({ customAction, btnColor, submit }) => {
   const { state, formRef, handleSubmit, isContactForm, fieldRefs } =
