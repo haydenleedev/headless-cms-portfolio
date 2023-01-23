@@ -24,6 +24,7 @@ export const pardotFormActions = {
   setStepFetchInProgress: "set_step_fetch_in_progress",
   setCurrentStepIndex: "set_current_step_index",
   setPrefilledCompletionView: "set_step_form_completed",
+  setGclidValues: "set_gclid_values",
 };
 
 const setState = (value, key, state) => {
@@ -78,6 +79,8 @@ export function pardotFormReducer(state, action) {
       return setState(action.value, "currentStepIndex", state);
     case pardotFormActions.setPrefilledCompletionView:
       return setState(action.value, "prefilledCompletionView", state);
+    case pardotFormActions.setGclidValues:
+      return setState(action.value, "gclidValues", state);
     default:
       return state;
   }

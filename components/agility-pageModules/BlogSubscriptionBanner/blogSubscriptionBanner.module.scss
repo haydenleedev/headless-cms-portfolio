@@ -34,22 +34,22 @@
           width: 100%;
           display: flex;
           align-items: flex-end;
-          & > div {
+          & > label {
             &:first-child {
               width: 100%;
+              max-width: 20.5rem;
               position: relative;
               flex-basis: 100%;
-              & > label {
-                padding-top: unset;
-                padding-bottom: 0.125rem;
-              }
+              padding-top: unset;
+              padding-bottom: 0.125rem;
               & > div {
-                &:last-child {
-                  position: absolute;
-                }
+                position: absolute;
               }
             }
-            &:last-child {
+          }
+          & > div {
+            &:last-of-type {
+              width: max-content;
               margin: 0 0 0.2rem 1rem !important;
             }
           }
@@ -68,7 +68,6 @@
         input,
         select {
           border: 0.125rem solid $color-white;
-          border-radius: 0.5rem;
         }
         select {
           background-color: transparent !important;
