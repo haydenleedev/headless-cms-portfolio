@@ -1,7 +1,7 @@
 import style from "../form.module.scss";
 import { useContext, useRef, useState } from "react";
 import PardotFormContext from "../context";
-import FormError from "../../formError";
+import FormError from "../formError";
 import { isEmail } from "../../../../shop/utils/validation";
 import { cn } from "../../../../utils/generic";
 
