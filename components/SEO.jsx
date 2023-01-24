@@ -40,7 +40,8 @@ const SEO = ({
       "Fri, 31 Dec 9999 23:59:59 GMT"
     );
   }
-  const { globalSettings, campaignScriptIDRef } = useContext(GlobalContext);
+  const { globalSettings, campaignScriptIDRef, handleSetCanLoadOptimize } =
+    useContext(GlobalContext);
   const suffixedMetaTitle = formatPageTitle(
     title,
     globalSettings?.fields?.pageTitleSuffix
@@ -251,6 +252,9 @@ const SEO = ({
                 charSet="UTF-8"
                 data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
                 onLoad={() => {
+                  setTimeout(() => {
+                    handleSetCanLoadOptimize();
+                  }, 1000);
                   setTimeout(() => {
                     setTimerExpired(true);
                   }, 2000);
