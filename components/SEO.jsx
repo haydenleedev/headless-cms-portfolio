@@ -68,7 +68,7 @@ const SEO = ({
 
     setTimeout(() => {
       setConsentTimerExpired(true);
-    }, 2500);
+    }, 3500);
 
     // get gclid values
     function getParam(p) {
@@ -243,7 +243,7 @@ const SEO = ({
       </Head>
       {pageTemplateName !== "BrandTemplate" && (
         <>
-          {consentTimerExpired && (
+          {(consentTimerExpired || userInteracted) && (
             <>
               <Script
                 id="onetrust"
@@ -253,7 +253,7 @@ const SEO = ({
                 onLoad={() => {
                   setTimeout(() => {
                     setTimerExpired(true);
-                  }, 1000);
+                  }, 2000);
                 }}
               />
 
