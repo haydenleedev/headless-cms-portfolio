@@ -18,7 +18,6 @@ const EventsPageContent = ({ module, customData }) => {
         toPacificTimeMilliseconds(new Date(event.fields.endTime))
     )
     .reverse();
-  console.log(events);
   const { fields } = module;
   const heading = JSON.parse(fields.heading);
   return (
