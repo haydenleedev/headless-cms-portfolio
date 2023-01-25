@@ -7,6 +7,7 @@ const GlobalContextWrapper = ({ children }) => {
   const [globalModalTrigger, setGlobalModalTrigger] = useState(false);
   const [globalModalContent, setGlobalModalContent] = useState(null);
   const [globalSettings, setGlobalSettings] = useState(null);
+  const [canLoadOptimize, setCanLoadOptimize] = useState(false); // load optimize only after onetrust
 
   // UJET shop formData object
   const [formData, setFormData] = useState({});
@@ -28,6 +29,10 @@ const GlobalContextWrapper = ({ children }) => {
     setFormData({});
   };
 
+  const handleSetCanLoadOptimize = () => {
+    setCanLoadOptimize(true);
+  };
+
   const context = {
     globalModalTrigger,
     formData,
@@ -38,6 +43,8 @@ const GlobalContextWrapper = ({ children }) => {
     updateFormData,
     resetData,
     campaignScriptIDRef: useRef(null),
+    handleSetCanLoadOptimize,
+    canLoadOptimize,
   };
   return (
     <GlobalContext.Provider value={context}>
