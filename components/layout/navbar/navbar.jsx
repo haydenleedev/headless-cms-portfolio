@@ -58,20 +58,22 @@ const Navbar = ({ globalData }) => {
         handleTransparency().then((shouldBeTransparent) => {
           let firstSection;
           const sections = document
-            .getElementById("__next")
-            ?.querySelector?.("main").children;
-          for (let i = 0; i < sections.length; i++) {
-            // Avoid selecting Hidden H1
-            if (!sections[i].getAttribute("data-hidden-h1")) {
-              firstSection = sections[i];
-              break;
+            ?.getElementById?.("__next")
+            ?.querySelector?.("main")?.children;
+          if (sections) {
+            for (let i = 0; i < sections.length; i++) {
+              // Avoid selecting Hidden H1
+              if (!sections[i].getAttribute("data-hidden-h1")) {
+                firstSection = sections[i];
+                break;
+              }
             }
           }
           if (window.innerWidth < 890) setTransparentBackground(false);
           if (
             window.scrollY >
             firstSection?.getBoundingClientRect?.().top +
-              document.getElementById("globalSecondaryNav").clientHeight
+              document?.getElementById?.("globalSecondaryNav")?.clientHeight
           ) {
             setPageScrolled(true);
             setTransparentBackground(false);
