@@ -69,7 +69,7 @@ const SEO = ({
 
     setTimeout(() => {
       setConsentTimerExpired(true);
-    }, 3500);
+    }, 5000);
 
     // get gclid values
     function getParam(p) {
