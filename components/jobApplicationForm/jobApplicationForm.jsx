@@ -85,7 +85,7 @@ class JobApplicationForm extends Component {
             : this.form[fieldName].value;
         }
       }
-      this.props.jobData.compliance.forEach((item) => {
+      this.props.jobData?.compliance?.forEach?.((item) => {
         item.questions.forEach((question) => {
           const questionField = this.form[question.fields[0].name];
           applicationData[questionField.name] = /^-?\d+$/.test(
@@ -267,7 +267,7 @@ class JobApplicationForm extends Component {
                 );
               })}
             </fieldset>
-            {this.props.jobData.compliance.map((item, index) => {
+            {this.props.jobData?.compliance?.map?.((item, index) => {
               return (
                 <Fragment key={`compliance${index}`}>
                   <div dangerouslySetInnerHTML={renderHTML(item.description)} />

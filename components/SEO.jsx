@@ -70,7 +70,7 @@ const SEO = ({
 
     setTimeout(() => {
       setConsentTimerExpired(true);
-    }, 3500);
+    }, 5000);
 
     router.events.on("routeChangeStart", () => {
       campaignScriptIDRef.current = null;
