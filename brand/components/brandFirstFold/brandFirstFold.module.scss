@@ -268,12 +268,10 @@
     .logoGridColumn {
       padding: 0.5rem;
       height: 5rem;
-      > span {
-        height: 100% !important;
-        img {
-          object-fit: contain;
-        }
+      img {
+        object-fit: contain;
       }
+
       @include desktop() {
         padding: 0.25rem;
       }

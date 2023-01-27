@@ -39,8 +39,8 @@ module.exports = {
   },
   images: {
     domains: ["assets.ujet.cx"],
-    deviceSizes: [360, 375, 480, 640, 768, 890],
-    imageSizes: [16, 32, 48, 64, 96, 128],
+    deviceSizes: [280, 360, 375, 480, 640, 768, 890],
+    imageSizes: [8, 16, 32, 48, 64, 96, 128],
   },
   reactStrictMode: true,
   staticPageGenerationTimeout: 1800,

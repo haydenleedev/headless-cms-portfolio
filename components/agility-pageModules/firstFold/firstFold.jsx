@@ -254,7 +254,12 @@ const FirstFold = ({ module, customData }) => {
               fields.mediaClasses ? fields.mediaClasses : ""
             }`}
           >
-            <Media media={fields.media} />
+            <Media
+              media={fields.media}
+              width={1280}
+              height={720}
+              sizes="(max-width: 480px) 480px, 100vw"
+            />
           </div>
         )}
         <div
@@ -295,7 +300,12 @@ const FirstFold = ({ module, customData }) => {
         >
           <div className={style.softwareIntegrationContent}>
             <aside>
-              <Media media={fields.media} title={fields.mediaTitle} />
+              <Media
+                media={fields.media}
+                title={fields.mediaTitle}
+                width={200}
+                height={150}
+              />
             </aside>
             <div>
               <div className={hideHeading ? style.hide : style.heading}>
@@ -361,7 +371,11 @@ const FirstFold = ({ module, customData }) => {
               >
                 {fields.headerImage && (
                   <div className={style.headerImage}>
-                    <Media media={fields.headerImage} />
+                    <Media
+                      media={fields.headerImage}
+                      width={360}
+                      height={250}
+                    />
                   </div>
                 )}
                 <div className={hideHeading ? style.hide : style.heading}>
@@ -523,6 +537,8 @@ const FirstFold = ({ module, customData }) => {
                           priority: true,
                           fetchpriority: "high",
                         }}
+                        width={640}
+                        height={400}
                         videoStructuredData={
                           hasVideoStructuredDataFields && !videoSrc
                             ? {
@@ -591,6 +607,8 @@ const FirstFold = ({ module, customData }) => {
                             priority: true,
                             fetchpriority: "high",
                           }}
+                          width={640}
+                          height={400}
                           videoStructuredData={
                             hasVideoStructuredDataFields && !videoSrc
                               ? {

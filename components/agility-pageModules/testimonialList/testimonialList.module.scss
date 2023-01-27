@@ -242,7 +242,8 @@
         margin-bottom: 0.5rem;
         .gridItemLogo {
           object-fit: contain;
-          height: 100% !important;
+          height: 100%;
+          width: 100%;
         }
       }
       .gridItemText {

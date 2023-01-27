@@ -69,7 +69,7 @@ const TextItem = ({
               }
             `}
         >
-          <Media media={itemFields.media} />
+          <Media media={itemFields.media} width={360} height={250} />
         </div>
       )}
       {(itemFields.text ||

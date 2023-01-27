@@ -95,6 +95,7 @@
     // Overflow fallback for Safari
     overflow: hidden;
     overflow: clip;
+    margin-top: auto;
     @include desktop() {
       margin-top: initial;
     }

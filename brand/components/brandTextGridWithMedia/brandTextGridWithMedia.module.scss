@@ -142,25 +142,16 @@
       .textItemMedia {
         max-width: 7.5rem;
         height: 7.5rem;
-        & > span {
-          &:only-child {
-            height: 100% !important;
-            img {
-              margin: 0 !important;
-              width: 100% !important;
-              object-fit: contain;
-              height: unset !important;
-              min-height: unset !important;
-            }
-          }
+        & > img {
+          margin: 0 !important;
+          width: 100% !important;
+          object-fit: contain;
+          height: unset !important;
+          min-height: unset !important;
         }
         &.textItemMediaTop {
-          > span:only-child {
-            display: flex !important;
-            align-items: center !important;
-            img {
-              position: relative !important;
-            }
+          > img {
+            position: relative !important;
           }
         }
       }
@@ -184,7 +175,7 @@
               height: initial;
             }
           }
-          & > span:only-child img {
+          & > img {
             min-width: 100% !important;
             object-fit: cover;
             margin: unset !important;

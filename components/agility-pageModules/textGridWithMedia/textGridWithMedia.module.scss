@@ -122,10 +122,7 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      & > img {
-        height: unset;
-        width: auto;
-      }
+      max-height: 33.125rem;
       &.svgMediaContainer {
         > img {
           height: 100% !important;
@@ -152,16 +149,11 @@
         max-width: 7.5rem;
         height: 7.5rem;
         & > img {
-          object-fit: cover;
           border-radius: 1rem;
         }
         &.textItemMediaTop {
-          > span:only-child {
-            display: flex !important;
-            align-items: center !important;
-            img {
-              position: relative !important;
-            }
+          > img {
+            position: relative !important;
           }
         }
       }
@@ -176,7 +168,7 @@
           height: 14rem;
           overflow: hidden;
           max-width: 100%;
-          & > span:only-child img {
+          & > img {
             object-fit: cover;
             min-height: 100% !important;
           }

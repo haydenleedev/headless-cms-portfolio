@@ -43,6 +43,7 @@ const HeroImage = ({ module, narrowHeight, customData }) => {
       {fields.image && (
         <Media
           media={fields.image}
+          sizes="(max-width: 480px) 480px, 100vw"
           imageOptions={{
             className: boolean(fields.roundedCornersforImages)
               ? "border-radius-1"

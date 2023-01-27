@@ -5,6 +5,7 @@ import { AgilityImage, renderHTML } from "@agility/nextjs";
 import { isMobile } from "../../../utils/responsivity";
 import { useState } from "react";
 import AgilityLink from "../../agilityLink";
+import Image from "next/image";
 
 const Footer = ({ globalData }) => {
   const { data, featuredAwards } = globalData.footer;
@@ -30,19 +31,11 @@ const Footer = ({ globalData }) => {
         <div className="row-desktop">
           <div className={` ${style.brand}`}>
             <Link href="/" title="Go to home page" aria-label="Go to home page">
-              <img
+              <Image
                 className={style.logo}
                 src={data.fields.logo.url}
-                width={
-                  data.fields.logo.pixelWidth == 0
-                    ? "150"
-                    : data.fields.logo.pixelWidth
-                }
-                height={
-                  data.fields.logo.pixelHeight == 0
-                    ? "52"
-                    : data.fields.logo.pixelHeight
-                }
+                width={150}
+                height={52}
                 alt=""
               />
             </Link>

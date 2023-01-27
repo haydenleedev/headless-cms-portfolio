@@ -36,16 +36,8 @@
             margin-bottom: 1.5rem;
           }
           .featuredImage {
-            & > span {
-              &:only-child {
-                min-height: 6.25rem;
-                width: 100% !important;
-                img {
-                  object-fit: contain;
-                  height: unset !important;
-                  width: unset !important;
-                }
-              }
+            & > img {
+              min-height: 6.25rem;
             }
           }
         }

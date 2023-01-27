@@ -29,6 +29,15 @@
           margin-left: 1.5rem;
         }
       }
+      .logosList {
+        &:not(.columnsLayout) {
+          .logo {
+            img {
+              max-width: 16rem;
+            }
+          }
+        }
+      }
     }
   }
   .textContent {

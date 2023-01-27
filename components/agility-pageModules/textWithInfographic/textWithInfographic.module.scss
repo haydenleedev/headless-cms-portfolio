@@ -176,11 +176,6 @@
             overflow: hidden;
             box-shadow: 0 0 1rem -0.25rem $color-darkmediumgray;
             width: max-content;
-            img {
-              object-fit: contain;
-              max-width: 2.75rem;
-              max-height: 2.75rem;
-            }
 
             &.svgMediaContainer {
               img {
@@ -218,8 +213,9 @@
             min-height: 3.5rem;
             align-items: center;
             img {
-              max-width: 9rem !important;
-              object-fit: contain !important;
+              width: 100%;
+              min-width: 9rem;
+              max-width: 9rem;
             }
           }
           .itemTextContent {
