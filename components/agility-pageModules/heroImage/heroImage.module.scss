@@ -21,6 +21,7 @@
     position: absolute !important;
     z-index: 1;
     object-fit: cover;
+    height: 100%;
   }
   @include desktop() {
     padding: unset;
@@ -32,7 +33,6 @@
       position: absolute !important;
       top: 0;
       left: 0;
-      height: 100%;
       object-fit: cover;
     }
     &.heroImageNarrowHeight {
