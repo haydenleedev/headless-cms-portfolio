@@ -31,6 +31,7 @@
     overflow: hidden;
     img {
       width: 100%;
+      height: auto;
     }
   }
 
@@ -112,7 +113,7 @@
   line-height: 1.3;
   .stickyCtaBannerImage {
     overflow: hidden;
-    aspect-ratio: 16/ 9;
+    aspect-ratio: 16 / 9;
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
@@ -121,6 +122,14 @@
       height: 0;
       position: relative;
       padding-top: math.div(180px, 320px) * 100%;
+      & > img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        object-fit: cover !important;
+      }
     }
     & > img {
       object-fit: cover !important;

@@ -103,7 +103,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                     alt={blogPost.image.label || ""}
                     width={680}
                     height={336}
-                    sizes="(min-width: 890px) 50vw, 100vw"
+                    sizes="(max-width: 360px) 360px, (max-width: 480px) 480px, 50vw"
                     className="object-fit-cover"
                   />
                 </div>
@@ -147,7 +147,9 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                   dangerouslySetInnerHTML={renderHTML(sanitizedCtaHtml)}
                 ></div>
                 <div className={style.stickyCtaBannerImage}>
-                  {blogPost.ctaImage && <Media media={blogPost.ctaImage} />}
+                  {blogPost.ctaImage && (
+                    <Media media={blogPost.ctaImage} width={300} height={160} />
+                  )}
                 </div>
                 {blogPost.ctaLink && (
                   <AgilityLink

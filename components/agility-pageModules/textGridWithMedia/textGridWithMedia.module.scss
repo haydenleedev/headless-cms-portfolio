@@ -218,7 +218,7 @@
         .gridItem {
           margin-left: 0;
         }
-        @media (min-width: 25.5rem) {
+        @media (min-width: 30rem) {
           grid-template-columns: 1fr 1fr;
           .gridItem {
             margin-top: 0 !important;
@@ -247,6 +247,7 @@
         &.textItemSvgMedia {
           & > img {
             position: unset !important;
+            height: 100% !important;
           }
         }
         & > * {
