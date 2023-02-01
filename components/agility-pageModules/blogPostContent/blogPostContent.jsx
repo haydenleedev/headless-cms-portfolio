@@ -103,6 +103,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                     alt={blogPost.image.label || ""}
                     width={680}
                     height={336}
+                    priority
                     sizes="(max-width: 480px) 360px, (max-width: 640px) 480px, 50vw"
                     className="object-fit-cover"
                   />
