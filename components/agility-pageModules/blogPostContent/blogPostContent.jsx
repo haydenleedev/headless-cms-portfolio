@@ -103,7 +103,7 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                     alt={blogPost.image.label || ""}
                     width={680}
                     height={336}
-                    sizes="(max-width: 360px) 360px, (max-width: 480px) 480px, 50vw"
+                    sizes="(max-width: 480px) 360px, (max-width: 640px) 480px, 50vw"
                     className="object-fit-cover"
                   />
                 </div>
