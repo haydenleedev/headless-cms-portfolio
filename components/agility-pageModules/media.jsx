@@ -45,7 +45,7 @@ const Media = ({
             height={height || 432}
             sizes={
               sizes ||
-              "(max-width: 360px) 360px, (max-width: 480px) 480px, 50vw"
+              "(max-width: 480px) 360px, (max-width: 640px) 480px, 50vw"
             }
             title={title ? title : ""}
             {...imageOptions}
