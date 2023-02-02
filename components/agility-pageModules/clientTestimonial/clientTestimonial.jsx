@@ -61,7 +61,11 @@ const ClientTestimonial = ({ module }) => {
               <div className={style.slim}>
                 {fields?.award?.fields?.image && (
                   <div className={style.awardImage}>
-                    <Media media={fields.award.fields.image} />
+                    <Media
+                      media={fields.award.fields.image}
+                      width={360}
+                      height={360}
+                    />
                   </div>
                 )}
                 {fields.testimonial.fields?.text && (
@@ -111,7 +115,11 @@ const ClientTestimonial = ({ module }) => {
               <div className={style.normal}>
                 {fields?.award?.fields?.image && (
                   <div className={style.awardImage}>
-                    <Media media={fields.award.fields.image} />
+                    <Media
+                      media={fields.award.fields.image}
+                      width={360}
+                      height={360}
+                    />
                   </div>
                 )}
                 {fields.testimonial.fields?.text && (
@@ -198,7 +206,11 @@ const ClientTestimonial = ({ module }) => {
                               : null
                           }`}
                         >
-                          <Media media={fields.testimonial.fields.logo} />
+                          <Media
+                            media={fields.testimonial.fields.logo}
+                            width={360}
+                            height={360}
+                          />
                         </div>
                       )}
                     </div>

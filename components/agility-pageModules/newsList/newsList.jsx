@@ -50,14 +50,13 @@ const NewsList = ({ module }) => {
             </div>
           ))}
         </div>
-        <Link href="/archives?type=news">
-          <a
-            className="button cyan outlined newsList--link"
-            aria-label="Navigate to page /archives?type=news"
-            title="Navigate to page /archives?type=news"
-          >
-            Read More
-          </a>
+        <Link
+          href="/archives?type=news"
+          className="button cyan outlined newsList--link"
+          aria-label="Navigate to page /archives?type=news"
+          title="Navigate to page /archives?type=news"
+        >
+          Read More
         </Link>
       </nav>
     </section>

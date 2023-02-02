@@ -46,14 +46,6 @@
     img {
       object-fit: cover !important;
     }
-    span {
-      position: relative !important;
-      width: 100% !important;
-      span {
-        width: 100% !important;
-        position: relative !important;
-      }
-    }
   }
   .heading {
     max-width: 37.5rem;
@@ -103,22 +95,12 @@
     // Overflow fallback for Safari
     overflow: hidden;
     overflow: clip;
+    margin-top: auto;
     @include desktop() {
       margin-top: initial;
     }
     &.isVideo {
       width: 100%;
-    }
-    span {
-      width: 100%;
-      height: 100%;
-      position: unset !important;
-      img {
-        height: unset !important;
-        min-height: unset !important;
-        margin: auto 0 0 0 !important;
-        object-fit: contain;
-      }
     }
     .iframeWrapper {
       width: 100%;
@@ -166,15 +148,23 @@
     @include desktop() {
       &.defaultLayoutFixedHeight400 {
         max-height: 25rem;
+        width: 100%;
+        height: 100%;
       }
       &.defaultLayoutFixedHeight500 {
         max-height: 31.25rem;
+        width: 100%;
+        height: 100%;
       }
       &.defaultLayoutFixedHeight600 {
         max-height: 37.5rem;
+        width: 100%;
+        height: 100%;
       }
       &.defaultLayoutFixedHeight700 {
         max-height: 43.75em;
+        width: 100%;
+        height: 100%;
       }
       &.mediaTop {
         justify-self: unset;
@@ -454,10 +444,8 @@
       max-width: 7.8125rem;
       max-height: 7.8125rem;
       overflow: hidden;
-      & > span {
-        &:only-child {
-          border-radius: 50%;
-        }
+      & > img {
+        border-radius: 50%;
       }
     }
   }
@@ -468,12 +456,6 @@
   .logoGridColumn {
     padding: 0.5rem;
     height: 5rem;
-    > span {
-      height: 100% !important;
-      img {
-        object-fit: contain;
-      }
-    }
     @include desktop() {
       padding: 0.25rem;
     }

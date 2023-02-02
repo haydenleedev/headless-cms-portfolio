@@ -58,20 +58,22 @@ const Navbar = ({ globalData }) => {
         handleTransparency().then((shouldBeTransparent) => {
           let firstSection;
           const sections = document
-            .getElementById("__next")
-            ?.querySelector?.("main").children;
-          for (let i = 0; i < sections.length; i++) {
-            // Avoid selecting Hidden H1
-            if (!sections[i].getAttribute("data-hidden-h1")) {
-              firstSection = sections[i];
-              break;
+            ?.getElementById?.("__next")
+            ?.querySelector?.("main")?.children;
+          if (sections) {
+            for (let i = 0; i < sections.length; i++) {
+              // Avoid selecting Hidden H1
+              if (!sections[i].getAttribute("data-hidden-h1")) {
+                firstSection = sections[i];
+                break;
+              }
             }
           }
           if (window.innerWidth < 890) setTransparentBackground(false);
           if (
             window.scrollY >
             firstSection?.getBoundingClientRect?.().top +
-              document.getElementById("globalSecondaryNav").clientHeight
+              document?.getElementById?.("globalSecondaryNav")?.clientHeight
           ) {
             setPageScrolled(true);
             setTransparentBackground(false);
@@ -155,20 +157,19 @@ const Navbar = ({ globalData }) => {
         role="navigation"
         aria-label="Main"
       >
-        <Link href="/">
-          <a
-            title="Navigate  to home page"
-            aria-label="Navigate to home page"
-            className={style.brand}
-          >
-            <img
-              className={style.logo}
-              src={logo.src}
-              width={logo.width}
-              height={logo.height}
-              alt="Ujet logo"
-            />
-          </a>
+        <Link
+          href="/"
+          title="Navigate  to home page"
+          aria-label="Navigate to home page"
+          className={style.brand}
+        >
+          <img
+            className={style.logo}
+            src={logo.src}
+            width={logo.width}
+            height={logo.height}
+            alt="Ujet logo"
+          />
         </Link>
         <button
           aria-label="Toggle main navigation menu"

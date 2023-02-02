@@ -40,7 +40,7 @@ const SpeakerList = ({ module }) => {
               key={speaker.contentID}
             >
               <div className={style.speakerImage}>
-                <Media media={speaker.fields.image} />
+                <Media media={speaker.fields.image} width={230} height={230} />
               </div>
               <div className="d-flex flex-direction-column justify-content-flex-start">
                 <p>{speaker.fields.name}</p>

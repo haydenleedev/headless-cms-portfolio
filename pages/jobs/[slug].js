@@ -92,7 +92,7 @@ const JobOpeningPage = (props) => {
         const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
         const sanitizedHtml = cleanHtml(decodedContent);
         setPageTextContent(sanitizedHtml);
-        jobData.compliance.forEach((item) => {
+        jobData?.compliance?.forEach?.((item) => {
           const descriptionTextArea = document.createElement("textarea");
           descriptionTextArea.innerHTML = item.description;
           const decodedDescription = descriptionTextArea.value;

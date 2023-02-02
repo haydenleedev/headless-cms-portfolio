@@ -29,6 +29,15 @@
           margin-left: 1.5rem;
         }
       }
+      .logosList {
+        &:not(.columnsLayout) {
+          .logo {
+            img {
+              max-width: 16rem;
+            }
+          }
+        }
+      }
     }
   }
   .textContent {
@@ -43,17 +52,6 @@
     justify-content: center;
     min-height: 6.25rem;
     padding: 1.25rem;
-    & > span {
-      &:only-child {
-        // have to override
-        height: 100% !important;
-        img {
-          height: unset;
-          width: unset;
-          object-fit: contain;
-        }
-      }
-    }
     a {
       &:hover {
         outline: 0.15rem solid $color-darkblue;

@@ -211,9 +211,9 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                         src={resource.image.url}
                         data-src={resource.image.url}
                         alt={resource.image.label || ""}
-                        width={resource.image.pixelWidth}
-                        height={resource.image.pixelHeight}
-                        objectFit="cover"
+                        width={768}
+                        height={432}
+                        className="object-fit-cover"
                       />
                     </div>
                   </div>

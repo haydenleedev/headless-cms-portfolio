@@ -5,6 +5,7 @@ import { AgilityImage, renderHTML } from "@agility/nextjs";
 import { isMobile } from "../../../utils/responsivity";
 import { useState } from "react";
 import AgilityLink from "../../agilityLink";
+import Image from "next/image";
 
 const Footer = ({ globalData }) => {
   const { data, featuredAwards } = globalData.footer;
@@ -29,24 +30,14 @@ const Footer = ({ globalData }) => {
       <div className={style.container}>
         <div className="row-desktop">
           <div className={` ${style.brand}`}>
-            <Link href="/">
-              <a title="Go to home page" aria-label="Go to home page">
-                <img
-                  className={style.logo}
-                  src={data.fields.logo.url}
-                  width={
-                    data.fields.logo.pixelWidth == 0
-                      ? "150"
-                      : data.fields.logo.pixelWidth
-                  }
-                  height={
-                    data.fields.logo.pixelHeight == 0
-                      ? "52"
-                      : data.fields.logo.pixelHeight
-                  }
-                  alt=""
-                />
-              </a>
+            <Link href="/" title="Go to home page" aria-label="Go to home page">
+              <Image
+                className={style.logo}
+                src={data.fields.logo.url}
+                width={150}
+                height={52}
+                alt=""
+              />
             </Link>
             {global.fields.primaryPhone && (
               <a
@@ -104,10 +95,9 @@ const Footer = ({ globalData }) => {
                         // >
                         <AgilityImage
                           src={award.fields.image.url}
-                          layout="responsive"
-                          width="4"
-                          height="5"
-                          objectFit="contain"
+                          width={105}
+                          height={130}
+                          className="object-fit-cover"
                           alt=""
                           key={award.contentID}
                         ></AgilityImage>

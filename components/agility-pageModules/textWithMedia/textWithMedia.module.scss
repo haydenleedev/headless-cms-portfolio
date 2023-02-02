@@ -243,10 +243,8 @@
       max-width: 7.8125rem;
       max-height: 7.8125rem;
       overflow: hidden;
-      & > span {
-        &:only-child {
-          border-radius: 50%;
-        }
+      & > img {
+        border-radius: 50%;
       }
     }
   }

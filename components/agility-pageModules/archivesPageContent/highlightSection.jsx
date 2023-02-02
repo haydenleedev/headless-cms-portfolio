@@ -26,7 +26,7 @@ const HighlightSection = ({ highlightContent, headingText }) => {
             src={
               "https://assets.ujet.cx/files/How%20to%20build%20a%20better%20customer%20data%20management%20strategy.jpg"
             }
-            layout="fill"
+            fill
           />
         )}
       </div>

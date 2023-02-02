@@ -66,69 +66,71 @@ const EmbedVideoContent = ({
       let timer = null;
       let previousVideoTime = null;
       player = new window.YT.Player("video-player");
-      player.addEventListener("onStateChange", (e) => {
-        const playerState = e.data;
-        playerStateSequence = [...playerStateSequence, playerState];
-        if (
-          arraysAreEqual(playerStateSequence, [2, 3, 1]) ||
-          arraysAreEqual(playerStateSequence, [3, 1])
-        ) {
-          youTubeActivityEvent({ action: "Seek" });
-          playerStateSequence = [];
-        } else if (
-          arraysAreEqual(playerStateSequence, [-1, 3, 1]) ||
-          arraysAreEqual(playerStateSequence, [1, 3, 1])
-        ) {
-          youTubeActivityEvent({ action: "Video start" });
-          playerStateSequence = [];
-        } else {
-          clearTimeout(timer);
-          if (playerState !== 3) {
-            let timeout = setTimeout(() => {
-              if (playerState == 0) {
-                youTubeActivityEvent({ action: "Video end" });
-              } else if (playerState == 1) {
-                youTubeActivityEvent({ action: "Play" });
-              } else if (playerState == 2) {
-                youTubeActivityEvent({ action: "Pause" });
-              }
-              playerStateSequence = [];
-            }, 250);
-            timer = timeout;
+      if (player?.m) {
+        player?.addEventListener?.("onStateChange", (e) => {
+          const playerState = e.data;
+          playerStateSequence = [...playerStateSequence, playerState];
+          if (
+            arraysAreEqual(playerStateSequence, [2, 3, 1]) ||
+            arraysAreEqual(playerStateSequence, [3, 1])
+          ) {
+            youTubeActivityEvent({ action: "Seek" });
+            playerStateSequence = [];
+          } else if (
+            arraysAreEqual(playerStateSequence, [-1, 3, 1]) ||
+            arraysAreEqual(playerStateSequence, [1, 3, 1])
+          ) {
+            youTubeActivityEvent({ action: "Video start" });
+            playerStateSequence = [];
+          } else {
+            clearTimeout(timer);
+            if (playerState !== 3) {
+              let timeout = setTimeout(() => {
+                if (playerState == 0) {
+                  youTubeActivityEvent({ action: "Video end" });
+                } else if (playerState == 1) {
+                  youTubeActivityEvent({ action: "Play" });
+                } else if (playerState == 2) {
+                  youTubeActivityEvent({ action: "Pause" });
+                }
+                playerStateSequence = [];
+              }, 250);
+              timer = timeout;
+            }
           }
-        }
-      });
-      player.addEventListener("onReady", () => {
-        setInterval(() => {
-          const timeChangeSeconds = Math.round(
-            player.getCurrentTime() - previousVideoTime
-          );
-          let playbackPercentage =
-            (player.getCurrentTime() / player.getDuration()) * 100;
-          if (timeChangeSeconds > 0 && timeChangeSeconds <= 1) {
-            for (let i = 0; i < playbackPercentages.length; i++) {
-              if (
-                playbackPercentage >= playbackPercentages[i].percentage &&
-                !playbackPercentages[i].played
-              ) {
+        });
+        player?.addEventListener?.("onReady", () => {
+          setInterval(() => {
+            const timeChangeSeconds = Math.round(
+              player.getCurrentTime() - previousVideoTime
+            );
+            let playbackPercentage =
+              (player.getCurrentTime() / player.getDuration()) * 100;
+            if (timeChangeSeconds > 0 && timeChangeSeconds <= 1) {
+              for (let i = 0; i < playbackPercentages.length; i++) {
                 if (
-                  Math.round(
-                    (playbackPercentages[i].percentage / 100) *
-                      player.getDuration() -
-                      previousVideoTime
-                  ) == 0
+                  playbackPercentage >= playbackPercentages[i].percentage &&
+                  !playbackPercentages[i].played
                 ) {
-                  youTubeActivityEvent({
-                    action: `Playback percentage: ${playbackPercentages[i].percentage}`,
-                  });
-                  playbackPercentages[i].played = true;
+                  if (
+                    Math.round(
+                      (playbackPercentages[i].percentage / 100) *
+                        player.getDuration() -
+                        previousVideoTime
+                    ) == 0
+                  ) {
+                    youTubeActivityEvent({
+                      action: `Playback percentage: ${playbackPercentages[i].percentage}`,
+                    });
+                    playbackPercentages[i].played = true;
+                  }
                 }
               }
             }
-          }
-          previousVideoTime = player.getCurrentTime();
-        }, 1000);
-      });
+            previousVideoTime = player.getCurrentTime();
+          }, 1000);
+        });
+      }
       const arraysAreEqual = (firstArr, secondArr) => {
         return firstArr.toString() == secondArr.toString();
       };

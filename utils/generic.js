@@ -39,7 +39,7 @@ export function cn(conditions) {
   }
   const conditionEntries = Object.entries(conditions);
   const appliedClasses = conditionEntries.map(([key, value]) => {
-    if (Boolean(value)) return key;
+    if (Boolean(value) && key !== "undefined" && key !== "null") return key;
     return null;
   });
   return appliedClasses.filter((c) => c).join(" ");

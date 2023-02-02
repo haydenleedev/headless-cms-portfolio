@@ -1,16 +1,26 @@
 import { AgilityImage } from "@agility/nextjs";
 import { useEffect, useState } from "react";
 import { video } from "../../schema";
+import { cn } from "../../utils/generic";
 import Video from "../video/video";
 import OverrideSEO from "./overrideSEO/overrideSEO";
 
-const Media = ({ media, title, imageOptions, videoStructuredData }) => {
+const Media = ({
+  media,
+  title,
+  width,
+  height,
+  sizes,
+  imageOptions,
+  videoStructuredData,
+}) => {
   const [videoDefinitelyNotSupported, setVideoDefinitelyNotSupported] =
     useState(false);
   let mediaName = media?.url?.split("/");
   mediaName = mediaName ? mediaName[mediaName.length - 1] : null;
   const imageFileRegex = /.*\.(jpe?g|png|svg|gif)$/;
   const mediaType = mediaName?.split(".")[1];
+
   useEffect(() => {
     if (
       typeof document !== "undefined" &&
@@ -31,12 +41,20 @@ const Media = ({ media, title, imageOptions, videoStructuredData }) => {
           <AgilityImage
             src={media.url}
             alt={media.label || ""}
-            width={media.pixelWidth != "0" ? media.pixelWidth + "px" : "360"}
-            height={media.pixelHeight}
+            width={width || 768}
+            height={height || 432}
+            sizes={
+              sizes ||
+              "(max-width: 480px) 360px, (max-width: 640px) 480px, 50vw"
+            }
             title={title ? title : ""}
-            // Does not work well...
-            // layout="responsive"
             {...imageOptions}
+            className={cn({
+              "agility-image": true,
+              [imageOptions?.className]:
+                typeof imageOptions === "object" &&
+                imageOptions?.hasOwnProperty?.("className"),
+            })}
           />
         );
       default:

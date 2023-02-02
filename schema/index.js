@@ -229,7 +229,7 @@ export const event = ({
       return "https://schema.org/OnlineEventAttendanceMode";
     return "https://schema.org/OfflineEventAttendanceMode";
   };
-  return JSON.stringify({
+  return {
     "@context": "https://schema.org",
     "@type": "Event",
     name,
@@ -239,7 +239,7 @@ export const event = ({
     eventAttendanceMode: resolveEventAttendanceMode(eventType),
     eventStatus: "https://schema.org/EventScheduled",
     description,
-  });
+  };
 };
 
 export const video = ({
