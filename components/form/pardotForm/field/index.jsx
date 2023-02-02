@@ -8,7 +8,8 @@ import FormError from "../formError";
 
 const Field = (props) => {
   const { field, index } = props;
-  const { state, isDealRegistrationForm } = useContext(PardotFormContext);
+  const { state, isDealRegistrationForm, isChannelRequestForm } =
+    useContext(PardotFormContext);
 
   const shouldBeHiddenStateSelect =
     field.name.toLowerCase().match(/state/) &&
