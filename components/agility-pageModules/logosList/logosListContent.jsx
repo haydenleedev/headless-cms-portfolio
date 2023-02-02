@@ -44,10 +44,20 @@ const LogosListContent = ({ fields, sanitizedHtml }) => {
               >
                 {(logo.fields.link && (
                   <AgilityLink agilityLink={logo.fields.link}>
-                    <Media media={logo.fields.logo} width={256} height={160} />
+                    <Media
+                      media={logo.fields.logo}
+                      width={256}
+                      height={160}
+                      sizes="280px"
+                    />
                   </AgilityLink>
                 )) || (
-                  <Media media={logo.fields.logo} width={256} height={160} />
+                  <Media
+                    media={logo.fields.logo}
+                    width={256}
+                    height={160}
+                    sizes="280px"
+                  />
                 )}
               </div>
             ))}
