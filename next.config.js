@@ -23,18 +23,22 @@ module.exports = {
     };
   },
   async redirects() {
-    agilityRedirects.forEach((redirect) => {
-      redirects.push(redirect);
-    });
-    marketoRedirects.forEach((redirect) => {
-      redirects.push(redirect);
-    });
-    marketoLpRedirects.forEach((redirect) => {
-      redirects.push(redirect);
-    });
-    marketoEmailRedirects.forEach((redirect) => {
-      redirects.push(redirect);
-    });
+    try {
+      agilityRedirects.forEach((redirect) => {
+        redirects.push(redirect);
+      });
+      marketoRedirects.forEach((redirect) => {
+        redirects.push(redirect);
+      });
+      marketoLpRedirects.forEach((redirect) => {
+        redirects.push(redirect);
+      });
+      marketoEmailRedirects.forEach((redirect) => {
+        redirects.push(redirect);
+      });
+    } catch (e) {
+      console.log("caught error", e);
+    }
     return redirects;
   },
   images: {
