@@ -23,22 +23,18 @@ module.exports = {
     };
   },
   async redirects() {
-    try {
-      agilityRedirects.forEach((redirect) => {
-        redirects.push(redirect);
-      });
-      marketoRedirects.forEach((redirect) => {
-        redirects.push(redirect);
-      });
-      marketoLpRedirects.forEach((redirect) => {
-        redirects.push(redirect);
-      });
-      marketoEmailRedirects.forEach((redirect) => {
-        redirects.push(redirect);
-      });
-    } catch (e) {
-      console.log("caught error", e);
-    }
+    agilityRedirects.forEach((redirect) => {
+      redirects.push(redirect);
+    });
+    marketoRedirects.forEach((redirect) => {
+      redirects.push(redirect);
+    });
+    marketoLpRedirects.forEach((redirect) => {
+      redirects.push(redirect);
+    });
+    marketoEmailRedirects.forEach((redirect) => {
+      redirects.push(redirect);
+    });
     return redirects;
   },
   images: {
