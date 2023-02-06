@@ -40,7 +40,8 @@ const SEO = ({
       "Fri, 31 Dec 9999 23:59:59 GMT"
     );
   }
-  const { globalSettings, campaignScriptIDRef } = useContext(GlobalContext);
+  const { globalSettings, campaignScriptIDRef, handleSetCanLoadOptimize } =
+    useContext(GlobalContext);
   const suffixedMetaTitle = formatPageTitle(
     title,
     globalSettings?.fields?.pageTitleSuffix
@@ -68,10 +69,6 @@ const SEO = ({
 
     setTimeout(() => {
       setConsentTimerExpired(true);
-    }, 0);
-    // Load other scripts anyway after 5 seconds, if user interaction was not detected.
-    setTimeout(() => {
-      setTimerExpired(true);
     }, 5000);
 
     // get gclid values
@@ -247,20 +244,28 @@ const SEO = ({
       </Head>
       {pageTemplateName !== "BrandTemplate" && (
         <>
-          {consentTimerExpired && (
+          {(consentTimerExpired || userInteracted) && (
             <>
               <Script
                 id="onetrust"
                 src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
                 charSet="UTF-8"
                 data-domain-script={`${process.env.NEXT_PUBLIC_ONETRUST_DATA_DOMAIN_SCRIPT}`}
+                onLoad={() => {
+                  setTimeout(() => {
+                    handleSetCanLoadOptimize();
+                  }, 1000);
+                  setTimeout(() => {
+                    setTimerExpired(true);
+                  }, 2000);
+                }}
               />
 
               <Script id="optanon-wrapper">{`function OptanonWrapper() { }`}</Script>
             </>
           )}
           <>
-            {(timerExpired || userInteracted) && (
+            {timerExpired && (
               <>
                 <Script id="google-tag-manager">
                   {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

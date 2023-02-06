@@ -149,6 +149,8 @@ export const addGaData = (
       formType == "contactUs" && contactTypeValue == "contactSales";
     const isRequestDemoForm =
       formType == "contactUs" && contactTypeValue == "requestDemo";
+    const isGoogleRequestDemoForm =
+      formType == "contactUs" && contactTypeValue == "googleRequestDemo";
 
     let contactType;
     // If there is no future use for this currently unused function, it should be removed
@@ -161,6 +163,8 @@ export const addGaData = (
           contactType = "contactSales";
         } else if (getContactType.value === "request_a_demo") {
           contactType = "requestDemo";
+        } else if (getContactType.value === "google_request_a_demo") {
+          contactType = "googleRequestDemo";
         }
         return contactType;
       }
@@ -233,6 +237,12 @@ export const addGaData = (
       setFormInputValue("utm_source", utmSourceValue);
     } else if (!utmSourceValue && isGoogleContactForm) {
       setFormInputValue("utm_source", "google_marketplace");
+    } else if (
+      (!utmSourceValue && isContactSalesForm) ||
+      (!utmSourceValue && isRequestDemoForm) ||
+      (!utmSourceValue && isGoogleRequestDemoForm)
+    ) {
+      setFormInputValue("utm_source", "ujet");
     }
     setFormInputValue("utm_medium", getUrlParamValue("utm_medium"));
     setFormInputValue("utm_term", getUrlParamValue("utm_term"));
@@ -253,7 +263,7 @@ export const addGaData = (
         clsDefaultValue = "CHANNEL";
         break;
       case "partnerRequest":
-        clpDefaultValue = "Request to Partner";
+        clpDefaultValue = "Request_to_Partner";
         clsDefaultValue = "CHANNEL";
         break;
       case "googleContact":
