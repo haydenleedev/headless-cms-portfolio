@@ -96,6 +96,9 @@ class PardotForm extends Component {
         case "contact_sales":
           this.contactTypeValue = "contactSales";
           break;
+        case "google_request_a_demo":
+          this.contactTypeValue = "googleRequestDemo";
+          break;
       }
 
       const stripQueryStringAndHashFromPath = (url) => {

@@ -161,6 +161,8 @@ export const addGaData = (
           contactType = "contactSales";
         } else if (getContactType.value === "request_a_demo") {
           contactType = "requestDemo";
+        } else if (getContactType.value === "google_request_a_demo") {
+          contactType = "googleRequestDemo";
         }
         return contactType;
       }
@@ -253,7 +255,7 @@ export const addGaData = (
         clsDefaultValue = "CHANNEL";
         break;
       case "partnerRequest":
-        clpDefaultValue = "Request to Partner";
+        clpDefaultValue = "Request_to_Partner";
         clsDefaultValue = "CHANNEL";
         break;
       case "googleContact":
