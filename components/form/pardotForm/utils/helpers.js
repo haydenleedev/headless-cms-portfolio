@@ -27,6 +27,7 @@ const {
   partnerRequestFieldOrder,
   googleContactFieldOrder,
   defaultFieldOrder,
+  landingPagePartnerContentFieldOrder,
 } = formConfig;
 
 // This function could be split into smaller parts and/or renamed (it does more than just add GA data)
@@ -135,6 +136,14 @@ export const addGaData = ({
       formType == "contactUs" && contactTypeValue == "contact_sales";
     const isRequestDemoForm =
       formType == "contactUs" && contactTypeValue == "request_a_demo";
+    const isGoogleRequestDemoForm =
+      formType == "contactUs" && contactTypeValue == "google_request_a_demo";
+
+    const isLandingPageForm = formType == "landingPage";
+    const isLandingPagePartnerContentForm =
+      formType == "landingPagePartnerContent";
+    const isWebinarPageForm = formType == "webinar";
+    const isPartnerRequestForm = formType == "partnerRequest";
 
     let contactType;
     // If there is no future use for this currently unused function, it should be removed
@@ -204,6 +213,16 @@ export const addGaData = ({
       setFormInputValue("utm_source", utmSourceValue);
     } else if (!utmSourceValue && isGoogleContactForm) {
       setFormInputValue("utm_source", "google_marketplace");
+    } else if (
+      (!utmSourceValue && isContactSalesForm) ||
+      (!utmSourceValue && isRequestDemoForm) ||
+      (!utmSourceValue && isGoogleRequestDemoForm) ||
+      (!utmSourceValue && isPartnerRequestForm) ||
+      (!utmSourceValue && isLandingPageForm) ||
+      (!utmSourceValue && isLandingPagePartnerContentForm) ||
+      (!utmSourceValue && isWebinarPageForm)
+    ) {
+      setFormInputValue("utm_source", "ujet");
     }
     setFormInputValue("utm_medium", getUrlParamValue("utm_medium"));
     setFormInputValue("utm_term", getUrlParamValue("utm_term"));
@@ -403,6 +422,8 @@ export const reorderFieldData = (fieldData, formType) => {
     case "googleContact":
       fieldOrder = googleContactFieldOrder;
       break;
+    case "landingPagePartnerContent":
+      fieldOrder = landingPagePartnerContentFieldOrder;
     default:
       fieldOrder = defaultFieldOrder;
   }
