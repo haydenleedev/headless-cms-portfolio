@@ -14,7 +14,7 @@ import { useContext } from "react";
 import GlobalContext from "../context";
 import { formatPageTitle } from "../utils/convert";
 import { useRouter } from "next/router";
-import { getCampaignScript } from "../utils/pardotForm";
+import { getCampaignScript } from "./form/pardotForm/utils/helpers";
 import { addGclid } from "./form/pardotForm/utils/helpers";
 
 const SEO = ({
