@@ -224,7 +224,23 @@ export const addGaData = ({
     ) {
       setFormInputValue("utm_source", "ujet");
     }
-    setFormInputValue("utm_medium", getUrlParamValue("utm_medium"));
+
+    // Set the default utm_neduyn values
+    const utmMediumValue = getUrlParamValue("utm_medium");
+    if (utmMediumValue) {
+      setFormInputValue("utm_medium", utmMediumValue);
+    } else if (
+      (!utmSourceValue && isContactSalesForm) ||
+      (!utmSourceValue && isRequestDemoForm) ||
+      (!utmSourceValue && isGoogleRequestDemoForm) ||
+      (!utmSourceValue && isPartnerRequestForm) ||
+      (!utmSourceValue && isLandingPageForm) ||
+      (!utmSourceValue && isLandingPagePartnerContentForm) ||
+      (!utmSourceValue && isWebinarPageForm)
+    ) {
+      setFormInputValue("utm_medium", "website");
+    }
+    /* setFormInputValue("utm_medium", getUrlParamValue("utm_medium")); */
     setFormInputValue("utm_term", getUrlParamValue("utm_term"));
 
     /* setFormInputValue("Asset Type", getAssetType(window.location.href)); */
