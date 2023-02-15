@@ -118,7 +118,7 @@ export default async function handler(req, res) {
               ),
             },
             Update(Select("ref", Var("found")), {
-              data: clientData,
+              data: { ...Var("found").data, ...clientData },
             })
           ),
           Create(Collection("form_submissions"), {

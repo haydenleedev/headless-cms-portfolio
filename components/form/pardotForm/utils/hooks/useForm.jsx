@@ -219,7 +219,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     if (allStepsSubmitted) {
       formRef.current["hiddenemail"].value = email;
       addGaData({
-        gaDataAdded: state.gaDataAdded,
+        gaDataAdded: false,
         handleSetGaDataAdded,
         formEmailInput: formRef.current["hiddenemail"],
         isDealRegistrationForm,
@@ -229,12 +229,12 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       });
       handlePrefilledStepFormCompletion();
       dispatch({
-        type: pardotFormActions.setSubmitFlag,
-        value: true,
-      });
-      dispatch({
         type: pardotFormActions.setTouchedFields,
         value: Array(fieldRefs.current.length).fill(true),
+      });
+      dispatch({
+        type: pardotFormActions.setSubmitFlag,
+        value: true,
       });
     }
   };
