@@ -4,10 +4,17 @@ import PardotFormContext from "../context";
 import FormError from "../formError";
 import { isEmail } from "../../../../shop/utils/validation";
 import { cn } from "../../../../utils/generic";
+import { addGaData } from "../utils/helpers";
 
 const EmailStep = ({ steps, emailStepButtonText }) => {
-  const { state, getNextStep, handleSetStepEmailFieldValue } =
-    useContext(PardotFormContext);
+  const {
+    state,
+    getNextStep,
+    handleSetStepEmailFieldValue,
+    handleSetGaDataAdded,
+    isDealRegistrationForm,
+    contactType,
+  } = useContext(PardotFormContext);
   const emailRef = useRef(null);
   const [emailError, setEmailError] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
@@ -36,6 +43,14 @@ const EmailStep = ({ steps, emailStepButtonText }) => {
           onBlur={() => {
             setEmailTouched(true);
             validateEmail();
+            addGaData({
+              gaDataAdded: state.gaDataAdded,
+              handleSetGaDataAdded,
+              formEmailInput: emailRef.current,
+              isDealRegistrationForm,
+              formType: state.formType,
+              contactTypeValue: contactType,
+            });
           }}
         />
         {emailError && <FormError message={"Please enter a valid email"} />}
