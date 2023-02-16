@@ -253,11 +253,6 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
         window.dataLayer?.push({
           event: "pardotFormSuccess",
         });
-        console.log(
-          props.stepsEnabled,
-          !customAction,
-          state.prefilledCompletionView
-        );
         submit({
           customAction:
             props.stepsEnabled && !customAction && state.prefilledCompletionView

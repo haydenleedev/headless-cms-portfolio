@@ -179,10 +179,6 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       responseJSON?.submittedFields
     );
 
-    const gaStepNumber = responseJSON?.submittedFields?.ga_steps
-      ? parseInt(responseJSON?.submittedFields?.ga_steps.split("step")[1])
-      : null;
-
     let allStepsSubmitted = false;
     if (submittedStepFields) {
       allStepsSubmitted = steps
@@ -228,9 +224,7 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         formEmailInput: formRef.current["hiddenemail"],
         isDealRegistrationForm,
         formType: state.formType,
-        currentStepIndex: gaStepNumber
-          ? gaStepNumber
-          : props.config.steps.length - 1,
+        currentStepIndex: props.config.steps.length - 1,
         isLastStep: true,
       });
       handlePrefilledStepFormCompletion();
