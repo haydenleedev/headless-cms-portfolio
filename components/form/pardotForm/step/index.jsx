@@ -86,13 +86,6 @@ const StepForm = ({
               />
             </Fragment>
           ))}
-        {state.stepEmailFieldValue && (
-          <input
-            name="Email"
-            className="display-none"
-            defaultValue={state.stepEmailFieldValue}
-          />
-        )}
         {(state.includeTimeStampInEmailAddress ||
           state.stepEmailFieldValue) && (
           <input name="hiddenemail" className="display-none" />
