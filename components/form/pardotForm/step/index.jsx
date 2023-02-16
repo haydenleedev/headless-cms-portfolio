@@ -19,8 +19,14 @@ const StepForm = ({
   config,
   emailStepButtonText,
 }) => {
-  const { state, fieldRefs, formRef, handleSubmit, isContactForm } =
-    useContext(PardotFormContext);
+  const {
+    state,
+    fieldRefs,
+    formRef,
+    handleSubmit,
+    isContactForm,
+    isDealRegistrationForm,
+  } = useContext(PardotFormContext);
 
   const isFirstStep =
     !state.stepEmailFieldValue && !state.prefilledCompletionView;
@@ -30,72 +36,62 @@ const StepForm = ({
   const handleStepFormSubmit = (e) => {
     handleSubmit(e, true);
   };
-
-  if (isFirstStep) {
-    return (
+  return (
+    <>
+      {(state.stepFetchInProgress || state.submissionInProgress) && <Loader />}
       <form
-        className={style.pardotForm}
-        ref={formRef}
-        style={{ display: state.clientJSEnabled ? "" : "none" }}
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
+        action={state.action}
+        method={customAction ? null : "post"}
+        onSubmit={
+          isFirstStep ? (e) => e.preventDefault() : handleStepFormSubmit
+        }
         autoComplete={isContactForm ? "off" : "on"}
+        className={cn({
+          [style.pardotForm]: true,
+          [style.isHidden]:
+            state.stepFetchInProgress ||
+            state.submissionInProgress ||
+            stepsCompleted,
+        })}
+        style={{ display: state.clientJSEnabled ? "" : "none" }}
+        ref={formRef}
       >
-        <EmailStep
-          steps={config.steps}
-          emailStepButtonText={emailStepButtonText}
-        />
+        {isFirstStep && (
+          <EmailStep
+            steps={config.steps}
+            emailStepButtonText={emailStepButtonText}
+          />
+        )}
         {state.fieldData
-          .filter?.((field) => isHiddenField(field, false))
+          .filter?.((field) => isHiddenField(field, isDealRegistrationForm))
+          ?.map((field, index) => (
+            <Fragment key={`stepFieldHidden${index}`}>
+              <Field
+                field={field}
+                index={index}
+                fieldRef={fieldRefs.current[index]}
+              />
+            </Fragment>
+          ))}
+
+        {state.fieldData
+          .filter?.((field) => !isHiddenField(field, isDealRegistrationForm))
           ?.map((field, index) => (
             <Fragment key={`stepField${index}`}>
               <Field
                 field={field}
                 index={index}
                 fieldRef={fieldRefs.current[index]}
+                className={isFirstStep ? "is-hidden" : null}
               />
             </Fragment>
           ))}
-        <HoneypotFields />
-      </form>
-    );
-  } else if (isStep) {
-    return (
-      <>
-        {(state.stepFetchInProgress || state.submissionInProgress) && (
-          <Loader />
+        {(state.includeTimeStampInEmailAddress ||
+          state.stepEmailFieldValue) && (
+          <input name="hiddenemail" className="display-none" />
         )}
-        <form
-          action={state.action}
-          method={customAction ? null : "post"}
-          onSubmit={handleStepFormSubmit}
-          autoComplete={isContactForm ? "off" : "on"}
-          className={cn({
-            [style.pardotForm]: true,
-            [style.isHidden]:
-              state.stepFetchInProgress ||
-              state.submissionInProgress ||
-              stepsCompleted,
-          })}
-          style={{ display: state.clientJSEnabled ? "" : "none" }}
-          ref={formRef}
-        >
-          {state.fieldData?.map((field, index) => (
-            <Fragment key={`stepField${index}`}>
-              <Field
-                field={field}
-                index={index}
-                fieldRef={fieldRefs.current[index]}
-              />
-            </Fragment>
-          ))}
-
-          {(state.includeTimeStampInEmailAddress ||
-            state.stepEmailFieldValue) && (
-            <input name="hiddenemail" className="display-none" />
-          )}
-          <HoneypotFields />
+        <HoneypotFields />
+        {isStep && (
           <div className={style.submitButton}>
             <input
               type="submit"
@@ -110,11 +106,11 @@ const StepForm = ({
               />
             )}
           </div>
-        </form>
-        {stepsCompleted && <p>Thank you for contacting us.</p>}
-      </>
-    );
-  }
+        )}
+      </form>
+      {stepsCompleted && <p>Thank you for contacting us.</p>}
+    </>
+  );
 };
 
 export default StepForm;

@@ -7,7 +7,7 @@ import style from "../form.module.scss";
 import FormError from "../formError";
 
 const Field = (props) => {
-  const { field, index } = props;
+  const { field, index, className } = props;
   const { state, isDealRegistrationForm, isChannelRequestForm } =
     useContext(PardotFormContext);
 
@@ -20,6 +20,7 @@ const Field = (props) => {
     <label
       key={`formField${index}`}
       className={cn({
+        [className]: className,
         "display-none":
           isHiddenField(field, isDealRegistrationForm) ||
           shouldBeHiddenStateSelect,

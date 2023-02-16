@@ -368,6 +368,8 @@
 .is-hidden {
   visibility: hidden;
   height: 0;
+  position: absolute;
+  left: -2147483647px;
 }
 
 .transparentized-navbar-transform {
