@@ -258,7 +258,10 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
             props.stepsEnabled && !customAction && state.prefilledCompletionView
               ? props.stepsCompletionRedirectURL
                 ? () => router.push(props.stepsCompletionRedirectURL)
-                : router.push(config.stepFormsCompletionDefaultRedirectURL.href)
+                : router.push(
+                    config?.stepFormsCompletionDefaultRedirectURL?.href ||
+                      "/request-a-demo"
+                  )
               : customAction,
           formData,
           formRef,
