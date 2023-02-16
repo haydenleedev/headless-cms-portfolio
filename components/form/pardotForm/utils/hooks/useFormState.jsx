@@ -253,14 +253,17 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
         window.dataLayer?.push({
           event: "pardotFormSuccess",
         });
-
+        console.log(
+          props.stepsEnabled,
+          !customAction,
+          state.prefilledCompletionView
+        );
         submit({
           customAction:
-            props.stepsEnabled &&
-            !customAction &&
-            state.prefilledCompletionView &&
-            props.stepsCompletionRedirectURL
-              ? () => router.push(props.stepsCompletionRedirectURL)
+            props.stepsEnabled && !customAction && state.prefilledCompletionView
+              ? props.stepsCompletionRedirectURL
+                ? () => router.push(props.stepsCompletionRedirectURL)
+                : router.push("/thank-you-download-guide")
               : customAction,
           formData,
           formRef,
