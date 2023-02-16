@@ -18,7 +18,7 @@ import {
 import { useRouter } from "next/router";
 
 export const useFormState = ({ props, pardotFormData, formConfig }) => {
-  const { formHandlerID, customAction, partner, action } = props;
+  const { formHandlerID, customAction, partner, action, config } = props;
   const initialFormState = {
     action: customAction ? null : action, // the Pardot form submission endpoint that will be requested when the form is successfully submitted.
     fieldData: [], // an array which contains the data of all the form fields received from Pardot.
@@ -258,7 +258,7 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
             props.stepsEnabled && !customAction && state.prefilledCompletionView
               ? props.stepsCompletionRedirectURL
                 ? () => router.push(props.stepsCompletionRedirectURL)
-                : router.push("/thank-you-download-guide")
+                : router.push(config.stepFormsCompletionDefaultRedirectURL.href)
               : customAction,
           formData,
           formRef,
