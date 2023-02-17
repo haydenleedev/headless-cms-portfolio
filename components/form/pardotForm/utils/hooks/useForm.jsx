@@ -134,7 +134,10 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
               const submittedFound = previouslySubmittedKeys.find(
                 (key) => key === field.fields.name
               );
-              if (submittedFound) {
+              if (
+                submittedFound &&
+                submittedFieldsFromDb[submittedFound]?.length > 0
+              ) {
                 return {
                   name: field.fields.name,
                   submitted: true,
