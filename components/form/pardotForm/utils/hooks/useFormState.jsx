@@ -47,6 +47,7 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
     currentStepIndex: -1, // initially -1 because the first step where email is submitted is not considered as a step
     prefilledCompletionView: false, // true, if a prefilled step form was successfully submitted, and the resource/text with form module had content for the viewed step completion component.
   };
+
   const isDealRegistrationForm =
     initialFormState.formType === "dealRegistration";
   const isChannelRequestForm = initialFormState.formType === "channelRequest";
@@ -257,7 +258,7 @@ export const useFormState = ({ props, pardotFormData, formConfig }) => {
           customAction:
             props.stepsEnabled && !customAction && state.prefilledCompletionView
               ? props.stepsCompletionRedirectURL
-                ? () => router.push(props.stepsCompletionRedirectURL)
+                ? router.push(props.stepsCompletionRedirectURL)
                 : router.push(
                     config?.stepFormsCompletionDefaultRedirectURL?.href ||
                       "/request-a-demo"

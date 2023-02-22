@@ -135,12 +135,26 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     ? true
     : boolean(resource.formStepsEnabled);
 
+  const formCompletionDefaultRedirectValue = resource.completionRedirectURL
+    ?.href
+    ? resource.completionRedirectURL?.href
+    : "/thank-you-download-guide";
+
   useEffect(() => {
     campaignScriptIDRef.current = resource.campaignTrackingID;
   }, []);
 
   return (
     <>
+      {console.log(
+        "boolean(resource.formStepsEnabled)",
+        boolean(resource.formStepsEnabled)
+      )}
+
+      {console.log(
+        "formCompletionDefaultRedirectValue",
+        formCompletionDefaultRedirectValue
+      )}
       <OverrideSEO
         module={dynamicPageItem}
         additionalSchemas={[
@@ -293,11 +307,8 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           }
                           clsField={resource.currentLeadSource2}
                           stepsCompletionRedirectURL={
-                            boolean(resource.formStepsEnabled)
-                              ? resource.completionRedirectURL?.href
-                                ? resource.completionRedirectURL?.href
-                                : "/thank-you-download-guide"
-                              : null
+                            formStepEnabledDefaultValue &&
+                            formCompletionDefaultRedirectValue
                           }
                           emailStepButtonText={resource?.emailStepButtonText}
                         />
@@ -405,11 +416,8 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                           }
                           clsField={resource.currentLeadSource2}
                           stepsCompletionRedirectURL={
-                            boolean(resource.formStepsEnabled)
-                              ? resource.completionRedirectURL?.href
-                                ? resource.completionRedirectURL?.href
-                                : "/thank-you-download-guide"
-                              : null
+                            formStepEnabledDefaultValue &&
+                            formCompletionDefaultRedirectValue
                           }
                           emailStepButtonText={resource?.emailStepButtonText}
                         />
