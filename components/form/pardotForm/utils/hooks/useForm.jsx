@@ -50,7 +50,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
         isLastStep: props.config.steps.length === state.currentStepIndex + 1,
       });
       // this is final step - use action defined in agility
-      if (props.config.steps.length === state.currentStepIndex + 1)
+      if (props.config.steps.length === state.currentStepIndex)
+        //if (props.config.steps.length === state.currentStepIndex + 1) --> Caused issues not submitting the last step submission to pardot
         handlePrefilledStepFormCompletion();
     }
     dispatch({

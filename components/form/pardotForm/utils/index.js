@@ -241,7 +241,7 @@ export const validSubmitFormModifications = ({
 export const submit = async ({ customAction, formData, formRef, action }) => {
   // instead of normal form submission, trigger the prefilledStepFormAction function
   // if the form has a customAction (e.g. BlogSubcriptionBanner)
-  if (typeof customAction === "function") {
+  if (customAction) {
     const formObject = Object.fromEntries(formData.entries());
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/ajaxRequestPardot`,
@@ -254,7 +254,7 @@ export const submit = async ({ customAction, formData, formRef, action }) => {
       }
     );
     const data = await response.json();
-    customAction(data.success);
+    if (typeof customAction === "function") customAction(data.success);
     // normal form submission.
   } else formRef.current.submit();
 };
