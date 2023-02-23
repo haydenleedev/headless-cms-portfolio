@@ -6,8 +6,9 @@ export default async function handler(req, res) {
     console.time("ajaxRequest");
     const parsedBody = JSON.parse(req.body);
     if (
-      parsedBody.formObject?.Email === "" &&
-      parsedBody.formObject?.hiddenemail !== ""
+      !parsedBody.formObject.Email ||
+      (parsedBody.formObject?.Email === "" &&
+        parsedBody.formObject?.hiddenemail !== "")
     ) {
       parsedBody.formObject.Email = parsedBody.formObject.hiddenemail;
     }
@@ -27,6 +28,7 @@ export default async function handler(req, res) {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
+      console.log(response);
       console.timeEnd("ajaxRequest");
       if (response.error) res.status(200).json({ success: false });
       res.status(200).json({ success: true });
