@@ -146,15 +146,6 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
 
   return (
     <>
-      {console.log(
-        "boolean(resource.formStepsEnabled)",
-        boolean(resource.formStepsEnabled)
-      )}
-
-      {console.log(
-        "formCompletionDefaultRedirectValue",
-        formCompletionDefaultRedirectValue
-      )}
       <OverrideSEO
         module={dynamicPageItem}
         additionalSchemas={[
