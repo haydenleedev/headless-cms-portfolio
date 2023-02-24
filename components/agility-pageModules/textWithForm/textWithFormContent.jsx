@@ -7,6 +7,7 @@ import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
 import { useMutationObserver } from "../../../utils/hooks";
 import { resolveFormSubmitButtonText } from "../../../utils/generic";
+import { useRouter } from "next/router";
 const Media = dynamic(() => import("../media"));
 const StarRating = dynamic(() => import("../../starRating/starRating"));
 const Heading = dynamic(() => import("../heading"));
@@ -110,6 +111,21 @@ const TextWithFormContent = ({
     }
   };
 
+  // Set up default formStepEnabled value for resource landing pages
+  const { asPath } = useRouter();
+  let formStepEnabledDefaultValue;
+  if (asPath.includes("/resources/") || asPath.includes("/integrations/")) {
+    formStepEnabledDefaultValue = !fields.formStepsEnabled
+      ? true
+      : boolean(fields.formStepsEnabled);
+  } else {
+    formStepEnabledDefaultValue = boolean(fields.formStepsEnabled);
+  }
+
+  const formCompletionDefaultRedirectValue = fields.completionRedirectURL?.href
+    ? fields.completionRedirectURL?.href
+    : null;
+
   useEffect(() => {
     campaignScriptIDRef.current = fields.campaignTrackingID;
   }, []);
@@ -188,7 +204,7 @@ const TextWithFormContent = ({
                   : "https://info.ujet.cx/l/986641/2022-06-29/k12n5"
               }
               submit={resolveFormSubmitButtonText(fields, "Request a Demo")}
-              stepsEnabled={boolean(fields.formStepsEnabled)}
+              stepsEnabled={formStepEnabledDefaultValue}
               contactType={
                 fields.contactType ? fields.contactType : "request_a_demo"
               }
@@ -205,11 +221,8 @@ const TextWithFormContent = ({
               }
               clsField={fields.currentLeadSource2}
               stepsCompletionRedirectURL={
-                boolean(fields.formStepsEnabled)
-                  ? fields.completionRedirectURL?.href
-                    ? fields.completionRedirectURL?.href
-                    : "/thank-you-contact"
-                  : null
+                formStepEnabledDefaultValue &&
+                formCompletionDefaultRedirectValue
               }
               emailStepButtonText={fields?.emailStepButtonText}
             />

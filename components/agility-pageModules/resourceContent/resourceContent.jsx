@@ -138,7 +138,7 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
   const formCompletionDefaultRedirectValue = resource.completionRedirectURL
     ?.href
     ? resource.completionRedirectURL?.href
-    : "/thank-you-download-guide";
+    : null;
 
   useEffect(() => {
     campaignScriptIDRef.current = resource.campaignTrackingID;
