@@ -178,7 +178,7 @@ class PardotForm extends Component {
       );
       if (this.stepsEnabled) {
         observer.observe(this.stepForm);
-      } else {
+      } else if (this.form) {
         observer.observe(this.form);
       }
     });

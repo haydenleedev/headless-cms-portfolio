@@ -1,3 +1,8 @@
+:root {
+  --cloud-animation-state: paused;
+  --cloud-animation-direction: reverse;
+}
+
 .googleCloudAnimation {
   margin: 2rem 0;
   & > * {
@@ -70,16 +75,22 @@
       rect:not(.g) {
         opacity: 0;
         animation: 0.5s translateY-down forwards;
+        animation-play-state: var(--cloud-animation-state);
+        animation-direction: var(----cloud-animation-direction);
       }
       .g {
         opacity: 0;
         animation: 0.5s translateY-up forwards;
+        animation-play-state: var(--cloud-animation-state);
+        animation-direction: var(----cloud-animation-direction);
         animation-delay: 0.2s;
       }
     }
     &--bg {
       transform: scale(12);
       animation: 1.3s scaleCloudIn forwards;
+      animation-play-state: var(--cloud-animation-state);
+      animation-direction: var(----cloud-animation-direction);
     }
   }
 }
