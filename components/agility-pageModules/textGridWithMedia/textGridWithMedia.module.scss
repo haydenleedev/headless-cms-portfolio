@@ -131,6 +131,24 @@
           }
         }
       }
+      &.imageSize {
+        &__large {
+          padding-left: 0;
+          padding-right: 0;
+        }
+        &__medium {
+          @include desktop() {
+            padding-left: 12rem;
+            padding-right: 12rem;
+          }
+        }
+        &__small {
+          @include desktop() {
+            padding-left: 18rem;
+            padding-right: 18rem;
+          }
+        }
+      }
     }
   }
   .textItem {
