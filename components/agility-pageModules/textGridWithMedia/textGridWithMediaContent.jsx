@@ -39,6 +39,8 @@ const TextGridWithMediaContent = ({ itemsWithSanitizedHTML, fields }) => {
           <div
             className={`${style.mediaContainer} ${
               mediaIsSvg(fields.media) ? style.svgMediaContainer : ""
+            } ${
+              fields.imageSize ? style[`imageSize__${fields.imageSize}`] : ""
             }`}
           >
             <Media media={fields.media} title={fields.mediaTitle} />

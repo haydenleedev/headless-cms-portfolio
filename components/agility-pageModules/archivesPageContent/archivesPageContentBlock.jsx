@@ -7,6 +7,7 @@ import {
   resolveCategory,
   resolveLink,
 } from "../../../utils/convert";
+import { boolean } from "../../../utils/validation";
 const ArchivesNavigation = dynamic(() => import("./archivesNavigation"));
 const GenericCard = dynamic(() => import("../../genericCard/genericCard"));
 const HighlightSection = dynamic(() => import("./highlightSection"));
@@ -323,37 +324,44 @@ const ArchivesPageContentBlock = ({ fields, archivesPageData }) => {
           <div className={style.contentList}>
             {page && (
               <div className="columns repeat-3">
-                {page.map((item) => (
-                  <GenericCard
-                    key={item.contentID}
-                    image={item.fields?.image}
-                    title={resolveTitle(activeContentType, item.fields)}
-                    ariaTitle={resolveTitle(activeContentType, item.fields)}
-                    newsSite={
-                      item.fields.title && activeContentType === "news"
-                        ? item.fields.title
-                        : null
-                    }
-                    link={resolveLink(
-                      item.properties.referenceName,
-                      item.fields
-                    )}
-                    date={
-                      activeContentType !== "resources"
-                        ? item.fields.date
-                        : null
-                    }
-                    category={
-                      item.fields?.cardCategoryTitle ||
-                      resolveCategory(item.properties.referenceName)
-                    }
-                    podcast={
-                      activeContentType === "news" && item.fields.podcast
-                        ? item.fields.podcast
-                        : null
-                    }
-                  />
-                ))}
+                {page
+                  .filter(
+                    (item) =>
+                      boolean(item.fields?.hideFromResourceHome) == false
+                  )
+                  .map((item) => (
+                    <>
+                      <GenericCard
+                        key={item.contentID}
+                        image={item.fields?.image}
+                        title={resolveTitle(activeContentType, item.fields)}
+                        ariaTitle={resolveTitle(activeContentType, item.fields)}
+                        newsSite={
+                          item.fields.title && activeContentType === "news"
+                            ? item.fields.title
+                            : null
+                        }
+                        link={resolveLink(
+                          item.properties.referenceName,
+                          item.fields
+                        )}
+                        date={
+                          activeContentType !== "resources"
+                            ? item.fields.date
+                            : null
+                        }
+                        category={
+                          item.fields?.cardCategoryTitle ||
+                          resolveCategory(item.properties.referenceName)
+                        }
+                        podcast={
+                          activeContentType === "news" && item.fields.podcast
+                            ? item.fields.podcast
+                            : null
+                        }
+                      />
+                    </>
+                  ))}
               </div>
             )}
           </div>

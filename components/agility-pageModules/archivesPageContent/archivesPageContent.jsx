@@ -120,27 +120,29 @@ ArchivesPageContent.getCustomInitialProps = async function ({ agility }) {
       "https://assets.ujet.cx/Webinar-June24_website-webinar-tile.png?q=75&w=480&format=auto",
     ];
 
-    webinars.map((entry, index) => {
-      const indexRemainder = index % staticWebinarCardImageUrls.length;
-      const imageIndex =
-        indexRemainder > 0
-          ? indexRemainder - 1
-          : staticWebinarCardImageUrls.length - 1;
-      if (entry.fields.image) {
-        entry.fields.image.url = staticWebinarCardImageUrls[imageIndex];
-      } else {
-        entry.fields["image"] = {
-          label: null,
-          url: staticWebinarCardImageUrls[imageIndex],
-          target: null,
-          filesize: 118727,
-          pixelHeight: "450",
-          pixelWidth: "794",
-          height: 450,
-          width: 794,
-        };
-      }
-    });
+    webinars
+      .filter((entry) => !entry.fields.hidefromResourceHome)
+      .map((entry, index) => {
+        const indexRemainder = index % staticWebinarCardImageUrls.length;
+        const imageIndex =
+          indexRemainder > 0
+            ? indexRemainder - 1
+            : staticWebinarCardImageUrls.length - 1;
+        if (entry.fields.image) {
+          entry.fields.image.url = staticWebinarCardImageUrls[imageIndex];
+        } else {
+          entry.fields["image"] = {
+            label: null,
+            url: staticWebinarCardImageUrls[imageIndex],
+            target: null,
+            filesize: 118727,
+            pixelHeight: "450",
+            pixelWidth: "794",
+            height: 450,
+            width: 794,
+          };
+        }
+      });
 
     videos.map((entry, index) => {
       const indexRemainder = index % staticWebinarCardImageUrls.length;

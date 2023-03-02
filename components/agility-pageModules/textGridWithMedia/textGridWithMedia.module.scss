@@ -129,6 +129,24 @@
           position: relative !important;
         }
       }
+      &.imageSize {
+        &__large {
+          padding-left: 0;
+          padding-right: 0;
+        }
+        &__medium {
+          @include desktop() {
+            padding-left: 12rem;
+            padding-right: 12rem;
+          }
+        }
+        &__small {
+          @include desktop() {
+            padding-left: 18rem;
+            padding-right: 18rem;
+          }
+        }
+      }
     }
   }
   .textItem {
@@ -257,9 +275,7 @@
       .textItemHeading {
         width: 100%;
       }
-      .textItemHeading > * {
-        font-size: 1rem;
-      }
+
       @include desktop() {
         padding: 1.5rem 0;
       }
