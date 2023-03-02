@@ -67,7 +67,7 @@ export const getShopData = async () => {
       freeTrialEnabled: boolean(shopConfig.fields.freeTrialEnabled),
     };
   } catch (error) {
-    console.log("Error in shop data", error);
+    console.error("Error in shop data", error);
   }
 };
 
