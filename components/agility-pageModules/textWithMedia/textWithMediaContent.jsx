@@ -31,6 +31,12 @@ const TextWithMediaContent = ({ fields, sanitizedHtml }) => {
     if (value !== "quote") return style.testimonialComment;
     return "";
   };
+
+  // Margins & Paddings
+  const mtValue = fields.marginTop ? fields.marginTop : "";
+  const mbValue = fields.marginBottom ? fields.marginBottom : "";
+  const ptValue = fields.paddingTop ? fields.paddingTop : "";
+  const pbValue = fields.paddingBottom ? fields.paddingBottom : "";
   return (
     <div
       className={`container ${narrowContainer ? "max-width-narrow" : ""} ${
@@ -60,7 +66,7 @@ const TextWithMediaContent = ({ fields, sanitizedHtml }) => {
             textHorizontalAlignment ? textHorizontalAlignment : ""
           } ${fullPageWidth ? style.fullPageWidthTextContent : ""} ${
             style[`textContentBasis${fields.textWidthPercentage || 50}`]
-          } ${textContentVerticalAlignment}`}
+          } ${textContentVerticalAlignment}  ${mtValue} ${mbValue} ${ptValue} ${pbValue}`}
         >
           <div
             className={`${
