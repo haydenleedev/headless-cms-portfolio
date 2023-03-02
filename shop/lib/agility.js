@@ -64,10 +64,10 @@ export const getShopData = async () => {
         information: shopConfig.fields.voiceUsageInformation,
         data: shopConfig.fields.voiceUsageList,
       },
-      freeTrialEnabled: boolean(shopConfig.fields.freeTrialEnabled)
+      freeTrialEnabled: boolean(shopConfig.fields.freeTrialEnabled),
     };
   } catch (error) {
-    throw new Error("error getting shop data... caused by: ", error.message);
+    console.log("Error in shop data", error);
   }
 };
 
