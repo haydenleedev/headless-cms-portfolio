@@ -152,6 +152,9 @@ export const addGaData = (
     const isGoogleRequestDemoForm =
       formType == "contactUs" && contactTypeValue == "googleRequestDemo";
 
+    const isGoogleContactCCAIPForm =
+      formType == "contactUs" && contactTypeValue == "googleContactCCAIP";
+
     let contactType;
     // If there is no future use for this currently unused function, it should be removed
     function getContactFormType() {
@@ -165,6 +168,8 @@ export const addGaData = (
           contactType = "requestDemo";
         } else if (getContactType.value === "google_request_a_demo") {
           contactType = "googleRequestDemo";
+        } else if (getContactType.value === "google_ccaip_contact_us") {
+          contactType = "googleContactCCAIP";
         }
         return contactType;
       }
@@ -240,11 +245,25 @@ export const addGaData = (
     } else if (
       (!utmSourceValue && isContactSalesForm) ||
       (!utmSourceValue && isRequestDemoForm) ||
-      (!utmSourceValue && isGoogleRequestDemoForm)
+      (!utmSourceValue && isGoogleRequestDemoForm) ||
+      (!utmSourceValue && isGoogleContactCCAIPForm)
     ) {
       setFormInputValue("utm_source", "ujet");
     }
-    setFormInputValue("utm_medium", getUrlParamValue("utm_medium"));
+
+    // Set the default utm_medium values
+    const utmMediumValue = getUrlParamValue("utm_medium");
+    if (utmMediumValue) {
+      setFormInputValue("utm_medium", utmMediumValue);
+    } else if (
+      (!utmMediumValue && isContactSalesForm) ||
+      (!utmMediumValue && isRequestDemoForm) ||
+      (!utmMediumValue && isGoogleRequestDemoForm) ||
+      (!utmMediumValue && isGoogleContactCCAIPForm)
+    ) {
+      setFormInputValue("utm_medium", "Website");
+    }
+    /*     setFormInputValue("utm_medium", getUrlParamValue("utm_medium")); */
     setFormInputValue("utm_term", getUrlParamValue("utm_term"));
 
     /* setFormInputValue("Asset Type", getAssetType(window.location.href)); */
