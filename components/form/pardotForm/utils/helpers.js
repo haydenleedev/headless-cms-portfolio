@@ -138,6 +138,8 @@ export const addGaData = ({
       formType == "contactUs" && contactTypeValue == "request_a_demo";
     const isGoogleRequestDemoForm =
       formType == "contactUs" && contactTypeValue == "google_request_a_demo";
+    const isGoogleCcaipContactForm =
+      formType == "contactUs" && contactTypeValue == "google_ccaip_contact_us";
 
     const isLandingPageForm = formType == "landingPage";
     const isLandingPagePartnerContentForm =
@@ -183,6 +185,10 @@ export const addGaData = ({
       setFormInputValue("utm_campaign", "contact_sales");
     } else if (!utmCampaignValue && isRequestDemoForm) {
       setFormInputValue("utm_campaign", "request_demo");
+    } else if (!utmCampaignValue && isGoogleRequestDemoForm) {
+      setFormInputValue("utm_campaign", "request_demo_google_ccaip_ujet");
+    } else if (!utmCampaignValue && isGoogleCcaipContactForm) {
+      setFormInputValue("utm_campaign", "contact_sales_google_ccaip_ujet");
     } else if (!utmCampaignValue && isDealRegistrationForm) {
       setFormInputValue(
         "utm_campaign",
@@ -200,6 +206,10 @@ export const addGaData = ({
       setFormInputValue("utm_asset", "contact_sales");
     } else if (isRequestDemoForm) {
       setFormInputValue("utm_asset", "request_demo");
+    } else if (isGoogleRequestDemoForm) {
+      setFormInputValue("utm_asset", "request_demo_google_ccaip_ujet");
+    } else if (isGoogleCcaipContactForm) {
+      setFormInputValue("utm_asset", "contact_sales_google_ccaip_ujet");
     } else if (isDealRegistrationForm) {
       setFormInputValue(
         "utm_asset",
@@ -217,6 +227,7 @@ export const addGaData = ({
       (!utmSourceValue && isContactSalesForm) ||
       (!utmSourceValue && isRequestDemoForm) ||
       (!utmSourceValue && isGoogleRequestDemoForm) ||
+      (!utmSourceValue && isGoogleCcaipContactForm) ||
       (!utmSourceValue && isPartnerRequestForm) ||
       (!utmSourceValue && isLandingPageForm) ||
       (!utmSourceValue && isLandingPagePartnerContentForm) ||
@@ -230,13 +241,14 @@ export const addGaData = ({
     if (utmMediumValue) {
       setFormInputValue("utm_medium", utmMediumValue);
     } else if (
-      (!utmSourceValue && isContactSalesForm) ||
-      (!utmSourceValue && isRequestDemoForm) ||
-      (!utmSourceValue && isGoogleRequestDemoForm) ||
-      (!utmSourceValue && isPartnerRequestForm) ||
-      (!utmSourceValue && isLandingPageForm) ||
-      (!utmSourceValue && isLandingPagePartnerContentForm) ||
-      (!utmSourceValue && isWebinarPageForm)
+      (!utmMediumValue && isContactSalesForm) ||
+      (!utmMediumValue && isRequestDemoForm) ||
+      (!utmMediumValue && isGoogleRequestDemoForm) ||
+      (!utmMediumValue && isGoogleCcaipContactForm) ||
+      (!utmMediumValue && isPartnerRequestForm) ||
+      (!utmMediumValue && isLandingPageForm) ||
+      (!utmMediumValue && isLandingPagePartnerContentForm) ||
+      (!utmMediumValue && isWebinarPageForm)
     ) {
       setFormInputValue("utm_medium", "website");
     }
