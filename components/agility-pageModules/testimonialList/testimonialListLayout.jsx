@@ -50,7 +50,7 @@ const TestimonialListLayout = (fields) => {
             <div className={style.staticImageLayoutContent}>
               {fields.image && (
                 <div className="d-flex justify-content-center">
-                  <Media media={fields.image} />
+                  <Media media={fields.image} width={640} height={400} />
                 </div>
               )}
               <Slider loop dots>
@@ -83,7 +83,7 @@ const TestimonialListLayout = (fields) => {
                 <>
                   {fields.image && (
                     <div className="d-flex justify-content-center">
-                      <Media media={fields.image} />{" "}
+                      <Media media={fields.image} />
                     </div>
                   )}
 
@@ -148,10 +148,8 @@ const TestimonialListLayout = (fields) => {
                     <AgilityImage
                       className={style.gridItemLogo}
                       src={fields.awards[index].fields.image.url}
-                      layout="fill"
-                      objectFit="contain"
-                      width={0}
-                      height={0}
+                      width={360}
+                      height={360}
                     />
                   </div>
                 ) : testimonial.fields.logo?.url ? (
@@ -159,10 +157,8 @@ const TestimonialListLayout = (fields) => {
                     <AgilityImage
                       className={style.gridItemLogo}
                       src={testimonial.fields.logo.url}
-                      layout="fill"
-                      objectFit="contain"
-                      width={0}
-                      height={0}
+                      width={360}
+                      height={360}
                     />
                   </div>
                 ) : (

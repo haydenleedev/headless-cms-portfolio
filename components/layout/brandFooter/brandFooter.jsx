@@ -11,19 +11,18 @@ const BrandFooter = ({ globalData }) => {
   return (
     <footer className={`max-width-brand ${style.footer}`}>
       <div>
-        <Link href="/brand">
-          <a
-            title="Navigate to home page"
-            aria-label="Navigate to home page"
-            className={style.brand}
-          >
-            <AgilityImage
-              src={logo.src}
-              width={logo.width * 1.2}
-              height={logo.height * 1.2}
-              alt="UJET logo"
-            />
-          </a>
+        <Link
+          href="/brand"
+          title="Navigate to home page"
+          aria-label="Navigate to home page"
+          className={style.brand}
+        >
+          <AgilityImage
+            src={logo.src}
+            width={logo.width * 1.2}
+            height={logo.height * 1.2}
+            alt="UJET logo"
+          />
         </Link>
         <div className={style.textContainer}>
           <span> {copyrightPart1}</span>

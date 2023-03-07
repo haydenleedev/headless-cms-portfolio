@@ -140,6 +140,8 @@ const TextWithMediaContent = ({ fields, sanitizedHtml }) => {
                       }
                     : null
                 }
+                width={640}
+                height={360}
               />
             )}
           </div>

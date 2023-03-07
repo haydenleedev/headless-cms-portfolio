@@ -34,23 +34,22 @@ const RenderGenericCard = ({ properties }) => {
               }`}
             >
               <div className={`genericCard__titleWithIcon--icon `}>
-                {image && image.pixelWidth ? (
+                {image ? (
                   <AgilityImage
                     src={image.url}
                     alt={image.label || ""}
-                    width={image.pixelWidth}
-                    height={image.pixelHeight}
-                    objectFit="cover"
-                    layout="responsive"
+                    width={300}
+                    height={200}
+                    className="object-fit-cover agility-image"
                   />
                 ) : (
                   configuration?.defaultImage && (
                     <AgilityImage
                       src={configuration?.defaultImage}
                       alt=""
-                      width="250"
-                      height="162"
-                      objectFit="contain"
+                      width={300}
+                      height={200}
+                      className="object-fit-cover agility-image"
                     />
                   )
                 )}
@@ -78,27 +77,25 @@ const RenderGenericCard = ({ properties }) => {
               {brandLayout ? (
                 <AgilityImage
                   src={image.url}
-                  width={0}
-                  height={0}
-                  layout="responsive"
-                  objectFit="contain"
+                  width={300}
+                  height={200}
+                  className="object-fit-cover agility-image"
                 />
-              ) : image && image.pixelWidth ? (
+              ) : image ? (
                 <AgilityImage
                   src={image.url}
                   alt={image.label || ""}
-                  width={image.pixelWidth}
-                  height={image.pixelHeight}
-                  objectFit="cover"
-                  layout="responsive"
+                  width={300}
+                  height={200}
+                  className="object-fit-cover agility-image"
                 />
               ) : (
                 <AgilityImage
                   src={configuration?.defaultImage}
                   alt=""
-                  width="250"
-                  height="162"
-                  objectFit="contain"
+                  width={300}
+                  height={200}
+                  className="object-fit-cover agility-image"
                 />
               )}
             </div>

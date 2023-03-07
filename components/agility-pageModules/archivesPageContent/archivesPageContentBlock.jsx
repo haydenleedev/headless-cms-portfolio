@@ -1,5 +1,5 @@
 import style from "./archivesPageContent.module.scss";
-import { useEffect, useRef, useState, Suspense } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import {
@@ -7,7 +7,6 @@ import {
   resolveCategory,
   resolveLink,
 } from "../../../utils/convert";
-import GenericCardListLoader from "../../genericCard/genericCardListLoader";
 import { boolean } from "../../../utils/validation";
 const ArchivesNavigation = dynamic(() => import("./archivesNavigation"));
 const GenericCard = dynamic(() => import("../../genericCard/genericCard"));
@@ -323,53 +322,48 @@ const ArchivesPageContentBlock = ({ fields, archivesPageData }) => {
           </aside>
 
           <div className={style.contentList}>
-            {(page && (
+            {page && (
               <div className="columns repeat-3">
-                <Suspense fallback={<GenericCardListLoader />}>
-                  {page
-                    .filter(
-                      (item) =>
-                        boolean(item.fields?.hideFromResourceHome) == false
-                    )
-                    .map((item) => (
-                      <>
-                        <GenericCard
-                          key={item.contentID}
-                          image={item.fields?.image}
-                          title={resolveTitle(activeContentType, item.fields)}
-                          ariaTitle={resolveTitle(
-                            activeContentType,
-                            item.fields
-                          )}
-                          newsSite={
-                            item.fields.title && activeContentType === "news"
-                              ? item.fields.title
-                              : null
-                          }
-                          link={resolveLink(
-                            item.properties.referenceName,
-                            item.fields
-                          )}
-                          date={
-                            activeContentType !== "resources"
-                              ? item.fields.date
-                              : null
-                          }
-                          category={
-                            item.fields?.cardCategoryTitle ||
-                            resolveCategory(item.properties.referenceName)
-                          }
-                          podcast={
-                            activeContentType === "news" && item.fields.podcast
-                              ? item.fields.podcast
-                              : null
-                          }
-                        />
-                      </>
-                    ))}
-                </Suspense>
+                {page
+                  .filter(
+                    (item) =>
+                      boolean(item.fields?.hideFromResourceHome) == false
+                  )
+                  .map((item) => (
+                    <>
+                      <GenericCard
+                        key={item.contentID}
+                        image={item.fields?.image}
+                        title={resolveTitle(activeContentType, item.fields)}
+                        ariaTitle={resolveTitle(activeContentType, item.fields)}
+                        newsSite={
+                          item.fields.title && activeContentType === "news"
+                            ? item.fields.title
+                            : null
+                        }
+                        link={resolveLink(
+                          item.properties.referenceName,
+                          item.fields
+                        )}
+                        date={
+                          activeContentType !== "resources"
+                            ? item.fields.date
+                            : null
+                        }
+                        category={
+                          item.fields?.cardCategoryTitle ||
+                          resolveCategory(item.properties.referenceName)
+                        }
+                        podcast={
+                          activeContentType === "news" && item.fields.podcast
+                            ? item.fields.podcast
+                            : null
+                        }
+                      />
+                    </>
+                  ))}
               </div>
-            )) || <GenericCardListLoader />}
+            )}
           </div>
           {/* Display the page numbers. truncate if there's a lot of pages*/}
           <ArchivesNavigation

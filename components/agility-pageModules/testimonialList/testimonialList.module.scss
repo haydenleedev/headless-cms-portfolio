@@ -15,13 +15,9 @@
         max-width: 18.75rem;
         border-radius: 50%;
         border: 0.25rem solid $color-skyblue;
-        span {
-          &:only-child {
-            display: block !important;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 0.25rem solid $color-white;
-          }
+        & > img {
+          border-radius: 50%;
+          border: 0.25rem solid $color-white;
         }
       }
       @include desktop() {
@@ -30,10 +26,8 @@
           max-width: unset;
           min-width: unset;
           border: 0.65rem solid $color-skyblue;
-          span {
-            &:only-child {
-              border: 0.65rem solid $color-white;
-            }
+          img {
+            border: 0.65rem solid $color-white;
           }
         }
       }
@@ -134,13 +128,10 @@
   .staticImageLayoutContent {
     display: grid;
     grid-template-columns: 1fr;
-    & > span {
-      &:first-of-type {
-        img {
-          object-fit: contain;
-        }
-      }
+    & > img {
+      object-fit: contain;
     }
+
     .staticImageLayoutTextContent {
       display: flex;
       flex-direction: column;
@@ -250,7 +241,9 @@
         position: relative;
         margin-bottom: 0.5rem;
         .gridItemLogo {
-          height: 100% !important;
+          object-fit: contain;
+          height: 100%;
+          width: 100%;
         }
       }
       .gridItemText {

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import marketoRedirects from "../data/marketoRedirects.json";
-import marketoLpRedirects from "../data/marketoLpRedirects.json";
-import marketoEmailRedirects from "../data/marketoEmailRedirects.json";
+import marketoRedirects from "./data/marketoRedirects.json";
+import marketoLpRedirects from "./data/marketoLpRedirects.json";
+import marketoEmailRedirects from "./data/marketoEmailRedirects.json";
 
 export async function middleware(req) {
   // Have the uppercase redirect urls in an array, since redirecting all uppercase urls
@@ -19,8 +19,8 @@ export async function middleware(req) {
 
   const redirectWithCookies = (url) => {
     const redirectResponse = NextResponse.redirect(url);
-    redirectResponse.cookie(clientIPCookieName, req.ip);
-    redirectResponse.cookie(clientCountryCookieName, req.geo.country);
+    redirectResponse.cookies.set(clientIPCookieName, req.ip);
+    redirectResponse.cookies.set(clientCountryCookieName, req.geo.country);
     return redirectResponse;
   };
 
@@ -120,9 +120,18 @@ export async function middleware(req) {
     return redirectWithCookies(redirectUrl);
   }
 
+  // moved here from deprecated nested middleware in api/zuora/_middleware.js
+  const apiZuoraUrl = "/api/zuora/createZuoraEventTriggers.js";
+  if (url.includes(apiZuoraUrl)) {
+    const key = req.headers.get("apikey");
+    if (key !== process.env.MIDDLEWARE_API_KEY) {
+      return NextResponse.json({ message: "Not authenticated." });
+    }
+  }
+
   // All other cases do nothing
   const response = NextResponse.next();
-  response.cookie(clientIPCookieName, req.ip);
-  response.cookie(clientCountryCookieName, req.geo.country);
+  response.cookies.set(clientIPCookieName, req.ip);
+  response.cookies.set(clientCountryCookieName, req.geo.country);
   return response;
 }

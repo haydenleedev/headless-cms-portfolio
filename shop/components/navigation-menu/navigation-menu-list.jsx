@@ -20,8 +20,9 @@ const MenuList = (props) => {
             <Link
               href={primary_menu.href ? url + primary_menu.href : "#"}
               passHref
+              className={nav.topmenu}
             >
-              <a className={nav.topmenu}>{primary_menu.main_menu}</a>
+              {primary_menu.main_menu}
             </Link>
 
             {primary_menu.dropdowns && (
@@ -43,7 +44,7 @@ const MenuList = (props) => {
                         }
                         passHref
                       >
-                        <a>{secondary_menu.sub_item}</a>
+                        {secondary_menu.sub_item}
                       </Link>
 
                       <ul>
@@ -59,7 +60,7 @@ const MenuList = (props) => {
                                   }
                                   passHref
                                 >
-                                  <a>{third_menu.dropdown_menu}</a>
+                                  {third_menu.dropdown_menu}
                                 </Link>
                               </li>
                             )

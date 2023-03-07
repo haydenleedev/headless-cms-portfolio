@@ -16,8 +16,8 @@ const NotFoundPage = ({ globalData }) => {
               fields: {
                 image: {
                   url: "https://assets.ujet.cx/404.png",
-                  pixelHeight: "200",
-                  pixelWidth: "1920",
+                  pixelHeight: "432",
+                  pixelWidth: "768",
                 },
               },
             }}
@@ -26,7 +26,9 @@ const NotFoundPage = ({ globalData }) => {
           <section className="section">
             <div
               className="container"
-              dangerouslySetInnerHTML={{ __html: globalData.fourOhFour.data.fields.text }}
+              dangerouslySetInnerHTML={{
+                __html: globalData.fourOhFour.data.fields.text,
+              }}
             ></div>
           </section>
         </div>

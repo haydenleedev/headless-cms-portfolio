@@ -34,20 +34,19 @@ const BrandNavbarNav = ({ globalData }) => {
         <span className={mainNavigationActive && style.hide}></span>
       </button>
       <div className={style.logoContainer}>
-        <Link href="/brand">
-          <a
-            title="Navigate  to home page"
-            aria-label="Navigate to home page"
-            className={style.brand}
-          >
-            <img
-              className={style.logo}
-              src={logo.src}
-              width="100%"
-              height="100%"
-              alt="Ujet logo"
-            />
-          </a>
+        <Link
+          href="/brand"
+          title="Navigate  to home page"
+          aria-label="Navigate to home page"
+          className={style.brand}
+        >
+          <img
+            className={style.logo}
+            src={logo.src}
+            width="100%"
+            height="100%"
+            alt="Ujet logo"
+          />
         </Link>
       </div>
       <div
@@ -65,14 +64,11 @@ const BrandNavbarNav = ({ globalData }) => {
                   <Link
                     href={item.fields.mainLink.fields.link.href}
                     className={style.navLink}
+                    onClick={() => closeMenu()}
+                    title={`Navigate to ${item.fields.mainLink.fields.link.text} page`}
+                    aria-label={`Navigate to ${item.fields.mainLink.fields.link.text} page`}
                   >
-                    <a
-                      onClick={() => closeMenu()}
-                      title={`Navigate to ${item.fields.mainLink.fields.link.text} page`}
-                      aria-label={`Navigate to ${item.fields.mainLink.fields.link.text} page`}
-                    >
-                      {item.fields.mainLink.fields.link.text}
-                    </a>
+                    {item.fields.mainLink.fields.link.text}
                   </Link>
                 </li>
               );

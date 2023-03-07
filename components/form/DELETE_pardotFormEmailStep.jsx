@@ -2,7 +2,7 @@ import FormError from "./formError";
 import style from "./form.module.scss";
 import React, { Component } from "react";
 import { isEmail } from "../../shop/utils/validation";
-import { getFormType } from "../../utils/pardotForm";
+import { getFormType } from "../../utils/DELETE_pardotForm";
 
 class PardotFormEmailStep extends Component {
   constructor(props) {

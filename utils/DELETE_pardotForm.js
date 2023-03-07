@@ -282,7 +282,7 @@ export const addGaData = (
         clsDefaultValue = "CHANNEL";
         break;
       case "partnerRequest":
-        clpDefaultValue = "Request to Partner";
+        clpDefaultValue = "Request_to_Partner";
         clsDefaultValue = "CHANNEL";
         break;
       case "googleContact":

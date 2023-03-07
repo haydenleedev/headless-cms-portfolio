@@ -2,6 +2,19 @@ import dynamic from "next/dynamic";
 const AgilityLink = dynamic(() => import("../../agilityLink"));
 
 const FirstFoldLink = ({ fields, primary }) => {
+  const linksStyle = fields?.linksStyle || "button";
+  const getLinksStyle = () => {
+    switch (linksStyle) {
+      case "textWithArrow":
+        return "chevron-after w-600 mt-2";
+      case "buttonNavy":
+        return "button navy mt-2";
+      case "buttonOrange":
+        return "button orange mt-2";
+      default:
+        return "button cyan outlined mt-2";
+    }
+  };
   const link = primary ? fields.primaryLink : fields.secondaryLink;
   return link?.href && link?.text ? (
     <div className={style.linkWrapper}>

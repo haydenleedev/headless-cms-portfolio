@@ -11,11 +11,14 @@ class NavigationStep extends Component {
         <div className={`${bar["progress-bar"]} ${nav["sticky-wrap"]}`}>
           <ul className={nav.menu}>
             <li className={nav.logo}>
-              <Link href="https://ujet.cx" passHref>
-                <a tabIndex={0} aria-label="Navigate to UJET's home page">
-                  UJET.cx, the world’s first and only CCaaS 3.0 cloud contact
-                  center provider.
-                </a>
+              <Link
+                href="https://ujet.cx"
+                passHref
+                tabIndex={0}
+                aria-label="Navigate to UJET's home page"
+              >
+                UJET.cx, the world’s first and only CCaaS 3.0 cloud contact
+                center provider.
               </Link>
             </li>
           </ul>

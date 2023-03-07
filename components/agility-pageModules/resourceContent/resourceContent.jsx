@@ -22,6 +22,7 @@ const AgilityLink = dynamic(() => import("../../agilityLink"));
 import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
+import { resolveFormSubmitButtonText } from "../../../utils/generic";
 
 const ResourceContent = ({ dynamicPageItem, customData }) => {
   const { sanitizedHtml, accordionItemsWithSanitizedHTML, formConfiguration } =
@@ -130,6 +131,15 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
     }
   };
 
+  const formStepEnabledDefaultValue = !resource.formStepsEnabled
+    ? true
+    : boolean(resource.formStepsEnabled);
+
+  const formCompletionDefaultRedirectValue = resource.completionRedirectURL
+    ?.href
+    ? resource.completionRedirectURL?.href
+    : null;
+
   useEffect(() => {
     campaignScriptIDRef.current = resource.campaignTrackingID;
   }, []);
@@ -204,10 +214,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                     <div className={style.imageColumn}>
                       <AgilityImage
                         src={resource.image.url}
+                        data-src={resource.image.url}
                         alt={resource.image.label || ""}
-                        width={resource.image.pixelWidth}
-                        height={resource.image.pixelHeight}
-                        objectFit="cover"
+                        width={768}
+                        height={432}
+                        className="object-fit-cover"
                       />
                     </div>
                   </div>
@@ -264,27 +275,33 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                               ? resource.formAction
                               : getPardotDefaultAction(resourceCategory)
                           }
-                          submit={
-                            resource.formSubmitText
-                              ? resource.formSubmitText
-                              : "Download Now"
-                          }
-                          stepsEnabled={resource.formStepsEnabled}
+                          submit={resolveFormSubmitButtonText(
+                            resource,
+                            "Download Now"
+                          )}
+                          stepsEnabled={formStepEnabledDefaultValue}
                           config={formConfiguration}
                           assetTitle={resource.title ? resource.title : null}
                           assetType={getAssetType()}
                           utmCampaign={
-                            typeof window !== "undefined" &&
-                            setUtmCampaignValue(window.location.href)
+                            typeof window !== "undefined"
+                              ? setUtmCampaignValue(window.location.href)
+                              : null
                           }
                           utmAsset={
                             typeof window !== "undefined" && setUtmAssetValue()
                           }
                           clpField={
-                            typeof window !== "undefined" &&
-                            setClpValue(window.location.href)
+                            typeof window !== "undefined"
+                              ? setClpValue(window.location.href)
+                              : null
                           }
                           clsField={resource.currentLeadSource2}
+                          stepsCompletionRedirectURL={
+                            formStepEnabledDefaultValue &&
+                            formCompletionDefaultRedirectValue
+                          }
+                          emailStepButtonText={resource?.emailStepButtonText}
                         />
                       )}
                     </div>
@@ -369,12 +386,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                               ? resource.formAction
                               : getPardotDefaultAction(resourceCategory)
                           }
-                          submit={
-                            resource.formSubmitText
-                              ? resource.formSubmitText
-                              : "Download Now"
-                          }
-                          stepsEnabled={resource.formStepsEnabled}
+                          submit={resolveFormSubmitButtonText(
+                            resource,
+                            "Download Now"
+                          )}
+                          stepsEnabled={formStepEnabledDefaultValue}
                           config={formConfiguration}
                           assetTitle={resource.title ? resource.title : null}
                           assetType={getAssetType()}
@@ -390,6 +406,11 @@ const ResourceContent = ({ dynamicPageItem, customData }) => {
                             setClpValue(window.location.href)
                           }
                           clsField={resource.currentLeadSource2}
+                          stepsCompletionRedirectURL={
+                            formStepEnabledDefaultValue &&
+                            formCompletionDefaultRedirectValue
+                          }
+                          emailStepButtonText={resource?.emailStepButtonText}
                         />
                       )}
                       {!boolean(resource.makeitUngated) &&
@@ -445,12 +466,13 @@ ResourceContent.getCustomInitialProps = async function ({
   const sanitizeHtml = (await import("sanitize-html")).default;
   // sanitize unsafe HTML ( all HTML entered by users and any HTML copied from WordPress to Agility)
 
-  const formConfiguration = await api.getContentList({
+  const formConfiguration = await api.getContentItem({
     referenceName: "formconfiguration",
     expandAllContentLinks: true,
     languageCode,
+    contentLinkDepth: 4,
+    contentID: 6018,
   });
-
   const cleanHtml = (html) => sanitizeHtml(html, sanitizeHtmlConfig);
   const accordionItemsWithSanitizedHTML = accordionItemsData?.items
     ? accordionItemsData.items.map((item) => {
@@ -465,7 +487,7 @@ ResourceContent.getCustomInitialProps = async function ({
   return {
     sanitizedHtml,
     accordionItemsWithSanitizedHTML,
-    formConfiguration,
+    formConfiguration: formConfiguration.fields,
   };
 };
 

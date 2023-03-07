@@ -165,6 +165,7 @@ export const sanitizeHtmlConfig = {
       "alt",
       "sizes",
       "decoding",
+      "srcSet",
     ],
     "*": [
       "loading",
@@ -203,10 +204,11 @@ export const sanitizeHtmlConfig = {
       if (source.includes("?")) {
         source = source.slice(0, source.indexOf("?"));
       }
+      source = source.replace(/ /g, "%20");
       const isSvg = /.+.svg$/g.test(source);
       const srcset = isSvg
         ? null
-        : `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
+        : `${source}?q=75&w=280&format=auto 280w, ${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
 
       return {
         tagName,
@@ -216,8 +218,10 @@ export const sanitizeHtmlConfig = {
           alt: altText ? altText : "",
           loading: "lazy",
           srcset,
-          sizes: "100vw",
-          style: "max-width: 100%",
+          sizes: "(max-width: 480px) 360px, 50vw",
+          width: "680",
+          height: "336",
+          style: "max-width: 100%; width: 100%;",
           decoding: "async",
         },
       };
@@ -246,6 +250,7 @@ export const textSizeSanitizeConfig = (
         "width",
         "height",
         "alt",
+        "sizes",
       ],
       "*": [
         "loading",
@@ -415,7 +420,7 @@ export const textSizeSanitizeConfig = (
           const altText = newAttribs?.alt;
           const srcset = isSvg
             ? null
-            : `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
+            : `${source}?q=75&w=280&format=auto 280w, ${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
 
           let classNamesToApply = " ";
           if (roundedCornersForImages) classNamesToApply += " border-radius-1";
@@ -435,8 +440,10 @@ export const textSizeSanitizeConfig = (
               alt: altText ? altText : "",
               loading: "lazy",
               srcset,
-              sizes: "100vw",
-              style: "max-width: 100%",
+              sizes: "(max-width: 480px) 360px, 50vw",
+              width: "680",
+              height: "336",
+              style: "max-width: 100%; width: 100%;",
               decoding: "async",
             },
           };
@@ -451,7 +458,7 @@ export const textSizeSanitizeConfig = (
           const isSvg = /.+.svg$/g.test(source);
           const srcset = isSvg
             ? null
-            : `${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
+            : `${source}?q=75&w=280&format=auto 280w, ${source}?q=75&w=360&format=auto 360w, ${source}?q=75&w=375&format=auto 375w, ${source}?q=75&w=480&format=auto 480w, ${source}?q=75&w=640&format=auto 640w, ${source}?q=75&w=768&format=auto 768w, ${source}?q=75&w=890&format=auto 890w`;
 
           return {
             tagName,
@@ -461,8 +468,10 @@ export const textSizeSanitizeConfig = (
               alt: altText ? altText : "",
               loading: "lazy",
               srcset,
-              sizes: "100vw",
-              style: "max-width: 100%",
+              sizes: "(max-width: 480px) 360px, 50vw",
+              width: "680",
+              height: "336",
+              style: "max-width: 100%; width: 100%;",
               decoding: "async",
             },
           };

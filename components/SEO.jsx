@@ -14,7 +14,8 @@ import { useContext } from "react";
 import GlobalContext from "../context";
 import { formatPageTitle } from "../utils/convert";
 import { useRouter } from "next/router";
-import { getCampaignScript } from "../utils/pardotForm";
+import { getCampaignScript } from "./form/pardotForm/utils/helpers";
+import { addGclid } from "./form/pardotForm/utils/helpers";
 
 const SEO = ({
   title,
@@ -69,56 +70,7 @@ const SEO = ({
 
     setTimeout(() => {
       setConsentTimerExpired(true);
-    }, 5000);
-
-    // get gclid values
-    function getParam(p) {
-      var match = RegExp("[?&]" + p + "=([^&]*)").exec(window.location.search);
-      return match && decodeURIComponent(match[1].replace(/\\+/g, " "));
-    }
-
-    function getExpiryRecord(value) {
-      var expiryPeriod = 90 * 24 * 60 * 60 * 1000; // 90 day expiry in milliseconds
-
-      var expiryDate = new Date().getTime() + expiryPeriod;
-      return {
-        value: value,
-        expiryDate: expiryDate,
-      };
-    }
-
-    const addGclid = () => {
-      var gclidParam = getParam("gclid");
-      var gclidFormFields = Array.prototype.slice
-        .call(document.querySelectorAll("input[name=GCLID]"))
-        .map(function (element) {
-          return element.id;
-        }); // all possible gclid form field ids here
-
-      var gclidRecord = null;
-      var currGclidFormField;
-
-      var gclsrcParam = getParam("gclsrc");
-      var isGclsrcValid = !gclsrcParam || gclsrcParam.indexOf("aw") !== -1;
-
-      gclidFormFields.forEach(function (field) {
-        if (document.getElementById(field)) {
-          currGclidFormField = document.getElementById(field);
-        }
-      });
-
-      if (gclidParam && isGclsrcValid) {
-        gclidRecord = getExpiryRecord(gclidParam);
-        localStorage.setItem("gclid", JSON.stringify(gclidRecord));
-      }
-
-      var gclid = gclidRecord || JSON.parse(localStorage.getItem("gclid"));
-      var isGclidValid = gclid && new Date().getTime() < gclid.expiryDate;
-
-      if (currGclidFormField && isGclidValid) {
-        currGclidFormField.value = gclid.value;
-      }
-    };
+    }, 10000);
 
     router.events.on("routeChangeStart", () => {
       campaignScriptIDRef.current = null;
@@ -134,8 +86,6 @@ const SEO = ({
           getCampaignScript(campaignScriptIDRef.current),
           scriptElements[scriptElements.length - 1].nextSibling
         );
-
-        addGclid();
       }, 2000);
     });
     return () => {
