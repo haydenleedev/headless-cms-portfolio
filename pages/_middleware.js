@@ -103,7 +103,7 @@ export async function middleware(req) {
   // Redirect buy.ujet.cx
   const buyUrl = "buy.ujet.cx";
   if (url.includes(buyUrl)) {
-    const redirectUrl = "https://ujet.cx/shop";
+    const redirectUrl = "https://ujet.cx/pricing";
     return redirectWithCookies(redirectUrl);
   }
 

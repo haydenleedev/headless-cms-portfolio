@@ -18,7 +18,7 @@ const AcknowledgePageContent = () => {
       !Boolean(formData?.contactInfo) ||
       (!formData?.freeFlow && !Boolean(formData?.primaryId))
     ) {
-      window.location.replace("/shop");
+      window.location.replace("/pricing");
       setLoading(false);
     } else {
       if (

@@ -20,14 +20,14 @@ const ShopErrorPageContent = () => {
       !Boolean(formData?.contactInfo) ||
       (!formData?.freeFlow && !Boolean(formData?.primaryId))
     ) {
-      window.location.replace("/shop");
+      window.location.replace("/pricing");
     }
   }, []);
 
   useEffect(() => {
     if (router.query !== {}) {
       if (router.query.slug[0] !== "error" && router.query.slug.length !== 2)
-        window.location.replace("/shop");
+        window.location.replace("/pricing");
       if (router.query.slug[1] === "sf") {
         setSfError(true);
         setErrorMsg("Something went wrong.");
