@@ -802,7 +802,7 @@ class ContactForm extends Component {
         </div>
         {!this.props.loading && (
           <ButtonFooter
-            prevStep="/pricing"
+            prevStep="/shop"
             onContinue={(e) => {
               e.stopPropagation();
               this.handleSubmit();

@@ -28,7 +28,7 @@ export default function Customize({ addOns, /* products, */ seo }) {
 
   useEffect(() => {
     if (!Boolean(formData?.primaryId)) {
-      window.location.replace("/pricing");
+      window.location.replace("/shop");
     } else {
       updateFormData({
         licenses: Boolean(formData.licenses) ? formData.licenses : 10,
@@ -113,7 +113,7 @@ export default function Customize({ addOns, /* products, */ seo }) {
             nextStep={
               lic > 0 ? `/subscription-cycle/${formData?.primaryId}` : null
             }
-            prevStep="/pricing"
+            prevStep="/shop"
             setModal={setModal}
             addOns={addOns}
           />

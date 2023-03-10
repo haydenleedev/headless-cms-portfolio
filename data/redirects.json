@@ -245,8 +245,8 @@
     "permanent": true
   },
   {
-    "source": "/pricing/ujet-packages",
-    "destination": "/pricing",
+    "source": "/pricing",
+    "destination": "/pricing/ujet-packages/",
     "permanent": true
   },
   {
@@ -276,12 +276,7 @@
   },
   {
     "source": "/packages",
-    "destination": "/pricing",
-    "permanent": true
-  },
-  {
-    "source": "/shop",
-    "destination": "/pricing",
+    "destination": "/pricing/ujet-packages/",
     "permanent": true
   },
   {

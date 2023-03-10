@@ -27,7 +27,7 @@ export default function ReviewOrder({ seo }) {
       !Boolean(formData?.contactInfo) ||
       (!formData?.freeFlow && !Boolean(formData?.primaryId))
     ) {
-      window.location.replace("/pricing");
+      window.location.replace("/shop");
     } else {
       if (!formData?.freeFlow) {
         createOrderPreview();
