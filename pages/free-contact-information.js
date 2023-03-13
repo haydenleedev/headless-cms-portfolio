@@ -15,7 +15,7 @@ export default function ContactInformation({ formID, seo }) {
   const { formData } = useContext(GlobalContext);
   useEffect(() => {
     if (!Boolean(formData?.freeFlow)) {
-      window.location.replace("/shop");
+      window.location.replace("/pricing");
     }
   }, []);
 

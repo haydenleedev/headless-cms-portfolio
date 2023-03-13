@@ -92,11 +92,11 @@ const ShopSEO = ({ seo, children }) => {
           id="web-page-structured-data"
           dangerouslySetInnerHTML={{
             __html: webPage({
-              url: process.env.NEXT_PUBLIC_SITE_URL + "/shop",
+              url: process.env.NEXT_PUBLIC_SITE_URL + "/pricing",
               name: seo.metaTitle,
               description: seo.metaDescription,
               breadcrumb: breadcrumbs(
-                process.env.NEXT_PUBLIC_SITE_URL + "/shop"
+                process.env.NEXT_PUBLIC_SITE_URL + "/pricing"
               ),
               speakable: speakable,
             }),
