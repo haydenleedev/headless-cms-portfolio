@@ -147,6 +147,8 @@ export const addGaData = ({
     const isWebinarPageForm = formType == "webinar";
     const isPartnerRequestForm = formType == "partnerRequest";
 
+    const isDealRegistrationForm = formType == "dealRegistration";
+
     let contactType;
     // If there is no future use for this currently unused function, it should be removed
     function getContactFormType() {
