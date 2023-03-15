@@ -147,6 +147,8 @@ export const addGaData = ({
     const isWebinarPageForm = formType == "webinar";
     const isPartnerRequestForm = formType == "partnerRequest";
 
+    const isDealRegistrationForm = formType == "dealRegistration";
+
     let contactType;
     // If there is no future use for this currently unused function, it should be removed
     function getContactFormType() {
@@ -258,6 +260,9 @@ export const addGaData = ({
     /* setFormInputValue("Asset Type", getAssetType(window.location.href)); */
     setFormInputValue("Asset URL", getAssetUrl);
 
+    // Get CLP values from url
+    const clpValue = getUrlParamValue("clp");
+
     // CLP & CLS default values
     let clpDefaultValue;
     let clsDefaultValue;
@@ -271,7 +276,7 @@ export const addGaData = ({
         clsDefaultValue = "CHANNEL";
         break;
       case "partnerRequest":
-        clpDefaultValue = "Request_to_Partner";
+        clpDefaultValue = "Request to Partner";
         clsDefaultValue = "CHANNEL";
         break;
       case "googleContact":
@@ -279,7 +284,10 @@ export const addGaData = ({
         clsDefaultValue = "ALLIANCES";
         break;
     }
-    if (clpDefaultValue) {
+
+    if (clpValue) {
+      setFormInputValue("Current Lead Program 2", clpValue, false);
+    } else if (clpDefaultValue) {
       setFormInputValue("Current Lead Program 2", clpDefaultValue, false);
     } else {
       setFormInputValue(

@@ -198,7 +198,7 @@ export default function Payment({ seo }) {
       console.log("contactInfo", formData?.contactInfo);
       console.log("freeFlow", formData?.freeFlow);
       console.log("primaryId", formData?.primaryId);
-      window.location.replace("/shop");
+      window.location.replace("/pricing");
     } else {
       window.addEventListener("message", handleCallbackResponse);
       getSignature();

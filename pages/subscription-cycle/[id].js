@@ -30,7 +30,7 @@ export default function Subscription({
 
   useEffect(() => {
     if (!Boolean(formData?.primaryId)) {
-      window.location.replace("/shop");
+      window.location.replace("/pricing");
     }
   }, []);
 

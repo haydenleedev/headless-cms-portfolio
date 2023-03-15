@@ -23,7 +23,7 @@ export default function ContactInformation({ seo }) {
       !Boolean(formData?.freeFlow) &&
       (!Boolean(formData?.primaryId) || !Boolean(formData?.licenses))
     ) {
-      window.location.replace("/shop");
+      window.location.replace("/pricing");
     }
     if (router.query.error) {
       setError(decodeURIComponent(router.query.error));

@@ -446,6 +446,7 @@ const formConfig = {
     { slug: "oracle", utmDefault: "deal_reg_google_oracle" },
     { slug: "successkpi", utmDefault: "deal_reg_google_successKPI" },
     { slug: "zendesk", utmDefault: "deal_reg_google_zendesk" },
+    { slug: "assembled", utmDefault: "deal_reg_google_assembled" },
   ],
   contactUsFieldOrder: [
     /first name/,
