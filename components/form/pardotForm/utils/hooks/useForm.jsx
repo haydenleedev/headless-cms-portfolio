@@ -246,8 +246,8 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
       gaStepNumber,
       gaStepNumberIsLast
     );
-
-    if (allStepsSubmitted /* && gaStepNumberIsLast */) {
+    /* uncomment to enable ga_steps conditional logic to step form */
+    if (allStepsSubmitted && gaStepNumberIsLast) {
       formRef.current["hiddenemail"].value = email;
       addGaData({
         gaDataAdded: false,
