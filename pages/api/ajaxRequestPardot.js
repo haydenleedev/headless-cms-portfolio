@@ -28,7 +28,6 @@ export default async function handler(req, res) {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
-      console.log(response);
       console.timeEnd("ajaxRequest");
       if (response.error) res.status(200).json({ success: false });
       res.status(200).json({ success: true });

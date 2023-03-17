@@ -559,7 +559,13 @@ export function isAdditionalSelectField(field, isDealRegistrationForm) {
 
 // returns the index of the next step that has fields which have not been sumbmitted previously.
 // returns a boolean 'true' value, if the there are no more steps to fill and thus the form should be submitted.
-export const getNextStepIndex = (currentStepIndex, submittedSteps) => {
+export const getNextStepIndex = (
+  currentStepIndex,
+  submittedSteps
+  /* uncomment to enable ga_steps conditional logic to step form */
+  //gaStepNumber,
+  //gaStepNumberIsLast
+) => {
   let nextIndex = currentStepIndex > -1 ? currentStepIndex + 1 : 0;
   let shouldSubmit = false;
   let stepsSkipped = 0;
@@ -569,10 +575,21 @@ export const getNextStepIndex = (currentStepIndex, submittedSteps) => {
       const allStepFieldsSubmitted = submittedFields
         .map((field) => field.submitted)
         .every((value) => value);
-      if (allStepFieldsSubmitted && i === submittedSteps.length - 1) {
+      if (
+        allStepFieldsSubmitted &&
+        i === submittedSteps.length - 1
+        /* uncomment to enable ga_steps conditional logic to step form */
+        //&& gaStepNumberIsLast
+      ) {
         shouldSubmit = true;
         break;
-      } else if (allStepFieldsSubmitted) {
+      } else if (
+        allStepFieldsSubmitted
+        /* uncomment to enable ga_steps conditional logic to step form */
+        //&& gaStepNumber
+        //&& i <= gaStepNumber - 1
+        //&& !gaStepNumberIsLast
+      ) {
         stepsSkipped++;
       } else {
         break;
