@@ -66,10 +66,10 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
   // Update fieldData to only contain the fields that are used in the current step (and hidden fields)
   const setFieldsToMatchStep = (
     step,
-    currentStepSubmittedFields
+    currentStepSubmittedFields,
     /* uncomment to enable ga_steps conditional logic to step form */
-    // nextStepIndex,
-    // gaStepNumber
+    nextStepIndex,
+    gaStepNumber
   ) => {
     let newFieldData = [...initialFieldData];
     if (step) {
@@ -84,11 +84,10 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
           ? currentStepSubmittedFields.find(
               (stepField) =>
                 stepField.name === field.name && stepField.submitted
-            )
-          : /* uncomment to enable ga_steps conditional logic to step form */
-            //&& gaStepNumber
-            //&& nextStepIndex <= gaStepNumber - 1
-            false;
+            ) /* uncomment to enable ga_steps conditional logic to step form */ &&
+            gaStepNumber &&
+            nextStepIndex <= gaStepNumber - 1
+          : false;
         if (
           (completedFound || !stepFieldFound) &&
           !isHiddenField(field, isDealRegistrationForm)
@@ -187,13 +186,13 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     const responseJSON = await response.json();
 
     /* uncomment to enable ga_steps conditional logic to step form */
-    //const gaStepNumber =
-    //  responseJSON?.submittedFields?.ga_steps?.length > 0
-    //    ? parseInt(responseJSON?.submittedFields?.ga_steps.replace(/\D/g, ""))
-    //    : null;
-    //
-    //const gaStepNumberIsLast =
-    //  responseJSON?.submittedFields?.ga_steps?.includes("last_step");
+    const gaStepNumber =
+      responseJSON?.submittedFields?.ga_steps?.length > 0
+        ? parseInt(responseJSON?.submittedFields?.ga_steps.replace(/\D/g, ""))
+        : null;
+
+    const gaStepNumberIsLast =
+      responseJSON?.submittedFields?.ga_steps?.includes("last_step");
 
     submittedStepFields = await checkForSubmittedFields(
       steps,
@@ -225,10 +224,10 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     // get the index of the next step that has fields to fill. Skip steps that have already been submitted
     const nextStepIndex = getNextStepIndex(
       state.currentStepIndex,
-      submittedStepFields
+      submittedStepFields,
       /* uncomment to enable ga_steps conditional logic to step form */
-      //gaStepNumber,
-      //gaStepNumberIsLast
+      gaStepNumber,
+      gaStepNumberIsLast
     );
     const currentStep = steps[nextStepIndex]?.fields?.formFields;
     const currentStepSubmittedFields = submittedStepFields
@@ -241,11 +240,11 @@ export const useForm = ({ props, pardotFormData, formConfig }) => {
     formRef.current.reset();
     setFieldsToMatchStep(
       currentStep,
-      currentStepSubmittedFields
+      currentStepSubmittedFields,
       /* uncomment to enable ga_steps conditional logic to step form */
-      // nextStepIndex,
-      // gaStepNumber,
-      // gaStepNumberIsLast
+      nextStepIndex,
+      gaStepNumber,
+      gaStepNumberIsLast
     );
 
     if (allStepsSubmitted /* && gaStepNumberIsLast */) {
