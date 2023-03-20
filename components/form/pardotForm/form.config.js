@@ -435,7 +435,7 @@ const formConfig = {
     "UJET Reseller Certification Program",
   ],
   dealRegistrationUtmDefaults: [
-    { slug: "google", utmDefault: "deal_reg_google_mp" },
+    { slug: "google", utmDefault: "deal_reg_google" },
     { slug: "kustomer", utmDefault: "deal_reg_google_kustomer" },
     { slug: "playvox", utmDefault: "deal_reg_google_playvox" },
     { slug: "acqueon", utmDefault: "deal_reg_google_acqueon" },
