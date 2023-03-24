@@ -155,6 +155,9 @@ export const addGaData = (
     const isGoogleContactCCAIPForm =
       formType == "contactUs" && contactTypeValue == "googleContactCCAIP";
 
+    const isWfmRequestDemoForm =
+      formType == "contactUs" && contactTypeValue == "wfmRequestDemo";
+
     let contactType;
     // If there is no future use for this currently unused function, it should be removed
     function getContactFormType() {
@@ -210,6 +213,8 @@ export const addGaData = (
       setFormInputValue("utm_campaign", "request_to_partner");
     } else if (!utmCampaignValue && isContactSalesForm) {
       setFormInputValue("utm_campaign", "contact_sales");
+    } else if (!utmCampaignValue && isWfmRequestDemoForm) {
+      setFormInputValue("utm_campaign", "request_demo_wfm");
     } else if (!utmCampaignValue && isRequestDemoForm) {
       setFormInputValue("utm_campaign", "request_demo");
     } else if (!utmCampaignValue && isDealRegistrationForm) {
@@ -227,6 +232,8 @@ export const addGaData = (
       setFormInputValue("utm_asset", "request_to_partner");
     } else if (isContactSalesForm) {
       setFormInputValue("utm_asset", "contact_sales");
+    } else if (isWfmRequestDemoForm) {
+      setFormInputValue("utm_asset", "request_demo_wfm");
     } else if (isRequestDemoForm) {
       setFormInputValue("utm_asset", "request_demo");
     } else if (isDealRegistrationForm) {
@@ -246,7 +253,8 @@ export const addGaData = (
       (!utmSourceValue && isContactSalesForm) ||
       (!utmSourceValue && isRequestDemoForm) ||
       (!utmSourceValue && isGoogleRequestDemoForm) ||
-      (!utmSourceValue && isGoogleContactCCAIPForm)
+      (!utmSourceValue && isGoogleContactCCAIPForm) ||
+      (!utmSourceValue && isWfmRequestDemoForm)
     ) {
       setFormInputValue("utm_source", "ujet");
     }
@@ -259,7 +267,8 @@ export const addGaData = (
       (!utmMediumValue && isContactSalesForm) ||
       (!utmMediumValue && isRequestDemoForm) ||
       (!utmMediumValue && isGoogleRequestDemoForm) ||
-      (!utmMediumValue && isGoogleContactCCAIPForm)
+      (!utmMediumValue && isGoogleContactCCAIPForm) ||
+      (!utmMediumValue && isWfmRequestDemoForm)
     ) {
       setFormInputValue("utm_medium", "Website");
     }

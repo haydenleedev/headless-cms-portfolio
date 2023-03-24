@@ -102,6 +102,9 @@ class PardotForm extends Component {
         case "google_ccaip_contact_us":
           this.contactTypeValue = "googleContactCCAIP";
           break;
+        case "wfm_request_a_demo":
+          this.contactTypeValue = "wfmRequestDemo";
+          break;
       }
 
       const stripQueryStringAndHashFromPath = (url) => {
