@@ -176,6 +176,13 @@
             overflow: hidden;
             box-shadow: 0 0 1rem -0.25rem $color-darkmediumgray;
             width: max-content;
+            img {
+              max-width: 2.75rem;
+              max-height: 2.75rem;
+              min-width: 2.75rem;
+              min-height: 2.75rem;
+              object-fit: contain;
+            }
 
             &.svgMediaContainer {
               img {
