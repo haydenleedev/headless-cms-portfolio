@@ -51,16 +51,16 @@ const FlexColumnTableWithHeading = ({
               }}
             >
               {tableColumns.map((column, i) => (
-                <ul className={style.tableColumn} key={i}>
-                  <li className={style.columnTitle}>
-                    {column.fields.columnTitle}
-                  </li>
+                <table className={style.tableColumn} key={i}>
+                  <tr className={style.columnTitle}>
+                    <th>{column.fields.columnTitle}</th>
+                  </tr>
                   {column.fields.cells.map((cell, j) => (
-                    <li key={j} className={style.columnCell}>
-                      {cell.fields.value}
-                    </li>
+                    <tr key={j} className={style.columnCell}>
+                      <td>{cell.fields.value}</td>
+                    </tr>
                   ))}
-                </ul>
+                </table>
               ))}
             </div>
           )}

@@ -5,8 +5,8 @@
   position: relative;
   .content {
     .tableWrapper {
-      border-radius: 1.25rem;
-      padding: 3rem 0 1rem 0;
+      border-radius: 1rem;
+      padding: 3rem 0 0.75rem 0;
       .headingWrapper {
         padding-bottom: 1rem;
         padding-left: 1rem;
@@ -23,39 +23,56 @@
           padding: unset;
           margin: unset;
           .columnTitle {
-            font-weight: bold;
-            padding-bottom: 0.5rem;
-            @include touch() {
-              padding-top: 2rem;
-              border-top: 1px solid #c2ddef;
+            th {
+              font-weight: bold;
+              padding-bottom: 0.5rem;
+              display: flex !important;
+              @include touch() {
+                padding-top: 2rem;
+                border-top: 1px solid #c2ddef;
+              }
             }
           }
           .columnTitle,
           .columnCell {
-            list-style: none;
-            padding-left: 1rem;
-            @include desktop() {
-              padding-left: unset;
+            display: block;
+            height: max-content;
+            th,
+            td {
+              display: block;
+              padding-top: 0.75rem;
+              padding-left: 1rem;
+              @include desktop() {
+                padding-left: unset;
+              }
             }
           }
           .columnCell {
-            min-height: 4rem;
-            font-size: 1rem;
-            padding-right: 1.5rem;
+            td {
+              min-height: 4rem;
+              font-size: 1rem;
+              padding-right: 1.5rem;
+            }
           }
 
           @include desktop() {
             &:first-child {
               .columnTitle,
               .columnCell {
-                padding-left: 2rem;
+                td,
+                th {
+                  padding-left: 2rem;
+                }
               }
             }
 
             &:last-child {
               .columnTitle,
               .columnCell {
-                padding-right: 2rem;
+                td,
+                th {
+                  padding-right: 2rem;
+                }
               }
             }
           }
