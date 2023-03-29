@@ -1,0 +1,94 @@
+@import "~/styles/settings/mixins";
+@import "~/styles/settings/colors";
+
+.flexColumnTableWithHeading {
+  position: relative;
+  .content {
+    .tableWrapper {
+      border-radius: 1.25rem;
+      padding: 3rem 0 1rem 0;
+      .headingWrapper {
+        padding-bottom: 1rem;
+        padding-left: 1rem;
+        @include desktop() {
+          padding-left: 2rem;
+        }
+      }
+      .table {
+        display: grid;
+        @include touch() {
+          grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        }
+        .tableColumn {
+          padding: unset;
+          margin: unset;
+          .columnTitle {
+            font-weight: bold;
+            padding-bottom: 0.5rem;
+            @include touch() {
+              padding-top: 2rem;
+              border-top: 1px solid #c2ddef;
+            }
+          }
+          .columnTitle,
+          .columnCell {
+            list-style: none;
+            padding-left: 1rem;
+            @include desktop() {
+              padding-left: unset;
+            }
+          }
+          .columnCell {
+            min-height: 4rem;
+            font-size: 1rem;
+            padding-right: 1.5rem;
+          }
+
+          @include desktop() {
+            &:first-child {
+              .columnTitle,
+              .columnCell {
+                padding-left: 2rem;
+              }
+            }
+
+            &:last-child {
+              .columnTitle,
+              .columnCell {
+                padding-right: 2rem;
+              }
+            }
+          }
+        }
+      }
+      &.paleblue {
+        border: 1px solid #c2ddef;
+        background-color: white;
+        .table {
+          .tableColumn {
+            .columnCell {
+              background-color: white;
+              &:nth-child(even) {
+                background-color: #e8f6ff;
+              }
+            }
+          }
+        }
+      }
+
+      &.gray {
+        background-color: #e8e9f6;
+        .table {
+          .tableColumn {
+            .columnCell {
+              background-color: #e7e9f8;
+              &:nth-child(even) {
+                background-color: #dadde9;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
