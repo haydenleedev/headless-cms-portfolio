@@ -93,16 +93,10 @@ const TextWithFormContent = ({
     if (utmCampaignValue) {
       return utmCampaignValue;
     } else {
-      return fields.uTMCampaignAsset ? fields.uTMCampaignAsset : null;
+      return fields?.uTMCampaignAsset ? fields?.uTMCampaignAsset : null;
     }
   };
-  const setUtmAssetValue = () => {
-    if (fields.uTMCampaignAsset) {
-      return fields.uTMCampaignAsset;
-    } else {
-      return null;
-    }
-  };
+
   const setClpValue = () => {
     if (clpValue) {
       return clpValue;
@@ -213,7 +207,9 @@ const TextWithFormContent = ({
                   ? setUtmCampaignValue(window.location.href)
                   : null
               }
-              utmAsset={typeof window !== "undefined" && setUtmAssetValue()}
+              utmAsset={
+                fields.uTMCampaignAsset ? fields?.uTMCampaignAsset : null
+              }
               clpField={
                 typeof window !== "undefined"
                   ? setClpValue(window.location.href)

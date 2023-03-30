@@ -14,6 +14,7 @@ const EmailStep = ({ steps, emailStepButtonText }) => {
     handleSetGaDataAdded,
     isDealRegistrationForm,
     contactType,
+    utmAsset,
   } = useContext(PardotFormContext);
   const emailRef = useRef(null);
   const [emailError, setEmailError] = useState(false);
@@ -50,6 +51,7 @@ const EmailStep = ({ steps, emailStepButtonText }) => {
               isDealRegistrationForm,
               formType: state.formType,
               contactTypeValue: contactType,
+              uTMCampaignAssetValue: utmAsset,
             });
           }}
         />

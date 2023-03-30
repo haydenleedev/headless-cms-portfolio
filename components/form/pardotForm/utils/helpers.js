@@ -40,6 +40,7 @@ export const addGaData = ({
   contactTypeValue,
   currentStepIndex,
   isLastStep,
+  uTMCampaignAssetValue,
 }) => {
   if (!gaDataAdded) {
     // Loop and append randomized UID
@@ -128,7 +129,7 @@ export const addGaData = ({
     let getAssetUrl = window.location.href.split("?")[0];
 
     // Values based on URL parameters
-    const utmCampaignValue = getUrlParamValue("utm_campaign");
+
     const isGoogleContactForm = formType == "googleContact";
     const isChannelRequestForm = formType == "channelRequest";
 
@@ -177,47 +178,82 @@ export const addGaData = ({
     }
 
     // Set the default utm_campaign values if statement in this part has the condition !utmCampaignValue
+    const utmCampaignValue = getUrlParamValue("utm_campaign");
     if (utmCampaignValue) {
       setFormInputValue("utm_campaign", utmCampaignValue);
-    } else if (!utmCampaignValue && isGoogleContactForm) {
+    } else if (
+      !utmCampaignValue &&
+      !uTMCampaignAssetValue &&
+      isGoogleContactForm
+    ) {
       setFormInputValue("utm_campaign", "gmp_contact_sales");
-    } else if (!utmCampaignValue && isChannelRequestForm) {
+    } else if (
+      !utmCampaignValue &&
+      !uTMCampaignAssetValue &&
+      isChannelRequestForm
+    ) {
       setFormInputValue("utm_campaign", "request_to_partner");
-    } else if (!utmCampaignValue && isContactSalesForm) {
+    } else if (
+      !utmCampaignValue &&
+      !uTMCampaignAssetValue &&
+      isContactSalesForm
+    ) {
       setFormInputValue("utm_campaign", "contact_sales");
-    } else if (!utmCampaignValue && isRequestDemoForm) {
+    } else if (
+      !utmCampaignValue &&
+      !uTMCampaignAssetValue &&
+      isRequestDemoForm
+    ) {
       setFormInputValue("utm_campaign", "request_demo");
-    } else if (!utmCampaignValue && isGoogleRequestDemoForm) {
+    } else if (
+      !utmCampaignValue &&
+      !uTMCampaignAssetValue &&
+      isGoogleRequestDemoForm
+    ) {
       setFormInputValue("utm_campaign", "request_demo_google_ccaip_ujet");
-    } else if (!utmCampaignValue && isGoogleCcaipContactForm) {
+    } else if (
+      !utmCampaignValue &&
+      !uTMCampaignAssetValue &&
+      isGoogleCcaipContactForm
+    ) {
       setFormInputValue("utm_campaign", "contact_sales_google_ccaip_ujet");
-    } else if (!utmCampaignValue && isDealRegistrationForm) {
+    } else if (
+      !utmCampaignValue &&
+      !uTMCampaignAssetValue &&
+      isDealRegistrationForm
+    ) {
       setFormInputValue(
         "utm_campaign",
         getDealRegistrationUtmDefaultValue(window.location.href)
       );
+    } else if (!utmCampaignValue && uTMCampaignAssetValue) {
+      setFormInputValue("utm_campaign", uTMCampaignAssetValue);
     }
 
     // Set the default utm_asset values for specific form type. This values are not by overwritten with url parameter.
 
-    if (isGoogleContactForm) {
+    if (isGoogleContactForm && !uTMCampaignAssetValue) {
       setFormInputValue("utm_asset", "gmp_contact_sales");
-    } else if (isChannelRequestForm) {
+    } else if (isChannelRequestForm && !uTMCampaignAssetValue) {
       setFormInputValue("utm_asset", "request_to_partner");
-    } else if (isContactSalesForm) {
+    } else if (isContactSalesForm && !uTMCampaignAssetValue) {
       setFormInputValue("utm_asset", "contact_sales");
-    } else if (isRequestDemoForm) {
+    } else if (isRequestDemoForm && !uTMCampaignAssetValue) {
       setFormInputValue("utm_asset", "request_demo");
-    } else if (isGoogleRequestDemoForm) {
+    } else if (isGoogleRequestDemoForm && !uTMCampaignAssetValue) {
       setFormInputValue("utm_asset", "request_demo_google_ccaip_ujet");
-    } else if (isGoogleCcaipContactForm) {
+    } else if (isGoogleCcaipContactForm && !uTMCampaignAssetValue) {
       setFormInputValue("utm_asset", "contact_sales_google_ccaip_ujet");
-    } else if (isDealRegistrationForm) {
+    } else if (isDealRegistrationForm && !uTMCampaignAssetValue) {
       setFormInputValue(
         "utm_asset",
         getDealRegistrationUtmDefaultValue(window.location.href)
       );
+    } else if (uTMCampaignAssetValue) {
+      setFormInputValue("utm_asset", uTMCampaignAssetValue);
     }
+
+    console.log("uTMCampaignAssetValue: ", uTMCampaignAssetValue);
 
     // Set the default utm_source values
     const utmSourceValue = getUrlParamValue("utm_source");

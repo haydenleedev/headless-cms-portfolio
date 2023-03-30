@@ -100,6 +100,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
               isDealRegistrationForm,
               formType: state.formType,
               contactTypeValue: contactType,
+              uTMCampaignAssetValue: utmAsset,
             });
           }}
           ref={fieldRef}
