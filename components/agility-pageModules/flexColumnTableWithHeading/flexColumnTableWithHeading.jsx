@@ -35,7 +35,7 @@ const FlexColumnTableWithHeading = ({
   const sectionHeading = heading ? JSON.parse(heading) : null;
 
   const headingRow = tableRows?.find((row) => boolean(row.fields.isHeadingRow));
-  const rowTableColumnCount = headingRow.fields.cells.length;
+  const rowTableColumnCount = headingRow?.fields.cells.length;
 
   const longestColumn = tableColumns?.reduce((prev, current) =>
     prev.fields.cells.length > current.fields.cells.length ? prev : current
