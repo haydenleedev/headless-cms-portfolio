@@ -6,56 +6,24 @@
   .content {
     .tableWrapper {
       border-radius: 1rem;
-      padding: 3rem 0 0.75rem 0;
+      padding: 3rem 0 0 0;
+      overflow: hidden;
       .headingWrapper {
         padding-bottom: 1rem;
         padding-left: 1rem;
-        @include desktop() {
+        @include largeDesktop() {
           padding-left: 2rem;
         }
       }
-      .table {
+      .columnTable {
         display: grid;
-        @include touch() {
+        @include largeTouch() {
           grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
         }
         .tableColumn {
           padding: unset;
           margin: unset;
-          .columnTitle {
-            th {
-              font-weight: bold;
-              padding-bottom: 0.5rem;
-              display: flex !important;
-              @include touch() {
-                padding-top: 2rem;
-                border-top: 1px solid #c2ddef;
-              }
-            }
-          }
-          .columnTitle,
-          .columnCell {
-            display: block;
-            height: max-content;
-            th,
-            td {
-              display: block;
-              padding-top: 0.75rem;
-              padding-left: 1rem;
-              @include desktop() {
-                padding-left: unset;
-              }
-            }
-          }
-          .columnCell {
-            td {
-              min-height: 4rem;
-              font-size: 1rem;
-              padding-right: 1.5rem;
-            }
-          }
-
-          @include desktop() {
+          @include largeDesktop() {
             &:first-child {
               .columnTitle,
               .columnCell {
@@ -76,18 +44,102 @@
               }
             }
           }
+          .columnCell {
+            td {
+              min-height: 4rem;
+              font-size: 1rem;
+              padding-right: 1.5rem;
+            }
+          }
+        }
+      }
+      .rowTable {
+        width: 100%;
+        .columnTitle,
+        .columnCell {
+          th,
+          td {
+            font-size: 1rem;
+          }
+          display: grid !important;
+          @include largeTouch() {
+            grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+          }
+          @include largeDesktop() {
+            td,
+            th {
+              &:first-child {
+                padding-left: 2rem;
+              }
+
+              &:last-child {
+                padding-right: 2rem;
+              }
+            }
+          }
+        }
+        .columnCell {
+          td {
+            @include largeDesktop() {
+              min-height: 4rem;
+              padding-right: 1.5rem;
+            }
+          }
+        }
+      }
+      .columnTable,
+      .rowTable {
+        .columnTitle {
+          th {
+            font-weight: bold;
+            padding-bottom: 0.5rem;
+            display: flex !important;
+            @include largeTouch() {
+              padding-top: 2rem;
+              border-top: 1px solid #c2ddef;
+            }
+          }
+        }
+        .columnTitle,
+        .columnCell {
+          display: block;
+          height: max-content;
+          th,
+          td {
+            display: block;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-left: 1rem;
+            border-bottom: unset;
+            @include largeDesktop() {
+              padding-top: 0.75rem;
+              padding-left: unset;
+              padding-bottom: unset;
+            }
+          }
+        }
+
+        thead,
+        tbody {
+          display: block;
         }
       }
       &.paleblue {
         border: 1px solid #c2ddef;
         background-color: white;
-        .table {
-          .tableColumn {
-            .columnCell {
-              background-color: white;
-              &:nth-child(even) {
-                background-color: #e8f6ff;
-              }
+        .columnTable {
+          .columnCell {
+            background-color: white;
+            &:nth-child(odd) {
+              background-color: #e8f6ff;
+            }
+          }
+        }
+        .rowTable {
+          .columnCell {
+            background-color: white;
+            &:nth-child(even) {
+              background-color: #e8f6ff;
             }
           }
         }
@@ -95,13 +147,19 @@
 
       &.gray {
         background-color: #e8e9f6;
-        .table {
-          .tableColumn {
-            .columnCell {
-              background-color: #e7e9f8;
-              &:nth-child(even) {
-                background-color: #dadde9;
-              }
+        .columnTable {
+          .columnCell {
+            background-color: #e7e9f8;
+            &:nth-child(odd) {
+              background-color: #dadde9;
+            }
+          }
+        }
+        .rowTable {
+          .columnCell {
+            background-color: #e7e9f8;
+            &:nth-child(even) {
+              background-color: #dadde9;
             }
           }
         }
