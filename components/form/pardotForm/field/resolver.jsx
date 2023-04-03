@@ -32,6 +32,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
     utmCampaign,
     utmAsset,
     assetType,
+    currentLeadSource2,
   } = useContext(PardotFormContext);
 
   // Manually set data format for certain fields, as they are not set correctly in Pardot
@@ -101,6 +102,7 @@ const FieldResolver = ({ field, index, fieldRef }) => {
               formType: state.formType,
               contactTypeValue: contactType,
               uTMCampaignAssetValue: utmAsset,
+              currentLeadSource2Value: currentLeadSource2,
             });
           }}
           ref={fieldRef}

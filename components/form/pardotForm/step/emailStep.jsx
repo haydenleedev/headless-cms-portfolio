@@ -52,6 +52,7 @@ const EmailStep = ({ steps, emailStepButtonText }) => {
               formType: state.formType,
               contactTypeValue: contactType,
               uTMCampaignAssetValue: utmAsset,
+              currentLeadSource2Value: currentLeadSource2,
             });
           }}
         />

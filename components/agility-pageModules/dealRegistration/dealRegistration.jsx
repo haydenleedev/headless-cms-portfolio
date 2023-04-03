@@ -87,7 +87,9 @@ const DealRegistration = ({ dynamicPageItem, customData }) => {
                 }}
                 recordTypeId="0121I0000007LYlQAM"
                 clsField={
-                  deal.currentLeadSource ? deal.currentLeadSource : "ALLIANCES"
+                  deal.currentLeadSource2
+                    ? deal.currentLeadSource2
+                    : "ALLIANCES"
                 }
               />
             </div>

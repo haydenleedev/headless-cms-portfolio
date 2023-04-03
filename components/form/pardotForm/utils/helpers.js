@@ -41,6 +41,7 @@ export const addGaData = ({
   currentStepIndex,
   isLastStep,
   uTMCampaignAssetValue,
+  currentLeadSource2Value,
 }) => {
   if (!gaDataAdded) {
     // Loop and append randomized UID
@@ -253,7 +254,7 @@ export const addGaData = ({
       setFormInputValue("utm_asset", uTMCampaignAssetValue);
     }
 
-    console.log("uTMCampaignAssetValue: ", uTMCampaignAssetValue);
+    console.log("currentLeadSource2Value: ", currentLeadSource2Value);
 
     // Set the default utm_source values
     const utmSourceValue = getUrlParamValue("utm_source");
@@ -317,7 +318,7 @@ export const addGaData = ({
         break;
       case "googleContact":
         clpDefaultValue = "Partner_Program";
-        clsDefaultValue = "ALLIANCES";
+        clsDefaultValue = "OEM";
         break;
     }
 
@@ -332,8 +333,14 @@ export const addGaData = ({
         false
       );
     }
-    if (clsDefaultValue) {
+    if (clsDefaultValue && !currentLeadSource2Value) {
       setFormInputValue("Current Lead Source 2", clsDefaultValue, false);
+    } else if (currentLeadSource2Value) {
+      setFormInputValue(
+        "Current Lead Source 2",
+        currentLeadSource2Value,
+        false
+      );
     } else {
       setFormInputValue("Current Lead Source 2", "MKTG", false);
     }
