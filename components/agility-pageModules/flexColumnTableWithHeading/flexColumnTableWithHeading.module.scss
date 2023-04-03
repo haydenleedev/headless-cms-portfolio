@@ -4,17 +4,13 @@
 .flexColumnTableWithHeading {
   position: relative;
   .content {
+    &.narrow {
+      max-width: 37rem;
+    }
     .tableWrapper {
       border-radius: 1rem;
       padding: 3rem 0 0 0;
       overflow: hidden;
-      .headingWrapper {
-        padding-bottom: 1rem;
-        padding-left: 1rem;
-        @include largeDesktop() {
-          padding-left: 2rem;
-        }
-      }
       .columnTable {
         display: grid;
         @include largeTouch() {
@@ -43,13 +39,30 @@
                 }
               }
             }
+            .columnCell,
+            .columnTitle {
+              th,
+              td {
+                padding-bottom: 0.5rem;
+              }
+            }
           }
           .columnCell {
             td {
-              min-height: 4rem;
+              min-height: 4.5rem;
               font-size: 1rem;
-              padding-right: 1.5rem;
             }
+          }
+          .columnCell,
+          .columnTitle {
+            display: block;
+            td {
+              display: block;
+            }
+          }
+          thead,
+          tbody {
+            display: block;
           }
         }
       }
@@ -59,20 +72,13 @@
         .columnCell {
           td {
             font-size: 1rem;
-          }
-          display: grid !important;
-          @include largeTouch() {
-            grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+            padding: 0.9rem;
           }
           @include largeDesktop() {
             td,
             th {
               &:first-child {
-                padding-left: 2rem;
-              }
-
-              &:last-child {
-                padding-right: 2rem;
+                padding-left: 1rem;
               }
             }
           }
@@ -90,23 +96,23 @@
       .rowTable {
         .columnTitle {
           th {
+            text-align: start;
             font-weight: bold;
             padding-bottom: 0.5rem;
-            display: flex !important;
             border-bottom: unset;
             font-size: 1.2rem;
-            @include largeTouch() {
+          }
+          @include largeTouch() {
+            border-top: 1px solid #c2ddef;
+            th {
               padding-top: 2rem;
-              border-top: 1px solid #c2ddef;
             }
           }
         }
         .columnTitle,
         .columnCell {
-          display: block;
           height: max-content;
           td {
-            display: block;
             padding-top: 1rem;
             padding-bottom: 1rem;
             padding-left: 1rem;
@@ -114,7 +120,7 @@
             @include largeDesktop() {
               padding-top: 0.75rem;
               padding-left: unset;
-              padding-bottom: unset;
+              /*             padding-bottom: unset; */
             }
           }
           th {
@@ -125,16 +131,32 @@
             }
           }
         }
-
-        thead,
-        tbody {
-          display: block;
-        }
       }
       &.paleblue {
-        border: 1px solid #c2ddef;
-        background-color: white;
+        border-radius: unset;
+        .headingWrapper {
+          text-align: center;
+          padding-bottom: 2rem;
+        }
         .columnTable {
+          border: 1px solid #c2ddef;
+          background-color: white;
+          .columnCell {
+            background-color: white;
+            &:nth-child(even) {
+              background-color: #e8f6ff;
+            }
+          }
+        }
+        .rowTable {
+          border: 1px solid #c2ddef;
+          background-color: white;
+          .columnTitle {
+            th {
+              font-size: 1.1rem;
+              padding: 0.9rem;
+            }
+          }
           .columnCell {
             background-color: white;
             &:nth-child(odd) {
@@ -142,18 +164,24 @@
             }
           }
         }
+        .columnTable,
         .rowTable {
-          .columnCell {
-            background-color: white;
-            &:nth-child(even) {
-              background-color: #e8f6ff;
-            }
+          .columnTitle {
+            background-color: $color-lightblue;
+            color: white;
           }
         }
       }
 
       &.gray {
         background-color: #e8e9f6;
+        .headingWrapper {
+          padding-bottom: 1rem;
+          padding-left: 1rem;
+          @include largeDesktop() {
+            padding-left: 2rem;
+          }
+        }
         .columnTable {
           .columnCell {
             background-color: #e7e9f8;
@@ -167,6 +195,17 @@
             background-color: #e7e9f8;
             &:nth-child(even) {
               background-color: #dadde9;
+            }
+          }
+          .columnTitle,
+          .columnCell {
+            @include largeDesktop() {
+              td,
+              th {
+                &:first-child {
+                  padding-left: 2rem;
+                }
+              }
             }
           }
         }

@@ -18,6 +18,7 @@ const FlexColumnTableWithHeading = ({
       paddingBottom,
       backgroundColor,
       tableRowsColorScheme,
+      narrowTable,
       tableColumns,
       tableRows,
       heading,
@@ -66,7 +67,11 @@ const FlexColumnTableWithHeading = ({
         [pbValue]: true,
       })}
     >
-      <div className={`container ${style.content}`}>
+      <div
+        className={`container ${style.content} ${
+          boolean(narrowTable) ? style.narrow : ""
+        }`}
+      >
         <div className={cn([style.tableWrapper, style[tableRowsColorScheme]])}>
           <div className={style.headingWrapper}>
             <Heading {...sectionHeading} />
@@ -74,7 +79,7 @@ const FlexColumnTableWithHeading = ({
           {tableRows?.length > 0 ? (
             <table className={style.rowTable}>
               {tableRows
-                .sort((prev, current) => {
+                ?.sort((prev, current) => {
                   if (
                     boolean(prev.isHeadingRow) &&
                     !boolean(current.isHeadingRow)
