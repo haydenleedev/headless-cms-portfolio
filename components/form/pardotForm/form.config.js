@@ -439,7 +439,7 @@ const formConfig = {
     { slug: "kustomer", utmDefault: "deal_reg_kustomer" },
     { slug: "playvox", utmDefault: "deal_reg_playvox" },
     { slug: "acqueon", utmDefault: "deal_reg_acqueon" },
-    { slug: "aws", utmDefault: "deal_reg_google_aws" },
+    { slug: "aws", utmDefault: "deal_reg_aws" },
     { slug: "calabrio", utmDefault: "deal_reg_calabrio" },
     { slug: "intercom", utmDefault: "deal_reg_intercom" },
     { slug: "observe-ai", utmDefault: "deal_reg_observe" },
