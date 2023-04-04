@@ -52,6 +52,12 @@
     }
     .awards {
       align-items: center;
+      > div {
+        max-width: 90%;
+        @include desktop() {
+          max-width: 100%;
+        }
+      }
       .awardImage {
         padding: unset !important;
         display: flex;
