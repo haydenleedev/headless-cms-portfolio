@@ -59,6 +59,12 @@
             td {
               display: block;
             }
+            @include largeDesktop() {
+              td,
+              th {
+                padding-left: unset;
+              }
+            }
           }
           thead,
           tbody {
@@ -119,13 +125,10 @@
             border-bottom: unset;
             @include largeDesktop() {
               padding-top: 0.75rem;
-              padding-left: unset;
-              /*             padding-bottom: unset; */
             }
           }
           th {
             @include largeDesktop() {
-              padding-left: unset;
               padding-top: 0.75rem;
               padding-bottom: 0.5rem;
             }
