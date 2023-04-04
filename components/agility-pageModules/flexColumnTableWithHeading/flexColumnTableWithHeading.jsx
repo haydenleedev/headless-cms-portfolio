@@ -103,9 +103,9 @@ const FlexColumnTableWithHeading = ({
                         gridTemplateColumns: `repeat(${rowTableColumnCount}, minmax(0, 1fr))`,
                       }}
                     >
-                      {row.fields.cells
-                        .slice(0, rowTableColumnCount)
-                        .map((cell, j) => (
+                      {row.fields?.cells
+                        ?.slice(0, rowTableColumnCount)
+                        ?.map((cell, j) => (
                           <th key={j}>{cell.fields.value}</th>
                         ))}
                     </tr>
@@ -119,8 +119,8 @@ const FlexColumnTableWithHeading = ({
                     >
                       {isMobile
                         ? row.fields.cells
-                            .slice(0, rowTableColumnCount)
-                            .map((cell, j) => (
+                            ?.slice(0, rowTableColumnCount)
+                            ?.map((cell, j) => (
                               <td key={j}>
                                 <b>
                                   {headingRow.fields.cells[j].fields.value}:
@@ -129,8 +129,8 @@ const FlexColumnTableWithHeading = ({
                               </td>
                             ))
                         : row.fields.cells
-                            .slice(0, rowTableColumnCount)
-                            .map((cell, j) => (
+                            ?.slice(0, rowTableColumnCount)
+                            ?.map((cell, j) => (
                               <td key={j}>{cell.fields.value}</td>
                             ))}
                     </tr>
@@ -146,7 +146,7 @@ const FlexColumnTableWithHeading = ({
                     gridTemplateColumns: `repeat(${tableColumns.length}, minmax(0, 1fr))`,
                   }}
                 >
-                  {tableColumns.map((column, i) => (
+                  {tableColumns?.map((column, i) => (
                     <table className={style.tableColumn} key={i}>
                       <thead>
                         <tr className={style.columnTitle}>
@@ -158,7 +158,7 @@ const FlexColumnTableWithHeading = ({
                           .fill(0)
                           .map((key, j) => (
                             <tr key={j} className={style.columnCell}>
-                              <td>{column.fields.cells[j]?.fields?.value}</td>
+                              <td>{column.fields?.cells[j]?.fields?.value}</td>
                             </tr>
                           ))}
                       </tbody>
