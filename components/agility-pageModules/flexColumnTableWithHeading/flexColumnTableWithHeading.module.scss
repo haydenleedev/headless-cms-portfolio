@@ -78,7 +78,15 @@
         .columnCell {
           td {
             font-size: 1rem;
+          }
+          @include largeTouch() {
+            display: block;
             padding: 0.9rem;
+            td {
+              display: block;
+              width: 100%;
+              padding: 0 !important;
+            }
           }
           @include largeDesktop() {
             td,
@@ -86,6 +94,9 @@
               &:first-child {
                 padding-left: 1rem;
               }
+            }
+            td {
+              padding: 0.9rem;
             }
           }
         }
