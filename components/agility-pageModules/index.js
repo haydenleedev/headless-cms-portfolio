@@ -34,6 +34,10 @@ const AcknowledgePageContent = dynamic(() =>
   import("./acknowledgePageContent/acknowledgePageContent")
 );
 
+const FlexColumnTableWithHeading = dynamic(() =>
+  import("./flexColumnTableWithHeading/flexColumnTableWithHeading")
+);
+
 const BrandFirstFold = dynamic(() =>
   import("../../brand/components/brandFirstFold/brandFirstFold")
 );
@@ -166,6 +170,7 @@ const allModules = [
   { name: "BrandBlankCards", module: BrandBlankCards },
   { name: "BrandVideoPopup", module: BrandVideoPopup },
   { name: "LoadGoogleOptimizeScript", module: LoadGoogleOptimize },
+  { name: "FlexColumnTableWithHeading", module: FlexColumnTableWithHeading },
 ];
 
 export const getModule = (moduleName) => {

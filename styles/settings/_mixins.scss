@@ -8,13 +8,19 @@
 }
 
 @mixin largeDesktop() {
-  @media (min-width: 63rem) {
+  @media (min-width: var.$largeDesktop) {
     @content;
   }
 }
 
 @mixin touch() {
   @media (max-width: var.$touch) {
+    @content;
+  }
+}
+
+@mixin largeTouch() {
+  @media (max-width: var.$largeTouch) {
     @content;
   }
 }
@@ -120,7 +126,7 @@
 }
 
 @mixin focus-visible-outline() {
-  @supports #{'\selector(*:focus-visible)'} {
+  @supports #{"\selector(*:focus-visible)"} {
     &:not(:focus-visible) {
       outline: none !important;
     }
@@ -128,9 +134,9 @@
       @include outline();
     }
   }
-  @supports #{'\not selector(*:focus-visible)'} {
+  @supports #{"\not selector(*:focus-visible)"} {
     &:focus {
-      @include outline();  
+      @include outline();
     }
   }
 }

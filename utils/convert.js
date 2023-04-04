@@ -519,3 +519,10 @@ export const cleanText = (string) => {
   const cleanText = string.replace(/<\/?[^>]+(>|$)/g, "");
   return cleanText;
 };
+
+export const remToPixels = (rem) => {
+  return typeof window !== "undefined"
+    ? parseFloat(rem) *
+        parseFloat(getComputedStyle(document.documentElement).fontSize)
+    : null;
+};
