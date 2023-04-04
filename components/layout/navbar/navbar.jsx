@@ -157,20 +157,19 @@ const Navbar = ({ globalData }) => {
         role="navigation"
         aria-label="Main"
       >
-        <Link href="/">
-          <a
-            title="Navigate  to home page"
-            aria-label="Navigate to home page"
-            className={style.brand}
-          >
-            <img
-              className={style.logo}
-              src={logo.src}
-              width={logo.width}
-              height={logo.height}
-              alt="Ujet logo"
-            />
-          </a>
+        <Link
+          href="/"
+          title="Navigate  to home page"
+          aria-label="Navigate to home page"
+          className={style.brand}
+        >
+          <img
+            className={style.logo}
+            src={logo.src}
+            width={logo.width}
+            height={logo.height}
+            alt="Ujet logo"
+          />
         </Link>
         <button
           aria-label="Toggle main navigation menu"

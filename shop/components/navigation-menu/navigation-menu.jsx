@@ -202,10 +202,8 @@ class NavigationMenu extends Component {
             <ul className={nav.menu}>
               <li className={nav.logo}>
                 <Link href="https://ujet.cx" passHref>
-                  <a>
-                    UJET.cx, the world’s first and only CCaaS 3.0 cloud contact
-                    center provider.
-                  </a>
+                  UJET.cx, the world’s first and only CCaaS 3.0 cloud contact
+                  center provider.
                 </Link>
               </li>
             </ul>

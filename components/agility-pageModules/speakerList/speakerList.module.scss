@@ -43,19 +43,10 @@
         position: relative;
         display: flex;
         margin-bottom: 1rem;
-        & > span {
-          width: 100%;
-          &:first-child {
-            img {
-              max-width: 16.4375rem !important;
-              min-width: unset !important;
-              width: unset !important;
-              max-width: 100% !important;
-              height: unset !important;
-              object-fit: cover;
-              border-radius: 50%;
-            }
-          }
+        & > img {
+          max-width: 16.4375rem;
+          object-fit: cover;
+          border-radius: 50%;
         }
       }
     }

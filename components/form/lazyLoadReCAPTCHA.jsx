@@ -16,7 +16,10 @@ const LazyLoadReCAPTCHA = () => {
 
   return (
     <>
-      <span ref={intersectionRef}></span>
+      <span
+        ref={intersectionRef}
+        style={{ display: "block", height: "0", width: "0" }}
+      ></span>
       {shouldLoad && (
         <Script
           src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_ENTERPRISE_KEY}`}

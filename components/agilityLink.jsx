@@ -60,34 +60,31 @@ const AgilityLink = ({
       scroll={scroll}
       shallow={shallow}
       prefetch={prefetch}
-    >
-      <a
-        className={className}
-        title={title}
-        aria-label={ariaLabel}
-        rel={rel}
-        target={target}
-        onFocus={onFocus}
-        onClick={(e) => {
-          const sanitizedHref = sanitizeHref(href);
-          if (sanitizedHref.includes("#")) {
-            let hash;
-            if (sanitizedHref[0] == "#") {
-              hash = sanitizedHref;
-            } else if (sanitizedHref[0] == "/") {
-              hash = `#${sanitizedHref.split("#")[1]}`;
-            }
-            e.preventDefault();
-            // Reset the hash to allow anchor links to work more than once
-            if (window.location.hash) {
-              window.location.hash = "";
-            }
-            window.location.hash = hash;
+      className={className}
+      title={title}
+      aria-label={ariaLabel}
+      rel={rel}
+      target={target}
+      onFocus={onFocus}
+      onClick={(e) => {
+        const sanitizedHref = sanitizeHref(href);
+        if (sanitizedHref.includes("#")) {
+          let hash;
+          if (sanitizedHref[0] == "#") {
+            hash = sanitizedHref;
+          } else if (sanitizedHref[0] == "/") {
+            hash = `#${sanitizedHref.split("#")[1]}`;
           }
-        }}
-      >
-        {children}
-      </a>
+          e.preventDefault();
+          // Reset the hash to allow anchor links to work more than once
+          if (window.location.hash) {
+            window.location.hash = "";
+          }
+          window.location.hash = hash;
+        }
+      }}
+    >
+      {children}
     </Link>
   ) : null;
 };

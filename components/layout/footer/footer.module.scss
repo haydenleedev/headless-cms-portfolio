@@ -94,9 +94,8 @@
     grid-gap: 1rem;
     margin-top: 1.5rem;
     grid-template-columns: repeat(3, 1fr);
-
     img {
-      margin-right: 1.5rem;
+      width: 100%;
     }
   }
 }

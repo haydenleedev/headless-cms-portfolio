@@ -3,7 +3,15 @@
 // This api endpoint is used to prevent CORS error with sending a request to the pardot endpoint.
 export default async function handler(req, res) {
   try {
+    console.time("ajaxRequest");
     const parsedBody = JSON.parse(req.body);
+    if (
+      !parsedBody.formObject.Email ||
+      (parsedBody.formObject?.Email === "" &&
+        parsedBody.formObject?.hiddenemail !== "")
+    ) {
+      parsedBody.formObject.Email = parsedBody.formObject.hiddenemail;
+    }
     const formBody = Object.keys(parsedBody.formObject)
       .map(
         (key) =>
@@ -20,6 +28,7 @@ export default async function handler(req, res) {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       });
+      console.timeEnd("ajaxRequest");
       if (response.error) res.status(200).json({ success: false });
       res.status(200).json({ success: true });
     } else throw Error("No endpoint was provided.");

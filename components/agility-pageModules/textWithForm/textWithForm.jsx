@@ -1,7 +1,9 @@
 import dynamic from "next/dynamic";
 import style from "./textWithForm.module.scss";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
-import TextWithFormContent from "./textWithFormContent";
+const TextWithFormContent = dynamic(() => import("./textWithFormContent"), {
+  ssr: false,
+});
 
 const TextWithForm = ({ module, customData }) => {
   const { sanitizedHtml, featuredAwards, formConfiguration } = customData;
@@ -38,9 +40,6 @@ TextWithForm.getCustomInitialProps = async function ({
 }) {
   const api = agility;
 
-  // console.log("<<<<<<<< Pardot form data: ", JSON.stringify(pardotFormData));
-  // TODO: parse pardot form HTML if it's possible. Might not be in case it's returned only inside the embed iFrame...
-
   let featuredAwards = await api.getContentList({
     referenceName: "featuredawards",
     languageCode,
@@ -52,10 +51,12 @@ TextWithForm.getCustomInitialProps = async function ({
   });
   featuredAwards = featuredAwards.items[0].fields.awards;
 
-  const formConfiguration = await api.getContentList({
+  const formConfiguration = await api.getContentItem({
     referenceName: "formconfiguration",
     expandAllContentLinks: true,
     languageCode,
+    contentLinkDepth: 4,
+    contentID: 6018,
   });
 
   const sanitizeHtml = (await import("sanitize-html")).default;
@@ -67,7 +68,7 @@ TextWithForm.getCustomInitialProps = async function ({
   return {
     sanitizedHtml,
     featuredAwards,
-    formConfiguration,
+    formConfiguration: formConfiguration.fields,
   };
 };
 

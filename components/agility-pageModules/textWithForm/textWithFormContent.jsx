@@ -6,6 +6,8 @@ import { useContext, useEffect } from "react";
 import GlobalContext from "../../../context";
 import { getUrlParamValue } from "../../../utils/getUrlParamValue";
 import { useMutationObserver } from "../../../utils/hooks";
+import { resolveFormSubmitButtonText } from "../../../utils/generic";
+import { useRouter } from "next/router";
 const Media = dynamic(() => import("../media"));
 const StarRating = dynamic(() => import("../../starRating/starRating"));
 const Heading = dynamic(() => import("../heading"));
@@ -24,28 +26,39 @@ const TextWithFormContent = ({
   const showAwards = boolean(fields?.showAwards);
   const heading = fields.heading ? JSON.parse(fields.heading) : null;
   const subheading = fields.subheading ? JSON.parse(fields.subheading) : null;
-  const linksStyle = fields?.linksStyle || "button";
 
   const formRightCollapsedChanges = () => {
     const form = formWrapperRef?.current?.querySelector?.("form");
     if (fields.layout === "formRightCollapsed" && form) {
       const visibleFields = form.querySelectorAll(
-        "form > div:not(.display-none)"
+        `form > label:not(.display-none):not(${style.removehoney})`
       );
+
       for (let row = 0; row < visibleFields.length; row++) {
-        if (
-          row === visibleFields.length - 2 &&
-          Array.from(visibleFields[row].children).length >= 2 &&
-          visibleFields[row].children[1].tagName === "INPUT"
-        ) {
-          visibleFields[row].style["grid-column"] = "1 / -1";
-        } else if (
-          row < visibleFields.length - 2 &&
-          Array.from(visibleFields[row].children).length >= 2 &&
-          visibleFields[row].children[1].tagName === "INPUT"
-        )
+        const lastInputField =
+          row === visibleFields.length - 1 &&
+          visibleFields[row].children[1].tagName === "INPUT";
+        const anyInputFieldButNotLast =
+          row < visibleFields.length - 1 &&
+          visibleFields[row].children[1].tagName === "INPUT" &&
+          (visibleFields[row + 1]?.children?.[1]?.tagName === "INPUT" ||
+            visibleFields[row - 1]?.children?.[1]?.tagName === "INPUT");
+
+        if (lastInputField) {
+          const previousIsHalfWidthInput =
+            visibleFields[row]?.previousSibling?.children?.[1]?.tagName ===
+              "INPUT" &&
+            visibleFields[row]?.previousSibling?.style["grid-column"] ===
+              "unset" &&
+            (row - 1) % 2 === 0;
+          if (previousIsHalfWidthInput) {
+            visibleFields[row].style["grid-column"] = "unset";
+          } else visibleFields[row].style["grid-column"] = "1 / -1";
+        } else if (anyInputFieldButNotLast) {
           visibleFields[row].style["grid-column"] = "unset";
-        else visibleFields[row].style["grid-column"] = "1 / -1";
+        } else {
+          visibleFields[row].style["grid-column"] = "1 / -1";
+        }
       }
     }
   };
@@ -76,21 +89,15 @@ const TextWithFormContent = ({
   // Set clp value from the url if the value exist.  If there's no parameters, then get the default values from "fields.currentLeadProgram2".
   const clpValue = getUrlParamValue("clp");
 
-  const setUtmCampaignValue = (url) => {
+  const setUtmCampaignValue = () => {
     if (utmCampaignValue) {
       return utmCampaignValue;
     } else {
-      return fields.uTMCampaignAsset ? fields.uTMCampaignAsset : null;
+      return fields?.uTMCampaignAsset ? fields?.uTMCampaignAsset : null;
     }
   };
-  const setUtmAssetValue = () => {
-    if (fields.uTMCampaignAsset) {
-      return fields.uTMCampaignAsset;
-    } else {
-      return null;
-    }
-  };
-  const setClpValue = (url) => {
+
+  const setClpValue = () => {
     if (clpValue) {
       return clpValue;
     } else {
@@ -98,18 +105,20 @@ const TextWithFormContent = ({
     }
   };
 
-  const getLinksStyle = () => {
-    switch (linksStyle) {
-      case "textWithArrow":
-        return "chevron-after w-600 mt-2";
-      case "buttonNavy":
-        return "button navy mt-2";
-      case "buttonOrange":
-        return "button orange mt-2";
-      default:
-        return "button cyan outlined mt-2";
-    }
-  };
+  // Set up default formStepEnabled value for resource landing pages
+  const { asPath } = useRouter();
+  let formStepEnabledDefaultValue;
+  if (asPath.includes("/resources/") || asPath.includes("/integrations/")) {
+    formStepEnabledDefaultValue = !fields.formStepsEnabled
+      ? true
+      : boolean(fields.formStepsEnabled);
+  } else {
+    formStepEnabledDefaultValue = boolean(fields.formStepsEnabled);
+  }
+
+  const formCompletionDefaultRedirectValue = fields.completionRedirectURL?.href
+    ? fields.completionRedirectURL?.href
+    : null;
 
   useEffect(() => {
     campaignScriptIDRef.current = fields.campaignTrackingID;
@@ -188,23 +197,30 @@ const TextWithFormContent = ({
                   ? fields.formAction
                   : "https://info.ujet.cx/l/986641/2022-06-29/k12n5"
               }
-              submit={
-                fields.formSubmitText ? fields.formSubmitText : "Request a Demo"
-              }
-              stepsEnabled={fields.formStepsEnabled}
+              submit={resolveFormSubmitButtonText(fields, "Request a Demo")}
+              stepsEnabled={formStepEnabledDefaultValue}
               contactType={
                 fields.contactType ? fields.contactType : "request_a_demo"
               }
               utmCampaign={
-                typeof window !== "undefined" &&
-                setUtmCampaignValue(window.location.href)
+                typeof window !== "undefined"
+                  ? setUtmCampaignValue(window.location.href)
+                  : null
               }
-              utmAsset={typeof window !== "undefined" && setUtmAssetValue()}
+              utmAsset={
+                fields.uTMCampaignAsset ? fields?.uTMCampaignAsset : null
+              }
               clpField={
-                typeof window !== "undefined" &&
-                setClpValue(window.location.href)
+                typeof window !== "undefined"
+                  ? setClpValue(window.location.href)
+                  : null
               }
               clsField={fields.currentLeadSource2}
+              stepsCompletionRedirectURL={
+                formStepEnabledDefaultValue &&
+                formCompletionDefaultRedirectValue
+              }
+              emailStepButtonText={fields?.emailStepButtonText}
             />
           </div>
         </aside>

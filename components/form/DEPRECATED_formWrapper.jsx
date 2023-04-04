@@ -4,6 +4,7 @@ import { generateUUID } from "../../utils/generic";
 import { getCookie, setCookie } from "../../utils/cookies";
 import { marketoScriptReadyEvent } from "../../utils/dataLayer";
 
+// DEPRECATED - can be deleted
 const FormWrapper = ({
   handleSetFormLoaded,
   formID,

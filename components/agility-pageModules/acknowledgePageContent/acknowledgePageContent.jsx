@@ -64,8 +64,8 @@ const AcknowledgePageContent = () => {
 
                 <p className={layout["pt-20px"]}>
                   For questions please reach out to{" "}
-                  <Link href="mailto:sales@ujet.cx">
-                    <a className={layout["link"]}>sales@ujet.cx</a>
+                  <Link href="mailto:sales@ujet.cx" className={layout["link"]}>
+                    sales@ujet.cx
                   </Link>
                   .
                 </p>
@@ -84,8 +84,11 @@ const AcknowledgePageContent = () => {
                 </p>
                 <p className={layout["pt-20px"]}>
                   For questions please reach out to{" "}
-                  <Link href="mailto:support@ujet.cx">
-                    <a className={layout["link"]}>support@ujet.cx</a>
+                  <Link
+                    href="mailto:support@ujet.cx"
+                    className={layout["link"]}
+                  >
+                    support@ujet.cx
                   </Link>
                   .
                 </p>

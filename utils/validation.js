@@ -1,6 +1,6 @@
 // use for checking true/false values coming from Agility.
 export const boolean = (input) => {
-  switch (input?.toLowerCase()) {
+  switch (input?.toLowerCase?.()) {
     case "false":
       return false;
     case "true":

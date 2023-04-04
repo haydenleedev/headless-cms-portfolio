@@ -47,14 +47,9 @@
       border-top-left-radius: 1rem;
       border-top-right-radius: 1rem;
       $image-wrapper-height: 10.625rem;
-      > span {
-        max-height: 100% !important;
-        height: 100% !important;
-        font-size: 0;
-        img {
-          justify-self: center;
-          align-self: center;
-        }
+      & > img {
+        justify-self: center;
+        align-self: center;
       }
       @include desktop() {
         flex: 0 0 auto;
@@ -116,10 +111,6 @@
           height: 100%;
           flex-grow: 1;
           flex-basis: 40%;
-          > span {
-            height: 100% !important;
-            width: 100% !important;
-          }
         }
         @include desktop() {
           padding-top: 1.5rem;

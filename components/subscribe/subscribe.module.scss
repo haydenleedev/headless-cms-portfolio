@@ -34,3 +34,17 @@
     text-transform: uppercase;
   }
 }
+.success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+
+  p {
+    margin-top: 1rem;
+    font-size: toRem(18);
+    text-align: center;
+  }
+}

@@ -8,7 +8,7 @@ import shop from "../shop/styles/globals.module.scss";
 import GlobalContext from "../context";
 import { getShopSEOData } from "../shop/lib/agility";
 import ShopSEO from "../shop/components/shopSEO";
-import { Form, FormWrapper } from "../components/form";
+import { Form, FormWrapper } from "../components/form/DEPRECATED_index";
 
 export default function ContactInformation({ formID, seo }) {
   const [formLoaded, setFormLoaded] = useState(false);

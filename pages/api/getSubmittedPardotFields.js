@@ -1,19 +1,53 @@
+import { Client, query } from "faunadb";
+
 export default async function handler(req, res) {
   try {
     const parsedBody = JSON.parse(req.body);
-    const postData = new URLSearchParams();
-    postData.append("formStepQuery", true);
-    postData.append("email", parsedBody.email);
-    const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbwS8kFTFhN4vPpykcC9LcxsCdSjxtMnWXCHwNxUsOxKOKeZo90YGDztuIeBqrIQzhWhLw/exec",
-      {
-        method: "POST",
-        body: postData,
-      }
+
+    const {
+      Let,
+      IsNonEmpty,
+      Get,
+      Index,
+      Match,
+      Var,
+      Map,
+      Select,
+      Paginate,
+      Lambda,
+      If,
+      LowerCase,
+    } = query;
+
+    const client = new Client({
+      endpoint: "https://db.us.fauna.com",
+      secret: process.env.FAUNA_SERVER_SECRET,
+    });
+
+    const submitted = await client.query(
+      Let(
+        {
+          isPreviouslySubmitted: Match(
+            Index("form_submissions_by_email"),
+            LowerCase(parsedBody.email)
+          ),
+        },
+        If(
+          IsNonEmpty(Var("isPreviouslySubmitted")),
+          Select(
+            ["data", 0],
+            Map(
+              Paginate(Var("isPreviouslySubmitted"), { size: 1 }),
+              Lambda("result", Get(Var("result")))
+            )
+          ),
+          false
+        )
+      )
     );
-    const responseJSON = await response.json();
-    return res.send({ submittedFields: responseJSON });
+    return res.status(200).json({ submittedFields: submitted.data });
   } catch (error) {
-    return res.send({ success: false });
+    console.log(error.message);
+    res.status(200).json({ success: false, reason: "Error" });
   }
 }

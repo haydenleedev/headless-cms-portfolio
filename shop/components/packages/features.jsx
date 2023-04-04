@@ -19,23 +19,18 @@ class ProductFeatures extends Component {
           <label htmlFor={productId} tabIndex={0}>
             <h3 className={features["feature-title"]}>View features</h3>
           </label>
-          <Link href="#" {...productId}>
-            <a
-              className={`${features["product-anchor"]} ${features["product-anchor-open"]}`}
-            >
-              <span className={features["product-anchor-label"]}>
-                Open Menu
-              </span>
-            </a>
+          <Link
+            href="#"
+            {...productId}
+            className={`${features["product-anchor"]} ${features["product-anchor-open"]}`}
+          >
+            <span className={features["product-anchor-label"]}>Open Menu</span>
           </Link>
-          <Link href="#">
-            <a
-              className={`${features["product-anchor"]} ${features["product-anchor-close"]}`}
-            >
-              <span className={features["product-anchor-label"]}>
-                Close Menu
-              </span>
-            </a>
+          <Link
+            href="#"
+            className={`${features["product-anchor"]} ${features["product-anchor-close"]}`}
+          >
+            <span className={features["product-anchor-label"]}>Close Menu</span>
           </Link>
 
           <div

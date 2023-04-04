@@ -101,10 +101,11 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                   <AgilityImage
                     src={blogPost.image.url}
                     alt={blogPost.image.label || ""}
-                    width={blogPost.image.pixelWidth}
-                    height={blogPost.image.pixelHeight}
-                    objectFit="cover"
-                    layout="responsive"
+                    width={680}
+                    height={336}
+                    priority
+                    sizes="(max-width: 480px) 360px, (max-width: 640px) 480px, 50vw"
+                    className="object-fit-cover"
                   />
                 </div>
               )}
@@ -140,14 +141,6 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
           </div>
           <div>
             <Subscribe formConfiguration={formConfiguration} />
-            {/* <Link href="/request-a-demo">
-              <a
-                className={`button outlined cyan ${style.requestDemo}`}
-                aria-label="Navigate to 'Request a Demo' page"
-              >
-                Request a DEMO
-              </a>
-            </Link> */}
             {blogPost.ctaTitle && stickyCta && (
               <div className={`${style.stickyCtaBanner} bg-paleblue`}>
                 <h2 className="heading-6">{blogPost.ctaTitle}</h2>
@@ -155,7 +148,9 @@ const BlogPostContent = ({ dynamicPageItem, customData }) => {
                   dangerouslySetInnerHTML={renderHTML(sanitizedCtaHtml)}
                 ></div>
                 <div className={style.stickyCtaBannerImage}>
-                  {blogPost.ctaImage && <Media media={blogPost.ctaImage} />}
+                  {blogPost.ctaImage && (
+                    <Media media={blogPost.ctaImage} width={300} height={160} />
+                  )}
                 </div>
                 {blogPost.ctaLink && (
                   <AgilityLink
@@ -276,16 +271,18 @@ BlogPostContent.getCustomInitialProps = async ({
       cleanHtml(dynamicPageItem.fields.ctaText)
     );
 
-    const formConfiguration = await api.getContentList({
+    const formConfiguration = await api.getContentItem({
       referenceName: "formconfiguration",
       expandAllContentLinks: true,
       languageCode,
+      contentLinkDepth: 4,
+      contentID: 6018,
     });
 
     return {
       relatedBlogPosts,
       sanitizedHtml,
-      formConfiguration,
+      formConfiguration: formConfiguration.fields,
       sanitizedCtaHtml,
     };
   } catch (error) {

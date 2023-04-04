@@ -7,7 +7,7 @@ import {
   isPhoneNumber,
   isFreeEmail,
 } from "../../shop/utils/validation";
-import PardotFormField from "./pardotFormField";
+import PardotFormField from "./DELETE_pardotFormField";
 import { getCookie } from "../../utils/cookies";
 import {
   addGaData,
@@ -17,10 +17,10 @@ import {
   isHiddenField,
   isNonUsPhoneNumber,
   reorderFieldData,
-} from "../../utils/pardotForm";
+} from "../../utils/DELETE_pardotForm";
 import { boolean } from "../../utils/validation";
-import PardotFormEmailStep from "./pardotFormEmailStep";
-import HoneypotFields from "./honeypotFields";
+import PardotFormEmailStep from "./DELETE_pardotFormEmailStep";
+import HoneypotFields from "./pardotForm/honeypotFields";
 import LazyLoadReCAPTCHA from "./lazyLoadReCAPTCHA";
 
 class PardotForm extends Component {
@@ -549,7 +549,7 @@ class PardotForm extends Component {
     return flag;
   }
 
-  setPasteError(boolean, index) {
+  handleSetPasteError(boolean, index) {
     const errors = { ...this.state.errors };
     errors[index] = boolean;
     if (boolean) {
@@ -693,7 +693,7 @@ class PardotForm extends Component {
                           field
                         )}
                         setPasteError={(boolean) =>
-                          this.setPasteError(boolean, index)
+                          this.handleSetPasteError(boolean, index)
                         }
                       />
                       {this.state.errors[index] && (

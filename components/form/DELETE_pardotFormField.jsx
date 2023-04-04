@@ -1,5 +1,5 @@
 import { formatPhoneNumber } from "../../shop/utils/formatData";
-import { addGaData, isHiddenField } from "../../utils/pardotForm";
+import { addGaData, isHiddenField } from "../../utils/DELETE_pardotForm";
 import {
   countries,
   crmSolutions,
@@ -8,7 +8,7 @@ import {
   preferredMasterAgent,
   partnerAreaOfInterest,
   certificationType,
-} from "./selectFieldOptions";
+} from "./DELETE_selectFieldOptions";
 import style from "./form.module.scss";
 
 const PardotFormField = ({
@@ -34,7 +34,7 @@ const PardotFormField = ({
   isAssetType,
   isAssetUrl,
   isContactField,
-  setPasteError,
+  handleSetPasteError,
   isUtmCampaign,
   isUtmAsset,
   /* isLandingPageOrWebinarField, */
@@ -106,7 +106,7 @@ const PardotFormField = ({
   const pasteBlocker = (e) => {
     if (isContactField) {
       e.preventDefault();
-      setPasteError(true);
+      handleSetPasteError(true);
       return false;
     } else {
       return true;
@@ -125,11 +125,11 @@ const PardotFormField = ({
           onBlur={() => {
             updateTouched();
             validate();
-            setPasteError(false);
+            handleSetPasteError(false);
           }}
           onPaste={pasteBlocker}
           onKeyDown={(e) => {
-            if (e.code !== "Tab") setPasteError(false);
+            if (e.code !== "Tab") handleSetPasteError(false);
           }}
           onInput={() => {
             addGaData(
@@ -156,14 +156,14 @@ const PardotFormField = ({
           onBlur={() => {
             updateTouched();
             validate();
-            setPasteError(false);
+            handleSetPasteError(false);
           }}
           onPaste={pasteBlocker}
           onKeyDown={() => {
             if (usPhoneFormat) {
               phoneNumberFormatter();
             } else validate();
-            setPasteError(false);
+            handleSetPasteError(false);
           }}
           ref={fieldRef}
         />
@@ -180,10 +180,10 @@ const PardotFormField = ({
           onBlur={() => {
             updateTouched();
             validate();
-            setPasteError(false);
+            handleSetPasteError(false);
           }}
           onKeyDown={(e) => {
-            if (e.code !== "Tab") setPasteError(false);
+            if (e.code !== "Tab") handleSetPasteError(false);
           }}
           ref={fieldRef}
         />
@@ -202,10 +202,10 @@ const PardotFormField = ({
               onBlur={() => {
                 updateTouched();
                 validate();
-                setPasteError(false);
+                handleSetPasteError(false);
               }}
               onKeyDown={(e) => {
-                if (e.code !== "Tab") setPasteError(false);
+                if (e.code !== "Tab") handleSetPasteError(false);
               }}
               ref={fieldRef}
             ></textarea>
@@ -218,10 +218,10 @@ const PardotFormField = ({
               onBlur={() => {
                 updateTouched();
                 validate();
-                setPasteError(false);
+                handleSetPasteError(false);
               }}
               onKeyDown={(e) => {
-                if (e.code !== "Tab") setPasteError(false);
+                if (e.code !== "Tab") handleSetPasteError(false);
               }}
               onPaste={pasteBlocker}
               ref={fieldRef}
@@ -283,7 +283,7 @@ const PardotFormField = ({
                 }
                 updateTouched();
                 validate();
-                setPasteError(false);
+                handleSetPasteError(false);
               }}
               onBlur={(e) => {
                 if (field.name.toLowerCase().match(/country/)) {
@@ -301,7 +301,7 @@ const PardotFormField = ({
                 }
                 updateTouched();
                 validate();
-                setPasteError(false);
+                handleSetPasteError(false);
               }}
             >
               {field.options.map((option, index) => {
@@ -327,10 +327,10 @@ const PardotFormField = ({
           onBlur={() => {
             this.updateTouched(index);
             validate();
-            setPasteError(false);
+            handleSetPasteError(false);
           }}
           onKeyDown={(e) => {
-            if (e.code !== "Tab") setPasteError(false);
+            if (e.code !== "Tab") handleSetPasteError(false);
           }}
           onPaste={pasteBlocker}
           ref={fieldRef}

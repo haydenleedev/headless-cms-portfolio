@@ -1,0 +1,215 @@
+@import "~/styles/settings/mixins";
+@import "~/styles/settings/colors";
+
+.flexColumnTableWithHeading {
+  position: relative;
+  .content {
+    &.narrow {
+      max-width: 37rem;
+    }
+    .tableWrapper {
+      border-radius: 1rem;
+      padding: 3rem 0 0 0;
+      overflow: hidden;
+      .columnTable {
+        display: grid;
+        @include largeTouch() {
+          grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+        }
+        .tableColumn {
+          padding: unset;
+          margin: unset;
+          @include largeDesktop() {
+            &:first-child {
+              .columnTitle,
+              .columnCell {
+                td,
+                th {
+                  padding-left: 2rem;
+                }
+              }
+            }
+
+            &:last-child {
+              .columnTitle,
+              .columnCell {
+                td,
+                th {
+                  padding-right: 2rem;
+                }
+              }
+            }
+            .columnCell,
+            .columnTitle {
+              th,
+              td {
+                padding-bottom: 0.5rem;
+              }
+            }
+          }
+          .columnCell {
+            td {
+              min-height: 4.5rem;
+              font-size: 1rem;
+            }
+          }
+          .columnCell,
+          .columnTitle {
+            display: block;
+            td {
+              display: block;
+            }
+          }
+          thead,
+          tbody {
+            display: block;
+          }
+        }
+      }
+      .rowTable {
+        width: 100%;
+        .columnTitle,
+        .columnCell {
+          td {
+            font-size: 1rem;
+            padding: 0.9rem;
+          }
+          @include largeDesktop() {
+            td,
+            th {
+              &:first-child {
+                padding-left: 1rem;
+              }
+            }
+          }
+        }
+        .columnCell {
+          td {
+            @include largeDesktop() {
+              min-height: 4rem;
+              padding-right: 1.5rem;
+            }
+          }
+        }
+      }
+      .columnTable,
+      .rowTable {
+        .columnTitle {
+          th {
+            text-align: start;
+            font-weight: bold;
+            padding-bottom: 0.5rem;
+            border-bottom: unset;
+            font-size: 1.2rem;
+          }
+          @include largeTouch() {
+            border-top: 1px solid #c2ddef;
+            th {
+              padding-top: 2rem;
+            }
+          }
+        }
+        .columnTitle,
+        .columnCell {
+          height: max-content;
+          td {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-left: 1rem;
+            border-bottom: unset;
+            @include largeDesktop() {
+              padding-top: 0.75rem;
+              padding-left: unset;
+              /*             padding-bottom: unset; */
+            }
+          }
+          th {
+            @include largeDesktop() {
+              padding-left: unset;
+              padding-top: 0.75rem;
+              padding-bottom: 0.5rem;
+            }
+          }
+        }
+      }
+      &.paleblue {
+        border-radius: unset;
+        .headingWrapper {
+          text-align: center;
+          padding-bottom: 2rem;
+        }
+        .columnTable {
+          border: 1px solid #c2ddef;
+          background-color: white;
+          .columnCell {
+            background-color: white;
+            &:nth-child(even) {
+              background-color: #e8f6ff;
+            }
+          }
+        }
+        .rowTable {
+          border: 1px solid #c2ddef;
+          background-color: white;
+          .columnTitle {
+            th {
+              font-size: 1.1rem;
+              padding: 0.9rem;
+            }
+          }
+          .columnCell {
+            background-color: white;
+            &:nth-child(odd) {
+              background-color: #e8f6ff;
+            }
+          }
+        }
+        .columnTable,
+        .rowTable {
+          .columnTitle {
+            background-color: $color-lightblue;
+            color: white;
+          }
+        }
+      }
+
+      &.gray {
+        background-color: #e8e9f6;
+        .headingWrapper {
+          padding-bottom: 1rem;
+          padding-left: 1rem;
+          @include largeDesktop() {
+            padding-left: 2rem;
+          }
+        }
+        .columnTable {
+          .columnCell {
+            background-color: #e7e9f8;
+            &:nth-child(odd) {
+              background-color: #dadde9;
+            }
+          }
+        }
+        .rowTable {
+          .columnCell {
+            background-color: #e7e9f8;
+            &:nth-child(even) {
+              background-color: #dadde9;
+            }
+          }
+          .columnTitle,
+          .columnCell {
+            @include largeDesktop() {
+              td,
+              th {
+                &:first-child {
+                  padding-left: 2rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

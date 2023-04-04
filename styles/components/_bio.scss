@@ -13,17 +13,10 @@
     }
   }
   &--image {
-    & > span {
-      &:only-child {
-        border-radius: 50%;
-        img {
-          max-width: 12.5rem !important;
-          min-width: unset !important;
-          width: unset !important;
-          height: unset !important;
-          object-fit: cover;
-        }
-      }
+    & > img {
+      border-radius: 50%;
+      max-width: 12.5rem;
+      object-fit: cover;
     }
   }
   &--name {
@@ -44,11 +37,6 @@
       max-width: 2.25rem;
       &:not(:last-child) {
         margin-right: 1rem;
-      }
-      img {
-        width: unset !important;
-        height: unset !important;
-        position: unset !important;
       }
     }
   }

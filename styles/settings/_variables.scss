@@ -11,7 +11,9 @@ $medium: 85.375rem;
 $medium-wide: 60rem;
 $wide: $fullhd;
 $medium-wide: 60rem;
-$brand:80rem;
+$brand: 80rem;
+$largeDesktop: 63rem;
+$largeTouch: $largeDesktop - 0.0625rem;
 // rem-sizes
 $size-05: 0.25rem;
 $size-1: 0.5rem;
