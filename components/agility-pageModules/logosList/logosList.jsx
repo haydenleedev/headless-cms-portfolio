@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import { sanitizeHtmlConfig } from "../../../utils/convert";
 import style from "./logosList.module.scss";
-const LogosListContent = dynamic(() => import("./logosListContent"));
+import LogosListContent from "./logosListContent";
 
 const LogosList = ({ module, customData }) => {
   const { sanitizedHtml } = customData;
