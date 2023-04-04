@@ -41,8 +41,8 @@ const Media = ({
           <AgilityImage
             src={media.url}
             alt={media.label || ""}
-            width={width || 122}
-            height={height || 75}
+            width={width || 768}
+            height={height || 432}
             sizes={
               sizes ||
               "(max-width: 480px) 360px, (max-width: 640px) 480px, 50vw"

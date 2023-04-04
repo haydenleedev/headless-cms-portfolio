@@ -3,6 +3,9 @@
 
 .logosList {
   padding: 4rem 0;
+  img {
+    max-width: max-content;
+  }
   .heading {
     text-align: center;
     margin-bottom: 2rem;
@@ -50,7 +53,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 6.25rem;
+    min-height: unset;
+    @include desktop() {
+      min-height: 6.25rem;
+    }
     padding: 1.25rem;
     a {
       &:hover {
