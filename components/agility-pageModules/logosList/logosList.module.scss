@@ -3,9 +3,6 @@
 
 .logosList {
   padding: 4rem 0;
-  img {
-    max-width: max-content;
-  }
   .heading {
     text-align: center;
     margin-bottom: 2rem;
@@ -53,11 +50,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: unset;
+    min-height: 1rem;
+    padding: 1.25rem;
+    max-width: 90%;
     @include desktop() {
+      max-width: 100%;
       min-height: 6.25rem;
     }
-    padding: 1.25rem;
     a {
       &:hover {
         outline: 0.15rem solid $color-darkblue;
